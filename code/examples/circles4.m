@@ -18,7 +18,7 @@ prams.maxIter = min(2*(prams.Nouter + prams.nv*prams.Ninner),5000);
 % maximum number of gmres iterations
 
 % Different options
-options.bieSolve = false; 
+options.bieSolve = true; 
 options.computeEuler = true;
 options.axis = [-1 1 -0.8 0.8];
 options.dataFile = 'output/circles4Data.bin';

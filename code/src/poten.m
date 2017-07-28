@@ -96,6 +96,7 @@ function Gf = matVecMultiply(o,f,innerGeom,outerGeom,...
 % to the inner and outer boundaries, respectively, and NearI2O and
 % NearO2I are near-singular integration structures required to do
 % inner to outer (I2O) and outer to inner (O2I) interactions
+tic
 global iteration
 iteration = iteration + 1;
 fprintf('Iteration number is %d\n',iteration);
@@ -176,6 +177,7 @@ end
 % in a one dimensional null space
 
 Gf = [Gfinner(:);Gfouter(:)];
+toc
 
 end % matVecMultiply
 
