@@ -14,6 +14,7 @@ normal;   % outward unit normal vector
 sa;       % Jacobian
 cur;      % curvature
 length;   % total length of each component
+flow;     % type of boundary condition
 end %properties
 
 
@@ -33,11 +34,14 @@ oc = curve;
 % Jacobian, tangent, and curvature
 o.normal = [o.xt(o.N+1:2*o.N,:);-o.xt(1:o.N,:)];
 % Normal vector
+o.flow = 'plug';
+% type of boundary condition
 o.u = o.bgFlow(X);
 % Boundary condition
 
 [~,~,o.length] = oc.geomProp(X);
 % total arclength needed for near-singular integration
+
 
 end % capsules: constructor
 
@@ -54,12 +58,20 @@ nv = size(X,2);
 [x,y] = oc.getXY(X);
 % Separate out x and y coordinates
 
-ymin = min(y);
-ymax = max(y);
-%ymin = -2;
-%ymax = 2;
-vx = -(ymin - y).*(ymax - y);
-vy = zeros(N,nv);
+ymin = min(min(y));
+ymax = max(max(y));
+
+if strcmp(o.flow,'pipe')
+  vx = -(ymin - y).*(ymax - y);
+  vy = zeros(N,nv);
+elseif strcmp(o.flow,'plug')
+  order = 20;
+  ymean = 1/2*(ymin + ymax);
+  vx = exp(1./(((y-ymean)/max(max(y-ymean))).^2 - 1))*exp(1);
+  vx(abs(vx) == Inf) = 0;
+  vx = sign(vx).*abs(vx).^(1/order);
+  vy = zeros(N,nv);
+end
 
 u = [vx;vy];
 

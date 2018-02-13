@@ -41,17 +41,6 @@ while (numel(xc) < n_bodies)
 end
 
 
-
-%fid = fopen('thlen.dat','w');
-%fprintf(fid,'%d\n',N);
-%fprintf(fid,'%d\n',n_bodies);
-%for k = 1:n_bodies
-%  fprintf(fid,'%20.16e\n',theta+pi/2+pi/N);
-%  fprintf(fid,'%20.16e\n',[2*pi*radii(k),xc(k),yc(k)]);
-%end
-%fclose(fid);
-
-
 end
 
 
@@ -61,7 +50,7 @@ function iinner = check_inner(xp,yp,rp,xc,yc,rc)
 %[xc yc rc]
 %pause
 
-buffer = 1.01;
+buffer = 1.1;
 % buffer == 1 => circles can be infintesimally close
 dist = sqrt((xp - xc).^2 + (yp - yc).^2);
 iinner = any(dist < buffer*rc + buffer*rp);
