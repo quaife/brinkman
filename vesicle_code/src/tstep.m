@@ -117,12 +117,12 @@ o.orderGL = options.orderGL;
 % Gauss-Lobatto order
 o.GLpts = o.gaussLobatto(o.orderGL);
 % load Gauss-Lobatto points
-% if options.correctShape
-  o.rtolArea = prams.rtolArea;
-  o.rtolLength = prams.rtolLength;
+%% if options.correctShape
+%  o.rtolArea = prams.rtolArea;
+%  o.rtolLength = prams.rtolLength;
 % else
-%   o.rtolArea = prams.rtolArea/prams.T;
-%   o.rtolLength = prams.rtolLength/prams.T;
+   o.rtolArea = prams.rtolArea/prams.T;
+   o.rtolLength = prams.rtolLength/prams.T;
 % end
 % if the shape is being corrected after each time step, then the
 % rtolArea and rtolLength are exactly the tolerance for the error
@@ -1212,6 +1212,14 @@ if o.adhesion
   end
 
   rhs1 = rhs1 + o.dt*Fadhesion*diag(1./alpha);
+%  figure(2);clf; hold on
+%  plot(vesicle.X(1:end/2,:),vesicle.X(end/2+1:end,:),'r-o')
+%  quiver(vesicle.X(1:end/2,:),vesicle.X(end/2+1:end,:),...
+%      Fadhesion(1:end/2,:),Fadhesion(end/2+1:end,:),0);
+%  axis equal;
+%  size(vesicle.X)
+%  size(Fadhesion)
+%  pause
 end
 % Compute velocity due to adhesion
 

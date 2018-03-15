@@ -4,9 +4,9 @@ fprintf('Simple elliptical vesicle in a shear flow.\n');
 fprintf('First-order semi-implicit time stepping.\n');
 
 % Physics parameters
-prams.N = 128;               % points per vesicle
+prams.N = 192;               % points per vesicle
 prams.nv = 4;               % number of vesicles
-prams.T = 100;               % time horizon (two tumbling)
+prams.T = 20;               % time horizon (two tumbling)
 prams.m = 2000;              % number of time steps
 prams.kappa = 1e-1;         % bending coefficient
 prams.viscCont = 1;         % viscosity contrast
@@ -24,26 +24,27 @@ prams.gmresTol = 1e-10;
 prams.errorTol = 1;
 
 % ADD-ONS
-options.correctShape = true;
-options.adhesion = false;
-prams.adRange = 1e-1;
-prams.adStrength = 1e-1;
+options.correctShape = false;
+options.adhesion = true;
+prams.adRange = 4e-1;
+prams.adStrength = 2e-1;
 
 % TIME ADAPTIVITY (parameters for new implementation)
 options.timeAdap = true;
 
-prams.rtolArea = 5e-3;
-prams.rtolLength = 5e-3;
+prams.rtolArea = 1e-2;
+prams.rtolLength = 1e-2;
 prams.betaUp = 1.2;
 prams.betaDown = 0.5;
 prams.alpha = 0.9;
 
 options.orderGL = 2;
-options.nsdc = 0;
-options.expectedOrder = 1;
+options.nsdc = 1;
+options.expectedOrder = 2;
 
 % Plot on-the-fly
 options.usePlot = true;
+options.axis = [-10 10 -5 5];
 options.track = false;
 % Save vesicle information and create a log file
 options.logFile = 'output/shear4Ves.log';
@@ -61,8 +62,7 @@ options.errorFile = 'output/shear4VesError.bin';
 
 oc = curve;
 ang = pi/2*ones(4,1);
-%centerx = linspace(-3.5,3.5,4);
-centerx = linspace(-4,4,4);
+centerx = [-3.9 -1.3 1.3 3.9];
 centery = zeros(1,4);
 X = oc.initConfig(prams.N,'nv',prams.nv,...
     'reducedArea',0.65,...

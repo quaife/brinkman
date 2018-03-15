@@ -131,8 +131,8 @@ for k = 1:o.nv
   end
 
 end
-end % adhesionTerm
 
+end % adhesionTerm
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [Ben,Ten,Div] = computeDerivs(o)
