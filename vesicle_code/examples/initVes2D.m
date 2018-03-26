@@ -91,6 +91,9 @@ end
 % of points and number of components of the solid walls
 % to 0.  Otherwise, later components will crash
 
+if numel(prams.kappa) ~=prams.nv
+  prams.kappa = prams.kappa*ones(1,prams.nv);
+end
 if numel(prams.viscCont) ~=prams.nv
   prams.viscCont = prams.viscCont*ones(1,prams.nv);
 end

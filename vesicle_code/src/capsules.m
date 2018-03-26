@@ -78,8 +78,10 @@ function ben = bendingTerm(o,f)
 % ben = bendingTerm(f) computes the term due to bending
 % -kappa*fourth-order derivative
 
-ben = [-o.kappa*curve.arcDeriv(f(1:o.N,:),4,o.isa,o.IK);...
-  -o.kappa*curve.arcDeriv(f(o.N+1:2*o.N,:),4,o.isa,o.IK)];
+%ben = [-o.kappa(1)*curve.arcDeriv(f(1:o.N,:),4,o.isa,o.IK);...
+%  -o.kappa(1)*curve.arcDeriv(f(o.N+1:2*o.N,:),4,o.isa,o.IK)];
+ben = -[curve.arcDeriv(f(1:o.N,:),4,o.isa,o.IK);...
+  curve.arcDeriv(f(o.N+1:2*o.N,:),4,o.isa,o.IK)]*diag(o.kappa);
 
 end % bendingTerm
  

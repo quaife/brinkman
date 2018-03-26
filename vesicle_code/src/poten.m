@@ -442,7 +442,7 @@ for k=1:vesicle.nv  % Loop over curves
 
     xx = interpft(xx,N); yy = interpft(yy,N);
     vesicleUp = capsules([xx;yy],[],[],...
-        vesicle.kappa,vesicle.viscCont(k),true);
+        vesicle.kappa,vesicle.viscCont(k));
     % upsampled single versicle
     [tx,ty] = oc.getXY(vesicleUp.xt);
     % Vesicle tangent

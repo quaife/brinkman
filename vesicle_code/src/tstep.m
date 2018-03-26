@@ -890,7 +890,6 @@ alpha = (1 + viscCont)/2;
 % constant that appears in front of time derivative in
 % vesicle dynamical equations
 
-
 Xm = zeros(2*N,nv);
 sigmaM = zeros(N,nv);
 uM = zeros(2*N,nv);
@@ -1359,82 +1358,6 @@ rhs = [rhs; zeros(3*(nvbd-1),1)];
 
 usePreco = true;
 % usePreco = false;
-
-
-% +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-% BUILD THE WHOLE VESICLE-VESICLE INTERACTION MATRIX
-% This is just to look at the properties of the whole matrix and test the
-% preconditioner, and investigate if we improve the preconditioner.
-
-% if 1
-% [Ben,Ten,Div] = vesicle.computeDerivs;
-% INTER = zeros(3*N*nv,3*N*nv);
-% PRECO = zeros(3*N*nv,3*N*nv);
-% if any(vesicle.viscCont~=1)
-%   for k1 = 1:nv
-%     for k2 = 1 : nv
-%       is = 3*N*(k1-1)+1;
-%       ie = 3*N*(k1);
-%       js = 3*N*(k2-1)+1;
-%       je = 3*N*(k2);
-%       if k2 == k1
-%         prevTerms = o.beta*eye(2*N);
-%         extenTerm = o.beta*Div(:,:,k1);
-%         SLmat = o.Galpert(:,:,k1);
-%         DLmat = o.D(:,:,k1);
-%         PRECO(is:ie,js:je) =  [o.beta*(eye(2*N) - o.D(:,:,k1)/alpha(k1)) + ...
-%             o.dt/alpha(k1)*vesicle.kappa*o.Galpert(:,:,k1)*Ben(:,:,k1) ...
-%         -o.dt/alpha(k1)*o.Galpert(:,:,k1)*Ten(:,:,k1); ...
-%         o.beta*Div(:,:,k1) zeros(N)];
-%       else
-%         prevTerms = zeros(2*N);  
-%         extenTerm = zeros(N,2*N);
-%         SLmat = o.op.stokesSLinterMatrix(vesicle,k1,k2);
-%         DLmat = o.op.stokesDLinterMatrix(vesicle,k1,k2);
-%       end
-% 
-%       INTER(is:ie,js:je) = [(prevTerms - o.beta*DLmat/alpha(k1)) + ...
-%             o.dt/alpha(k1)*vesicle.kappa*SLmat*Ben(:,:,k2) ...
-%         -o.dt/alpha(k1)*SLmat*Ten(:,:,k2); ...
-%         extenTerm zeros(N)];
-%     end
-%   end
-% else
-%   for k1 = 1:nv
-%     for k2 = 1 : nv
-%       is = 3*N*(k1-1)+1;
-%       ie = 3*N*(k1);
-%       js = 3*N*(k2-1)+1;
-%       je = 3*N*(k2);
-% 
-%       if k2 == k1
-%         prevTerms = o.beta*eye(2*N);  
-%         extenTerm = o.beta*Div(:,:,k1);
-%         SLmat = o.Galpert(:,:,k1);
-%         PRECO(is:ie,js:je) = [o.beta*eye(2*N) + ...
-%             o.dt*vesicle.kappa*o.Galpert(:,:,k1)*Ben(:,:,k1) ...
-%         -o.dt/alpha(k1)*o.Galpert(:,:,k1)*Ten(:,:,k1); ...
-%         o.beta*Div(:,:,k1) zeros(N)];
-%       else
-%         prevTerms = zeros(2*N);  
-%         extenTerm = zeros(N,2*N);
-%         SLmat = o.op.stokesSLinterMatrix(vesicle,k1,k2);
-%       end
-% 
-%       INTER(is:ie,js:je) = [prevTerms + ...
-%             o.dt*vesicle.kappa*SLmat*Ben(:,:,k2) ...
-%         -o.dt/alpha(k1)*SLmat*Ten(:,:,k2); ...
-%         extenTerm zeros(N)];
-% 
-%     end
-%   end
-% end
-% 
-% save TGinterMatrixVC1 INTER PRECO
-% disp('Interaction matrix is saved')
-% pause
-% end
-% +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     
 % START BUILDING BLOCK-DIAGONAL PRECONDITIONER
 if usePreco
@@ -1478,13 +1401,13 @@ if usePreco
         if any(vesicle.viscCont ~= 1)
           [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
             [o.beta*(eye(2*N) - o.D(:,:,k)/alpha(k)) + ...
-                o.dt/alpha(k)*vesicle.kappa*o.Galpert(:,:,k)*Ben(:,:,k) ...
+                o.dt/alpha(k)*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k) ...
             -o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
             o.beta*Div(:,:,k) zeros(N)]);
         else
           [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
             [o.beta*eye(2*N) + ...
-                o.dt*vesicle.kappa*o.Galpert(:,:,k)*Ben(:,:,k) ...
+                o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k) ...
             -o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
             o.beta*Div(:,:,k) zeros(N)]);
         end
@@ -1492,44 +1415,20 @@ if usePreco
         if any(vesicle.viscCont ~= 1)
           [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu( ...
             [o.beta*(eye(2*N) - o.D(:,:,k)/alpha(k)) + ...
-                o.dt/alpha(k)*vesicle.kappa*o.Galpert(:,:,k)*Ben(:,:,k) ...
+                o.dt/alpha(k)*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k) ...
             -o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
-            -vesicle.kappa*Div(:,:,k)*(alpha(k)*eye(2*N) - o.D(:,:,k))\...
+            -vesicle.kappa(k)*Div(:,:,k)*(alpha(k)*eye(2*N) - o.D(:,:,k))\...
                 (o.Galpert(:,:,k)*Ben(:,:,k)) ...
             Div(:,:,k)*(alpha(k)*eye(2*N) - o.D(:,:,k))\...
                 (o.Galpert(:,:,k)*Ten(:,:,k))]);
         else
           [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
             [o.beta*eye(2*N) + ...
-                o.dt*vesicle.kappa*o.Galpert(:,:,k)*Ben(:,:,k) ...
+                o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k) ...
             -o.dt*o.Galpert(:,:,k)*Ten(:,:,k); ...
-            -vesicle.kappa*Div(:,:,k)*o.Galpert(:,:,k)*Ben(:,:,k) ...
+            -vesicle.kappa(k)*Div(:,:,k)*o.Galpert(:,:,k)*Ben(:,:,k) ...
             Div(:,:,k)*o.Galpert(:,:,k)*Ten(:,:,k)]);
         end
-      elseif strcmp(o.solver,'method3')
-        % schur complement of lower right block of method2
-        bdiagVes.GT(:,:,k) = o.Galpert(:,:,k)*Ten(:,:,k);
-        bdiagVes.DGT(:,:,k) = (Div(:,:,k)*o.Galpert(:,:,k)*...
-            Ten(:,:,k))\eye(N);
-        bdiagVes.DGB(:,:,k) = ...
-          vesicle.kappa*Div(:,:,k)*o.Galpert(:,:,k)*Ben(:,:,k);
-        bdiagVes.schur(:,:,k) = ...
-          inv((o.beta*eye(2*N) + vesicle.kappa*o.dt*...
-          o.Galpert(:,:,k)*Ben(:,:,k)) - ...
-          o.dt*o.Galpert(:,:,k)*Ten(:,:,k)*bdiagVes.DGT(:,:,k)*...
-          vesicle.kappa*Div(:,:,k)*o.Galpert(:,:,k)*Ben(:,:,k));
-
-      elseif strcmp(o.solver,'method4')
-        % schur complement of upper left block of method2
-        bdiagVes.GT(:,:,k) = o.Galpert(:,:,k)*Ten(:,:,k);
-        bdiagVes.IpBen(:,:,k) = inv(o.beta*eye(2*N) + ...
-            vesicle.kappa*o.dt*o.Galpert(:,:,k)*Ben(:,:,k));
-        bdiagVes.DGB(:,:,k) = ...
-          vesicle.kappa*Div(:,:,k)*o.Galpert(:,:,k)*Ben(:,:,k);
-        bdiagVes.schur(:,:,k) = ...
-          inv(Div(:,:,k)*(-vesicle.kappa*o.dt*o.Galpert(:,:,k)*...
-          Ben(:,:,k)*bdiagVes.IpBen(:,:,k) + eye(2*N))*...
-          bdiagVes.GT(:,:,k));
       end
     end
     o.bdiagVes = bdiagVes;
@@ -2790,111 +2689,6 @@ end
 sig = real(sig);
 
 end % precoDST
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function x = invIplusSB(o,vesicle,z)
-% x = invIplusSB(vesicle,z) solves the equation (I + dt*SLP*Bending)x =
-% z using pGMRES 
-
-N = vesicle.N; nv = vesicle.nv;
-
-rad = vesicle.length/2/pi;
-% radius of circle with same length as the vesicles
-alpha = -o.dt*vesicle.kappa/8/rad^3;
-% re-occuring constant
-scaling = 1./(1-2*alpha*[(0:N/2-1) (N/2:-1:1)]'.^3);
-% scaling that happens to the modes from modulus greater than or equal
-% to 2 in the preconditioner
-[z,flag,relres,iter] = gmres(@(X) o.IplusSBMatVec(vesicle,X),...
-    z(:),[],1e-2*o.gmresTol,min(o.gmresMaxIter,N),...
-    @(X) o.precoIplusSB(vesicle,alpha,scaling,X));
-
-x = zeros(2*N,nv);
-for k = 1:nv
-  x(:,k) = z(2*(k-1)*N+1:k*2*N);
-end
-
-end % invIplusSB
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function x = IplusSBMatVec(o,vesicle,x)
-% x = IplusSBMatVec(vesicle,x) applies the operator identity + dt *
-% SLP*Bending where \kappa is absored into the term Bending
-
-N = vesicle.N; nv = vesicle.nv;
-xCols = zeros(2*N,nv);
-for k = 1:nv
-  xCols(:,k) = x(2*(k-1)*N+1:k*2*N); 
-end
-
-xCols = -vesicle.bendingTerm(xCols);
-% compute Bending * x
-for k = 1:nv
-  xCols(:,k) = o.Galpert(:,:,k)*xCols(:,k);
-end
-x = x + o.dt*xCols(:);
-
-end % IplusSBMatVec
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function val = precoIplusSB(o,vesicle,alpha,scaling,x)
-% val = precoIplusSB(vesicle,alpha,scaling,x) solves the equation (I +
-% dt*kappa*SLP*Ben)*val = x analytically for a circle
-
-N = vesicle.N; nv = vesicle.nv;
-val = zeros(2*N,nv);
-
-for k = 1:nv
-  val(:,k) = x((k-1)*2*N+1:k*2*N);
-end
-val(1:N,:) = fft(val(1:N,:));
-val(N+1:2*N,:) = fft(val(N+1:2*N,:));
-
-for k = 1:nv
-  val(3:N-1,k) = val(3:N-1,k).*scaling(3:N-1);
-  val(N+3:2*N-1,k) = val(N+3:2*N-1,k).*scaling(3:N-1);
-end
-% all modes with modulus greater than 1 are diagonal
-
-plusOneMode = [val(2,:) ; val(N+2,:)];
-minusOneMode = [val(N,:) ; val(2*N,:)];
-% need to save these values since the plus and minus one modes
-% communicate ie. isn't diagonal
-
-val(N,:) = 1/(4*alpha-1)/(2*alpha-1) *...
-  ((2*alpha^2-4*alpha+1)*val(N,:) - ...
-  2*1i*alpha^2*val(2*N,:)) + ...
-  alpha/(4*alpha-1) * ...
-  (plusOneMode(1,:) + 1i*plusOneMode(2,:));
-% -1 mode of the x component
-
-val(2*N,:) = 1/(4*alpha-1)/(2*alpha-1) *...
-  (2*1i*alpha^2*val(N,:) + ...
-  (2*alpha^2-4*alpha+1)*val(2*N,:)) + ...
-  alpha/(4*alpha-1) * ...
-  (1i*plusOneMode(1,:) - plusOneMode(2,:));
-% -1 mode of the y component
-
-val(2,:) = 1/(4*alpha-1)/(2*alpha-1) *...
-  ((2*alpha^2-4*alpha+1)*val(2,:) + ...
-  2*1i*alpha^2*val(N+2,:)) + ...
-  alpha/(4*alpha-1) * ...
-  (minusOneMode(1,:) - 1i*minusOneMode(2,:));
-% 1 mode of the x component
-
-val(N+2,:) = 1/(4*alpha-1)/(2*alpha-1) *...
-  (-2*1i*alpha^2*val(2,:) + ...
-  (2*alpha^2-4*alpha+1)*val(N+2,:)) + ...
-  alpha/(4*alpha-1) * ...
-  (-1i*minusOneMode(1,:) - minusOneMode(2,:));
-% 1 mode of the y component
-
-val(1:N,:) = real(ifft(val(1:N,:)));
-val(N+1:2*N,:) = real(ifft(val(N+1:end,:)));
-val = val(:);
-
-end % precoIplusSB
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function vInf = bgFlow(o,X,varargin);

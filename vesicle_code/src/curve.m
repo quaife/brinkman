@@ -176,11 +176,11 @@ t = (0:N-1)'*2*pi/N;
 
 if any(strcmp(options,'curly'))
   a = 1; b = 3*a; c = 0.85; 
-  r = 0.5*sqrt( (a*cos(t-theta)).^2 + (b*sin(t-theta)).^2) + ...
-      .07*cos(12*(t-theta));
+  r = 0.5*sqrt( (a*cos(t)).^2 + (b*sin(t)).^2) + ...
+      .07*cos(12*(t));
   x = scale*c*r.*cos(t);
   y = scale*r.*sin(t);
-  X = [x;y];
+  X0 = [x;y];
   % radius of curly vesicle
 
 elseif any(strcmp(options,'star'))

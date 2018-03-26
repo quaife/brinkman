@@ -6,10 +6,10 @@ fprintf('First-order semi-implicit time stepping.\n');
 % Physics parameters
 prams.N = 96;               % points per vesicle
 prams.nv = 2;               % number of vesicles
-prams.T = 20;               % time horizon (two tumbling)
-prams.m = 2000;              % number of time steps
-prams.kappa = 1e-1;         % bending coefficient
-prams.viscCont = 1;         % viscosity contrast
+prams.T = 40;               % time horizon (two tumbling)
+prams.m = 2000;             % number of time steps
+prams.kappa = [1e-1 1e2];         % bending coefficient
+prams.viscCont = [1 1];         % viscosity contrast
 options.farField = 'shear'; % background velocity
 options.order = 1;          % time stepping order
 options.vesves = 'implicit';
@@ -39,7 +39,7 @@ prams.betaDown = 0.5;
 prams.alpha = 0.9;
 
 options.orderGL = 2;
-options.nsdc = 0;
+options.nsdc = 1;
 options.expectedOrder = 1;
 
 % Plot on-the-fly
@@ -62,7 +62,7 @@ options.errorFile = 'output/shear2VesError.bin';
 
 oc = curve;
 ang = pi/2*ones(2,1);
-centerx = [-1.3 1.3];
+centerx = [-3.0 3.0];
 centery = zeros(1,2);
 X = oc.initConfig(prams.N,'nv',prams.nv,...
     'reducedArea',0.65,...
