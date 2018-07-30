@@ -209,7 +209,6 @@ o.bdiagWall = o.wallsPrecond(wallsCoarse);
 
 end % initialConfined
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [Xstore,sigStore,uStore,etaStore,RSstore,Xtra] = ...
   firstSteps(o,options,prams,Xinit,sigInit,uInit,...
@@ -265,12 +264,16 @@ vesicle = capsules(Xinit,zeros(N,nv),[],...
 
 [sigStore(:,:,1),etaStore(:,:,1),RSstore(:,:,1),u,iter] = ...
     vesicle.computeSigAndEta(o,walls);
+vesicle.sig = sigStore(:,:,1);
+
+[shearStress,normalStress] = vesicle.computeShearStress(options,prams);
 
 % need intial tension, density function, rotlets, and stokeslets so
 % that we can do SDC updates, couling with advection-diffusion system,
 % etc
 
-om.initializeFiles(Xinit,sigStore(:,:,1),etaStore(:,:,1),...
+om.initializeFiles(Xinit,sigStore(:,:,1),...
+    shearStress,normalStress,etaStore(:,:,1),...
     RSstore(:,:,1),Xwalls,Xtra,pressTar);
 % delete previous versions of files and write some initial
 % options/parameters to files and the console
@@ -753,12 +756,30 @@ else
 end
 
 if accept
+  for k=1:nv
+    z = Xprov(1:end/2,k,end) + 1i*Xprov(end/2+1:end,k,end);
+    zh = fftshift(fft(z));
+    zh(1) = 0;
+    z = ifft(ifftshift(zh));
+    Xprov(1:end/2,k,end) = real(z);
+    Xprov(end/2+1:end,k,end) = imag(z);
+
+    z = sigmaProv(:,k,end);
+    zh = fftshift(fft(z));
+    zh(1) = 0;
+    sigmaProv(:,k,end) = ifft(ifftshift(zh));
+  end
+    
+
+
+
   % take the new solution
   X = Xprov(:,:,end);
   sigma = sigmaProv(:,:,end);
   u = uProv(:,:,end);
   eta = etaProv(:,:,end);
   RS = RSprov(:,:,end);
+
 else
   % revert to the old solution
   X = Xstore;
@@ -1469,7 +1490,6 @@ if 1
   if usePreco
     % when doing corrections, expect that these guys will be small
     % GMRES
-    
     [Xn,iflag,R,I,resvec] = gmres(@(X) o.TimeMatVec(X,vesicle,walls),...
         rhs,[],o.gmresTol,o.gmresMaxIter,...
         @o.preconditionerBD,[],initGMRES);
@@ -2691,12 +2711,13 @@ sig = real(sig);
 end % precoDST
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function vInf = bgFlow(o,X,varargin);
-% vInf = bgFlow(X,varargin) computes the velocity field at the points X.
-% Default flow is shear with magnitude 1.  Other flows are relaxation,
-% extensional, parabolic, Taylor-Green, cubic, invParabolic.  Some flows
-% have an option to input a strength of the flow (ie. shear rate,
-% extensional rate, etc).  Flows are given by:
+function [vInf,T11,T12,T22] = bgFlow(o,X,varargin)
+% [vInf,T11,T12,T22] = bgFlow(X,varargin) computes the velocity field
+% and the stress tensor at the points X.  Default flow is shear with
+% magnitude 1.  Other flows are relaxation, extensional, parabolic,
+% Taylor-Green, cubic, invParabolic.  Some flows have an option to input
+% a strength of the flow (ie. shear rate, extensional rate, etc).  Flows
+% are given by:
 %     cubic:          (y^3,x)
 %     relaxation:     (0,0)
 %     extensional:    (-x,y)
@@ -2728,9 +2749,16 @@ if any(strcmp(varargin,'cubic'))
 
 elseif any(strcmp(varargin,'relaxation'))
   vInf = zeros(2*N,nv); 
+  T11 = zeros(N,nv);
+  T12 = zeros(N,nv);
+  T22 = zeros(N,nv);
 
 elseif any(strcmp(varargin,'extensional'))
   vInf = [-x;y];
+  T11 = -ones(N,nv);
+  T12 = zeros(N,nv);
+  T22 = ones(N,nv);
+
 
 elseif any(strcmp(varargin,'parabolic'))
   R = find(strcmp(varargin,'R'));
@@ -2773,6 +2801,9 @@ elseif any(strcmp(varargin,'shear'))
     k = varargin{k+1};
   end
   vInf = [k*y;zeros(N,nv)];
+  T11 = zeros(N,nv);
+  T12 = k*ones(N,nv);
+  T22 = zeros(N,nv);
 
 elseif (any(strcmp(varargin,'choke')) || ...
       any(strcmp(varargin,'doublechoke')) || ...

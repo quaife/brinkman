@@ -286,7 +286,6 @@ elseif any(strcmp(options,'tube'))
   X0 = [x;y];
   % rounded off cylinder.  a and b control the length and height 
   % and order controls the regularity
-  
 else
   if ~isempty(ra)
     X0 = o.ellipse(N,ra);
@@ -295,9 +294,8 @@ else
     % this shape has reduced area very close to 0.65
     X0 = o.ellipse(N,0.65);
   end
-  oc = curve;
   
-  [ra,area,length] = oc.geomProp(X0);
+  [ra,area,length] = o.geomProp(X0);
 
   if any(strcmp(options,'volFrac'))
     X0 = 1.55*X0;  
@@ -310,8 +308,10 @@ else
     X = oc.fillDomain(X0,volFrac,Xwalls,fmm,optionstt,prams);
     nv = size(X,2);
   else
-    scale = 2*scale/sqrt(area/pi);
-    X0 = scale*X0;
+    X0 = 2*X0/sqrt(area/pi);
+    % make the generic shape have an area equal to pi
+%    scale = 2*scale/sqrt(area/pi);
+%    X0 = scale*X0;
   end
 
   if size(cen,2) ~= nv
@@ -329,10 +329,10 @@ if isempty(X)
   % rotated and translated
   X = zeros(2*N,nv);
   for k=1:nv
-    X(1:N,k) = cos(theta(k)) * X0(1:N) - ...
-      sin(theta(k)) * X0(N+1:2*N) + cen(1,k);
-    X(N+1:2*N,k) = sin(theta(k)) * X0(1:N) +  ...
-      cos(theta(k)) * X0(N+1:2*N) + cen(2,k);
+    X(1:N,k) = scale*(cos(theta(k)) * X0(1:N) - ...
+      sin(theta(k)) * X0(N+1:2*N)) + cen(1,k);
+    X(N+1:2*N,k) = scale*(sin(theta(k)) * X0(1:N) +  ...
+      cos(theta(k)) * X0(N+1:2*N)) + cen(2,k);
   end
   % Rotate vesicles as requested 
 end

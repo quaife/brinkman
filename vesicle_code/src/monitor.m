@@ -79,7 +79,8 @@ oc = curve;
 end % constructor: monitor
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function initializeFiles(o,X,sig,eta,RS,Xwalls,Xtra,pressTar)
+function initializeFiles(o,X,sig,shearStress,normalStress,...
+    eta,RS,Xwalls,Xtra,pressTar)
 % initializeFiles(X,sig,eta,RS,Xwalls,Xtra,pressTar) does the initial
 % writing of data to files and the console.  It first deletes any
 % previous data and then writes the number of points, tracer initial
@@ -221,7 +222,7 @@ if o.saveData
   % locations of the tracers, pressure, and stress if these
   % are being calculated
 
-  o.writeData(X,sig,0,0,0,0);
+  o.writeData(X,sig,shearStress,normalStress,0,0,0,0);
   % save initial configuartion
   if o.Nbd > 0
     o.writeDataWithEta(X,sig,eta,RS,0,0,0,0);
@@ -246,9 +247,11 @@ end % initializeFiles
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function terminate = outputInfo(o,X,sigma,u,eta,RS,...
-    Xwalls,Xtra,time,iter,dtScale,res,iflag)
-% terminate = outputInfo(X,sigma,u,Xwalls,time,iter,...
-%    dtScale,res,iflag) 
+    shearStress,normalStress,Xwalls,Xtra,...
+    time,iter,dtScale,res,iflag)
+% terminate = outputInfo(X,sigma,u,eta,RS,...
+%    shearStress,normalStress,Xwalls,Xtra,...
+%    time,iter,dtScale,res,iflag)
 % computes the error in area and length and write messages to the data
 % file, the log file, and the console.  Tells the simulation to stop if
 % error in area or length is too large.  X, sigma, u are the position,
@@ -285,7 +288,7 @@ if o.saveData
   % don't want to save initial small time steps, but still
   % want to check the error in area and length so that the
   % simulation is killed early on if need be
-  o.writeData(X,sigma,ea,el,time,res);
+  o.writeData(X,sigma,shearStress,normalStress,ea,el,time,res);
 
   if o.Nbd > 0
     o.writeDataWithEta(X,sigma,eta,RS,ea,el,time,res);
@@ -486,14 +489,14 @@ set(gca,'ycolor','w')
 end % plotData
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function writeData(o,X,sigma,ea,el,time,res)
-% writeData(X,sigma,ea,el,time,res) writes the position, tension,
-% errors, and time to a binary file.  Matlab can later read this file
-% to postprocess the data
+function writeData(o,X,sigma,shearStress,normalStress,ea,el,time,res)
+% writeData(X,sigma,ea,el,time,res) writes the position, tension, shear
+% and normal stess, errors, and time to a binary file.  Matlab can later
+% read this file to postprocess the data
  
 oc = curve;
 [x,y] = oc.getXY(X);
-output = [x(:);y(:);sigma(:);ea;el;time];
+output = [x(:);y(:);sigma(:);shearStress(:);normalStress(:);ea;el;time];
 % format that postProcess/loadfile.m reads the output
 fid = fopen(o.dataFile,'a');
 fwrite(fid,output,'double');

@@ -120,7 +120,7 @@ for k = 1:o.nv
   notk = [(1:k-1) (k+1:o.nv)];
   adhesive_x = o.X(1:o.N,notk);
   adhesive_y = o.X(o.N+1:2*o.N,notk);
-  ds = o.sa(:,notk);
+  ds = o.sa(:,notk)*2*pi/o.N;
   
   for j = 1:o.N
     dist2 = (o.X(j,k) - adhesive_x).^2 + ...
@@ -1363,6 +1363,127 @@ end
 % Add in contributions due to Rotlets and Stokeslets
 
 end % stressTensor
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [shearStress,normalStress] = ...
+    computeShearStress(vesicle,options,prams)
+
+N = vesicle.N; % points per vesicle
+nv = vesicle.nv; % number of vesicles
+
+X = vesicle.X;
+sigma = vesicle.sig;
+sa = vesicle.sa;
+
+f = vesicle.tracJump(X,sigma);
+% traction jump of the vesicle shape and tension
+
+if options.adhesion
+  f = f + vesicle.adhesionTerm(prams.adStrength,prams.adRange);
+end
+% add on the adhesion contribution, if adhesion is included in the model
+
+oc = curve;
+[fx,fy] = oc.getXY(f);
+% extract x and y coordinates of the traction jump
+T11 = zeros(N,nv);
+T12 = zeros(N,nv);
+T22 = zeros(N,nv);
+shearStress = zeros(N,nv);
+normalStress = zeros(N,nv);
+% initialize variables for stress tensor, shear stress, and normal
+% stress
+
+for ktar = 1:nv % loop over all vesicles
+  ind = [(1:ktar-1) (ktar+1:nv)]; % all other vesicles
+  for jtar = 1:N
+    for ksou = ind
+      rx = X(jtar,ktar) - X(1:end/2,ksou);
+      ry = X(jtar+N,ktar) - X(end/2+1:end,ksou);
+      rho2 = rx.^2 + ry.^2;
+      rdotf = rx.*fx(:,ksou) + ry.*fy(:,ksou);
+      coeff = -1/pi*rdotf./rho2.^2.*vesicle.sa(:,ksou)*2*pi/N;
+      T11(jtar,ktar) = T11(jtar,ktar) + sum(coeff.*rx.*rx);
+      T12(jtar,ktar) = T12(jtar,ktar) + sum(coeff.*rx.*ry);
+      T22(jtar,ktar) = T22(jtar,ktar) + sum(coeff.*ry.*ry);
+    end
+  end
+  % loop over all points on all vesicles except self
+
+  for jtar = 1:2:N  % odd-indexed points
+    ind = (2:2:N); % use even indexed points
+    rx = X(jtar,ktar) - X(ind,ktar);
+    ry = X(jtar+N,ktar) - X(ind+N,ktar);
+    rho2 = rx.^2 + ry.^2;
+    rdotf = rx.*fx(ind,ksou) + ry.*fy(ind,ksou);
+    coeff = -1/pi*rdotf./rho2.^2.*vesicle.sa(ind,ktar)*2*pi/N*2;
+    T11(jtar,ktar) = T11(jtar,ktar) + sum(coeff.*rx.*rx);
+    T12(jtar,ktar) = T12(jtar,ktar) + sum(coeff.*rx.*ry);
+    T22(jtar,ktar) = T22(jtar,ktar) + sum(coeff.*ry.*ry);
+  end
+
+  for jtar = 2:2:N  % even-indexed points
+    ind = (1:2:N); % use odd indexed points
+    rx = X(jtar,ktar) - X(ind,ktar);
+    ry = X(jtar+N,ktar) - X(ind+N,ktar);
+    rho2 = rx.^2 + ry.^2;
+    rdotf = rx.*fx(ind,ksou) + ry.*fy(ind,ksou);
+    coeff = -1/pi*rdotf./rho2.^2.*vesicle.sa(ind,ktar)*2*pi/N*2;
+    T11(jtar,ktar) = T11(jtar,ktar) + sum(coeff.*rx.*rx);
+    T12(jtar,ktar) = T12(jtar,ktar) + sum(coeff.*rx.*ry);
+    T22(jtar,ktar) = T22(jtar,ktar) + sum(coeff.*ry.*ry);
+  end
+end
+
+[tx,ty] = oc.getXY(vesicle.xt);
+nx = ty;
+ny = -tx;
+jump11 = +1/2*nx.*fx + 1/2*tx.*(2*tx.*ty.*fx + (ty.^2 - tx.^2).*fy);
+jump12 = +1/2*nx.*fy + 1/2*tx.*((ty.^2-tx.^2).*fx - 2*tx.*ty.*fy);
+jump22 = +1/2*ny.*fy + 1/2*ty.*((ty.^2-tx.^2).*fx - 2*tx.*ty.*fy);
+
+T11 = T11 + jump11;
+T12 = T12 + jump12;
+T22 = T22 + jump22;
+
+tt = tstep(options,prams);
+[~,bg11,bg12,bg22] = tt.farField(X);
+
+T11 = T11 + bg11;
+T12 = T12 + bg12;
+T22 = T22 + bg22;
+
+for ksou = 1:nv
+  shearStress(:,ksou) = ...
+    (T11(:,ksou).*nx(:,ksou) + T12(:,ksou).*ny(:,ksou)).*tx(:,ksou) + ...
+    (T12(:,ksou).*nx(:,ksou) + T22(:,ksou).*ny(:,ksou)).*ty(:,ksou);
+  normalStress(:,ksou) = ...
+    (T11(:,ksou).*nx(:,ksou) + T12(:,ksou).*ny(:,ksou)).*nx(:,ksou) + ...
+    (T12(:,ksou).*nx(:,ksou) + T22(:,ksou).*ny(:,ksou)).*ny(:,ksou);
+end
+
+%figure(2); clf
+%h1 = cline(X(1:end/2,1),X(end/2+1:end,1),shearStress(:,1));
+%h2 = cline(X(1:end/2,2),X(end/2+1:end,2),shearStress(:,2));
+%%h3 = cline(linspace(-15,15,256),posy02(:,1,i)*0,ten02(:,1,i)*0);
+%set(h1,'LineWidth',5)
+%set(h2,'LineWidth',5)
+%colorbar
+%axis equal;
+%axis(options.axis)
+%pause(.01)
+%
+%figure(3); clf; 
+%plot(sigma)
+%hold on
+%plot(normalStress)
+%%semilogy(abs(fftshift(fft(shearStress(:,1))))/N,'b')
+%%hold on
+%%semilogy(abs(fftshift(fft(shearStress(:,2))))/N,'r')
+%pause
+
+
+end % computeShearStress
 
 end % methods
 

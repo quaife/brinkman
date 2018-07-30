@@ -1,4 +1,4 @@
-function [Xfinal] = Ves2D(X,Xwalls,prams,options,Xtra,pressTar)
+function Xfinal  = Ves2D(X,Xwalls,prams,options,Xtra,pressTar)
 % Ves2D does time stepping on the intial configuration X
 % with parameters and options defined in prams and options.
 % Also can pass a set of initial tracer locations (Xtra) and 
@@ -86,7 +86,7 @@ end
 % initial velocity on the vesicles is set to the background velocity.
 % If flow is unbounded, there is no density function eta.  If bounded,
 % compute a structure for the solid walls 
-
+%
 [Xstore,sigStore,uStore,etaStore,RSstore,Xtra] = ...
     tt.firstSteps(options,prams,...
     Xstore(:,:,end),sigStore(:,:,end),uStore(:,:,end),...
@@ -127,7 +127,13 @@ while time < prams.T - 1e-10
   % go back to old time
 
   if accept
-    terminate = om.outputInfo(X,sigma,u,eta,RS,Xwalls,Xtra,...
+    vesicle = capsules(X,sigma,u,prams.kappa,prams.viscCont);
+    [shearStress,normalStress] = ...
+        vesicle.computeShearStress(options,prams);
+    % compute the shear and normal stress along the vesicles
+
+    terminate = om.outputInfo(X,sigma,u,eta,RS,...
+        shearStress,normalStress,Xwalls,Xtra,...
         time,iter,dtScale,res,iflag);
     % check if we have violated the error in area or length also plot
     % and save the current solution to dat file.  Print information to
