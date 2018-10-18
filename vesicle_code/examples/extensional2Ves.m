@@ -1,16 +1,16 @@
 clear all; clc
 
-fprintf('Two elliptical vesicles in a shear flow.\n');
+fprintf('Two elliptical vesicles in a extensional flow.\n');
 
 % Physics parameters
 prams.N = 128;               % points per vesicle
 prams.nv = 2;               % number of vesicles
-prams.T = 100;               % time horizon (two tumbling)
+prams.T = 600;               % time horizon (two tumbling)
 prams.m = 2000;             % number of time steps
 prams.kappa = [1e-1 1e-1];         % bending coefficient
 prams.viscCant = [1 1];         % viscosity contrast
-options.farField = 'shear'; % background velocity
-options.farFieldSpeed = 1;
+options.farField = 'extensional'; % background velocity
+options.farFieldSpeed = 1e-2;
 aptions.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -27,8 +27,8 @@ prams.errorTol = 1;
 % ADD-ONS
 options.correctShape = false;
 options.adhesion = true;
-prams.adRange = 2e-1;
-prams.adStrength = 0.6;
+prams.adRange = 8e-1;
+prams.adStrength = 1e0;
 
 % TIME ADAPTIVITY (parameters for new implementation)
 options.timeAdap = true;
@@ -45,16 +45,16 @@ options.expectedOrder = 2;
 
 % Plot on-the-fly
 options.usePlot = true;
-options.axis = [-5 5 -3 3];
+options.axis = [-4 4 -2 2];
 options.track = false;
 % Save vesicle information and create a log file
-options.logFile = 'output/shear2Ves.log';
+options.logFile = 'output/extensional2Ves.log';
 % Name of log file for saving messages
-options.dataFile = 'output/shear2VesData.bin';
+options.dataFile = 'output/extensional2VesData.bin';
 % Name of binary data file for storing vesicle information
 
 options.saveError = true;
-options.errorFile = 'output/shear2VesError.bin';
+options.errorFile = 'output/extensional2VesError.bin';
 % Name of binary data file for storing truncation errors after each step
 
 [options,prams] = initVes2D(options,prams);
@@ -62,11 +62,11 @@ options.errorFile = 'output/shear2VesError.bin';
 % Also add src to path
 
 oc = curve;
-centerx = [-1.5 1.5];
+centerx = [-2 2];
 centery = zeros(1,2);
-ang = pi/2*ones(2,1);
+ang = 0*ones(2,1);
 ra = 0.4;
-scale = 1/2*sqrt(ra);
+scale = 0.5*sqrt(ra);
 X = oc.initConfig(prams.N,'nv',prams.nv,...
     'reducedArea',ra,...
     'center',[centerx;centery],...

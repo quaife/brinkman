@@ -62,6 +62,28 @@ o.IK = fft1.modes(o.N,o.nv);
 
 end % capsules
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [ben,ten,adh] = computeEnergies(vesicle,W0,d0)
+
+N = vesicle.N;
+
+ben = vesicle.kappa*sum(vesicle.cur.^2.*vesicle.sa)*2*pi/N;
+ten = sum(vesicle.sig.*vesicle.sa)*2*pi/N;
+
+adh = zeros(vesicle.nv,1);
+adhPotential = zeros(N,1);
+for j = 1:N
+  dist2 = (vesicle.X(j,1) - vesicle.X(1:N,2)).^2 + ...
+          (vesicle.X(j+N,1) - vesicle.X(N+1:2*N,2)).^2;
+  adhPotential(j) = W0*sum((d0./dist2).^2.*((d0./dist2).^2 - 2).*...
+    vesicle.sa(:,2))*2*pi/N;
+end
+adh(1) = sum(adhPotential.*vesicle.sa(:,1))*2*pi/N;
+adh(2) = sum(adhPotential.*vesicle.sa(:,1))*2*pi/N;
+
+
+end % computeEnergies
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function f = tracJump(o,f,sigma)
@@ -78,8 +100,6 @@ function ben = bendingTerm(o,f)
 % ben = bendingTerm(f) computes the term due to bending
 % -kappa*fourth-order derivative
 
-%ben = [-o.kappa(1)*curve.arcDeriv(f(1:o.N,:),4,o.isa,o.IK);...
-%  -o.kappa(1)*curve.arcDeriv(f(o.N+1:2*o.N,:),4,o.isa,o.IK)];
 ben = -[curve.arcDeriv(f(1:o.N,:),4,o.isa,o.IK);...
   curve.arcDeriv(f(o.N+1:2*o.N,:),4,o.isa,o.IK)]*diag(o.kappa);
 
@@ -1415,7 +1435,7 @@ for ktar = 1:nv % loop over all vesicles
     rx = X(jtar,ktar) - X(ind,ktar);
     ry = X(jtar+N,ktar) - X(ind+N,ktar);
     rho2 = rx.^2 + ry.^2;
-    rdotf = rx.*fx(ind,ksou) + ry.*fy(ind,ksou);
+    rdotf = rx.*fx(ind,ktar) + ry.*fy(ind,ktar);
     coeff = -1/pi*rdotf./rho2.^2.*vesicle.sa(ind,ktar)*2*pi/N*2;
     T11(jtar,ktar) = T11(jtar,ktar) + sum(coeff.*rx.*rx);
     T12(jtar,ktar) = T12(jtar,ktar) + sum(coeff.*rx.*ry);
@@ -1427,7 +1447,7 @@ for ktar = 1:nv % loop over all vesicles
     rx = X(jtar,ktar) - X(ind,ktar);
     ry = X(jtar+N,ktar) - X(ind+N,ktar);
     rho2 = rx.^2 + ry.^2;
-    rdotf = rx.*fx(ind,ksou) + ry.*fy(ind,ksou);
+    rdotf = rx.*fx(ind,ktar) + ry.*fy(ind,ktar);
     coeff = -1/pi*rdotf./rho2.^2.*vesicle.sa(ind,ktar)*2*pi/N*2;
     T11(jtar,ktar) = T11(jtar,ktar) + sum(coeff.*rx.*rx);
     T12(jtar,ktar) = T12(jtar,ktar) + sum(coeff.*rx.*ry);
@@ -1438,50 +1458,74 @@ end
 [tx,ty] = oc.getXY(vesicle.xt);
 nx = ty;
 ny = -tx;
+
 jump11 = +1/2*nx.*fx + 1/2*tx.*(2*tx.*ty.*fx + (ty.^2 - tx.^2).*fy);
 jump12 = +1/2*nx.*fy + 1/2*tx.*((ty.^2-tx.^2).*fx - 2*tx.*ty.*fy);
 jump22 = +1/2*ny.*fy + 1/2*ty.*((ty.^2-tx.^2).*fx - 2*tx.*ty.*fy);
 
-T11 = T11 + jump11;
-T12 = T12 + jump12;
-T22 = T22 + jump22;
+T11 = T11 - 1*jump11;
+T12 = T12 - 1*jump12;
+T22 = T22 - 1*jump22;
 
 tt = tstep(options,prams);
 [~,bg11,bg12,bg22] = tt.farField(X);
 
-T11 = T11 + bg11;
-T12 = T12 + bg12;
-T22 = T22 + bg22;
+T11 = 1*T11 + 1*bg11;
+T12 = 1*T12 + 1*bg12;
+T22 = 1*T22 + 1*bg22;
+
+%xtar = 0.3;
+%ytar = 1.2;
+%rx = xtar - X(1:end/2);
+%ry = ytar - X(end/2+1:end);
+%rho2 = rx.^2 + ry.^2;
+%rdotf = rx.*fx + ry.*fy;
+%coeff = -1/pi*rdotf./rho2.^2.*vesicle.sa*2*pi/N;
+%T11_tar = sum(coeff.*rx.*rx);
+%T11_exact = -(2*xtar^5 + 3*xtar*ytar^2-xtar^3+2*xtar^3*ytar^2)/...
+%    (xtar^2 + ytar^2)^3;
+%T12_tar = sum(coeff.*rx.*ry);
+%T12_exact = -(2*xtar^4*ytar+ytar^3-3*xtar^2*ytar+2*xtar^2*ytar^3)/...
+%    (xtar^2 + ytar^2)^3;
+%T22_tar = sum(coeff.*ry.*ry);
+%press = 1/2/pi*sum(rdotf./rho2.*vesicle.sa)*2*pi/N;
+%exact_press = xtar/(xtar^2 + ytar^2);
+%T11_tar 
+%T11_exact
+%T12_tar 
+%T12_exact
+%press 
+%exact_press
+%pause
 
 for ksou = 1:nv
   shearStress(:,ksou) = ...
-    (T11(:,ksou).*nx(:,ksou) + T12(:,ksou).*ny(:,ksou)).*tx(:,ksou) + ...
-    (T12(:,ksou).*nx(:,ksou) + T22(:,ksou).*ny(:,ksou)).*ty(:,ksou);
+    (T11(:,ksou).*nx(:,ksou) + T12(:,ksou).*ny(:,ksou)).*...
+        tx(:,ksou) + ...
+    (T12(:,ksou).*nx(:,ksou) + T22(:,ksou).*ny(:,ksou)).*...
+        ty(:,ksou);
   normalStress(:,ksou) = ...
-    (T11(:,ksou).*nx(:,ksou) + T12(:,ksou).*ny(:,ksou)).*nx(:,ksou) + ...
-    (T12(:,ksou).*nx(:,ksou) + T22(:,ksou).*ny(:,ksou)).*ny(:,ksou);
+    (T11(:,ksou).*nx(:,ksou) + T12(:,ksou).*ny(:,ksou)).*...
+        nx(:,ksou) + ...
+    (T12(:,ksou).*nx(:,ksou) + T22(:,ksou).*ny(:,ksou)).*...
+        ny(:,ksou);
 end
 
-%figure(2); clf
-%h1 = cline(X(1:end/2,1),X(end/2+1:end,1),shearStress(:,1));
-%h2 = cline(X(1:end/2,2),X(end/2+1:end,2),shearStress(:,2));
-%%h3 = cline(linspace(-15,15,256),posy02(:,1,i)*0,ten02(:,1,i)*0);
-%set(h1,'LineWidth',5)
-%set(h2,'LineWidth',5)
-%colorbar
-%axis equal;
-%axis(options.axis)
-%pause(.01)
-%
-%figure(3); clf; 
-%plot(sigma)
-%hold on
-%plot(normalStress)
-%%semilogy(abs(fftshift(fft(shearStress(:,1))))/N,'b')
-%%hold on
-%%semilogy(abs(fftshift(fft(shearStress(:,2))))/N,'r')
+%x = X(1:end/2,:);
+%y = X(end/2+1:end,:);
+%tracx = zeros(N,nv);
+%tracy = zeros(N,nv);
+%tracx = T11.*nx + T12.*ny;
+%tracy = T12.*nx + T22.*ny;
+%figure(1); clf; hold on
+%plot(x,y,'r')
+%quiver(x,y,tracx,tracy)
+%axis equal
+%clf
+%z = (tracx.*y - tracy.*x).*vesicle.sa;
+%plot(z(:,1))
+%sum(z)
 %pause
-
 
 end % computeShearStress
 

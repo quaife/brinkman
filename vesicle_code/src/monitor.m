@@ -79,7 +79,7 @@ oc = curve;
 end % constructor: monitor
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function initializeFiles(o,X,sig,shearStress,normalStress,...
+function initializeFiles(o,X,sig,...
     eta,RS,Xwalls,Xtra,pressTar)
 % initializeFiles(X,sig,eta,RS,Xwalls,Xtra,pressTar) does the initial
 % writing of data to files and the console.  It first deletes any
@@ -104,16 +104,6 @@ if o.saveData
   % write the solid walls to the data file
   fclose(fid);
   fid = fopen(o.logFile,'w');
-  fclose(fid);
-end
-
-if o.saveData && o.Nbd > 0
-  file = [o.dataFile(1:end-4) '2.bin'];
-  fid = fopen(file,'w');
-  fwrite(fid,[N;nv;Nbd;nvbd],'double');
-  % write number of points and vesicles to data file
-  fwrite(fid,[xx(:),yy(:)],'double');
-  % write the solid walls to the data file
   fclose(fid);
 end
 
@@ -178,55 +168,8 @@ if o.adhesion
 end
 
 if o.saveData
-  if o.timeAdap
-    fileName = [o.logFile(1:end-4) 'Res.dat'];
-    fid = fopen(fileName,'w');
-    fclose(fid);
-    % initiate the residual file
-  end
-
-  if o.tracers
-    fileName = [o.logFile(1:end-4) 'Tracers.bin'];
-    fid = fopen(fileName,'w');
-    fwrite(fid,[xtra;ytra],'double');
-    fclose(fid);
-  end
-  % write tracer intial conditions
-
-  if o.pressure
-    fileName = [o.logFile(1:end-4) 'Pressure.bin'];
-    fid = fopen(fileName,'w');
-    fclose(fid);
-    o.writePressure(pressTar.X);
-    % write the pressure's target locations
-  end
-
-  if o.pressure
-    fileName = [o.logFile(1:end-4) 'Stress11.bin'];
-    fid = fopen(fileName,'w');
-    fclose(fid);
-    fileName = [o.logFile(1:end-4) 'Stress12.bin'];
-    fid = fopen(fileName,'w');
-    fclose(fid);
-    fileName = [o.logFile(1:end-4) 'Stress21.bin'];
-    fid = fopen(fileName,'w');
-    fclose(fid);
-    fileName = [o.logFile(1:end-4) 'Stress22.bin'];
-    fid = fopen(fileName,'w');
-    fclose(fid);
-    o.writeStress(pressTar.X,'pts');
-    % write the stress's target locations
-  end
-  % Erase anything left over in log and binary files
-  % Write the parameters to log file.  Also write the target
-  % locations of the tracers, pressure, and stress if these
-  % are being calculated
-
-  o.writeData(X,sig,shearStress,normalStress,0,0,0,0);
+  o.writeData(X,sig,0,0,0,0);
   % save initial configuartion
-  if o.Nbd > 0
-    o.writeDataWithEta(X,sig,eta,RS,0,0,0,0);
-  end
 
   message = ['Initial Areas are:            ' ...
       num2str(o.area(1),'%10.2e')];
@@ -247,11 +190,7 @@ end % initializeFiles
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function terminate = outputInfo(o,X,sigma,u,eta,RS,...
-    shearStress,normalStress,Xwalls,Xtra,...
-    time,iter,dtScale,res,iflag)
-% terminate = outputInfo(X,sigma,u,eta,RS,...
-%    shearStress,normalStress,Xwalls,Xtra,...
-%    time,iter,dtScale,res,iflag)
+    Xwalls,Xtra,time,iter,dtScale,res,iflag)
 % computes the error in area and length and write messages to the data
 % file, the log file, and the console.  Tells the simulation to stop if
 % error in area or length is too large.  X, sigma, u are the position,
@@ -278,7 +217,7 @@ end
 
 % Begin plotting
 if o.usePlot
-  o.plotData(X,u,Xwalls,Xtra,time,ea,el);
+  o.plotData(X,time,ea,el);
   pause(0.01)
 end
 % End plotting
@@ -288,11 +227,7 @@ if o.saveData
   % don't want to save initial small time steps, but still
   % want to check the error in area and length so that the
   % simulation is killed early on if need be
-  o.writeData(X,sigma,shearStress,normalStress,ea,el,time,res);
-
-  if o.Nbd > 0
-    o.writeDataWithEta(X,sigma,eta,RS,ea,el,time,res);
-  end
+  o.writeData(X,sigma,ea,el,time,res);
 end
 % End saving data
 
@@ -329,68 +264,10 @@ message1 = ['Max error in area is   ' num2str(ea,'%4.2e')];
 message2 = ['Max error in length is ' num2str(el,'%4.2e')];
 o.writeMessage(message1,'%s\n')
 o.writeMessage(message2,'%s\n')
-%if o.timeAdap
-%  message3 = ['Residual is            ' num2str(res,'%4.2e')];
-%  o.writeMessage(message3,'%s\n')
-%end
 o.writeMessage(' ','%s\n')
 % End sending data to files and console
 
 end % outputInfo
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function writePressure(o,press)
-% writePressure(press) writes the pressure to a .bin file
-
-output = press;
-
-fileName = [o.logFile(1:end-4) 'Pressure.bin'];
-fid = fopen(fileName,'a');
-fwrite(fid,output,'double');
-fclose(fid);
-% save the pressure values
-
-end % writePressure
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function writeStress(o,output,flag)
-% writeStress(X,output,flag) writes the stress to a .bin file.  flag is
-% used to decide if it needs to write the locations or one of the four
-% stress components
-
-if (strcmp(flag,'pts') || strcmp(flag,'11'))
-  fileName = [o.logFile(1:end-4) 'Stress11.bin'];
-  fid = fopen(fileName,'a');
-  fwrite(fid,output,'double');
-  fclose(fid);
-  % save the (1,1) component of the stress
-end
-
-if (strcmp(flag,'pts') || strcmp(flag,'12'))
-  fileName = [o.logFile(1:end-4) 'Stress12.bin'];
-  fid = fopen(fileName,'a');
-  fwrite(fid,output,'double');
-  fclose(fid);
-  % save the (1,2) component of the stress
-end
-
-if (strcmp(flag,'pts') || strcmp(flag,'21'))
-  fileName = [o.logFile(1:end-4) 'Stress21.bin'];
-  fid = fopen(fileName,'a');
-  fwrite(fid,output,'double');
-  fclose(fid);
-  % save the (2,1) component of the stress
-end
-
-if (strcmp(flag,'pts') || strcmp(flag,'22'))
-  fileName = [o.logFile(1:end-4) 'Stress22.bin'];
-  fid = fopen(fileName,'a');
-  fwrite(fid,output,'double');
-  fclose(fid);
-  % save the (2,2) component of the stress
-end
-
-end % writeStress
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [ea,el] = errors(o,X)
@@ -437,42 +314,19 @@ end
 end % writeMessage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function plotData(o,X,u,Xwalls,Xtra,time,ea,el)
-% plotData(X,u,Xwalls,Xtra,time,ea,el) plots the current configuration
-% with title X is the vesicle position, u is the vesicle velocity,
-% Xwalls is the solid wall positions, Xtra is the tracer locations,
-% time is the current time, ea and el are the errors in area and length
+function plotData(o,X,time,ea,el)
+% plotData(X,time,ea,el) plots the current configuration with title X is
+% the vesicle position time is the current time, ea and el are the
+% errors in area and length
 
 N = size(X,1)/2; % Number of points per vesicle
-Nbd = size(Xwalls,1)/2; % Number of points on wall
 oc = curve;
 [x,y] = oc.getXY(X);
 % seperate x and y coordinates
 
 figure(1); clf; hold on
 plot([x;x(1,:)],[y;y(1,:)],'r','linewidth',2)
-if ~isempty(Xwalls)
-  [xwall,ywall] = oc.getXY(Xwalls);
-  plot([xwall;xwall(1,:)],[ywall;ywall(1,:)],'k','linewidth',2)
-end
 % Plot all vesicles
-
-if o.track
-  plot(x,y,'bo','markersize',20)
-  % Plot a tracker point at the first and middle point
-  % so that we can observe features like trank-treading
-end
-
-if o.quiver
-  quiver(X(1:N,:),X(N+1:2*N,:),u(1:N,:,end),u(N+1:2*N,:,end))
-  % plot velocity field on surface of vesicles
-end
-
-if o.tracers
-  [xtra,ytra] = oc.getXY(Xtra);
-  plot(xtra,ytra,'bo')
-  % plot the tracers
-end
 
 titleStr = ['t = ' num2str(time,'%4.2e') ...
   ' eA = ' num2str(ea,'%4.2e') ...
@@ -489,26 +343,18 @@ set(gca,'ycolor','w')
 end % plotData
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function writeData(o,X,sigma,shearStress,normalStress,ea,el,time,res)
-% writeData(X,sigma,ea,el,time,res) writes the position, tension, shear
-% and normal stess, errors, and time to a binary file.  Matlab can later
-% read this file to postprocess the data
+function writeData(o,X,sigma,ea,el,time,res)
+% writeData(X,sigma,ea,el,time,res) writes the position, tension,
+% errors, and time to a binary file.  Matlab can later read this file to
+% postprocess the data
  
 oc = curve;
 [x,y] = oc.getXY(X);
-output = [x(:);y(:);sigma(:);shearStress(:);normalStress(:);ea;el;time];
+output = [x(:);y(:);sigma(:);ea;el;time];
 % format that postProcess/loadfile.m reads the output
 fid = fopen(o.dataFile,'a');
 fwrite(fid,output,'double');
 fclose(fid);
-
-if o.timeAdap
-  fileName = [o.logFile(1:end-4) 'Res.dat'];
-  fid = fopen(fileName,'a');
-  fprintf(fid,'%10.5e\n',res);
-  fclose(fid);
-end
-%% write the reisdual to a seperate dat file.
 
 end % writeData
 

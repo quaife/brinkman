@@ -4,13 +4,14 @@ fprintf('Simple elliptical vesicle in a shear flow.\n');
 fprintf('First-order semi-implicit time stepping.\n');
 
 % Physics parameters
-prams.N = 64;               % points per vesicle
+prams.N = 192;               % points per vesicle
 prams.nv = 1;               % number of vesicles
-prams.T = 100;               % time horizon (two tumbling)
-prams.m = 2000;              % number of time steps
+prams.T = 20;               % time horizon (two tumbling)
+prams.m = 100;              % number of time steps
 prams.kappa = 1e-1;         % bending coefficient
 prams.viscCont = 1;         % viscosity contrast
 options.farField = 'shear'; % background velocity
+options.farFieldSpeed = 1.0;
 options.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -28,7 +29,6 @@ options.alignCenterAngle = true;
 options.correctShape = true;
 options.reparameterization = false;
 
-
 % TIME ADAPTIVITY (parameters for new implementation)
 options.timeAdap = true;
 
@@ -45,8 +45,8 @@ if 1
 end
 
 options.orderGL = 2;
-options.nsdc = 0;
-options.expectedOrder = 1;
+options.nsdc = 1;
+options.expectedOrder = 2;
 
 % Plot on-the-fly
 options.usePlot = true;
@@ -66,7 +66,11 @@ options.errorFile = 'output/shear1VesError.bin';
 % Also add src to path
 
 oc = curve;
-X = oc.initConfig(prams.N,'reducedArea',0.65,'angle',pi/2);
+ra = 0.99;
+X = oc.initConfig(prams.N,...
+    'reducedArea',ra,...
+    'angle',pi/2,...
+    'center',[0;0]);
 % Initial configuration of reduce area 0.65 and aligned
 
 Ves2D(X,[],prams,options);

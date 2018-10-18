@@ -1,4 +1,4 @@
-function [posx,posy,ten,shearStress,normalStress,...
+function [posx,posy,ten,...
     wallx,wally,ea,el,time,n,nv] = loadFile(file)
 fid = fopen(file,'r');
 val = fread(fid,'double');
@@ -10,7 +10,9 @@ nvbd = val(4);
 walls = val(5:5+2*nbd*nvbd-1);
 val = val(5+2*nbd*nvbd:end);
 
-ntime = numel(val)/(5*n*nv+3);
+ntime = numel(val)/(3*n*nv+3);
+% 2 positions, tension, two stresses
+% error in area, error in length, area
 if ntime ~= ceil(ntime);
   disp('PROBLEM WITH VALUES FOR n AND nv');
 end
@@ -26,8 +28,6 @@ end
 posx = zeros(n,nv,ntime);
 posy = zeros(n,nv,ntime);
 ten = zeros(n,nv,ntime);
-shearStress = zeros(n,nv,ntime);
-normalStress = zeros(n,nv,ntime);
 time = zeros(ntime,1);
 ea = zeros(ntime,1);
 el = zeros(ntime,1);
@@ -55,25 +55,10 @@ for m = 1:ntime
   end
   % load tensions
 
-  for k = 1:nv
-    iend = istart + n - 1;
-    shearStress(:,k,m) = val(istart:iend);
-    istart = iend + 1;
-  end
-  % shear stress
-
-  for k = 1:nv
-    iend = istart + n - 1;
-    normalStress(:,k,m) = val(istart:iend);
-    istart = iend + 1;
-  end
-  % normal stress
-
   ea(m) = val(istart);
   el(m) = val(istart+1);
   time(m) = val(istart+2);
   istart = istart + 3;
-
 end
 
 

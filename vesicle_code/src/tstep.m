@@ -266,14 +266,15 @@ vesicle = capsules(Xinit,zeros(N,nv),[],...
     vesicle.computeSigAndEta(o,walls);
 vesicle.sig = sigStore(:,:,1);
 
-[shearStress,normalStress] = vesicle.computeShearStress(options,prams);
+[shearStress,normalStress] = ...
+    vesicle.computeShearStress(options,prams);
 
 % need intial tension, density function, rotlets, and stokeslets so
 % that we can do SDC updates, couling with advection-diffusion system,
 % etc
 
 om.initializeFiles(Xinit,sigStore(:,:,1),...
-    shearStress,normalStress,etaStore(:,:,1),...
+    etaStore(:,:,1),...
     RSstore(:,:,1),Xwalls,Xtra,pressTar);
 % delete previous versions of files and write some initial
 % options/parameters to files and the console
@@ -684,6 +685,7 @@ for sdcCount = 1:o.nsdc
 %  % if the line search was unsuccessful, don't update the provisional
 %  % solution
 
+
   Xprov = Xprov + alpha*deltaX;
   sigmaProv = sigmaProv + alpha*deltaSigma;
   etaProv = etaProv + alpha*deltaEta;
@@ -756,22 +758,20 @@ else
 end
 
 if accept
-  for k=1:nv
-    z = Xprov(1:end/2,k,end) + 1i*Xprov(end/2+1:end,k,end);
-    zh = fftshift(fft(z));
-    zh(1) = 0;
-    z = ifft(ifftshift(zh));
-    Xprov(1:end/2,k,end) = real(z);
-    Xprov(end/2+1:end,k,end) = imag(z);
-
-    z = sigmaProv(:,k,end);
-    zh = fftshift(fft(z));
-    zh(1) = 0;
-    sigmaProv(:,k,end) = ifft(ifftshift(zh));
-  end
+%  for k=1:nv
+%    z = Xprov(1:end/2,k,end) + 1i*Xprov(end/2+1:end,k,end);
+%    zh = fftshift(fft(z));
+%    zh(1) = 0;
+%    z = ifft(ifftshift(zh));
+%    Xprov(1:end/2,k,end) = real(z);
+%    Xprov(end/2+1:end,k,end) = imag(z);
+%
+%    z = sigmaProv(:,k,end);
+%    zh = fftshift(fft(z));
+%    zh(1) = 0;
+%    sigmaProv(:,k,end) = ifft(ifftshift(zh));
+%  end
     
-
-
 
   % take the new solution
   X = Xprov(:,:,end);
@@ -1378,7 +1378,7 @@ rhs = [rhs; zeros(3*(nvbd-1),1)];
 % Rotlet and Stokeslet equations
 
 usePreco = true;
-% usePreco = false;
+%usePreco = false;
     
 % START BUILDING BLOCK-DIAGONAL PRECONDITIONER
 if usePreco
@@ -2759,7 +2759,6 @@ elseif any(strcmp(varargin,'extensional'))
   T12 = zeros(N,nv);
   T22 = ones(N,nv);
 
-
 elseif any(strcmp(varargin,'parabolic'))
   R = find(strcmp(varargin,'R'));
   if isempty(R)
@@ -2788,18 +2787,21 @@ elseif any(strcmp(varargin,'invParabolic'))
 
 elseif any(strcmp(varargin,'rotate'))
   vInf = [y;-x];
-%  ./[x.^2+y.^2;x.^2+y.^2];
+  T11 = zeros(N,nv);
+  T12 = zeros(N,nv);
+  T22 = zeros(N,nv);
 
 elseif any(strcmp(varargin,'taylorGreen'))
   vInf = [sin(x).*cos(y);-cos(x).*sin(y)];
 
 elseif any(strcmp(varargin,'shear'))
-  k = find(strcmp(varargin,'k'));
-  if isempty(k)
-    k = 1; % default value for strength of flow
-  else
-    k = varargin{k+1};
-  end
+  k = 1;
+%  k = find(strcmp(varargin,'k'));
+%  if isempty(k)
+%    k = 1; % default value for strength of flow
+%  else
+%    k = varargin{k+1};
+%  end
   vInf = [k*y;zeros(N,nv)];
   T11 = zeros(N,nv);
   T12 = k*ones(N,nv);
@@ -2814,6 +2816,9 @@ elseif (any(strcmp(varargin,'choke')) || ...
   % typical mollifer so that velocity decays smoothly to 0
   vx(vx==Inf) = 0;
   vInf(ind,:) = vx;
+  T11 = zeros(N,nv);
+  T12 = zeros(N,nv);
+  T22 = zeros(N,nv);
   
 elseif any(strcmp(varargin,'couette'));
   vInf = [zeros(2*N,1) 1*[-y(:,2)+mean(y(:,2));x(:,2)-mean(x(:,2))]];
@@ -2858,9 +2863,9 @@ elseif any(strcmp(varargin,'figureEight'))
   vInf(sdown,:) = vInf(sdown,:) .* mollifier;
   % increase the velocity in a smooth fashion near the middle
   % of the solid walls
-
-elseif any(strcmp(varargin,'shear'))
-  vInf = [y;zeros(N,nv)];
+%
+%elseif any(strcmp(varargin,'shear'))
+%  vInf = [y;zeros(N,nv)];
 
 elseif any(strcmp(varargin,'diffuser'));
   vInf = zeros(2*N,nv);
@@ -2898,6 +2903,9 @@ end
 speed = varargin{2};
 % speed of the background velocity
 vInf = vInf * speed;
+T11 = speed*T11;
+T12 = speed*T12;
+T22 = speed*T22;
 
 end % bgFlow
 

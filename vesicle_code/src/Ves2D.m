@@ -133,8 +133,7 @@ while time < prams.T - 1e-10
     % compute the shear and normal stress along the vesicles
 
     terminate = om.outputInfo(X,sigma,u,eta,RS,...
-        shearStress,normalStress,Xwalls,Xtra,...
-        time,iter,dtScale,res,iflag);
+        Xwalls,Xtra,time,iter,dtScale,res,iflag);
     % check if we have violated the error in area or length also plot
     % and save the current solution to dat file.  Print information to
     % log file and console
