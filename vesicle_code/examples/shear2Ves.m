@@ -44,7 +44,7 @@ options.nsdc = 1;
 options.expectedOrder = 2;
 
 % Plot on-the-fly
-options.usePlot = true;
+options.usePlot = false;
 options.axis = [-5 5 -3 3];
 options.track = false;
 % Save vesicle information and create a log file
