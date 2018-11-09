@@ -1,7 +1,7 @@
 MEX=/Applications/MATLAB_R2017a.app/bin/mex
 #location of mex compiler on ronaldo
 
-FORTRAN = ifort
+FORTRAN = gfortran
 FFLAGS = -c 
 #MEX=/Applications/MATLAB_R2015a.app/bin/mex
 #location of mex compiler on ronaldo

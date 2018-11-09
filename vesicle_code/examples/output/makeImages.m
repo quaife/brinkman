@@ -1,7 +1,7 @@
 addpath ../../src
 set(0,'DefaultAxesFontSize',22)
 
-irate = 10; % controls the speed of the visualization
+irate = 1; % controls the speed of the visualization
 
 if 0
   file = 'shear1VesData.bin';
@@ -27,7 +27,7 @@ if 0
 end
 if 1
   file = 'shear2VesData.bin';
-  ax = [-10 10 -5 5];
+  ax = [-3 3 -3 3];
   options.confined = false;
 end
 if 0
