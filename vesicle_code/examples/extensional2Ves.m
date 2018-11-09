@@ -1,9 +1,11 @@
+function [] = extensional2Ves
+
 clear all; clc
 
 fprintf('Two elliptical vesicles in a extensional flow.\n');
 
 % Physics parameters
-prams.N = 128;               % points per vesicle
+prams.N = 512;               % points per vesicle
 prams.nv = 2;               % number of vesicles
 prams.T = 600;               % time horizon (two tumbling)
 prams.m = 2000;             % number of time steps
@@ -27,7 +29,7 @@ prams.errorTol = 1;
 % ADD-ONS
 options.correctShape = false;
 options.adhesion = true;
-prams.adRange = 8e-1;
+prams.adRange = 2e-1;
 prams.adStrength = 1e0;
 
 % TIME ADAPTIVITY (parameters for new implementation)
@@ -44,7 +46,7 @@ options.nsdc = 1;
 options.expectedOrder = 2;
 
 % Plot on-the-fly
-options.usePlot = true;
+options.usePlot = false;
 options.axis = [-4 4 -2 2];
 options.track = false;
 % Save vesicle information and create a log file
@@ -65,7 +67,7 @@ oc = curve;
 centerx = [-2 2];
 centery = zeros(1,2);
 ang = 0*ones(2,1);
-ra = 0.4;
+ra = 0.6;
 scale = 0.5*sqrt(ra);
 X = oc.initConfig(prams.N,'nv',prams.nv,...
     'reducedArea',ra,...
