@@ -838,6 +838,8 @@ else
   % This hopefully gets rid of pattern where a solution alternates
   % between being accepted and rejected.
 end
+
+o.dt = min(o.dt,1e-1);
 % safety factor added to the optimal time step size also, time step size
 % is not scaled up or down too fast For safety factor, take 1/p root.
 % In our formulation, this makes alpha the desired value for err
@@ -1539,6 +1541,16 @@ end
 
 u = (o.beta*X - Xo)/o.dt;
 % Compute the velocity using the differencing stencil
+G = o.Galpert;
+
+%figure(1); clf;
+%plot(Div*G*(-Ben*X + Ten*sigma))
+%figure(2); clf;
+%plot(sigma)
+%cond(bdiagVes.L*bdiagVes.U)
+%pause
+
+
 
 end % timeStep
 

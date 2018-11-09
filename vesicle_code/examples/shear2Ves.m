@@ -27,8 +27,8 @@ prams.errorTol = 1;
 % ADD-ONS
 options.correctShape = false;
 options.adhesion = true;
-prams.adRange = 2e-1;
-prams.adStrength = 0.6;
+prams.adRange = 4e-1;
+prams.adStrength = 0.7;
 
 % TIME ADAPTIVITY (parameters for new implementation)
 options.timeAdap = true;
@@ -65,7 +65,7 @@ oc = curve;
 centerx = [-1.5 1.5];
 centery = zeros(1,2);
 ang = pi/2*ones(2,1);
-ra = 0.4;
+ra = 0.90;
 scale = 1/2*sqrt(ra);
 X = oc.initConfig(prams.N,'nv',prams.nv,...
     'reducedArea',ra,...

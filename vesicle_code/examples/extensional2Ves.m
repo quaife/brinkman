@@ -5,7 +5,7 @@ clear all; clc
 fprintf('Two elliptical vesicles in a extensional flow.\n');
 
 % Physics parameters
-prams.N = 512;               % points per vesicle
+prams.N = 384;               % points per vesicle
 prams.nv = 2;               % number of vesicles
 prams.T = 600;               % time horizon (two tumbling)
 prams.m = 2000;             % number of time steps
@@ -28,15 +28,15 @@ prams.errorTol = 1;
 
 % ADD-ONS
 options.correctShape = false;
-options.adhesion = true;
+options.adhesion = false;
 prams.adRange = 2e-1;
 prams.adStrength = 1e0;
 
 % TIME ADAPTIVITY (parameters for new implementation)
 options.timeAdap = true;
 
-prams.rtolArea = 1e-2;
-prams.rtolLength = 1e-2;
+prams.rtolArea = 1e-3;
+prams.rtolLength = 1e-3;
 prams.betaUp = 1.2;
 prams.betaDown = 0.5;
 prams.alpha = 0.9;
@@ -67,7 +67,7 @@ oc = curve;
 centerx = [-2 2];
 centery = zeros(1,2);
 ang = 0*ones(2,1);
-ra = 0.6;
+ra = 0.9;
 scale = 0.5*sqrt(ra);
 X = oc.initConfig(prams.N,'nv',prams.nv,...
     'reducedArea',ra,...

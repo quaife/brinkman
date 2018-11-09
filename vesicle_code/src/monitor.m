@@ -217,7 +217,7 @@ end
 
 % Begin plotting
 if o.usePlot
-  o.plotData(X,time,ea,el);
+  o.plotData(X,Xwalls,time,ea,el);
   pause(0.01)
 end
 % End plotting
@@ -314,10 +314,10 @@ end
 end % writeMessage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function plotData(o,X,time,ea,el)
-% plotData(X,time,ea,el) plots the current configuration with title X is
-% the vesicle position time is the current time, ea and el are the
-% errors in area and length
+function plotData(o,X,Xwalls,time,ea,el)
+% plotData(X,Xwalls,time,ea,el) plots the current configuration with
+% title X is the vesicle position time is the current time, ea and el
+% are the errors in area and length
 
 N = size(X,1)/2; % Number of points per vesicle
 oc = curve;
@@ -327,6 +327,11 @@ oc = curve;
 figure(1); clf; hold on
 plot([x;x(1,:)],[y;y(1,:)],'r','linewidth',2)
 % Plot all vesicles
+
+[x,y] = oc.getXY(Xwalls);
+if numel(x) > 0
+  plot([x;x(1,:)],[y;y(1,:)],'k','linewidth',2)
+end
 
 titleStr = ['t = ' num2str(time,'%4.2e') ...
   ' eA = ' num2str(ea,'%4.2e') ...

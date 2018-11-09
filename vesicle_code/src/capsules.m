@@ -67,7 +67,7 @@ function [ben,ten,adh] = computeEnergies(vesicle,W0,d0)
 
 N = vesicle.N;
 
-ben = vesicle.kappa*sum(vesicle.cur.^2.*vesicle.sa)*2*pi/N;
+ben = vesicle.kappa.*sum(vesicle.cur.^2.*vesicle.sa)*2*pi/N;
 ten = sum(vesicle.sig.*vesicle.sa)*2*pi/N;
 
 adh = zeros(vesicle.nv,1);
@@ -80,7 +80,6 @@ for j = 1:N
 end
 adh(1) = sum(adhPotential.*vesicle.sa(:,1))*2*pi/N;
 adh(2) = sum(adhPotential.*vesicle.sa(:,1))*2*pi/N;
-
 
 end % computeEnergies
 
@@ -1416,19 +1415,21 @@ normalStress = zeros(N,nv);
 
 for ktar = 1:nv % loop over all vesicles
   ind = [(1:ktar-1) (ktar+1:nv)]; % all other vesicles
-  for jtar = 1:N
-    for ksou = ind
-      rx = X(jtar,ktar) - X(1:end/2,ksou);
-      ry = X(jtar+N,ktar) - X(end/2+1:end,ksou);
-      rho2 = rx.^2 + ry.^2;
-      rdotf = rx.*fx(:,ksou) + ry.*fy(:,ksou);
-      coeff = -1/pi*rdotf./rho2.^2.*vesicle.sa(:,ksou)*2*pi/N;
-      T11(jtar,ktar) = T11(jtar,ktar) + sum(coeff.*rx.*rx);
-      T12(jtar,ktar) = T12(jtar,ktar) + sum(coeff.*rx.*ry);
-      T22(jtar,ktar) = T22(jtar,ktar) + sum(coeff.*ry.*ry);
+  if numel(ind) > 0
+    for jtar = 1:N
+      for ksou = ind
+        rx = X(jtar,ktar) - X(1:end/2,ksou);
+        ry = X(jtar+N,ktar) - X(end/2+1:end,ksou);
+        rho2 = rx.^2 + ry.^2;
+        rdotf = rx.*fx(:,ksou) + ry.*fy(:,ksou);
+        coeff = -1/pi*rdotf./rho2.^2.*vesicle.sa(:,ksou)*2*pi/N;
+        T11(jtar,ktar) = T11(jtar,ktar) + sum(coeff.*rx.*rx);
+        T12(jtar,ktar) = T12(jtar,ktar) + sum(coeff.*rx.*ry);
+        T22(jtar,ktar) = T22(jtar,ktar) + sum(coeff.*ry.*ry);
+      end
     end
+    % loop over all points on all vesicles except self
   end
-  % loop over all points on all vesicles except self
 
   for jtar = 1:2:N  % odd-indexed points
     ind = (2:2:N); % use even indexed points
