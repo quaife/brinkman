@@ -67,7 +67,7 @@ oc = curve;
 centerx = [-2 2];
 centery = zeros(1,2);
 ang = 0*ones(2,1);
-ra = 0.7;
+ra = 0.99;
 scale = 0.5*sqrt(ra);
 X = oc.initConfig(prams.N,'nv',prams.nv,...
     'reducedArea',ra,...

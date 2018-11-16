@@ -10,7 +10,7 @@ prams.m = 2000;             % number of time steps
 prams.kappa = [1e-1 1e-1];         % bending coefficient
 prams.viscCant = [1 1];         % viscosity contrast
 options.farField = 'shear'; % background velocity
-options.farFieldSpeed = 1;
+options.farFieldSpeed = 1.0;
 aptions.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -65,7 +65,7 @@ oc = curve;
 centerx = [-1.5 1.5];
 centery = zeros(1,2);
 ang = pi/2*ones(2,1);
-ra = 0.90;
+ra = 0.50;
 scale = 1/2*sqrt(ra);
 X = oc.initConfig(prams.N,'nv',prams.nv,...
     'reducedArea',ra,...
