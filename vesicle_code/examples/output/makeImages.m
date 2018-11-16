@@ -9,8 +9,8 @@ if 0
   options.confined = false;
 end
 if 0
-  file = 'extensional2VesData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/noAdhesion_ra090/extensional2VesData.bin';
+%  file = 'extensional2VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR2em1adS1e0_ra040/extensional2VesData.bin';
   ax = [-4 4 -2 2];
   options.confined = false;
 end
@@ -20,14 +20,20 @@ if 0
   ax = [-2 2 -3 3];
   options.confined = false;
 end
+if 1
+  file = 'relaxation4VesData.bin';
+  ax = [-1 1 -1 1];
+  options.confined = false;
+end
 if 0
   file = 'nshearVes03n.Data.bin';
   ax = [-2 2 -2 2];
   options.confined = false;
 end
-if 1
+if 0
   file = 'shear2VesData.bin';
-  ax = [-3 3 -3 3];
+%  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR4em1adS2em1Chi2p5em1_ra090/shear2VesData.bin';
+  ax = [-10 10 -3 3];
   options.confined = false;
 end
 if 0
@@ -46,7 +52,7 @@ ntime = numel(time);
 %min_ten = floor(min(min(min(ten))));
 %max_ten = floor(max(max(max(ten))));
 %if (max_ss - min_ss < 1e-5)
-%  min_ss = min_ss - 1;
+%  min_ss = min_ss - 
 %  max_ss = max_ss + 1;
 %end
 
@@ -140,50 +146,8 @@ for k = istart:irate:iend
 %    print(gcf,'-dpng','-r300',filename);
 %  end
   pause(0.01)
+%  pause
 end
-
-if 0
-dist = zeros(ntime,1);
-N = size(posx,1);
-for k = 1:ntime
-  mindist = 1e10;
-  for j = 1:N
-    dist2 = (posx(j,1,k) - posx(:,2,k)).^2 + ...
-            (posy(j,1,k) - posy(:,2,k)).^2;
-    dist2 = min(dist2);
-    mindist = min([mindist,dist2]);
-  end
-  dist(k) = mindist;
-end
-
-%for k = 1:ntime
-%  x1 = mean(posx(:,1,k));
-%  y1 = mean(posy(:,1,k));
-%  x2 = mean(posx(:,2,k));
-%  y2 = mean(posy(:,2,k));
-%  dist(k) = (x1 - x2).^2 + (y1 - y2).^2;
-%end
-figure(2); clf
-dist = sqrt(dist);
-plot(time,dist)
-end
-
-if 0
-benEnergy = zeros(ntime,nv);
-tenEnergy = zeros(ntime,nv);
-adhEnergy = zeros(ntime,nv);
-
-for k = 1:ntime
-  Wconst = 2;
-  d0 = 8e-1;
-
-  vesicle = capsules([posx(:,:,k);posy(:,:,k)],ten(:,:,k),[],1e-1,1);
-  [benEnergy(k,:),tenEnergy(k,:),adhEnergy(k,:)] = ...
-      vesicle.computeEnergies(Wconst,d0);
-end
-adhEnergy = -adhEnergy;
-end
-
 
 
 
