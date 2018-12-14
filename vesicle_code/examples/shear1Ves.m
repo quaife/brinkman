@@ -4,7 +4,7 @@ fprintf('Simple elliptical vesicle in a shear flow.\n');
 fprintf('First-order semi-implicit time stepping.\n');
 
 % Physics parameters
-prams.N = 64;               % points per vesicle
+prams.N = 128;               % points per vesicle
 prams.nv = 1;               % number of vesicles
 prams.T = 20;               % time horizon (two tumbling)
 prams.m = 100;              % number of time steps
@@ -76,7 +76,7 @@ X = oc.initConfig(prams.N,...
     'scale',scale);
 % Initial configuration of reduce area 0.65 and aligned
 %theta = (0:prams.N-1)'*2*pi/prams.N;
-%X = [0.9*cos(theta);sin(theta)];
+%X = [0.99*cos(theta);sin(theta)];
 
 Ves2D(X,[],prams,options);
 % Run vesicle code

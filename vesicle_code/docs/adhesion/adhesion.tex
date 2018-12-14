@@ -1,0 +1,849 @@
+% ****** Start of file apssamp.tex ******
+%
+%   This file is part of the APS files in the REVTeX 4.1 distribution.
+%   Version 4.1r of REVTeX, August 2010
+%
+%   Copyright (c) 2009, 2010 The American Physical Society.
+%
+%   See the REVTeX 4 README file for restrictions and more information.
+%
+% TeX'ing this file requires that you have AMS-LaTeX 2.0 installed
+% as well as the rest of the prerequisites for REVTeX 4.1
+%
+% See the REVTeX 4 README file
+% It also requires running BibTeX. The commands are as follows:
+%
+%  1)  latex apssamp.tex
+%  2)  bibtex apssamp
+%  3)  latex apssamp.tex
+%  4)  latex apssamp.tex
+%
+\documentclass[%
+%reprint,
+%superscriptaddress,
+%groupedaddress,
+%unsortedaddress,
+%runinaddress,
+%frontmatterverbose, 
+preprint,
+%showpacs,preprintnumbers,
+%nofootinbib,
+%nobibnotes,
+%bibnotes,
+ amsmath,amssymb,
+ aps,
+%pra,
+%prb,
+%rmp,
+%prstab,
+%prstper,
+%floatfix,
+]{revtex4-1}
+
+\usepackage[titletoc]{appendix}
+\usepackage{todonotes}
+\usepackage{graphicx}% Include figure files
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+\usepackage{stmaryrd}
+%\usepackage{hyperref}% add hypertext capabilities
+%\usepackage[mathlines]{lineno}% Enable numbering of text and display math
+%\linenumbers\relax % Commence numbering lines
+
+%\usepackage[showframe,%Uncomment any one of the following lines to test 
+%%scale=0.7, marginratio={1:1, 2:3}, ignoreall,% default settings
+%%text={7in,10in},centering,
+%%margin=1.5in,
+%%total={6.5in,8.75in}, top=1.2in, left=0.9in, includefoot,
+%%height=10in,a5paper,hmargin={3cm,0.8in},
+%]{geometry}
+
+\renewcommand{\AA}{\mathcal{A}}
+\newcommand{\BB}{\mathcal{B}}
+\newcommand{\DD}{\mathcal{D}}
+\newcommand{\ff}{\mathbf{f}}
+\newcommand{\nn}{\mathbf{n}}
+\renewcommand{\tt}{\mathbf{t}}
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\rr}{\mathbf{r}}
+\newcommand{\RR}{\mathbb{R}}
+\renewcommand{\ss}{\mathbf{s}}
+\renewcommand{\SS}{\mathcal{S}}
+\newcommand{\TT}{\mathcal{T}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\WW}{\mathcal{W}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\xxi}{\boldsymbol{\xi}}
+\newcommand{\yy}{\mathbf{y}}
+
+\begin{document}
+
+\preprint{APS/123-QED}
+
+\title{Hydrodynamics of two vesicles interacting via a Van der Waals potential}% Force line breaks with \\
+%\thanks{A footnote to the article title}%
+
+\author{Bryan Quaife}
+ \email{bquaife@fsu.edu}
+ \altaffiliation[]{Department of Scientific Computing \\ Florida State University}
+\author{Shravan Veerapaneni}%
+ \email{shravan@umich.edu}
+\altaffiliation{%
+ Department of Mathematics \\
+University of Michigan, Ann Arbor
+}%
+\author{Yuan-Nan Young}%
+ \email{yyoung@njit.edu}
+\altaffiliation{%
+ Department of Mathematical Sciences \\
+ New Jersey Institute of Technology
+}%
+
+%\collaboration{MUSO Collaboration}%\noaffiliation
+
+%\author{Charlie Author}
+% \homepage{http://www.Second.institution.edu/~Charlie.Author}
+%\affiliation{
+% Second institution and/or address\\
+% This line break forced% with \\
+%}%
+%\affiliation{
+% Third institution, the second for Charlie Author
+%}%
+%\author{Delta Author}
+%\affiliation{%
+% Authors' institution and/or address\\
+% This line break forced with \textbackslash\textbackslash
+%}%
+%
+%\collaboration{CLEO Collaboration}%\noaffiliation
+
+\date{\today}% It is always \today, today,
+             %  but any date may be explicitly specified
+
+\begin{abstract}
+An article usually includes an abstract, a concise summary of the work
+covered at length in the main body of the article. 
+\begin{description}
+\item[Usage]
+Secondary publications and information retrieval purposes.
+\item[PACS numbers]
+May be entered using the \verb+\pacs{#1}+ command.
+\item[Structure]
+You may use the \texttt{description} environment to structure your abstract;
+use the optional argument of the \verb+\item+ command to give the category of each item. 
+\end{description}
+\end{abstract}
+
+\pacs{Valid PACS appear here}% PACS, the Physics and Astronomy
+                             % Classification Scheme.
+%\keywords{Suggested keywords}%Use showkeys class option if keyword
+                              %display desired
+\maketitle
+
+%\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+Vesicles (self-enclosed phopolipid bilayer membranes) have been widely utilized
+as simple cell mimics in biomedical and material engineering \cite{}. The ever expanding applications of vesicles have encouraged extensive investigations on vesicle hydrodynamics
+and electrohydrodynamics: Theoretical investigations are often limited to small-deformation of a nearly spherical (circular) vesicle in 3D (2D) \cite{Barthes-BieselRallison1981_JFM,Misbah2006_PRL,Vlahovska2007_PRE,Finken2008_EPL}. Various numerical schemes have been designed and deployed to simulate the dynamics of many vesicles \cite{BagchiJohoson2005_JBE,Biben2005_EJP,Veerapaneni2009_JCP,SeolHuKimLai2016_JCP}.  Careful experiments on vesicles under different flowing conditions or forcing configurations have been carried out \cite{MaderVitkova2006_EurPhysJE, Abkarian2008_SoftMatt}. In a vesicle suspension under 
+a hydrodynamic flow or an external field (such as an electric field) 
+the interactions between
+vesicles play a crucial role in determining the collective dynamics of
+vesicle suspension. For example, boundary integral simulations show that
+vesicles may align to form chains along the external electric field,
+enhancing the suspension viscosity in the direction of alignment.
+In numerical simulations, it is often assumed that vesicles do not get closer than a few nano meters, where the
+Van der Waals interaction between lipid bilayers becomes important \cite{EvansMetcalfe1984_BJ,Book_PhysicalBasisCellAdhesion,Book_IntermolecularSurfaceForces}.
+For giant unilamellar vesicles (GUVs) this assumption is reasonable, however for vesicles of size $\sim 100$ nm the van der Waals
+interactions between vesicles are important and may significantly affect their shape in the absence of any external forcing \cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}. In this paper we use boundary integral simulations to investigate
+how such Van der Waals interactions between sub-micron vesicles may affect their hydrodynamics and consequently the rheology 
+of their suspension in the dilute limit.
+
+
+Due to the nature of amphiphilic molecules (a dipole in the hydrophilic head), the adhesive interaction of a amphiphilic bilayer membrane 
+with either a solid (such as a glass substrate or a nano particle) or another bilayer 
+plays a central role in many biomedical, biological and biophysical processes.
+Vesicle adhesion is an essential step for membrane fusion/fission in many
+processes such as, e.g., endocytosis and exocytosis, that is, the
+transport of small vesicles through large membrane surfaces. 
+Adhesion between a vesicle and a substrate has been extensively studied, with 
+more computations and experiments for the equilibrium shapes \cite{Seifert1990_PRA,ShiFengGao2006_ActaMechSin,LinFreund2007_IntJSolidsStructures} than analysis and simulation of
+the dynamic adhesion process \cite{BlountMiksisDavis2013_PRSa}.
+Adhesion between bilayer membranes was first experimentally observed by Evans and Metcalfe, who measured 
+the reduction in the free energy per unit area of membrane-membrane contact formation due to the Van der Waals' attraction. For a membrane-membrane
+separation distance of $\sim 3$ nano meters, they estimated that the Hamaker constant $\sim 5.8\times 10^{-14}$ ergs \cite{EvansMetcalfe1984_BJ}, which corresponds to an adhesion energy density $\sim 1$ mJ/m$^2$. The ratio of adhesion energy per unit area to the bending energy (bending rigidity of lipid bilayer membranes $\sim 10^{-19}$ J) gives a measure of vesicle deformation in the presence of adhesion \cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}. In this work we focus on regimes where the ratio is of order unity, between the weak adhesion (ratio $\ll 1$) and strong adhesion (ratio $\gg 1$) regimes \cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}. 
+In this regime the membrane deformation may increase the ``contact area'' between two vesicles and enhance the adhesion effects \cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}. The equilibration of vesicle membranes under adhesion in these regimes have been well studied and documented (\cite{RamachandranAndersonLealIsraelachvili2010_Langmuir} and references therein). However it is not clear how in such regime the adhesion couples to the vesicle hydrodynamics? Our work in this paper aims to address this question with quantitative characterization in terms of physical parameters.
+
+
+
+Hydrodynamics of a single vesicle in Stokes flow has been extensively investigated. In a planar shear flow, the vesicle hydrodynamics is characterized by
+excess area (reduced volume), viscosity contrast between interior and exterior fluids, and shear rate of the imposed far-field fluid flow. In addition a vesicle
+with a rigid particle inside is also investigated as a biological mimic of a 
+eukaryotic cell with a nucleus that occupies nearly half of the intracellular volume \cite{Veerapaneni2011_PRL}. Small-deformation analysis shows that
+a vesicle tank-treads in a planar shear flow for low viscosity contrast and shear rate. At high viscosity contrast the tank-tread (TT) dynamics transitions to tumbling (TB) \cite{Misbah2006_PRL,Vlahovska2007_PRE} ,
+and this leads to a transition in effective shear viscosity in the vesicle suspension \cite{Misbah2006_PRL,Vitkova2008_BJ} that is also validated
+by direct numerical simulations \cite{GhigliottiBibenMisbah2010_JFM} and experiments \cite{KantslerSegreSteinberg2008_EPL,ZabuskySegreDeschamps2011_PoF}.
+Between TT and TB vesicle hydrodynamics, a breathing (tremble) is also observed \cite{Misbah2006_PRL,KantslerSegreSteinberg2008_PRL,ZhaoShaqfeh2011_JFM,SpannZhaoShaqfeh2014_PoF} to affect the effective shear viscosity in a 
+different way.
+%
+In an extensional flow (planar or uniaxial), vesicle shape dynamics
+depends sensitively on the vesicle reduced volume  and the elastic capillary number \cite{KantslerSegreSteinberg2008_PRL,ZhaoShaqfeh2013_JFM,Narsimhan2014_JFM,DahlNarsimhanGouveia2016_SoftMatt}: Asymmetric shape and oscillatory undulation of the vesicle membrane are two examples of the complex vesicle hydrodynamics in an extensional flow.
+
+In a quiescent environment, sub-micron size vesicles are found to form a doublet due to their Van der Waals' attractive interactions \cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}. Due to the strong Van der Waals' adhesive force, the vesicles are far
+from spherical shape and the membrane is almost flat in the ``contact" region. Gires {\it et al.} used small-deformation analysis to investigate the hydrodynamic
+interactions between two vesicles in a planar shear flow with a long separation distance \cite{GiresDankerMisbah2012_PRE}. They found that the vesicle interaction could be either attractive or repulsive depending on the organization of the two vesicles relative to the shear flow. To the best of authors' knowledge,
+the effects of close-range vesicle adhesion on their hydrodynamics under an external flow have not been studied and quantified. The goal of this work is to use
+state-of-the-art boundary integral simulations to numerically investigate the dynamics of two vesicles in both planar shear flow and extensional flow for a wide range of vesicle shapes and adhesive strength and distance.
+
+
+Boundary integral equations (BIEs) have a unique advantage that all the
+unknowns are on the boundary of the domain.  Therefore, resolving
+complex and dynamic geometries is straightforward.  Moreover, by using
+appropriate quadrature rules, high-order or spectral accuracy is
+obtained.  Finally, even though the resulting linear systems that need
+to be solved are dense, they can be solved with optimal complexity by
+using fast summation methods.  \todo[inline]{Time stepping}
+
+
+This paper is organized as follows.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Governing Equations}
+We consider suspensions of locally inextensible vesicles in an unbounded
+two-dimensional viscous fluid.  For simplicity, we assume the fluid
+viscosity both inside and outside the vesicles is constant, but our
+method can be easily adjusted to account for a viscosity contrast.
+Individual vesicles are denoted as $\gamma_j$, and they are
+parameterized in arclength as $\xx_j(s,t)$.  The union of all vesicles
+is denoted by $\gamma$.  Given a background velocity $\uu_\infty$, the
+governing equations are
+\begin{equation*}
+\begin{aligned}
+  \mu \Delta \uu = \nabla p, \quad &\xx \in \RR^2,
+    &&\mbox{\em conservation of momentum} \\
+  \nabla \cdot \uu = 0, \quad &\xx \in \RR^2, 
+    &&\mbox{\em conservation of mass} \\
+  \uu \rightarrow \uu_\infty, \quad &\|\xx\| \rightarrow \infty,
+    &&\mbox{\em far-field condition} \\
+  \uu(\xx,t) = \dot{\xx}, \quad &\xx \in \gamma,
+    &&\mbox{\em velocity continuity} \\
+  \xx_s \cdot \uu_s =0, \quad &\xx \in \gamma,
+    &&\mbox{\em vesicle inextensibility} \\
+  \llbracket T \rrbracket \nn = \xxi, \quad &\xx \in \gamma,
+    &&\mbox{\em non-zero traction jump}
+\end{aligned}
+\end{equation*}
+where $\xxi$ is the traction jump that depends on a bending, stretching,
+and adhesion.  The bending term is $\BB \xx = -\kappa_b \xx_{ssss}$,
+where $\kappa_b$ is the bending modulus, and this term comes from the
+Helfrich energy.  For the numerical examples, we set $\kappa_b = 1$ and
+use a Hamaker constants ranging from $0.1$ to $1$.  The stretching term
+is $\TT \sigma  = (\sigma \xx_s)_s$, where $\sigma$ is the tension.  The
+resistance to bending and stretching are standard assumptions of
+vesicles.  In this work, we include an adhesive term, $\AA \xx$, that we
+now describe.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Adhesion Model}
+The adhesion model of Sukumaran and Seifert~\cite{suk-sei2001,
+RamachandranAndersonLealIsraelachvili2010_Langmuir} considers adhesion
+between a single three-dimensional vesicle and a solid wall at $z=0$.
+\todo[inline]{Need a cartoon picture in here.  Some kind of version of
+the one I had for my SIAM Life Sciences Talk}
+Their model uses the adhesion potential
+\begin{align*}
+  \phi(z) = \sigma\left(\frac{\delta}{z}\right)^2 \left[ 
+    \left(\frac{\delta}{z}\right)^2 - 2 \right],
+\end{align*}
+where $z$ is the distance between the solid wall and the vesicle,
+$\sigma$ is the Hamaker constant, and $\delta$ is the adhesion length
+scale.  We generalize this model to an unbounded suspension of vesicles.
+We assume that the adhesion force applies between all pairs of points on
+different vesicles, so we are interested in Hamaker constants that are
+appropriate for lipid-lipid interactions. In
+Appendix~\ref{sec:appendixA}, the adhesive force at a point $\xx$ on
+vesicle $j$ is shown to be
+\begin{align}
+  \AA\xx:=-4 \sigma \delta^2\sum_{\substack{k=1 \\ k \neq j}}^M 
+  \int_{\gamma_k} \frac{\xx - \yy}{\|\xx - \yy\|^2} 
+  \left(\delta^2 - \|\xx - \yy\|^2 \right) ds_\yy.
+  \label{eqn:adhesionForce}
+\end{align}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Integral Equation Formulation}
+Because the fluid equations are linear and elliptic, an integral
+equation formulation is possible.  This has several advantages,
+including that only the vesicle interfaces require discretization.  We
+start by defining the Stokes single-layer potential
+\begin{align}
+  \SS[\ff](\xx) &= \frac{1}{4\pi\mu} \int_\gamma \left(
+    -\log \rho + \frac{\rr \otimes \rr}{\rho^2} \right) 
+    \ff(\yy) ds_\yy, \quad \xx \in \RR^2.
+  \label{eqn:SLP}
+\end{align}
+The traction jump of the velocity $\uu(\xx) = \SS[\ff](\xx)$ is the
+density function $\ff$, so the fluid velocity is $\xx \in \RR^2$ is
+\begin{align*}
+  \uu(\xx) = \uu_{\infty}(\xx) + \SS[\xxi](\xx).
+\end{align*}
+The traction jump is given by three terms: the bending, tension, and
+adhesion.  Therefore
+\begin{align*}
+  \xxi = -\kappa_b \xx_{ssss} + (\sigma \xx_s)_s + \AA \xx.
+\end{align*}
+Applying the no-slip boundary condition on each vesicle, the governing
+equations are
+\begin{align*}
+  &\dot{\xx} = \uu_{\infty}(\xx) + \SS[\xxi](\xx), \\
+  &\xx_s \cdot \uu_s = 0, \\
+  &\xxi = -\kappa_b \xx_{ssss} + (\sigma \xx_s)_s + \AA\xx.
+\end{align*}
+Defining the bending operator as $\BB[\xx](\ff) = -\kappa_b \ff_{ssss}$,
+and the tension operator $\TT[\xx](\sigma) = (\sigma \xx_s)_s$, the
+no-slip boundary condition can be written as
+\begin{align*}
+  \pderiv{\xx}{t} = \SS \BB \xx + \SS \TT \sigma + \SS \AA \xx.
+\end{align*}
+We apply the IMEX-Euler method 
+\begin{align*}
+  \frac{\xx^{N+1} - \xx^N}{\Delta t} = \SS^N \BB^N \xx^{N+1} + 
+  \SS^N \TT^N \sigma^{N+1} + \SS^N \AA^N \xx^N,
+\end{align*}
+that treats both the bending and tension terms
+semi-implicitly~\cite{qua-bir2014}. Note that the adhesive term is
+treated explicitly.  Therefore, a single time step requires solving
+\begin{align}
+  \xx^{N+1} - \Delta t \SS^N \BB^N \xx^{N+1} - 
+    \Delta t \SS^N \TT^N \sigma^{N+1} = \xx^N + 
+    \Delta t \SS^N \AA^N \xx^N,
+  \label{eqn:IMEXEuler}
+\end{align}
+along with the inextensibility constraint that is discretized as
+\begin{align*}
+  \xx_s^{N} \cdot \xx_{s}^{N+1} = 1.
+\end{align*}
+We discretize the vesicles at a set of collocation points, compute the
+bending and tension terms with Fourier differentiation, and apply
+Alpert quadrature to the logarithmically singular single-layer potential
+$\SS$~\cite{alp1999}.  The source and target points of the adhesion
+force never coincide since they are always on different vesicles, so the
+adhesion force~\eqref{eqn:adhesionForce} is computed with the spectrally
+accurate trapezoid rule~\cite{tre-wei2014}.  To control the error and
+achieve higher-order accuracy in time, we apply a time adaptive spectral
+deferred correction method~\cite{qua-bir2016}.  The SDC method is able
+to achieve second-order accuracy by iteratively applying the first-order
+method~\eqref{eqn:IMEXEuler}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Shear and Normal Stresses}
+Consider a single vesicle $\gamma$ and a target point $\xx$ in the fluid
+bulk.  In addition to the velocity $\uu$, we are also interested in
+computing the shear stress and normal stresses of each vesicle.
+Therefore, we must compute the total stress tensor
+\begin{align*}
+  T = - p I + \nabla \uu + \nabla \uu^T
+\end{align*}
+of the single-layer potential~\eqref{eqn:SLP}.  Given a traction jump
+$\xxi$ across a vesicle $\gamma$, the velocity, pressure, and stress
+tensor at a target point $\xx$ are in the bulk
+\begin{align*}
+  \uu(\xx) &= \SS_\uu[\xxi](\xx) = \frac{1}{4\pi\mu}\int_{\gamma} \left( 
+    -\log \rho + \frac{\rr \otimes \rr}{\rho^2} \right) 
+    \xxi ds_\yy, \\
+    p(\xx) &= \SS_p[\xxi](\xx) = \frac{1}{2\pi} \int_{\gamma} 
+    \frac{\rr \cdot \xxi}{\rho^2} ds_\yy, \\
+    T(\xx) &= \SS_T[\xxi](\xx) = -\frac{1}{\pi}\int_{\gamma}
+      \frac{\rr \cdot \xxi}{\rho^2} 
+      \frac{\rr \otimes \rr}{\rho^2} ds_\yy.
+\end{align*}
+We require the stress tensor on the vesicle, and the layer potential for
+$\SS_T$ has a jump as $\xx$ approaches $\gamma$.  Accounting for the
+jump, the stress tensor at $\xx \in \gamma$ is
+\begin{align*}
+  T(\xx) = \frac{1}{2}(\nn \otimes \xxi) + \frac{1}{2} \left(
+    \tt \otimes \left[
+    \begin{array}{cc}
+      2 t_x t_y & t_y^2 - t_x^2 \\
+      t_y^2 - t_x^2 & -2 t_x t_y
+    \end{array}
+    \right] \xxi \right) + 
+  \SS_T[\xxi](\xx).
+\end{align*}
+With the stress tensor computed for $\xx \in \gamma$, we can compute the
+shear stress and normal stress
+\begin{align*}
+  \tau^\tt = (T \nn) \cdot \tt, \qquad
+  \tau^\nn = (T \nn) \cdot \nn.
+\end{align*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Adhesion of two vesicles in a quiescent flow} 
+\label{sec:qflow} 
+
+\subsection{Effects of the adhesion parameters}
+\label{subsec:qflow_adhesion_parameters} 
+Here we investigate the dynamics and steady state configuration of two
+identical vesicles placed next to each other in a quiescent flow.  For a
+large reduced area, the two vesicles move toward each other until the
+membrane flattens in the adhesion region, as shown in
+Figures~\ref{fig:qflow01} and~\ref{fig:qflow02}.  The color coding along
+the membrane denotes the membrane tension, which is the lowest in the
+adhesion region.
+
+\begin{figure}
+\includegraphics[keepaspectratio=true,scale=0.125]{figs/Nrelax2Ves02-rA0p96adR0p4.png}
+\caption{Two vesicles interacting with each other via a vdW potential at different strengths in a quiescent viscous fluid. The color coding is the tension along the vesicle.}
+\label{fig:qflow01}
+\end{figure}
+
+\begin{figure}
+\includegraphics[keepaspectratio=true,scale=0.25]{figs/Nrelax2Ves02composite-draining.pdf}
+\caption{Adhesion of two vesicles in a quiescent flow.  Only one vesicle
+  is illustrated, and the second is a mirror image.  Left panel: The
+  steady state configuration for different vdW interaction distances.
+  The color coding is the tension along the vesicle.  Right panel:
+  Vesicle configurations at different times for different vdW strengths.
+  The top plot has the weakest vdW strength and the bottom plot has the
+  strongest vdW strength.}
+\label{fig:qflow02} 
+\end{figure}
+
+% \begin{figure}
+% \includegraphics[keepaspectratio=true,scale=0.4]{figs/relax2Ves01g-draining01a.eps}
+% \caption{Adhesion dynamics of two vesicles with $\delta = 0.3$. From $t=0.3$ to $t=40$, the time interval $\delta t = 0.3$ between every two neighboring dash-dotted curves.}
+% \label{fig:qflow_g-draining01a}
+% \end{figure}
+
+% \begin{figure}
+% \includegraphics[keepaspectratio=true,scale=0.4]{figs/relax2Ves01j-draining01a.eps}
+% \caption{Adhesion dynamics of two vesicles with $\delta = 0.6$. From $t=0.1$ to $t=40$, the time interval $\delta t = 0.1$ between every two neighboring dash-dotted curves.}
+% \label{fig:qflow_g-draining01a}
+% \end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Effects of reduced area}
+\label{sec:qflow_reduced_area} 
+Figure~\ref{fig:qflow_reduced_area}
+
+\begin{figure}
+\includegraphics[keepaspectratio=true,scale=0.5]{figs/nrelax2Ves02o_rA.png}
+\caption{The effect of the reduced area on adhering vesicles in a
+quiescent flow.  The parameters of the vdW potential are $\delta = 0.2$
+and $\sigma = 0.5$.}
+\label{fig:qflow_reduced_area}
+\end{figure}
+
+% \begin{figure}
+% \includegraphics[keepaspectratio=true,scale=0.4]{figs/relax2Ves01usa.eps}
+% \caption{Adhesion dynamics of two vesicles with $\delta = 0.4$ and $\sigma=0.2$. From $t=0.06$ to $t=100$, the time interval $\delta t = 0.06$ between every two neighboring dash-dotted curves.}
+% \label{fig:qflow_u-draining}
+% \end{figure}
+
+% \begin{figure}
+% \includegraphics[keepaspectratio=true,scale=0.4]{figs/relax2Ves01zsa.eps}
+% \caption{Adhesion dynamics of two vesicles with $\delta = 0.4$ and $\sigma=0.2$. From $t=1$ to $t=100$, the time interval $\delta t = 1$ 
+% between every two neighboring dash-dotted curves.}
+% \label{fig:qflow_z-draining}
+% \end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Adhesion of two vesicles in an extensional flow} 
+\label{sec:eflow} 
+We consider two vesicles suspended in the extensional flow $\uu =
+\chi(-x,y)$, where $\chi$ is the extensional rate.  The vesicles are
+initially place symmetrically on the $y$ axis so that the background
+velocity drives the vesicles towards one another.  We vary the reduced
+area and the two vdW parameters and characterize the possible steady
+state configurations.  For all the simulations, the length of the
+vesicles are fixed, while the area is changed to achieve the desired
+reduced area.
+
+\begin{figure}[htp]
+  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep1.pdf}
+  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep2.pdf}
+  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep3.pdf}
+  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep4.pdf}
+  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep5.pdf}
+  \caption{Two vesicles in an extensional flow.  The reduced area is
+  $0.40$, the adhesion strength is $1.0$, and the adhesion length scale
+is $0.8$, background flow strength is $\chi = 10^{-2}$.}
+\end{figure}
+
+\begin{figure}[htp]
+  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep1.pdf}
+  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep2.pdf}
+  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep3.pdf}
+  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep4.pdf}
+  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep5.pdf}
+  \caption{Two vesicles in an extensional flow.  The reduced area is
+  $0.90$, the adhesion strength is $1.0$, and the adhesion length scale
+is $0.8$, background flow strength is $\chi = 10^{-2}$.}
+\end{figure}
+
+\todo[inline]{Phase diagram of different shapes that can be formed}
+\todo[inline]{Vary the reduced area, adhesion strength, and adhesion
+length scale?}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Adhesion of two vesicles in a shear flow}
+\label{sec:sflow} 
+We consider two vesicles suspended in the shear flow $\uu = \chi(y,0)$,
+where $\chi$ is the shear rate.  The vesicles are placed on the $y$ axis
+so that the background velocity drives the vesicles towards one another.
+In the absence of adhesion, once the vesicles are sufficiently close,
+they are deflected to opposite sides of the $y$ axis, and the result is
+that the distance between the vesicles goes to infinity.  However, in
+the presence of adhesion, is it possible that the adhesive force keeps
+the vesicles from separating, resulting in the formation of a {\em
+doublet}~\cite{}.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Formation of doublets}
+\label{sec:sflow_doublet_formation} 
+The formation of the doublet depends on four main parameters: the
+vesicles' reduced area, the adhesion length scale $\delta$, the adhesion
+strength $\sigma$, and the shear rate $\chi$.
+Figure~\ref{fig:doublet090} shows the configuration of two vesicles that
+have formed a doublet at several instances in time.  The double
+structure affects the rheological properties of the flow; in particular,
+it increases the effect viscosity as discussed in Section~\ref{}.  In
+Figure~\ref{fig:sflow_phase_diagram} (left), we show the minimum
+distance between the two vesicles as a function of time for various
+adhesion strengths.  The adhesion strength corresponding to the red
+curves is less than a critical strength $\sigma_c$ for a doublet to
+form.  In contrast, for larger adhesive strengths, doublets are formed
+(blue curves).
+
+\begin{figure}[htp]
+  \includegraphics[width=0.19\textwidth]{figs/shear_adR4em1adS7em1Chi1e0_ra090_timestep01.pdf}
+  \includegraphics[width=0.19\textwidth]{figs/shear_adR4em1adS7em1Chi1e0_ra090_timestep02.pdf}
+  \includegraphics[width=0.19\textwidth]{figs/shear_adR4em1adS7em1Chi1e0_ra090_timestep03.pdf}
+  \includegraphics[width=0.19\textwidth]{figs/shear_adR4em1adS7em1Chi1e0_ra090_timestep04.pdf}
+  \includegraphics[width=0.19\textwidth]{figs/shear_adR4em1adS7em1Chi1e0_ra090_timestep05.pdf}
+  \includegraphics[width=0.19\textwidth]{figs/shear_adR4em1adS7em1Chi1e0_ra090_timestep06.pdf}
+  \includegraphics[width=0.19\textwidth]{figs/shear_adR4em1adS7em1Chi1e0_ra090_timestep07.pdf}
+  \includegraphics[width=0.19\textwidth]{figs/shear_adR4em1adS7em1Chi1e0_ra090_timestep08.pdf}
+  \includegraphics[width=0.19\textwidth]{figs/shear_adR4em1adS7em1Chi1e0_ra090_timestep09.pdf}
+  \includegraphics[width=0.19\textwidth]{figs/shear_adR4em1adS7em1Chi1e0_ra090_timestep10.pdf}
+  \caption{\label{fig:doublet090} The formation of a doublet in a shear
+  flow.  The reduced area is $0.90$, the adhesion strength is $0.7$, the
+adhesion length scale is $0.4$, and the shear rate is $\chi=1$.}
+\end{figure}
+
+\begin{figure}
+  \todo[inline]{Fix and finish right figure}
+  \includegraphics[height=0.4\textwidth]{figs/shear_adR4em1Chi1e0_ra-090.pdf}
+  \includegraphics[height=0.4\textwidth]{figs/shear_adR4em1_ra090_phaseDiagram.pdf}
+  \caption{{\em Left}: Distance between a pair of vesicles in a planar
+    shear flow with shear rate $\chi=1$ and adhesion length scale
+    $\delta = 0.4$.   The different lines correspond to a linear spacing
+    of adhesion strengths ranging from $\sigma=0.1$ and $\sigma=1.0$.
+    {\em Right}: Phase diagram of vesicle hydrodynamics in a shear flow.
+    At a fixed reduced area $\triangle A=0.90$ and $\delta =0.4$,  the
+    critical vdW potential strength $\sigma$ for binding of two vesicles
+    in a shear flow depends on the shear rate $\chi$.
+  \label{fig:sflow_phase_diagram}}
+\end{figure}
+
+%Figures~\ref{fig:sflow_phase_diagram},
+%~\ref{fig:sflow_1frames}, and~\ref{fig:sflow_2frames}
+%\begin{figure}
+%\includegraphics[keepaspectratio=true,scale=0.41]{figs/shear2Ves01a-iD12a.eps}
+%\includegraphics[keepaspectratio=true,scale=0.415]{Nshear02_adS_ShearRate01.png}
+%% \includegraphics[keepaspectratio=true,scale=0.40]{figs/Nshear02_adS_rA01.png}
+%\caption{(a) Dynamics of a pair of vesicles in a planar shear flow with shear rate $\dot\gamma=1$ and vdW length $\delta = 0.4$. (b) Phase diagram of vesicle hydrodynamics in a shear flow. At a fixed reduced area $\triangle A=0.95$ and $\delta =0.4$,  the critical vdW potential strength $\sigma$ for binding of two vesicles in a shear flow depends on the shear rate $\dot\gamma$.}
+%\label{fig:sflow_phase_diagram}
+%\end{figure}
+
+\begin{figure}
+%\includegraphics[keepaspectratio=true,scale=0.215]{figs/shear2Ves03na_frame412.png}
+%\includegraphics[keepaspectratio=true,scale=0.215]{figs/shear2Ves03na_frame2565.png}
+%\includegraphics[keepaspectratio=true,scale=0.215]{figs/shear2Ves03na_frame3611.png}
+%\includegraphics[keepaspectratio=true,scale=0.215]{figs/shear2Ves03na_frame4075.png}
+%\includegraphics[keepaspectratio=true,scale=0.215]{figs/shear2Ves03na_frame6501.png}
+%\includegraphics[keepaspectratio=true,scale=0.215]{figs/shear2Ves03na_frame6640.png}
+\caption{Dynamics of a vesicle doublet in a shear flow with $\delta = 0.4$, $\sigma = 0.7$ and $\triangle A=0.95$.}
+\label{fig:sflow_1frames}
+\end{figure}
+
+\begin{figure}
+%\includegraphics[keepaspectratio=true,scale=0.27]{figs/shear2Ves03qa_frame12630.png}
+%\includegraphics[keepaspectratio=true,scale=0.27]{figs/shear2Ves03qa_frame15128.png}
+%\includegraphics[keepaspectratio=true,scale=0.27]{figs/shear2Ves03qa_frame18399.png}
+%\includegraphics[keepaspectratio=true,scale=0.27]{figs/shear2Ves03qa_frame18801.png}
+%\includegraphics[keepaspectratio=true,scale=0.27]{figs/shear2Ves03qa_frame19018.png}
+%\includegraphics[keepaspectratio=true,scale=0.27]{figs/shear2Ves03qa_frame21547.png}
+\caption{Dynamics of a vesicle doublet in a shear flow with $\delta = 0.4$, $\sigma = 1.0$ and $\triangle A=0.95$.}
+\label{fig:sflow_2frames}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Effects of reduced area}
+%\label{sec:sflow_reduced_area} 
+%Figure~\ref{fig:sflow_ra_D12} and~\ref{fig:sflow_shearVes11frames}
+%
+%\begin{figure}
+%\includegraphics[keepaspectratio=true,scale=0.405]{figs/shear2Ves10-11D12a.eps}
+%\includegraphics[keepaspectratio=true,scale=0.405]{figs/shear2Ves10-11tau.png}
+%\caption{Dynamics of two vesicles in a shear flow with the adhesion length $\delta = 0.4$ and several varying adhesion strength $\sigma$. Tolerance in length error is $10^{-3}$ and number of points is $256$ on each vesicle.}
+%\label{fig:sflow_ra_D12}
+%\end{figure}
+%
+% \begin{figure}
+% \includegraphics[keepaspectratio=true,scale=0.27]{figs/shear2Ves03etol1em3_frame6026.png}
+% \includegraphics[keepaspectratio=true,scale=0.27]{figs/shear2Ves03etol1em3_frame6144.png}
+% \includegraphics[keepaspectratio=true,scale=0.27]{figs/shear2Ves03etol1em3_frame6704.png}\\
+% \includegraphics[keepaspectratio=true,scale=0.27]{figs/shear2Ves03etol1em3_frame6945.png}
+% \includegraphics[keepaspectratio=true,scale=0.27]{figs/shear2Ves03etol1em3_frame7463.png}
+% \includegraphics[keepaspectratio=true,scale=0.27]{figs/shear2Ves03etol1em3_frame7986.png}
+% \caption{Dynamics of a vesicle doublet in a shear flow with $\delta = 0.4$, $\sigma = 0.1$ and $\triangle A=0.95$.}
+% \label{fig:sflow_shearVes03eframes}
+% \end{figure}
+%
+%\begin{figure}
+%\includegraphics[keepaspectratio=true,scale=0.2]{figs/shear2Ves02qe_frame2287.png}
+%\includegraphics[keepaspectratio=true,scale=0.2]{figs/shear2Ves02qe_frame2927.png}
+%\includegraphics[keepaspectratio=true,scale=0.2]{figs/shear2Ves02qe_frame3855.png}
+%\includegraphics[keepaspectratio=true,scale=0.2]{figs/shear2Ves02qe_frame4072.png}
+%\includegraphics[keepaspectratio=true,scale=0.2]{figs/shear2Ves02qe_frame4108.png}
+%\includegraphics[keepaspectratio=true,scale=0.2]{figs/shear2Ves02qe_frame4281.png}
+%\includegraphics[keepaspectratio=true,scale=0.2]{figs/shear2Ves02qe_frame4676.png}
+%\includegraphics[keepaspectratio=true,scale=0.2]{figs/shear2Ves02qe_frame5001.png}
+%\includegraphics[keepaspectratio=true,scale=0.2]{figs/shear2Ves02qe_frame5070.png}
+%\caption{Dynamics of a vesicle doublet in a shear flow with $\delta = 0.4$, $\sigma = 0.1$ and $\triangle A=0.5$.}
+%\label{fig:sflow_shearVes11frames}
+%\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Effective viscosity of a doublet}
+\todo[inline]{Effect of effective viscosity with respect to the reduced
+area and adhesion model}
+\todo[inline]{Compare a single vesicle as per Misbah with doublets}
+\todo[inline]{Bryan can start this section}
+
+Here we investigate rheology of suspensions by computing the effective
+viscosity. The effective viscosity is defined as the viscosity of a
+homogeneous Newtonian fluid with the same energy dissipation per
+macroscopic element of fluid.  In a simple shear flow, the ambient
+velocity field is given by $\uu(\xx) = (\chi y,0)$, where $\chi$ is the
+shear rate.  In dilute suspensions, the interaction between vesicles can
+be ignored, and the intrinsic viscosity is
+\begin{align*}
+  [\mu]:= \frac{\mu_{\mathrm{eff}} - \mu_0}{\phi \mu_0} = 
+  \frac{1}{\chi \mu_0 T} \int_{T_i}^{T_e} 
+  \langle \sigma_{12} \rangle dt,
+\end{align*}
+where
+\begin{align*}
+  \langle \sigma \rangle = \frac{1}{|\omega|} \int_{\gamma}
+    \xxi \otimes \xx ds.
+\end{align*}
+Here, $[\mu]$ is the intrinsic viscosity, $|phi$ is the area fraction of
+vesicles, $\sigma$ is the stress due to the vesicles, and $\langle \cdot
+\rangle$ is the spatial average.  For dilute suspensions of rigid
+bodies, the intrinsic viscosity was derived by Eienstein~\cite{}, and it
+is given by
+\begin{align*}
+  something.
+\end{align*}
+For vesicles, the intrinsic viscosity was derived by Misbah~\cite{}, and
+it is given by
+\begin{align*}
+  something.
+\end{align*}
+
+When adhesion is present, the formation of doublets has a significant
+effect on the effective viscosity.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions}
+\todo[inline]{Concluding remarks}
+
+Future work includes three dimensional simulations, viscosity contrast,
+confined suspensions, and dense suspensions.
+
+Recently Liu {\it et al.} \cite{LiuChuNewbyRead2018_bioRxiv} used immersed boundary simulations to show that, 
+at a separation distance of tens of nanometers,
+the thin film between the two membranes facilitate the coupling between membranes via strong hydrodynamic interactions. In particular they demonstrate
+numerically that the fluctuation in one membrane is highly correlated to the other membrane without any physical contact. It is not clear how thermal fluctuations may affect the hydrodynamics of vesicles under adhesion. For example, does the fluctuating hydrodynamics in the thin film between two vesicles enhance adhesion to keep vesicles bound under linear flows?
+
+\begin{appendices}
+\section{Adhesion Force}
+\label{sec:appendixA}
+Consider a suspension of two vesicles $\gamma_1$ and $\gamma_2$
+parameterized as $\xx_1(s)$ and $\xx_2(s)$, respectively, with $s \in
+[0,1]$.  Here $s$ is the arclength, and we have assumed, without loss of
+generality, that both vesicles have length one.  We use the van der
+Waals potential
+\begin{align*}
+  \phi(z) = \sigma\left(\frac{\delta}{z}\right)^2 \left[ 
+    \left(\frac{\delta}{z}\right)^2 - 2 \right],
+\end{align*}
+where $z$ is the distance between two points.  Then, we define the total
+adhesive energy on $\gamma_1$ to be
+\begin{align*}
+  U_1 = \int_{\gamma_1} \int_{\gamma_2} \phi(\|\xx_1 - \xx_2\|) 
+    ds_{\xx_2} ds_{\xx_1}
+\end{align*}
+Perturbing $\xx_1$ to $\tilde{\xx}_1 = \xx_1 +  \delta \xx_1$, results
+in a new vesicle $\tilde{\gamma}_1$, and the perturbed adhesive energy
+is
+\begin{align*}
+  \widetilde{U}_1 = \int_{\tilde{\gamma}_1} \int_{\gamma_2}
+  \phi(\|\tilde{\xx}_1 - \xx_2\|) ds_{\xx_2} ds_{\tilde{\xx}_1},
+\end{align*}
+and the change in the energy is
+\begin{align*}
+  \delta U_1 = \int_{\tilde{\gamma}_1} \int_{\gamma_2}
+  \phi(\|\tilde{\xx}_1 - \xx_2\|) ds_{\xx_2} ds_{\tilde{\xx}_1} - 
+  \int_{\gamma_1} \int_{\gamma_2} \phi(\|\xx_1 - \xx_2\|) 
+  ds_{\xx_2} ds_{\xx_1}.
+\end{align*}
+
+We now decompose the perturbation into normal and tangential components
+as $\delta \xx_1 = \epsilon \yy(s) = \epsilon(u\tt + v\nn)$. The
+perturbed arclength term, to leading order, is
+\begin{align*}
+  \|\tilde{\xx}'_1\| \approx 1 + \epsilon(u_s + \nu\kappa),
+\end{align*}
+where $\kappa$ is the curvature.  To leading order, inextensible
+perturbations satisfy $u_s + \kappa v = 0$, so the arclength term of
+$\gamma_1$ and $\tilde{\gamma}_1$ are identical to leading order.
+Therefore,
+\begin{align*}
+  \delta U_1 &= \int_{\gamma_1} \int_{\gamma_2} \left(
+  \phi(\|\xx_1 + \epsilon \yy  - \xx_2\|) - \phi(\|\xx_1 - \xx_2\|)
+  \right) ds_{\xx_2} ds_{\xx_1} \\
+  &\approx \epsilon \int_{\gamma_1} \int_{\gamma_2}
+  \nabla \phi (\|\xx_1 - \xx_2\|) \cdot \yy ds_{\xx_2} ds_{\xx_1}
+\end{align*}
+and the adhesive force applied by vesicle 2 on vesicle 1 is
+\begin{align*}
+  \int_{\gamma_2}\nabla \phi(\|\xx_1 - \xx_2\|)ds_{\xx_2} = 
+  -4 \sigma \delta^2 \int_{\gamma_2}
+  \frac{\xx_1 - \xx_2}{\|\xx_1 - \xx_2\|^2} 
+  \left(\delta^2 - \|\xx_1 - \xx_2\|^2 \right) ds_{\xx_2}.
+\end{align*}
+A similar expression holds for the adhesive force applied by vesicle 1
+on vesicle 2, and equation~\eqref{eqn:adhesionForce} gives the adhesive
+force for a suspension of $M$ vesicles.
+
+\section{Small Deformation Limit}
+\label{sec:appendixB}
+\todo[inline]{Used to validate the code/results}
+
+
+
+
+\end{appendices}
+
+
+\bibliography{refs}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{\label{sec:level2}Second-level heading: Formatting}
+%
+%This file may be formatted in either the \texttt{preprint} or
+%\texttt{reprint} style. \texttt{reprint} format mimics final journal output. 
+%Either format may be used for submission purposes. \texttt{letter} sized paper should
+%be used when submitting to APS journals.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsubsection{Wide text (A level-3 head)}
+%The \texttt{widetext} environment will make the text the width of the
+%full page, as on page~\pageref{eq:wideeq}. (Note the use the
+%\verb+\pageref{#1}+ command to refer to the page number.) 
+%\paragraph{Note (Fourth-level head is run in)}
+%The width-changing commands only take effect in two-column formatting. 
+%There is no effect if text is in a single column.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{\label{sec:citeref}Citations and References}
+%
+%
+%
+%A citation in text uses the command \verb+\cite{#1}+ or
+%\verb+\onlinecite{#1}+ and refers to an entry in the bibliography. 
+%An entry in the bibliography is a reference to another document.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsubsection{Citations}
+
+
+%Because REV\TeX\ uses the \verb+natbib+ package of Patrick Daly, 
+%the entire repertoire of commands in that package are available for your document;
+%see the \verb+natbib+ documentation for further details. Please note that
+%REV\TeX\ requires version 8.31a or later of \verb+natbib+.
+%
+%\paragraph{Syntax}
+%The argument of \verb+\cite+ may be a single \emph{key}, 
+%or may consist of a comma-separated list of keys.
+%The citation \emph{key} may contain 
+%letters, numbers, the dash (-) character, or the period (.) character. 
+%New with natbib 8.3 is an extension to the syntax that allows for 
+%a star (*) form and two optional arguments on the citation key itself.
+%The syntax of the \verb+\cite+ command is thus (informally stated)
+%\begin{quotation}\flushleft\leftskip1em
+%\verb+\cite+ \verb+{+ \emph{key} \verb+}+, or\\
+%\verb+\cite+ \verb+{+ \emph{optarg+key} \verb+}+, or\\
+%\verb+\cite+ \verb+{+ \emph{optarg+key} \verb+,+ \emph{optarg+key}\ldots \verb+}+,
+%\end{quotation}\noindent
+%where \emph{optarg+key} signifies 
+%\begin{quotation}\flushleft\leftskip1em
+%\emph{key}, or\\
+%\texttt{*}\emph{key}, or\\
+%\texttt{[}\emph{pre}\texttt{]}\emph{key}, or\\
+%\texttt{[}\emph{pre}\texttt{]}\texttt{[}\emph{post}\texttt{]}\emph{key}, or even\\
+%\texttt{*}\texttt{[}\emph{pre}\texttt{]}\texttt{[}\emph{post}\texttt{]}\emph{key}.
+%\end{quotation}\noindent
+%where \emph{pre} and \emph{post} is whatever text you wish to place 
+%at the beginning and end, respectively, of the bibliographic reference
+%(see Ref.~[\onlinecite{witten2001}] and the two under Ref.~[\onlinecite{feyn54}]).
+%(Keep in mind that no automatic space or punctuation is applied.)
+%It is highly recommended that you put the entire \emph{pre} or \emph{post} portion 
+%within its own set of braces, for example: 
+%\verb+\cite+ \verb+{+ \texttt{[} \verb+{+\emph{text}\verb+}+\texttt{]}\emph{key}\verb+}+.
+%The extra set of braces will keep \LaTeX\ out of trouble if your \emph{text} contains the comma (,) character.
+%
+%The star (*) modifier to the \emph{key} signifies that the reference is to be 
+%merged with the previous reference into a single bibliographic entry, 
+%a common idiom in APS and AIP articles (see below, Ref.~[\onlinecite{epr}]). 
+%When references are merged in this way, they are separated by a semicolon instead of 
+%the period (full stop) that would otherwise appear.
+%
+%\paragraph{Eliding repeated information}
+%When a reference is merged, some of its fields may be elided: for example, 
+%when the author matches that of the previous reference, it is omitted. 
+%If both author and journal match, both are omitted.
+%If the journal matches, but the author does not, the journal is replaced by \emph{ibid.},
+%as exemplified by Ref.~[\onlinecite{epr}]. 
+%These rules embody common editorial practice in APS and AIP journals and will only
+%be in effect if the markup features of the APS and AIP Bib\TeX\ styles is employed.
+%
+%\paragraph{The options of the cite command itself}
+%Please note that optional arguments to the \emph{key} change the reference in the bibliography, 
+%not the citation in the body of the document. 
+%For the latter, use the optional arguments of the \verb+\cite+ command itself:
+%\verb+\cite+ \texttt{*}\allowbreak
+%\texttt{[}\emph{pre-cite}\texttt{]}\allowbreak
+%\texttt{[}\emph{post-cite}\texttt{]}\allowbreak
+%\verb+{+\emph{key-list}\verb+}+.
+
+\end{document}
+%
+% ****** End of file apssamp.tex ******

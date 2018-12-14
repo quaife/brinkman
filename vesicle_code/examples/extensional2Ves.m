@@ -5,14 +5,14 @@ clear all; clc
 fprintf('Two elliptical vesicles in a extensional flow.\n');
 
 % Physics parameters
-prams.N = 256;               % points per vesicle
+prams.N = 64;               % points per vesicle
 prams.nv = 2;               % number of vesicles
-prams.T = 600;               % time horizon (two tumbling)
-prams.m = 2000;             % number of time steps
+prams.T = 20;               % time horizon (two tumbling)
+prams.m = 200;             % number of time steps
 prams.kappa = [1e-1 1e-1];         % bending coefficient
 prams.viscCant = [1 1];         % viscosity contrast
 options.farField = 'extensional'; % background velocity
-options.farFieldSpeed = 1e-2;
+options.farFieldSpeed = 1;
 aptions.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -23,17 +23,17 @@ options.fmm = false;
 options.verbose = true;
 options.antiAlias = false;
 prams.gmresMaxIter = 3*prams.N;
-prams.gmresTol = 1e-10;
+prams.gmresTol = 1e-6;
 prams.errorTol = 1;
 
 % ADD-ONS
 options.correctShape = false;
-options.adhesion = true;
+options.adhesion = false;
 prams.adRange = 2e-1;
 prams.adStrength = 1e0;
 
 % TIME ADAPTIVITY (parameters for new implementation)
-options.timeAdap = true;
+options.timeAdap = false;
 
 prams.rtolArea = 1e-2;
 prams.rtolLength = 1e-2;
@@ -42,11 +42,11 @@ prams.betaDown = 0.5;
 prams.alpha = 0.9;
 
 options.orderGL = 2;
-options.nsdc = 1;
+options.nsdc = 0;
 options.expectedOrder = 2;
 
 % Plot on-the-fly
-options.usePlot = false;
+options.usePlot = true;
 options.axis = [-4 4 -2 2];
 options.track = false;
 % Save vesicle information and create a log file
@@ -67,7 +67,7 @@ oc = curve;
 centerx = [-2 2];
 centery = zeros(1,2);
 ang = 0*ones(2,1);
-ra = 0.99;
+ra = 0.65;
 scale = 0.5*sqrt(ra);
 X = oc.initConfig(prams.N,'nv',prams.nv,...
     'reducedArea',ra,...
