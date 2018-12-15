@@ -1,16 +1,16 @@
 addpath ../../src
 set(0,'DefaultAxesFontSize',22)
 
-irate = 1; % controls the speed of the visualization
+irate = 10; % controls the speed of the visualization
 
-if 1
+if 0
   file = 'shear1VesData.bin';
   ax = [-8 8 -5 5];
   options.confined = false;
 end
 if 0
 %  file = 'extensional2VesData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR2em1adS1e0_ra040/extensional2VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR1em1adS1e0_ra040/extensional2VesData.bin';
   ax = [-4 4 -2 2];
   options.confined = false;
 end
@@ -21,7 +21,7 @@ if 0
 end
 if 0
 %  file = 'relaxation2VesData.bin';
-  file = '/projects/brinkman/vesicle_code/results/shear2Ves/adR4em1adS1e0Chi1e0_ra090/shear2VesData.bin'
+  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR4em1adS1em1Chi1e0_ra090/shear2VesData.bin';
 %  file = '~/presentations/2018/lifeSciences2018/results/relaxation/RA65_Range8_Strength2/relaxation2VesData.bin';
   ax = [-2 2 -3 3];
   options.confined = false;
@@ -36,9 +36,9 @@ if 0
   ax = [-2 2 -2 2];
   options.confined = false;
 end
-if 0
-  file = 'shear2VesEData.bin.run2';
-%  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR4em1adS9em1Chi1p5e0_ra090/shear2VesData.bin';
+if 1
+%  file = 'shear2VesEData.bin.run2';
+  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR4em1adS1e0Chi1p75e0_ra090/shear2VesData.bin';
   ax = [-10 10 -3 3];
   options.confined = false;
 end
