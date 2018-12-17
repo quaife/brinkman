@@ -20,8 +20,13 @@ if 0
   options.confined = false;
 end
 if 0
+  file = 'relaxation1VesData.bin';
+  ax = ([-3 3 -3 3]);
+  options.confined = false;
+end
+if 0
 %  file = 'relaxation2VesData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR4em1adS1em1Chi1e0_ra090/shear2VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR5em1adS1em1Chi1e0_ra090/shear2VesData.bin';
 %  file = '~/presentations/2018/lifeSciences2018/results/relaxation/RA65_Range8_Strength2/relaxation2VesData.bin';
   ax = [-2 2 -3 3];
   options.confined = false;
@@ -38,7 +43,7 @@ if 0
 end
 if 1
 %  file = 'shear2VesEData.bin.run2';
-  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR4em1adS1e0Chi1e0_ra090/shear2VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR4em1adS4em1Chi5em1_ra090/shear2VesData.bin';
   ax = [-10 10 -3 3];
   options.confined = false;
 end
