@@ -3,14 +3,14 @@ clear all; clc
 fprintf('Two elliptical vesicles in a shear flow.\n');
 
 % Physics parameters
-prams.N = 64;               % points per vesicle
+prams.N = 128;               % points per vesicle
 prams.nv = 2;               % number of vesicles
 prams.T = 100;               % time horizon (two tumbling)
 prams.m = 200;             % number of time steps
-prams.kappa = [1e-1 1e-1];         % bending coefficient
+prams.kappa = [1 1];         % bending coefficient
 prams.viscCant = [1 1];         % viscosity contrast
 options.farField = 'shear'; % background velocity
-options.farFieldSpeed = 1.0;
+options.farFieldSpeed = 0.5;
 aptions.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -28,7 +28,7 @@ prams.errorTol = 1;
 options.correctShape = false;
 options.adhesion = true;
 prams.adRange = 4e-1;
-prams.adStrength = 1;
+prams.adStrength = 7e-1;
 
 % TIME ADAPTIVITY (parameters for new implementation)
 options.timeAdap = true;
@@ -65,7 +65,7 @@ oc = curve;
 centerx = [-1.5 1.5];
 centery = zeros(1,2);
 ang = pi/2*ones(2,1);
-ra = 0.65;
+ra = 0.99;
 scale = 1/2*sqrt(ra);
 X = oc.initConfig(prams.N,'nv',prams.nv,...
     'reducedArea',ra,...
