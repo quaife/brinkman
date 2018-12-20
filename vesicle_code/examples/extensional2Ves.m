@@ -5,14 +5,14 @@ clear all; clc
 fprintf('Two elliptical vesicles in a extensional flow.\n');
 
 % Physics parameters
-prams.N = 64;               % points per vesicle
+prams.N = 128;               % points per vesicle
 prams.nv = 2;               % number of vesicles
-prams.T = 20;               % time horizon (two tumbling)
-prams.m = 200;             % number of time steps
-prams.kappa = [1e-1 1e-1];         % bending coefficient
+prams.T = 600;               % time horizon (two tumbling)
+prams.m = 2000;             % number of time steps
+prams.kappa = [1 1];         % bending coefficient
 prams.viscCant = [1 1];         % viscosity contrast
 options.farField = 'extensional'; % background velocity
-options.farFieldSpeed = 1;
+options.farFieldSpeed = 2e-1;
 aptions.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -27,13 +27,13 @@ prams.gmresTol = 1e-6;
 prams.errorTol = 1;
 
 % ADD-ONS
-options.correctShape = false;
-options.adhesion = false;
-prams.adRange = 2e-1;
-prams.adStrength = 1e0;
+options.correctShape = true;
+options.adhesion = true;
+prams.adRange = 4e-1;
+prams.adStrength = 7e-1;
 
 % TIME ADAPTIVITY (parameters for new implementation)
-options.timeAdap = false;
+options.timeAdap = true;
 
 prams.rtolArea = 1e-2;
 prams.rtolLength = 1e-2;
@@ -42,11 +42,11 @@ prams.betaDown = 0.5;
 prams.alpha = 0.9;
 
 options.orderGL = 2;
-options.nsdc = 0;
+options.nsdc = 1;
 options.expectedOrder = 2;
 
 % Plot on-the-fly
-options.usePlot = true;
+options.usePlot = false;
 options.axis = [-4 4 -2 2];
 options.track = false;
 % Save vesicle information and create a log file
@@ -63,22 +63,51 @@ options.errorFile = 'output/extensional2VesError.bin';
 % Set options and parameters that the user doesn't
 % Also add src to path
 
-oc = curve;
-centerx = [-2 2];
-centery = zeros(1,2);
-ang = 0*ones(2,1);
-ra = 0.65;
-scale = 0.5*sqrt(ra);
-X = oc.initConfig(prams.N,'nv',prams.nv,...
-    'reducedArea',ra,...
-    'center',[centerx;centery],...
-    'angle',ang,...
-    'scale',scale);
-% Initial configuration of reduce area 0.65 and aligned
-%clf;
-%plot(X(1:end/2,:),X(end/2+1:end,:),'r')
-%axis equal
-%pause
+load posx1.dat;
+load posy1.dat;
+load posx2.dat;
+load posy2.dat;
+
+posx1 = posx1 - mean(posx1);
+posx2 = posx2 - mean(posx2);
+posy1 = posy1 - mean(posy1);
+posy2 = posy2 - mean(posy2);
+% center everything at the origin so that the problem is symmetric
+
+ysep = 0.82; % approximate mean value of the minimum seperation
+posy1 = posy1 - ysep;
+posy2 = posy2 + ysep;
+
+sig = 2e-2;
+modes = (-64:63)';
+gauss = exp(-2*sig^2*pi^2*modes.^2);
+% Gaussian filter in Fourier space
+
+posx1 = real(ifft(ifftshift(fftshift(fft(posx1)).*gauss)));
+posx2 = real(ifft(ifftshift(fftshift(fft(posx2)).*gauss)));
+posy1 = real(ifft(ifftshift(fftshift(fft(posy1)).*gauss)));
+posy2 = real(ifft(ifftshift(fftshift(fft(posy2)).*gauss)));
+% apply a Gaussian filter to smooth out the initial shape
+
+posx1 = interpft(posx1,prams.N);
+posx2 = interpft(posx2,prams.N);
+posy1 = interpft(posy1,prams.N);
+posy2 = interpft(posy2,prams.N);
+
+X = [posx1 posx2; posy1 posy2];
+
+%oc = curve;
+%centerx = [-2 2];
+%centery = zeros(1,2);
+%ang = 0*ones(2,1);
+%ra = 0.9;
+%scale = 0.5*sqrt(ra);
+%X = oc.initConfig(prams.N,'nv',prams.nv,...
+%    'reducedArea',ra,...
+%    'center',[centerx;centery],...
+%    'angle',ang,...
+%    'scale',scale);
+%% Initial configuration of reduce area 0.65 and aligned
 
 Xfinal = Ves2D(X,[],prams,options);
 % Run vesicle code

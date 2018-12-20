@@ -126,6 +126,19 @@ while time < prams.T - 1e-10
   end
   % go back to old time
 
+  sig = 2e-2;
+  modes = (-prams.N/2:prams.N/2-1)';
+  gauss = exp(-2*sig^2*pi^2*modes.^2);
+
+  for k = 1:prams.nv
+    z = X(1:end/2,k) + 1i*X(end/2+1:end,k);
+    z = ifft(ifftshift(fftshift(fft(z)).*gauss));
+    X(1:end/2,k) = real(z);
+    X(end/2+1:end,k) = imag(z);
+  end
+
+  X = oc.correctAreaAndLength(X,[],om);
+
   if accept
     vesicle = capsules(X,sigma,u,prams.kappa,prams.viscCont);
     [shearStress,normalStress] = ...

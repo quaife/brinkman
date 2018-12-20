@@ -328,9 +328,12 @@ end
 % GMRES
 
 if 1
+tic
 [sigDen,F,R,I] = gmres(@(X) tt.sigDenMatVec(X,vesicle,walls),rhs,...
     [],tt.gmresTol,min(tt.gmresMaxIter,N*nv+2*Nbd*nvbd + 3*(nvbd-1)),...
     @tt.preconditionerBD);
+toc
+%pause
 % solve for tension and density function with block-diagonal 
 % preconditioning
 iter = I(2);
