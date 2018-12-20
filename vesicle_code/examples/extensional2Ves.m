@@ -12,7 +12,7 @@ prams.m = 2000;             % number of time steps
 prams.kappa = [1 1];         % bending coefficient
 prams.viscCant = [1 1];         % viscosity contrast
 options.farField = 'extensional'; % background velocity
-options.farFieldSpeed = 2e-1;
+options.farFieldSpeed = 1.6e-1;
 aptions.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -46,7 +46,7 @@ options.nsdc = 1;
 options.expectedOrder = 2;
 
 % Plot on-the-fly
-options.usePlot = false;
+options.usePlot = true;
 options.axis = [-4 4 -2 2];
 options.track = false;
 % Save vesicle information and create a log file

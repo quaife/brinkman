@@ -489,9 +489,9 @@ eLt = abs(lt-l0)./l0;
 
 N  = size(X,1)/2;
 
-tolConstraint = 1e-2; % 1 percent error in constraints
+tolConstraint = 1e-4; % 1 percent error in constraints
 % tolConstraint = timeTolerance;
-tolFunctional = 1e-2; % Allowed to change shape by 1 percent
+tolFunctional = 1e-4; % Allowed to change shape by 1 percent
 
 options = optimset('Algorithm','sqp','TolCon',tolConstraint,...
     'TolFun',tolFunctional,'display','off','MaxFunEvals',3000);
