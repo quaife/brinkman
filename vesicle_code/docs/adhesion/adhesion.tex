@@ -574,7 +574,7 @@ where
   \langle \sigma \rangle = \frac{1}{|\omega|} \int_{\gamma}
     \xxi \otimes \xx ds.
 \end{align*}
-Here, $[\mu]$ is the intrinsic viscosity, $|phi$ is the area fraction of
+Here, $[\mu]$ is the intrinsic viscosity, $\phi$ is the area fraction of
 vesicles, $\sigma$ is the stress due to the vesicles, and $\langle \cdot
 \rangle$ is the spatial average.
 
@@ -587,6 +587,10 @@ adhesion length scale is $\delta = 0.4$.  The length of the vesicles at
 each of the reduced areas is fixed, while the area changes with
 differing reduced areas.}
 \end{figure}
+\todo[inline]{Do the smaller reduced area doublets since the intrinsic
+viscosity seemed to increase as the reduced area was decresed further}
+\todo[inline]{Decompose the red curve as the intrinsic viscosity due to
+adhesion and due to the bending/tension}
 
 
 
@@ -656,7 +660,7 @@ and the adhesive force applied by vesicle 2 on vesicle 1 is
 \begin{align*}
   \int_{\gamma_2}\nabla \phi(\|\xx_1 - \xx_2\|)ds_{\xx_2} = 
   -4 \sigma \delta^2 \int_{\gamma_2}
-  \frac{\xx_1 - \xx_2}{\|\xx_1 - \xx_2\|^2} 
+  \frac{\xx_1 - \xx_2}{\|\xx_1 - \xx_2\|^6} 
   \left(\delta^2 - \|\xx_1 - \xx_2\|^2 \right) ds_{\xx_2}.
 \end{align*}
 A similar expression holds for the adhesive force applied by vesicle 1
