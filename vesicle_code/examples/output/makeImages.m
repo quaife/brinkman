@@ -1,12 +1,12 @@
 addpath ../../src
 set(0,'DefaultAxesFontSize',22)
 
-irate = 20; % controls the speed of the visualization
+irate = 10; % controls the speed of the visualization
 
-if 0
-%  file = 'extensional2VesData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR2em1adS1e0_ra040/extensional2VesData.bin';
-  ax = [-4 4 -2 2];
+if 1
+  file = 'extensional2VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR4em1adS7em1Chi5em2_ra080/extensional2VesData.bin';
+  ax = [-4 4 -5 5];
   options.confined = false;
 end
 if 0
@@ -22,7 +22,7 @@ end
 if 0
   file = 'relaxation2VesData.bin';
 %  file = '~/presentations/2018/lifeSciences2018/results/relaxation/RA65_Range8_Strength2/relaxation2VesData.bin';
-  ax = [-2 2 -3 3];
+  ax = [-4 4 -3 3];
   options.confined = false;
 end
 if 0
@@ -40,7 +40,7 @@ if 0
   ax = [-8 8 -5 5];
   options.confined = false;
 end
-if 1
+if 0
   file = 'shear2VesBData.bin.run1';
 %  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR4em1adS7em1Chi5em1_ra090/shear2VesData.bin';
   ax = [-10 10 -3 3];

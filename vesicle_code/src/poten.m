@@ -1637,6 +1637,8 @@ global fmms
 fmms = fmms + 1;
 % count the total number of calls to fmm
 
+size(vesicle.X)
+pause
 oc = curve;
 [x,y] = oc.getXY(vesicle.X); % seperate x and y coordinates
 

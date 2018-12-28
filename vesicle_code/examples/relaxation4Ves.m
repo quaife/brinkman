@@ -3,10 +3,10 @@ clear all; clc
 fprintf('Four Simple elliptical vesicles in a relaxation flow.\n');
 
 % Physics parameters
-prams.N = 128;               % points per vesicle
+prams.N = 192;               % points per vesicle
 prams.nv = 5;               % number of vesicles
 prams.T = 10;               % time horizon (two tumbling)
-prams.m = 200;             % number of time steps
+prams.m = 1000;             % number of time steps
 prams.kappa = 1e-1*ones(prams.nv,1); % bending coefficient
 prams.viscCont = ones(prams.nv,1);   % viscosity contrast
 options.farField = 'relaxation'; % background velocity
@@ -44,7 +44,7 @@ options.nsdc = 1;
 options.expectedOrder = 1;
 
 % Plot on-the-fly
-options.usePlot = true;
+options.usePlot = false;
 options.axis = [-1 1 -1 1];
 options.track = false;
 % Save vesicle information and create a log file
@@ -73,13 +73,13 @@ X = oc.initConfig(prams.N,'nv',prams.nv,...
     'angle',ang,...
     'scale',scale);
 % Initial configuration of reduce area 0.65 and aligned
-clf;
-plot(X(1:end/2,:),X(end/2+1:end,:),'r')
-axis equal
-hold on
-theta = linspace(0,2*pi,1000);
-plot(exp(1i*theta),'k-')
-pause
+%clf;
+%plot(X(1:end/2,:),X(end/2+1:end,:),'r')
+%axis equal
+%hold on
+%theta = linspace(0,2*pi,1000);
+%plot(exp(1i*theta),'k-')
+%pause
 
 
 Xfinal = Ves2D(X,[],prams,options);

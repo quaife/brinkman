@@ -126,6 +126,40 @@ while time < prams.T - 1e-10
   end
   % go back to old time
 
+%%  [~,a0,l0] = oc.geomProp(X);
+%%  a0 - om.area
+%%  l0 - om.length
+%
+%  sig = 2e-2;
+%  modes = (-prams.N/2:prams.N/2-1)';
+%  gauss = exp(-2*sig^2*pi^2*modes.^2);
+%
+%%  clf
+%%  plot(X(1:end/2,:),X(end/2+1:end,:),'b');
+  for k = 1:prams.nv
+    z = X(1:end/2,k) + 1i*X(end/2+1:end,k);
+    zh = fftshift(fft(z));
+    zh(1) = 0;
+    z = ifft(ifftshift(zh));
+%    z = ifft(ifftshift(fftshift(fft(z)).*gauss));
+    X(1:end/2,k) = real(z);
+    X(end/2+1:end,k) = imag(z);
+  end
+%%  hold on
+%%  plot(X(1:end/2,:),X(end/2+1:end,:),'r--');
+%%  [~,a1,l1] = oc.geomProp(X);
+%%  a1 - om.area
+%%  l1 - om.length
+%
+%  X = oc.correctAreaAndLength(X,[],om);
+%
+%%  plot(X(1:end/2,:),X(end/2+1:end,:),'g--');
+%%  [~,a2,l2] = oc.geomProp(X);
+%%  a2 - om.area
+%%  l2 - om.length
+%%  pause
+
+
   if accept
     vesicle = capsules(X,sigma,u,prams.kappa,prams.viscCont);
     [shearStress,normalStress] = ...

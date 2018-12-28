@@ -20,7 +20,7 @@ stokesSLP.o
 all: cfmm2dpart d2mtreeplot d2tstrcr_omp l2dterms laprouts2d lfmm2drouts prini rfmm2dpart stokesSLP mex
 
 mex: stokesSLPfmm.F $(OBJS) 
-	$(MEX) -compatibleArrayDims stokesSLPfmm.F $(OBJS) 
+	$(MEX) -compatibleArrayDims -lifcore stokesSLPfmm.F $(OBJS) 
 
 cfmm2dpart: cfmm2dpart.f
 	$(FORTRAN) $(FFLAGS) cfmm2dpart.f
