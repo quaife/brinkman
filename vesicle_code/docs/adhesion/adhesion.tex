@@ -145,29 +145,33 @@ use the optional argument of the \verb+\item+ command to give the category of ea
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
-Vesicles (self-enclosed phopolipid bilayer membranes) have been widely utilized
-as simple cell mimics in biomedical and material engineering \cite{}. The ever expanding applications of vesicles have encouraged extensive investigations on vesicle hydrodynamics
-and electrohydrodynamics: Theoretical investigations are often limited to small-deformation of a nearly spherical (circular) vesicle in 3D (2D) \cite{Barthes-BieselRallison1981_JFM,Misbah2006_PRL,Vlahovska2007_PRE,Finken2008_EPL}. Various numerical schemes have been designed and deployed to simulate the dynamics of many vesicles \cite{BagchiJohoson2005_JBE,Biben2005_EJP,Veerapaneni2009_JCP,SeolHuKimLai2016_JCP}.  Careful experiments on vesicles under different flowing conditions or forcing configurations have been carried out \cite{MaderVitkova2006_EurPhysJE, Abkarian2008_SoftMatt}. In a vesicle suspension under 
+Vesicles (self-enclosed phopholipid bilayer membranes) have been widely utilized
+as simple model membranes for cell mimics in biomedical and material engineering \cite{}. 
+%
+The ever expanding applications of vesicles have encouraged extensive investigations on vesicle hydrodynamics
+and electrohydrodynamics.
+Theoretical investigations are conducted to study the small-deformation or spheroidal dynamics of a nearly spherical (circular) vesicle in a fluid flow or under an external forcing \cite{Barthes-BieselRallison1981_JFM,Misbah2006_PRL,Vlahovska2007_PRE,Finken2008_EPL,ZhangZahnTanLin2013_PoF,Nganguia2013_PRE}. 
+Various numerical schemes have been designed and deployed to simulate the hydrodynamics of many vesicles \cite{BagchiJohoson2005_JBE,Biben2005_EJP,Veerapaneni2009_JCP,SeolHuKimLai2016_JCP}.  
+Experiments are performed to study vesicle hydrodynamics under various flowing conditions or forcing configurations \cite{MaderVitkova2006_EurPhysJE, Abkarian2008_SoftMatt,DahlNarsimhanGouveia2016_SoftMatt}. In a vesicle suspension under 
 a hydrodynamic flow or an external field (such as an electric field) 
 the interactions between
 vesicles play a crucial role in determining the collective dynamics of
 vesicle suspension. For example, boundary integral simulations show that
 vesicles may align to form chains along the external electric field,
 enhancing the suspension viscosity in the direction of alignment.
-In numerical simulations, it is often assumed that vesicles do not get closer than a few nano meters, where the
-Van der Waals interaction between lipid bilayers becomes important \cite{EvansMetcalfe1984_BJ,Book_PhysicalBasisCellAdhesion,Book_IntermolecularSurfaceForces}.
-For giant unilamellar vesicles (GUVs) this assumption is reasonable, however for vesicles of size $\sim 100$ nm the van der Waals
-interactions between vesicles are important and may significantly affect their shape in the absence of any external forcing \cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}. In this paper we use boundary integral simulations to investigate
-how such Van der Waals interactions between sub-micron vesicles may affect their hydrodynamics and consequently the rheology 
-of their suspension in the dilute limit.
+In numerical simulations of vesicle suspension, it is often assumed that lubrication layer between vesicle membranes act to keep
+membrane-membrane interaction (such as Van der Waals interaction) negligible \cite{BagchiJohoson2005_JBE,Veerapaneni2009_JCP}.
 
+However the amphiphilic natures of lipid molecules (a hydrophobic tail and a hydrophilic head with an electric dipole) complicate the
+interactions between a lipid bilayer membrane and a solid (such as a glass substrate or a nano particle) or another bilayer membrane \cite{EvansMetcalfe1984_BJ,Book_PhysicalBasisCellAdhesion,Book_IntermolecularSurfaceForces}.
+Studies confirmed that such interaction potential inevitably consists of a long-range attraction component and a short-range repulsion component 
+\cite{Book_IntermolecularSurfaceForces}. Such interactions leads to adhesion at the separation distance that minimizes the
+interaction potential \cite{Book_IntermolecularSurfaceForces}, and are essential in many biomedical, biological and biophysical processes.
+For example, vesicle adhesion
+is essential for membrane fusion/fission in endocytosis and exocytosis, the transport of small
+vesicles through membrane surfaces.
 
-Due to the nature of amphiphilic molecules (a dipole in the hydrophilic head), the adhesive interaction of a amphiphilic bilayer membrane 
-with either a solid (such as a glass substrate or a nano particle) or another bilayer 
-plays a central role in many biomedical, biological and biophysical processes.
-Vesicle adhesion is an essential step for membrane fusion/fission in many
-processes such as, e.g., endocytosis and exocytosis, that is, the
-transport of small vesicles through large membrane surfaces. 
+%
 Adhesion between a vesicle and a substrate has been extensively studied, with 
 more computations and experiments for the equilibrium shapes \cite{Seifert1990_PRA,ShiFengGao2006_ActaMechSin,LinFreund2007_IntJSolidsStructures} than analysis and simulation of
 the dynamic adhesion process \cite{BlountMiksisDavis2013_PRSa}.
@@ -391,7 +395,73 @@ shear stress and normal stress
 \section{Adhesion of two vesicles in a quiescent flow} 
 \label{sec:qflow} 
 
-\subsection{Effects of the adhesion parameters}
+When two vesicles move towards each other under a constant force $F$ without any external fluid flow, the height  $(h)$ of the lubrication film between two vesicles follows the
+draining dynamics \cite{RamachandranLeal2010_PoF}
+\begin{equation}
+\label{eq:dhdt}
+\frac{d h}{dt} \sim \frac{K_a^{2/3} F^{1/3}}{\mu R_0^{10/3}} h^3,
+\end{equation}
+where $K_a$ is the area expansion modulus, $\mu$ is the viscosity of exterior fluid, $R_0$ is the radius of the undeformed vesicle.
+When $F$ is a constant (independent of separation distance $h$ and/or time $t$), the above scaling can give variation of $h$ versus $t$ by integrating the above equation
+\begin{equation}
+t \sim \frac{\mu R_0^{10/3}}{K_a^{2/3} F^{1/3}}\frac{1}{2 h^2} \bigg|^{h(t)}_{h(0)},
+\end{equation}
+where $h(0)$ is the vesicle separation at $t=0$.
+We note that $F< (>) 0$ for an attractive  (repulsive) force and consequently $h(t)$ decreases (increases) from  the initial separation distance $h(0)$. 
+When the force is attractive, $h$ decreases monotonically and $t$ in the above
+equation is the
+draining time that diverges as $h\rightarrow 0$.
+%Similarly $F>0$ for a repulsive force and consequently $h(t) > h(0)$.
+
+When the force on each vesicle is a function of separation distance $h$ of the form (with an integer $m\ge 2$)
+\begin{equation}
+\label{eq:Fh}
+F(h) \sim \sigma \frac{\delta^m}{h^{m+1}}\left(\left(\frac{\delta}{h}\right)^2-1\right),
+\end{equation}
+attraction is dominant at ``large" scales ($h > \delta$) while repulsion is dominant at ``small" scales ($h<\delta$).
+Integration of equation~\ref{eq:dhdt} with the above $F(h)$ gives the relationship between $t$ and $h$.
+In this case the relationship involves an integral of a function of dimensionless $\bar{h} \equiv h/\delta$:
+\begin{align}
+t\frac{K_a^{2/3}}{\mu R_0^{10/3}}& = \int^{h(t)}_{h(0)}-\frac{dh}{h^3 F^{1/3}} = -\frac{1}{\sigma^{1/3}\delta^{5/3}}\int^{\bar{h}(t)}_{\bar{h}(0)}\frac{d \bar{h}}{\bar{h}^{(8-m)/3}(\bar{h}^2-1)^{1/3}},
+\end{align}
+\begin{equation}
+\label{eq:teq_scaling}
+t\sim \frac{\mu R_0^{10/3}}{K_a^{2/3}}\frac{1}{\sigma^{1/3}\delta^{5/3}}.
+\end{equation}
+Equation~\ref{eq:teq_scaling} tells us that both adhesion strength $\sigma$ and the separation distance $\delta$ affect
+the time it takes for a pair of vesicles to reach equilibrium under adhesion force $F$ in equation~\ref{eq:Fh}.  In particular, the equilibration time $t$ 
+is proportional to both (1) the separation distance $\delta^{-5/3}$ (thus $t\rightarrow \infty$ as $\delta\rightarrow 0$), and (2) the adhesion strength $\sigma^{-1/3}$ 
+(as in constant forcing case \cite{RamachandranLeal2010_PoF}).  From the above analysis we also expect that the scaling of $t$ with respect to $\delta$ depends on the
+adhesion potential, while the scaling with respect to adhesion strength is independent of the specific form of the potential.
+
+\begin{figure}
+\includegraphics[keepaspectratio=true,scale=0.4]{figs/Dec13a_time_scaling01.eps}
+\includegraphics[keepaspectratio=true,scale=0.4]{figs/Dec13a_time_scaling02.eps}
+\caption{Scaling of the time it takes for two vesicles to reach equilibrium: (a) scaling with respect to $\delta$ with $\sigma=0.1$, and (b) scaling
+with respect to $\sigma$ with $\delta = 0.4$. Arrows indicate the time by when the equilibrium is reached within $1\%$.}
+\label{fig:qflow00}
+\end{figure}
+
+To test the scaling of the equilibration time $t$ with respect to $\sigma$ and $\delta$, we simulate the vesicle adhesion dynamics in a quiescent flow.
+Starting with two vesicles at a distance of twice the radius at $t=0$, the long-range attraction pulls the vesicles together. Figure~\ref{fig:qflow00}(a) plots
+the scaled adhesion energy versus time with $\sigma=0.1$ and three values of $\delta$ as labeled. 
+Adhesion energy reaches minimum at equilibrium, and the scaled $E_{adh}$ evolves towards zero at equilibrium. 
+The arrow indicate the times when the scaled adhesion energy
+reaches within $1\%$ of equilibrium: $t\sim 96$ for $\delta=0.2$, $t\sim 45$ for $\delta = 0.3$, and $t\sim 30$ for $\delta=0.4$:
+\begin{align}
+\frac{t_{\delta=0.2}}{t_{\delta=0.4}} \sim \frac{96}{30}=3.2 &\Longleftrightarrow \left(\frac{0.4}{0.2}\right)^{5/3}\sim 3.17,\\
+\frac{t_{\delta=0.2}}{t_{\delta=0.3}} \sim \frac{96}{45}=2.1 &\Longleftrightarrow \left(\frac{0.3}{0.2}\right)^{5/3}\sim 2.
+\end{align}
+
+The scaling with respect to adhesion strength $\sigma$ is illustrated in figure~\ref{fig:qflow00}(b), where $\delta = 0.4$ and $\sigma$ varies from $0.1$ to $0.5$ as labeled.
+Again the arrows indicate the times when the equilibrium is reached within $1\%$:
+\begin{align}
+\frac{t_{\sigma=0.1}}{t_{\sigma=0.5}} \sim \frac{34}{20} = 1.71 &\Longleftrightarrow \left(\frac{0.5}{0.1}\right)^{1/3}\sim 1.71.
+\end{align}
+From the above results we conclude that the scaling in equation~\ref{eq:teq_scaling} captures the adhesion dynamics of two vesicles that interact with each other via the adhesion force in equation~\ref{eq:Fh}.
+
+
+\subsection{Effects of the adhesion parameters on equilibrium}
 \label{subsec:qflow_adhesion_parameters} 
 Here we investigate the dynamics and steady state configuration of two
 identical vesicles placed next to each other in a quiescent flow.  For a
@@ -673,7 +743,7 @@ force for a suspension of $M$ vesicles.
 \end{appendices}
 
 
-\bibliography{refs}
+\bibliography{refs,refs_yny}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\subsection{\label{sec:level2}Second-level heading: Formatting}
 %
