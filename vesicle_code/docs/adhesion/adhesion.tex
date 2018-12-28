@@ -387,6 +387,7 @@ shear stress and normal stress
 \end{align*}
 
 
+\newpage % so that the figures are more organized writing the paper
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Adhesion of two vesicles in a quiescent flow} 
 \label{sec:qflow} 
@@ -463,37 +464,50 @@ and $\sigma = 0.5$.}
 \label{sec:eflow} 
 We consider two vesicles suspended in the extensional flow $\uu =
 \chi(-x,y)$, where $\chi$ is the extensional rate.  The vesicles are
-initially place symmetrically on the $y$ axis so that the background
-velocity drives the vesicles towards one another.  We vary the reduced
-area and the two vdW parameters and characterize the possible steady
-state configurations.  For all the simulations, the length of the
+initially placed symmetrically on the $x$ axis in a quiescent flow
+($\chi = 0$).  Once they reach steady-state, the extensional background
+flow is started.  We use this example to characterize the required
+extensional rate to overcome the adhesive forces at for vesicles with
+different reduced areas.  For all the simulations, the length of the
 vesicles are fixed, while the area is changed to achieve the desired
 reduced area.
 
-\begin{figure}[htp]
-  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep1.pdf}
-  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep2.pdf}
-  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep3.pdf}
-  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep4.pdf}
-  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep5.pdf}
-  \caption{Two vesicles in an extensional flow.  The reduced area is
-  $0.40$, the adhesion strength is $1.0$, and the adhesion length scale
-is $0.8$, background flow strength is $\chi = 10^{-2}$.}
-\end{figure}
-
-\begin{figure}[htp]
-  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep1.pdf}
-  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep2.pdf}
-  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep3.pdf}
-  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep4.pdf}
-  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep5.pdf}
-  \caption{Two vesicles in an extensional flow.  The reduced area is
-  $0.90$, the adhesion strength is $1.0$, and the adhesion length scale
-is $0.8$, background flow strength is $\chi = 10^{-2}$.}
-\end{figure}
 
 
+%We consider two vesicles suspended in the extensional flow $\uu =
+%\chi(-x,y)$, where $\chi$ is the extensional rate.  The vesicles are
+%initially place symmetrically on the $y$ axis so that the background
+%velocity drives the vesicles towards one another.  We vary the reduced
+%area and the two vdW parameters and characterize the possible steady
+%state configurations.  For all the simulations, the length of the
+%vesicles are fixed, while the area is changed to achieve the desired
+%reduced area.
+%
+%\begin{figure}[htp]
+%  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep1.pdf}
+%  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep2.pdf}
+%  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep3.pdf}
+%  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep4.pdf}
+%  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep5.pdf}
+%  \caption{Two vesicles in an extensional flow.  The reduced area is
+%  $0.40$, the adhesion strength is $1.0$, and the adhesion length scale
+%is $0.8$, background flow strength is $\chi = 10^{-2}$.}
+%\end{figure}
+%
+%\begin{figure}[htp]
+%  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep1.pdf}
+%  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep2.pdf}
+%  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep3.pdf}
+%  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep4.pdf}
+%  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep5.pdf}
+%  \caption{Two vesicles in an extensional flow.  The reduced area is
+%  $0.90$, the adhesion strength is $1.0$, and the adhesion length scale
+%is $0.8$, background flow strength is $\chi = 10^{-2}$.}
+%\end{figure}
 
+
+
+\newpage % so that the figures are more organized writing the paper
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Adhesion of two vesicles in a shear flow}
 \label{sec:sflow} 
@@ -601,10 +615,16 @@ adhesion and due to the bending/tension}
 Future work includes three dimensional simulations, viscosity contrast,
 confined suspensions, and dense suspensions.
 
-Recently Liu {\it et al.} \cite{LiuChuNewbyRead2018_bioRxiv} used immersed boundary simulations to show that, 
-at a separation distance of tens of nanometers,
-the thin film between the two membranes facilitate the coupling between membranes via strong hydrodynamic interactions. In particular they demonstrate
-numerically that the fluctuation in one membrane is highly correlated to the other membrane without any physical contact. It is not clear how thermal fluctuations may affect the hydrodynamics of vesicles under adhesion. For example, does the fluctuating hydrodynamics in the thin film between two vesicles enhance adhesion to keep vesicles bound under linear flows?
+Recently Liu {\it et al.} \cite{LiuChuNewbyRead2018_bioRxiv} used
+immersed boundary simulations to show that, at a separation distance of
+tens of nanometers, the thin film between the two membranes facilitate
+the coupling between membranes via strong hydrodynamic interactions. In
+particular they demonstrate numerically that the fluctuation in one
+membrane is highly correlated to the other membrane without any physical
+contact. It is not clear how thermal fluctuations may affect the
+hydrodynamics of vesicles under adhesion. For example, does the
+fluctuating hydrodynamics in the thin film between two vesicles enhance
+adhesion to keep vesicles bound under linear flows?
 
 \begin{appendices}
 \section{Adhesion Force}
