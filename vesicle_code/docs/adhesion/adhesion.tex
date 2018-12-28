@@ -396,19 +396,20 @@ shear stress and normal stress
 \section{Adhesion of two vesicles in a quiescent flow} 
 \label{sec:qflow} 
 
-When two vesicles move towards each other under a constant force $F$ without any external fluid flow, the height  $(h)$ of the lubrication film between two vesicles follows the
+When two vesicles move towards (or away from) each other under a constant force $F$ without any external fluid flow, the height  $(h)$ of the thin liquid film between two vesicles follows the
 draining dynamics \cite{RamachandranLeal2010_PoF}
 \begin{equation}
 \label{eq:dhdt}
 \frac{d h}{dt} \sim \frac{K_a^{2/3} F^{1/3}}{\mu R_0^{10/3}} h^3,
 \end{equation}
 where $K_a$ is the area expansion modulus, $\mu$ is the viscosity of exterior fluid, $R_0$ is the radius of the undeformed vesicle.
-When $F$ is a constant (independent of separation distance $h$ and/or time $t$), the above scaling can give variation of $h$ versus $t$ by integrating the above equation
+For the case of a constant forcing $F$ (independent of separation distance $h$ and time $t$), equation~\ref{eq:dhdt} can be easily integrated to give
+a relation between film thickness $h$ and time $t$:
 \begin{equation}
 t \sim \frac{\mu R_0^{10/3}}{K_a^{2/3} F^{1/3}}\frac{1}{2 h^2} \bigg|^{h(t)}_{h(0)},
 \end{equation}
 where $h(0)$ is the vesicle separation at $t=0$.
-We note that $F< (>) 0$ for an attractive  (repulsive) force and consequently $h(t)$ decreases (increases) from  the initial separation distance $h(0)$. 
+We note that $F< (>) 0$ for an attractive  (repulsive) interaction between two vesicles,  and consequently $h(t)$ decreases (increases) from  the initial separation distance $h(0)$. 
 When the force is attractive, $h$ decreases monotonically and $t$ in the above
 equation is the
 draining time that diverges as $h\rightarrow 0$.
@@ -431,7 +432,7 @@ t\sim \frac{\mu R_0^{10/3}}{K_a^{2/3}}\frac{1}{\sigma^{1/3}\delta^{5/3}}.
 \end{equation}
 Equation~\ref{eq:teq_scaling} tells us that both adhesion strength $\sigma$ and the separation distance $\delta$ affect
 the time it takes for a pair of vesicles to reach equilibrium under adhesion force $F$ in equation~\ref{eq:Fh}.  In particular, the equilibration time $t$ 
-is proportional to both (1) the separation distance $\delta^{-5/3}$ (thus $t\rightarrow \infty$ as $\delta\rightarrow 0$), and (2) the adhesion strength $\sigma^{-1/3}$ 
+is proportional to (1) the separation distance $\delta^{-5/3}$ (thus $t\rightarrow \infty$ as $\delta\rightarrow 0$), and (2) the adhesion strength $\sigma^{-1/3}$ 
 (as in constant forcing case \cite{RamachandranLeal2010_PoF}).  From the above analysis we also expect that the scaling of $t$ with respect to $\delta$ depends on the
 adhesion potential, while the scaling with respect to adhesion strength is independent of the specific form of the potential.
 
@@ -462,71 +463,96 @@ Again the arrows indicate the times when the equilibrium is reached within $1\%$
 From the above results we conclude that the scaling in equation~\ref{eq:teq_scaling} captures the adhesion dynamics of two vesicles that interact with each other via the adhesion force in equation~\ref{eq:Fh}.
 
 
-\subsection{Effects of the adhesion parameters on equilibrium}
+\subsection{Effects of the adhesion parameters on equilibrium configuration of a vesicle pair}
 \label{subsec:qflow_adhesion_parameters} 
-Here we investigate the dynamics and steady state configuration of two
-identical vesicles placed next to each other in a quiescent flow.  For a
-large reduced area, the two vesicles move toward each other until the
-membrane flattens in the adhesion region, as shown in
-Figures~\ref{fig:qflow01} and~\ref{fig:qflow02}.  The color coding along
-the membrane denotes the membrane tension, which is the lowest in the
-adhesion region.
-
+In the simulations of a pair of 2d vesicles interacting with each other via the adhesion force in equation~\ref{eq:Fh} 
+two vesicles are placed (not too far apart for numerical convenience) in a quiescent flow. Long-range attraction pulls two vesicles together as they deform until their
+separation distance is close to $\delta$ (where $F$ vanishes). 
 \begin{figure}
-\includegraphics[keepaspectratio=true,scale=0.125]{figs/Nrelax2Ves02-rA0p96adR0p4.png}
-\caption{Two vesicles interacting with each other via a vdW potential at different strengths in a quiescent viscous fluid. The color coding is the tension along the vesicle.}
-\label{fig:qflow01}
+\includegraphics[keepaspectratio=true,scale=0.25]{figs/Dec18_vesicle_shape_vs_rA_00.jpeg}
+\caption{Equilibrium shapes of wo vesicles under adhesive  interactions with adhesion strength $\sigma=0.5$ and separation distance $\delta=0.2$. 
+Vesicle reduced area $\Delta A=0.95$, $0.75$ and $0.6$ as labeled.
+ The color coding is the tension along the vesicle.}
+\label{fig:Dec18_vesicle_shape}
 \end{figure}
 
-\begin{figure}
-\includegraphics[keepaspectratio=true,scale=0.25]{figs/Nrelax2Ves02composite-draining.pdf}
-\caption{Adhesion of two vesicles in a quiescent flow.  Only one vesicle
-  is illustrated, and the second is a mirror image.  Left panel: The
-  steady state configuration for different vdW interaction distances.
-  The color coding is the tension along the vesicle.  Right panel:
-  Vesicle configurations at different times for different vdW strengths.
-  The top plot has the weakest vdW strength and the bottom plot has the
-  strongest vdW strength.}
-\label{fig:qflow02} 
-\end{figure}
+Figure~\ref{fig:Dec18_vesicle_shape}(a) shows the equilibrium shapes of vesicles with
+three values of reduced area: $\Delta A=0.95$, $0.75$ and $0.6$ with $\sigma=5$ and $\delta = 0.2$.
+The equilibrium vesicle shape for $\Delta A=0.95$ is the circular cap with a flatten contact region. 
+This is similar to the observed shapes of two vesicles under strong adhesive interaction in \cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}.
 
-% \begin{figure}
-% \includegraphics[keepaspectratio=true,scale=0.4]{figs/relax2Ves01g-draining01a.eps}
-% \caption{Adhesion dynamics of two vesicles with $\delta = 0.3$. From $t=0.3$ to $t=40$, the time interval $\delta t = 0.3$ between every two neighboring dash-dotted curves.}
-% \label{fig:qflow_g-draining01a}
-% \end{figure}
-
-% \begin{figure}
-% \includegraphics[keepaspectratio=true,scale=0.4]{figs/relax2Ves01j-draining01a.eps}
-% \caption{Adhesion dynamics of two vesicles with $\delta = 0.6$. From $t=0.1$ to $t=40$, the time interval $\delta t = 0.1$ between every two neighboring dash-dotted curves.}
-% \label{fig:qflow_g-draining01a}
-% \end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Effects of reduced area}
-\label{sec:qflow_reduced_area} 
-Figure~\ref{fig:qflow_reduced_area}
+When vesicles are more deflated with a reduced area  $\Delta A = 0.75$, the equilibrium vesicle shape is elongated with a bigger contact region.
+As the reduced area decreases further, we observe undulation of the elongated equilibrium vesicle shape on the non-contact side while the contact region remains flat. 
+The color coding along each curve is for the tension of vesicle membrane.
+We observe that the membrane tension in the contact region is very negative, indicating a dominant compression of membrane when the adhesion force is strong to keep the vesicles bound together.
 
 \begin{figure}
-\includegraphics[keepaspectratio=true,scale=0.5]{figs/nrelax2Ves02o_rA.png}
-\caption{The effect of the reduced area on adhering vesicles in a
-quiescent flow.  The parameters of the vdW potential are $\delta = 0.2$
-and $\sigma = 0.5$.}
-\label{fig:qflow_reduced_area}
+\includegraphics[keepaspectratio=true,scale=0.125]{figs/Dec18_Eb_vs_rA_adR0p2_adS502.jpeg}
+\includegraphics[keepaspectratio=true,scale=0.125]{figs/Dec18_Eadh_vs_rA_adR0p2_adS502.jpeg}
+\includegraphics[keepaspectratio=true,scale=0.125]{figs/Dec18_EbEadh_vs_rA_adR0p2_adS502.jpeg}
+\caption{Total bending energy (panel (a)), adhesion energy (panel (b)) and the sum of two energies (panel (c)) plotted against reduced area $\Delta A$.}
+\label{fig:Dec18_vesicle_equilibrium1}
 \end{figure}
+Figure~\ref{fig:Dec18_vesicle_equilibrium1}(a) shows the total bending energy as a function of reduced area. The smaller the reduced area, the more vesicle area is available
+for deformation and thus the bending energy is higher. Figure~\ref{fig:Dec18_vesicle_equilibrium1}(b) shows the total adhesion energy as a function of reduced area. We note
+that the total adhesion energy is more negative as reduced area decreases. The sum of two energies is plotted in figure~\ref{fig:Dec18_vesicle_equilibrium1}(c), where a local minimum in the total energy is
+found around $\Delta A =0.8$.
 
-% \begin{figure}
-% \includegraphics[keepaspectratio=true,scale=0.4]{figs/relax2Ves01usa.eps}
-% \caption{Adhesion dynamics of two vesicles with $\delta = 0.4$ and $\sigma=0.2$. From $t=0.06$ to $t=100$, the time interval $\delta t = 0.06$ between every two neighboring dash-dotted curves.}
-% \label{fig:qflow_u-draining}
-% \end{figure}
+\begin{figure}
+\includegraphics[keepaspectratio=true,scale=0.18]{figs/Dec18_Eb_vs_sigma_rA0p9502.jpeg}
+\includegraphics[keepaspectratio=true,scale=0.18]{figs/Dec18_Eadh_vs_sigma_rA0p9502.jpeg}
+\caption{Total bending energy (a) and adhesion energy (b) versus the adhesion strength $\sigma$ 
+for two vesicles with reduced area $\Delta A=0.95$, separation distance $\delta = 0.2$ (triangles), $0.3$ (crosses)
+and $0.4$ (circles). }
+\label{fig:Dec18_equilibrium} 
+\end{figure}
+%
+Figure~\ref{fig:Dec18_equilibrium} is an example of how the adhesion strength $\sigma$ and separation distance $\delta$ affect the equilibrium configuration of two vesicles under adhesive interactions.
+For both vesicles the reduced area $\Delta A=0.95$ and the bending rigidity is $1$.
+In figure~\ref{fig:Dec18_equilibrium}(a) 
+the total bending energy at equilibrium is plotted against $\sigma$ for three values of separation distance $\delta$.
+We observe that for $\Delta A=0.95$ the equilibrium vesicle shape does not vary much with the adhesion strength $\sigma$, while the total adhesion energy in figure~\ref{fig:Dec18_equilibrium}(b) varies linearly
+with $\sigma$.
 
-% \begin{figure}
-% \includegraphics[keepaspectratio=true,scale=0.4]{figs/relax2Ves01zsa.eps}
-% \caption{Adhesion dynamics of two vesicles with $\delta = 0.4$ and $\sigma=0.2$. From $t=1$ to $t=100$, the time interval $\delta t = 1$ 
-% between every two neighboring dash-dotted curves.}
-% \label{fig:qflow_z-draining}
-% \end{figure}
+
+
+%% \begin{figure}
+%% \includegraphics[keepaspectratio=true,scale=0.4]{figs/relax2Ves01g-draining01a.eps}
+%% \caption{Adhesion dynamics of two vesicles with $\delta = 0.3$. From $t=0.3$ to $t=40$, the time interval $\delta t = 0.3$ between every two neighboring dash-dotted curves.}
+%% \label{fig:qflow_g-draining01a}
+%% \end{figure}
+%
+%% \begin{figure}
+%% \includegraphics[keepaspectratio=true,scale=0.4]{figs/relax2Ves01j-draining01a.eps}
+%% \caption{Adhesion dynamics of two vesicles with $\delta = 0.6$. From $t=0.1$ to $t=40$, the time interval $\delta t = 0.1$ between every two neighboring dash-dotted curves.}
+%% \label{fig:qflow_g-draining01a}
+%% \end{figure}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{Effects of reduced area}
+%\label{sec:qflow_reduced_area} 
+%Figure~\ref{fig:qflow_reduced_area}
+%
+%\begin{figure}
+%\includegraphics[keepaspectratio=true,scale=0.5]{figs/nrelax2Ves02o_rA.png}
+%\caption{The effect of the reduced area on adhering vesicles in a
+%quiescent flow.  The parameters of the vdW potential are $\delta = 0.2$
+%and $\sigma = 0.5$.}
+%\label{fig:qflow_reduced_area}
+%\end{figure}
+%
+%% \begin{figure}
+%% \includegraphics[keepaspectratio=true,scale=0.4]{figs/relax2Ves01usa.eps}
+%% \caption{Adhesion dynamics of two vesicles with $\delta = 0.4$ and $\sigma=0.2$. From $t=0.06$ to $t=100$, the time interval $\delta t = 0.06$ between every two neighboring dash-dotted curves.}
+%% \label{fig:qflow_u-draining}
+%% \end{figure}
+%
+%% \begin{figure}
+%% \includegraphics[keepaspectratio=true,scale=0.4]{figs/relax2Ves01zsa.eps}
+%% \caption{Adhesion dynamics of two vesicles with $\delta = 0.4$ and $\sigma=0.2$. From $t=1$ to $t=100$, the time interval $\delta t = 1$ 
+%% between every two neighboring dash-dotted curves.}
+%% \label{fig:qflow_z-draining}
+%% \end{figure}
 
 \newpage % so that the figures are more organized writing the paper
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
