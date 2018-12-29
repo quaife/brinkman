@@ -150,7 +150,7 @@ as simple model membranes for cell mimics in biomedical and material engineering
 %
 The ever expanding applications of vesicles have encouraged extensive investigations on vesicle hydrodynamics
 and electrohydrodynamics.
-Theoretical investigations are conducted to study the small-deformation or spheroidal dynamics of a nearly spherical (circular) vesicle in a fluid flow or under an external forcing \cite{Barthes-BieselRallison1981_JFM,Misbah2006_PRL,Vlahovska2007_PRE,Finken2008_EPL,ZhangZahnTanLin2013_PoF,Nganguia2013_PRE}. 
+Theoretical investigations are conducted to study the small-deformation or spheroidal dynamics of a nearly spherical  3D (or nearly circular 2D) vesicle in a fluid flow or under an external forcing \cite{Barthes-BieselRallison1981_JFM,Misbah2006_PRL,Vlahovska2007_PRE,Finken2008_EPL,ZhangZahnTanLin2013_PoF,Nganguia2013_PRE}. 
 Various numerical schemes have been designed and deployed to simulate the hydrodynamics of many vesicles \cite{BagchiJohoson2005_JBE,Biben2005_EJP,Veerapaneni2009_JCP,SeolHuKimLai2016_JCP}.  
 Experiments are performed to study vesicle hydrodynamics under various flowing conditions or forcing configurations \cite{MaderVitkova2006_EurPhysJE, Abkarian2008_SoftMatt,DahlNarsimhanGouveia2016_SoftMatt}. In a vesicle suspension under 
 a hydrodynamic flow or an external field (such as an electric field) 
@@ -465,14 +465,18 @@ From the above results we conclude that the scaling in equation~\ref{eq:teq_scal
 
 \subsection{Effects of the adhesion parameters on equilibrium configuration of a vesicle pair}
 \label{subsec:qflow_adhesion_parameters} 
-In the simulations of a pair of 2d vesicles interacting with each other via the adhesion force in equation~\ref{eq:Fh} 
-two vesicles are placed (not too far apart for numerical convenience) in a quiescent flow. Long-range attraction pulls two vesicles together as they deform until their
-separation distance is close to $\delta$ (where $F$ vanishes). 
+In the simulations of a pair of 2d vesicles interacting with each other via the adhesion force in equation~\ref{eq:Fh},
+two vesicles are initially placed not too far apart  from each other for numerical convenience. 
+Without any external forcing such as an imposed electric field or a fluid flow in the far-field, the long-range attraction pulls two vesicles together until their
+separation distance is close to $\delta$ (where $F$ vanishes).  Depending on the adhesion strength relative to the membrane bending rigidity, the vesicle may deform significantly in the contact
+region while still maintain nearly spherical shape on the opposite side to the contact region \cite{EvansMetcalfe1984_BJ,Book_PhysicalBasisCellAdhesion,Book_IntermolecularSurfaceForces,RamachandranAndersonLealIsraelachvili2010_Langmuir}.
 \begin{figure}
-\includegraphics[keepaspectratio=true,scale=0.25]{figs/Dec18_vesicle_shape_vs_rA_00.jpeg}
-\caption{Equilibrium shapes of wo vesicles under adhesive  interactions with adhesion strength $\sigma=0.5$ and separation distance $\delta=0.2$. 
+\includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_vesicle_shape_vs_rA_00.jpeg}
+\includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_vesicle_shape_vs_rA_01.jpeg}
+\caption{Two vesicles of length $\pi$ with $\kappa=1$, $\sigma=5$ and $\delta=0.2$.
+(a) Equilibrium shapes of two vesicles under adhesive  interactions with adhesion strength $\sigma=0.5$ and separation distance $\delta=0.2$. 
 Vesicle reduced area $\Delta A=0.95$, $0.75$ and $0.6$ as labeled.
- The color coding is the tension along the vesicle.}
+ The color coding is the tension along the vesicle. (b) Membrane shapes in the contact region.}
 \label{fig:Dec18_vesicle_shape}
 \end{figure}
 
@@ -487,10 +491,11 @@ The color coding along each curve is for the tension of vesicle membrane.
 We observe that the membrane tension in the contact region is very negative, indicating a dominant compression of membrane when the adhesion force is strong to keep the vesicles bound together.
 
 \begin{figure}
-\includegraphics[keepaspectratio=true,scale=0.125]{figs/Dec18_Eb_vs_rA_adR0p2_adS502.jpeg}
-\includegraphics[keepaspectratio=true,scale=0.125]{figs/Dec18_Eadh_vs_rA_adR0p2_adS502.jpeg}
-\includegraphics[keepaspectratio=true,scale=0.125]{figs/Dec18_EbEadh_vs_rA_adR0p2_adS502.jpeg}
-\caption{Total bending energy (panel (a)), adhesion energy (panel (b)) and the sum of two energies (panel (c)) plotted against reduced area $\Delta A$.}
+\includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_Ebleft_Eadhright_vs_rA_adR0p2_adS502.jpeg}
+\includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_EbEadh_vs_rA_adR0p2_adS502.jpeg}
+\caption{Two vesicles of length $\pi$ with $\kappa=1$, $\sigma=5$ and $\delta=0.2$. 
+(a) Total bending energy (solid curve) and adhesion energy (dash-dotted curve) plotted against
+the reduced area $\Delta A$. (b) Sum of two energies plotted against reduced area $\Delta A$.}
 \label{fig:Dec18_vesicle_equilibrium1}
 \end{figure}
 Figure~\ref{fig:Dec18_vesicle_equilibrium1}(a) shows the total bending energy as a function of reduced area. The smaller the reduced area, the more vesicle area is available
