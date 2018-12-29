@@ -12,7 +12,7 @@ prams.m = 2000;             % number of time steps
 prams.kappa = [1 1];         % bending coefficient
 prams.viscCant = [1 1];         % viscosity contrast
 options.farField = 'extensional'; % background velocity
-options.farFieldSpeed = 1.6e-1;
+options.farFieldSpeed = 0.07;
 aptions.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -27,7 +27,7 @@ prams.gmresTol = 1e-6;
 prams.errorTol = 1;
 
 % ADD-ONS
-options.correctShape = true;
+options.correctShape = false;
 options.adhesion = true;
 prams.adRange = 4e-1;
 prams.adStrength = 7e-1;
@@ -46,7 +46,7 @@ options.nsdc = 1;
 options.expectedOrder = 2;
 
 % Plot on-the-fly
-options.usePlot = true;
+options.usePlot = false;
 options.axis = [-4 4 -2 2];
 options.track = false;
 % Save vesicle information and create a log file
@@ -63,10 +63,11 @@ options.errorFile = 'output/extensional2VesError.bin';
 % Set options and parameters that the user doesn't
 % Also add src to path
 
-load posx1.dat;
-load posy1.dat;
-load posx2.dat;
-load posy2.dat;
+posx1 = load('posx1_RA070.dat');
+posy1 = load('posy1_RA070.dat');
+posx2 = load('posx2_RA070.dat');
+posy2 = load('posy2_RA070.dat');
+
 
 posx1 = posx1 - mean(posx1);
 posx2 = posx2 - mean(posx2);
@@ -74,7 +75,7 @@ posy1 = posy1 - mean(posy1);
 posy2 = posy2 - mean(posy2);
 % center everything at the origin so that the problem is symmetric
 
-ysep = 0.82; % approximate mean value of the minimum seperation
+ysep = 0.60; % approximate mean value of the minimum seperation
 posy1 = posy1 - ysep;
 posy2 = posy2 + ysep;
 
