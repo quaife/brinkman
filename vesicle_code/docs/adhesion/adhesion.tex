@@ -145,29 +145,33 @@ use the optional argument of the \verb+\item+ command to give the category of ea
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
-Vesicles (self-enclosed phopolipid bilayer membranes) have been widely utilized
-as simple cell mimics in biomedical and material engineering \cite{}. The ever expanding applications of vesicles have encouraged extensive investigations on vesicle hydrodynamics
-and electrohydrodynamics: Theoretical investigations are often limited to small-deformation of a nearly spherical (circular) vesicle in 3D (2D) \cite{Barthes-BieselRallison1981_JFM,Misbah2006_PRL,Vlahovska2007_PRE,Finken2008_EPL}. Various numerical schemes have been designed and deployed to simulate the dynamics of many vesicles \cite{BagchiJohoson2005_JBE,Biben2005_EJP,Veerapaneni2009_JCP,SeolHuKimLai2016_JCP}.  Careful experiments on vesicles under different flowing conditions or forcing configurations have been carried out \cite{MaderVitkova2006_EurPhysJE, Abkarian2008_SoftMatt}. In a vesicle suspension under 
+Vesicles (self-enclosed phopholipid bilayer membranes) have been widely utilized
+as simple model membranes for cell mimics in biomedical and material engineering \cite{}. 
+%
+The ever expanding applications of vesicles have encouraged extensive investigations on vesicle hydrodynamics
+and electrohydrodynamics.
+Theoretical investigations are conducted to study the small-deformation or spheroidal dynamics of a nearly spherical (circular) vesicle in a fluid flow or under an external forcing \cite{Barthes-BieselRallison1981_JFM,Misbah2006_PRL,Vlahovska2007_PRE,Finken2008_EPL,ZhangZahnTanLin2013_PoF,Nganguia2013_PRE}. 
+Various numerical schemes have been designed and deployed to simulate the hydrodynamics of many vesicles \cite{BagchiJohoson2005_JBE,Biben2005_EJP,Veerapaneni2009_JCP,SeolHuKimLai2016_JCP}.  
+Experiments are performed to study vesicle hydrodynamics under various flowing conditions or forcing configurations \cite{MaderVitkova2006_EurPhysJE, Abkarian2008_SoftMatt,DahlNarsimhanGouveia2016_SoftMatt}. In a vesicle suspension under 
 a hydrodynamic flow or an external field (such as an electric field) 
 the interactions between
 vesicles play a crucial role in determining the collective dynamics of
 vesicle suspension. For example, boundary integral simulations show that
 vesicles may align to form chains along the external electric field,
 enhancing the suspension viscosity in the direction of alignment.
-In numerical simulations, it is often assumed that vesicles do not get closer than a few nano meters, where the
-Van der Waals interaction between lipid bilayers becomes important \cite{EvansMetcalfe1984_BJ,Book_PhysicalBasisCellAdhesion,Book_IntermolecularSurfaceForces}.
-For giant unilamellar vesicles (GUVs) this assumption is reasonable, however for vesicles of size $\sim 100$ nm the van der Waals
-interactions between vesicles are important and may significantly affect their shape in the absence of any external forcing \cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}. In this paper we use boundary integral simulations to investigate
-how such Van der Waals interactions between sub-micron vesicles may affect their hydrodynamics and consequently the rheology 
-of their suspension in the dilute limit.
+In numerical simulations of vesicle suspension, it is often assumed that lubrication layer between vesicle membranes act to keep
+membrane-membrane interaction (such as Van der Waals interaction) negligible \cite{BagchiJohoson2005_JBE,Veerapaneni2009_JCP}.
 
+However the amphiphilic natures of lipid molecules (a hydrophobic tail and a hydrophilic head with an electric dipole) complicate the
+interactions between a lipid bilayer membrane and a solid (such as a glass substrate or a nano particle) or another bilayer membrane \cite{EvansMetcalfe1984_BJ,Book_PhysicalBasisCellAdhesion,Book_IntermolecularSurfaceForces}.
+Studies confirmed that such interaction potential inevitably consists of a long-range attraction component and a short-range repulsion component 
+\cite{Book_IntermolecularSurfaceForces}. Such interactions leads to adhesion at the separation distance that minimizes the
+interaction potential \cite{Book_IntermolecularSurfaceForces}, and are essential in many biomedical, biological and biophysical processes.
+For example, vesicle adhesion
+is essential for membrane fusion/fission in endocytosis and exocytosis, the transport of small
+vesicles through membrane surfaces.
 
-Due to the nature of amphiphilic molecules (a dipole in the hydrophilic head), the adhesive interaction of a amphiphilic bilayer membrane 
-with either a solid (such as a glass substrate or a nano particle) or another bilayer 
-plays a central role in many biomedical, biological and biophysical processes.
-Vesicle adhesion is an essential step for membrane fusion/fission in many
-processes such as, e.g., endocytosis and exocytosis, that is, the
-transport of small vesicles through large membrane surfaces. 
+%
 Adhesion between a vesicle and a substrate has been extensively studied, with 
 more computations and experiments for the equilibrium shapes \cite{Seifert1990_PRA,ShiFengGao2006_ActaMechSin,LinFreund2007_IntJSolidsStructures} than analysis and simulation of
 the dynamic adhesion process \cite{BlountMiksisDavis2013_PRSa}.
@@ -387,75 +391,168 @@ shear stress and normal stress
 \end{align*}
 
 
+\newpage % so that the figures are more organized writing the paper
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Adhesion of two vesicles in a quiescent flow} 
 \label{sec:qflow} 
 
-\subsection{Effects of the adhesion parameters}
+When two vesicles move towards (or away from) each other under a constant force $F$ without any external fluid flow, the height  $(h)$ of the thin liquid film between two vesicles follows the
+draining dynamics \cite{RamachandranLeal2010_PoF}
+\begin{equation}
+\label{eq:dhdt}
+\frac{d h}{dt} \sim \frac{K_a^{2/3} F^{1/3}}{\mu R_0^{10/3}} h^3,
+\end{equation}
+where $K_a$ is the area expansion modulus, $\mu$ is the viscosity of exterior fluid, $R_0$ is the radius of the undeformed vesicle.
+For the case of a constant forcing $F$ (independent of separation distance $h$ and time $t$), equation~\ref{eq:dhdt} can be easily integrated to give
+a relation between film thickness $h$ and time $t$:
+\begin{equation}
+t \sim \frac{\mu R_0^{10/3}}{K_a^{2/3} F^{1/3}}\frac{1}{2 h^2} \bigg|^{h(t)}_{h(0)},
+\end{equation}
+where $h(0)$ is the vesicle separation at $t=0$.
+We note that $F< (>) 0$ for an attractive  (repulsive) interaction between two vesicles,  and consequently $h(t)$ decreases (increases) from  the initial separation distance $h(0)$. 
+When the force is attractive, $h$ decreases monotonically and $t$ in the above
+equation is the
+draining time that diverges as $h\rightarrow 0$.
+%Similarly $F>0$ for a repulsive force and consequently $h(t) > h(0)$.
+
+When the force on each vesicle is a function of separation distance $h$ of the form (with an integer $m\ge 2$)
+\begin{equation}
+\label{eq:Fh}
+F(h) \sim \sigma \frac{\delta^m}{h^{m+1}}\left(\left(\frac{\delta}{h}\right)^2-1\right),
+\end{equation}
+attraction is dominant at ``large" scales ($h > \delta$) while repulsion is dominant at ``small" scales ($h<\delta$).
+Integration of equation~\ref{eq:dhdt} with the above $F(h)$ gives the relationship between $t$ and $h$.
+In this case the relationship involves an integral of a function of dimensionless $\bar{h} \equiv h/\delta$:
+\begin{align}
+t\frac{K_a^{2/3}}{\mu R_0^{10/3}}& = \int^{h(t)}_{h(0)}-\frac{dh}{h^3 F^{1/3}} = -\frac{1}{\sigma^{1/3}\delta^{5/3}}\int^{\bar{h}(t)}_{\bar{h}(0)}\frac{d \bar{h}}{\bar{h}^{(8-m)/3}(\bar{h}^2-1)^{1/3}},
+\end{align}
+\begin{equation}
+\label{eq:teq_scaling}
+t\sim \frac{\mu R_0^{10/3}}{K_a^{2/3}}\frac{1}{\sigma^{1/3}\delta^{5/3}}.
+\end{equation}
+Equation~\ref{eq:teq_scaling} tells us that both adhesion strength $\sigma$ and the separation distance $\delta$ affect
+the time it takes for a pair of vesicles to reach equilibrium under adhesion force $F$ in equation~\ref{eq:Fh}.  In particular, the equilibration time $t$ 
+is proportional to (1) the separation distance $\delta^{-5/3}$ (thus $t\rightarrow \infty$ as $\delta\rightarrow 0$), and (2) the adhesion strength $\sigma^{-1/3}$ 
+(as in constant forcing case \cite{RamachandranLeal2010_PoF}).  From the above analysis we also expect that the scaling of $t$ with respect to $\delta$ depends on the
+adhesion potential, while the scaling with respect to adhesion strength is independent of the specific form of the potential.
+
+\begin{figure}
+\includegraphics[keepaspectratio=true,scale=0.4]{figs/Dec13a_time_scaling01.eps}
+\includegraphics[keepaspectratio=true,scale=0.4]{figs/Dec13a_time_scaling02.eps}
+\caption{Scaling of the time it takes for two vesicles to reach equilibrium: (a) scaling with respect to $\delta$ with $\sigma=0.1$, and (b) scaling
+with respect to $\sigma$ with $\delta = 0.4$. Arrows indicate the time by when the equilibrium is reached within $1\%$.}
+\label{fig:qflow00}
+\end{figure}
+
+To test the scaling of the equilibration time $t$ with respect to $\sigma$ and $\delta$, we simulate the vesicle adhesion dynamics in a quiescent flow.
+Starting with two vesicles at a distance of twice the radius at $t=0$, the long-range attraction pulls the vesicles together. Figure~\ref{fig:qflow00}(a) plots
+the scaled adhesion energy versus time with $\sigma=0.1$ and three values of $\delta$ as labeled. 
+Adhesion energy reaches minimum at equilibrium, and the scaled $E_{adh}$ evolves towards zero at equilibrium. 
+The arrow indicate the times when the scaled adhesion energy
+reaches within $1\%$ of equilibrium: $t\sim 96$ for $\delta=0.2$, $t\sim 45$ for $\delta = 0.3$, and $t\sim 30$ for $\delta=0.4$:
+\begin{align}
+\frac{t_{\delta=0.2}}{t_{\delta=0.4}} \sim \frac{96}{30}=3.2 &\Longleftrightarrow \left(\frac{0.4}{0.2}\right)^{5/3}\sim 3.17,\\
+\frac{t_{\delta=0.2}}{t_{\delta=0.3}} \sim \frac{96}{45}=2.1 &\Longleftrightarrow \left(\frac{0.3}{0.2}\right)^{5/3}\sim 2.
+\end{align}
+
+The scaling with respect to adhesion strength $\sigma$ is illustrated in figure~\ref{fig:qflow00}(b), where $\delta = 0.4$ and $\sigma$ varies from $0.1$ to $0.5$ as labeled.
+Again the arrows indicate the times when the equilibrium is reached within $1\%$:
+\begin{align}
+\frac{t_{\sigma=0.1}}{t_{\sigma=0.5}} \sim \frac{34}{20} = 1.71 &\Longleftrightarrow \left(\frac{0.5}{0.1}\right)^{1/3}\sim 1.71.
+\end{align}
+From the above results we conclude that the scaling in equation~\ref{eq:teq_scaling} captures the adhesion dynamics of two vesicles that interact with each other via the adhesion force in equation~\ref{eq:Fh}.
+
+
+\subsection{Effects of the adhesion parameters on equilibrium configuration of a vesicle pair}
 \label{subsec:qflow_adhesion_parameters} 
-Here we investigate the dynamics and steady state configuration of two
-identical vesicles placed next to each other in a quiescent flow.  For a
-large reduced area, the two vesicles move toward each other until the
-membrane flattens in the adhesion region, as shown in
-Figures~\ref{fig:qflow01} and~\ref{fig:qflow02}.  The color coding along
-the membrane denotes the membrane tension, which is the lowest in the
-adhesion region.
-
+In the simulations of a pair of 2d vesicles interacting with each other via the adhesion force in equation~\ref{eq:Fh} 
+two vesicles are placed (not too far apart for numerical convenience) in a quiescent flow. Long-range attraction pulls two vesicles together as they deform until their
+separation distance is close to $\delta$ (where $F$ vanishes). 
 \begin{figure}
-\includegraphics[keepaspectratio=true,scale=0.125]{figs/Nrelax2Ves02-rA0p96adR0p4.png}
-\caption{Two vesicles interacting with each other via a vdW potential at different strengths in a quiescent viscous fluid. The color coding is the tension along the vesicle.}
-\label{fig:qflow01}
+\includegraphics[keepaspectratio=true,scale=0.25]{figs/Dec18_vesicle_shape_vs_rA_00.jpeg}
+\caption{Equilibrium shapes of wo vesicles under adhesive  interactions with adhesion strength $\sigma=0.5$ and separation distance $\delta=0.2$. 
+Vesicle reduced area $\Delta A=0.95$, $0.75$ and $0.6$ as labeled.
+ The color coding is the tension along the vesicle.}
+\label{fig:Dec18_vesicle_shape}
 \end{figure}
 
-\begin{figure}
-\includegraphics[keepaspectratio=true,scale=0.25]{figs/Nrelax2Ves02composite-draining.pdf}
-\caption{Adhesion of two vesicles in a quiescent flow.  Only one vesicle
-  is illustrated, and the second is a mirror image.  Left panel: The
-  steady state configuration for different vdW interaction distances.
-  The color coding is the tension along the vesicle.  Right panel:
-  Vesicle configurations at different times for different vdW strengths.
-  The top plot has the weakest vdW strength and the bottom plot has the
-  strongest vdW strength.}
-\label{fig:qflow02} 
-\end{figure}
+Figure~\ref{fig:Dec18_vesicle_shape}(a) shows the equilibrium shapes of vesicles with
+three values of reduced area: $\Delta A=0.95$, $0.75$ and $0.6$ with $\sigma=5$ and $\delta = 0.2$.
+The equilibrium vesicle shape for $\Delta A=0.95$ is the circular cap with a flatten contact region. 
+This is similar to the observed shapes of two vesicles under strong adhesive interaction in \cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}.
 
-% \begin{figure}
-% \includegraphics[keepaspectratio=true,scale=0.4]{figs/relax2Ves01g-draining01a.eps}
-% \caption{Adhesion dynamics of two vesicles with $\delta = 0.3$. From $t=0.3$ to $t=40$, the time interval $\delta t = 0.3$ between every two neighboring dash-dotted curves.}
-% \label{fig:qflow_g-draining01a}
-% \end{figure}
-
-% \begin{figure}
-% \includegraphics[keepaspectratio=true,scale=0.4]{figs/relax2Ves01j-draining01a.eps}
-% \caption{Adhesion dynamics of two vesicles with $\delta = 0.6$. From $t=0.1$ to $t=40$, the time interval $\delta t = 0.1$ between every two neighboring dash-dotted curves.}
-% \label{fig:qflow_g-draining01a}
-% \end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Effects of reduced area}
-\label{sec:qflow_reduced_area} 
-Figure~\ref{fig:qflow_reduced_area}
+When vesicles are more deflated with a reduced area  $\Delta A = 0.75$, the equilibrium vesicle shape is elongated with a bigger contact region.
+As the reduced area decreases further, we observe undulation of the elongated equilibrium vesicle shape on the non-contact side while the contact region remains flat. 
+The color coding along each curve is for the tension of vesicle membrane.
+We observe that the membrane tension in the contact region is very negative, indicating a dominant compression of membrane when the adhesion force is strong to keep the vesicles bound together.
 
 \begin{figure}
-\includegraphics[keepaspectratio=true,scale=0.5]{figs/nrelax2Ves02o_rA.png}
-\caption{The effect of the reduced area on adhering vesicles in a
-quiescent flow.  The parameters of the vdW potential are $\delta = 0.2$
-and $\sigma = 0.5$.}
-\label{fig:qflow_reduced_area}
+\includegraphics[keepaspectratio=true,scale=0.125]{figs/Dec18_Eb_vs_rA_adR0p2_adS502.jpeg}
+\includegraphics[keepaspectratio=true,scale=0.125]{figs/Dec18_Eadh_vs_rA_adR0p2_adS502.jpeg}
+\includegraphics[keepaspectratio=true,scale=0.125]{figs/Dec18_EbEadh_vs_rA_adR0p2_adS502.jpeg}
+\caption{Total bending energy (panel (a)), adhesion energy (panel (b)) and the sum of two energies (panel (c)) plotted against reduced area $\Delta A$.}
+\label{fig:Dec18_vesicle_equilibrium1}
 \end{figure}
+Figure~\ref{fig:Dec18_vesicle_equilibrium1}(a) shows the total bending energy as a function of reduced area. The smaller the reduced area, the more vesicle area is available
+for deformation and thus the bending energy is higher. Figure~\ref{fig:Dec18_vesicle_equilibrium1}(b) shows the total adhesion energy as a function of reduced area. We note
+that the total adhesion energy is more negative as reduced area decreases. The sum of two energies is plotted in figure~\ref{fig:Dec18_vesicle_equilibrium1}(c), where a local minimum in the total energy is
+found around $\Delta A =0.8$.
 
-% \begin{figure}
-% \includegraphics[keepaspectratio=true,scale=0.4]{figs/relax2Ves01usa.eps}
-% \caption{Adhesion dynamics of two vesicles with $\delta = 0.4$ and $\sigma=0.2$. From $t=0.06$ to $t=100$, the time interval $\delta t = 0.06$ between every two neighboring dash-dotted curves.}
-% \label{fig:qflow_u-draining}
-% \end{figure}
+\begin{figure}
+\includegraphics[keepaspectratio=true,scale=0.18]{figs/Dec18_Eb_vs_sigma_rA0p9502.jpeg}
+\includegraphics[keepaspectratio=true,scale=0.18]{figs/Dec18_Eadh_vs_sigma_rA0p9502.jpeg}
+\caption{Total bending energy (a) and adhesion energy (b) versus the adhesion strength $\sigma$ 
+for two vesicles with reduced area $\Delta A=0.95$, separation distance $\delta = 0.2$ (triangles), $0.3$ (crosses)
+and $0.4$ (circles). }
+\label{fig:Dec18_equilibrium} 
+\end{figure}
+%
+Figure~\ref{fig:Dec18_equilibrium} is an example of how the adhesion strength $\sigma$ and separation distance $\delta$ affect the equilibrium configuration of two vesicles under adhesive interactions.
+For both vesicles the reduced area $\Delta A=0.95$ and the bending rigidity is $1$.
+In figure~\ref{fig:Dec18_equilibrium}(a) 
+the total bending energy at equilibrium is plotted against $\sigma$ for three values of separation distance $\delta$.
+We observe that for $\Delta A=0.95$ the equilibrium vesicle shape does not vary much with the adhesion strength $\sigma$, while the total adhesion energy in figure~\ref{fig:Dec18_equilibrium}(b) varies linearly
+with $\sigma$.
 
-% \begin{figure}
-% \includegraphics[keepaspectratio=true,scale=0.4]{figs/relax2Ves01zsa.eps}
-% \caption{Adhesion dynamics of two vesicles with $\delta = 0.4$ and $\sigma=0.2$. From $t=1$ to $t=100$, the time interval $\delta t = 1$ 
-% between every two neighboring dash-dotted curves.}
-% \label{fig:qflow_z-draining}
-% \end{figure}
+
+
+%% \begin{figure}
+%% \includegraphics[keepaspectratio=true,scale=0.4]{figs/relax2Ves01g-draining01a.eps}
+%% \caption{Adhesion dynamics of two vesicles with $\delta = 0.3$. From $t=0.3$ to $t=40$, the time interval $\delta t = 0.3$ between every two neighboring dash-dotted curves.}
+%% \label{fig:qflow_g-draining01a}
+%% \end{figure}
+%
+%% \begin{figure}
+%% \includegraphics[keepaspectratio=true,scale=0.4]{figs/relax2Ves01j-draining01a.eps}
+%% \caption{Adhesion dynamics of two vesicles with $\delta = 0.6$. From $t=0.1$ to $t=40$, the time interval $\delta t = 0.1$ between every two neighboring dash-dotted curves.}
+%% \label{fig:qflow_g-draining01a}
+%% \end{figure}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{Effects of reduced area}
+%\label{sec:qflow_reduced_area} 
+%Figure~\ref{fig:qflow_reduced_area}
+%
+%\begin{figure}
+%\includegraphics[keepaspectratio=true,scale=0.5]{figs/nrelax2Ves02o_rA.png}
+%\caption{The effect of the reduced area on adhering vesicles in a
+%quiescent flow.  The parameters of the vdW potential are $\delta = 0.2$
+%and $\sigma = 0.5$.}
+%\label{fig:qflow_reduced_area}
+%\end{figure}
+%
+%% \begin{figure}
+%% \includegraphics[keepaspectratio=true,scale=0.4]{figs/relax2Ves01usa.eps}
+%% \caption{Adhesion dynamics of two vesicles with $\delta = 0.4$ and $\sigma=0.2$. From $t=0.06$ to $t=100$, the time interval $\delta t = 0.06$ between every two neighboring dash-dotted curves.}
+%% \label{fig:qflow_u-draining}
+%% \end{figure}
+%
+%% \begin{figure}
+%% \includegraphics[keepaspectratio=true,scale=0.4]{figs/relax2Ves01zsa.eps}
+%% \caption{Adhesion dynamics of two vesicles with $\delta = 0.4$ and $\sigma=0.2$. From $t=1$ to $t=100$, the time interval $\delta t = 1$ 
+%% between every two neighboring dash-dotted curves.}
+%% \label{fig:qflow_z-draining}
+%% \end{figure}
 
 \newpage % so that the figures are more organized writing the paper
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -463,37 +560,100 @@ and $\sigma = 0.5$.}
 \label{sec:eflow} 
 We consider two vesicles suspended in the extensional flow $\uu =
 \chi(-x,y)$, where $\chi$ is the extensional rate.  The vesicles are
-initially place symmetrically on the $y$ axis so that the background
-velocity drives the vesicles towards one another.  We vary the reduced
-area and the two vdW parameters and characterize the possible steady
-state configurations.  For all the simulations, the length of the
+initially placed symmetrically on the $x$ axis in a quiescent flow
+($\chi = 0$).  Once they reach steady-state, the extensional background
+flow is started.  We use this example to characterize the required
+extensional rate to overcome the adhesive forces at for vesicles with
+different reduced areas.  For all the simulations, the length of the
 vesicles are fixed, while the area is changed to achieve the desired
 reduced area.
 
 \begin{figure}[htp]
-  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep1.pdf}
-  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep2.pdf}
-  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep3.pdf}
-  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep4.pdf}
-  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep5.pdf}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi5em2_ra080_image01.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi5em2_ra080_image02.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi5em2_ra080_image03.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi5em2_ra080_image04.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi5em2_ra080_image05.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi5em2_ra080_image06.png}
   \caption{Two vesicles in an extensional flow.  The reduced area is
-  $0.40$, the adhesion strength is $1.0$, and the adhesion length scale
-is $0.8$, background flow strength is $\chi = 10^{-2}$.}
+  $0.8$, the adhesion strength is $0.7$, and the adhesion length scale
+is $0.4$, extensional rate is $\chi = 0.05$.}
 \end{figure}
+
 
 \begin{figure}[htp]
-  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep1.pdf}
-  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep2.pdf}
-  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep3.pdf}
-  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep4.pdf}
-  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep5.pdf}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi9em2_ra080_image01.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi9em2_ra080_image02.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi9em2_ra080_image03.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi9em2_ra080_image04.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi9em2_ra080_image05.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi9em2_ra080_image06.png}
   \caption{Two vesicles in an extensional flow.  The reduced area is
-  $0.90$, the adhesion strength is $1.0$, and the adhesion length scale
-is $0.8$, background flow strength is $\chi = 10^{-2}$.}
+  $0.8$, the adhesion strength is $0.7$, and the adhesion length scale
+is $0.4$, extensional rate is $\chi = 0.09$.}
 \end{figure}
 
 
+\begin{figure}[htp]
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image01.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image02.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image03.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image04.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image05.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image06.png}
+  \caption{Two vesicles in an extensional flow.  The reduced area is
+  $0.8$, the adhesion strength is $0.7$, and the adhesion length scale
+is $0.4$, extensional rate is $\chi = 0.1$.}
+\end{figure}
 
+
+\begin{figure}[htp]
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi1p1em1_ra080_image01.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi1p1em1_ra080_image02.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi1p1em1_ra080_image03.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi1p1em1_ra080_image04.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi1p1em1_ra080_image05.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi1p1em1_ra080_image06.png}
+  \caption{Two vesicles in an extensional flow.  The reduced area is
+  $0.8$, the adhesion strength is $0.7$, and the adhesion length scale
+is $0.4$, extensional rate is $\chi = 0.11$.}
+\end{figure}
+
+
+%We consider two vesicles suspended in the extensional flow $\uu =
+%\chi(-x,y)$, where $\chi$ is the extensional rate.  The vesicles are
+%initially place symmetrically on the $y$ axis so that the background
+%velocity drives the vesicles towards one another.  We vary the reduced
+%area and the two vdW parameters and characterize the possible steady
+%state configurations.  For all the simulations, the length of the
+%vesicles are fixed, while the area is changed to achieve the desired
+%reduced area.
+%
+%\begin{figure}[htp]
+%  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep1.pdf}
+%  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep2.pdf}
+%  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep3.pdf}
+%  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep4.pdf}
+%  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra040_timestep5.pdf}
+%  \caption{Two vesicles in an extensional flow.  The reduced area is
+%  $0.40$, the adhesion strength is $1.0$, and the adhesion length scale
+%is $0.8$, background flow strength is $\chi = 10^{-2}$.}
+%\end{figure}
+%
+%\begin{figure}[htp]
+%  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep1.pdf}
+%  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep2.pdf}
+%  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep3.pdf}
+%  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep4.pdf}
+%  \includegraphics[width = 0.19\textwidth]{figs/extensional_adR8em1adS1e0_ra090_timestep5.pdf}
+%  \caption{Two vesicles in an extensional flow.  The reduced area is
+%  $0.90$, the adhesion strength is $1.0$, and the adhesion length scale
+%is $0.8$, background flow strength is $\chi = 10^{-2}$.}
+%\end{figure}
+
+
+
+\newpage % so that the figures are more organized writing the paper
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Adhesion of two vesicles in a shear flow}
 \label{sec:sflow} 
@@ -574,7 +734,7 @@ where
   \langle \sigma \rangle = \frac{1}{|\omega|} \int_{\gamma}
     \xxi \otimes \xx ds.
 \end{align*}
-Here, $[\mu]$ is the intrinsic viscosity, $|phi$ is the area fraction of
+Here, $[\mu]$ is the intrinsic viscosity, $\phi$ is the area fraction of
 vesicles, $\sigma$ is the stress due to the vesicles, and $\langle \cdot
 \rangle$ is the spatial average.
 
@@ -587,6 +747,10 @@ adhesion length scale is $\delta = 0.4$.  The length of the vesicles at
 each of the reduced areas is fixed, while the area changes with
 differing reduced areas.}
 \end{figure}
+\todo[inline]{Do the smaller reduced area doublets since the intrinsic
+viscosity seemed to increase as the reduced area was decresed further}
+\todo[inline]{Decompose the red curve as the intrinsic viscosity due to
+adhesion and due to the bending/tension}
 
 
 
@@ -597,10 +761,16 @@ differing reduced areas.}
 Future work includes three dimensional simulations, viscosity contrast,
 confined suspensions, and dense suspensions.
 
-Recently Liu {\it et al.} \cite{LiuChuNewbyRead2018_bioRxiv} used immersed boundary simulations to show that, 
-at a separation distance of tens of nanometers,
-the thin film between the two membranes facilitate the coupling between membranes via strong hydrodynamic interactions. In particular they demonstrate
-numerically that the fluctuation in one membrane is highly correlated to the other membrane without any physical contact. It is not clear how thermal fluctuations may affect the hydrodynamics of vesicles under adhesion. For example, does the fluctuating hydrodynamics in the thin film between two vesicles enhance adhesion to keep vesicles bound under linear flows?
+Recently Liu {\it et al.} \cite{LiuChuNewbyRead2018_bioRxiv} used
+immersed boundary simulations to show that, at a separation distance of
+tens of nanometers, the thin film between the two membranes facilitate
+the coupling between membranes via strong hydrodynamic interactions. In
+particular they demonstrate numerically that the fluctuation in one
+membrane is highly correlated to the other membrane without any physical
+contact. It is not clear how thermal fluctuations may affect the
+hydrodynamics of vesicles under adhesion. For example, does the
+fluctuating hydrodynamics in the thin film between two vesicles enhance
+adhesion to keep vesicles bound under linear flows?
 
 \begin{appendices}
 \section{Adhesion Force}
@@ -656,7 +826,7 @@ and the adhesive force applied by vesicle 2 on vesicle 1 is
 \begin{align*}
   \int_{\gamma_2}\nabla \phi(\|\xx_1 - \xx_2\|)ds_{\xx_2} = 
   -4 \sigma \delta^2 \int_{\gamma_2}
-  \frac{\xx_1 - \xx_2}{\|\xx_1 - \xx_2\|^2} 
+  \frac{\xx_1 - \xx_2}{\|\xx_1 - \xx_2\|^6} 
   \left(\delta^2 - \|\xx_1 - \xx_2\|^2 \right) ds_{\xx_2}.
 \end{align*}
 A similar expression holds for the adhesive force applied by vesicle 1
