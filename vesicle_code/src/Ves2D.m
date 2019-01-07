@@ -126,6 +126,7 @@ while time < prams.T - 1e-10
   end
   % go back to old time
 
+  if 0
   for k = 1:prams.nv
     z = X(1:end/2,k) + 1i*X(end/2+1:end,k);
     zh = fftshift(fft(z));
@@ -146,6 +147,7 @@ while time < prams.T - 1e-10
   X(end/2+1:end,1) = X(end/2+1:end,1) - ymid/2;
   X(end/2+1:end,2) = X(end/2+1:end,2) - ymid/2;
   % shift vertically so that the x axis is centered between the vesicles
+  end
 
   if accept
     vesicle = capsules(X,sigma,u,prams.kappa,prams.viscCont);

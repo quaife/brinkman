@@ -144,6 +144,10 @@ use the optional argument of the \verb+\item+ command to give the category of ea
 %\tableofcontents
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\todo[inline]{$\sigma$ is overdefined as the Hamacher constant, and the
+tension, and possibly the stress}
+
 \section{Introduction}
 Vesicles (self-enclosed phopholipid bilayer membranes) have been widely utilized
 as simple model membranes for cell mimics in biomedical and material engineering \cite{}. 
@@ -294,6 +298,8 @@ start by defining the Stokes single-layer potential
     \ff(\yy) ds_\yy, \quad \xx \in \RR^2.
   \label{eqn:SLP}
 \end{align}
+\todo[inline]{Define $\rr$ and other variables in
+equation~\eqref{eqn:SLP}}
 The traction jump of the velocity $\uu(\xx) = \SS[\ff](\xx)$ is the
 density function $\ff$, so the fluid velocity is $\xx \in \RR^2$ is
 \begin{align*}
@@ -574,28 +580,28 @@ vesicles are fixed, while the area is changed to achieve the desired
 reduced area.
 
 \begin{figure}[htp]
-  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi5em2_ra080_image01.png}
-  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi5em2_ra080_image02.png}
-  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi5em2_ra080_image03.png}
-  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi5em2_ra080_image04.png}
-  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi5em2_ra080_image05.png}
-  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi5em2_ra080_image06.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi3em2_ra080_image01.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi3em2_ra080_image02.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi3em2_ra080_image03.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi3em2_ra080_image04.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi3em2_ra080_image05.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi3em2_ra080_image06.png}
   \caption{Two vesicles in an extensional flow.  The reduced area is
   $0.8$, the adhesion strength is $0.7$, and the adhesion length scale
-is $0.4$, extensional rate is $\chi = 0.05$.}
+is $0.4$, extensional rate is $\chi = 0.03$.}
 \end{figure}
 
 
 \begin{figure}[htp]
-  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi9em2_ra080_image01.png}
-  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi9em2_ra080_image02.png}
-  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi9em2_ra080_image03.png}
-  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi9em2_ra080_image04.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi5em2_ra080_image01.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi5em2_ra080_image02.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi5em2_ra080_image03.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi5em2_ra080_image04.png}
   \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi9em2_ra080_image05.png}
-  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi9em2_ra080_image06.png}
+  \includegraphics[width = 0.16\textwidth]{figs/extensional_adR4em1adS7em1Chi5em2_ra080_image06.png}
   \caption{Two vesicles in an extensional flow.  The reduced area is
   $0.8$, the adhesion strength is $0.7$, and the adhesion length scale
-is $0.4$, extensional rate is $\chi = 0.09$.}
+is $0.4$, extensional rate is $\chi = 0.05$.}
 \end{figure}
 
 

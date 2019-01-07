@@ -78,7 +78,7 @@ end
 end % poten: constructor
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [LP] = nearSingInt(o,vesicleSou,f,selfMat,...
+function LP = nearSingInt(o,vesicleSou,f,selfMat,...
     NearStruct,kernel,kernelDirect,vesicleTar,tEqualS,upNear,idebug)
 % 
 % vesicleSou : Source points
