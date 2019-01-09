@@ -18,27 +18,29 @@
 %  3)  latex apssamp.tex
 %  4)  latex apssamp.tex
 %
-\documentclass[%
+\documentclass[aps,prl,twocolumn,showpacs,amsmath,amssymb]{revtex4-1}
+
+%\documentclass[%
 %reprint,
 %superscriptaddress,
 %groupedaddress,
 %unsortedaddress,
 %runinaddress,
 %frontmatterverbose, 
-preprint,
+%preprint,
 %showpacs,preprintnumbers,
 %nofootinbib,
 %nobibnotes,
 %bibnotes,
- amsmath,amssymb,
- aps,
+ %amsmath,amssymb,
+ %aps,
 %pra,
 %prb,
 %rmp,
 %prstab,
 %prstper,
 %floatfix,
-]{revtex4-1}
+%]{revtex4-1}
 
 \usepackage[titletoc]{appendix}
 \usepackage{todonotes}
@@ -80,7 +82,7 @@ preprint,
 
 \preprint{APS/123-QED}
 
-\title{Hydrodynamics of two vesicles interacting via a Van der Waals potential}% Force line breaks with \\
+\title{Vesicle-vesicle adhesion in linear flows: dynamics and rheology}% Force line breaks with \\
 %\thanks{A footnote to the article title}%
 
 \author{Bryan Quaife}
@@ -122,17 +124,16 @@ University of Michigan, Ann Arbor
              %  but any date may be explicitly specified
 
 \begin{abstract}
-An article usually includes an abstract, a concise summary of the work
-covered at length in the main body of the article. 
-\begin{description}
-\item[Usage]
-Secondary publications and information retrieval purposes.
-\item[PACS numbers]
-May be entered using the \verb+\pacs{#1}+ command.
-\item[Structure]
-You may use the \texttt{description} environment to structure your abstract;
-use the optional argument of the \verb+\item+ command to give the category of each item. 
-\end{description}
+
+%\begin{description}
+%\item[Usage]
+%Secondary publications and information retrieval purposes.
+%\item[PACS numbers]
+%May be entered using the \verb+\pacs{#1}+ command.
+%\item[Structure]
+%You may use the \texttt{description} environment to structure your abstract;
+%use the optional argument of the \verb+\item+ command to give the category of each item. 
+%\end{description}
 \end{abstract}
 
 \pacs{Valid PACS appear here}% PACS, the Physics and Astronomy
@@ -149,71 +150,55 @@ use the optional argument of the \verb+\item+ command to give the category of ea
 tension, and possibly the stress}
 
 \section{Introduction}
-Vesicles (self-enclosed phopholipid bilayer membranes) have been widely utilized
-as simple model membranes for cell mimics in biomedical and material engineering \cite{}. 
+Vesicles (closed fluid-filled phospholipid bilayer membranes) have been widely utilized
+as biological cell mimics in biophysics and material engineering \cite{}. 
 %
-The ever expanding applications of vesicles have encouraged extensive investigations on vesicle hydrodynamics
-and electrohydrodynamics.
-Theoretical investigations are conducted to study the small-deformation or spheroidal dynamics of a nearly spherical  3D (or nearly circular 2D) vesicle in a fluid flow or under an external forcing \cite{Barthes-BieselRallison1981_JFM,Misbah2006_PRL,Vlahovska2007_PRE,Finken2008_EPL,ZhangZahnTanLin2013_PoF,Nganguia2013_PRE}. 
-Various numerical schemes have been designed and deployed to simulate the hydrodynamics of many vesicles \cite{BagchiJohoson2005_JBE,Biben2005_EJP,Veerapaneni2009_JCP,SeolHuKimLai2016_JCP}.  
-Experiments are performed to study vesicle hydrodynamics under various flowing conditions or forcing configurations \cite{MaderVitkova2006_EurPhysJE, Abkarian2008_SoftMatt,DahlNarsimhanGouveia2016_SoftMatt}. In a vesicle suspension under 
-a hydrodynamic flow or an external field (such as an electric field) 
-the interactions between
-vesicles play a crucial role in determining the collective dynamics of
-vesicle suspension. For example, boundary integral simulations show that
-vesicles may align to form chains along the external electric field,
-enhancing the suspension viscosity in the direction of alignment.
-In numerical simulations of vesicle suspension, it is often assumed that lubrication layer between vesicle membranes act to keep
-membrane-membrane interaction (such as Van der Waals interaction) negligible \cite{BagchiJohoson2005_JBE,Veerapaneni2009_JCP}.
+The ever expanding applications have encouraged detailed experimental, theoretical and numerical investigations of vesicle hydrodynamics
+in applied flow, electric and magnetic fields. Theoretical investigations often take the form of small-deformation analysis or spheroidal dynamics of a nearly-spherical vesicle (or nearly-circular in two dimensions) subjected to an applied flow or under an external forcing \cite{Barthes-BieselRallison1981_JFM,Misbah2006_PRL,Vlahovska2007_PRE,Finken2008_EPL,ZhangZahnTanLin2013_PoF,Nganguia2013_PRE}. 
+On the other hand, various numerical methods have been developed for simulating the transient hydrodynamics of vesicle suspensions  \cite{BagchiJohoson2005_JBE,Biben2005_EJP,Veerapaneni2009_JCP,SeolHuKimLai2016_JCP}.  
+%Experiments are performed to study vesicle hydrodynamics under various flowing conditions or forcing configurations \cite{MaderVitkova2006_EurPhysJE, Abkarian2008_SoftMatt,DahlNarsimhanGouveia2016_SoftMatt}. 
+Collective vesicle hydrodynamics naturally is dictated by the individual vesicle-vesicle interactions;  for example, 
+it was shown recently that vesicles may align to form chains along the direction of the externally applied DC electric field with ensuing consequences to suspension rheology \cite{wu2018pairwise}.
 
-However the amphiphilic natures of lipid molecules (a hydrophobic tail and a hydrophilic head with an electric dipole) complicate the
-interactions between a lipid bilayer membrane and a solid (such as a glass substrate or a nano particle) or another bilayer membrane \cite{EvansMetcalfe1984_BJ,Book_PhysicalBasisCellAdhesion,Book_IntermolecularSurfaceForces}.
+In numerical simulations of vesicle suspensions, it is often assumed that the lubrication layer between vesicle membranes acts to keep the 
+membrane-membrane interaction, such as the van der Waals type interaction, negligible. However the amphiphilic natures of lipid molecules (a hydrophobic tail and a hydrophilic head with an electric dipole) complicate the interactions between a lipid bilayer membrane and a solid (such as a glass substrate or a nano particle) or another bilayer membrane \cite{EvansMetcalfe1984_BJ,Book_PhysicalBasisCellAdhesion,Book_IntermolecularSurfaceForces}.
 Studies confirmed that such interaction potential inevitably consists of a long-range attraction component and a short-range repulsion component 
 \cite{Book_IntermolecularSurfaceForces}. Such interactions leads to adhesion at the separation distance that minimizes the
 interaction potential \cite{Book_IntermolecularSurfaceForces}, and are essential in many biomedical, biological and biophysical processes.
-For example, vesicle adhesion
-is essential for membrane fusion/fission in endocytosis and exocytosis, the transport of small
+For example, vesicle adhesion is essential for membrane fusion/fission in endocytosis and exocytosis, the transport of small
 vesicles through membrane surfaces.
 
 %
-Adhesion between a vesicle and a substrate has been extensively studied, with 
-more computations and experiments for the equilibrium shapes \cite{Seifert1990_PRA,ShiFengGao2006_ActaMechSin,LinFreund2007_IntJSolidsStructures} than analysis and simulation of
-the dynamic adhesion process \cite{BlountMiksisDavis2013_PRSa}.
-Adhesion between bilayer membranes was first experimentally observed by Evans and Metcalfe, who measured 
+Adhesion between a vesicle and a substrate has been extensively studied, primarily focused on analyzing the static equilibrium shapes \cite{Seifert1990_PRA, ShiFengGao2006_ActaMechSin, LinFreund2007_IntJSolidsStructures, das2008adhesion, zhang2009phase} than the the transient adhesion process; exceptions include \cite{cantat1999lift, suk-sei2001, BlountMiksisDavis2013_PRSa}.
+Adhesion between bilayer membranes was first experimentally observed by Evans and Metcalfe \cite{EvansMetcalfe1984_BJ}, who measured 
 the reduction in the free energy per unit area of membrane-membrane contact formation due to the Van der Waals' attraction. For a membrane-membrane
-separation distance of $\sim 3$ nano meters, they estimated that the Hamaker constant $\sim 5.8\times 10^{-14}$ ergs \cite{EvansMetcalfe1984_BJ}, which corresponds to an adhesion energy density $\sim 1$ mJ/m$^2$. The ratio of adhesion energy per unit area to the bending energy (bending rigidity of lipid bilayer membranes $\sim 10^{-19}$ J) gives a measure of vesicle deformation in the presence of adhesion \cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}. In this work we focus on regimes where the ratio is of order unity, between the weak adhesion (ratio $\ll 1$) and strong adhesion (ratio $\gg 1$) regimes \cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}. 
-In this regime the membrane deformation may increase the ``contact area'' between two vesicles and enhance the adhesion effects \cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}. The equilibration of vesicle membranes under adhesion in these regimes have been well studied and documented (\cite{RamachandranAndersonLealIsraelachvili2010_Langmuir} and references therein). However it is not clear how in such regime the adhesion couples to the vesicle hydrodynamics? Our work in this paper aims to address this question with quantitative characterization in terms of physical parameters.
+separation distance of $\sim 3$ nm, they estimated that the Hamaker constant is approximately $5.8\times 10^{-14}$ ergs, which corresponds to an adhesion energy density around $1$ mJ/m$^2$. The ratio of adhesion energy per unit area to the bending energy (bending rigidity of lipid bilayer membranes $\sim 10^{-19}$ J) gives a measure of vesicle deformation in the presence of adhesion \cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}. In this work we focus on regimes where the ratio is of order unity, between the weak adhesion (ratio $\ll 1$) and strong adhesion (ratio $\gg 1$) regimes. 
+In this regime the membrane deformation may increase the ``contact area'' between two vesicles and enhance the adhesion effects. The equilibration of vesicle membranes under adhesion in these regimes have been well studied and documented (see \cite{RamachandranAndersonLealIsraelachvili2010_Langmuir} and references therein). However it is unclear how the adhesion couples to the vesicle hydrodynamics in such regime.  Our work in this paper aims to address this question with quantitative characterization in terms of physical parameters.
 
 
-
-Hydrodynamics of a single vesicle in Stokes flow has been extensively investigated. In a planar shear flow, the vesicle hydrodynamics is characterized by
-excess area (reduced volume), viscosity contrast between interior and exterior fluids, and shear rate of the imposed far-field fluid flow. In addition a vesicle
-with a rigid particle inside is also investigated as a biological mimic of a 
-eukaryotic cell with a nucleus that occupies nearly half of the intracellular volume \cite{Veerapaneni2011_PRL}. Small-deformation analysis shows that
-a vesicle tank-treads in a planar shear flow for low viscosity contrast and shear rate. At high viscosity contrast the tank-tread (TT) dynamics transitions to tumbling (TB) \cite{Misbah2006_PRL,Vlahovska2007_PRE} ,
-and this leads to a transition in effective shear viscosity in the vesicle suspension \cite{Misbah2006_PRL,Vitkova2008_BJ} that is also validated
-by direct numerical simulations \cite{GhigliottiBibenMisbah2010_JFM} and experiments \cite{KantslerSegreSteinberg2008_EPL,ZabuskySegreDeschamps2011_PoF}.
-Between TT and TB vesicle hydrodynamics, a breathing (tremble) is also observed \cite{Misbah2006_PRL,KantslerSegreSteinberg2008_PRL,ZhaoShaqfeh2011_JFM,SpannZhaoShaqfeh2014_PoF} to affect the effective shear viscosity in a 
-different way.
+%Hydrodynamics of a single vesicle in Stokes flow has been extensively investigated. In a planar shear flow, the vesicle hydrodynamics is characterized by
+%excess area (reduced volume), viscosity contrast between interior and exterior fluids, and shear rate of the imposed far-field fluid flow. In addition a vesicle
+%with a rigid particle inside is also investigated as a biological mimic of a 
+%eukaryotic cell with a nucleus that occupies nearly half of the intracellular volume \cite{Veerapaneni2011_PRL}. Small-deformation analysis shows that
+%a vesicle tank-treads in a planar shear flow for low viscosity contrast and shear rate. At high viscosity contrast the tank-tread (TT) dynamics transitions to tumbling (TB) \cite{Misbah2006_PRL,Vlahovska2007_PRE} ,
+%and this leads to a transition in effective shear viscosity in the vesicle suspension \cite{Misbah2006_PRL,Vitkova2008_BJ} that is also validated
+%by direct numerical simulations \cite{GhigliottiBibenMisbah2010_JFM} and experiments \cite{KantslerSegreSteinberg2008_EPL,ZabuskySegreDeschamps2011_PoF}.
+%Between TT and TB vesicle hydrodynamics, a breathing (tremble) is also observed \cite{Misbah2006_PRL,KantslerSegreSteinberg2008_PRL,ZhaoShaqfeh2011_JFM,SpannZhaoShaqfeh2014_PoF} to affect the effective shear viscosity in a 
+%different way.
 %
-In an extensional flow (planar or uniaxial), vesicle shape dynamics
-depends sensitively on the vesicle reduced volume  and the elastic capillary number \cite{KantslerSegreSteinberg2008_PRL,ZhaoShaqfeh2013_JFM,Narsimhan2014_JFM,DahlNarsimhanGouveia2016_SoftMatt}: Asymmetric shape and oscillatory undulation of the vesicle membrane are two examples of the complex vesicle hydrodynamics in an extensional flow.
+%In an extensional flow (planar or uniaxial), vesicle shape dynamics
+%depends sensitively on the vesicle reduced volume  and the elastic capillary number \cite{KantslerSegreSteinberg2008_PRL,ZhaoShaqfeh2013_JFM,Narsimhan2014_JFM,DahlNarsimhanGouveia2016_SoftMatt}: Asymmetric shape and oscillatory undulation of the vesicle membrane are two examples of the complex vesicle hydrodynamics in an extensional flow.
 
-In a quiescent environment, sub-micron size vesicles are found to form a doublet due to their Van der Waals' attractive interactions \cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}. Due to the strong Van der Waals' adhesive force, the vesicles are far
-from spherical shape and the membrane is almost flat in the ``contact" region. Gires {\it et al.} used small-deformation analysis to investigate the hydrodynamic
+In a quiescent environment, sub-micron size vesicles are found to form a doublet due to their Van der Waals' attractive interactions \cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}. Due to the strong Van der Waals' adhesive force, the vesicles are far from spherical shape and the membrane is almost flat in the ``contact" region. Gires {\it et al.} used small-deformation analysis to investigate the hydrodynamic
 interactions between two vesicles in a planar shear flow with a long separation distance \cite{GiresDankerMisbah2012_PRE}. They found that the vesicle interaction could be either attractive or repulsive depending on the organization of the two vesicles relative to the shear flow. To the best of authors' knowledge,
 the effects of close-range vesicle adhesion on their hydrodynamics under an external flow have not been studied and quantified. The goal of this work is to use
 state-of-the-art boundary integral simulations to numerically investigate the dynamics of two vesicles in both planar shear flow and extensional flow for a wide range of vesicle shapes and adhesive strength and distance.
 
 
-Boundary integral equations (BIEs) have a unique advantage that all the
-unknowns are on the boundary of the domain.  Therefore, resolving
-complex and dynamic geometries is straightforward.  Moreover, by using
-appropriate quadrature rules, high-order or spectral accuracy is
-obtained.  Finally, even though the resulting linear systems that need
-to be solved are dense, they can be solved with optimal complexity by
-using fast summation methods.  \todo[inline]{Time stepping}
-
+Boundary integral equation (BIE) approaches are well-suited for solving the low Re flow problems considered here as they lead to reduction in dimensionality and 
+achieve high-order accuracy even for moving geometry problems. When the vesicles adhere, one major issue for BIE solvers is to resolve the vesicle-vesicle hydrodynamic forces which become 
+{\em nearly singular}. In this work, we use the recently developed spectrally-accurate algorithm of \cite{barnett2015spectrally} for overcoming this problem. To overcome the numerical stiffness induced by the membrane bending forces, 
+we extend the adaptive time-stepping scheme developed in \cite{quaife2016adaptive} to our setting. 
 
 This paper is organized as follows.
 
@@ -258,8 +243,7 @@ now describe.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Adhesion Model}
-The adhesion model of Sukumaran and Seifert~\cite{suk-sei2001,
-RamachandranAndersonLealIsraelachvili2010_Langmuir} considers adhesion
+The adhesion model of Sukumaran and Seifert~\cite{suk-sei2001} considers adhesion
 between a single three-dimensional vesicle and a solid wall at $z=0$.
 \todo[inline]{Need a cartoon picture in here.  Some kind of version of
 the one I had for my SIAM Life Sciences Talk}
