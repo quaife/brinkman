@@ -138,23 +138,32 @@ function adh = adhesionTerm(o,Wconst,d0)
 adh = zeros(2*o.N,o.nv);
 for k = 1:o.nv
   notk = [(1:k-1) (k+1:o.nv)];
+  % all vesicles except self
   adhesive_x = o.X(1:o.N,notk);
   adhesive_y = o.X(o.N+1:2*o.N,notk);
   ds = o.sa(:,notk)*2*pi/o.N;
+  % x and y coordinates and arclength of the adhesion source points
   
   for j = 1:o.N
     dist2 = (o.X(j,k) - adhesive_x).^2 + ...
         (o.X(j+o.N,k) - adhesive_y).^2;
-%    Dw = -Wconst * 4*d0^2.*(d0^2 - dist2)./dist2.^(2.5);
+    % distance squared
     Dw = -Wconst*4*d0^2.*(d0^2 - dist2)./dist2.^3;
+    % common term in the vector that is integrated in the adhesion model
 
     adh(j,k) = sum(sum(-Dw .* (o.X(j,k) - adhesive_x).*ds));
+    % adhesive force in the x direction
     adh(j+o.N,k) = sum(sum(-Dw .* (o.X(j+o.N,k) - adhesive_y).*ds));
+    % adhesive force in the y direction
   end
 
 end
 
 end % adhesionTerm
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [Ben,Ten,Div] = computeDerivs(o)
