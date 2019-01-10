@@ -3,9 +3,9 @@ set(0,'DefaultAxesFontSize',22)
 
 irate = 40; % controls the speed of the visualization
 
-if 0
-%  file = 'extensional2VesJData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR4em1adS7em1Chi7em2_ra095/extensional2VesData.bin';
+if 1
+  file = 'extensional2VesJData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR4em1adS7em1Chi2em2_ra070/extensional2VesData.bin';
   ax = [-4 4 -5 5];
   options.confined = false;
 end
@@ -40,8 +40,8 @@ if 0
   ax = [-8 8 -5 5];
   options.confined = false;
 end
-if 1
-%  file = 'shear2VesHData.bin.run1';
+if 0
+  file = 'shear2VesCData.bin.run1';
   file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR4em1adS7em1Chi5em1_ra045/shear2VesData.bin';
   ax = [-10 10 -3 3];
   options.confined = false;

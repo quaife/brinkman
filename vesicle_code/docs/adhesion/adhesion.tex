@@ -716,21 +716,35 @@ Here, $[\mu]$ is the intrinsic viscosity, $\phi$ is the area fraction of
 vesicles, $\sigma$ is the stress due to the vesicles, and $\langle \cdot
 \rangle$ is the spatial average.
 
+In the left plot of Figure~\ref{fig:shearIntrinsicViscosity}, we compare
+the intrinsic viscosity of a single tank treading vesicle to a doublet.
+To validate our simulations, we superimpose (black marks) the intrinsic
+viscosity calculated by Ghigliotti et
+al.~\cite{GhigliottiBibenMisbah2010_JFM}.  The presence of the doublet
+significant increases the intrinsic viscosity at all reduced areas.  To
+further characterize the effect of adhesion, in the right plot of
+Figure~\ref{fig:shearIntrinsicViscosity} we decompose the intrinsic
+viscosity into the contributions from the bending and tension, and the
+contribution from the adhesion.  We see that the effect of the adhesion
+on the intrinsic viscosity is largest for vesicles with small reduced
+areas.
+
 \begin{figure}[htp]
-  \includegraphics[scale=1]{figs/shear2Ves_adR4em1adS7em1Chi5em1.pdf}
-  \caption{\label{fig:shearIntrinsicViscosity} The intrinsic viscosity
-  of a tank treading vesicle (blue) and a doublet (red).  The shear rate
-is $\chi = 0.5$, the Hamaker constant is $\sigma = 0.7$, and the
-adhesion length scale is $\delta = 0.4$.  The length of the vesicles at
-each of the reduced areas is fixed, while the area changes with
-differing reduced areas.}
-  \todo[inline]{Make black marks larger and reference that they come
-  from Ghigliotti, Biben, Misbah 2010 JFM}
+  \centering
+  \includegraphics[width=0.45\textwidth]{figs/shear2Ves_adR4em1adS7em1Chi5em1.pdf}
+  \includegraphics[width=0.45\textwidth]{figs/doublet_decomp.pdf}
+  \caption{\label{fig:shearIntrinsicViscosity} {\em Left}: The intrinsic
+  viscosity of a tank treading vesicle (blue) and a doublet (red).  The
+  shear rate is $\chi = 0.5$, the Hamaker constant is $\sigma = 0.7$,
+  and the adhesion length scale is $\delta = 0.4$.  The length of the
+  vesicles at each of the reduced areas is fixed, while the area changes
+  with differing reduced areas.  The black marks denote intrinsic
+  viscosity values computed by Ghigliotti et
+  al.~\cite{GhigliottiBibenMisbah2010_JFM} (cf.~Figure 5).  {\em Right}:
+  The decomposition of the intrinsic viscosity into the contributions
+  for the bending and tension of the vesicles, and the contribution from
+  the vesicle adhesion.}
 \end{figure}
-\todo[inline]{Do the smaller reduced area doublets since the intrinsic
-viscosity seemed to increase as the reduced area was decresed further}
-\todo[inline]{Decompose the red curve as the intrinsic viscosity due to
-adhesion and due to the bending/tension}
 
 
 
