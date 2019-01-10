@@ -280,13 +280,12 @@ start by defining the Stokes single-layer potential
 \begin{align}
   \SS[\ff](\xx) &= \frac{1}{4\pi\mu} \int_\gamma \left(
     -\log \rho + \frac{\rr \otimes \rr}{\rho^2} \right) 
-    \ff(\yy) ds_\yy, \quad \xx \in \RR^2.
+    \ff(\yy) ds_\yy, \quad \xx \in \RR^2,
   \label{eqn:SLP}
 \end{align}
-\todo[inline]{Define $\rr$ and other variables in
-equation~\eqref{eqn:SLP}}
-The traction jump of the velocity $\uu(\xx) = \SS[\ff](\xx)$ is the
-density function $\ff$, so the fluid velocity is $\xx \in \RR^2$ is
+where $\rr = \xx - \yy$ and $\rho = \|\rr\|$.  The traction jump of the
+velocity $\uu(\xx) = \SS[\ff](\xx)$ is the density function $\ff$, so
+the fluid velocity is $\xx \in \RR^2$ is
 \begin{align*}
   \uu(\xx) = \uu_{\infty}(\xx) + \SS[\xxi](\xx).
 \end{align*}
@@ -721,13 +720,17 @@ the intrinsic viscosity of a single tank treading vesicle to a doublet.
 To validate our simulations, we superimpose (black marks) the intrinsic
 viscosity calculated by Ghigliotti et
 al.~\cite{GhigliottiBibenMisbah2010_JFM}.  The presence of the doublet
-significant increases the intrinsic viscosity at all reduced areas.  To
-further characterize the effect of adhesion, in the right plot of
-Figure~\ref{fig:shearIntrinsicViscosity} we decompose the intrinsic
-viscosity into the contributions from the bending and tension, and the
-contribution from the adhesion.  We see that the effect of the adhesion
-on the intrinsic viscosity is largest for vesicles with small reduced
-areas.
+significantly increases the intrinsic viscosity at all the reduced
+areas.  To further characterize the effect of adhesion, in the right
+plot of Figure~\ref{fig:shearIntrinsicViscosity} we decompose the
+intrinsic viscosity into the contributions from the bending and tension
+(blue), and the contribution from the adhesion (red).  We also
+superimpose twice the intrinsic viscosity of a single tank treading
+vesicle (dashed curve) to demonstrate that the bending and tension of
+the doublet behaves similarly, but not identically, to a dilute
+suspensions of non-adhering tank-treading vesicles.  We see that the
+effect of the adhesion on the intrinsic viscosity is largest for
+vesicles with small reduced areas.
 
 \begin{figure}[htp]
   \centering
@@ -742,8 +745,9 @@ areas.
   viscosity values computed by Ghigliotti et
   al.~\cite{GhigliottiBibenMisbah2010_JFM} (cf.~Figure 5).  {\em Right}:
   The decomposition of the intrinsic viscosity into the contributions
-  for the bending and tension of the vesicles, and the contribution from
-  the vesicle adhesion.}
+  for the bending and tension (blue) of the vesicles, and the
+  contribution from the vesicle adhesion (red).  Also included is twice
+  the intrinsic viscosity of a single tank-treading vesicle.}
 \end{figure}
 
 
