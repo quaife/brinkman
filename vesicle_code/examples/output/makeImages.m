@@ -4,8 +4,8 @@ set(0,'DefaultAxesFontSize',22)
 irate = 10; % controls the speed of the visualization
 
 if 1
-  file = 'extensional2VesCData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR4em1adS7em1Chi9em2_ra070/extensional2VesData.bin';
+%  file = 'extensional2VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR4em1adS7em1Chi2em2_ra070/extensional2VesData.bin';
   ax = [-4 4 -5 5];
   options.confined = false;
 end
@@ -78,7 +78,7 @@ for k = istart:irate:iend
     clf
     plot(vec1,vec2,'r','linewidth',3)
     hold on;
-%    plot(vec1(1:N/8:end,:),vec2(1:N/8:end,:),'b.','markersize',20)
+    plot(vec1(1:N/8:end,:),vec2(1:N/8:end,:),'b.','markersize',20)
     if options.confined
       vec1 = [wallx(:,:);wallx(1,:)];
       vec2 = [wally(:,:);wally(1,:)];
