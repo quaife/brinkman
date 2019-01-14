@@ -18,7 +18,7 @@
 %  3)  latex apssamp.tex
 %  4)  latex apssamp.tex
 %
-\documentclass[aps,prl,showpacs,amsmath,amssymb]{revtex4-1}
+\documentclass[aps,prl,showpacs,amsmath,amssymb,superscriptaddress]{revtex4-1}
 
 %\documentclass[%
 %reprint,
@@ -87,20 +87,15 @@
 %\thanks{A footnote to the article title}%
 
 \author{Bryan Quaife}
- \email{bquaife@fsu.edu}
- \altaffiliation[]{Department of Scientific Computing \\ Florida State University}
+\affiliation{Department of Scientific Computing, Florida State University, Tallahassee, Florida, USA}
+% \email{bquaife@fsu.edu}
+% \altaffiliation[]{Department of Scientific Computing \\ Florida State University}
 \author{Shravan Veerapaneni}%
- \email{shravan@umich.edu}
-\altaffiliation{%
- Department of Mathematics \\
-University of Michigan, Ann Arbor
-}%
-\author{Yuan-Nan Young}%
- \email{yyoung@njit.edu}
-\altaffiliation{%
- Department of Mathematical Sciences \\
- New Jersey Institute of Technology
-}%
+% \email{shravan@umich.edu}
+\affiliation{Department of Mathematics, University of Michigan, Ann Arbor, Michigan, USA}%
+\author{Y.-N. Young}%
+ \email[Corresponding author: ]{yyoung@njit.edu}
+\affiliation{Department of Mathematical Sciences, Newark, NJ, USA}%
 
 %\collaboration{MUSO Collaboration}%\noaffiliation
 
@@ -269,11 +264,12 @@ The adhesion model of Sukumaran and Seifert~\cite{suk-sei2001} considers adhesio
 between a single three-dimensional vesicle and a solid wall at $z=0$.
 \todo[inline]{Need a cartoon picture in here.  Some kind of version of
 the one I had for my SIAM Life Sciences Talk}
-Their model uses the adhesion potential
-\begin{align*}
-  \phi(z) = \sigma\left(\frac{\delta}{z}\right)^2 \left[ 
-    \left(\frac{\delta}{z}\right)^2 - 2 \right],
-\end{align*}
+The adhesion potential in their model is of the functional form in equation~\ref{eq:adhesion_potential} with $(m,n) = (4,2)$:
+\begin{align}
+\label{eq:adhesion_potential}
+  \phi(z) = \sigma \left[ 
+    \left(\frac{\delta}{z}\right)^m - \frac{m}{n} \left(\frac{\delta}{z}\right)^n \right],
+\end{align}
 where $z$ is the distance between the solid wall and the vesicle,
 $\sigma$ is the Hamaker constant, and $\delta$ is the adhesion length
 scale.  We generalize this model to an unbounded suspension of vesicles.
@@ -283,13 +279,23 @@ appropriate for lipid-lipid interactions. In
 Appendix~\ref{sec:appendixA}, the adhesive force at a point $\xx$ on
 vesicle $j$ is shown to be
 \begin{align}
-  \AA\xx:=-4 \sigma \delta^2\sum_{\substack{k=1 \\ k \neq j}}^M 
-  \int_{\gamma_k} \frac{\xx - \yy}{\|\xx - \yy\|^6} 
-  \left(\delta^2 - \|\xx - \yy\|^2 \right) ds_\yy.
+  \AA\xx:=-\sigma m \delta^{n+1}\sum_{\substack{k=1 \\ k \neq j}}^M 
+  \int_{\gamma_k} \frac{\xx - \yy}{\|\xx - \yy\|^{m+1}} 
+  \left(\delta^{m-n} - \|\xx - \yy\|^{m-n} \right) ds_\yy.
   \label{eqn:adhesionForce}
 \end{align}
 
+%\begin{align}
+%  \AA\xx:=-4 \sigma \delta^2\sum_{\substack{k=1 \\ k \neq j}}^M 
+%  \int_{\gamma_k} \frac{\xx - \yy}{\|\xx - \yy\|^6} 
+%  \left(\delta^2 - \|\xx - \yy\|^2 \right) ds_\yy.
+%  \label{eqn:adhesionForce}
+%\end{align}
 
+The exponents $(m,n)$ depend on the geometry of the two objects under adhesion \cite{Book_IntermolecularSurfaceForces}: $(m,n)=(4,2)$ corresponds to two
+flat, planar surfaces interacting with each under a long-range attraction and a short-range repulsion. On the other hand, $(m,n) = (12,6)$ corresponds to the L-J potential between
+two molecules. The adhesion potential in  the integral of equation~\ref{eqn:adhesionForce} is between two small patches of lipid bilayer membrane. Thus we argue that
+a reasonable choice for $(m,n)$ is between $(m,n) = (4,2)$ and $(m,n) = (12,6)$. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -571,6 +577,26 @@ with $\sigma$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Adhesion of two vesicles in an extensional flow} 
 \label{sec:eflow} 
+The hydrodynamics of a single vesicle in an 
+extensional flow has revealed novel nonlinear vesicle dynamics not found for a viscous drop \cite{KantslerSegreSteinberg2008_PRL,ZhaoShaqfeh2013_JFM,Narsimhan2014_JFM,DahlNarsimhanGouveia2016_SoftMatt}.
+The stagnation point (zero-velocity point) in an extensional flow is a saddle point where two laminar streams converge along an axis and then diverge in a
+different direction. 
+With an active control algorithm to fix the position of the stagnation point by adjusting the streaming flow strength with a feedback loop \cite{Johnson-Chavarria2011_EMJ},
+a particle can be trapped at the stagnation point for long time scales to facilitate
+image acquisition or other detailed measures such as PIV of flow inside/around the particle.
+To explore the application of such fluid trap to measure the adhesion strength between two bound vesicle membranes, we propose the following thought experiment.
+
+
+We begin from two vesicles forming a doublet under an adhesion potential in a quiescent flow as in \S~\ref{sec:qflow}. 
+Once a doublet forms and reaches an equilibrium configuration, we turn on 
+the fluid trap with the stagnation point placed at the center of the vesicle doublet.
+For simplification we assume that each vesicle in the doublet has the same reduced area, membrane area, and bending stiffness.
+At low extensional rate, we expect the vesicle doublet to stay bound at the fluid trap stagnation point.
+On the other hand, the vesicle doublet may become unstable and eventually separate at a high extensional rate.
+Thus we expect there to exist a critical extensional rate above which the vesicle doublet cannot stay bound under a given adhesion potential.
+The dependence of the critical extensional rate on the adhesion potential and the mechanical vesicle properties thus provides a means to probe the physics of membrane adhesion.
+
+
 We consider two vesicles suspended in the extensional flow $\uu =
 \chi(-x,y)$, where $\chi$ is the extensional rate.  The vesicles are
 initially placed symmetrically on the $x$ axis in a quiescent flow
@@ -820,8 +846,8 @@ parameterized as $\xx_1(s)$ and $\xx_2(s)$, respectively, with $s \in
 generality, that both vesicles have length one.  We use the van der
 Waals potential
 \begin{align*}
-  \phi(z) = \sigma\left(\frac{\delta}{z}\right)^2 \left[ 
-    \left(\frac{\delta}{z}\right)^2 - 2 \right],
+  \phi(z) = \sigma \left[ 
+    \left(\frac{\delta}{z}\right)^m - \frac{m}{n}\left(\frac{\delta}{z}\right)^n \right],
 \end{align*}
 where $z$ is the distance between two points.  Then, we define the total
 adhesive energy on $\gamma_1$ to be
@@ -830,8 +856,7 @@ adhesive energy on $\gamma_1$ to be
     ds_{\xx_2} ds_{\xx_1}
 \end{align*}
 Perturbing $\xx_1$ to $\tilde{\xx}_1 = \xx_1 +  \delta \xx_1$, results
-in a new vesicle $\tilde{\gamma}_1$, and the perturbed adhesive energy
-is
+in a new vesicle $\tilde{\gamma}_1$, and the perturbed adhesive energy is
 \begin{align*}
   \widetilde{U}_1 = \int_{\tilde{\gamma}_1} \int_{\gamma_2}
   \phi(\|\tilde{\xx}_1 - \xx_2\|) ds_{\xx_2} ds_{\tilde{\xx}_1},
@@ -862,6 +887,12 @@ Therefore,
   \nabla \phi (\|\xx_1 - \xx_2\|) \cdot \yy ds_{\xx_2} ds_{\xx_1}
 \end{align*}
 and the adhesive force applied by vesicle 2 on vesicle 1 is
+\begin{align}
+ \int_{\gamma_2}\nabla \phi(\|\xx_1 - \xx_2\|)ds_{\xx_2} = -m \sigma\delta^{n+1}
+   \int_{\gamma_k} \frac{\xx - \yy}{\|\xx - \yy\|^{m+1}} 
+  \left(\delta^{m-n} - \|\xx - \yy\|^{m-n} \right) ds_\yy.
+  \end{align}
+When $(m,n) = (4,2)$, the above express becomes
 \begin{align*}
   \int_{\gamma_2}\nabla \phi(\|\xx_1 - \xx_2\|)ds_{\xx_2} = 
   -4 \sigma \delta^2 \int_{\gamma_2}
