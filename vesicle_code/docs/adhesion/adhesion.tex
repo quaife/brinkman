@@ -279,8 +279,8 @@ appropriate for lipid-lipid interactions. In
 Appendix~\ref{sec:appendixA}, the adhesive force at a point $\xx$ on
 vesicle $j$ is shown to be
 \begin{align}
-  \AA\xx:=-\sigma m \delta^{n+1}\sum_{\substack{k=1 \\ k \neq j}}^M 
-  \int_{\gamma_k} \frac{\xx - \yy}{\|\xx - \yy\|^{m+1}} 
+  \AA\xx:=-\sigma m \delta^{n}\sum_{\substack{k=1 \\ k \neq j}}^M 
+  \int_{\gamma_k} \frac{\xx - \yy}{\|\xx - \yy\|^{m+2}} 
   \left(\delta^{m-n} - \|\xx - \yy\|^{m-n} \right) ds_\yy.
   \label{eqn:adhesionForce}
 \end{align}
@@ -888,8 +888,8 @@ Therefore,
 \end{align*}
 and the adhesive force applied by vesicle 2 on vesicle 1 is
 \begin{align}
- \int_{\gamma_2}\nabla \phi(\|\xx_1 - \xx_2\|)ds_{\xx_2} = -m \sigma\delta^{n+1}
-   \int_{\gamma_k} \frac{\xx - \yy}{\|\xx - \yy\|^{m+1}} 
+ \int_{\gamma_2}\nabla \phi(\|\xx_1 - \xx_2\|)ds_{\xx_2} = -m \sigma\delta^{n}
+   \int_{\gamma_k} \frac{\xx - \yy}{\|\xx - \yy\|^{m+2}} 
   \left(\delta^{m-n} - \|\xx - \yy\|^{m-n} \right) ds_\yy.
   \end{align}
 When $(m,n) = (4,2)$, the above express becomes
