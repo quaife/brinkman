@@ -4,8 +4,8 @@ set(0,'DefaultAxesFontSize',22)
 irate = 30; % controls the speed of the visualization
 
 if 1
-  file = 'extensional2VesGData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR4em1adS7em1Chi1em1_ra080/extensional2VesData.bin';
+  file = 'extensional2VesAData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR4em1adS7em1Chi7em2_ra090_largerTol/extensional2VesData.bin';
   ax = [-4 4 -5 5];
   options.confined = false;
 end
