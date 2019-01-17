@@ -203,6 +203,15 @@ shapes~\cite{Seifert1990_PRA, ShiFengGao2006_ActaMechSin,
 LinFreund2007_IntJSolidsStructures, das2008adhesion, zhang2009phase}
 than the transient adhesion process; exceptions
 include~\cite{cantat1999lift, suk-sei2001, BlountMiksisDavis2013_PRSa}.
+%
+% The short-range adhesive potential of a lipid bilayer membrane
+% inevitably involves the membrane change redistribution and the membrane potential
+% 
+%  in relation the screening of charges in the electric double layer (EDL) right next to the
+% membrane \cite{Book_IntermolecularSurfaceForces,LiraDimova}.
+% When two vesicles are in close vicinity of each other within the electric double layer,  
+% In this work we do not consider the electrostatic of two lipid bilayer membranes.
+% 
 Adhesion between bilayer membranes was first experimentally observed by
 Evans and Metcalfe~\cite{EvansMetcalfe1984_BJ}, who measured the
 reduction in the free energy per unit area of membrane-membrane contact
@@ -365,10 +374,26 @@ adhesion~\cite{Book_IntermolecularSurfaceForces}: $(m,n)=(4,2)$
 corresponds to two flat, planar surfaces interacting with each under a
 long-range attraction and a short-range repulsion. On the other hand,
 $(m,n) = (12,6)$ corresponds to the L-J potential between two molecules.
-The adhesion potential in  the integral of
+In our case,  the adhesion potential in  the integral of
 equation~\eqref{eqn:adhesionForce} is between two small patches of lipid
-bilayer membrane. Thus we argue that a reasonable choice for $(m,n)$ is
-between $(m,n) = (4,2)$ and $(m,n) = (12,6)$. 
+bilayer membrane (because the lipid molecules are coarse-grained in the continuum modeling).
+Thus a reasonable choice for $(m,n)$ between two coarse-grained membrane patches
+ would be between those for two planar surfaces and two point molecules. 
+ 
+ Large value of $m$ corresponds to a sharp increase in repulsion force as two objects are within the separation distance $\delta$.
+ This poses great challenges for simulations as the numerical time-marching can be very stiff (i.e., very small time step) for large $m$. 
+ The adaptive time-stepping BIE scheme makes it possible to simulate vesicle adhesive dynamics with specified numerical precision for reasonable computation time.
+ We explore several combinations of $(m,n)$ in the simulations 
+ of two vesicles forming a doublet in a quiescent flow, 
+ and found very little difference in both the dynamic evolution and equilibrium configuration between $(m,n)=(8,6)$ and $(m,n)=(4,2)$.
+ 
+ 
+
+ 
+ %
+%
+% Thus we argue that a reasonable choice for $(m,n)$ is
+%between $(m,n) = (4,2)$ and $(m,n) = (12,6)$. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -511,7 +536,7 @@ the draining time that diverges as $h\rightarrow 0$.
 When the force on each vesicle is a function of separation distance $h$ of the form (with an integer $m\ge 2$)
 \begin{align}
 \label{eq:Fh}
-F(h) \sim H \frac{\delta^m}{h^{m+1}}\left(\left(\frac{\delta}{h}\right)^2-1\right),
+F(h) \sim H \frac{\delta^m}{h^{m+1}}\left(\left(\frac{\delta}{h}\right)^{m-n}-1\right),
 \end{align}
 attraction is dominant at ``large" scales ($h > \delta$) while repulsion
 is dominant at ``small" scales ($h<\delta$).  Integration of
@@ -520,7 +545,7 @@ between $t$ and $h$.  In this case the relationship involves an integral
 of a function of dimensionless $\bar{h} \equiv h/\delta$:
 \begin{align*}
 t\frac{K_a^{2/3}}{\mu R_0^{10/3}}& = \int^{h(t)}_{h(0)}-\frac{dh}{h^3
-  F^{1/3}} = -\frac{1}{H^{1/3}\delta^{5/3}}\int^{\bar{h}(t)}_{\bar{h}(0)}\frac{d \bar{h}}{\bar{h}^{(8-m)/3}(\bar{h}^2-1)^{1/3}},
+  F^{1/3}} = -\frac{1}{H^{1/3}\delta^{5/3}}\int^{\bar{h}(t)}_{\bar{h}(0)}\frac{d \bar{h}}{\bar{h}^{(8-m)/3}(\bar{h}^{m-n}-1)^{1/3}},
 \end{align*}
 \begin{align}
 \label{eq:teq_scaling}
