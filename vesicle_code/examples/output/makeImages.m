@@ -5,7 +5,7 @@ irate = 25; % controls the speed of the visualization
 
 if 1
   file = 'extensional2VesBData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR4em1adS7em1Chi1em1_ra070/extensional2VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR4em1adS7em1Chi9em2_ra070_longT/extensional2VesData.bin';
   ax = [-4 4 -5 5];
   options.confined = false;
 end
