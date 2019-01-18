@@ -456,12 +456,18 @@ Alpert quadrature to the logarithmically singular single-layer potential
 $\SS$~\cite{alp1999}.  The source and target points of the adhesion
 force never coincide since they are always on different vesicles, so the
 adhesion force~\eqref{eqn:adhesionForce} is computed with the spectrally
-accurate trapezoid rule~\cite{tre-wei2014}.  To control the error and
-achieve higher-order accuracy in time, we apply a time adaptive spectral
-deferred correction method~\cite{quaife2016adaptive}.  The SDC method is
-able to achieve second-order accuracy by iteratively applying the
-first-order method~\eqref{eqn:IMEXEuler}.
+accurate trapezoid rule~\cite{tre-wei2014}.  
 
+The dynamics of a doublet undergoes many different time scales over time
+horizons that are sufficiently large to characterize the formation of a
+doublet and its rheological properties.  Therefore, time adaptivity is
+crucial so that a user-specified tolerance is achieved with using a
+guess-and-check procedure to find an appropriately small fixed time step
+size.  To control the error and achieve higher-order accuracy in time,
+we apply a time adaptive spectral deferred correction
+method~\cite{quaife2016adaptive}.  The SDC method is able to achieve
+second-order accuracy by iteratively applying the first-order
+method~\eqref{eqn:IMEXEuler}.  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The Shear and Normal Stresses}
