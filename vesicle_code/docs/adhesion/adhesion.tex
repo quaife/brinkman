@@ -335,10 +335,8 @@ now describe.
 \subsection{Adhesion Model}
 The adhesion model of Sukumaran and Seifert~\cite{suk-sei2001} considers
 adhesion between a single three-dimensional vesicle and a solid wall at
-$z=0$.  \todo[inline]{Need a cartoon picture in here.  Some kind of
-version of the one I had for my SIAM Life Sciences Talk} The adhesion
-potential in their model is of the functional form in
-equation~\eqref{eq:adhesion_potential} with $(m,n) = (4,2)$:
+$z=0$.  The adhesion potential in their model is of the functional form
+in equation~\eqref{eq:adhesion_potential} with $(m,n) = (4,2)$:
 \begin{align}
 \label{eq:adhesion_potential}
   \phi(z) = H \left[ 
@@ -358,13 +356,28 @@ vesicle $j$ is shown to be
   \left(\delta^{m-n} - \|\xx - \yy\|^{m-n} \right) ds_\yy.
   \label{eqn:adhesionForce}
 \end{align}
+The adhesion model is illustrated in Figure~\ref{fig:adhesionModel}.
 
-%\begin{align}
-%  \AA\xx:=-4 H \delta^2\sum_{\substack{k=1 \\ k \neq j}}^M 
-%  \int_{\gamma_k} \frac{\xx - \yy}{\|\xx - \yy\|^6} 
-%  \left(\delta^2 - \|\xx - \yy\|^2 \right) ds_\yy.
-%  \label{eqn:adhesionForce}
-%\end{align}
+\begin{figure}[htp]
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[height=6cm]{figs/adhesionPotential.pdf}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[height=6cm]{figs/configCartoon.pdf}
+  \end{minipage}
+  \caption{\label{fig:adhesionModel} {\em Left}: The adhesion potential
+  $\phi(z)$ in Equation~\eqref{eq:adhesion_potential}.  Distances in the
+  green region are repulsive and distances in the blue region are
+  attractive.  {\em Right}: The resulting adhesive force of a single
+  vesicle of a doublet using Equation~\eqref{eqn:adhesionForce}.  The
+  point marked in with a red dot is repelled by the green region and
+  attracted to the blue region.  The net forces are plotted with the
+  black arrows.}
+\end{figure}
+
 
 The exponents $(m,n)$ depend on the geometry of the two objects under
 adhesion~\cite{Book_IntermolecularSurfaceForces}: $(m,n)=(4,2)$
