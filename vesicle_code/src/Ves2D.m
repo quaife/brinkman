@@ -152,6 +152,7 @@ while time < prams.T - 1e-10
   X(end/2+1:end,2) = X(end/2+1:end,2) - ymid/2;
   % shift vertically so that the x axis is centered between the
   % vesicles midpoints
+  % shift vertically so that the x axis is centered between the vesicles
   end
 
   if accept
