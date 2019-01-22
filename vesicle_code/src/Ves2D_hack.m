@@ -1,4 +1,4 @@
-function Xfinal  = Ves2D(X,Xwalls,prams,options,Xtra,pressTar)
+function Xfinal  = Ves2D_hack(X,Xwalls,prams,options,Xtra,pressTar)
 % Ves2D does time stepping on the intial configuration X
 % with parameters and options defined in prams and options.
 % Also can pass a set of initial tracer locations (Xtra) and 
@@ -126,7 +126,7 @@ while time < prams.T - 1e-10
   end
   % go back to old time
 
-  if 0
+  if 1
   for k = 1:prams.nv
     z = X(1:end/2,k) + 1i*X(end/2+1:end,k);
     zh = fftshift(fft(z));

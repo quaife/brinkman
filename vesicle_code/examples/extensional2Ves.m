@@ -7,16 +7,16 @@ fprintf('Two elliptical vesicles in a extensional flow.\n');
 % Physics parameters
 prams.N = 128;               % points per vesicle
 prams.nv = 2;               % number of vesicles
-prams.T = 600;               % time horizon (two tumbling)
-prams.m = 2000;             % number of time steps
+prams.T = 4000*10;               % time horizon (two tumbling)
+prams.m = 2000*10;             % number of time steps
 prams.kappa = [1 1];         % bending coefficient
 prams.viscCant = [1 1];         % viscosity contrast
 options.farField = 'extensional'; % background velocity
-options.farFieldSpeed = 0.07;
+options.farFieldSpeed = 0.09;
 aptions.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
-% Either 'explicit' or 'implicit'
+% Eithe 'explicit' or 'implicit'
 options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
@@ -35,8 +35,8 @@ prams.adStrength = 7e-1;
 % TIME ADAPTIVITY (parameters for new implementation)
 options.timeAdap = true;
 
-prams.rtolArea = 1e-2;
-prams.rtolLength = 1e-2;
+prams.rtolArea = 1e-1*10;
+prams.rtolLength = 1e-1*10;
 prams.betaUp = 1.2;
 prams.betaDown = 0.5;
 prams.alpha = 0.9;
@@ -69,15 +69,16 @@ posx2 = load('posx2_RA070.dat');
 posy2 = load('posy2_RA070.dat');
 
 
+ysep = mean(posy2) - mean(posy1);
 posx1 = posx1 - mean(posx1);
 posx2 = posx2 - mean(posx2);
 posy1 = posy1 - mean(posy1);
 posy2 = posy2 - mean(posy2);
 % center everything at the origin so that the problem is symmetric
 
-ysep = 0.60; % approximate mean value of the minimum seperation
-posy1 = posy1 - ysep;
-posy2 = posy2 + ysep;
+%ysep = 0.60; % approximate mean value of the minimum seperation
+posy1 = posy1 - ysep/2;
+posy2 = posy2 + ysep/2;
 
 sig = 2e-2;
 modes = (-64:63)';
@@ -110,6 +111,6 @@ X = [posx1 posx2; posy1 posy2];
 %    'scale',scale);
 %% Initial configuration of reduce area 0.65 and aligned
 
-Xfinal = Ves2D(X,[],prams,options);
+Xfinal = Ves2D_hack(X,[],prams,options);
 % Run vesicle code
 
