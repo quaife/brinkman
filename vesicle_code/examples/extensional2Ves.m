@@ -7,8 +7,8 @@ fprintf('Two elliptical vesicles in a extensional flow.\n');
 % Physics parameters
 prams.N = 128;               % points per vesicle
 prams.nv = 2;               % number of vesicles
-prams.T = 4000*10;               % time horizon (two tumbling)
-prams.m = 2000*10;             % number of time steps
+prams.T = 1000;               % time horizon (two tumbling)
+prams.m = 8192*8;             % number of time steps
 prams.kappa = [1 1];         % bending coefficient
 prams.viscCant = [1 1];         % viscosity contrast
 options.farField = 'extensional'; % background velocity
@@ -33,7 +33,7 @@ prams.adRange = 4e-1;
 prams.adStrength = 7e-1;
 
 % TIME ADAPTIVITY (parameters for new implementation)
-options.timeAdap = true;
+options.timeAdap = false;
 
 prams.rtolArea = 1e-1*10;
 prams.rtolLength = 1e-1*10;
@@ -42,11 +42,11 @@ prams.betaDown = 0.5;
 prams.alpha = 0.9;
 
 options.orderGL = 2;
-options.nsdc = 1;
-options.expectedOrder = 2;
+options.nsdc = 0;
+options.expectedOrder = 1;
 
 % Plot on-the-fly
-options.usePlot = false;
+options.usePlot = true;
 options.axis = [-4 4 -2 2];
 options.track = false;
 % Save vesicle information and create a log file
@@ -63,12 +63,13 @@ options.errorFile = 'output/extensional2VesError.bin';
 % Set options and parameters that the user doesn't
 % Also add src to path
 
-posx1 = load('posx1_RA070.dat');
-posy1 = load('posy1_RA070.dat');
-posx2 = load('posx2_RA070.dat');
-posy2 = load('posy2_RA070.dat');
+posx1 = load('posx1_RA070_Final.dat');
+posy1 = load('posy1_RA070_Final.dat');
+posx2 = load('posx2_RA070_Final.dat');
+posy2 = load('posy2_RA070_Final.dat');
 
 
+if 0
 ysep = mean(posy2) - mean(posy1);
 posx1 = posx1 - mean(posx1);
 posx2 = posx2 - mean(posx2);
@@ -79,6 +80,7 @@ posy2 = posy2 - mean(posy2);
 %ysep = 0.60; % approximate mean value of the minimum seperation
 posy1 = posy1 - ysep/2;
 posy2 = posy2 + ysep/2;
+end
 
 sig = 2e-2;
 modes = (-64:63)';
