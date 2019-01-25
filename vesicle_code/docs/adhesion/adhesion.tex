@@ -359,14 +359,19 @@ vesicle $j$ is shown to be
 The adhesion model is illustrated in Figure~\ref{fig:adhesionModel}.
 
 \begin{figure}[htp]
-  \begin{minipage}{0.48\textwidth}
+  \begin{minipage}{0.31\textwidth}
     \centering
-    \includegraphics[height=6cm]{figs/adhesionPotential.pdf}
+    \includegraphics[height=5cm,trim={0cm 0cm 2cm 0cm},clip]{figs/adhesionPotential.pdf}
   \end{minipage}
   \hfill
-  \begin{minipage}{0.48\textwidth}
+  \begin{minipage}{0.31\textwidth}
     \centering
-    \includegraphics[height=6cm]{figs/configCartoon.pdf}
+    \includegraphics[height=5cm]{figs/configCartoon.pdf}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.31\textwidth}
+    \centering
+    \includegraphics[height=5cm,trim={3cm 0cm 2cm 0cm},clip]{figs/Adhesion_Force.png}
   \end{minipage}
   \caption{\label{fig:adhesionModel} {\em Left}: The adhesion potential
   $\phi(z)$ in Equation~\eqref{eq:adhesion_potential}.  Distances less
@@ -648,8 +653,7 @@ RamachandranAndersonLealIsraelachvili2010_Langmuir}.
 
 Figure~\ref{fig:Dec18_vesicle_shape}(a) shows the equilibrium shapes of
 vesicles with three values of reduced area: $\Delta A=0.95$, $0.75$ and
-$0.6$ with $H=5$ \todo[inline]{Is this really the Hamaker constant?
-It's not 0.5?} and $\delta = 0.2$.  The equilibrium vesicle shape for
+$0.6$ with $H=5$ and $\delta = 0.2$.  The equilibrium vesicle shape for
 $\Delta A=0.95$ is the circular cap with a flatten contact region.  This
 is similar to the observed shapes of two vesicles under strong adhesive
 interaction
@@ -982,13 +986,12 @@ $\chi$ is the shear rate, and the intrinsic viscosity is
 \end{align*}
 where
 \begin{align*}
-  \langle \sigma \rangle = \frac{1}{|\omega|} \int_{\gamma}
+  \langle \tau \rangle = \frac{1}{|\omega|} \int_{\gamma}
     \xxi \otimes \xx ds.
 \end{align*}
 Here, $[\mu]$ is the intrinsic viscosity, $\phi$ is the area fraction of
-vesicles, $\sigma$ is the stress due to the vesicles, and $\langle \cdot
+vesicles, $/tau$ is the stress due to the vesicles, and $\langle \cdot
 \rangle$ is the spatial average.
-\todo[inline]{Stress $\sigma$ is also used for tension}
 
 In the left plot of Figure~\ref{fig:shearIntrinsicViscosity}, we compare
 the intrinsic viscosity of a single tank treading vesicle to a doublet.
