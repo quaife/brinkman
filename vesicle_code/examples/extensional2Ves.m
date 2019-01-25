@@ -8,7 +8,7 @@ fprintf('Two elliptical vesicles in a extensional flow.\n');
 prams.N = 128;               % points per vesicle
 prams.nv = 2;               % number of vesicles
 prams.T = 1000;               % time horizon (two tumbling)
-prams.m = 8192*8;             % number of time steps
+prams.m = 8192*16;             % number of time steps
 prams.kappa = [1 1];         % bending coefficient
 prams.viscCant = [1 1];         % viscosity contrast
 options.farField = 'extensional'; % background velocity
