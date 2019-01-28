@@ -84,7 +84,7 @@
 
 \preprint{APS/123-QED}
 
-\title{Hydrodynamics and rheology of adhesive vesicle doublets}
+\title{Hydrodynamics and rheology of weakly adhesive vesicle doublets}
 % Force line breaks with \\
 %\thanks{A footnote to the article title}%
 
@@ -173,18 +173,38 @@ the complex vesicle hydrodynamics in an extensional flow.
 % for example, 
 %it was shown recently that vesicles may align to form chains along the direction of the externally applied DC electric field with ensuing consequences to suspension rheology \cite{wu2018pairwise}.
 %
-Collective dynamics of vesicles naturally is dictated by the individual
-vesicle-vesicle interactions.  In numerical simulations of vesicle
-suspensions, it is often assumed that the liquid film between vesicles
-acts to keep the membrane-membrane interaction, such as the van der
-Waals type adhesive interaction, negligible.  However the amphiphilic
+Collective hydrodynamics of vesicles naturally is dictated by the individual
+vesicle-vesicle interactions.  
+In a quiescent flow,
+vesicle-vesicle adhesion leads to formation of vesicle doublets \cite{ZiherlSvetina2007_PNAS} or clusters \cite{SvetinaZiherl2008_Bioelectrochemistry,FlormannAouane2017_SciReports}.
+As a model for red blood cell (RBC) aggregates, an idealized model for adhesive vesicle-vesicle interactions gives rise to 
+vesicle configurations that are observed in experiments of fibrinogen-induced RBC aggregates \cite{SvetinaZiherl2008_Bioelectrochemistry,FlormannAouane2017_SciReports}. 
+Using the L-J potential for pairwise point-point interaction between two vesicle membranes without the detailed molecular details of
+adhesive interactions between RBCs, Flormann {\it et al.} found the contact zone to buckle under strong adhesion \cite{FlormannAouane2017_SciReports}. 
+A direct consequence of the buckling is the
+sigmoidal shape of the adhesion region, which is also observed in RBC doublets and explained in a slightly different model \cite{ZiherlSvetina2007_PNAS}. 
+It remains unknown how adhesive interactions between vesicles might lead to different vesicle hydrodynamics that results in
+different rheological properties of a vesicle suspension. Such studies will provide useful insight to the rheology of blood flow and how to use nano solutes to control the hypertension
+by adjusting the adhesive interactions between RBCs.
+%
+
+In numerical simulations of  a vesicle suspension, the adhesive interaction between two vesicles is often ignored for numerical convenience
+because a smaller time step is often needed to resolve the dynamics of the lubrication thin film between two membranes with adhesion than without.
+However, adhesive interactions  between RBCs lead to different RBC clusters that are expected to alter the rheological properties of the RBC suspension \cite{NeuMeiselman2002_BiophysJ,SvetinaZiherl2008_Bioelectrochemistry}.
+Hydrodynamic simulations of adhesive vesicles in a quiescent flow have revealed physical insights to the equilibrium shapes of RBC aggregates in both experiments 
+\cite{FlormannAouane2017_SciReports} and theory \cite{ZiherlSvetina2007_PNAS}. The main goal in this work is to investigate the hydrodynamics of adhesive vesicles in flowing
+conditions common in microfluidic vesicle flow, such as a planar shear flow or an extensional flow.
+
+
+%
+The electrostatic
 natures of lipid molecules (a hydrophobic tail and a hydrophilic head
 with an electric dipole) complicate the interactions between a lipid
 bilayer membrane and another bilayer
-membrane~\cite{EvansMetcalfe1984_BJ, Book_PhysicalBasisCellAdhesion,
-Book_IntermolecularSurfaceForces} or a solid (such as a glass substrate
-or a nano particle).  Studies confirmed that such interaction potential
-inevitably consists of a long-range attraction component and a
+membrane~\cite{EvansMetcalfe1984_BJ, Book_PhysicalBasisCellAdhesion,Book_IntermolecularSurfaceForces,PerutkovaFrank-Bertoncelij2013_CSB} 
+or a solid (such as a glass substrate
+or a nano particle).  it is reported that such complicated electrostatic contribution in the adhesive interactions between two membranes can be well approximated by the 
+L-J-type potential \cite{FlormannAouane2017_SciReports}, which consists of a long-range attraction component and a
 short-range repulsion component~\cite{Book_IntermolecularSurfaceForces},
 and the combination of the two gives rise to adhesion at the separation
 distance that minimizes the interaction
