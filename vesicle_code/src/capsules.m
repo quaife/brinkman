@@ -964,7 +964,7 @@ density = [ones(vesicle.N,vesicle.nv);...
 % density function that is used to check if a point is inside or
 % outside
 
-tracers = capsules(Xtar,[],[],0,0,0);
+tracers = capsules(Xtar,[],[],0,0);
 if nargin == 3 
   [~,NearV2T] = vesicle.getZone(tracers,2);
 end
@@ -996,6 +996,8 @@ InOut(InOut <= thresh) = 0;
 % interpolating the function [0;1;1;1;1...] close to the initial
 % point.  Therefore, the value returned by the DLP will be some value
 % between 0 and 1, but it can be quite close to 0.  So, we threshold
+
+%InOut = reshape(InOut,size(Xtar,1)/2,size(Xtar,2));
 
 end % sortPts
 

@@ -1,11 +1,11 @@
 addpath ../../src
 set(0,'DefaultAxesFontSize',22)
 
-irate = 1; % controls the speed of the visualization
+irate = 10; % controls the speed of the visualization
 
 if 0
   file = 'extensional2VesData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR4em1adS7em1Chi1em1_ra070/extensional2VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR4em1adS7em1Chi4em2_ra095/extensional2VesData.bin';
   ax = [-2 2 -2 2];
   options.confined = false;
 end
@@ -19,10 +19,12 @@ if 0
   ax = ([-3 3 -3 3]);
   options.confined = false;
 end
-if 1
+if 0
   file = 'relaxationManyVesData.bin';
-  ax = [-5 5 -5 5];
+  ax = [-5 5 -6 6];
   options.confined = false;
+  options.savefig = false;
+  count = 1;
 end
 if 0
   file = 'relaxation2VesData.bin';
@@ -41,13 +43,13 @@ if 0
   options.confined = false;
 end
 if 0
-  file = 'shear1VesAData.bin.run1';
+  file = 'shear1VesAData.bin.run2';
   ax = [-8 8 -5 5];
   options.confined = false;
 end
-if 0
-  file = 'shear2VesCData.bin.run1';
-  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR4em1adS7em1Chi5em1_ra045/shear2VesData.bin';
+if 1
+  file = 'shear2VesJData.bin.run1';
+%  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR4em1adS7em1Chi5em1_ra045/shear2VesData.bin';
   ax = [-10 10 -3 3];
   options.confined = false;
 end
@@ -155,12 +157,12 @@ for k = istart:irate:iend
 %      ' eL = ' num2str(el(k),'%4.2e')];
 %  suptitle(titleStr)
 %  end
-%  if options.savefig
-%    filename = ['./frames/image', sprintf('%04d',count),'.png'];
-%    count = count+1;
-%    figure(1);
-%    print(gcf,'-dpng','-r300',filename);
-%  end
+  if options.savefig
+    filename = ['./frames/image', sprintf('%04d',count),'.pdf'];
+    count = count+1;
+    figure(1);
+    print(gcf,'-dpdf','-r300',filename);
+  end
   pause(0.01)
 %  pause
 end
