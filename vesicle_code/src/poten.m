@@ -1516,6 +1516,70 @@ end % nargin == 3
 
 end % exactStokesSL
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [vortSLP,vortSLPtar] = exactVortSL(o,vesicle,f,Xtar,K1)
+% compute the vorticity of the single-layer potential.  The kernel seems
+% to be singular, so our near singular-integration scheme will not work.
+% Also, cna only do vorticity at target points, and they should be
+% sufficiently separated from the vesicles
+
+if nargin == 5
+  Ntar = size(Xtar,1)/2;
+  ncol = size(Xtar,2);
+  vortSLPtar = zeros(Ntar,ncol);
+else
+  K1 = [];
+  vortSLPtar = [];
+  ncol = 0;
+  % if nargin ~= 5, the user does not need the velocity at arbitrary
+  % points
+end
+
+den = f.*[vesicle.sa;vesicle.sa]*2*pi/vesicle.N;
+% multiply by arclength term
+
+oc = curve;
+[xsou,ysou] = oc.getXY(vesicle.X(:,K1));
+xsou = xsou(:); ysou = ysou(:);
+xsou = xsou(:,ones(Ntar,1))';
+ysou = ysou(:,ones(Ntar,1))';
+% This is faster than repmat
+
+[denx,deny] = oc.getXY(den(:,K1));
+denx = denx(:); deny = deny(:);
+denx = denx(:,ones(Ntar,1))';
+deny = deny(:,ones(Ntar,1))';
+% This is faster than repmat
+
+for k = 1:ncol % loop over columns of target points 
+  [xtar,ytar] = oc.getXY(Xtar(:,k));
+  xtar = xtar(:,ones(vesicle.N*numel(K1),1));
+  ytar = ytar(:,ones(vesicle.N*numel(K1),1));
+  
+  diffx = xtar-xsou; diffy = ytar-ysou;
+  
+  dis2 = diffx.^2 + diffy.^2;
+  s = find(min(dis2,[],2) < 1e-3);
+  % distance squared of source and target location
+  coeff = diffy.*denx - diffx.*deny;
+
+  vortSLPtar(:,k) = sum(coeff./dis2,2);
+  vortSLPtar(s,k) = 1e10;
+end
+vortSLPtar = 1/(2*pi)*vortSLPtar;
+% Avoid loop over the target points.  Only loop over its columns
+
+%% 1/4/pi is the coefficient in front of the single-layer potential
+
+vortSLP = zeros(2*vesicle.N,vesicle.nv); % Initialize to zero
+
+if (nargin == 3 && vesicle.nv > 1)
+  disp('CAN''T HANDLE THIS CASE')
+end % nargin == 3
+
+
+end % exactVortSL
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [stokesDLP,stokesDLPtar] = ...

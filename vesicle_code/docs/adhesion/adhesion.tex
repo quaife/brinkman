@@ -375,13 +375,15 @@ The adhesion model is illustrated in Figure~\ref{fig:adhesionModel}.
   \end{minipage}
   \caption{\label{fig:adhesionModel} {\em Left}: The adhesion potential
   $\phi(z)$ in Equation~\eqref{eq:adhesion_potential}.  Distances less
-  than $\delta$ are repulsive and distances greater than $\delta$ are 
-  attractive.  {\em Right}: The resulting adhesive force of a single
-  vesicle of a doublet using Equation~\eqref{eqn:adhesionForce}.  The
-  point marked with a blue dot is repelled by the region of the vesicle
-  denoted with a thick line, and attracted to the remainder of the
-  vesicle.  The blue region is repelled to the right vesicle and the red
-  region is attracted by the vesicle.}
+  than $\delta$ are repulsive and distances greater than $\delta$ are
+  attractive.  {\em Center}: Each point on a vesicle is repelled or
+  attracted by all points on the other vesicles.  {\em Left}: The
+  resulting adhesive force is found by integrating over all points on
+  all other vesicles (equation~\eqref{eqn:adhesionForce}).  The color is
+  the dot product of the adhesion force with the vector joining the
+  vesicles.  Therefore, the green and blue regions are repelled by the
+  other vesicle while the yellow regions are attracted to the other
+  vesicle.}
 \end{figure}
 
 
@@ -892,17 +894,19 @@ inclination angle and then separate (Figure~\ref{fig:extensional4}).
 \begin{figure}[htp]
   \begin{minipage}{0.45\textwidth}
   \centering
-  \includegraphics[width=\textwidth]{figs/adR4em1adS7em1_ra070_inclinationAngle.pdf}
+  \includegraphics[height=\textwidth]{figs/adR4em1adS7em1_ra070_inclinationAngle.pdf}
   \end{minipage}
   \hfill
   \begin{minipage}{0.45\textwidth}
-    \todo[inline]{Plot of the final inclination angle of doublets that
-    survive the extensional rate}
+    \includegraphics[height=\textwidth]{figs/adR4em1adS7em1_finalInclinationAngle.pdf}
   \end{minipage}
   \caption{\label{fig:extensionalInclinationAngle} {\em Left}: The
   inclination angle of a doublet formed by vesicles of reduced area
   $0.70$ submerged in an extensional flow with an extensional rate of
-  $\chi$.}
+  $\chi$.  {\em Right}: The final inclination angle of doublets.
+  Results are not reported for all the low extensional rates since the
+  doublet had not tilted to a steady-state inclination angle for the
+  given time horizon.}
 \end{figure}
 
 
@@ -943,10 +947,7 @@ doublets are formed (blue curves).
   flow.  The reduced area is $0.90$, the Hamaker constant is $H=0.7$,
   the adhesion length scale is $\delta = 0.4$, and the shear rate is
   $\chi=0.5$.}
-  \todo[inline]{Superimpose the background velocity on the leftmost plot
-  to indicate the shearing motion}
 \end{figure}
-\todo[inline]{Indicate the shear flow in the right most plot.}
 
 \begin{figure}
   \includegraphics[height=0.4\textwidth]{figs/shear_adR4em1Chi1e0_ra-090.pdf}
