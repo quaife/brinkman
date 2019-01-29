@@ -830,7 +830,23 @@ centered at $\pm(x_0,y_0)$ for some $(x_0,y_0)$.
 As expected, we observe two different regimes---the extensional rate is
 sufficiently small that the doublet structure is not broken, and the
 extensional rate is sufficiently large that the doublet is broken.  In
-Figure~\ref{fig:extensionalPhaseDiagram}.
+Figure~\ref{fig:extensionalPhaseDiagram}, the red marks correspond to
+parameters where the doublet is broken while the red marks correspond to
+parameters where the doublet tends to a steady-state fluid trap.  In the
+case that there is a fluid trap, the doublet rotates from the unstable
+configuration where the converging rate is in the direction that is
+parallel to the long axis of the vesicles.  At low extensional rates,
+the inclination angle approaches $\pi$ which corresponds to the
+converging direction being aligned with the short axis of the vesicle
+(Figure~\ref{fig:extensional1}).  As the extensional rate is increased,
+the vesicle tilts to a shallower inclination angle
+(Figures~\ref{fig:extensional2} and~\ref{fig:extensional3}).  Finally,
+when the inclination angle is sufficiently large, the doublet is broken
+(Figure~\ref{fig:extensional4}).  In
+Figure~\ref{fig:extensionalPhaseDiagram}, the size of the round marks
+correspond to the inclination angle.  The square marks correspond to
+doublets that do not reach a steady-state inclination angle in the given
+time horizon.
 
 \begin{figure}[htp]
   \begin{minipage}{0.6\textwidth}
@@ -859,22 +875,13 @@ Figure~\ref{fig:extensionalPhaseDiagram}.
   point while the round point is located at the center of the vesicle.}
 \end{figure}
 
-In Figures~\ref{fig:extensional1}--\ref{fig:extensional3}, we show
-snapshots of two vesicles of reduced area $0.70$ in an extensional flow
-with three different extensional rates.  Interestingly, when the
-extensional rate does not overcome the adhesion rate, the doublet does
-not remain parallel to the stagnation point, but instead tilts to an
-inclination angle (Figures~\ref{fig:extensional1}
-and~\ref{fig:extensional2}.  We include a plot of the inclination angle
-as a function of time for varying extensional rates (left plot of
-Figure~\ref{fig:extensionalInclinationAngle}).  The inclination angle is
-defined defined in with respect to the diverging direction (right plot
-of Figure~\ref{fig:extensionalInclinationAngle}).  When the doublet is
-broken at reduced area $0.70$, the extensional rate is sufficiently
-large to align the long axis of the vesicle with the diverging direction
-and then the vesicles separate.  However, for larger reduced areas, the
-separation dynamics is different.  Instead, the vesicles tilt to an
-inclination angle and then separate (Figure~\ref{fig:extensional4}).
+%In Figures~\ref{fig:extensional1}--\ref{fig:extensional3}, we show
+%snapshots of two vesicles of reduced area $0.70$ in an extensional flow
+%with three different extensional rates.  Interestingly, when the
+%extensional rate does not overcome the adhesion rate, the doublet does
+%not remain parallel to the stagnation point, but instead tilts to an
+%inclination angle (Figures~\ref{fig:extensional1}
+%and~\ref{fig:extensional2}.
 
 \begin{figure}[htp]
   \includegraphics[width = 0.19\textwidth,trim={5cm 2cm 5cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi2em2_ra070_image01.png}
@@ -910,7 +917,7 @@ inclination angle and then separate (Figure~\ref{fig:extensional4}).
   \includegraphics[width = 0.19\textwidth,trim={5cm 2cm 5cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra070_image03.png}
   \includegraphics[width = 0.19\textwidth,trim={5cm 2cm 5cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra070_image04.png}
   \includegraphics[width = 0.19\textwidth,trim={5cm 2cm 5cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra070_image05.png}
-  \caption{\label{fig:extensional3} Two vesicles in an extensional flow.
+  \caption{\label{fig:extensional4} Two vesicles in an extensional flow.
   The reduced area is $0.7$, the Hamaker constant is $H = 0.7$, and the
   adhesion length scale is $\delta = 0.4$, extensional rate is $\chi =
   0.1$.  The center of the vesicle, denoted with a black square, is a
@@ -950,6 +957,17 @@ inclination angle and then separate (Figure~\ref{fig:extensional4}).
   doublet had not tilted to a steady-state inclination angle for the
   given time horizon.}
 \end{figure}
+
+We include a plot of the inclination angle as a function of time for
+varying extensional rates (left plot of
+Figure~\ref{fig:extensionalInclinationAngle}).  The inclination angle is
+defined defined in with respect to the diverging direction (right plot
+of Figure~\ref{fig:extensionalInclinationAngle}).  When the doublet is
+broken at reduced area $0.70$, the extensional rate is sufficiently
+large to align the long axis of the vesicle with the diverging direction
+and then the vesicles separate.  However, for larger reduced areas, the
+separation dynamics is different.  Instead, the vesicles tilt to an
+inclination angle and then separate (Figure~\ref{fig:extensional4}).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1100,8 +1118,10 @@ Once a doublet forms, the two vesicle membranes rotate around each other as they
 observed in each of the two vesicles. We also compute the effective shear viscosity of a dilute suspension of vesicle doublets, and found that membrane adhesion contribution
 increases with decreasing reduced area because deflated vesicles (low reduced area) deform more easily and more membranes in the contact region.
 
-In our formulation we did not include any electrostatic interactions between membranes under adhesion. When the electrostatic interaction is important, an electro-osmotic pressure
-in the thin film is found to be responsible for the observed membrane undulation \cite{LiraDimova}.
+In our formulation we did not include any electrostatic interactions
+between membranes under adhesion. When the electrostatic interaction is
+important, an electro-osmotic pressure in the thin film is found to be
+responsible for the observed membrane undulation~\cite{LiraDimova}.
 
 Future work includes three dimensional simulations, viscosity contrast,
 confined suspensions, and dense suspensions.
