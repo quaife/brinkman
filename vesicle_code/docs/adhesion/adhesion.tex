@@ -827,6 +827,9 @@ of the two vesicles.  With this adjustment, the doublet can not migrate
 towards $(0,\pm \infty)$; instead, for all time, each vesicle is
 centered at $\pm(x_0,y_0)$ for some $(x_0,y_0)$.
 
+The doublet starts at an angle of $\pi$ and rotates towards some number
+less than $\pi/2$ (if it converges).
+
 As expected, we observe two different regimes---the extensional rate is
 sufficiently small that the doublet structure is not broken, and the
 extensional rate is sufficiently large that the doublet is broken.  In
@@ -849,23 +852,26 @@ doublets that do not reach a steady-state inclination angle in the given
 time horizon.
 
 \begin{figure}[htp]
-  \begin{minipage}{0.6\textwidth}
+  \begin{minipage}{0.63\textwidth}
     \centering
     \includegraphics[width=\textwidth]{figs/extensional_adR4em1adS7em1_phaseDiagram.pdf}
   \end{minipage}
   \hfill
-  \begin{minipage}{0.33\textwidth}
+  \begin{minipage}{0.35\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{figs/angleDefinition.pdf}
+    \includegraphics[width=0.8\textwidth]{figs/angleDefinition.pdf}
+    \includegraphics[height=0.45\textwidth]{figs/rotate1.pdf}
+    \hfill
+    \includegraphics[height=0.45\textwidth]{figs/rotate2.pdf}
   \end{minipage}
-  \caption{\label{fig:extensionalPhaseDiagram} {\em Left}:Phase diagram
+  \caption{\label{fig:extensionalPhaseDiagram} {\em Left}: Phase diagram
   of vesicle hydrodynamics in an extensional flow with a fixed Hamaker
   constant $H=0.7$ and adhesion length scale $\delta = 0.4$.  For small
   extensional rates, the doublet structure is not broken (blue marks),
   while at large extensional rates, the doublet is broken (red marks).
   The size of the round blue marks indicate the final inclination angle
-  with the larger dots rotation less ($\theta=pi$) and the smaller dots
-  rotating more ($\theta = pi/2$).  A square mark is used for
+  with the larger dots rotation less ($\theta=\pi$) and the smaller dots
+  rotating more ($\theta = \pi/2$).  A square mark is used for
   simulations that did not result in a steady-state inclination angle in
   the given time horizon.  {\em Right}: The definition of the
   inclination angle.  An inclination angle of $\pi$ indicates a doublet
@@ -943,11 +949,11 @@ time horizon.
 \begin{figure}[htp]
   \begin{minipage}{0.45\textwidth}
   \centering
-  \includegraphics[height=\textwidth]{figs/adR4em1adS7em1_ra070_inclinationAngle.pdf}
+  \includegraphics[height=0.8\textwidth]{figs/adR4em1adS7em1_ra070_inclinationAngle.pdf}
   \end{minipage}
   \hfill
   \begin{minipage}{0.45\textwidth}
-    \includegraphics[height=\textwidth]{figs/adR4em1adS7em1_finalInclinationAngle.pdf}
+    \includegraphics[height=0.8\textwidth]{figs/adR4em1adS7em1_finalInclinationAngle.pdf}
   \end{minipage}
   \caption{\label{fig:extensionalInclinationAngle} {\em Left}: The
   inclination angle of a doublet formed by vesicles of reduced area
