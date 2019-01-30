@@ -171,8 +171,7 @@ vesicle suspension~\cite{Misbah2006_PRL,Vitkova2008_BJ} that is also
 validated by direct numerical
 simulations~\cite{GhigliottiBibenMisbah2010_JFM} and
 experiments~\cite{KantslerSegreSteinberg2008_EPL,
-ZabuskySegreDeschamps2011_PoF}.  Between TT and TB vesicle
-hydrodynamics, a breathing (tremble) is also
+ZabuskySegreDeschamps2011_PoF}.  Between TT and TB vesicle dynamics, a breathing (tremble) mode is also
 observed~\cite{Misbah2006_PRL,KantslerSegreSteinberg2008_PRL,
 ZhaoShaqfeh2011_JFM, SpannZhaoShaqfeh2014_PoF} to affect the effective
 shear viscosity in a different way.  In an extensional flow (planar or
@@ -193,7 +192,7 @@ In a quiescent flow,
 vesicle-vesicle adhesion leads to formation of vesicle doublets \cite{Ziherl2007_PRL,ZiherlSvetina2007_PNAS} or clusters \cite{SvetinaZiherl2008_Bioelectrochemistry,FlormannAouane2017_SciReports}.
 As a model for red blood cell (RBC) aggregates, an idealized model for adhesive vesicle-vesicle interactions gives rise to 
 vesicle configurations similar to those observed in experiments of fibrinogen-induced RBC aggregates \cite{SvetinaZiherl2008_Bioelectrochemistry,FlormannAouane2017_SciReports}. 
-Using the L-J potential for point-point interaction between two vesicle membranes without the detailed molecular details of
+Using the L-J potential for point-point interaction between two vesicle membranes without the molecular details of
 adhesive interactions between RBCs, Flormann {\it et al.} found the contact zone to buckle under strong adhesion \cite{FlormannAouane2017_SciReports}. 
 A direct consequence of the buckling is the
 sigmoidal shape of the adhesion region, which is also observed in RBC doublets and explained in a slightly different model \cite{ZiherlSvetina2007_PNAS}. 
@@ -202,10 +201,12 @@ different rheological properties of a vesicle suspension. Such studies will prov
 by adjusting the adhesive interactions between RBCs.
 %
 
-In numerical simulations of  a vesicle suspension, the adhesive interaction between two vesicles is often ignored \cite{Veerapaneni2009_JCP,RahimianVeerapaneniBiros2010_JCP} 
-for numerical convenience
+In numerical simulations of  a vesicle suspension, the adhesive interaction between two vesicles is often 
+ignored \cite{Veerapaneni2009_JCP,RahimianVeerapaneniBiros2010_JCP} 
+for numerical convenience, mostly 
 because a smaller time step is often needed to resolve the dynamics of the lubrication thin film between two membranes with adhesion than without.
 However, adhesive interactions  between RBCs lead to different RBC clusters that are expected to alter the rheological properties of the RBC suspension \cite{NeuMeiselman2002_BJ,SvetinaZiherl2008_Bioelectrochemistry}.
+%
 Hydrodynamic simulations of adhesive vesicles in a quiescent flow have revealed physical insights to the equilibrium shapes of RBC aggregates in both experiments 
 \cite{FlormannAouane2017_SciReports} and theory \cite{ZiherlSvetina2007_PNAS}. The main goal in this work is to investigate the hydrodynamics of adhesive vesicles in flowing
 conditions common in microfluidic vesicle flow, such as a planar shear flow or an extensional flow.
@@ -217,7 +218,17 @@ with an electric dipole) complicates the interactions between a lipid
 bilayer membrane and another bilayer
 membrane~\cite{EvansMetcalfe1984_BJ, Book_PhysicalBasisCellAdhesion,Book_IntermolecularSurfaceForces,PerutkovaFrank-Bertoncelij2013_CSB} 
 or a solid (such as a glass substrate
-or a nano particle).  In the absence of an external electric field and ions in the solvents, 
+or a nano particle).  Adhesion between a vesicle and a substrate has been extensively studied,
+primarily focused on analyzing the static equilibrium
+shapes~\cite{Seifert1990_PRA, ShiFengGao2006_ActaMechSin,
+LinFreund2007_IntJSolidsStructures, das2008adhesion, zhang2009phase,SteinkuhlerAgudo-Canalejo2016_BJ}
+than the transient adhesion process \cite{cantat1999lift, suk-sei2001, BlountMiksisDavis2013_PRSa}.
+%
+Adhesive interactions between lipid membranes are essential in many biomedical, biological and biophysical
+processes.  For example, vesicle adhesion is crucial to initiate membrane
+fusion/fission in endocytosis and exocytosis, the transport of small
+vesicles through membrane surfaces.
+In the absence of an external electric field and ions in the solvents, 
 it is reported that 
 %such complicated electrostatic component in 
 the adhesive interactions between two membranes can be well approximated by the 
@@ -225,29 +236,20 @@ L-J-type potential \cite{FlormannAouane2017_SciReports}, which consists of a lon
 short-range repulsion component~\cite{Book_IntermolecularSurfaceForces},
 and the combination of the two gives rise to adhesion at the separation
 distance that minimizes the interaction
-potential~\cite{Book_IntermolecularSurfaceForces}. Such adhesive
-potentials are essential in many biomedical, biological and biophysical
-processes.  For example, vesicle adhesion is essential for membrane
-fusion/fission in endocytosis and exocytosis, the transport of small
-vesicles through membrane surfaces.
+potential~\cite{Book_IntermolecularSurfaceForces}. 
+%%
+%%move this somewhere else Jan30YNY
+%Such adhesive
+%potentials are essential in many biomedical, biological and biophysical
+%processes.  For example, vesicle adhesion is essential for membrane
+%fusion/fission in endocytosis and exocytosis, the transport of small
+%vesicles through membrane surfaces.
+%%move this somewhere else Jan30YNY
 
-Adhesion between a vesicle and a substrate has been extensively studied,
-primarily focused on analyzing the static equilibrium
-shapes~\cite{Seifert1990_PRA, ShiFengGao2006_ActaMechSin,
-LinFreund2007_IntJSolidsStructures, das2008adhesion, zhang2009phase}
-than the transient adhesion process; exceptions
-include~\cite{cantat1999lift, suk-sei2001, BlountMiksisDavis2013_PRSa}.
-%
-% The short-range adhesive potential of a lipid bilayer membrane
-% inevitably involves the membrane change redistribution and the membrane potential
-% 
-%  in relation the screening of charges in the electric double layer (EDL) right next to the
-% membrane \cite{Book_IntermolecularSurfaceForces,LiraDimova}.
-% When two vesicles are in close vicinity of each other within the electric double layer,  
-% In this work we do not consider the electrostatic of two lipid bilayer membranes.
-% 
-Adhesion between bilayer membranes was first experimentally observed by
-Evans and Metcalfe~\cite{EvansMetcalfe1984_BJ}, who measured the
+
+%Adhesion between bilayer membranes was first experimentally observed by
+Evans and Metcalfe~\cite{EvansMetcalfe1984_BJ} used the micropipette to measure the adhesive force between two vesicles bound by strong adhesion.
+They were able to  measure the
 reduction in the free energy per unit area of membrane-membrane contact
 formation due to the Van der Waals' attraction. For a membrane-membrane
 separation distance of $\sim 3$ nm, they estimated that the Hamaker
@@ -268,6 +270,22 @@ references therein). However it is unclear how the adhesion couples to
 the vesicle hydrodynamics in such regime.  Our work in this paper aims
 to address this question with quantitative characterization in terms of
 physical parameters.
+
+%Adhesion between a vesicle and a substrate has been extensively studied,
+%primarily focused on analyzing the static equilibrium
+%shapes~\cite{Seifert1990_PRA, ShiFengGao2006_ActaMechSin,
+%LinFreund2007_IntJSolidsStructures, das2008adhesion, zhang2009phase}
+%than the transient adhesion process; exceptions
+%include~\cite{cantat1999lift, suk-sei2001, BlountMiksisDavis2013_PRSa}.
+%
+% The short-range adhesive potential of a lipid bilayer membrane
+% inevitably involves the membrane change redistribution and the membrane potential
+% 
+%  in relation the screening of charges in the electric double layer (EDL) right next to the
+% membrane \cite{Book_IntermolecularSurfaceForces,LiraDimova}.
+% When two vesicles are in close vicinity of each other within the electric double layer,  
+% In this work we do not consider the electrostatic of two lipid bilayer membranes.
+% 
 
 
 %Hydrodynamics of a single vesicle in Stokes flow has been extensively investigated. In a planar shear flow, the vesicle hydrodynamics is characterized by
