@@ -59,15 +59,15 @@ for k = 1:ntime
   Forcex(:,k) = sum(f(1:end/2,:).*vesicle.sa)*2*pi/N;
   Forcey(:,k) = sum(f(end/2+1:end,:).*vesicle.sa)*2*pi/N;
 
-  [cx,cy] = oc.getXY(vesicle.center);
-
-  for j=1:nv
-    Torque(j,k) = ...
-    sum((f(1:end/2,j).*(X(end/2+1:end,j) - cy(j)) - ...
-         f(end/2+1:end,j).*(X(1:end/2,j) - cx(j))).*...
-         vesicle.sa(:,j))*2*pi/N;
-  end
-
+%  [cx,cy] = oc.getXY(vesicle.center);
+%
+%  for j=1:nv
+%    Torque(j,k) = ...
+%    sum((f(1:end/2,j).*(X(end/2+1:end,j) - cy(j)) - ...
+%         f(end/2+1:end,j).*(X(1:end/2,j) - cx(j))).*...
+%         vesicle.sa(:,j))*2*pi/N;
+%  end
+%
 %  figure(1); clf;
 %  subplot(2,2,1) 
 %  plot(posx(:,1,k),posy(:,1,k),'b')
