@@ -612,13 +612,13 @@ attractive, $h$ decreases monotonically and $t$ in the above equation is
 the draining time that diverges as $h\rightarrow 0$.
 %Similarly $F>0$ for a repulsive force and consequently $h(t) > h(0)$.
 
-When the force on each vesicle is a function of separation distance $h$ of the form (with an integer $m\ge 2$)
+When the force on each vesicle is a function of separation distance $h$ of the form (with integers $n>m\ge 2$)
 \begin{align}
 \label{eq:Fh}
 F(h) \sim H \frac{\delta^m}{h^{m+1}}\left(\left(\frac{\delta}{h}\right)^{m-n}-1\right),
 \end{align}
-attraction is dominant at ``large" scales ($h > \delta$) while repulsion
-is dominant at ``small" scales ($h<\delta$).  Integration of
+attraction is dominant at ``large" distance ($h > \delta$) while repulsion
+is dominant at ``small" distance ($h<\delta$).  Integration of
 equation~\eqref{eq:dhdt} with the above $F(h)$ gives the relationship
 between $t$ and $h$.  In this case the relationship involves an integral
 of a function of dimensionless $\bar{h} \equiv h/\delta$:
@@ -632,8 +632,8 @@ t\sim \frac{\mu R_0^{10/3}}{K_a^{2/3}}\frac{1}{H^{1/3}\delta^{5/3}}.
 \end{align}
 Equation~\eqref{eq:teq_scaling} tells us that both adhesion strength $H$
 and the separation distance $\delta$ affect the time it takes for a pair
-of vesicles to reach equilibrium under adhesion force $F$ in
-equation~\eqref{eq:Fh}.  In particular, the equilibration time $t$ is
+of vesicles to reach the separation distance $\delta$ under adhesion force $F$ in
+equation~\eqref{eq:Fh}.  In particular, the duration $t$ is
 proportional to (1) the separation distance $\delta^{-5/3}$ (thus
 $t\rightarrow \infty$ as $\delta\rightarrow 0$), and (2) the adhesion
 strength $H^{-1/3}$ (as in constant forcing
@@ -652,7 +652,7 @@ is independent of the specific form of the potential.
   reached within $1\%$.}
 \end{figure}
 
-To test the scaling of the equilibration time $t$ with respect to $H$
+To test the scaling of the duration $t$ with respect to $H$
 and $\delta$, we simulate the vesicle adhesion dynamics in a quiescent
 flow.  Starting with two vesicles at a distance of twice the radius at
 $t=0$, the long-range attraction pulls the vesicles together.
@@ -689,13 +689,27 @@ initially placed not too far apart  from each other for numerical
 convenience.  Without any external forcing such as an imposed electric
 field or a fluid flow in the far-field, the long-range attraction pulls
 two vesicles together until their separation distance is close to
-$\delta$ (where $F$ vanishes).  Depending on the adhesion strength
-relative to the membrane bending rigidity, the vesicle may deform
-significantly in the contact region while still maintain nearly
-spherical shape on the opposite side to the contact
-region~\cite{EvansMetcalfe1984_BJ, Book_PhysicalBasisCellAdhesion,
-Book_IntermolecularSurfaceForces,
-RamachandranAndersonLealIsraelachvili2010_Langmuir}.
+$\delta$ (where the adhesive force $F$ vanishes).  
+%
+Once a vesicle doublet is formed, the membrane shape in the contact region 
+depends on the adhesion strength
+relative to the membrane bending rigidity.
+For weak to moderate adhesion strength, vesicle membranes are flattened in the contact region while the rest of vesicle maintains a nearly spherical shape
+\cite{EvansMetcalfe1984_BJ, Book_PhysicalBasisCellAdhesion, Book_IntermolecularSurfaceForces,RamachandranAndersonLealIsraelachvili2010_Langmuir}.
+Under a strong adhesion, however, the vesicle membranes in the contact region buckle and form a sigmoidal shape  that has been observed in RBC doublet as well
+\cite{Ziherl2007_PRL,ZiherlSvetina2007_PNAS,FlormannAouane2017_SciReports}. An external electric field is also able to buckle a vesicle membrane that is adhered to a solid
+substrate \cite{SteinkuhlerAgudo-Canalejo2016_BJ}.
+
+%the vesicle may deform
+%significantly in the contact region while still maintain nearly
+%spherical shape on the opposite side to the contact
+%region~\cite{EvansMetcalfe1984_BJ, Book_PhysicalBasisCellAdhesion, Book_IntermolecularSurfaceForces,RamachandranAndersonLealIsraelachvili2010_Langmuir}.
+%In the contact region, vesicle membranes are flattened under a weak to moderate adhesive potential.
+%Under a strong adhesion the vesicle membranes buckle and form a sigmoidal shape in the contact region \cite{Ziherl2007_PRL,ZiherlSvetina2007_PNAS,FlormannAouane2017_SciReports}.
+
+In this work we focus on weakly adhesive vesicles whose equilibrium shapes in a quiescent flow are shown in figure~\ref{fig:Dec18_vesicle_shape}(a)
+for three values of reduced area:  $\Delta A=0.95$, $0.75$ and
+$0.6$ with $H=5$ and $\delta = 0.2$. 
 \begin{figure}
 \includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_vesicle_shape_vs_rA_00.jpeg}
 \includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_vesicle_shape_vs_rA_01.jpeg}
@@ -707,19 +721,27 @@ RamachandranAndersonLealIsraelachvili2010_Langmuir}.
   Membrane shapes in the contact region.}
 \label{fig:Dec18_vesicle_shape}
 \end{figure}
-
-Figure~\ref{fig:Dec18_vesicle_shape}(a) shows the equilibrium shapes of
-vesicles with three values of reduced area: $\Delta A=0.95$, $0.75$ and
-$0.6$ with $H=5$ and $\delta = 0.2$.  The equilibrium vesicle shape for
-$\Delta A=0.95$ is the circular cap with a flatten contact region.  This
-is similar to the observed shapes of two vesicles under strong adhesive
-interaction
-in~\cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}.
-
-When vesicles are more deflated with a reduced area  $\Delta A = 0.75$, the equilibrium vesicle shape is elongated with a bigger contact region.
+ The equilibrium vesicle shape for
+$\Delta A=0.95$ is the circular cap with a flat contact region.  This
+is similar to the observed shapes of two vesicles under strong adhesive interaction
+in~\cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}.  
+When vesicles are more deflated with a reduced area  $\Delta A = 0.75$, the equilibrium vesicle shape is elongated with a bigger contact region. This is consistent
+with the equilibrium shapes of a vesicle doublet under a L-J potential  ($(m,n) = (12,6)$) \cite{FlormannAouane2017_SciReports}.
 As the reduced area decreases further, we observe undulation of the elongated equilibrium vesicle shape on the non-contact side while the contact region remains flat. 
 The color coding along each curve is for the tension of vesicle membrane.
 We observe that the membrane tension in the contact region is very negative, indicating a dominant compression of membrane when the adhesion force is strong to keep the vesicles bound together.
+
+Figure~\ref{fig:Dec18_vesicle_shape}(b) is a zoom on the membranes in the contact region, where the membranes are not perfectly flat: 
+For all values of reduced area we observe that membranes are slightly curved with a dip at the edge.
+Such membrane undulation in the contact region is predicted by lubrication analyses on the a membrane under adhesion with a solid substrate
+\cite{BlountMiksisDavis2013_PRSa,YoungStone2017_PRF}. 
+Also the dip at the edge of contact region is related to but different from the buckling of membrane under strong adhesion:
+A closer inspection on the dip at the edge shows that the membrane distance is smaller than the neutral separation distance $\delta$ there. Thus the adhesion force is attractive for
+most of the membranes in the contact region except at the edge, where the adhesive force turns repulsive.
+Results from the lubrication analysis shows that this dip and slightly curved shape in the contact region are independent of the adhesion strength. The high membrane curvature
+at the edge may pose a problem for using the contact angle there to estimate the adhesion strength. This inspires us to investigate the possibility of using a dynamic fluid trap to measure the adhesion strength (see \S~\ref{sec:eflow}).
+
+
 
 \begin{figure}
 \includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_Ebleft_Eadhright_vs_rA_adR0p2_adS502.jpeg}
@@ -1162,8 +1184,8 @@ adhesion to keep vesicles bound under linear flows?
 
 \acknowledgments
 
-YNY would like to acknowledge helpful discussions with 
-The authors acknowledge support from NSF-DMS 1614863 and 1412789 (YNY).
+YNY would like to acknowledge helpful discussions with blah blah blah.
+YNY acknowledges support from NSF-DMS 1614863 and 1412789, and Flatiron Institute, part of the Simons Foundation.
 
 
 \begin{appendices}
