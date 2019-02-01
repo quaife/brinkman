@@ -1,7 +1,8 @@
 addpath ../../src
 set(0,'DefaultAxesFontSize',22)
+options.savefig = false;
 
-irate = 20; % controls the speed of the visualization
+irate = 1; % controls the speed of the visualization
 
 if 1
 %  file = 'extensional2VesData.bin';
@@ -65,6 +66,7 @@ end
 % load positions, tension, stresses, errors, time, number of points, and
 % number of vesicles
 istart = 1;
+iend = numel(time);
 ntime = numel(time);
 
 %min_ten = floor(min(min(min(ten))));
@@ -74,8 +76,6 @@ ntime = numel(time);
 %  max_ss = max_ss + 1;
 %end
 
-%istart = 19000;
-iend = numel(time);
 
 figure(1); clf
 for k = istart:irate:iend
