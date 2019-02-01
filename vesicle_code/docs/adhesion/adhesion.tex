@@ -925,51 +925,56 @@ the doublet is broken and the vesicles diverge apart from one another.
 
 In Figures~\ref{fig:extensional1}--\ref{fig:extensional3}, snapshots of
 a fluid trap containing a vesicle doublet of reduced area 0.7 are
-simulated at different extensional rates.  While this double remains
+simulated at different extensional rates.  While this doublet remains
 trapped at around the stagnation point, a doublet with a reduced area of
 0.8 is broken for a sufficiently large extensional rate
 (Figure~\ref{fig:extensional4}).  In the left plot of
 Figure~\ref{fig:extensionalPhaseDiagram}, parameter values with a blue
 mark result in a fluid trap while the parameter values with a red marks
-result in the vesicles separating.
-
-For extensional rates and reduced areas that result in a fluid trap, the
-initial configuration of the vesicles have the diverging stream
-direction is in the parallel to the vesicles' short axis.  Since the
-stable configuration of two vesicles in an extensional flow has the
-converging direction parallel to the vesicles' short axis, we expect the
-vesicles to align themselves with the long axis parallel to the
-diverging direction.  We observe in 
+result in the vesicles separating.  For extensional rates and reduced
+areas that result in a fluid trap, the initial configuration of the
+vesicles have the diverging stream direction parallel to the vesicles'
+short axis.  Since the stable configuration of two vesicles in an
+extensional flow has the converging direction parallel to the vesicles'
+short axis, we expect the vesicles to align themselves with the long
+axis parallel to the diverging direction.  We observe in
 Figures~\ref{fig:extensional1}--\ref{fig:extensional3} that the vesicles
-do in fact undergo a rotation, but not by a complete 90 degrees.  To
-further analyze this rotation, we define the inclination angle of the
-doublet as described in the right plot of
-Figure~\ref{fig:extensionalPhaseDiagram}.
+do in fact rotate, but fall short of aligning their long axis with the
+diverging direction.  In the left plot of
+Figure~\ref{fig:extensionalPhaseDiagram}, the size of the round dots are
+scaled the final inclination angle as defined in the right plot.  At
+smaller extensional rates, the vesicles comes closer to aligning their
+long axis with the diverging direction.  The inclination angle is
+defined defined in with respect to the diverging direction (right plot
+of Figure~\ref{fig:extensionalInclinationAngle}).  When the doublet is
+broken at reduced area $0.70$, the extensional rate is sufficiently
+large to align the long axis of the vesicle with the diverging direction
+and then the vesicles separate.  However, for larger reduced areas, the
+separation dynamics is different.  Instead, the vesicles tilt to an
+inclination angle and then separate (Figure~\ref{fig:extensional4}).
 
 
-The doublet starts at an angle of $\pi$ and rotates towards some number
-less than $\pi/2$ (if it converges).
 
-As expected, we observe two different regimes---the extensional rate is
-sufficiently small that the doublet structure is not broken, and the
-extensional rate is sufficiently large that the doublet is broken.  In
-Figure~\ref{fig:extensionalPhaseDiagram}, the red marks correspond to
-parameters where the doublet is broken while the red marks correspond to
-parameters where the doublet tends to a steady-state fluid trap.  In the
-case that there is a fluid trap, the doublet rotates from the unstable
-configuration where the converging rate is in the direction that is
-parallel to the long axis of the vesicles.  At low extensional rates,
-the inclination angle approaches $\pi$ which corresponds to the
-converging direction being aligned with the short axis of the vesicle
-(Figure~\ref{fig:extensional1}).  As the extensional rate is increased,
-the vesicle tilts to a shallower inclination angle
-(Figures~\ref{fig:extensional2} and~\ref{fig:extensional3}).  Finally,
-when the inclination angle is sufficiently large, the doublet is broken
-(Figure~\ref{fig:extensional4}).  In
-Figure~\ref{fig:extensionalPhaseDiagram}, the size of the round marks
-correspond to the inclination angle.  The square marks correspond to
-doublets that do not reach a steady-state inclination angle in the given
-time horizon.
+%As expected, we observe two different regimes---the extensional rate is
+%sufficiently small that the doublet structure is not broken, and the
+%extensional rate is sufficiently large that the doublet is broken.  In
+%Figure~\ref{fig:extensionalPhaseDiagram}, the red marks correspond to
+%parameters where the doublet is broken while the red marks correspond to
+%parameters where the doublet tends to a steady-state fluid trap.  In the
+%case that there is a fluid trap, the doublet rotates from the unstable
+%configuration where the converging rate is in the direction that is
+%parallel to the long axis of the vesicles.  At low extensional rates,
+%the inclination angle approaches $\pi$ which corresponds to the
+%converging direction being aligned with the short axis of the vesicle
+%(Figure~\ref{fig:extensional1}).  As the extensional rate is increased,
+%the vesicle tilts to a shallower inclination angle
+%(Figures~\ref{fig:extensional2} and~\ref{fig:extensional3}).  Finally,
+%when the inclination angle is sufficiently large, the doublet is broken
+%(Figure~\ref{fig:extensional4}).  In
+%Figure~\ref{fig:extensionalPhaseDiagram}, the size of the round marks
+%correspond to the inclination angle.  The square marks correspond to
+%doublets that do not reach a steady-state inclination angle in the given
+%time horizon.
 
 \begin{figure}[htp]
   \begin{minipage}{0.63\textwidth}
@@ -1020,16 +1025,20 @@ time horizon.
   given time horizon.}
 \end{figure}
 
-We include a plot of the inclination angle as a function of time for
-varying extensional rates (left plot of
-Figure~\ref{fig:extensionalInclinationAngle}).  The inclination angle is
-defined defined in with respect to the diverging direction (right plot
-of Figure~\ref{fig:extensionalInclinationAngle}).  When the doublet is
-broken at reduced area $0.70$, the extensional rate is sufficiently
-large to align the long axis of the vesicle with the diverging direction
-and then the vesicles separate.  However, for larger reduced areas, the
-separation dynamics is different.  Instead, the vesicles tilt to an
-inclination angle and then separate (Figure~\ref{fig:extensional4}).
+For very low extensional rates, the time horizon is insufficient for the
+doublet to reach a steady state, and these simulations are marked with a
+square.  In Figure~\ref{fig:extensionalInclinationAngle}, we plot the
+inclination angle as a function of time for four different extensional
+rates (left) and the final inclination angle for all doublets that reach
+a steady state (right).  We observe that not only do larger smaller
+extensional rates result in smaller inclination angles, but smaller
+reduced areas also result in smaller inclination angles.
+
+We further characterize the dynamics by examining the vorticity and
+total force on the vesicles.
+
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1084,16 +1093,6 @@ doublets are formed (blue curves).
   depends on the shear rate $\chi$.
 \label{fig:sflow_phase_diagram}}
 \end{figure}
-
-%Figures~\ref{fig:sflow_phase_diagram},
-%~\ref{fig:sflow_1frames}, and~\ref{fig:sflow_2frames}
-%\begin{figure}
-%\includegraphics[keepaspectratio=true,scale=0.41]{figs/shear2Ves01a-iD12a.eps}
-%\includegraphics[keepaspectratio=true,scale=0.415]{Nshear02_adS_ShearRate01.png}
-%% \includegraphics[keepaspectratio=true,scale=0.40]{figs/Nshear02_adS_rA01.png}
-%\caption{(a) Dynamics of a pair of vesicles in a planar shear flow with shear rate $\dot\gamma=1$ and vdW length $\delta = 0.4$. (b) Phase diagram of vesicle hydrodynamics in a shear flow. At a fixed reduced area $\triangle A=0.95$ and $\delta =0.4$,  the critical vdW potential strength $\sigma$ for binding of two vesicles in a shear flow depends on the shear rate $\dot\gamma$.}
-%\label{fig:sflow_phase_diagram}
-%\end{figure}
 
 We investigate rheology of suspensions by computing the effective
 viscosity of a doublet and compare it to the effective viscosity of a
