@@ -4,7 +4,7 @@ options.savefig = false;
 
 irate = 1; % controls the speed of the visualization
 
-if 1
+if 0
 %  file = 'extensional2VesData.bin';
   file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR4em1adS7em1Chi7em2_ra070/extensional2VesData.bin';
   ax = [-2 2 -2 2];
@@ -20,8 +20,8 @@ if 0
   ax = ([-3 3 -3 3]);
   options.confined = false;
 end
-if 0
-  file = '~/projects/brinkman/vesicle_code/results/relaxationManyVes/Segment3/relaxationManyVesData.bin';
+if 1
+  file = '~/projects/brinkman/vesicle_code/results/relaxationManyVes/Segment2/relaxationManyVesData.bin';
 %  file = 'relaxationManyVesData.bin';
   ax = [-5 5 -6 6];
   options.confined = false;
