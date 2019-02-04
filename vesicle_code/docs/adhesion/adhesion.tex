@@ -218,10 +218,10 @@ with an electric dipole) complicates the interactions between a lipid
 bilayer membrane and another bilayer
 membrane~\cite{EvansMetcalfe1984_BJ, Book_PhysicalBasisCellAdhesion,Book_IntermolecularSurfaceForces,PerutkovaFrank-Bertoncelij2013_CSB} 
 or a solid (such as a glass substrate
-or a nano particle).  Adhesion between a vesicle and a substrate has been extensively studied,
-primarily focused on analyzing the static equilibrium
+or a nano particle).  Adhesion between a vesicle and a substrate has been extensively studied with 
+more focuses on the static equilibrium
 shapes~\cite{Seifert1990_PRA, ShiFengGao2006_ActaMechSin,
-LinFreund2007_IntJSolidsStructures, das2008adhesion, zhang2009phase,SteinkuhlerAgudo-Canalejo2016_BJ}
+LinFreund2007_IntJSolidsStructures, GruhnFrankeDimova2007_Langmuir,das2008adhesion, zhang2009phase,SteinkuhlerAgudo-Canalejo2016_BJ}
 than the transient adhesion process \cite{cantat1999lift, suk-sei2001, BlountMiksisDavis2013_PRSa}.
 %
 Adhesive interactions between lipid membranes are essential in many biomedical, biological and biophysical
@@ -251,21 +251,45 @@ potential~\cite{Book_IntermolecularSurfaceForces}.
 Evans and Metcalfe~\cite{EvansMetcalfe1984_BJ} used the micropipette to measure the adhesive force between two vesicles bound by strong adhesion.
 They were able to  measure the
 reduction in the free energy per unit area of membrane-membrane contact
-formation due to the Van der Waals' attraction. For a membrane-membrane
-separation distance of $\sim 3$ nm, they estimated that the Hamaker
-constant is approximately $5.8\times 10^{-14}$ ergs, which corresponds
-to an adhesion energy density around $1$ mJ/m$^2$. The ratio of adhesion
-energy per unit area to the bending energy (bending rigidity of lipid
-bilayer membranes $\sim 10^{-19}$ J) gives a measure of vesicle
+formation due to the van der Waals' attraction. For the adhesive interaction between two lipid bilayer membranes in buffer solutions, a typical range for the
+energy density is between $1$ to $10$ $\mu J/m^2$, 
+%
+%they reported
+%an energy density of $\sim 10$  $\mu J/m^2$ and a separation distance of $\sim 3$  $nm$.
+%
+% membrane-membrane
+%separation distance of $\sim 3$ $nm$, they estimated that the Hamaker
+%constant is approximately $5.8\times 10^{-14}$ $ergs$, which corresponds
+%to 
+%
+%an adhesion energy density around $1$ $\mu J/m^2$,
+similar to the adhesion energy density of $3$  $\mu J/m^2$ between two RBCs \cite{FlormannAouane2017_SciReports}.
+For adhesion interaction between a vesicle and a substrate  \cite{GruhnFrankeDimova2007_Langmuir}, 
+the boundary between weak and strong adhesion is around $1$ $\mu J/m^2$:
+the vesicle-substrate interaction is ``strong" when the adhesion energy density is larger than $1$ $\mu J/m^2$ and ``weak" when the energy
+density is less than $1$ $\mu J/m^2$.
+%
+%weak adhesion regime 
+%
+%Gruhn {\it et al.} made a distinction between strong and weak adhesion regimes for a vesicle adhering on a substrate.
+%Strong adhesion regime when the adhesion energy density is greater than $1$ $\mu J/m^2$,
+%while weak adhesion regime when adhesion energy density is less than $1$ $\mu J/m^2$.
+%
+In this work we use the ratio of the adhesion energy to the bending energy for classification of adhesion strength:
+The ratio of total adhesion
+energy to the bending energy (bending rigidity of lipid
+bilayer membranes $\sim 10^{-19}$ $J$) gives a measure of vesicle
 deformation in the presence of
-adhesion~\cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}. In
+adhesion~\cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}. 
+
+In
 this work we focus on regimes where the ratio is of order unity, between
-the weak adhesion (ratio $\ll 1$) and strong adhesion (ratio $\gg 1$)
+the weak adhesion (adhesion energy/bending energy $\ll 1$) and strong adhesion (adhesion energy/bending energy $\gg 1$)
 regimes.  In this regime the membrane deformation may increase the
 ``contact area'' between two vesicles and enhance the adhesion effects.
-The equilibration of vesicle membranes under adhesion in these regimes
+The equilibration of vesicle membranes in the strong adhesion regime
 have been well studied and documented
-(see~\cite{RamachandranAndersonLealIsraelachvili2010_Langmuir} and
+(see~\cite{RamachandranAndersonLealIsraelachvili2010_Langmuir,SteinkuhlerAgudo-Canalejo2016_BJ,FlormannAouane2017_SciReports} and
 references therein). However it is unclear how the adhesion couples to
 the vesicle hydrodynamics in such regime.  Our work in this paper aims
 to address this question with quantitative characterization in terms of
@@ -302,9 +326,9 @@ physical parameters.
 %depends sensitively on the vesicle reduced volume  and the elastic capillary number \cite{KantslerSegreSteinberg2008_PRL,ZhaoShaqfeh2013_JFM,Narsimhan2014_JFM,DahlNarsimhanGouveia2016_SoftMatt}: Asymmetric shape and oscillatory undulation of the vesicle membrane are two examples of the complex vesicle hydrodynamics in an extensional flow.
 
 In a quiescent environment, sub-micron size vesicles are found to form a
-doublet due to their Van der Waals' attractive
+doublet due to their van der Waals' attractive
 interactions~\cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}.
-Due to the strong Van der Waals' adhesive force, the vesicles are far
+Due to the strong van der Waals' adhesive force, the vesicles are far
 from spherical shape and the membrane is almost flat in the ``contact"
 region. Gires {\it et al.} used small-deformation analysis to
 investigate the hydrodynamic interactions between two vesicles in a
@@ -1194,16 +1218,20 @@ Once two membranes are within separation distance $\delta$, the adhesive force t
 Our simulations show that the membranes in the contact region are actually curved with end points at the shortest distance. 
 Once a vesicle doublet forms, we examine the dependence of membrane bending and adhesion energies on reduced area, Hamakar constant and separation distance.
 
-Next we conduct a numerical experiment where a vesicle doublet is placed at the center of a fluid trap, which in microfluidic laboratory 
-can be actively controlled so that fluid trap center is effectively a stagnation point in an extensional flow characterized by a extensional flow rate.
+Next we conduct a numerical experiment where a vesicle doublet is placed at the center of a fluid trap, which 
+can be actively controlled in microfluidic channel so that fluid trap center is effectively the stagnation point of an extensional flow characterized by a extensional flow rate.
 At low flow rate, we find the doublet to rotate ninety degrees to align with the flow such that 
 the long axis of the doublet is along the divergent axis and the convergent stream is pushing the two vesicles
 together. As the flow rate increases the vesicle doublet rotates less and we observe tank-treading like motion of both vesicles in the doublet.
 When the flow rate reaches above the critical value, the diverging flow pulls the vesicles apart before the doublet has time to rotate to remain intact.
 These results indicate that it is possible to use the fluid trap to separate a vesicle doublet under adhesion, and thus provide a means to
-probe the adhesion strength between membranes. {\color{red} For adhesion energy blahblahblah, an extensional flow rate sososo is required to separate the doublet from our
-simulations. IS THIS PLAUSIBLE?}
-We hope that our simulations might inspire microfluidic experiments.
+probe the adhesion strength between membranes. 
+For a pair of $\mu m$-sized vesicles with a bending rigidity of $\sim 10^{-19}$ $J$, an extensional flow rate of $0.5$ $s^{-1}$ is expected to separate a vesicle
+doublet with reduced area of $0.8$ and a Hamakar constant ${\cal H}=0.7$, which corresponds to $\sim 1$ $\mu J/m^2$. These conditions are quite realizable in micrifulidic
+experiments, and we hope that our simulations might inspire microfluidic experiments.
+%{\color{red} For adhesion energy blahblahblah, an extensional flow rate sososo is required to separate the doublet from our
+%simulations. IS THIS PLAUSIBLE?}
+
 
 We also examine how adhesive interaction may lead to formation of a vesicle doublet dynamically in flowing conditions.
 We simulate two vesicles approaching each other in a planar shear flow, and examine how their adhesive interactions lead to doublet formation.
