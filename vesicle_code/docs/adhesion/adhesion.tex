@@ -1102,23 +1102,19 @@ We consider two vesicles suspended in the shear flow $\uu = \chi(y,0)$,
 where $\chi$ is the shear rate.  The vesicles are placed on the $y$ axis
 so that the background velocity drives the vesicles towards one another.
 In the absence of adhesion, once the vesicles are sufficiently close,
-they are deflected to opposite sides of the $y$ axis, and the result is
-that the distance between the vesicles goes to infinity.  However, in
-the presence of adhesion, is it possible that the adhesive force keeps
-the vesicles from separating, resulting in the formation of a {\em
-doublet}~\cite{}.
-
-The formation of the doublet depends on four main parameters: the
-vesicles' reduced area, the adhesion length scale $\delta$, the adhesion
-strength $\mathcal{H}$, and the shear rate $\chi$.
-Figure~\ref{fig:doublet090} shows the configuration of two vesicles that
-have formed a doublet at several instances in time.  In
-Figure~\ref{fig:sflow_phase_diagram} (left), we show the minimum
-distance between the two vesicles as a function of time for various
-adhesion strengths.  The adhesion strength corresponding to the red
-curves is less than a critical strength $\mathcal{H}_c$ for a doublet to
-form.  In contrast, for larger adhesive strengths, doublets are formed
-(blue curves).
+they are deflected to opposite sides of the $y$ axis, pass one another,
+and separate from one another.  However, in the presence of adhesion,
+the vesicles can form a doublet for certain values of the adhesion
+length scale $\delta$, Hamaker constant $\mathcal{H}$, shear rate
+$\chi$, and reduced area $\Delta A$.  Figure~\ref{fig:doublet090} shows
+snapshots two vesicles that have formed a doublet and the color coding
+is the tension along the vesicle.  The two vesicles are
+identical with reduced area is $\Delta A = 0.9$, the shear rate is $\chi
+= 0.5$, the adhesion length scale is $\delta = 0.4$, and the Hamaker
+constant is $\mathcal{H} = 0.7$.  Similar to the quiescent example, we
+observe that the membrane tension in the contact region is negative in
+the contact region indicating that the membrane is being compressed when
+the adhesive force is strongest.
 
 \begin{figure}[htp]
   \includegraphics[width=0.24\textwidth]{figs/adR4em1adS7em1Chi5em1_ra090_image01.png}
@@ -1130,33 +1126,44 @@ form.  In contrast, for larger adhesive strengths, doublets are formed
   \includegraphics[width=0.24\textwidth]{figs/adR4em1adS7em1Chi5em1_ra090_image07.png}
   \includegraphics[width=0.24\textwidth]{figs/adR4em1adS7em1Chi5em1_ra090_image08.png}
   \caption{\label{fig:doublet090} The formation of a doublet in a shear
-  flow.  The reduced area is $\Delta A = 0.90$, the Hamaker constant is
+  flow.  The reduced area is $\Delta A = 0.9$, the Hamaker constant is
   $\mathcal{H}=0.7$, the adhesion length scale is $\delta = 0.4$, and
   the shear rate is $\chi=0.5$.}
 \end{figure}
 
+We characterize the effect of the Hamaker constant and shear rate by
+determining a critical Hamaker constant, $\mathcal{H}_c$, which
+determines if the vesicles form a doublet or separate.  We fix the
+adhesion length scale to $\delta = 0.4$ and the vesicle reduced area to
+$\Delta A = 0.9$.  In the left plot of
+Figure~\ref{fig:sflow_phase_diagram}, we plot the minimum distance
+between the vesicles as a function of time for various Hamaker
+constants.  The red curves correspond to Hamaker constants that are too
+small to bind the vesicles into a doublet, and the blue curves
+correspond to Hamaker constants that are sufficiently large to form a
+doublet.
+
 \begin{figure}
-  \includegraphics[height=0.4\textwidth]{figs/shear_adR4em1Chi1e0_ra-090.pdf}
-  \includegraphics[height=0.4\textwidth]{figs/shear_adR4em1_ra090_phaseDiagram.pdf}
+  \includegraphics[height=0.35\textwidth]{figs/shear_adR4em1Chi1e0_ra-090.pdf}
+  \includegraphics[height=0.35\textwidth]{figs/shear_adR4em1_ra090_phaseDiagram.pdf}
   \caption{{\em Left}: Distance between a pair of vesicles in a planar
   shear flow with shear rate $\chi=0.5$ and adhesion length scale
   $\delta = 0.4$.   The different lines correspond to a linear spacing
   of adhesion strengths ranging from $\mathcal{H}=0.1$ and
   $\mathcal{H}=1.0$.  {\em Right}: Phase diagram of vesicle
   hydrodynamics in a shear flow.  At a fixed reduced area $\Delta
-  A=0.90$ and $\delta =0.4$,  the critical vdW potential strength
+  A=0.90$ and $\delta = 0.4$,  the critical Hamaker constant
   $\mathcal{H}$ for binding of two vesicles in a shear flow depends on
   the shear rate $\chi$.
 \label{fig:sflow_phase_diagram}}
 \end{figure}
 
-We investigate rheology of suspensions by computing the effective
-viscosity of a doublet and compare it to the effective viscosity of a
-single tank-treading vesicle. The effective viscosity is defined as the
-viscosity of a homogeneous Newtonian fluid with the same energy
-dissipation per macroscopic element of fluid.  In a simple shear flow,
-the ambient velocity field is given by $\uu(\xx) = \chi(y,0)$, where
-$\chi$ is the shear rate, and the intrinsic viscosity is
+Finally, we investigate the rheology of a suspension of a doublet by
+computing the effective viscosity of a doublet and compare it to the
+effective viscosity of a single tank-treading vesicle. The effective
+viscosity is defined as the viscosity of a homogeneous Newtonian fluid
+with the same energy dissipation per macroscopic element of fluid.  In a
+simple shear flow, the intrinsic viscosity, $[\mu]$ is
 \begin{align*}
   [\mu]:= \frac{\mu_{\mathrm{eff}} - \mu_0}{\phi \mu_0} = 
   \frac{1}{\chi \mu_0 T} \int_{T_i}^{T_e} 
@@ -1165,11 +1172,10 @@ $\chi$ is the shear rate, and the intrinsic viscosity is
 where
 \begin{align*}
   \langle \tau \rangle = \frac{1}{|\omega|} \int_{\gamma}
-    \xxi \otimes \xx ds.
+    \xxi \otimes \xx ds,
 \end{align*}
-Here, $[\mu]$ is the intrinsic viscosity, $\phi$ is the area fraction of
-vesicles, $/tau$ is the stress due to the vesicles, and $\langle \cdot
-\rangle$ is the spatial average.
+where $\phi$ is the area fraction of vesicles, $/tau$ is the stress due
+to the vesicles, and $\langle \cdot \rangle$ is the spatial average.
 
 In the left plot of Figure~\ref{fig:shearIntrinsicViscosity}, we compare
 the intrinsic viscosity of a single tank treading vesicle to a doublet.
@@ -1183,7 +1189,7 @@ intrinsic viscosity into the contributions from the bending and tension
 (blue), and the contribution from the adhesion (red).  We also
 superimpose twice the intrinsic viscosity of a single tank treading
 vesicle (dashed curve) to demonstrate that the bending and tension of
-the doublet behaves similarly, but not identically, to a dilute
+the doublet behave similarly, but not identically, to a dilute
 suspensions of non-adhering tank-treading vesicles.  We see that the
 effect of the adhesion on the intrinsic viscosity is largest for
 vesicles with small reduced areas.
@@ -1194,16 +1200,16 @@ vesicles with small reduced areas.
   \includegraphics[width=0.45\textwidth]{figs/doublet_decomp.pdf}
   \caption{\label{fig:shearIntrinsicViscosity} {\em Left}: The intrinsic
   viscosity of a tank treading vesicle (blue) and a doublet (red).  The
-  shear rate is $\chi = 0.5$, the Hamaker constant is $\mathcal{H} = 0.7$,
-  and the adhesion length scale is $\delta = 0.4$.  The length of the
-  vesicles at each of the reduced areas is fixed, while the area changes
-  with differing reduced areas.  The black marks denote intrinsic
-  viscosity values computed by Ghigliotti et
-  al.~\cite{GhigliottiBibenMisbah2010_JFM} (cf.~Figure 5).  {\em Right}:
-  The decomposition of the intrinsic viscosity into the contributions
-  for the bending and tension (blue) of the vesicles, and the
-  contribution from the vesicle adhesion (red).  Also included is twice
-  the intrinsic viscosity of a single tank-treading vesicle.}
+  shear rate is $\chi = 0.5$, the Hamaker constant is $\mathcal{H} =
+  0.7$, and the adhesion length scale is $\delta = 0.4$, and the length
+  of the vesicles are held fixed.  The black marks denote intrinsic
+  viscosity values computed by Ghigliotti {\em et
+  al.}~\cite{GhigliottiBibenMisbah2010_JFM} (cf.~Figure 5).  {\em
+  Right}: The decomposition of the intrinsic viscosity into the
+  contributions for the bending and tension (blue) of the vesicles, and
+  the contribution from the vesicle adhesion (red).  Also included is
+  twice the intrinsic viscosity of a single tank-treading vesicle
+  (dashed black line).}
 \end{figure}
 
 
@@ -1245,7 +1251,6 @@ Hamakar constant $\mathcal{H}=0.7$, which corresponds to $\sim 1$ $\mu
 J/m^2$.  These conditions are quite realizable in micrifulidic
 experiments, and we hope that our simulations might inspire microfluidic
 experiments.
-
 
 We also examine how adhesive interaction may lead to formation of a
 vesicle doublet dynamically in flowing conditions.  We simulate two
