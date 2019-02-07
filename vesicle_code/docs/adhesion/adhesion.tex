@@ -509,7 +509,7 @@ start by defining the Stokes single-layer potential
   \label{eqn:SLP}
 \end{align}
 where $\rr = \xx - \yy$ and $\rho = \|\rr\|$.  Then, given a vesicle
-with a traction jump $\xxi$, the fluid velocity at is~\cite{poz1992}
+with a traction jump $\xxi$, the fluid velocity is~\cite{poz1992}
 \begin{align*}
   \uu(\xx) = \uu_{\infty}(\xx) + \SS[\xxi](\xx), \quad \xx \in \RR^2.
 \end{align*}
@@ -518,7 +518,7 @@ The traction jump is
   \xxi = -\kappa_b \xx_{ssss} + (\sigma \xx_s)_s + \AA \xx,
 \end{align*}
 where the three terms correspond to the forces due to bending, tension,
-and adhesion, respectively.  Therefore Applying the no-slip boundary
+and adhesion, respectively.  Therefore, applying the no-slip boundary
 condition on each vesicle, the governing equations are
 \begin{align*}
   &\dot{\xx} = \uu_{\infty}(\xx) + \SS[\xxi](\xx), \\
@@ -536,9 +536,9 @@ We apply the IMEX-Euler method
   \frac{\xx^{N+1} - \xx^N}{\Delta t} = \SS^N \BB^N \xx^{N+1} + 
   \SS^N \TT^N \sigma^{N+1} + \SS^N \AA^N \xx^N,
 \end{align*}
-that treats both the bending and tension terms
-semi-implicitly~\cite{qua-bir2014}. Note that the adhesive term is
-treated explicitly.  Therefore, a single time step requires solving
+that discretizes both the bending and tension terms
+semi-implicitly~\cite{qua-bir2014}, and the adhesive term explicitly.
+Therefore, a single time step requires solving
 \begin{align*}
   \xx^{N+1} - \Delta t \SS^N \BB^N \xx^{N+1} - 
     \Delta t \SS^N \TT^N \sigma^{N+1} = \xx^N + 
@@ -550,11 +550,11 @@ along with the inextensibility constraint that is discretized as
 \end{align*}
 We discretize the vesicles at a set of collocation points, compute the
 bending and tension terms with Fourier differentiation, and apply Alpert
-quadrature~\cite{alp1999} to the logarithmically singular single-layer
-potential $\SS$.  The source and target points of the adhesion force
-never coincide since they are always on different vesicles, so the
-adhesion force~\eqref{eqn:adhesionForce} is computed with the spectrally
-accurate trapezoid rule~\cite{tre-wei2014}.  
+quadrature~\cite{alp1999} to the weakly-singular single-layer potential
+$\SS$.  The source and target points of the adhesion force never
+coincide since they are always on different vesicles, so the adhesion
+force~\eqref{eqn:adhesionForce} is computed with the spectrally accurate
+trapezoid rule~\cite{tre-wei2014}.  
 
 The dynamics of a doublet undergoes many different time scales over time
 horizons that are sufficiently large to characterize the formation of a
@@ -568,10 +568,11 @@ method~\cite{quaife2016adaptive}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The Shear and Normal Stresses}
 To characterize the rheological properties of the suspension of a
-doublet, it is necessary to compute shear and normal stresses.  At a
-point $\xx$ in the fluid bulk, The velocity $\uu(\xx)$, pressure
-$p(\xx)$, and total stress tensor $T = - p I + \nabla \uu + \nabla
-\uu^T$ of the single-layer potential~\eqref{eqn:SLP} are
+doublet, it is necessary to compute the shear and normal stresses.  At a
+point $\xx \in \RR^2 \backslash \gamma$ in the fluid bulk, the velocity
+$\uu(\xx)$, pressure $p(\xx)$, and total stress tensor $T = - p I +
+\nabla \uu + \nabla \uu^T$ of the single-layer potential~\eqref{eqn:SLP}
+are
 \begin{align*}
   \uu(\xx) &= \SS_\uu[\ff](\xx) = \frac{1}{4\pi\mu}\int_{\gamma} \left( 
     -\log \rho + \frac{\rr \otimes \rr}{\rho^2} \right) 
