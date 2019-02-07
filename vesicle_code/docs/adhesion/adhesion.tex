@@ -102,27 +102,26 @@
              %  but any date may be explicitly specified
 
 \begin{abstract}
-
-The dynamics of adhesive vesicles under various flowing
-conditions is investigated numerically using a high-order
-adaptive-in-time boundary integral equation formulation. In a quiescent
-flow, two nearby vesicles move slowly towards each other under the adhesive
-potential, pushing out fluid between them to form a doublet at
-equilibrium. A lubrication analysis on such draining of the thin film
-gives the dependencies of draining time on adhesion strength and
-separation distance that are in good agreement with numerical results.
+The dynamics of adhesive vesicles under various flowing conditions is
+investigated numerically using a high-order adaptive-in-time boundary
+integral equation formulation. In a quiescent flow, two nearby vesicles
+move slowly towards each other under the adhesive potential, pushing out
+fluid between them to form a doublet at equilibrium. A lubrication
+analysis on such draining of the thin film gives the dependencies of
+draining time on adhesion strength and separation distance that are in
+good agreement with numerical results.
 %
 In a microfluid trap where the stagnation of an extensional flow is
 placed in the middle of a vesicle doublet through an active control
 loop, novel dynamics of a vesicle doublet are observed. Numerical
 simulations show that there exists a critical extensional flow rate
-above which adhesive interaction is overcome by the
-hydrodynamic diverging stream, thus providing a simple method to measure
-the adhesion strength between two vesicle membranes. 
+above which adhesive interaction is overcome by the hydrodynamic
+diverging stream, thus providing a simple method to measure the adhesion
+strength between two vesicle membranes. 
 %
 In a planar shear flow, numerical simulations reveal that a vesicle
 doublet may form as they approach each other provided that the adhesion
-strength is sufficient large at a given vesicle reduced area. Once a
+strength is sufficiently large at a given vesicle reduced area. Once a
 doublet is formed, the effective shear viscosity of a dilute suspension
 of vesicle doublets is found to be a function of both reduced area and
 the adhesion strength.  Results from these numerical studies and
@@ -152,15 +151,6 @@ between vesicles in a viscous fluid.
 \section{Introduction}
 Vesicles (closed fluid-filled phospholipid bilayer membranes) have been
 widely utilized as biological cell mimics in biophysics and material
-<<<<<<< HEAD
-engineering \cite{sackmann1996,Barthes-Biesel2016_ARFM}.  The ever expanding applications have
-encouraged novel experimental, theoretical, and numerical
-investigations of vesicle hydrodynamics in applied flow, electric
-fields, and magnetic fields.  Theoretical investigations often take the
-form of small-deformation analysis or spheroidal dynamics of a
-nearly-spherical vesicle (or nearly-circular in two dimensions)
-subjected to an applied flow or under an external
-=======
 engineering~\cite{sackmann1996, Barthes-Biesel2016_ARFM}.  The ever
 expanding applications have encouraged detailed experimental,
 theoretical, and numerical investigations of vesicle hydrodynamics in
@@ -168,7 +158,6 @@ applied flow, electric fields, and magnetic fields.  Theoretical
 investigations often take the form of small-deformation analysis or
 spheroidal dynamics of a nearly-spherical vesicle (or nearly-circular in
 two dimensions) subjected to an applied flow or under an external
->>>>>>> 7c0a854d86f240e04cf8d3b46da215f6da53b14c
 forcing~\cite{Barthes-BieselRallison1981_JFM, Misbah2006_PRL,
 Vlahovska2007_PRE, Finken2008_EPL, ZhangZahnTanLin2013_PoF,
 Nganguia2013_PRE}.  On the other hand, various numerical methods have
@@ -188,7 +177,7 @@ analysis shows that a vesicle tank-treads in a planar shear flow for low
 viscosity contrast and shear rate. At high viscosity contrast the
 tank-treading dynamics transitions to tumbling
 dynamics~\cite{Misbah2006_PRL, Vlahovska2007_PRE}, and this leads to a
-transition in effective shear viscosity in the vesicle
+transition in effective shear viscosity of the vesicle
 suspension~\cite{Misbah2006_PRL,Vitkova2008_BJ} that is also validated
 by direct numerical simulations~\cite{GhigliottiBibenMisbah2010_JFM} and
 experiments~\cite{DeschampsKantsler2009_PNAS,
@@ -214,29 +203,29 @@ aggregates, an idealized model for adhesive vesicle-vesicle interactions
 gives rise to vesicle configurations similar to those observed in
 experiments of fibrinogen-induced RBC
 aggregates~\cite{SvetinaZiherl2008_Bioelectrochemistry,
-FlormannAouane2017_SciReports}.  Using the Lennard-Jones (L.-J.) potential
-for point-point interaction between two vesicle membranes without the
-molecular details of adhesive interactions between RBCs, Flormann {\em
-et al.}~found the contact zone to buckle under strong
-adhesion~\cite{FlormannAouane2017_SciReports}.  A direct consequence of
-the buckling is the sigmoidal shape of the adhesion region, which is
-also observed in RBC doublets and explained in a slightly different
-model~\cite{ZiherlSvetina2007_PNAS}.  It remains unknown how adhesive
-interactions between vesicles might lead to different vesicle
-hydrodynamics that results in different rheological properties of a
-vesicle suspension. Such studies will provide useful insight to the
-rheology of blood flow and how to use nano solutes to control the
-hypertension by adjusting the adhesive interactions between RBCs.
+FlormannAouane2017_SciReports}.  Using the Lennard-Jones
+(L.-J.)~potential for point-point interaction between two vesicle
+membranes without the molecular details of adhesive interactions between
+RBCs, Flormann {\em et al.}~found the contact zone to buckle under
+strong adhesion~\cite{FlormannAouane2017_SciReports}.  A direct
+consequence of the buckling is the sigmoidal shape of the adhesion
+region, which is also observed in RBC doublets and explained in a
+slightly different model~\cite{ZiherlSvetina2007_PNAS}.  It remains
+unknown how adhesive interactions between vesicles might lead to
+different vesicle hydrodynamics that results in different rheological
+properties of a vesicle suspension. Such studies will provide useful
+insight to the rheology of blood flow and how to use nano solutes to
+control the hypertension by adjusting the adhesive interactions between
+RBCs.
 
 In numerical simulations of a vesicle suspension, the adhesive
 interaction between two vesicles is often
 ignored~\cite{Veerapaneni2009_JCP,  RahimianVeerapaneniBiros2010_JCP}
-for numerical convenience, mostly because a smaller time step is often
+for numerical convenience, mostly because a small time step is often
 needed to resolve the dynamics of the lubrication thin film between two
-membranes with adhesion than without.  However, adhesive interactions
-between RBCs lead to different RBC clusters that are expected to alter
-the rheological properties of the RBC
-suspension~\cite{NeuMeiselman2002_BJ,
+membranes with adhesion.  However, adhesive interactions between RBCs
+lead to different RBC clusters that are expected to alter the
+rheological properties of the RBC suspension~\cite{NeuMeiselman2002_BJ,
 SvetinaZiherl2008_Bioelectrochemistry}. Hydrodynamic simulations of
 adhesive vesicles in a quiescent flow have revealed physical insights to
 the equilibrium shapes of RBC aggregates in both
@@ -419,14 +408,14 @@ governing equations are
 where $\xxi$ is the traction jump that is the sum of the bending,
 stretching, and adhesion forces.  The bending term $\BB \xx = -\kappa_b
 \xx_{ssss}$ comes from the Helfrich energy, where $\kappa_b$ is the
-bending rigidity modulus and $s$ is arclength.  For the numerical examples, we
-set $\kappa_b = 1$ and consider adhesion strengths ranging from $0.1$ to
-$1$ times the bending rigidity modulus.  The stretching term is $\TT \sigma  =
-(\sigma \xx_s)_s$, where $\sigma$ is the tension, and the tension acts
-as a Lagrange multiplier to satisfy the local extensibility constraint.
-The resistance to bending and stretching are standard assumptions of
-vesicles.  In this work, we include an adhesive term, $\AA \xx$, that we
-now describe.
+bending rigidity modulus and $s$ is arclength.  For the numerical
+examples, we set $\kappa_b = 1$ and consider adhesion strengths ranging
+from $0.1$ to $1$ times the bending rigidity modulus.  The stretching
+term is $\TT \sigma  = (\sigma \xx_s)_s$, where $\sigma$ is the tension,
+and the tension acts as a Lagrange multiplier to satisfy the local
+extensibility constraint.  The resistance to bending and stretching are
+standard assumptions of vesicles.  In this work, we include an adhesive
+term, $\AA \xx$, that we now describe.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Adhesion Model}
@@ -700,10 +689,6 @@ is independent of the specific form of the potential.
   $\mathcal{H}$ with
   $\delta = 0.4$. Arrows indicate the time by when the equilibrium is
   reached within $1\%$.}
-<<<<<<< HEAD
-%  \todo[inline]{Change the $H$ in the right figure to $\mathcal{H}$}
-=======
->>>>>>> 7c0a854d86f240e04cf8d3b46da215f6da53b14c
 \end{figure}
 
 To test the scaling of the duration $t$ with respect to $\mathcal{H}$
@@ -775,27 +760,14 @@ A=0.95$, $0.75$, and $0.6$ with $\mathcal{H}=5$ and $\delta = 0.2$.
 \begin{figure}
   \includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_vesicle_shape_vs_rA_00.jpeg}
   \includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_vesicle_shape_vs_rA_01.jpeg}
-<<<<<<< HEAD
-  \caption{\label{fig:Dec18_vesicle_shape} Equilibrium configuration of a doublet of 
-  identical vesicles under adhesion in a quiescent flow. Vesicle reduced area $\Delta A=0.95$, $0.75$, and $0.6$
-  are labeled.  The color coding is the tension along the vesicle. 
-  Vesicle length is fixed at $2\pi$, (dimensionless) bending rigidity modulus $\kappa=1$, $\mathcal{H}=5$, and $\delta=0.2$.
-  {\em Left}: Overall
-  equilibrium shapes of two vesicles under adhesive interactions vary with reduced area.  
-  {\em Right}: Membrane shapes in the contact region.} 
-%  \todo[inline]{This
-%  caption contradicts itself.  Is it $\mathcal{H} = 0.5$ or $\mathcal{H}
-%  = 5$?}
-=======
-  \caption{\label{fig:Dec18_vesicle_shape} Two vesicles of the same length, reduced area
-  and bending rigidity ($\kappa=1$)
-  with $\mathcal{H}=5$, and $\delta=0.2$.  {\em Left}:
-  Equilibrium shapes of two vesicles under adhesive interactions with
-  adhesion strength $\mathcal{H}=5$ and separation distance
-  $\delta=0.2$.  Vesicle reduced area $\Delta A=0.95$, $0.75$, and $0.6$
-  are labeled.  The color coding is the tension along the vesicle. {\em
-  Right}: Membrane shapes in the contact region.}
->>>>>>> 7c0a854d86f240e04cf8d3b46da215f6da53b14c
+  \caption{\label{fig:Dec18_vesicle_shape} Equilibrium configuration of
+  a doublet of identical vesicles under adhesion in a quiescent flow.
+  Vesicle reduced area $\Delta A=0.95$, $0.75$, and $0.6$ are labeled.
+  The color coding is the tension along the vesicle.  Vesicle length is
+  fixed at $2\pi$, (dimensionless) bending rigidity modulus $\kappa=1$,
+  $\mathcal{H}=5$, and $\delta=0.2$.  {\em Left}: Overall equilibrium
+  shapes of two vesicles under adhesive interactions vary with reduced
+  area.  {\em Right}: Membrane shapes in the contact region.} 
 \end{figure}
 The equilibrium vesicle shape for $\Delta A=0.95$ is the circular cap
 with a flat contact region.  This is similar to the observed shapes of
@@ -856,15 +828,11 @@ the total energy is found around $\Delta A = 0.85$.
 \includegraphics[keepaspectratio=true,scale=0.18]{figs/Dec18_Eb_vs_sigma_rA0p9502.jpeg}
 \includegraphics[keepaspectratio=true,scale=0.18]{figs/Dec18_Eadh_vs_sigma_rA0p9502.jpeg}
   \caption{\label{fig:Dec18_equilibrium} 
-  Total bending energy ({\em left})
-  and adhesion energy ({\em right}) of a vesicle doublet at equilibrium versus the adhesion strength
-  $\mathcal{H}$.  The two vesicles in the doublet have the same length and reduced area $\Delta A=0.95$, with 
-  separation distance $\delta = 0.2$ (triangles), $0.3$ (crosses), and
-  $0.4$ (circles).}
-<<<<<<< HEAD
-%  \todo[inline]{Change $H$ to $\mathcal{H}$ in the x-axis.}
-=======
->>>>>>> 7c0a854d86f240e04cf8d3b46da215f6da53b14c
+  Total bending energy ({\em left}) and adhesion energy ({\em right}) of
+  a vesicle doublet at equilibrium versus the adhesion strength
+  $\mathcal{H}$.  The two vesicles in the doublet have the same length
+  and reduced area $\Delta A=0.95$, with separation distance $\delta =
+  0.2$ (triangles), $0.3$ (crosses), and $0.4$ (circles).}
 \end{figure}
 
 Figure~\ref{fig:Dec18_equilibrium} demonstrates how the adhesion
@@ -1299,21 +1267,11 @@ forms, the two vesicle membranes rotate around each other as they deform
 dynamically. The usual tank-treading motion of a vesicle under shear
 flow is not observed in each of the two vesicles. We compute the
 effective shear viscosity of a dilute suspension of vesicle doublets,
-<<<<<<< HEAD
-and found it to be more than twice the effective shear viscosity of a dilute suspension of single vesicles.
-Furthermore, we find that the membrane adhesion contribution to the shear viscosity increases with decreasing
-reduced area while the bending/tension contribution increases with the reduced area.
-%
-%because deflated vesicles (low reduced area) deform more
-%easily and more membranes in the contact region.
-%\todo[inline]{I don't understand this last sentence --> modified now by yny}
-=======
 and found it to be more than twice the effective shear viscosity of a
 dilute suspension of single vesicles.  Furthermore, we find that the
 membrane adhesion contribution to the shear viscosity increases with
 decreasing reduced area while the bending/tension contribution increases
 with the reduced area.
->>>>>>> 7c0a854d86f240e04cf8d3b46da215f6da53b14c
 
 In our formulation we did not include any electrostatic interactions
 between membranes under adhesion. When the electrostatic interaction is
@@ -1322,7 +1280,7 @@ responsible for the observed membrane
 undulation~\cite{SteinkuhlerAgudo-Canalejo2016_BJ}.
 
 Future work includes three dimensional simulations, viscosity contrast,
-dense suspensions, and confined suspensions. 
+dense suspensions, and confined suspensions.
 Figure~\ref{fig:relaxationManyVes} illustrate snapshots of five vesicles
 suspended inside of a larger vesicle.  There is no imposed flow, so the
 dynamics are governed entirely by the adhesion, bending, and tension
@@ -1377,7 +1335,8 @@ say ....}
 \acknowledgments
 
 YNY would like to acknowledge helpful discussions with blah blah blah.
-YNY acknowledges support from NSF-DMS 1614863 and 1412789, and Flatiron Institute, part of the Simons Foundation.
+YNY acknowledges support from NSF-DMS 1614863 and 1412789, and Flatiron
+Institute, part of the Simons Foundation.
 
 
 \begin{appendices}
