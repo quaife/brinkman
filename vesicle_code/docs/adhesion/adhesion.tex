@@ -611,21 +611,22 @@ vector, respectively.  With the stress tensor computed for $\xx \in
 We consider the suspension of two identical two-dimensional vesicles
 suspended in a quiescent flow.  Without any external forcing such as an
 imposed electric field or a fluid flow in the far-field, the long-range
-attraction pulls two vesicles together until their separation distance
+attraction pulls the vesicles together until their separation distance
 is close to $\delta$. The L.-J.~type potential prohibits physical
-contact between two membranes and instead keep them close to the
+contact between the two membranes and instead keeps them close to the
 separation distance $\delta$.  In
 Section~\ref{subsec:qflow_draining_times}, we compute the expected time
 for the vesicles to reach an equilibrium configuration and compare the
 analysis with numerical simulations.  In
 Section~\ref{subsec:qflow_adhesion_parameters}, we characterize the
 effects of the adhesion parameters and the vesicles' reduced area on the
-bending and adhesive energies.
+shape of the contact region and the bending and adhesive energies.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Effects of the adhesion parameters on draining times}
 \label{subsec:qflow_draining_times}
 When two vesicles move towards (or away from) each other under a
-constant force $F$ without any external fluid flow, the height $(h)$ of
+constant force $F$ without any external fluid flow, the height, $h$, of
 the thin liquid film between two vesicles follows the draining
 dynamics~\cite{RamachandranLeal2010_PoF}
 \begin{align}
@@ -649,23 +650,24 @@ monotonically, and $t$ in the above equation is the draining time that
 diverges as $h\rightarrow 0$.
 
 When the force on each vesicle is a function of the separation distance
-$h$ of the form (with integers $n>m\ge 2$)
+$h$ of the form
 \begin{align}
   \label{eq:Fh}
   F(h) \sim \mathcal{H} \frac{\delta^m}{h^{m+1}}
     \left(\left(\frac{\delta}{h}\right)^{m-n}-1\right),
 \end{align}
-attraction is dominant at ``large" distances ($h > \delta$) while
-repulsion is dominant at ``small" distances ($h<\delta$).  Integration
-of equation~\eqref{eq:dhdt} with the $F(h)$ as defined in
-equation~\eqref{eq:Fh} gives the relationship between $t$ and $h$.  In
-this case the relationship involves an integral of a function of
-dimensionless $\bar{h} \equiv h/\delta$:
+with $n>m\ge 2$ being integers, attraction is dominant at ``large"
+distances ($h > \delta$) while repulsion is dominant at ``small"
+distances ($h<\delta$).  Integration of equation~\eqref{eq:dhdt} with
+the $F(h)$ as defined in equation~\eqref{eq:Fh} gives the relationship
+between $t$ and $h$.  In this case, the relationship involves an
+integral of a function of the dimensionless variable $\bar{h} \equiv
+h/\delta$:
 \begin{align*}
   t\frac{K_a^{2/3}}{\mu R_0^{10/3}}& = 
     \int^{h(t)}_{h(0)}-\frac{dh}{h^3 F^{1/3}} = 
     -\frac{1}{\mathcal{H}^{1/3}\delta^{5/3}}\int^{\bar{h}(t)}_{\bar{h}(0)}
-      \frac{d \bar{h}}{\bar{h}^{(8-m)/3}(\bar{h}^{m-n}-1)^{1/3}},
+      \frac{d \bar{h}}{\bar{h}^{(8-m)/3}(\bar{h}^{m-n}-1)^{1/3}}.
 \end{align*}
 Solving for $t$,
 \begin{align}
@@ -679,7 +681,7 @@ $\delta$ under adhesion force $F$ in equation~\eqref{eq:Fh}.  In
 particular, the duration $t$ is proportional to (i) the separation
 distance $\delta^{-5/3}$ (thus $t\rightarrow \infty$ as
 $\delta\rightarrow 0$), and (ii) the adhesion strength
-$\mathcal{H}^{-1/3}$ (as in constant forcing
+$\mathcal{H}^{-1/3}$ (as in the constant forcing
 case~\cite{RamachandranLeal2010_PoF}).  From the above analysis we also
 expect that the scaling of $t$ with respect to $\delta$ depends on the
 adhesion potential, while the scaling with respect to adhesion strength
@@ -699,14 +701,14 @@ is independent of the specific form of the potential.
 To test the scaling of the duration $t$ with respect to $\mathcal{H}$
 and $\delta$, we simulate the vesicle adhesion dynamics in a quiescent
 flow.  Starting with two vesicles at a distance of twice the vesicle
-radius at $t=0$, the long-range attraction pulls the vesicles together.
-The left plot of Figure~\ref{fig:qflow00} shows the scaled adhesion
-energy versus time with $\mathcal{H}=0.1$ and three values of $\delta$
-as labeled.  Adhesion energy reaches minimum at equilibrium, and the
-scaled $E_{adh}$ evolves towards zero at equilibrium.  The arrows
-indicate the times when the scaled adhesion energy reaches within $1\%$
-of equilibrium: $t\sim 96$ for $\delta=0.2$, $t\sim 45$ for $\delta =
-0.3$, and $t\sim 30$ for $\delta=0.4$:
+radius, the long-range attraction pulls the vesicles together.  The left
+plot of Figure~\ref{fig:qflow00} shows the scaled adhesion energy versus
+time with $\mathcal{H}=0.1$ and three values of $\delta$ as labeled.
+Adhesion energy reaches minimum at equilibrium, and the scaled $E_{adh}$
+evolves towards zero at equilibrium.  The arrows indicate the times when
+the scaled adhesion energy reaches within $1\%$ of equilibrium: $t\sim
+96$ for $\delta=0.2$, $t\sim 45$ for $\delta = 0.3$, and $t\sim 30$ for
+$\delta=0.4$:
 \begin{align*}
 \frac{t_{\delta=0.2}}{t_{\delta=0.4}} \sim \frac{96}{30}=3.2 
   &\Longleftrightarrow \left(\frac{0.4}{0.2}\right)^{5/3}\sim 3.17,\\
@@ -728,25 +730,23 @@ equation~\eqref{eq:teq_scaling} captures the adhesion dynamics of two
 vesicles that interact with each other via the adhesion force in
 equation~\eqref{eq:Fh}.
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Effects of the adhesion parameters on equilibrium
 configuration of a vesicle pair}
-\label{subsec:qflow_adhesion_parameters} 
-We next simulate a pair of identical two-dimensional vesicles
-interacting with each other via the adhesion force in
-equation~\eqref{eq:Fh}.  The initial vesicle placement is smaller than
-in the previous simulations so that the equilibrium configuration is
-achieved with a shorter time horizon.  Once a vesicle doublet is
-formed, the membrane shape in the contact region depends on the adhesion
-strength relative to the membrane bending rigidity.  For weak to
-moderate adhesion strength, vesicle membranes are flattened in the
-contact region while the rest of vesicle maintains a nearly spherical
-shape~\cite{EvansMetcalfe1984_BJ, Book_PhysicalBasisCellAdhesion,
-Book_IntermolecularSurfaceForces,
+\label{subsec:qflow_adhesion_parameters} We again simulate two identical
+adhering vesicles with the adhesion force in equation~\eqref{eq:Fh}.
+The initial vesicle separation is smaller than in the previous
+simulations so that the equilibrium configuration is achieved in a
+shorter time horizon.  Once a vesicle doublet is formed, the membrane
+shape in the contact region depends on the adhesion strength relative to
+the membrane bending rigidity.  For weak to moderate adhesion strength,
+vesicle membranes are flattened in the contact region while the rest of
+vesicle maintains a nearly spherical shape~\cite{EvansMetcalfe1984_BJ,
+Book_PhysicalBasisCellAdhesion, Book_IntermolecularSurfaceForces,
 RamachandranAndersonLealIsraelachvili2010_Langmuir}.  Under a strong
 adhesion, however, the vesicle membranes in the contact region buckle
-and form a sigmoidal shape  that has been observed in RBC doublet as
-well~\cite{Ziherl2007_PRL, ZiherlSvetina2007_PNAS,
+and form a sigmoidal shape that has also been observed in RBC
+doublets~\cite{Ziherl2007_PRL, ZiherlSvetina2007_PNAS,
 FlormannAouane2017_SciReports}.  An external electric field is also able
 to buckle a vesicle membrane that is adhered to a solid
 substrate~\cite{SteinkuhlerAgudo-Canalejo2016_BJ}.
@@ -765,14 +765,16 @@ A=0.95$, $0.75$, and $0.6$ with $\mathcal{H}=5$ and $\delta = 0.2$.
 \begin{figure}
   \includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_vesicle_shape_vs_rA_00.jpeg}
   \includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_vesicle_shape_vs_rA_01.jpeg}
-  \caption{\label{fig:Dec18_vesicle_shape} Equilibrium configuration of
-  a doublet of identical vesicles under adhesion in a quiescent flow.
-  Vesicle reduced area $\Delta A=0.95$, $0.75$, and $0.6$ are labeled.
-  The color coding is the tension along the vesicle.  Vesicle length is
-  fixed at $2\pi$, (dimensionless) bending rigidity modulus $\kappa=1$,
-  $\mathcal{H}=5$, and $\delta=0.2$.  {\em Left}: Overall equilibrium
-  shapes of two vesicles under adhesive interactions vary with reduced
-  area.  {\em Right}: Membrane shapes in the contact region.} 
+  \caption{\label{fig:Dec18_vesicle_shape} The equilibrium configuration
+  of a doublet of identical vesicles under adhesion in a quiescent flow.
+  The vesicle reduced areas of $\Delta A=0.95$, $0.75$, and $0.6$ are
+  labeled.  The color coding is the tension along the vesicle.  The
+  vesicle length is fixed at $2\pi$, the dimensionless bending rigidity
+  modulus is $\kappa_b=1$, the Hamaker constant is $\mathcal{H}=5$, and
+  the separation distance is $\delta=0.2$.  {\em Left}: The overall
+  equilibrium shapes of two vesicles under adhesive interactions vary
+  with the reduced area.  {\em Right}: The membrane shapes in the
+  contact region.} 
 \end{figure}
 The equilibrium vesicle shape for $\Delta A=0.95$ is the circular cap
 with a flat contact region.  This is similar to the observed shapes of
@@ -781,28 +783,28 @@ in~\cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}.  When
 vesicles are more deflated with a reduced area $\Delta A = 0.75$, the
 equilibrium vesicle shape is elongated with a bigger contact region.
 This is consistent with the equilibrium shapes of a vesicle doublet
-under a L.-J. potential ($(m,n) =
-(12,6)$)~\cite{FlormannAouane2017_SciReports}.  As the reduced area
-decreases further, we observe undulation of the 
-vesicle membrane on the non-contact side while the contact region remains
-flat.  The color coding along each curve is the tension of the vesicle
-membrane.  We observe that the membrane tension in the contact region is
-very negative, indicating a dominant compression of membrane when the
+under a $(m,n) = (12,6)$
+L.-J.~potential~\cite{FlormannAouane2017_SciReports}.  As the reduced
+area decreases further, we observe undulation of the vesicle membrane on
+the non-contact side while the contact region remains flat.  The color
+coding along each curve is the tension of the vesicle membrane.  We
+observe that the membrane tension in the contact region is very
+negative, indicating a dominant compression of membrane when the
 adhesion force is strong to keep the vesicles bound together.
 
 The right plot of Figure~\ref{fig:Dec18_vesicle_shape} is a zoom on the
 membranes in the contact region, where the membranes are not perfectly
-flat: For all values of reduced area we observe that membranes are
-slightly curved with a dip at the edge.  Such membrane undulation in the
-contact region is predicted by lubrication analyses on a membrane
-under adhesion with a solid substrate~\cite{BlountMiksisDavis2013_PRSa,
+flat---at all reduced area we observe that the membranes are slightly
+curved with a dip at the edge.  Such membrane undulation in the contact
+region is predicted by lubrication analyses on a membrane under adhesion
+with a solid substrate~\cite{BlountMiksisDavis2013_PRSa,
 YoungStone2017_PRF}.  Also the dip at the edge of contact region is
 related to but different from the buckling of membrane under strong
 adhesion: A closer inspection on the dip at the edge shows that the
 membrane distance is smaller than the neutral separation distance
 $\delta$ there. Thus the adhesion force is attractive for most of the
 membranes in the contact region except at the edge, where the adhesive
-force turns repulsive.  Results from the lubrication analysis shows that
+force turns repulsive.  Results from the lubrication analysis show that
 this dip and slightly curved shape in the contact region are independent
 of the adhesion strength. The high membrane curvature at the edge may
 pose a problem for using the contact angle there to estimate the
@@ -813,11 +815,13 @@ Section~\ref{sec:eflow}).
 \begin{figure}
 \includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_Ebleft_Eadhright_vs_rA_adR0p2_adS502.jpeg}
 \includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_EbEadh_vs_rA_adR0p2_adS502.jpeg}
-  \caption{\label{fig:Dec18_vesicle_equilibrium1}   {\em Left}:
-  Total bending energy (solid curve) and adhesion energy (dash-dotted
-  curve) plotted against the reduced area $\Delta A$. {\em Right}: Sum
-  of two energies plotted against reduced area $\Delta A$. Two vesicles in the doublet are of the same length, reduced area
-  and bending rigidity modulus ($\kappa=1$) with $\mathcal{H}=5$ and $\delta=0.2$.}
+  \caption{\label{fig:Dec18_vesicle_equilibrium1}   {\em Left}: The
+  total bending energy (solid curve) and adhesion energy (dash-dotted
+  curve) plotted against the reduced area $\Delta A$. {\em Right}: The
+  sum of two energies plotted against reduced area $\Delta A$. The two
+  vesicles in the doublet are of the same length and reduced area.  The
+  Hamaker constant is $\mathcal{H} = 5$ and the separation distance is
+  $\delta = 0.2$.}
 \end{figure}
 
 The left plot of Figure~\ref{fig:Dec18_vesicle_equilibrium1} shows the
@@ -833,23 +837,24 @@ the total energy is found around $\Delta A = 0.85$.
 \includegraphics[keepaspectratio=true,scale=0.18]{figs/Dec18_Eb_vs_sigma_rA0p9502.jpeg}
 \includegraphics[keepaspectratio=true,scale=0.18]{figs/Dec18_Eadh_vs_sigma_rA0p9502.jpeg}
   \caption{\label{fig:Dec18_equilibrium} 
-  Total bending energy ({\em left}) and adhesion energy ({\em right}) of
-  a vesicle doublet at equilibrium versus the adhesion strength
-  $\mathcal{H}$.  The two vesicles in the doublet have the same length
-  and reduced area $\Delta A=0.95$, with separation distance $\delta =
-  0.2$ (triangles), $0.3$ (crosses), and $0.4$ (circles).}
+  The total bending energy ({\em left}) and adhesion energy ({\em
+  right}) of a vesicle doublet at equilibrium versus the adhesion
+  strength $\mathcal{H}$.  The two identical vesicles in the doublet
+  have a length of $2\pi$ and a reduced area of $\Delta A=0.95$, with
+  separation distance $\delta = 0.2$ (triangles), $0.3$ (crosses), and
+  $0.4$ (circles).}
 \end{figure}
 
 Figure~\ref{fig:Dec18_equilibrium} demonstrates how the adhesion
 strength $\mathcal{H}$ and separation distance $\delta$ affect the
 equilibrium configuration of two vesicles under adhesive interactions.
-For both vesicles the reduced area $\Delta A=0.95$ and the bending
-rigidity is $\kappa_b = 1$.  The total bending (left) and adhesion
-(right) energies at equilibrium are plotted against $\mathcal{H}$ for
-three values of separation distance $\delta$.  We observe that for
-$\Delta A=0.95$ the equilibrium vesicle shape does not vary much with
-the adhesion strength $\mathcal{H}$, while the total adhesion energy
-varies linearly with $\mathcal{H}$.
+Both vesicles have a length of $2\pi$ and a reduced area of $\Delta A =
+0.95$.  The total bending (left) and adhesion (right) energies at
+equilibrium are plotted against $\mathcal{H}$ for three values of the
+separation distance $\delta$.  We observe that for $\Delta A=0.95$ the
+equilibrium vesicle shape does not vary much with the adhesion strength
+$\mathcal{H}$, while the total adhesion energy varies linearly with
+$\mathcal{H}$.
 
 %% \begin{figure}
 %% \includegraphics[keepaspectratio=true,scale=0.4]{figs/relax2Ves01g-draining01a.eps}
