@@ -385,10 +385,10 @@ We consider suspensions of locally inextensible vesicles in an unbounded
 two-dimensional viscous fluid.  For simplicity, we assume the fluid
 viscosity both inside and outside the vesicles is constant, but our
 method can be easily adjusted to account for a viscosity contrast.
-Individual vesicles are denoted as $\gamma_j$, and they are
-parameterized in arclength as $\xx_j(s,t)$.  The union of all vesicles
-is denoted by $\gamma$.  Given a background velocity $\uu_\infty$, the
-governing equations are
+Individual vesicles are denoted as $\gamma_j$, $j=1,\ldots,M$, and they
+are parameterized in arclength as $\xx_j(s,t)$.  The union of all
+vesicles is denoted by $\gamma$.  Given a background velocity
+$\uu_\infty$, the governing equations are
 \begin{equation*}
 \begin{aligned}
   \mu \Delta \uu = \nabla p, \quad &\xx \in \RR^2,
@@ -405,23 +405,22 @@ governing equations are
     &&\mbox{\em non-zero traction jump}
 \end{aligned}
 \end{equation*}
-where $\xxi$ is the traction jump that is the sum of the bending,
-stretching, and adhesion forces.  The bending term $\BB \xx = -\kappa_b
-\xx_{ssss}$ comes from the Helfrich energy, where $\kappa_b$ is the
-bending rigidity modulus and $s$ is arclength.  For the numerical
-examples, we set $\kappa_b = 1$ and consider adhesion strengths ranging
-from $0.1$ to $1$ times the bending rigidity modulus.  The stretching
-term is $\TT \sigma  = (\sigma \xx_s)_s$, where $\sigma$ is the tension,
-and the tension acts as a Lagrange multiplier to satisfy the local
+where $\llbracket T \rrbracket$ is the jump in the stress tensor, and
+$\xxi$ is the traction jump that is the sum of the bending, stretching,
+and adhesion forces.  The bending force, arising from the Helfrich
+energy model, is $\BB \xx = -\kappa_b \xx_{ssss}$, where $\kappa_b$ is
+the bending rigidity modulus which we set to be 1 for all examples. The
+stretching force is $\TT \sigma = (\sigma \xx_s)_s$, where the tension,
+$\sigma$, acts as a Lagrange multiplier to satisfy the local
 extensibility constraint.  The resistance to bending and stretching are
 standard assumptions of vesicles.  In this work, we include an adhesive
-term, $\AA \xx$, that we now describe.
+force, $\AA \xx$, that we now describe.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Adhesion Model}
-Sukumaran and Seifert~\cite{suk-sei2001} considers
-adhesion between a single three-dimensional vesicle and a solid wall at
-$z=0$.  They use the adhesion potential of the function form
+Sukumaran and Seifert~\cite{suk-sei2001} consider adhesion between a
+single three-dimensional vesicle and a solid wall at $z=0$.  They use
+the adhesion potential of the function form
 \begin{align}
 \label{eq:adhesion_potential}
   \phi(z) = H \left[ 
@@ -429,12 +428,13 @@ $z=0$.  They use the adhesion potential of the function form
 \end{align}
 where $z$ is the distance between the solid wall and the vesicle,
 $\mathcal{H}$ is the Hamaker constant, $\delta$ is the adhesion length
-scale and $(m,n) = (4,2)$.  We generalize this model to an unbounded
-suspension of vesicles.  We assume that the adhesion force applies
+scale, and $(m,n) = (4,2)$.  We generalize this model to an unbounded
+suspension of vesicles. We assume that the adhesion force applies
 between all pairs of points on different vesicles, so we are interested
 in Hamaker constants that are appropriate for lipid-lipid interactions.
-In Appendix~\ref{sec:appendixA}, the adhesive force at a point $\xx$ on
-vesicle $j$ is shown to be
+We use Hamaker constants ranging from $0.1$ to $1$ times the bending
+rigidity modulus.  In Appendix~\ref{sec:appendixA}, the adhesive force
+at a point $\xx$ on vesicle $j$ is shown to be
 \begin{align}
   \AA\xx:=-\mathcal{H} m \delta^{n}\sum_{\substack{k=1 \\ k \neq j}}^M 
   \int_{\gamma_k} \frac{\xx - \yy}{\|\xx - \yy\|^{m+2}} 
@@ -475,7 +475,7 @@ The exponents $(m,n)$ depend on the geometry of the two objects under
 adhesion~\cite{Book_IntermolecularSurfaceForces}: $(m,n)=(4,2)$
 corresponds to two flat, planar surfaces interacting with each under a
 long-range attraction and a short-range repulsion. On the other hand,
-$(m,n) = (12,6)$ corresponds to the L.-J. potential between two molecules.
+$(m,n) = (12,6)$ corresponds to the L.-J.~potential between two molecules.
 In our case, the adhesion potential in the integral of
 equation~\eqref{eqn:adhesionForce} is between two small patches of lipid
 bilayer membrane (because the lipid molecules are coarse-grained in the
@@ -485,14 +485,16 @@ surfaces and two point molecules.
  
 Large value of $m$ corresponds to a sharp increase in the repulsion
 force as two objects are within the separation distance $\delta$.  This
-poses great challenges for simulations as the problem becomes stiff
-(i.e., requires a very small time step) for large $m$.  The adaptive
+poses a numerical challenge since the problem becomes stiff (i.e.,
+requires a very small time step) for large $m$.  The adaptive
 time-stepping BIE scheme makes it possible to simulate vesicle adhesive
 dynamics with specified numerical precision for reasonable computation
 time.  We explore several combinations of $(m,n)$ in the simulations of
 two vesicles forming a doublet in a quiescent flow.  We found very
 little difference in both the dynamic evolution and equilibrium
-configuration between $(m,n)=(8,6)$ and $(m,n)=(4,2)$.
+configuration between $(m,n)=(8,6)$ and $(m,n)=(4,2)$.  Therefore, in
+this work, we use $(m,n) = (4,2)$ to regulate the stiffness introduced
+by the adhesive force.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Integral Equation Formulation}
@@ -507,7 +509,7 @@ start by defining the Stokes single-layer potential
   \label{eqn:SLP}
 \end{align}
 where $\rr = \xx - \yy$ and $\rho = \|\rr\|$.  Then, given a vesicle
-with a traction jump $\xxi$, the fluid velocity at is~\cite{poz1992}
+with a traction jump $\xxi$, the fluid velocity is~\cite{poz1992}
 \begin{align*}
   \uu(\xx) = \uu_{\infty}(\xx) + \SS[\xxi](\xx), \quad \xx \in \RR^2.
 \end{align*}
@@ -516,7 +518,7 @@ The traction jump is
   \xxi = -\kappa_b \xx_{ssss} + (\sigma \xx_s)_s + \AA \xx,
 \end{align*}
 where the three terms correspond to the forces due to bending, tension,
-and adhesion, respectively.  Therefore Applying the no-slip boundary
+and adhesion, respectively.  Therefore, applying the no-slip boundary
 condition on each vesicle, the governing equations are
 \begin{align*}
   &\dot{\xx} = \uu_{\infty}(\xx) + \SS[\xxi](\xx), \\
@@ -534,9 +536,9 @@ We apply the IMEX-Euler method
   \frac{\xx^{N+1} - \xx^N}{\Delta t} = \SS^N \BB^N \xx^{N+1} + 
   \SS^N \TT^N \sigma^{N+1} + \SS^N \AA^N \xx^N,
 \end{align*}
-that treats both the bending and tension terms
-semi-implicitly~\cite{qua-bir2014}. Note that the adhesive term is
-treated explicitly.  Therefore, a single time step requires solving
+that discretizes both the bending and tension terms
+semi-implicitly~\cite{qua-bir2014}, and the adhesive term explicitly.
+Therefore, a single time step requires solving
 \begin{align*}
   \xx^{N+1} - \Delta t \SS^N \BB^N \xx^{N+1} - 
     \Delta t \SS^N \TT^N \sigma^{N+1} = \xx^N + 
@@ -548,11 +550,11 @@ along with the inextensibility constraint that is discretized as
 \end{align*}
 We discretize the vesicles at a set of collocation points, compute the
 bending and tension terms with Fourier differentiation, and apply Alpert
-quadrature~\cite{alp1999} to the logarithmically singular single-layer
-potential $\SS$.  The source and target points of the adhesion force
-never coincide since they are always on different vesicles, so the
-adhesion force~\eqref{eqn:adhesionForce} is computed with the spectrally
-accurate trapezoid rule~\cite{tre-wei2014}.  
+quadrature~\cite{alp1999} to the weakly-singular single-layer potential
+$\SS$.  The source and target points of the adhesion force never
+coincide since they are always on different vesicles, so the adhesion
+force~\eqref{eqn:adhesionForce} is computed with the spectrally accurate
+trapezoid rule~\cite{tre-wei2014}.  
 
 The dynamics of a doublet undergoes many different time scales over time
 horizons that are sufficiently large to characterize the formation of a
@@ -566,10 +568,11 @@ method~\cite{quaife2016adaptive}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The Shear and Normal Stresses}
 To characterize the rheological properties of the suspension of a
-doublet, it is necessary to compute shear and normal stresses.  At a
-point $\xx$ in the fluid bulk, The velocity $\uu(\xx)$, pressure
-$p(\xx)$, and total stress tensor $T = - p I + \nabla \uu + \nabla
-\uu^T$ of the single-layer potential~\eqref{eqn:SLP} are
+doublet, it is necessary to compute the shear and normal stresses.  At a
+point $\xx \in \RR^2 \backslash \gamma$ in the fluid bulk, the velocity
+$\uu(\xx)$, pressure $p(\xx)$, and total stress tensor $T = - p I +
+\nabla \uu + \nabla \uu^T$ of the single-layer potential~\eqref{eqn:SLP}
+are
 \begin{align*}
   \uu(\xx) &= \SS_\uu[\ff](\xx) = \frac{1}{4\pi\mu}\int_{\gamma} \left( 
     -\log \rho + \frac{\rr \otimes \rr}{\rho^2} \right) 
