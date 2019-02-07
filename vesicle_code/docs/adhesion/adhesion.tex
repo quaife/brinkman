@@ -911,7 +911,21 @@ We begin with two identical vesicles forming a doublet under an
 adhesion potential in a quiescent flow as described in
 Section~\ref{sec:qflow}.  Once a doublet forms and reaches an
 equilibrium configuration, we turn on the fluid trap with the stagnation
-point placed at the center of the vesicle doublet.  At low extensional
+point placed at the center of the vesicle doublet.  
+When the long axis of the vesicle doublet is aligned with the far-field diverging flow, the converging flow
+pushes vesicles towards each other and the repulsive interaction is essential to keep the two vesicles at the separation distance.
+In this configuration the extensional flow is pushing the vesicles together. With the stagnation point placed at the center of the doublet, this
+configuration appears to be quite stable for low extensional flow rate.
+
+However, when the long axis of vesicle doublet is parallel
+to the far-field converging flow, the diverging flow may overcome the vesicle adhesion to
+split the two vesicles apart. Thus in the following simulation experiments we place the vesicle doublet so that the flat contact region is
+aligned with the axis of converging flow. In this configuration the flow is pulling the vesicles away from each and 
+is expected to be less stable than the orthogonal configuration where the fluid flow is constantly pushing vesicles towards each other. 
+It is also reasonable to expect the vesicle doublet to rotate around the stagnation so the flow is pushing them together rather than pulling them apart.
+
+
+At low extensional
 rates, we expect the vesicle doublet to stay at the fluid
 trap stagnation point.  On the other hand, the vesicle doublet may
 become unstable and eventually separate at higher extensional rates.
@@ -969,6 +983,7 @@ means to probe the physics of membrane adhesion.
   denoted with a black square, is a stagnation point.}
 \end{figure}
 
+
 We consider vesicle doublets with reduced areas 0.70, 0.75, 0.80, 0.85,
 0.90, and 0.95, all with a length of $2\pi$, and we vary the extensional
 rate, $\chi$, between $10^{-2}$ and $10^{-1}$.  Since the stagnation
@@ -976,10 +991,14 @@ point can be controlled in an experimental
 setting~\cite{Johnson-Chavarria2011_EMJ}, we mimic the active control
 algorithm in the microfluidic experiments by moving the center of the
 doublet at each time step so that the stagnation point occurs exactly in
-the middle of the doublet.  With this adjustment, the vesicles either
+the middle of the doublet.  
+With this adjustment, the vesicles either
 remain as a doublet in the fluid trap centered around the stagnation
 point, or the doublet is broken and the vesicles separate from one
-another.  In Figures~\ref{fig:extensional1}--\ref{fig:extensional3},
+another.  
+
+
+In Figures~\ref{fig:extensional1}--\ref{fig:extensional3},
 snapshots of a fluid trap containing a vesicle doublet of reduced area
 $\Delta A = 0.7$ are simulated at different extensional rates.  While
 this doublet remains trapped around the stagnation point for all the
