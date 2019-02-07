@@ -107,7 +107,7 @@ The dynamics of adhesive vesicles under various flowing
 conditions is investigated numerically using a high-order
 adaptive-in-time boundary integral equation formulation. In a quiescent
 flow, two nearby vesicles move slowly towards each other under the adhesive
-potential, pushing out fluid in the gap to form a doublet at
+potential, pushing out fluid between them to form a doublet at
 equilibrium. A lubrication analysis on such draining of the thin film
 gives the dependencies of draining time on adhesion strength and
 separation distance that are in good agreement with numerical results.
@@ -116,7 +116,7 @@ In a microfluid trap where the stagnation of an extensional flow is
 placed in the middle of a vesicle doublet through an active control
 loop, novel dynamics of a vesicle doublet are observed. Numerical
 simulations show that there exists a critical extensional flow rate
-above which the weak adhesive interaction is overcome by the
+above which adhesive interaction is overcome by the
 hydrodynamic diverging stream, thus providing a simple method to measure
 the adhesion strength between two vesicle membranes. 
 %
@@ -153,7 +153,7 @@ between vesicles in a viscous fluid.
 Vesicles (closed fluid-filled phospholipid bilayer membranes) have been
 widely utilized as biological cell mimics in biophysics and material
 engineering \cite{sackmann1996,Barthes-Biesel2016_ARFM}.  The ever expanding applications have
-encouraged detailed experimental, theoretical, and numerical
+encouraged novel experimental, theoretical, and numerical
 investigations of vesicle hydrodynamics in applied flow, electric
 fields, and magnetic fields.  Theoretical investigations often take the
 form of small-deformation analysis or spheroidal dynamics of a
@@ -204,7 +204,7 @@ aggregates, an idealized model for adhesive vesicle-vesicle interactions
 gives rise to vesicle configurations similar to those observed in
 experiments of fibrinogen-induced RBC
 aggregates~\cite{SvetinaZiherl2008_Bioelectrochemistry,
-FlormannAouane2017_SciReports}.  Using the Lennard-Jones (L-J) potential
+FlormannAouane2017_SciReports}.  Using the Lennard-Jones (L.-J.) potential
 for point-point interaction between two vesicle membranes without the
 molecular details of adhesive interactions between RBCs, Flormann {\em
 et al.}~found the contact zone to buckle under strong
@@ -254,7 +254,7 @@ adhesion is crucial to initiate membrane fusion and fission in
 endocytosis and exocytosis, the transport of small vesicles through
 membrane surfaces.  In the absence of an external electric field and
 ions in the solvents, it is reported that the adhesive interactions
-between two membranes can be well approximated by the L-J-type
+between two membranes can be well approximated by the L.-J.-type
 potential~\cite{FlormannAouane2017_SciReports}, that consists of a
 long-range attraction component and a short-range repulsion
 component~\cite{Book_IntermolecularSurfaceForces}, and the combination
@@ -362,9 +362,10 @@ This paper is organized as follows. In Section~\ref{sec:ge} we formulate
 our model for two-dimensional vesicle hydrodynamics with adhesive
 interactions between membranes of distinct vesicles.  We simulate the
 adhesion process of two vesicles in a quiescent flow in
-Section~\ref{sec:qflow}, where we also present a simple model to
-estimate how long it takes for two nearby vesicles to reach an
-equilibrium configuration under adhesion. In Section~\ref{sec:eflow} we
+Section~\ref{sec:qflow}, where we also present a simple lubrication model to
+estimate how long it takes for two nearby vesicles to reach the
+separation distance set by the adhesion potential.
+In Section~\ref{sec:eflow} we
 numerically investigate the hydrodynamics of a vesicle doublet in a
 fluid trap where the stagnation point is actively controlled to be at
 the center of the vesicle doublet. From these results we propose a novel
@@ -408,9 +409,9 @@ governing equations are
 where $\xxi$ is the traction jump that is the sum of the bending,
 stretching, and adhesion forces.  The bending term $\BB \xx = -\kappa_b
 \xx_{ssss}$ comes from the Helfrich energy, where $\kappa_b$ is the
-bending modulus and $s$ is arclength.  For the numerical examples, we
+bending rigidity modulus and $s$ is arclength.  For the numerical examples, we
 set $\kappa_b = 1$ and consider adhesion strengths ranging from $0.1$ to
-$1$ times the bending modulus.  The stretching term is $\TT \sigma  =
+$1$ times the bending rigidity modulus.  The stretching term is $\TT \sigma  =
 (\sigma \xx_s)_s$, where $\sigma$ is the tension, and the tension acts
 as a Lagrange multiplier to satisfy the local extensibility constraint.
 The resistance to bending and stretching are standard assumptions of
@@ -475,7 +476,7 @@ The exponents $(m,n)$ depend on the geometry of the two objects under
 adhesion~\cite{Book_IntermolecularSurfaceForces}: $(m,n)=(4,2)$
 corresponds to two flat, planar surfaces interacting with each under a
 long-range attraction and a short-range repulsion. On the other hand,
-$(m,n) = (12,6)$ corresponds to the L-J potential between two molecules.
+$(m,n) = (12,6)$ corresponds to the L.-J. potential between two molecules.
 In our case, the adhesion potential in the integral of
 equation~\eqref{eqn:adhesionForce} is between two small patches of lipid
 bilayer membrane (because the lipid molecules are coarse-grained in the
@@ -608,7 +609,9 @@ We consider the suspension of two identical two-dimensional vesicles
 suspended in a quiescent flow.  Without any external forcing such as an imposed
 electric field or a fluid flow in the far-field, the long-range
 attraction pulls two vesicles together until their separation distance
-is close to $\delta$.  In Section~\ref{subsec:qflow_draining_times}, we
+is close to $\delta$ and large deformation occurs in the ``contact region". The L.-J. type potential prohibits
+physical contact between two membranes and instead keep them close to the separation distance $\delta$.
+In Section~\ref{subsec:qflow_draining_times}, we
 compute the expected time for the vesicles to reach an equilibrium
 configuration and compare the analysis with numerical simulations.  In
 Section~\ref{subsec:qflow_adhesion_parameters}, we characterize the
@@ -687,7 +690,7 @@ is independent of the specific form of the potential.
   $\mathcal{H}$ with
   $\delta = 0.4$. Arrows indicate the time by when the equilibrium is
   reached within $1\%$.}
-  \todo[inline]{Change the $H$ in the right figure to $\mathcal{H}$}
+%  \todo[inline]{Change the $H$ in the right figure to $\mathcal{H}$}
 \end{figure}
 
 To test the scaling of the duration $t$ with respect to $\mathcal{H}$
@@ -759,16 +762,16 @@ A=0.95$, $0.75$, and $0.6$ with $\mathcal{H}=5$ and $\delta = 0.2$.
 \begin{figure}
   \includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_vesicle_shape_vs_rA_00.jpeg}
   \includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_vesicle_shape_vs_rA_01.jpeg}
-  \caption{\label{fig:Dec18_vesicle_shape} Two vesicles of the same length, reduced area
-  and bending rigidity ($\kappa=1$)
-  with $\mathcal{H}=5$, and $\delta=0.2$.  {\em Left}:
-  Equilibrium shapes of two vesicles under adhesive interactions with
-  adhesion strength $\mathcal{H}=5$ and separation distance
-  $\delta=0.2$.  Vesicle reduced area $\Delta A=0.95$, $0.75$, and $0.6$
-  are labeled.  The color coding is the tension along the vesicle. {\em
-  Right}: Membrane shapes in the contact region.} \todo[inline]{This
-  caption contradicts itself.  Is it $\mathcal{H} = 0.5$ or $\mathcal{H}
-  = 5$?}
+  \caption{\label{fig:Dec18_vesicle_shape} Equilibrium configuration of a doublet of 
+  identical vesicles under adhesion in a quiescent flow. Vesicle reduced area $\Delta A=0.95$, $0.75$, and $0.6$
+  are labeled.  The color coding is the tension along the vesicle. 
+  Vesicle length is fixed at $2\pi$, (dimensionless) bending rigidity modulus $\kappa=1$, $\mathcal{H}=5$, and $\delta=0.2$.
+  {\em Left}: Overall
+  equilibrium shapes of two vesicles under adhesive interactions vary with reduced area.  
+  {\em Right}: Membrane shapes in the contact region.} 
+%  \todo[inline]{This
+%  caption contradicts itself.  Is it $\mathcal{H} = 0.5$ or $\mathcal{H}
+%  = 5$?}
 \end{figure}
 The equilibrium vesicle shape for $\Delta A=0.95$ is the circular cap
 with a flat contact region.  This is similar to the observed shapes of
@@ -777,10 +780,10 @@ in~\cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}.  When
 vesicles are more deflated with a reduced area $\Delta A = 0.75$, the
 equilibrium vesicle shape is elongated with a bigger contact region.
 This is consistent with the equilibrium shapes of a vesicle doublet
-under a L-J potential ($(m,n) =
+under a L.-J. potential ($(m,n) =
 (12,6)$)~\cite{FlormannAouane2017_SciReports}.  As the reduced area
-decreases further, we observe undulation of the elongated equilibrium
-vesicle shape on the non-contact side while the contact region remains
+decreases further, we observe undulation of the 
+vesicle membrane on the non-contact side while the contact region remains
 flat.  The color coding along each curve is the tension of the vesicle
 membrane.  We observe that the membrane tension in the contact region is
 very negative, indicating a dominant compression of membrane when the
@@ -809,11 +812,11 @@ Section~\ref{sec:eflow}).
 \begin{figure}
 \includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_Ebleft_Eadhright_vs_rA_adR0p2_adS502.jpeg}
 \includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_EbEadh_vs_rA_adR0p2_adS502.jpeg}
-  \caption{\label{fig:Dec18_vesicle_equilibrium1} Two vesicles of the same length, reduced area
-  and bending rigidity ($\kappa=1$)  with $\mathcal{H}=5$ and $\delta=0.2$.  {\em Left}:
+  \caption{\label{fig:Dec18_vesicle_equilibrium1}   {\em Left}:
   Total bending energy (solid curve) and adhesion energy (dash-dotted
   curve) plotted against the reduced area $\Delta A$. {\em Right}: Sum
-  of two energies plotted against reduced area $\Delta A$.}
+  of two energies plotted against reduced area $\Delta A$. Two vesicles in the doublet are of the same length, reduced area
+  and bending rigidity modulus ($\kappa=1$) with $\mathcal{H}=5$ and $\delta=0.2$.}
 \end{figure}
 
 The left plot of Figure~\ref{fig:Dec18_vesicle_equilibrium1} shows the
@@ -828,12 +831,13 @@ the total energy is found around $\Delta A = 0.85$.
 \begin{figure}
 \includegraphics[keepaspectratio=true,scale=0.18]{figs/Dec18_Eb_vs_sigma_rA0p9502.jpeg}
 \includegraphics[keepaspectratio=true,scale=0.18]{figs/Dec18_Eadh_vs_sigma_rA0p9502.jpeg}
-  \caption{\label{fig:Dec18_equilibrium} Total bending energy (\em left)
-  and adhesion energy {\em right} versus the adhesion strength
-  $\mathcal{H}$ for two vesicles with reduced area $\Delta A=0.95$,
+  \caption{\label{fig:Dec18_equilibrium} 
+  Total bending energy ({\em left})
+  and adhesion energy ({\em right}) of a vesicle doublet at equilibrium versus the adhesion strength
+  $\mathcal{H}$.  The two vesicles in the doublet have the same length and reduced area $\Delta A=0.95$, with 
   separation distance $\delta = 0.2$ (triangles), $0.3$ (crosses), and
   $0.4$ (circles).}
-  \todo[inline]{Change $H$ to $\mathcal{H}$ in the x-axis.}
+%  \todo[inline]{Change $H$ to $\mathcal{H}$ in the x-axis.}
 \end{figure}
 
 Figure~\ref{fig:Dec18_equilibrium} demonstrates how the adhesion
@@ -904,7 +908,7 @@ the application of such a fluid trap to measure the adhesion strength
 between two bound vesicle membranes, we propose the following thought
 experiment.
 
-We begin with two vesicles identical vesicles forming a doublet under an
+We begin with two identical vesicles forming a doublet under an
 adhesion potential in a quiescent flow as described in
 Section~\ref{sec:qflow}.  Once a doublet forms and reaches an
 equilibrium configuration, we turn on the fluid trap with the stagnation
@@ -1274,7 +1278,7 @@ reduced area while the bending/tension contribution increases with the reduced a
 %
 %because deflated vesicles (low reduced area) deform more
 %easily and more membranes in the contact region.
-\todo[inline]{I don't understand this last sentence --> modified now by yny}
+%\todo[inline]{I don't understand this last sentence --> modified now by yny}
 
 In our formulation we did not include any electrostatic interactions
 between membranes under adhesion. When the electrostatic interaction is
