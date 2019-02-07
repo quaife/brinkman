@@ -897,7 +897,7 @@ Narsimhan2014_JFM, DahlNarsimhanGouveia2016_SoftMatt}.  The stagnation
 point (zero-velocity point) in an extensional flow, $\uu =\chi(-x,y)$,
 is a saddle point where two laminar streams converge along an axis and
 then diverge in a different direction.  With an active control algorithm
-to fix the position of the stagnation point by adjusting the streaming
+to place the stagnation point at a desirable location by adjusting the streaming
 flow strength with a feedback loop~\cite{Johnson-Chavarria2011_EMJ}, a
 particle can be trapped at the stagnation point for long time scales to
 facilitate image acquisition or other detailed measures such as particle
@@ -911,12 +911,12 @@ adhesion potential in a quiescent flow as described in
 Section~\ref{sec:qflow}.  Once a doublet forms and reaches an
 equilibrium configuration, we turn on the fluid trap with the stagnation
 point placed at the center of the vesicle doublet.  At low extensional
-rates, $\chi$, we expect the vesicle doublet to stay fixed at the fluid
+rates, we expect the vesicle doublet to stay at the fluid
 trap stagnation point.  On the other hand, the vesicle doublet may
 become unstable and eventually separate at higher extensional rates.
-Thus we expect there to exist a critical extensional rate above which
+Thus we expect there to exist a critical extensional rate $\chi_c$ above which
 the vesicle doublet cannot stay bound under a given adhesion potential.
-Therefore, the dependence of the critical extensional rate on the
+Therefore, the dependence of the critical extensional rate $\chi_c$ on the
 adhesion potential and the mechanical vesicle properties provides a
 means to probe the physics of membrane adhesion.
 
@@ -972,7 +972,8 @@ We consider vesicle doublets with reduced areas 0.70, 0.75, 0.80, 0.85,
 0.90, and 0.95, all with a length of $2\pi$, and we vary the extensional
 rate, $\chi$, between $10^{-2}$ and $10^{-1}$.  Since the stagnation
 point can be controlled in an experimental
-setting~\cite{Johnson-Chavarria2011_EMJ}, we translate the center of the
+setting~\cite{Johnson-Chavarria2011_EMJ}, we mimic the active control
+algorithm in the microfluidic experiments by moving the center of the
 doublet at each time step so that the stagnation point occurs exactly in
 the middle of the doublet.  With this adjustment, the vesicles either
 remain as a doublet in the fluid trap centered around the stagnation
