@@ -626,7 +626,7 @@ shape of the contact region and the bending and adhesive energies.
 \subsection{Effects of the adhesion parameters on draining times}
 \label{subsec:qflow_draining_times}
 When two vesicles move towards (or away from) each other under a
-constant force $F$ without any external fluid flow, the height, $h$, of
+constant force $F$ without any imposed external flow, the height, $h$, of
 the thin liquid film between two vesicles follows the draining
 dynamics~\cite{RamachandranLeal2010_PoF}
 \begin{align}
@@ -941,7 +941,7 @@ With the converging flow pushing the two vesicles towards the stagnation point d
 this configuration is expected to be more stable than the $\theta=\pi/2$ configuration in the middle of Figure~\ref{fig:InclinationAngle},  where  
 the doublet long axis is parallel to the converging direction. This is because
 when $\theta=\pi/2$ the diverging flow is pulling the vesicles away from each other as shown in the illustration. 
-With the inclination angle fixed at $\theta=\pi/2$,
+If the doublet inclination angle is fixed at $\theta=\pi/2$,
 the vesicle doublet stays intact only when the adhesive force is strong enough to dominate over the fluid drag in this configuration.
 Thus it is possible that the diverging flow may overcome adhesion and
 break up the doublet. It is also reasonable to expect a vesicle doublet to rotate from $\theta=\pi/2$ to $\theta=\pi$,
@@ -953,7 +953,7 @@ the diverging flow may be strong enough to pull vesicles away from the doublet.
 %is expected to be less stable than the $\theta=\pi$ configuration where the fluid flow is constantly pushing vesicles towards each other. 
 %
 At low extensional
-rates, we expect the $\theta=\pi/2$ doublet to stay intact at the fluid
+rates, we expect the $\theta=\pi/2$ doublet to stay bound at the fluid
 trap stagnation point.  On the other hand, the vesicle doublet may
 become unstable and eventually separate at higher extensional rates.
 Thus we expect there to exist a critical extensional rate $\chi_c$ above which
@@ -976,24 +976,29 @@ point, or the doublet is broken and the vesicles separate from one
 another.  
 
 
-In Figures~\ref{fig:extensional1}--\ref{fig:extensional3},
+In Figures~\ref{fig:extensional1},
 snapshots of a fluid trap containing a vesicle doublet of reduced area
 $\Delta A = 0.7$ are simulated at different extensional rates.  While
 this doublet remains bound for all the
 considered extensional rates, a doublet with a reduced area of $\Delta A
-= 0.8$ is split with a critical extensional rate $\chi_c \sim 0.1$
-(Figure~\ref{fig:extensional4}).  
+= 0.8$ is split with a critical extensional rate $\chi_c =0.1$
+(bottom row in Figure~\ref{fig:extensional3}).  
 %
 \begin{figure}[htp]
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi2em2_ra070_image01.png}
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi2em2_ra070_image02.png}
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi2em2_ra070_image03.png}
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi2em2_ra070_image04.png}
-  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi2em2_ra070_image05.png}
+  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi2em2_ra070_image05.png}\\
+   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image01.png}
+  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image02.png}
+  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image03.png}
+  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image04.png}
+  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image05.png}
   \caption{\label{fig:extensional1} A doublet inside a fluid trap.  The
   reduced area is $\Delta A = 0.7$, the Hamaker constant is $\mathcal{H} =
   0.7$, the adhesion length scale is $\delta = 0.4$, and the extensional
-  rate is $\chi = 0.02$.  The center of the vesicle, denoted with a
+  rate $\chi = 0.02$ ({\em top}) and $\chi=0.7$ ({\em bottom}).  The center of the vesicle, denoted with a
   black square, is a stagnation point.}
   \end{figure}
   %
@@ -1004,29 +1009,34 @@ We also observe that in most cases with moderate extensional flow rates the doub
 aligning their long axis with the diverging direction.
 
   
-  \begin{figure}
-  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image01.png}
-  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image02.png}
-  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image03.png}
-  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image04.png}
-  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image05.png}
-  \caption{\label{fig:extensional2} A doublet inside a fluid trap.  The
-  reduced area is $\Delta A = 0.7$, the Hamaker constant is $\mathcal{H}
-  = 0.7$, the adhesion length scale is $\delta = 0.4$, and the
-  extensional rate is $\chi = 0.07$.  The center of the vesicle, denoted
-  with a black square, is a stagnation point.}
-  \end{figure}
+%  \begin{figure}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image01.png}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image02.png}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image03.png}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image04.png}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image05.png}
+%  \caption{\label{fig:extensional2} A doublet inside a fluid trap.  The
+%  reduced area is $\Delta A = 0.7$, the Hamaker constant is $\mathcal{H}
+%  = 0.7$, the adhesion length scale is $\delta = 0.4$, and the
+%  extensional rate is $\chi = 0.07$.  The center of the vesicle, denoted
+%  with a black square, is a stagnation point.}
+%  \end{figure}
 
  \begin{figure}
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra070_image01.png}
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra070_image02.png}
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra070_image03.png}
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra070_image04.png}
-  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra070_image05.png}
+  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra070_image05.png}\\
+    \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image01.png}
+  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image02.png}
+  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image03.png}
+  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image04.png}
+  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image05.png}
   \caption{\label{fig:extensional3} Two vesicles in an extensional flow.
-  The reduced area is $\Delta A = 0.7$, the Hamaker constant is $\mathcal{H} =
+  The reduced area $\Delta A = 0.7$ ({\em top}) and $\Delta A=0.8$ ({\em bottom}). The Hamaker constant is $\mathcal{H} =
   0.7$, the adhesion length scale is $\delta = 0.4$, and the extensional
-  rate is $\chi = 0.1$.  The center of the vesicle, denoted with a black
+  rate $\chi = 0.1$.  The center of the vesicle, denoted with a black
   square, is a stagnation point.}
   \end{figure}
 
@@ -1041,20 +1051,20 @@ angles, but smaller reduced areas also result in smaller inclination
 angles.  Moreover, the critical Hamaker constant that determines if the
 doublet remains trapped or is broken decreases with an increasing
 extensional rate.
-\begin{figure}
-  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image01.png}
-  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image02.png}
-  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image03.png}
-  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image04.png}
-  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image05.png}
-  \caption{\label{fig:extensional4} A doublet broken by an extensional
-  flow.  The reduced area is $\Delta A = 0.8$, the Hamaker constant is
-  $\mathcal{H} = 0.7$, the adhesion length scale is $\delta = 0.4$, and
-  the extensional rate is $\chi = 0.1$.  Initially, the doublet tilts to
-  an inclination angle, and then the extensional rate overcomes the
-  adhesive force and the doublet is broken.  The center of the vesicle,
-  denoted with a black square, is a stagnation point.}
-\end{figure}
+%\begin{figure}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image01.png}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image02.png}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image03.png}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image04.png}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image05.png}
+%  \caption{\label{fig:extensional4} A doublet broken by an extensional
+%  flow.  The reduced area is $\Delta A = 0.8$, the Hamaker constant is
+%  $\mathcal{H} = 0.7$, the adhesion length scale is $\delta = 0.4$, and
+%  the extensional rate is $\chi = 0.1$.  Initially, the doublet tilts to
+%  an inclination angle, and then the extensional rate overcomes the
+%  adhesive force and the doublet is broken.  The center of the vesicle,
+%  denoted with a black square, is a stagnation point.}
+%\end{figure}
 We summarize the final inclination angle of the
 doublet in the right plot of Figure~\ref{fig:extensionalInclinationAngle}.
 The size of the round dots are scaled to the final inclination angle as
@@ -1063,7 +1073,7 @@ come closer to aligning their long axis with the diverging direction.
 When the doublet is broken at reduced area $\Delta A = 0.80$, the
 extensional rate is sufficiently large to align the long axis of the
 vesicle with the diverging direction and then the vesicles separate
-(Figure~\ref{fig:extensional4}).  For very low extensional rates, the
+(bottom row in Figure~\ref{fig:extensional3}).  For very low extensional rates, the
 time horizon is insufficient for the doublet to reach an equilibrium
 state, and these simulations are marked with a square.
 %
