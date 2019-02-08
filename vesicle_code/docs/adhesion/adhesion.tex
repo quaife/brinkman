@@ -913,24 +913,44 @@ the application of such a fluid trap to measure the adhesion strength
 between two bound vesicle membranes, we propose the following thought
 experiment.
 
+\begin{figure}[htp]
+  \begin{minipage}{0.53\textwidth}
+    \includegraphics[width=0.33\textwidth]{figs/angleDefinition.pdf} \:
+    \includegraphics[width=0.34\textwidth]{figs/rotate1.pdf} \:
+    \includegraphics[width=0.26\textwidth]{figs/rotate2.pdf}
+  \end{minipage}
+   \caption{\label{fig:InclinationAngle} The
+  definition of the inclination angle.  An inclination angle of $\pi$
+  indicates a doublet whose long axis is parallel to the diverging
+  direction, while an inclination angle of $\pi/2$ indicates a doublet
+  whose short axis is parallel to the diverging direction.  The square
+  mark is a stagnation point and the round point is located at the
+  center of the vesicle.}
+\end{figure}
+
 We begin with two identical vesicles forming a doublet under an
 adhesion potential in a quiescent flow as described in
 Section~\ref{sec:qflow}.  Once a doublet forms and reaches an
 equilibrium configuration, we turn on the fluid trap with the stagnation
-point placed at the center of the vesicle doublet.  
-When the long axis of the vesicle doublet is aligned with the far-field diverging flow, the converging flow
-pushes vesicles towards each other and the repulsive interaction is essential to keep the two vesicles at the separation distance.
-In this configuration the extensional flow is pushing the vesicles together. With the stagnation point placed at the center of the doublet, this
-configuration appears to be quite stable for low extensional flow rate.
+point placed at the center of the vesicle doublet, which has a flat contact region as shown in \S~\ref{sec:qflow}. 
+Based on how the contact region aligns with the direction of divergent flow, 
+we can define the inclination angle of the vesicle doublet as illustrated in Figure~\ref{fig:InclinationAngle}.
+%
 
-However, when the long axis of vesicle doublet is parallel
-to the far-field converging flow, the diverging flow may overcome the vesicle adhesion to
-split the two vesicles apart. Thus in the following simulation experiments we place the vesicle doublet so that the flat contact region is
-aligned with the axis of converging flow. In this configuration the flow is pulling the vesicles away from each and 
-is expected to be less stable than the orthogonal configuration where the fluid flow is constantly pushing vesicles towards each other. 
-It is also reasonable to expect the vesicle doublet to rotate around the stagnation so the flow is pushing them together rather than pulling them apart.
+When $\theta=\pi$ (the long axis of the vesicle doublet is aligned with the far-field diverging flow), the converging flow
+pushes vesicles towards each other and the short-range repulsive force is essential to keep the two vesicles at the separation distance.
+With the fluid flow pushing the two vesicles towards the stagnation point dynamically placed at the doublet center, 
+this configuration is expected to be more stable than the configuration in the middle of Figure~\ref{fig:InclinationAngle} where $\theta=\pi/2$ 
+(the long axis of vesicle doublet is parallel to the converging direction).  As shown in the illustration, 
+the diverging flow is pulling the vesicles away from each other when $\theta=\pi/2$. 
+Thus it is possible that the diverging flow may overcome the adhesion and
+break up the doublet. It is also reasonable to expect the vesicle doublet to rotate around the stagnation so the flow is pushing them together rather than pulling them apart.
 
-
+In the following simulation experiments we place the vesicle doublet with $\theta=\pi/2$ so that the flat contact region is
+orthogonal to the diverging flow that is pulling vesicles away from each other.
+%In this configuration the flow is pulling the vesicles away from each other, and 
+%is expected to be less stable than the $\theta=\pi$ configuration where the fluid flow is constantly pushing vesicles towards each other. 
+%
 At low extensional
 rates, we expect the vesicle doublet to stay at the fluid
 trap stagnation point.  On the other hand, the vesicle doublet may
@@ -1038,23 +1058,17 @@ time horizon is insufficient for the doublet to reach an equilibrium
 state, and these simulations are marked with a square.
 
 \begin{figure}[htp]
-  \begin{minipage}{0.53\textwidth}
-    \includegraphics[width=0.33\textwidth]{figs/angleDefinition.pdf} \:
-    \includegraphics[width=0.34\textwidth]{figs/rotate1.pdf} \:
-    \includegraphics[width=0.26\textwidth]{figs/rotate2.pdf}
-  \end{minipage}
-  \hfill
+%  \begin{minipage}{0.53\textwidth}
+%    \includegraphics[width=0.33\textwidth]{figs/angleDefinition.pdf} \:
+%    \includegraphics[width=0.34\textwidth]{figs/rotate1.pdf} \:
+%    \includegraphics[width=0.26\textwidth]{figs/rotate2.pdf}
+%  \end{minipage}
+%  \hfill
   \begin{minipage}{0.45\textwidth}
     \centering
     \includegraphics[width=0.8\textwidth]{figs/extensional_adR4em1adS7em1_phaseDiagram.pdf}
   \end{minipage}
-  \caption{\label{fig:extensionalPhaseDiagram} {\em Left}: The
-  definition of the inclination angle.  An inclination angle of $\pi$
-  indicates a doublet whose long axis is parallel to the diverging
-  direction, while an inclination angle of $\pi/2$ indicates a doublet
-  whose short axis is parallel to the diverging direction.  The square
-  mark is a stagnation point and the round point is located at the
-  center of the vesicle. {\em Right}: A phase diagram of the long-time
+  \caption{\label{fig:extensionalPhaseDiagram}  A phase diagram of the long-time
   behavior of a fluid trap formed by two adhering vesicles in an
   extensional flow.  The Hamaker constant is $\mathcal{H}=0.7$ and the
   adhesion length scale is $\delta = 0.4$.  For small extensional rates,
