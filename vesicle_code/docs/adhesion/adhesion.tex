@@ -84,7 +84,7 @@
 
 \preprint{APS/123-QED}
 
-\title{Hydrodynamics and rheology of an adhesive vesicle doublet}
+\title{Adhesion, hydrodynamics and rheology of vesicle doublets}
 % Force line breaks with \\
 %\thanks{A footnote to the article title}%
 
@@ -102,9 +102,9 @@
              %  but any date may be explicitly specified
 
 \begin{abstract}
-The dynamics of an adhesive vesicle doublet under various flowing conditions is
-investigated numerically using a high-order adaptive-in-time boundary
-integral equation formulation. In a quiescent flow, two nearby vesicles
+The dynamics of an adhesive vesicle doublet under various flow conditions is
+investigated numerically using a high-order, adaptive-in-time boundary
+integral method. In a quiescent flow, two nearby vesicles
 move slowly towards each other under the adhesive potential, pushing out
 fluid between them to form a vesicle doublet at equilibrium. A lubrication
 analysis on such draining of a thin film gives the dependencies of
@@ -153,8 +153,8 @@ Vesicles (closed fluid-filled phospholipid bilayer membranes) have been
 widely utilized as biological cell mimics in biophysics and material
 engineering~\cite{sackmann1996, Barthes-Biesel2016_ARFM}.  The ever
 expanding applications have encouraged detailed experimental,
-theoretical, and numerical investigations of vesicle hydrodynamics in
-applied flow, electric fields, and magnetic fields.  Theoretical
+theoretical and numerical investigations of vesicle hydrodynamics in
+applied flow, electric and magnetic fields.  Theoretical
 investigations often take the form of small-deformation analysis or
 spheroidal dynamics of a nearly-spherical vesicle (or nearly-circular in
 two dimensions) subjected to an applied flow or under an external
@@ -162,7 +162,7 @@ forcing~\cite{Barthes-BieselRallison1981_JFM, Misbah2006_PRL,
 Vlahovska2007_PRE, Finken2008_EPL, ZhangZahnTanLin2013_PoF,
 Nganguia2013_PRE}.  On the other hand, various numerical methods have
 been developed for simulating the transient hydrodynamics of vesicle
-suspensions~\cite{BagchiJohoson2005_JBE, Biben2005_EJP,
+suspensions e.g., \cite{BagchiJohoson2005_JBE, Biben2005_EJP,
 Veerapaneni2009_JCP, SeolHuKimLai2016_JCP}.  
 
 Hydrodynamics of a single vesicle in Stokes flow has been extensively
@@ -184,8 +184,8 @@ experiments~\cite{DeschampsKantsler2009_PNAS,
 KantslerSegreSteinberg2008_EPL, ZabuskySegreDeschamps2011_PoF}.  Between
 tank-treading and tumbling vesicle dynamics, a breathing (tremble) mode
 is also observed~\cite{Misbah2006_PRL, KantslerSegreSteinberg2008_PRL,
-ZhaoShaqfeh2011_JFM, SpannZhaoShaqfeh2014_PoF} to affect the effective
-shear viscosity in a different way.  In an extensional flow (planar or
+ZhaoShaqfeh2011_JFM, SpannZhaoShaqfeh2014_PoF} to alter the effective
+shear viscosity.  In an extensional flow (planar or
 uniaxial), vesicle shape dynamics depends sensitively on the vesicle
 reduced volume and the elastic capillary
 number~\cite{KantslerSegreSteinberg2008_PRL, ZhaoShaqfeh2013_JFM,
@@ -206,15 +206,15 @@ aggregates~\cite{SvetinaZiherl2008_Bioelectrochemistry,
 FlormannAouane2017_SciReports}.  Using the Lennard-Jones
 (L.-J.)~potential for point-point interaction between two vesicle
 membranes without the molecular details of adhesive interactions between
-RBCs, Flormann {\em et al.}~found the contact zone to buckle under
-strong adhesion~\cite{FlormannAouane2017_SciReports}.  A direct
+RBCs, Flormann {\em et al.}~\cite{FlormannAouane2017_SciReports} found the contact zone to buckle under
+strong adhesion.  A direct
 consequence of the buckling is the sigmoidal shape of the adhesion
 region, which is also observed in RBC doublets and explained in a
 slightly different model~\cite{ZiherlSvetina2007_PNAS}.  It remains
 unknown how adhesive interactions between vesicles might lead to
 different vesicle hydrodynamics that results in different rheological
 properties of a vesicle suspension. Such studies will provide useful
-insight to the rheology of blood flow and how to use nano solutes to
+insight into the rheology of blood flow and how to use nano solutes to
 control the hypertension by adjusting the adhesive interactions between
 RBCs.
 
@@ -231,8 +231,8 @@ adhesive vesicles in a quiescent flow have revealed physical insights to
 the equilibrium shapes of RBC aggregates in both
 experiments~\cite{FlormannAouane2017_SciReports} and
 theory~\cite{ZiherlSvetina2007_PNAS}. The main goal of this work is to
-investigate the hydrodynamics of adhesive vesicles in flowing conditions
-common in microfluidic vesicle flow, such as a planar shear flow and an
+investigate the hydrodynamics of adhesive vesicles in flow conditions
+common in microfluidics such as a planar shear flow and an
 extensional flow.
 
 The electrostatic nature of lipid molecules (a hydrophobic tail and a
@@ -242,7 +242,7 @@ membrane~\cite{EvansMetcalfe1984_BJ, Book_PhysicalBasisCellAdhesion,
 Book_IntermolecularSurfaceForces, PerutkovaFrank-Bertoncelij2013_CSB} or
 a solid (such as a glass substrate or a nano particle).  Adhesion
 between a vesicle and a substrate has been extensively studied with more
-focuses on the static equilibrium shapes~\cite{Seifert1990_PRA,
+focus on the static equilibrium shapes~\cite{Seifert1990_PRA,
 ShiFengGao2006_ActaMechSin, LinFreund2007_IntJSolidsStructures,
 GruhnFrankeDimova2007_Langmuir,das2008adhesion, zhang2009phase,
 SteinkuhlerAgudo-Canalejo2016_BJ} than the transient adhesion
@@ -250,7 +250,7 @@ process~\cite{cantat1999lift, suk-sei2001, BlountMiksisDavis2013_PRSa}.
 Adhesive interactions between lipid membranes are essential in many
 biomedical, biological, and biophysical processes.  For example, vesicle
 adhesion is crucial to initiate membrane fusion and fission in
-endocytosis and exocytosis, the transport of small vesicles through
+endocytosis and exocytosis and the transport of small vesicles through
 membrane surfaces.  In the absence of an external electric field and
 ions in the solvents, it is reported that the adhesive interactions
 between two membranes can be well approximated by the L.-J.-type
@@ -346,14 +346,11 @@ of vesicle shapes and adhesive strength and distance.
 Boundary integral equation (BIE) approaches are well-suited for solving
 the low Reynolds flow problems considered here as they lead to reduction
 in dimensionality and achieve high-order accuracy even for moving
-geometry problems. The BIE resolves the self-vesicle interaction using
-quadrature for logarithmically singular integrands~\cite{alp1999}, but
-as the vesicles adhere, the BIE solver must also resolve the
-vesicle-vesicle {\em nearly-singular} hydrodynamic forces.  We use an
-interpolation-based quadrature rule~\cite{qua-bir2014} to maintain
+geometry problems. When the vesicles adhere, one major issue for BIE solvers is to resolve the vesicle-vesicle hydrodynamic forces which become {\em nearly singular}. 
+We use an interpolation-based quadrature rule~\cite{qua-bir2014} to maintain
 high-order accuracy for all vesicle-vesicle separation distances.  To
 overcome the numerical stiffness induced by the membrane bending forces
-and to control the global error, we employ a high-order spectrally
+and to control the global error, we employ a high-order spectral
 deferred implicit-explicit adaptive time stepping
 scheme~\cite{quaife2016adaptive}. 
 
