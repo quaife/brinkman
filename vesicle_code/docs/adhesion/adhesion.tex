@@ -1357,8 +1357,9 @@ undulation~\cite{SteinkuhlerAgudo-Canalejo2016_BJ}.
 
 Future work includes three dimensional simulations, viscosity contrast,
 dense suspensions, and confined suspensions.
-Figure~\ref{fig:relaxationManyVes} illustrate snapshots of five vesicles
-suspended inside of a larger vesicle.  There is no imposed flow, so the
+Figure~\ref{fig:relaxationManyVes} shows an initial condition of five vesicles
+suspended inside of a larger vesicle, and the configuration and
+streamlines at an intermediate configuration.  There is no imposed flow, so the
 dynamics are governed entirely by the adhesion, bending, and tension
 forces.  In the absence of confinement, we would expect the vesicles to
 align themselves as a rouleaux with the membranes forming a parachute,
@@ -1367,28 +1368,46 @@ configurations~\cite{FlormannAouane2017_SciReports}.  However, because
 of the bounding vesicle and the dense packing, the interior vesicles
 align themselves differently.  In addition, several parts of the
 bounding membrane closely follow the interior membranes in order to
-minimize the adhesion energy.  In
-Figure~\ref{fig:relaxationManyVesAdhesionTension} we plot the tension
-(left) and adhesion (right) of the final equilibrium configuration.
-Both the vesicle shape, tension, and adhesion qualitatively agree with
-our doublet results.  In particular, the interior vesicles form a flat
+minimize the adhesion energy.   We also plot the tension (thrid) and
+adhesion (fourth) of the final equilibrium configuration.  Both the
+vesicle shape, tension, and adhesion qualitatively agree with our
+doublet results.  In particular, the interior vesicles form a flat
 contact region with a large negative tension.
 
+%\begin{figure}[htp]
+%  \centering
+%  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot01.pdf}
+%  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot02.pdf}
+%  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot03.pdf}
+%  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot04.pdf} \\
+%  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot05.pdf}
+%  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot06.pdf}
+%  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot07.pdf}
+%  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot08.pdf}
+%  \caption{\label{fig:relaxationManyVes} Five vesicles suspended inside
+%  a large vesicle.  The background flow is quiescent, the adhesion
+%  length scale is $\delta = 0.4$, and the Hamaker constant is
+%  $\mathcal{H} = 0.7$.  At the final snapshot, the suspension is near an
+%  equilibrium configuration.}
+%\end{figure}
+
 \begin{figure}[htp]
-  \centering
-  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot01.pdf}
-  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot02.pdf}
-  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot03.pdf}
-  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot04.pdf} \\
-  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot05.pdf}
-  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot06.pdf}
-  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot07.pdf}
-  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot08.pdf}
-  \caption{\label{fig:relaxationManyVes} Five vesicles suspended inside
-  a large vesicle.  The background flow is quiescent, the adhesion
-  length scale is $\delta = 0.4$, and the Hamaker constant is
-  $\mathcal{H} = 0.7$.  At the final snapshot, the suspension is near an
-  equilibrium configuration.}
+\centering
+\includegraphics[height=0.24\textwidth,trim={10cm 0cm 10cm 0cm},clip]{figs/relaxationManyVesInitialCondition.png}
+\includegraphics[height=0.24\textwidth,trim={2cm 0cm 2cm 0cm},clip]{figs/relaxationManyVesStreamlines.png}
+\includegraphics[height=0.24\textwidth,trim={2cm 0cm 1cm 0cm},clip]{figs/relaxationManyVesTension.png}
+\includegraphics[height=0.24\textwidth,trim={2cm 0cm 2cm 0cm},clip]{figs/relaxationManyVesAdhesion.png}
+\caption{\label{fig:relaxationManyVes} Five vesicles in a quiescent flow
+suspended in a bounding vesicle.   All vesicles are interacting through
+an adhesion potential with Hamaker constant $\mathcal{H} = 0.7$ and
+separation distance $\delta = 0.4$.  From left to right, the plots are
+the initial condition, streamlines and an intermediate time, tension at
+the steady-state configuration, and the adhesion force projected onto
+the outward unit normal at the steady-state configuration.  Along the
+bounding vesicle, the tension is largest and the adhesion is smallest in
+the regions that are well-separated from the interior vesicles.  Similar
+to other simulations, the interior vesicles are relatively flat and have
+a large negative tension in the contact regions.}
 \end{figure}
 
 Recently Liu {\em et al.}~\cite{LiuChuNewbyRead2018_bioRxiv} used
@@ -1401,28 +1420,6 @@ contact. It is not clear how thermal fluctuations may affect the
 hydrodynamics of vesicles under adhesion. For example, does the
 fluctuating hydrodynamics in the thin film between two vesicles enhance
 adhesion to keep vesicles bound under linear flows?
-
-\begin{figure}[htp]
-\centering
-\fbox{
-\includegraphics[height=0.2\textwidth,trim={10cm 0cm 10cm 0cm},clip]    {figs/relaxationManyVesInitialCondition.png}
-}
-\fbox{
-\includegraphics[height=0.2\textwidth]{figs/relaxationManyVesTension.png}
-}
-\fbox{
-\includegraphics[height=0.2\textwidth]{figs/relaxationManyVesAdhesion.png}
-}
-\caption{\label{fig:relaxationManyVesAdhesionTension} The tension ({\em
-left}) and adhesion force ({\em right}) of the final configuration from
-Figure~\ref{fig:relaxationManyVes}.  Along the bounding vesicle, the
-tension is largest and the adhesion is smallest in the regions that are
-well-separated from the interior vesicles.  Similar to other
-simulations, the interior vesicles are relatively flat and have a large
-negative tension in the contact regions.}
-\end{figure}
-
-
 
 \acknowledgments
 
