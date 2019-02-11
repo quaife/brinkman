@@ -540,16 +540,16 @@ A=0.95$, $0.75$, and $0.6$ with $\mathcal{H}=5$ and $\delta = 0.2$.
 %  \includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_vesicle_shape_vs_rA_00.jpeg}
 %  \includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_vesicle_shape_vs_rA_01.jpeg}
    \includegraphics[keepaspectratio=true,scale=0.5]{figs/Dec18_vesicle_shape_vs_rA_composite.png}
-  \caption{\label{fig:Dec18_vesicle_shape} Equilibrium configurations
-  of a doublet of identical vesicles under adhesion in a quiescent flow at three values of $\Delta A$.
-  The vesicle reduced areas of $\Delta A=0.95$, $0.75$, and $0.6$ are
-  labeled.  The color coding is the tension along the vesicle.  The
-  vesicle length is fixed at $2\pi$, the dimensionless bending rigidity
-  modulus is $\kappa_b=1$, the Hamaker constant is $\mathcal{H}=5$, and
-  the separation distance is $\delta=0.2$.  {\em Left}: The overall
-  equilibrium shapes of two vesicles under adhesive interactions vary
-  with the reduced area.  {\em Right}: The membrane shapes in the
-  contact region.} 
+  \caption{\label{fig:Dec18_vesicle_shape} Equilibrium configurations of
+  a doublet of identical vesicles under adhesion in a quiescent flow at
+  three values of $\Delta A$.  The vesicle reduced areas of $\Delta
+  A=0.95$, $0.75$, and $0.6$ are labeled.  The color coding is the
+  tension along the vesicle.  The vesicle length is fixed at $2\pi$, the
+  dimensionless bending rigidity modulus is $\kappa_b=1$, the Hamaker
+  constant is $\mathcal{H}=5$, and the separation distance is
+  $\delta=0.2$.  {\em Left}: The overall equilibrium shapes of two
+  vesicles under adhesive interactions vary with the reduced area.  {\em
+  Right}: The membrane shapes in the contact region.} 
 \end{figure}
 The equilibrium vesicle shape for $\Delta A=0.95$ is the circular cap
 with a flat contact region.  This is similar to the observed shapes of
@@ -686,7 +686,14 @@ facilitate image acquisition or other detailed measures such as particle
 image velocimetry of flow inside and around the particle.  To explore
 the application of such a fluid trap to measure the adhesion strength
 between two bound vesicle membranes, we propose the following thought
-experiment.
+experiment.  Beginning with two identical vesicles in an equilibrium
+configuration that form a doublet with a flat contact region
+(Figure~\ref{fig:Dec18_vesicle_shape}), we turn on the fluid trap with
+the stagnation point placed at the center of the vesicle doublet.
+Depending on the Hamaker constant, we expect that either the flow
+overcomes the adhesive force and the doublet is broken, or the adhesive
+force dominates and the doublet reaches a stable stationary
+configuration.
 
 \begin{figure}[htp]
     \includegraphics[width=0.25\textwidth]{figs/rotate1.pdf}
@@ -703,64 +710,67 @@ experiment.
    point and the round point is located at the center of the vesicle.}
    \end{figure}
 
-We begin with two identical vesicles forming a doublet under an
-adhesion potential in a quiescent flow as described in
-Section~\ref{sec:qflow}.  Once a doublet forms and reaches an
-equilibrium configuration, we turn on the fluid trap with the stagnation
-point placed at the center of the vesicle doublet, which has a flat contact region as shown in \S~\ref{sec:qflow}. 
-Based on how the contact region aligns with the extensional flow, 
-we can define the inclination angle of the vesicle doublet as illustrated in Figure~\ref{fig:InclinationAngle}.
-%
+In the following numerical experiments we initially place a vesicle
+doublet with $\theta=\pi$, so that the diverging flow may be strong
+enough to pull vesicles away from the doublet.  At low extensional
+rates, we expect the doublet to stay bound at the fluid trap stagnation
+point.  On the other hand, the vesicle doublet may become unstable and
+eventually separate at higher extensional rates.  Thus we expect there
+to exist a critical extensional rate $\chi_c$ above which the vesicle
+doublet cannot stay bound under a given adhesion potential.  Therefore,
+the dependence of the critical extensional rate $\chi_c$ on the adhesion
+potential and the mechanical vesicle properties provides a means to
+probe the physics of membrane adhesion.
 
-When $\theta=\pi$ (the doublet long axis is aligned with the far-field diverging flow), the converging flow
-pushes vesicles towards each other and the short-range repulsive force is essential to keep the two vesicles at the separation distance.
-With the converging flow pushing the two vesicles towards the stagnation point dynamically placed at the doublet center, 
-this configuration is expected to be more stable than the $\theta=\pi/2$ configuration in the middle of Figure~\ref{fig:InclinationAngle},  where  
-the doublet long axis is parallel to the converging direction. This is because
-when $\theta=\pi/2$ the diverging flow is pulling the vesicles away from each other as shown in the illustration. 
-If the doublet inclination angle is fixed at $\theta=\pi/2$,
-the vesicle doublet stays intact only when the adhesive force is strong enough to dominate over the fluid drag in this configuration.
-Thus it is possible that the diverging flow may overcome adhesion and
-break up the doublet. It is also reasonable to expect a vesicle doublet to rotate from $\theta=\pi/2$ to $\theta=\pi$,
-such that the fluid flow is pushing them together rather than pulling them apart.
-
-In the following numerical experiments we place a vesicle doublet with $\theta=\pi/2$, so that
-the diverging flow may be strong enough to pull vesicles away from the doublet.
-%In this configuration the flow is pulling the vesicles away from each other, and 
-%is expected to be less stable than the $\theta=\pi$ configuration where the fluid flow is constantly pushing vesicles towards each other. 
-%
-At low extensional
-rates, we expect the $\theta=\pi/2$ doublet to stay bound at the fluid
-trap stagnation point.  On the other hand, the vesicle doublet may
-become unstable and eventually separate at higher extensional rates.
-Thus we expect there to exist a critical extensional rate $\chi_c$ above which
-the vesicle doublet cannot stay bound under a given adhesion potential.
-Therefore, the dependence of the critical extensional rate $\chi_c$ on the
-adhesion potential and the mechanical vesicle properties provides a
-means to probe the physics of membrane adhesion.
+Based on how the contact region aligns with the extensional flow, we can
+define the inclination angle of the vesicle doublet as illustrated in
+Figure~\ref{fig:InclinationAngle}. When $\theta=\pi$ (the doublet long
+axis is aligned with the far-field converging flow), the diverging flow
+pulls the vesicles apart from each other and the short-range repulsive
+force is essential to keep the two vesicles from separating.  In
+contrast, when $\theta = \pi/2$ (the doublet long axis is aligned with
+the diverging flow), the converging flow pushes the vesicles towards
+each other and the short-range repulsive force is essential to keep the
+two vesicles at the separation distance.  With the converging flow
+pushing the two vesicles towards the stagnation point dynamically placed
+at the doublet center, this configuration is expected to be more stable
+than the $\theta=\pi$ configuration in the left of
+Figure~\ref{fig:InclinationAngle}, where the doublet long axis is
+parallel to the converging direction. This is because when $\theta=\pi$
+the diverging flow is pulling the vesicles away from each other as shown
+in the illustration.  If the doublet inclination angle is fixed at
+$\theta=\pi/2$, the vesicle doublet stays intact only when the adhesive
+force is strong enough to dominate over the fluid drag in this
+configuration \todo[inline]{I don't follow this sentence}.  Thus it is
+possible that the diverging flow may overcome adhesion and break up the
+doublet. It is also reasonable to expect a vesicle doublet to rotate
+from $\theta=\pi$ to $\theta=\pi/2$, such that the fluid flow is pushing
+them together rather than pulling them apart.
 
 We consider vesicle doublets with reduced areas 0.70, 0.75, 0.80, 0.85,
 0.90, and 0.95, all with a length of $2\pi$, and we vary the extensional
 rate, $\chi$, between $10^{-2}$ and $10^{-1}$.  Since the stagnation
 point can be controlled in an experimental
-setting~\cite{Johnson-Chavarria2011_EMJ}, we mimic the active control
-algorithm in the microfluidic experiments by moving the center of the
-doublet at each time step so that the stagnation point occurs exactly in
-the middle of the doublet.  
-With this adjustment, the vesicles either
-remain as a doublet in the fluid trap centered around the stagnation
-point, or the doublet is broken and the vesicles separate from one
-another.  
+setting~\cite{Johnson-Chavarria2011_EMJ}, we mimic the active control of
+the microfluidic experiments by moving the center of the doublet at each
+time step so that the stagnation point occurs exactly in the middle of
+the doublet.  With this adjustment, the vesicles either remain as a
+doublet in the fluid trap centered around the stagnation point, or the
+doublet is broken and the vesicles separate from one another.  
 
+In Figures~\ref{fig:extensional1}, snapshots of a fluid trap containing
+a vesicle doublet of reduced area $\Delta A = 0.7$ are simulated at
+three different extensional rates.  While this doublet remains bound for
+all the considered extensional rates, a doublet with a reduced area of
+$\Delta A = 0.8$ is split with a critical extensional rate $\chi_c =0.1$
+(Figure~\ref{fig:extensional3}).  For extensional rates and reduced
+areas that result in a bound vesicle doublet, we observe that the
+doublet always rotates from $\theta=\pi$ configuration towards the more
+stable $\theta=\pi/s$ configuration, as shown in
+Figures~\ref{fig:extensional1}.  We also observe that in most cases with
+moderate extensional flow rates the doublet falls short of aligning
+their long axis with the diverging direction.
 
-In Figures~\ref{fig:extensional1},
-snapshots of a fluid trap containing a vesicle doublet of reduced area
-$\Delta A = 0.7$ are simulated at different extensional rates.  While
-this doublet remains bound for all the
-considered extensional rates, a doublet with a reduced area of $\Delta A
-= 0.8$ is split with a critical extensional rate $\chi_c =0.1$
-(bottom row in Figure~\ref{fig:extensional3}).  
-%
 \begin{figure}[htp]
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi2em2_ra070_image01.png}
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi2em2_ra070_image02.png}
@@ -771,40 +781,22 @@ considered extensional rates, a doublet with a reduced area of $\Delta A
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image02.png}
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image03.png}
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image04.png}
-  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image05.png}
-  \caption{\label{fig:extensional1} A vesicle doublet in an extensional flow with an initial inclination angle $\theta=\pi/2$.  The
-  reduced area $\Delta A = 0.7$, the Hamaker constant $\mathcal{H} =
-  0.7$, the adhesion length scale $\delta = 0.4$, and the extensional
-  rate $\chi = 0.02$ ({\em top}) and $\chi=0.7$ ({\em bottom}).  The center of the vesicle, denoted with a
-  black square, is a stagnation point.}
-  \end{figure}
-  %
-  For extensional rates and reduced areas that result in a bound vesicle doublet, 
-we observe that the doublet always rotate from $\theta=\pi/2$ configuration towards
-the more stable $\theta=\pi$ configuration, as shown in Figures~\ref{fig:extensional1}--\ref{fig:extensional3}.
-We also observe that in most cases with moderate extensional flow rates the doublet falls short of 
-aligning their long axis with the diverging direction.
-
-  
-%  \begin{figure}
-%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image01.png}
-%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image02.png}
-%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image03.png}
-%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image04.png}
-%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image05.png}
-%  \caption{\label{fig:extensional2} A doublet inside a fluid trap.  The
-%  reduced area is $\Delta A = 0.7$, the Hamaker constant is $\mathcal{H}
-%  = 0.7$, the adhesion length scale is $\delta = 0.4$, and the
-%  extensional rate is $\chi = 0.07$.  The center of the vesicle, denoted
-%  with a black square, is a stagnation point.}
-%  \end{figure}
-
- \begin{figure}
+  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image05.png} \\
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra070_image01.png}
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra070_image02.png}
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra070_image03.png}
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra070_image04.png}
-  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra070_image05.png}\\
+  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra070_image05.png}
+  \caption{\label{fig:extensional1} A vesicle doublet in an extensional
+  flow with an initial inclination angle $\theta=\pi/2$.  The reduced
+  area is $\Delta A = 0.7$, the Hamaker constant is $\mathcal{H} = 0.7$,
+  the separation distance is $\delta = 0.4$, and the extensional rate is
+  $\chi = 0.02$ ({\em top}), $\chi=0.07$ ({\em middle}), and $\chi =
+  0.1$ ({\em bottom}).  The center of the vesicle, denoted with a black
+  square, is a stagnation point.}
+  \end{figure}
+
+ \begin{figure}
     \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image01.png}
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image02.png}
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image03.png}
@@ -818,7 +810,6 @@ aligning their long axis with the diverging direction.
   \end{figure}
 
 
-
 In Figure~\ref{fig:extensionalInclinationAngle}, we plot the inclination
 angle of the doublet as a function of time for four different
 extensional rates (left) and the final inclination angle for all
@@ -828,62 +819,23 @@ angles, but smaller reduced areas also result in smaller inclination
 angles.  Moreover, the critical Hamaker constant that determines if the
 doublet remains trapped or is broken decreases with an increasing
 extensional rate.
-%\begin{figure}
-%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image01.png}
-%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image02.png}
-%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image03.png}
-%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image04.png}
-%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image05.png}
-%  \caption{\label{fig:extensional4} A doublet broken by an extensional
-%  flow.  The reduced area is $\Delta A = 0.8$, the Hamaker constant is
-%  $\mathcal{H} = 0.7$, the adhesion length scale is $\delta = 0.4$, and
-%  the extensional rate is $\chi = 0.1$.  Initially, the doublet tilts to
-%  an inclination angle, and then the extensional rate overcomes the
-%  adhesive force and the doublet is broken.  The center of the vesicle,
-%  denoted with a black square, is a stagnation point.}
-%\end{figure}
-We summarize the final inclination angle of the
-doublet in the right plot of Figure~\ref{fig:extensionalInclinationAngle}.
-The size of the round dots are scaled to the final inclination angle as
-defined in the right plot.  At smaller extensional rates, the vesicles
-come closer to aligning their long axis with the diverging direction.
-When the doublet is broken at reduced area $\Delta A = 0.80$, the
-extensional rate is sufficiently large to align the long axis of the
-vesicle with the diverging direction and then the vesicles separate
-(bottom row in Figure~\ref{fig:extensional3}).  For very low extensional rates, the
+
+We summarize the final inclination angle of the doublet in the right
+plot of Figure~\ref{fig:extensionalInclinationAngle}.  The size of the
+round dots are scaled to the final inclination angle as defined in the
+right plot.  At smaller extensional rates, the vesicles come closer to
+aligning their long axis with the diverging direction.  When the doublet
+is broken at reduced area $\Delta A = 0.80$, the extensional rate is
+sufficiently large to align the long axis of the vesicle with the
+diverging direction and then the vesicles separate (bottom row in
+Figure~\ref{fig:extensional3}).  For very low extensional rates, the
 time horizon is insufficient for the doublet to reach an equilibrium
-state, and these simulations are marked with a square.
-%
-The right plot of Figure~\ref{fig:extensionalInclinationAngle} 
-also summarizes the  reduced areas and
-extensional rates that result in a bound vesicle doublet in a fluid trap: Parameter values with a blue
-mark result in a fluid trap and parameter values with a red mark result
-in vesicle separation.
-
-
-%\begin{figure}[htp]
-%  \begin{minipage}{0.53\textwidth}
-%    \includegraphics[width=0.33\textwidth]{figs/angleDefinition.pdf} \:
-%    \includegraphics[width=0.34\textwidth]{figs/rotate1.pdf} \:
-%    \includegraphics[width=0.26\textwidth]{figs/rotate2.pdf}
-%  \end{minipage}
-%  \hfill
-%  \begin{minipage}{0.45\textwidth}
-%    \centering
-%    \includegraphics[width=0.8\textwidth]{figs/extensional_adR4em1adS7em1_phaseDiagram.pdf}
-%  \end{minipage}
-%  \caption{\label{fig:extensionalPhaseDiagram}  A phase diagram of the long-time
-%  behavior of a fluid trap formed by two adhering vesicles in an
-%  extensional flow.  The Hamaker constant is $\mathcal{H}=0.7$ and the
-%  adhesion length scale is $\delta = 0.4$.  For small extensional rates,
-%  the doublet structure is not broken (blue marks), while at large
-%  extensional rates, the doublet is broken (red marks).  The size of the
-%  round blue marks indicates the final inclination angle with the larger
-%  dots rotating less ($\theta=\pi$) and the smaller dots rotating more
-%  ($\theta = \pi/2$).  A square mark is used for simulations that did
-%  not result in an equilibrium inclination angle in the given time
-%  horizon.}
-%\end{figure}
+state, and these simulations are marked with a square.  The right plot
+of Figure~\ref{fig:extensionalInclinationAngle} also summarizes the
+reduced areas and extensional rates that result in a bound vesicle
+doublet in a fluid trap: Parameter values with a blue mark result in a
+fluid trap and parameter values with a red mark result in vesicle
+separation.
 
 
 \begin{figure}[htp]
@@ -903,28 +855,34 @@ in vesicle separation.
   given time horizon.}
 \end{figure}
 
-Finally, to further characterize the rotating dynamics of a doublet in the fluid trap, we
-compute and plot the vorticity and total force on a doublet with identical vesicles
-with reduced area $\Delta A=0.7$, adhesion length $\delta = 0.4$, Hamaker constant $\mathcal{H} = 0.7$, and
-extensional rate $\chi = 0.7$ in Figure~\ref{fig:extensionalVorticity}.
-Starting from a vesicle doublet with an initial inclination angle $\theta=\pi/2$, 
-the doublet slowly begins to rotate around $t\sim 265$
-(see the left plot of
-Figure~\ref{fig:extensionalVorticity}).  We notice that the net force on each vesicle is almost 
-anti-parallel to the diverging flow in the
-far-field so to balance the hydrodynamic drag force that pulls the vesicles apart. 
+Finally, to further characterize the rotating dynamics of a doublet in
+the fluid trap, we compute and plot the vorticity and total force on a
+doublet with identical vesicles with reduced area $\Delta A=0.7$,
+adhesion length $\delta = 0.4$, Hamaker constant $\mathcal{H} = 0.7$,
+and extensional rate $\chi = 0.7$ in
+Figure~\ref{fig:extensionalVorticity}.  Starting from a vesicle doublet
+with an initial inclination angle $\theta=\pi/2$, the doublet slowly
+begins to rotate around $t\sim 265$ (see the left plot of
+Figure~\ref{fig:extensionalVorticity}).  We notice that the net force on
+each vesicle is almost anti-parallel to the diverging flow in the
+far-field so to balance the hydrodynamic drag force that pulls the
+vesicles apart. 
 
-Then, as the doublet
-starts to rotate, each vesicle experiences drag force from both up and down diverging streaming flows.
-For small extensional rate, the rotation will continue until $\theta = \pi$ so the doublet remains perfectly symmetric
-with respect to their mid-plane  and each vesicle experiences drag forces that cancel in both directions.
-For slightly higher extensional rate, we observe that the two vesicles slide against each other as the doublet rotate.
-The slight sliding motion leads to a transition in the contact region membrane shape from a bulging profile to 
-an S-shape profile of nearly uniform height except near the edge of contact region.
-This adjustment greatly reduces the net force on each vesicle, leading to an equilibrium configuration with an inclination angle $\theta < \pi$ as shown in 
-the left of Figure~\ref{fig:extensionalInclinationAngle}.  Finally,
-the vorticity and the flow between the vesicles approaches zero and the
-result is a fluid trap containing the doublet.
+Then, as the doublet starts to rotate, each vesicle experiences drag
+force from both up and down diverging streaming flows.  For small
+extensional rate, the rotation will continue until $\theta = \pi$ so the
+doublet remains perfectly symmetric with respect to their mid-plane  and
+each vesicle experiences drag forces that cancel in both directions.
+For slightly higher extensional rate, we observe that the two vesicles
+slide against each other as the doublet rotate.  The slight sliding
+motion leads to a transition in the contact region membrane shape from a
+bulging profile to an S-shape profile of nearly uniform height except
+near the edge of contact region.  This adjustment greatly reduces the
+net force on each vesicle, leading to an equilibrium configuration with
+an inclination angle $\theta < \pi$ as shown in the left of
+Figure~\ref{fig:extensionalInclinationAngle}.  Finally, the vorticity
+and the flow between the vesicles approaches zero and the result is a
+fluid trap containing the doublet.
 \begin{figure}[htp]
   \includegraphics[height = 0.26\textwidth,trim={6cm 1cm 5cm
   0cm},clip]{figs/extensionalVorticity01.png}
