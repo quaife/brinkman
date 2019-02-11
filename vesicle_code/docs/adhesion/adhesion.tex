@@ -84,7 +84,7 @@
 
 \preprint{APS/123-QED}
 
-\title{Adhesion, hydrodynamics and rheology of vesicle doublets}
+\title{Hydrodynamics and rheology of adhesive vesicle doublets}
 % Force line breaks with \\
 %\thanks{A footnote to the article title}%
 
@@ -1128,12 +1128,20 @@ between membranes under adhesion. When the electrostatic interaction is
 important, an electro-osmotic pressure in the thin film is found to be
 responsible for the observed membrane
 undulation~\cite{SteinkuhlerAgudo-Canalejo2016_BJ}.
+In addition, simulations presented in this work are for identical vesicles (same reduced area, length, and
+bending rigidity modulus) in the doublet. Flormann {\it et al.} demonstrated that asymmetric vesicle reduced area
+may lead to various equilibrium doublet shape such as male-female, asymmetric S-shape and parachute shape.
+It is also possible that viscosity contrast may also lead to slightly different equilibrium doublet shape.
+Future work includes three dimensional simulations, dispersive vesicle properties (such as
+reduced area and bending modulus), viscosity contrast, and effects of confinement on adhesive interactions.
 
-Future work includes three dimensional simulations, viscosity contrast,
-dense suspensions, and confined suspensions.
-Figure~\ref{fig:relaxationManyVes} shows an initial condition of five vesicles
-suspended inside of a larger vesicle, and the configuration and
-streamlines at an intermediate configuration.  There is no imposed flow, so the
+Flormann {\it et al.} studied the clustering and packing of vesicles in free suspension~\cite{FlormannAouane2017_SciReports}. 
+In engineering applications of vesicle emulsions
+often smaller vesicles are enclosed in a big vesicle, as shown in 
+Figure~\ref{fig:relaxationManyVes}, where  the left panel shows an initial condition of five vesicles
+suspended inside of a larger vesicle.
+The second panel from left shows the membrane configuration and flow
+streamlines at an intermediate time.  There is no imposed flow, so the
 dynamics are governed entirely by the adhesion, bending, and tension
 forces.  In the absence of confinement, we would expect the vesicles to
 align themselves as a rouleaux with the membranes forming a parachute,
@@ -1142,11 +1150,18 @@ configurations~\cite{FlormannAouane2017_SciReports}.  However, because
 of the bounding vesicle and the dense packing, the interior vesicles
 align themselves differently.  In addition, several parts of the
 bounding membrane closely follow the interior membranes in order to
-minimize the adhesion energy.   We also plot the tension (thrid) and
-adhesion (fourth) of the final equilibrium configuration.  Both the
-vesicle shape, tension, and adhesion qualitatively agree with our
-doublet results.  In particular, the interior vesicles form a flat
+minimize the adhesion energy.   As a result of force balance the equilibrium shape of the bounding vesicle
+is far from a symmetric shape while the interior smaller vesicles are of similar shape to each other.
+We also plot the tension (thrid) and
+adhesion (fourth) of the final equilibrium configuration.  
+We remark that the adhesion force is all attractive on all the vesicle membranes while large positive
+membrane tension is found only on the bounding vesicle. 
+%Both the
+%vesicle shape, tension, and adhesion qualitatively agree with our
+%doublet results.  
+In particular, the interior vesicles form a flat
 contact region with a large negative tension.
+We are now conducting simulations of such vesicle configuration under a planar shear flow.
 
 %\begin{figure}[htp]
 %  \centering
@@ -1172,7 +1187,7 @@ contact region with a large negative tension.
 \includegraphics[height=0.24\textwidth,trim={2cm 0cm 1cm 0cm},clip]{figs/relaxationManyVesTension.png}
 \includegraphics[height=0.24\textwidth,trim={2cm 0cm 2cm 0cm},clip]{figs/relaxationManyVesAdhesion.png}
 \caption{\label{fig:relaxationManyVes} Five vesicles in a quiescent flow
-suspended in a bounding vesicle.   All vesicles are interacting through
+suspended in a bounding vesicle.   All vesicles are interacting through hydrodynamic flow and
 an adhesion potential with Hamaker constant $\mathcal{H} = 0.7$ and
 separation distance $\delta = 0.4$.  From left to right, the plots are
 the initial condition, streamlines and an intermediate time, tension at
