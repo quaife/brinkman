@@ -871,9 +871,8 @@ the fluid trap, we compute and plot the vorticity and total force on a
 doublet with identical vesicles with reduced area $\Delta A=0.7$,
 Hamaker constant $\mathcal{H} = 0.7$, separation distance $\delta =
 0.4$, and extensional rate $\chi = 0.7$ in
-Figure~\ref{fig:extensionalVorticity}.  Starting from a vesicle doublet
-with an initial inclination angle $\theta=\pi$, the doublet slowly
-begins to rotate around $t\sim 250$.  We notice that the net force on
+Figure~\ref{fig:extensionalVorticity}.  Starting from an initial inclination angle $\theta=\pi$, the doublet 
+starts to rotate around $t\sim 250$.  We notice that the net force on
 each vesicle is almost anti-parallel to the diverging flow in the
 far-field so to balance the hydrodynamic drag force that pulls the
 vesicles apart.  Then, as the doublet starts to rotate, each vesicle
@@ -1109,17 +1108,24 @@ a big vesicle, as shown in Figure~\ref{fig:relaxationManyVes}, where
 the left panel shows an initial condition of five vesicles suspended
 inside of a larger vesicle.  The second panel from the left shows the
 membrane configuration and flow streamlines at an intermediate time.
-There is no imposed flow, so the dynamics are governed entirely by the
+There is no imposed flow, so the dynamics is governed entirely by the
 vesicle forces, including adhesion.  In the absence of confinement,
 we would expect the vesicles to align themselves as a rouleaux with the
 membranes forming a parachute, male-female, or S-shape
 configuration~\cite{FlormannAouane2017_SciReports}.  However, because of
 the bounding vesicle and the dense packing, the interior vesicles align
-themselves differently.  In addition, several parts of the bounding
-membrane closely follow the interior membranes in order to minimize the
-adhesion energy.   As a result of force balance, the equilibrium shape
+themselves differently.  
+The bounding membrane evolves dynamically together with all the interior 
+vesicles to minimize the total membrane energy.
+%In addition, several parts of the bounding
+%membrane closely follow the interior membranes in order to minimize the
+%adhesion energy.   
+%
+
+As a result of force balance, the equilibrium shape
 of the bounding vesicle is far from a symmetric shape while the interior
-smaller vesicles are of similar shape to each other.  We also plot the
+smaller vesicles are of similar shape to each other.  
+We also plot the
 tension (third) and adhesion (fourth) of the final equilibrium
 configuration.  We remark that the adhesion force is attractive on all
 the vesicle membranes while large positive membrane tension is found
@@ -1149,16 +1155,18 @@ simulations, the interior vesicles are relatively flat and have a large
 negative tension in the contact regions.}
 \end{figure}
 
+Finally, it is not clear how thermal fluctuations may affect the
+hydrodynamics of vesicles under adhesion. For example, does the
+fluctuating hydrodynamics in the thin film between two vesicles enhance
+adhesion to keep vesicles bound under linear flows?
 Recently Liu {\em et al.}~\cite{LiuChuNewbyRead2018_bioRxiv} used
 immersed boundary simulations to show that, at a separation distance of
 tens of nanometers, the thin film between the two membranes facilitate
 the coupling between membranes via strong hydrodynamic interactions. In
 particular, they demonstrate numerically that the fluctuation in one
 membrane is highly correlated to the other membrane without any physical
-contact. It is not clear how thermal fluctuations may affect the
-hydrodynamics of vesicles under adhesion. For example, does the
-fluctuating hydrodynamics in the thin film between two vesicles enhance
-adhesion to keep vesicles bound under linear flows?
+contact. We are actively pursuing this direction with ongoing modeling and simulations
+of adhesive membranes with fluctuating hydrodynamics.
 
 \acknowledgments
 
