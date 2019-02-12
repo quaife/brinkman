@@ -930,16 +930,16 @@ they are deflected to opposite sides of the $y$ axis, pass one another,
 and then separate.  However, in the presence of adhesion, the vesicles
 can form a doublet for certain values of the separation distance
 $\delta$, Hamaker constant $\mathcal{H}$, shear rate $\chi$, and reduced
-area $\Delta A$.  Figure~\ref{fig:doublet090} shows snapshots of two
-vesicles that have formed a doublet and the color coding is the tension
-along the vesicle.  The two vesicles are identical with reduced area
-$\Delta A = 0.9$, shear rate $\chi = 0.5$, separation distance $\delta =
-0.4$, and Hamaker constant $\mathcal{H} = 0.7$.  The vesicles in the
-doublet move in tandem rather than performing the tank-treading motion
-that is observed in the absence of adhesion.  Similar to the
-quiescent example, the membrane tension is negative in the contact
-region indicating that the membrane is being compressed when the
-adhesive force is strongest.
+area $\Delta A$.  At all reduced areas, the vesicles have a length of
+$2\pi$.  Figure~\ref{fig:doublet090} shows snapshots of two vesicles
+that have formed a doublet and the color coding is the tension along the
+vesicle.  The two vesicles are identical with reduced area $\Delta A =
+0.9$, shear rate $\chi = 0.5$, separation distance $\delta = 0.4$, and
+Hamaker constant $\mathcal{H} = 0.7$.  The vesicles in the doublet move
+in tandem rather than performing the tank-treading motion that is
+observed in the absence of adhesion.  Similar to the quiescent example,
+the membrane tension is negative in the contact region indicating that
+the membrane is being compressed when the adhesive force is strongest.
 
 \begin{figure}[htp]
   \includegraphics[width=0.24\textwidth]{figs/adR4em1adS7em1Chi5em1_ra090_image01.png}
@@ -952,14 +952,14 @@ adhesive force is strongest.
   \includegraphics[width=0.24\textwidth]{figs/adR4em1adS7em1Chi5em1_ra090_image08.png}
   \caption{\label{fig:doublet090} The formation of a doublet in a shear
   flow.  The reduced area is $\Delta A = 0.9$, the Hamaker constant is
-  $\mathcal{H}=0.7$, the adhesion length scale is $\delta = 0.4$, and
-  the shear rate is $\chi=0.5$.}
+  $\mathcal{H}=0.7$, the separation distance is $\delta = 0.4$, and the
+  shear rate is $\chi=0.5$.}
 \end{figure}
 
 We characterize the effect of the Hamaker constant and shear rate by
 determining a critical Hamaker constant, $\mathcal{H}_c$, which
 determines if the vesicles form a doublet or separate.  We fix the
-adhesion length scale to $\delta = 0.4$ and the vesicle reduced area to
+separation distance to $\delta = 0.4$ and the vesicle reduced area to
 $\Delta A = 0.9$.  In the left plot of
 Figure~\ref{fig:sflow_phase_diagram}, we plot the minimum distance
 between the vesicles as a function of time for various Hamaker
@@ -971,16 +971,15 @@ doublet.
 \begin{figure}
   \includegraphics[height=0.35\textwidth]{figs/shear_adR4em1Chi1e0_ra-090.pdf}
   \includegraphics[height=0.35\textwidth]{figs/shear_adR4em1_ra090_phaseDiagram.pdf}
-  \caption{{\em Left}: Distance between a pair of vesicles in a planar
-  shear flow with shear rate $\chi=0.5$ and adhesion length scale
-  $\delta = 0.4$.   The different lines correspond to a linear spacing
-  of adhesion strengths ranging from $\mathcal{H}=0.1$ and
-  $\mathcal{H}=1.0$.  {\em Right}: Phase diagram of vesicle
-  hydrodynamics in a shear flow.  At a fixed reduced area $\Delta
-  A=0.90$ and $\delta = 0.4$,  the critical Hamaker constant
+  \caption{\label{fig:sflow_phase_diagram} {\em Left}: Distance between
+  a pair of vesicles in a planar shear flow with shear rate $\chi=0.5$,
+  and separation distance $\delta = 0.4$.  The different lines
+  correspond to a linear spacing of Hamaker constants ranging from
+  $\mathcal{H}=0.1$ and $\mathcal{H}=1.0$.  {\em Right}: Phase diagram
+  of vesicle hydrodynamics in a shear flow.  At a fixed reduced area
+  $\Delta A=0.90$ and $\delta = 0.4$, the critical Hamaker constant
   $\mathcal{H}$ for binding of two vesicles in a shear flow depends on
-  the shear rate $\chi$.
-\label{fig:sflow_phase_diagram}}
+  the shear rate $\chi$.}
 \end{figure}
 
 Finally, we investigate the rheology of a suspension of a doublet by
@@ -999,12 +998,11 @@ where
   \langle \tau \rangle = \frac{1}{|\omega|} \int_{\gamma}
     \xxi \otimes \xx ds,
 \end{align*}
-where $\phi$ is the area fraction of vesicles, $\tau$ is the stress due
-to the vesicles, and $\langle \cdot \rangle$ is the spatial average.
-
-In the left plot of Figure~\ref{fig:shearIntrinsicViscosity}, we compare
-the intrinsic viscosity of a single tank-treading vesicle to a doublet.
-To validate our simulations, we superimpose (black marks) the intrinsic
+$\phi$ is the area fraction of vesicles, $\tau$ is the stress due to the
+vesicles, and $\langle \cdot \rangle$ is the spatial average.  In the
+left plot of Figure~\ref{fig:shearIntrinsicViscosity}, we compare the
+intrinsic viscosity of a single tank-treading vesicle to a doublet.  To
+validate our simulations, we superimpose (black marks) the intrinsic
 viscosity calculated by Ghigliotti {\em et
 al.}~\cite{GhigliottiBibenMisbah2010_JFM}.  The presence of the doublet
 significantly increases the intrinsic viscosity at all the reduced
@@ -1026,9 +1024,8 @@ vesicles with small reduced areas.
   \caption{\label{fig:shearIntrinsicViscosity} {\em Left}: The intrinsic
   viscosity of a tank-treading vesicle (blue) and a doublet (red).  The
   shear rate is $\chi = 0.5$, the Hamaker constant is $\mathcal{H} =
-  0.7$, and the adhesion length scale is $\delta = 0.4$, and the length
-  of the vesicles are held fixed.  The black marks denote intrinsic
-  viscosity values computed by Ghigliotti {\em et
+  0.7$, and the separation distance is $\delta = 0.4$.  The black marks
+  denote intrinsic viscosity values computed by Ghigliotti {\em et
   al.}~\cite{GhigliottiBibenMisbah2010_JFM} (cf.~Figure 5).  {\em
   Right}: The decomposition of the intrinsic viscosity into the
   contributions for the bending and tension (blue) of the vesicles, and
@@ -1046,34 +1043,35 @@ time-stepping to simulate hydrodynamics of two vesicles with adhesive
 interactions.  In a quiescent flow, two vesicles that are initially
 sufficiently far apart move towards each other under a long-range
 attraction.  We use a lubrication theory to estimate the time required
-to reach the separation distance $\delta$, and the theoretical scaling is in good
-agreement with numerical results.  Once two membranes are within
-separation distance $\delta$, the adhesive force turns repulsive and the
-membranes flatten to form a contact region.  Our simulations show that
-the membranes in the contact region are actually curved with end points
-at the shortest distance.  Once a vesicle doublet forms, we examine the
-dependence of membrane bending and adhesion energies on the reduced
-area, the Hamaker constant, and the separation distance.
+to reach the separation distance $\delta$, and the theoretical scaling
+is in good agreement with numerical results.  Once two membranes are
+within separation distance $\delta$, the adhesive force turns repulsive
+and the membranes flatten to form a contact region.  Our simulations
+show that the membranes in the contact region are actually curved with
+end points at the shortest distance.  Once a vesicle doublet forms, we
+examine the dependence of membrane bending and adhesion energies on the
+reduced area, the Hamaker constant, and the separation distance.
 
 Next we conduct a numerical experiment where a vesicle doublet is placed
 at the center of a fluid trap, which can be actively controlled in
 microfluidic channel so that fluid trap center is effectively the
 stagnation point of an extensional flow characterized by a extensional
-flow rate.  At low flow rate, we find the doublet to rotate nearly ninety
-degrees to align with the flow such that the long axis of the doublet is
-along the divergent axis and the convergent stream is pushing the two
-vesicles together. As the flow rate increases, the vesicle doublet
-rotates less, and when the flow rate reaches above the critical value,
-the diverging flow breaks the doublet structure by pulling the vesicles
-apart.  These results indicate that it is possib le to use the fluid trap
-to separate a vesicle doublet under adhesion, and thus provide a means
-to probe the adhesion strength between membranes.  For a pair of $\mu
-m$-sized vesicles with a bending rigidity of $\sim 10^{-19}$ $J$, an
-extensional flow rate of $0.5$ $s^{-1}$ is expected to separate a
-vesicle doublet with reduced area of $\Delta A = 0.8$ and a Hamaker
-constant $\mathcal{H}=0.7$, which corresponds to $\sim 1$ $\mu J/m^2$.
-These conditions are quite realizable in microfluidic experiments, and
-we hope that our simulations will inspire microfluidic experiments.
+flow rate.  At low flow rate, we find the doublet to rotate nearly
+ninety degrees to align with the flow such that the long axis of the
+doublet is along the divergent axis and the convergent stream is pushing
+the two vesicles together. As the flow rate increases, the vesicle
+doublet rotates less, and when the flow rate reaches above the critical
+value, the diverging flow breaks the doublet structure by pulling the
+vesicles apart.  These results indicate that it is possib le to use the
+fluid trap to separate a vesicle doublet under adhesion, and thus
+provide a means to probe the adhesion strength between membranes.  For a
+pair of $\mu m$-sized vesicles with a bending rigidity of $\sim
+10^{-19}$ $J$, an extensional flow rate of $0.5$ $s^{-1}$ is expected to
+separate a vesicle doublet with reduced area of $\Delta A = 0.8$ and a
+Hamaker constant $\mathcal{H}=0.7$, which corresponds to $\sim 1$ $\mu
+J/m^2$.  These conditions are quite realizable in microfluidic
+experiments, and we hope that our simulations will inspire microfluidic
+experiments.
 
 We also examine how adhesive interaction may lead to formation of a
 vesicle doublet dynamically in flowing conditions.  We simulate two
@@ -1093,58 +1091,44 @@ In our formulation we did not include any electrostatic interactions
 between membranes under adhesion. When the electrostatic interaction is
 important, an electro-osmotic pressure in the thin film is found to be
 responsible for the observed membrane
-undulation~\cite{SteinkuhlerAgudo-Canalejo2016_BJ}.
-In addition, simulations presented in this work are for identical vesicles (same reduced area, length, and
-bending rigidity modulus) in the doublet. Flormann {\it et al.} demonstrated that asymmetric vesicle reduced area
-may lead to various equilibrium doublet shape such as male-female, asymmetric S-shape and parachute shape.
-It is also possible that viscosity contrast may also lead to slightly different equilibrium doublet shape.
-Future work includes three dimensional simulations, dispersive vesicle properties (such as
-reduced area and bending modulus), viscosity contrast, and effects of confinement on adhesive interactions.
+undulation~\cite{SteinkuhlerAgudo-Canalejo2016_BJ}.  In addition,
+simulations presented in this work are for identical vesicles (same
+reduced area, length, and bending rigidity modulus) in the doublet.
+Flormann {\it et al.} demonstrated that asymmetric vesicle reduced area
+may lead to various equilibrium doublet shape such as male-female,
+asymmetric S-shape and parachute shape.  It is also possible that
+viscosity contrast may also lead to slightly different equilibrium
+doublet shape.  Future work includes three dimensional simulations,
+dispersive vesicle properties (such as reduced area and bending
+modulus), viscosity contrast, and effects of confinement on adhesive
+interactions.
 
-Flormann {\it et al.} studied the clustering and packing of vesicles in free suspension~\cite{FlormannAouane2017_SciReports}. 
-In engineering applications of vesicle emulsions
-often smaller vesicles are enclosed in a big vesicle, as shown in 
-Figure~\ref{fig:relaxationManyVes}, where  the left panel shows an initial condition of five vesicles
-suspended inside of a larger vesicle.
-The second panel from left shows the membrane configuration and flow
-streamlines at an intermediate time.  There is no imposed flow, so the
-dynamics are governed entirely by the adhesion, bending, and tension
-forces.  In the absence of confinement, we would expect the vesicles to
-align themselves as a rouleaux with the membranes forming a parachute,
-male-female, or S-shape
+Flormann {\it et al.} studied the clustering and packing of vesicles in
+free suspension~\cite{FlormannAouane2017_SciReports}.  In engineering
+applications of vesicle emulsions often smaller vesicles are enclosed in
+a big vesicle, as shown in Figure~\ref{fig:relaxationManyVes}, where
+the left panel shows an initial condition of five vesicles suspended
+inside of a larger vesicle.  The second panel from left shows the
+membrane configuration and flow streamlines at an intermediate time.
+There is no imposed flow, so the dynamics are governed entirely by the
+adhesion, bending, and tension forces.  In the absence of confinement,
+we would expect the vesicles to align themselves as a rouleaux with the
+membranes forming a parachute, male-female, or S-shape
 configurations~\cite{FlormannAouane2017_SciReports}.  However, because
 of the bounding vesicle and the dense packing, the interior vesicles
 align themselves differently.  In addition, several parts of the
 bounding membrane closely follow the interior membranes in order to
-minimize the adhesion energy.   As a result of force balance the equilibrium shape of the bounding vesicle
-is far from a symmetric shape while the interior smaller vesicles are of similar shape to each other.
-We also plot the tension (thrid) and
-adhesion (fourth) of the final equilibrium configuration.  
-We remark that the adhesion force is all attractive on all the vesicle membranes while large positive
-membrane tension is found only on the bounding vesicle. 
-%Both the
-%vesicle shape, tension, and adhesion qualitatively agree with our
-%doublet results.  
-In particular, the interior vesicles form a flat
-contact region with a large negative tension.
-We are now conducting simulations of such vesicle configuration under a planar shear flow.
+minimize the adhesion energy.   As a result of force balance the
+equilibrium shape of the bounding vesicle is far from a symmetric shape
+while the interior smaller vesicles are of similar shape to each other.
+We also plot the tension (thrid) and adhesion (fourth) of the final
+equilibrium configuration.  We remark that the adhesion force is all
+attractive on all the vesicle membranes while large positive membrane
+tension is found only on the bounding vesicle.  In particular, the
+interior vesicles form a flat contact region with a large negative
+tension.  We are now conducting simulations of such vesicle
+configuration under a planar shear flow.
 
-%\begin{figure}[htp]
-%  \centering
-%  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot01.pdf}
-%  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot02.pdf}
-%  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot03.pdf}
-%  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot04.pdf} \\
-%  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot05.pdf}
-%  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot06.pdf}
-%  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot07.pdf}
-%  \includegraphics[width=0.24\textwidth]{figs/relaxationManyVes_Snapshot08.pdf}
-%  \caption{\label{fig:relaxationManyVes} Five vesicles suspended inside
-%  a large vesicle.  The background flow is quiescent, the adhesion
-%  length scale is $\delta = 0.4$, and the Hamaker constant is
-%  $\mathcal{H} = 0.7$.  At the final snapshot, the suspension is near an
-%  equilibrium configuration.}
-%\end{figure}
 
 \begin{figure}[htp]
 \centering
@@ -1153,16 +1137,17 @@ We are now conducting simulations of such vesicle configuration under a planar s
 \includegraphics[height=0.24\textwidth,trim={2cm 0cm 1cm 0cm},clip]{figs/relaxationManyVesTension.png}
 \includegraphics[height=0.24\textwidth,trim={2cm 0cm 2cm 0cm},clip]{figs/relaxationManyVesAdhesion.png}
 \caption{\label{fig:relaxationManyVes} Five vesicles in a quiescent flow
-suspended in a bounding vesicle.   All vesicles are interacting through hydrodynamic flow and
-an adhesion potential with Hamaker constant $\mathcal{H} = 0.7$ and
-separation distance $\delta = 0.4$.  From left to right, the plots are
-the initial condition, streamlines and an intermediate time, tension at
-the steady-state configuration, and the adhesion force projected onto
-the outward unit normal at the steady-state configuration.  Along the
-bounding vesicle, the tension is largest and the adhesion is smallest in
-the regions that are well-separated from the interior vesicles.  Similar
-to other simulations, the interior vesicles are relatively flat and have
-a large negative tension in the contact regions.}
+suspended in a bounding vesicle.   All vesicles are interacting through
+hydrodynamic flow and an adhesion potential with Hamaker constant
+$\mathcal{H} = 0.7$ and separation distance $\delta = 0.4$.  From left
+to right, the plots are the initial condition, streamlines and an
+intermediate time, tension at the steady-state configuration, and the
+adhesion force projected onto the outward unit normal at the
+steady-state configuration.  Along the bounding vesicle, the tension is
+largest and the adhesion is smallest in the regions that are
+well-separated from the interior vesicles.  Similar to other
+simulations, the interior vesicles are relatively flat and have a large
+negative tension in the contact regions.}
 \end{figure}
 
 Recently Liu {\em et al.}~\cite{LiuChuNewbyRead2018_bioRxiv} used
@@ -1178,11 +1163,12 @@ adhesion to keep vesicles bound under linear flows?
 
 \acknowledgments
 
-BQ acknowledges support from Florida State University startup funds and Simons Foundation Mathematics
-and Physical Sciences-Collaboration Grants for Mathematicians 527139.
-SV acknowledges support from NSF under grants DMS-1719834 and DMS-1454010.
-YNY acknowledges support from NSF-DMS 1614863 and 1412789. 
-The work of SV and YNY was also supported by the Flatiron Institute, a division of Simons Foundation.
+BQ acknowledges support from Florida State University startup funds and
+Simons Foundation Mathematics and Physical Sciences-Collaboration Grants
+for Mathematicians 527139.  SV acknowledges support from NSF under
+grants DMS-1719834 and DMS-1454010.  YNY acknowledges support from
+NSF-DMS 1614863 and 1412789.  The work of SV and YNY was also supported
+by the Flatiron Institute, a division of Simons Foundation.
 
 \begin{appendices}
 \section{Adhesion Force}
