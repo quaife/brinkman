@@ -385,7 +385,7 @@ two-dimensional viscous fluid.  For simplicity, we assume the fluid
 viscosity both inside and outside the vesicles is the same; however,
 incorporating viscosity contrast is rather straightforward in our
 numerical algorithm.  
-While we focus on a vesicle doublet suspension for the rest of the paper, here we provide the most general formulation with multiple vesicles interacting with
+While we focus on a vesicle doublet suspension for the rest of the paper, here we provide the most general formulation for multiple vesicles interacting with
 each other through both hydrodynamic and adhesive forces.
 Individual vesicles are denoted as $\gamma_j$,
 $j=1,\ldots,M$, and they are parameterized in arclength as $\xx_j(s,t)$.
@@ -419,33 +419,8 @@ standard assumptions on vesicles.  In this work, we include an adhesive
 force, $\AA \xx$, that we now describe.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Adhesion Model}
-Sukumaran and Seifert~\cite{suk-sei2001} consider adhesion between a
-single three-dimensional vesicle and a solid wall at $z=0$.  They use
-the adhesion potential of the function form
-\begin{align}
-\label{eq:adhesion_potential}
-  \phi(z) = \mathcal{H} \left[ 
-    \left(\frac{\delta}{z}\right)^m - \frac{m}{n} \left(\frac{\delta}{z}\right)^n \right],
-\end{align}
-where $z$ is the distance between the solid wall and the vesicle,
-$\mathcal{H}$ is the Hamaker constant, $\delta$ is the adhesion length
-scale, and $(m,n) = (4,2)$.  We generalize this model to an unbounded
-suspension of vesicles. We assume that the adhesion force applies
-between all pairs of points on different vesicles, so we are interested
-in Hamaker constants that are appropriate for lipid-lipid interactions.
-We use Hamaker constants ranging from $\mathcal{O}(10^{-1})$ to
-$\mathcal{O}(10^0)$ times the bending rigidity modulus.  In
-Appendix~\ref{sec:appendixA}, the adhesive force at a point $\xx$ on
-vesicle $j$ is shown to be
-\begin{align}
-  \AA\xx:=-\mathcal{H} m \delta^{n}\sum_{\substack{k=1 \\ k \neq j}}^M 
-  \int_{\gamma_k} \frac{\xx - \yy}{\|\xx - \yy\|^{m+2}} 
-  \left(\delta^{m-n} - \|\xx - \yy\|^{m-n} \right) ds_\yy.
-  \label{eqn:adhesionForce}
-\end{align}
-The adhesion model is illustrated in Figure~\ref{fig:adhesionModel}.
-
+%\subsection{Adhesion Model}
+%
 \begin{figure}[htp]
   \begin{minipage}{0.31\textwidth}
     \centering
@@ -474,15 +449,34 @@ The adhesion model is illustrated in Figure~\ref{fig:adhesionModel}.
   vesicle.}
 \end{figure}
 
-The exponents $(m,n)$ depend on the geometry of the two objects under
+Adhesion potential for a vesicle membrane has been modeled by a L.-J. type potential
+%Sukumaran and Seifert~\cite{suk-sei2001} consider adhesion between a
+%single three-dimensional vesicle and a solid wall at $z=0$.  They use
+%the adhesion potential of the function form
+\begin{align}
+\label{eq:adhesion_potential}
+  \phi(z) = \mathcal{H} \left[ 
+    \left(\frac{\delta}{z}\right)^m - \frac{m}{n} \left(\frac{\delta}{z}\right)^n \right],
+\end{align}
+where $\mathcal{H}$ is the Hamaker constant and $\delta$ is the adhesion length
+scale. $z$ is the distance between a patch on the vesicle membrane and a point on the other object,
+which could be another vesicle membrane or a flat solid wall.  The characteristics of the L.-J. potential are summarized in
+the left panel of Figure~\ref{fig:adhesionModel}: The adhesive force is zero at the equilibrium distance $z=\delta$.
+For large distances ($z> \delta$) the adhesive potential is attractive while for small distances ($z < \delta$) the potential is repulsive to prevent physical contact.
+
+The exponents $(m,n)$ depend on the geometry and the molecular details of the two objects under
 adhesion~\cite{Book_IntermolecularSurfaceForces}: $(m,n)=(4,2)$
-corresponds to two flat, planar surfaces interacting with each under a
-long-range attraction and a short-range repulsion. On the other hand,
+corresponds to two flat, planar surfaces interacting with each other, and has been a common choice 
+for studying membrane-solid adhesion  \cite{Seifert1990_PRA,suk-sei2001,ShiFengGao2006_ActaMechSin, LinFreund2007_IntJSolidsStructures,BlountMiksisDavis2013_PRSa,YoungStone2017_PRF}.
+%
+On the other hand,
 $(m,n) = (12,6)$ corresponds to the Lennard-Jones (L.-J.)~potential
-between two molecules.  In our case, the adhesion potential in the
-integral of equation~\eqref{eqn:adhesionForce} is between two small
+between two molecules, and has been used to model membrane-membrane adhesion  \cite{FlormannAouane2017_SciReports}.  
+In our case, the adhesion potential in the
+integral of equation~(\eqref{eqn:adhesionForce}) is between two small
 patches of lipid bilayer membrane (because the lipid molecules are
-coarse-grained in the continuum modeling).  Thus a reasonable choice for
+coarse-grained in the continuum modeling).  
+Thus a reasonable choice for
 $(m,n)$ between two coarse-grained membrane patches would be between
 those for two planar surfaces and two point molecules.
  
@@ -493,111 +487,39 @@ requires a very small time step) for large $m$.  The adaptive
 time-stepping BIE scheme makes it possible to simulate vesicle adhesive
 dynamics with specified numerical precision for reasonable computation
 time.  We explore several combinations of $(m,n)$ in the simulations of
-two vesicles forming a doublet in a quiescent flow.  We found very
+two vesicles forming a doublet in a quiescent flow and in a shear flow.  We found that, as long as the
+close-range interaction is well resolved both in space (using the near-singular evaluations) 
+and time (using the high-order adaptive time integration), there is very
 little difference in both the dynamic evolution and equilibrium
 configuration between $(m,n)=(8,6)$ and $(m,n)=(4,2)$.  Therefore, in
-this work, we use $(m,n) = (4,2)$ to regulate the stiffness introduced
-by the adhesive force.
+this work, we use $(m,n) = (4,2)$ to regulate the numerical stiffness introduced
+by the adhesive force. 
+%
+%For some simulations we used both sets of $(m,n)$ and did not notice significant difference
+%in terms of adhesive hydrodynamics of vesicles.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Integral Equation Formulation}
-Using potential theory and following~\cite{Veerapaneni2009_JCP}, we recast the governing equations~\eqref{eq:gov} as integro-differential equations for the evolution of membrane positions: 
-%
-\begin{align*}
-  &\dot{\xx} = \uu_{\infty}(\xx) + \SS[\xxi](\xx), \\
-  &\xx_s \cdot \dot{\xx}_s = 0,
- \end{align*}
-%
-where the single-layer potential $\SS[\cdot]$ is defined by
+Focusing on intermediate adhesive strengths, 
+we use Hamaker constants ranging from $\mathcal{O}(10^{-1})$ to
+$\mathcal{O}(10^0)$ times the bending rigidity modulus.  
+We assume that the adhesion force from equation~\ref{eq:adhesion_potential} applies
+between all pairs of points on different vesicles, and in
+Appendix~\ref{sec:appendixA} the net adhesive force at a point $\xx$ on
+vesicle $j$ is shown to be
 \begin{align}
-  \SS[\xxi](\xx) &= \frac{1}{4\pi\mu} \int_\gamma \left(
-    -\log \|\xx - \yy\| + \frac{(\xx - \yy) \otimes (\xx - \yy)}{\|\xx - \yy\|^2} \right) 
-    \xxi(\yy) ds_\yy, 
-  \label{eqn:SLP}
+  \AA\xx:=-\mathcal{H} m \delta^{n}\sum_{\substack{k=1 \\ k \neq j}}^M 
+  \int_{\gamma_k} \frac{\xx - \yy}{\|\xx - \yy\|^{m+2}} 
+  \left(\delta^{m-n} - \|\xx - \yy\|^{m-n} \right) ds_\yy.
+  \label{eqn:adhesionForce}
 \end{align}
-%
-and the membrane force $\xxi$ is a sum of the bending, tension and adhesion forces: 
-\begin{equation*}
-\xxi = -\kappa_b \xx_{ssss} + (\sigma \xx_s)_s + \AA\xx.
-\end{equation*}
-Defining the bending operator as $\BB[\xx](\ff) = -\kappa_b \ff_{ssss}$,
-and the tension operator $\TT[\xx](\sigma) = (\sigma \xx_s)_s$, the
-no-slip boundary condition gives
-\begin{align*}
-  \pderiv{\xx}{t} = \SS \BB \xx + \SS \TT \sigma + \SS \AA \xx.
-\end{align*}
-We apply the IMEX-Euler method 
-\begin{align*}
-  \frac{\xx^{N+1} - \xx^N}{\Delta t} = \SS^N \BB^N \xx^{N+1} + 
-  \SS^N \TT^N \sigma^{N+1} + \SS^N \AA^N \xx^N,
-\end{align*}
-that discretizes both the bending and tension terms
-semi-implicitly~\cite{qua-bir2014}, and the adhesive term explicitly.
-Therefore, a single time step requires solving
-\begin{align*}
-  \xx^{N+1} - \Delta t \SS^N \BB^N \xx^{N+1} - 
-    \Delta t \SS^N \TT^N \sigma^{N+1} = \xx^N + 
-    \Delta t \SS^N \AA^N \xx^N,
-\end{align*}
-along with the inextensibility constraint that is discretized as
-\begin{align*}
-  \xx_s^{N} \cdot \xx_{s}^{N+1} = 1.
-\end{align*}
-We discretize the vesicles at a set of collocation points, compute the
-bending and tension terms with Fourier differentiation, and apply Alpert
-quadrature~\cite{alp1999} to the weakly-singular single-layer potential
-$\SS$.  The source and target points of the adhesion force never
-coincide since they are always on different vesicles, so the adhesion
-force~\eqref{eqn:adhesionForce} is computed with the spectrally accurate
-trapezoid rule~\cite{tre-wei2014}.  
+This summation of adhesive forces is illustrated in the middle panel of Figure~\ref{fig:adhesionModel}. 
+The right panel of Figure~\ref{fig:adhesionModel} is an 
+example of the calculated adhesive force projected onto their center-of-mass vector. We notice that 
+the adhesive force is repulsive in the contact region, while for the rest of the membranes there is an attractive force
+that acts to pull the two vesicles together. The summary of boundary integral formulation can be found in Appendix \ref{sec:AppendixB} and
+Appendix \ref{sec:AppendixC}.
 
-The dynamics of a doublet undergoes many different time scales over time
-horizons that are sufficiently large to characterize the formation of a
-doublet and its rheological properties.  Therefore, time adaptivity is
-crucial so that a user-specified tolerance is achieved without using a
-guess-and-check procedure to find an appropriately small fixed time step
-size.  To control the error and achieve second-order accuracy in time,
-we use a time adaptive spectral deferred correction method that
-applies IMEX-Euler twice per time step~\cite{quaife2016adaptive}. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The Shear and Normal Stresses}
-To characterize the rheological properties of the suspension of a
-doublet, it is necessary to compute the shear and normal stresses.  At a
-point $\xx \in \RR^2 \backslash \gamma$ in the fluid bulk, the velocity
-$\uu(\xx)$, pressure $p(\xx)$, and total stress tensor $T = - p I +
-\nabla \uu + \nabla \uu^T$ of the single-layer potential~\eqref{eqn:SLP}
-are
-\begin{align*}
-  \uu(\xx) &= \SS_\uu[\ff](\xx) = \frac{1}{4\pi\mu}\int_{\gamma} \left( 
-    -\log \rho + \frac{\rr \otimes \rr}{\rho^2} \right) 
-    \ff ds_\yy, \\
-    p(\xx) &= \SS_p[\ff](\xx) = \frac{1}{2\pi} \int_{\gamma} 
-    \frac{\rr \cdot \ff}{\rho^2} ds_\yy, \\
-    T(\xx) &= \SS_T[\ff](\xx) = -\frac{1}{\pi}\int_{\gamma}
-      \frac{\rr \cdot \ff}{\rho^2} 
-      \frac{\rr \otimes \rr}{\rho^2} ds_\yy,
-\end{align*}
-where $\rr = \xx - \yy$, and $\rho = \|\xx - \yy\|$.  To compute the
-stress tensor on a vesicle, there is a jump in the layer potential
-$\SS_T$, and the stress tensor is
-\begin{align*}
-  T(\xx) = \frac{1}{2}(\nn \otimes \ff) + \frac{1}{2} \left(
-    \tt \otimes \left[
-    \begin{array}{cc}
-      2 t_x t_y & t_y^2 - t_x^2 \\
-      t_y^2 - t_x^2 & -2 t_x t_y
-    \end{array}
-    \right] \ff \right) + 
-  \SS_T[\ff](\xx), \quad \xx \in \gamma,
-\end{align*}
-where $\nn$ and $\tt$ are the vesicle's outward unit normal and tangent
-vector, respectively.  With the stress tensor computed for $\xx \in
-\gamma$, the shear and normal stresses are
-\begin{align*}
-  \tau^\tt = (T \nn) \cdot \tt, \qquad
-  \tau^\nn = (T \nn) \cdot \nn.
-\end{align*}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1473,6 +1395,106 @@ force for a suspension of $M$ vesicles.
 %depends sensitively on the vesicle reduced volume  and the elastic capillary number \cite{KantslerSegreSteinberg2008_PRL,ZhaoShaqfeh2013_JFM,Narsimhan2014_JFM,DahlNarsimhanGouveia2016_SoftMatt}: Asymmetric shape and oscillatory undulation of the vesicle membrane are two examples of the complex vesicle hydrodynamics in an extensional flow.
 
 
+\section{Integral Equation Formulation}
+\label{sec:AppendixB}
+Using potential theory and following~\cite{Veerapaneni2009_JCP}, we recast the governing equations~\eqref{eq:gov} as integro-differential equations for the evolution of membrane positions: 
+%
+\begin{align*}
+  &\dot{\xx} = \uu_{\infty}(\xx) + \SS[\xxi](\xx), \\
+  &\xx_s \cdot \dot{\xx}_s = 0,
+ \end{align*}
+%
+where the single-layer potential $\SS[\cdot]$ is defined by
+\begin{align}
+  \SS[\xxi](\xx) &= \frac{1}{4\pi\mu} \int_\gamma \left(
+    -\log \|\xx - \yy\| + \frac{(\xx - \yy) \otimes (\xx - \yy)}{\|\xx - \yy\|^2} \right) 
+    \xxi(\yy) ds_\yy, 
+  \label{eqn:SLP}
+\end{align}
+%
+and the membrane force $\xxi$ is a sum of the bending, tension and adhesion forces: 
+\begin{equation*}
+\xxi = -\kappa_b \xx_{ssss} + (\sigma \xx_s)_s + \AA\xx.
+\end{equation*}
+Defining the bending operator as $\BB[\xx](\ff) = -\kappa_b \ff_{ssss}$,
+and the tension operator $\TT[\xx](\sigma) = (\sigma \xx_s)_s$, the
+no-slip boundary condition gives
+\begin{align*}
+  \pderiv{\xx}{t} = \SS \BB \xx + \SS \TT \sigma + \SS \AA \xx.
+\end{align*}
+We apply the IMEX-Euler method 
+\begin{align*}
+  \frac{\xx^{N+1} - \xx^N}{\Delta t} = \SS^N \BB^N \xx^{N+1} + 
+  \SS^N \TT^N \sigma^{N+1} + \SS^N \AA^N \xx^N,
+\end{align*}
+that discretizes both the bending and tension terms
+semi-implicitly~\cite{qua-bir2014}, and the adhesive term explicitly.
+Therefore, a single time step requires solving
+\begin{align*}
+  \xx^{N+1} - \Delta t \SS^N \BB^N \xx^{N+1} - 
+    \Delta t \SS^N \TT^N \sigma^{N+1} = \xx^N + 
+    \Delta t \SS^N \AA^N \xx^N,
+\end{align*}
+along with the inextensibility constraint that is discretized as
+\begin{align*}
+  \xx_s^{N} \cdot \xx_{s}^{N+1} = 1.
+\end{align*}
+We discretize the vesicles at a set of collocation points, compute the
+bending and tension terms with Fourier differentiation, and apply Alpert
+quadrature~\cite{alp1999} to the weakly-singular single-layer potential
+$\SS$.  The source and target points of the adhesion force never
+coincide since they are always on different vesicles, so the adhesion
+force~\eqref{eqn:adhesionForce} is computed with the spectrally accurate
+trapezoid rule~\cite{tre-wei2014}.  
+
+The dynamics of a doublet undergoes many different time scales over time
+horizons that are sufficiently large to characterize the formation of a
+doublet and its rheological properties.  Therefore, time adaptivity is
+crucial so that a user-specified tolerance is achieved without using a
+guess-and-check procedure to find an appropriately small fixed time step
+size.  To control the error and achieve second-order accuracy in time,
+we use a time adaptive spectral deferred correction method that
+applies IMEX-Euler twice per time step~\cite{quaife2016adaptive}. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Shear and Normal Stresses}
+\label{sec:AppendixC}
+To characterize the rheological properties of the suspension of a
+doublet, it is necessary to compute the shear and normal stresses.  At a
+point $\xx \in \RR^2 \backslash \gamma$ in the fluid bulk, the velocity
+$\uu(\xx)$, pressure $p(\xx)$, and total stress tensor $T = - p I +
+\nabla \uu + \nabla \uu^T$ of the single-layer potential~\eqref{eqn:SLP}
+are
+\begin{align*}
+  \uu(\xx) &= \SS_\uu[\ff](\xx) = \frac{1}{4\pi\mu}\int_{\gamma} \left( 
+    -\log \rho + \frac{\rr \otimes \rr}{\rho^2} \right) 
+    \ff ds_\yy, \\
+    p(\xx) &= \SS_p[\ff](\xx) = \frac{1}{2\pi} \int_{\gamma} 
+    \frac{\rr \cdot \ff}{\rho^2} ds_\yy, \\
+    T(\xx) &= \SS_T[\ff](\xx) = -\frac{1}{\pi}\int_{\gamma}
+      \frac{\rr \cdot \ff}{\rho^2} 
+      \frac{\rr \otimes \rr}{\rho^2} ds_\yy,
+\end{align*}
+where $\rr = \xx - \yy$, and $\rho = \|\xx - \yy\|$.  To compute the
+stress tensor on a vesicle, there is a jump in the layer potential
+$\SS_T$, and the stress tensor is
+\begin{align*}
+  T(\xx) = \frac{1}{2}(\nn \otimes \ff) + \frac{1}{2} \left(
+    \tt \otimes \left[
+    \begin{array}{cc}
+      2 t_x t_y & t_y^2 - t_x^2 \\
+      t_y^2 - t_x^2 & -2 t_x t_y
+    \end{array}
+    \right] \ff \right) + 
+  \SS_T[\ff](\xx), \quad \xx \in \gamma,
+\end{align*}
+where $\nn$ and $\tt$ are the vesicle's outward unit normal and tangent
+vector, respectively.  With the stress tensor computed for $\xx \in
+\gamma$, the shear and normal stresses are
+\begin{align*}
+  \tau^\tt = (T \nn) \cdot \tt, \qquad
+  \tau^\nn = (T \nn) \cdot \nn.
+\end{align*}
 
 
 \end{appendices}
