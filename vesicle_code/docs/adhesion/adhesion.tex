@@ -449,7 +449,8 @@ force, $\AA \xx$, that we now describe.
   vesicle.}
 \end{figure}
 
-Adhesion potential for a vesicle membrane has been modeled by a L.-J. type potential
+The Adhesion potential for a vesicle membrane has been modeled by a
+Lennard-Jones (L.-J.)~type potential
 %Sukumaran and Seifert~\cite{suk-sei2001} consider adhesion between a
 %single three-dimensional vesicle and a solid wall at $z=0$.  They use
 %the adhesion potential of the function form
@@ -458,27 +459,32 @@ Adhesion potential for a vesicle membrane has been modeled by a L.-J. type poten
   \phi(z) = \mathcal{H} \left[ 
     \left(\frac{\delta}{z}\right)^m - \frac{m}{n} \left(\frac{\delta}{z}\right)^n \right],
 \end{align}
-where $\mathcal{H}$ is the Hamaker constant and $\delta$ is the adhesion length
-scale. $z$ is the distance between a patch on the vesicle membrane and a point on the other object,
-which could be another vesicle membrane or a flat solid wall.  The characteristics of the L.-J. potential are summarized in
-the left panel of Figure~\ref{fig:adhesionModel}: The adhesive force is zero at the equilibrium distance $z=\delta$.
-For large distances ($z> \delta$) the adhesive potential is attractive while for small distances ($z < \delta$) the potential is repulsive to prevent physical contact.
+where $\mathcal{H}$ is the Hamaker constant and $\delta$ is the adhesion
+length scale, and $z$ is the distance between a patch on the vesicle
+membrane and a point on the other object, which could be another vesicle
+membrane or a flat solid wall.  The characteristics of the
+L.-J.~potential are summarized in the left panel of
+Figure~\ref{fig:adhesionModel}: The adhesive force is zero at the
+equilibrium distance $z=\delta$.  For large distances ($z> \delta$) the
+adhesive potential is attractive while for small distances ($z <
+\delta$) the potential is repulsive to prevent physical contact.
 
-The exponents $(m,n)$ depend on the geometry and the molecular details of the two objects under
+The exponents $(m,n)$ depend on the geometry and the molecular details
+of the two objects under
 adhesion~\cite{Book_IntermolecularSurfaceForces}: $(m,n)=(4,2)$
-corresponds to two flat, planar surfaces interacting with each other, and has been a common choice 
-for studying membrane-solid adhesion  \cite{Seifert1990_PRA,suk-sei2001,ShiFengGao2006_ActaMechSin, LinFreund2007_IntJSolidsStructures,BlountMiksisDavis2013_PRSa,YoungStone2017_PRF}.
-%
-On the other hand,
-$(m,n) = (12,6)$ corresponds to the Lennard-Jones (L.-J.)~potential
-between two molecules, and has been used to model membrane-membrane adhesion  \cite{FlormannAouane2017_SciReports}.  
-In our case, the adhesion potential in the
-integral of equation~(\eqref{eqn:adhesionForce}) is between two small
-patches of lipid bilayer membrane (because the lipid molecules are
-coarse-grained in the continuum modeling).  
-Thus a reasonable choice for
-$(m,n)$ between two coarse-grained membrane patches would be between
-those for two planar surfaces and two point molecules.
+corresponds to two flat, planar surfaces interacting with each other,
+and has been a common choice for studying membrane-solid adhesion
+\cite{Seifert1990_PRA,suk-sei2001, ShiFengGao2006_ActaMechSin,
+LinFreund2007_IntJSolidsStructures, BlountMiksisDavis2013_PRSa,
+YoungStone2017_PRF}.  On the other hand, $(m,n) = (12,6)$ corresponds to
+the L.-J.~potential between two molecules, and has been used to model
+membrane-membrane adhesion  \cite{FlormannAouane2017_SciReports}.  In
+our case, the adhesion potential in the integral of
+equation~\eqref{eqn:adhesionForce} is between two small patches of lipid
+bilayer membrane (because the lipid molecules are coarse-grained in the
+continuum modeling).  Thus a reasonable choice for $(m,n)$ between two
+coarse-grained membrane patches would be between those for two planar
+surfaces and two point molecules.
  
 Large value of $m$ corresponds to a sharp increase in the repulsion
 force as two objects are within the separation distance $\delta$.  This
@@ -487,36 +493,35 @@ requires a very small time step) for large $m$.  The adaptive
 time-stepping BIE scheme makes it possible to simulate vesicle adhesive
 dynamics with specified numerical precision for reasonable computation
 time.  We explore several combinations of $(m,n)$ in the simulations of
-two vesicles forming a doublet in a quiescent flow and in a shear flow.  We found that, as long as the
-close-range interaction is well resolved both in space (using the near-singular evaluations) 
-and time (using the high-order adaptive time integration), there is very
-little difference in both the dynamic evolution and equilibrium
-configuration between $(m,n)=(8,6)$ and $(m,n)=(4,2)$.  Therefore, in
-this work, we use $(m,n) = (4,2)$ to regulate the numerical stiffness introduced
-by the adhesive force. 
-%
-%For some simulations we used both sets of $(m,n)$ and did not notice significant difference
-%in terms of adhesive hydrodynamics of vesicles.
+two vesicles forming a doublet in a quiescent flow and in a shear flow.
+We found that, as long as the close-range interaction is well resolved
+both in space (using the near-singular evaluations) and time (using the
+high-order adaptive time integration), there is very little difference
+in both the dynamic evolution and equilibrium configuration between
+$(m,n)=(8,6)$ and $(m,n)=(4,2)$.  Therefore, in this work, we use $(m,n)
+= (4,2)$ to regulate the numerical stiffness introduced by the adhesive
+force. 
 
-Focusing on intermediate adhesive strengths, 
-we use Hamaker constants ranging from $\mathcal{O}(10^{-1})$ to
-$\mathcal{O}(10^0)$ times the bending rigidity modulus.  
-We assume that the adhesion force from equation~\ref{eq:adhesion_potential} applies
-between all pairs of points on different vesicles, and in
-Appendix~\ref{sec:appendixA} the net adhesive force at a point $\xx$ on
-vesicle $j$ is shown to be
+Focusing on intermediate adhesive strengths, we use Hamaker constants
+ranging from $\mathcal{O}(10^{-1})$ to $\mathcal{O}(10^0)$ times the
+bending rigidity modulus.  We assume that the adhesion force from
+equation~\ref{eq:adhesion_potential} applies between all pairs of points
+on different vesicles, and in Appendix~\ref{sec:appendixA} the net
+adhesive force at a point $\xx$ on vesicle $j$ is shown to be
 \begin{align}
   \AA\xx:=-\mathcal{H} m \delta^{n}\sum_{\substack{k=1 \\ k \neq j}}^M 
   \int_{\gamma_k} \frac{\xx - \yy}{\|\xx - \yy\|^{m+2}} 
   \left(\delta^{m-n} - \|\xx - \yy\|^{m-n} \right) ds_\yy.
   \label{eqn:adhesionForce}
 \end{align}
-This summation of adhesive forces is illustrated in the middle panel of Figure~\ref{fig:adhesionModel}. 
-The right panel of Figure~\ref{fig:adhesionModel} is an 
-example of the calculated adhesive force projected onto their center-of-mass vector. We notice that 
-the adhesive force is repulsive in the contact region, while for the rest of the membranes there is an attractive force
-that acts to pull the two vesicles together. The summary of boundary integral formulation can be found in Appendix \ref{sec:AppendixB} and
-Appendix \ref{sec:AppendixC}.
+This summation of adhesive forces is illustrated in the middle panel of
+Figure~\ref{fig:adhesionModel}.  The right panel of
+Figure~\ref{fig:adhesionModel} is an example of the calculated adhesive
+force projected onto their center-of-mass vector. We notice that the
+adhesive force is repulsive in the contact region, while for the rest of
+the membranes there is an attractive force that acts to pull the two
+vesicles together. The summary of boundary integral formulation can be
+found in Appendix~\ref{sec:AppendixB}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1456,9 +1461,6 @@ size.  To control the error and achieve second-order accuracy in time,
 we use a time adaptive spectral deferred correction method that
 applies IMEX-Euler twice per time step~\cite{quaife2016adaptive}. 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{The Shear and Normal Stresses}
-\label{sec:AppendixC}
 To characterize the rheological properties of the suspension of a
 doublet, it is necessary to compute the shear and normal stresses.  At a
 point $\xx \in \RR^2 \backslash \gamma$ in the fluid bulk, the velocity
