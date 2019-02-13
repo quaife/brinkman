@@ -380,11 +380,14 @@ directions.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Governing Equations \label{sec:ge}}
-We consider suspensions of locally inextensible vesicles in an unbounded
+We consider a suspension of locally inextensible vesicles in an unbounded
 two-dimensional viscous fluid.  For simplicity, we assume the fluid
 viscosity both inside and outside the vesicles is the same; however,
 incorporating viscosity contrast is rather straightforward in our
-numerical algorithm.  Individual vesicles are denoted as $\gamma_j$,
+numerical algorithm.  
+While we focus on a vesicle doublet suspension for the rest of the paper, here we provide the most general formulation with multiple vesicles interacting with
+each other through both hydrodynamic and adhesive forces.
+Individual vesicles are denoted as $\gamma_j$,
 $j=1,\ldots,M$, and they are parameterized in arclength as $\xx_j(s,t)$.
 The union of all vesicles is denoted by $\gamma$.  Given a background
 velocity $\uu_\infty$, the governing equations are
