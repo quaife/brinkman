@@ -1423,25 +1423,15 @@ and the membrane force $\xxi$ is a sum of the bending, tension and adhesion forc
 \xxi = -\kappa_b \xx_{ssss} + (\sigma \xx_s)_s + \AA\xx.
 \end{equation*}
 Defining the bending operator as $\BB[\xx](\ff) = -\kappa_b \ff_{ssss}$,
-and the tension operator $\TT[\xx](\sigma) = (\sigma \xx_s)_s$, the
-no-slip boundary condition gives
-\begin{align*}
-  \pderiv{\xx}{t} = \SS \BB \xx + \SS \TT \sigma + \SS \AA \xx.
-\end{align*}
-We apply the IMEX-Euler method 
-\begin{align*}
-  \frac{\xx^{N+1} - \xx^N}{\Delta t} = \SS^N \BB^N \xx^{N+1} + 
-  \SS^N \TT^N \sigma^{N+1} + \SS^N \AA^N \xx^N,
-\end{align*}
-that discretizes both the bending and tension terms
-semi-implicitly~\cite{qua-bir2014}, and the adhesive term explicitly.
-Therefore, a single time step requires solving
+and the tension operator $\TT[\xx](\sigma) = (\sigma \xx_s)_s$, and
+using IMEX-Euler, the no-slip boundary results in the time stepping
+method
 \begin{align*}
   \xx^{N+1} - \Delta t \SS^N \BB^N \xx^{N+1} - 
     \Delta t \SS^N \TT^N \sigma^{N+1} = \xx^N + 
     \Delta t \SS^N \AA^N \xx^N,
 \end{align*}
-along with the inextensibility constraint that is discretized as
+and the inextensibility constraint that is discretized as
 \begin{align*}
   \xx_s^{N} \cdot \xx_{s}^{N+1} = 1.
 \end{align*}
