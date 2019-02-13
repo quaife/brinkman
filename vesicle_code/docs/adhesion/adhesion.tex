@@ -1419,13 +1419,12 @@ where the single-layer potential $\SS[\cdot]$ is defined by
 \end{align}
 %
 and the membrane force $\xxi$ is a sum of the bending, tension and adhesion forces: 
-\begin{equation*}
+\begin{align*}
 \xxi = -\kappa_b \xx_{ssss} + (\sigma \xx_s)_s + \AA\xx.
-\end{equation*}
+\end{align*}
 Defining the bending operator as $\BB[\xx](\ff) = -\kappa_b \ff_{ssss}$,
-and the tension operator $\TT[\xx](\sigma) = (\sigma \xx_s)_s$, and
-using IMEX-Euler, the no-slip boundary results in the time stepping
-method
+the tension operator $\TT[\xx](\sigma) = (\sigma \xx_s)_s$, and using
+IMEX-Euler, the no-slip boundary results in the time stepping method
 \begin{align*}
   \xx^{N+1} - \Delta t \SS^N \BB^N \xx^{N+1} - 
     \Delta t \SS^N \TT^N \sigma^{N+1} = \xx^N + 
@@ -1454,32 +1453,27 @@ applies IMEX-Euler twice per time step~\cite{quaife2016adaptive}.
 
 To characterize the rheological properties of the suspension of a
 doublet, it is necessary to compute the shear and normal stresses.  At a
-point $\xx \in \RR^2 \backslash \gamma$ in the fluid bulk, the velocity
-$\uu(\xx)$, pressure $p(\xx)$, and total stress tensor $T = - p I +
-\nabla \uu + \nabla \uu^T$ of the single-layer potential~\eqref{eqn:SLP}
-are
+point $\xx \in \RR^2 \backslash \gamma$ in the fluid bulk, the  pressure
+$p(\xx)$ and total stress tensor $T = - p I + \nabla \uu + \nabla \uu^T$
+of the single-layer potential~\eqref{eqn:SLP} are
 \begin{align*}
-  \uu(\xx) &= \SS_\uu[\ff](\xx) = \frac{1}{4\pi\mu}\int_{\gamma} \left( 
-    -\log \rho + \frac{\rr \otimes \rr}{\rho^2} \right) 
-    \ff ds_\yy, \\
-    p(\xx) &= \SS_p[\ff](\xx) = \frac{1}{2\pi} \int_{\gamma} 
-    \frac{\rr \cdot \ff}{\rho^2} ds_\yy, \\
-    T(\xx) &= \SS_T[\ff](\xx) = -\frac{1}{\pi}\int_{\gamma}
-      \frac{\rr \cdot \ff}{\rho^2} 
-      \frac{\rr \otimes \rr}{\rho^2} ds_\yy,
+    p(\xx) &= \frac{1}{2\pi} \int_{\gamma} 
+    \frac{(\xx - \yy) \cdot \xxi}{\|\xx-\yy\|^2} ds_\yy, \\
+    T(\xx) &= -\frac{1}{\pi}\int_{\gamma}
+      \frac{(\xx-\yy) \cdot \xxi}{\|\xx - \yy\|^2} 
+      \frac{(\xx - \yy) \otimes (\xx - \yy)}{\|\xx - \yy\|^2} ds_\yy.
 \end{align*}
-where $\rr = \xx - \yy$, and $\rho = \|\xx - \yy\|$.  To compute the
-stress tensor on a vesicle, there is a jump in the layer potential
-$\SS_T$, and the stress tensor is
+To compute the stress tensor on a vesicle, there is a jump in the layer
+potential, and the stress tensor is
 \begin{align*}
-  T(\xx) = \frac{1}{2}(\nn \otimes \ff) + \frac{1}{2} \left(
+  T(\xx) = \frac{1}{2}(\nn \otimes \xxi) + \frac{1}{2} \left(
     \tt \otimes \left[
     \begin{array}{cc}
       2 t_x t_y & t_y^2 - t_x^2 \\
       t_y^2 - t_x^2 & -2 t_x t_y
     \end{array}
-    \right] \ff \right) + 
-  \SS_T[\ff](\xx), \quad \xx \in \gamma,
+    \right] \xxi \right) + 
+  \SS_T[\xxi](\xx), \quad \xx \in \gamma,
 \end{align*}
 where $\nn$ and $\tt$ are the vesicle's outward unit normal and tangent
 vector, respectively.  With the stress tensor computed for $\xx \in
