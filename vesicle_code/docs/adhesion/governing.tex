@@ -1,11 +1,12 @@
 \section{Governing Equations \label{sec:ge}}
 We consider suspensions of locally inextensible vesicles in an unbounded
 two-dimensional viscous fluid.  For simplicity, we assume the fluid
-viscosity both inside and outside the vesicles is the same; however, incorporating viscosity constrast is rather straightforward in our numerical algorithm. 
-Individual vesicles are denoted as $\gamma_j$, $j=1,\ldots,M$, and they
-are parameterized in arclength as $\xx_j(s,t)$.  The union of all
-vesicles is denoted by $\gamma$.  Given a background velocity
-$\uu_\infty$, the governing equations are
+viscosity both inside and outside the vesicles is the same; however,
+incorporating viscosity constrast is rather straightforward in our
+numerical algorithm.  Individual vesicles are denoted as $\gamma_j$,
+$j=1,\ldots,M$, and they are parameterized in arclength as $\xx_j(s,t)$.
+The union of all vesicles is denoted by $\gamma$.  Given a background
+velocity $\uu_\infty$, the governing equations are
 \begin{equation}
 \begin{aligned}
   \mu \Delta \uu = \nabla p, \quad &\xx \in \RR^2,
@@ -93,13 +94,13 @@ The exponents $(m,n)$ depend on the geometry of the two objects under
 adhesion~\cite{Book_IntermolecularSurfaceForces}: $(m,n)=(4,2)$
 corresponds to two flat, planar surfaces interacting with each under a
 long-range attraction and a short-range repulsion. On the other hand,
-$(m,n) = (12,6)$ corresponds to the L.-J.~potential between two molecules.
-In our case, the adhesion potential in the integral of
-equation~\eqref{eqn:adhesionForce} is between two small patches of lipid
-bilayer membrane (because the lipid molecules are coarse-grained in the
-continuum modeling).  Thus a reasonable choice for $(m,n)$ between two
-coarse-grained membrane patches would be between those for two planar
-surfaces and two point molecules. 
+$(m,n) = (12,6)$ corresponds to the Lennard-Jones (L.-J.)~potential
+between two molecules.  In our case, the adhesion potential in the
+integral of equation~\eqref{eqn:adhesionForce} is between two small
+patches of lipid bilayer membrane (because the lipid molecules are
+coarse-grained in the continuum modeling).  Thus a reasonable choice for
+$(m,n)$ between two coarse-grained membrane patches would be between
+those for two planar surfaces and two point molecules.
  
 Large value of $m$ corresponds to a sharp increase in the repulsion
 force as two objects are within the separation distance $\delta$.  This
@@ -172,8 +173,8 @@ doublet and its rheological properties.  Therefore, time adaptivity is
 crucial so that a user-specified tolerance is achieved without using a
 guess-and-check procedure to find an appropriately small fixed time step
 size.  To control the error and achieve second-order accuracy in time,
-we apply a time adaptive spectral deferred correction
-method~\cite{quaife2016adaptive}. 
+we use a time adaptive spectral deferred correction method that
+applies IMEX-Euler twice per time step~\cite{quaife2016adaptive}. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The Shear and Normal Stresses}
@@ -191,10 +192,11 @@ are
     \frac{\rr \cdot \ff}{\rho^2} ds_\yy, \\
     T(\xx) &= \SS_T[\ff](\xx) = -\frac{1}{\pi}\int_{\gamma}
       \frac{\rr \cdot \ff}{\rho^2} 
-      \frac{\rr \otimes \rr}{\rho^2} ds_\yy.
+      \frac{\rr \otimes \rr}{\rho^2} ds_\yy,
 \end{align*}
-To compute the stress tensor on a vesicle, there is a jump in the layer
-potential $\SS_T$, and the stress tensor is
+where $\rr = \xx - \yy$, and $\rho = \|\xx - \yy\|$.  To compute the
+stress tensor on a vesicle, there is a jump in the layer potential
+$\SS_T$, and the stress tensor is
 \begin{align*}
   T(\xx) = \frac{1}{2}(\nn \otimes \ff) + \frac{1}{2} \left(
     \tt \otimes \left[
