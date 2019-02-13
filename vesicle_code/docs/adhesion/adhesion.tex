@@ -1463,25 +1463,27 @@ of the single-layer potential~\eqref{eqn:SLP} are
       \frac{(\xx-\yy) \cdot \xxi}{\|\xx - \yy\|^2} 
       \frac{(\xx - \yy) \otimes (\xx - \yy)}{\|\xx - \yy\|^2} ds_\yy.
 \end{align*}
-To compute the stress tensor on a vesicle, there is a jump in the layer
-potential, and the stress tensor is
+From these identities and the jump in the stress tensor, we compute the
+traction vector on the vesicle as
 \begin{align*}
-  T(\xx) = \frac{1}{2}(\nn \otimes \xxi) + \frac{1}{2} \left(
+  T\nn = \left(T(\xx) + 
+  \frac{1}{2}(\nn \otimes \xxi) + \frac{1}{2} 
     \tt \otimes \left[
     \begin{array}{cc}
       2 t_x t_y & t_y^2 - t_x^2 \\
       t_y^2 - t_x^2 & -2 t_x t_y
     \end{array}
-    \right] \xxi \right) + 
-  \SS_T[\xxi](\xx), \quad \xx \in \gamma,
+    \right] \xxi\right) \nn, \quad \xx \in \gamma,
 \end{align*}
 where $\nn$ and $\tt$ are the vesicle's outward unit normal and tangent
-vector, respectively.  With the stress tensor computed for $\xx \in
-\gamma$, the shear and normal stresses are
-\begin{align*}
-  \tau^\tt = (T \nn) \cdot \tt, \qquad
-  \tau^\nn = (T \nn) \cdot \nn.
-\end{align*}
+vector, respectively.  
+
+%With the stress tensor computed for $\xx \in
+%\gamma$, the shear and normal stresses are
+%\begin{align*}
+%  \tau^\tt = (T \nn) \cdot \tt, \qquad
+%  \tau^\nn = (T \nn) \cdot \nn.
+%\end{align*}
 
 
 \end{appendices}
