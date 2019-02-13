@@ -1,13 +1,12 @@
 \section{Governing Equations \label{sec:ge}}
 We consider suspensions of locally inextensible vesicles in an unbounded
 two-dimensional viscous fluid.  For simplicity, we assume the fluid
-viscosity both inside and outside the vesicles is constant, but our
-method can be easily adjusted to account for a viscosity contrast.
+viscosity both inside and outside the vesicles is the same; however, incorporating viscosity constrast is rather straightforward in our numerical algorithm. 
 Individual vesicles are denoted as $\gamma_j$, $j=1,\ldots,M$, and they
 are parameterized in arclength as $\xx_j(s,t)$.  The union of all
 vesicles is denoted by $\gamma$.  Given a background velocity
 $\uu_\infty$, the governing equations are
-\begin{equation*}
+\begin{equation}
 \begin{aligned}
   \mu \Delta \uu = \nabla p, \quad &\xx \in \RR^2,
     &&\mbox{\em conservation of momentum} \\
@@ -21,8 +20,8 @@ $\uu_\infty$, the governing equations are
     &&\mbox{\em local inextensibility} \\
   \llbracket T \rrbracket \nn = \xxi, \quad &\xx \in \gamma,
     &&\mbox{\em non-zero traction jump}
-\end{aligned}
-\end{equation*}
+\end{aligned} \label{eq:gov}
+\end{equation}
 where $\llbracket T \rrbracket$ is the jump in the stress tensor, and
 $\xxi$ is the traction jump that is the sum of the bending, stretching,
 and adhesion forces.  The bending force, arising from the Helfrich
@@ -31,7 +30,7 @@ the bending rigidity modulus which we set to be 1 for all examples. The
 stretching force is $\TT \sigma = (\sigma \xx_s)_s$, where the tension,
 $\sigma$, acts as a Lagrange multiplier to satisfy the local
 extensibility constraint.  The resistance to bending and stretching are
-standard assumptions of vesicles.  In this work, we include an adhesive
+standard assumptions on vesicles.  In this work, we include an adhesive
 force, $\AA \xx$, that we now describe.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -117,33 +116,25 @@ by the adhesive force.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Integral Equation Formulation}
-Because the fluid equations are linear and elliptic, a boundary integral
-equation formulation is possible.  This has several advantages,
-including that only the vesicle interfaces require discretization.  We
-start by defining the Stokes single-layer potential
-\begin{align}
-  \SS[\ff](\xx) &= \frac{1}{4\pi\mu} \int_\gamma \left(
-    -\log \rho + \frac{\rr \otimes \rr}{\rho^2} \right) 
-    \ff(\yy) ds_\yy, \quad \xx \in \RR^2,
-  \label{eqn:SLP}
-\end{align}
-where $\rr = \xx - \yy$ and $\rho = \|\rr\|$.  Then, given a vesicle
-with a traction jump $\xxi$, the fluid velocity is~\cite{poz1992}
-\begin{align*}
-  \uu(\xx) = \uu_{\infty}(\xx) + \SS[\xxi](\xx), \quad \xx \in \RR^2.
-\end{align*}
-The traction jump is
-\begin{align*}
-  \xxi = -\kappa_b \xx_{ssss} + (\sigma \xx_s)_s + \AA \xx,
-\end{align*}
-where the three terms correspond to the forces due to bending, tension,
-and adhesion, respectively.  Therefore, applying the no-slip boundary
-condition on each vesicle, the governing equations are
+Using potential theory and following \cite{Veerapaneni2009_JCP}, we recast the governing equations \eqref{eq:gov} as integro-differential equations for the evolution of membrane positions: 
+%
 \begin{align*}
   &\dot{\xx} = \uu_{\infty}(\xx) + \SS[\xxi](\xx), \\
-  &\xx_s \cdot \uu_s = 0, \\
-  &\xxi = -\kappa_b \xx_{ssss} + (\sigma \xx_s)_s + \AA\xx.
-\end{align*}
+  &\xx_s \cdot \dot{\xx}_s = 0,
+ \end{align*}
+%
+where the single-layer potential $\SS[\cdot]$ is defined by
+\begin{align}
+  \SS[\xxi](\xx) &= \frac{1}{4\pi\mu} \int_\gamma \left(
+    -\log \|\xx - \yy\| + \frac{(\xx - \yy) \otimes (\xx - \yy)}{\|\xx - \yy\|^2} \right) 
+    \xxi(\yy) ds_\yy, 
+  \label{eqn:SLP}
+\end{align}
+%
+and the membrane force $\xxi$ is a sum of the bending, tension and adhesion forces: 
+\begin{equation*}
+\xxi = -\kappa_b \xx_{ssss} + (\sigma \xx_s)_s + \AA\xx.
+\end{equation*}
 Defining the bending operator as $\BB[\xx](\ff) = -\kappa_b \ff_{ssss}$,
 and the tension operator $\TT[\xx](\sigma) = (\sigma \xx_s)_s$, the
 no-slip boundary condition gives
