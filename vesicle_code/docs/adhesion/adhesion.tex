@@ -84,7 +84,7 @@
 
 \preprint{APS/123-QED}
 
-\title{Hydrodynamics and rheology of adhesive vesicle doublets}
+\title{Hydrodynamics and rheology of vesicle doublets}
 % Force line breaks with \\
 %\thanks{A footnote to the article title}%
 
@@ -404,11 +404,11 @@ velocity $\uu_\infty$, the governing equations are
   \xx_s \cdot \uu_s =0, \quad &\xx \in \gamma,
     &&\mbox{\em local inextensibility} \\
   \llbracket T \rrbracket \nn = \xxi, \quad &\xx \in \gamma,
-    &&\mbox{\em non-zero traction jump}
+    &&\mbox{\em non-zero stress jump}
 \end{aligned} \label{eq:gov}
 \end{equation}
 where $\llbracket T \rrbracket$ is the jump in the stress tensor, and
-$\xxi$ is the traction jump that is the sum of the bending, stretching,
+$\xxi$ is the traction that is the sum of the bending, stretching,
 and adhesion forces.  The bending force, arising from the Helfrich
 energy model, is $\BB \xx = -\kappa_b \xx_{ssss}$, where $\kappa_b$ is
 the bending rigidity modulus which we set to be 1 for all examples. The
@@ -1122,8 +1122,8 @@ with the same energy dissipation per macroscopic element of fluid.  In a
 simple shear flow, the intrinsic viscosity, $[\mu]$ is
 \begin{align*}
   [\mu]:= \frac{\mu_{\mathrm{eff}} - \mu_0}{\phi \mu_0} = 
-  \frac{1}{\chi \mu_0 T} \int_{T_i}^{T_e} 
-  \langle \sigma_{12} \rangle dt,
+  \frac{1}{\chi \mu_0 (T_e - T_i)} \int_{T_i}^{T_e} 
+  \langle \tau_{12} \rangle dt,
 \end{align*}
 where
 \begin{align*}
@@ -1131,8 +1131,9 @@ where
     \xxi \otimes \xx ds,
 \end{align*}
 $\phi$ is the area fraction of vesicles, $\tau$ is the stress due to the
-vesicles, and $\langle \cdot \rangle$ is the spatial average.  In the
-left plot of Figure~\ref{fig:shearIntrinsicViscosity}, we compare the
+vesicles, $\langle \cdot \rangle$ is the spatial average, and $\xxi$ is
+the traction as defined in equation~\eqref{eqn:traction}.  In the left
+plot of Figure~\ref{fig:shearIntrinsicViscosity}, we compare the
 intrinsic viscosity of a single tank-treading vesicle to a doublet.  To
 validate our simulations, we superimpose (black marks) the intrinsic
 viscosity calculated by Ghigliotti {\em et
@@ -1272,9 +1273,9 @@ simulations of such vesicle configuration under a planar shear flow.
 suspended in a bounding vesicle.   All vesicles are interacting through
 hydrodynamic flow and an adhesion potential with Hamaker constant
 $\mathcal{H} = 0.7$ and separation distance $\delta = 0.4$.  From left
-to right, the plots are the initial condition, streamlines at an
-intermediate time, tension at the steady-state configuration, and the
-adhesion force projected onto the outward unit normal at the
+to right, the plots are the initial condition, the streamlines at an
+intermediate time, the tension at the steady-state configuration, and
+the adhesion force projected onto the outward unit normal at the
 steady-state configuration.  Along the bounding vesicle, the tension is
 largest and the adhesion is smallest in the regions that are
 well-separated from the interior vesicles.  Similar to other
@@ -1419,11 +1420,12 @@ where the single-layer potential $\SS[\cdot]$ is defined by
 \end{align}
 %
 and the membrane force $\xxi$ is a sum of the bending, tension and adhesion forces: 
-\begin{align*}
+\begin{align}
 \xxi = -\kappa_b \xx_{ssss} + (\sigma \xx_s)_s + \AA\xx.
-\end{align*}
-Defining the bending operator as $\BB[\xx](\ff) = -\kappa_b \ff_{ssss}$,
-the tension operator $\TT[\xx](\sigma) = (\sigma \xx_s)_s$, and using
+\label{eqn:traction}
+\end{align}
+Defining the bending operator as $\BB[\ff](\xx) = -\kappa_b \ff_{ssss}$,
+the tension operator $\TT[\sigma](\xx) = (\sigma \xx_s)_s$, and using
 IMEX-Euler, the no-slip boundary results in the time stepping method
 \begin{align*}
   \xx^{N+1} - \Delta t \SS^N \BB^N \xx^{N+1} - 
@@ -1451,33 +1453,37 @@ size.  To control the error and achieve second-order accuracy in time,
 we use a time adaptive spectral deferred correction method that
 applies IMEX-Euler twice per time step~\cite{quaife2016adaptive}. 
 
-To characterize the rheological properties of the suspension of a
-doublet, it is necessary to compute the shear and normal stresses.  At a
-point $\xx \in \RR^2 \backslash \gamma$ in the fluid bulk, the  pressure
-$p(\xx)$ and total stress tensor $T = - p I + \nabla \uu + \nabla \uu^T$
-of the single-layer potential~\eqref{eqn:SLP} are
-\begin{align*}
-    p(\xx) &= \frac{1}{2\pi} \int_{\gamma} 
-    \frac{(\xx - \yy) \cdot \xxi}{\|\xx-\yy\|^2} ds_\yy, \\
-    T(\xx) &= -\frac{1}{\pi}\int_{\gamma}
-      \frac{(\xx-\yy) \cdot \xxi}{\|\xx - \yy\|^2} 
-      \frac{(\xx - \yy) \otimes (\xx - \yy)}{\|\xx - \yy\|^2} ds_\yy.
-\end{align*}
-From these identities and the jump in the stress tensor, we compute the
-traction vector on the vesicle as
-\begin{align*}
-  T\nn = \left(T(\xx) + 
-  \frac{1}{2}(\nn \otimes \xxi) + \frac{1}{2} 
-    \tt \otimes \left[
-    \begin{array}{cc}
-      2 t_x t_y & t_y^2 - t_x^2 \\
-      t_y^2 - t_x^2 & -2 t_x t_y
-    \end{array}
-    \right] \xxi\right) \nn, \quad \xx \in \gamma,
-\end{align*}
-where $\nn$ and $\tt$ are the vesicle's outward unit normal and tangent
-vector, respectively.  
-
+%To characterize the rheological properties of the suspension of a
+%doublet, it is necessary to compute the shear and normal stresses.  At a
+%point $\xx \in \RR^2 \backslash \gamma$ in the fluid bulk, the  pressure
+%$p(\xx)$ and total stress tensor $T = - p I + \nabla \uu + \nabla \uu^T$
+%of the single-layer potential~\eqref{eqn:SLP} are
+%\begin{align*}
+%    p(\xx) &= \frac{1}{2\pi} \int_{\gamma} 
+%    \frac{(\xx - \yy) \cdot \xxi}{\|\xx-\yy\|^2} ds_\yy, \\
+%    T(\xx) &= -\frac{1}{\pi}\int_{\gamma}
+%      \frac{(\xx-\yy) \cdot \xxi}{\|\xx - \yy\|^2} 
+%      \frac{(\xx - \yy) \otimes (\xx - \yy)}{\|\xx - \yy\|^2} ds_\yy.
+%\end{align*}
+%From these identities and the jump in the stress tensor, we compute the
+%traction vector on the vesicle as
+%\begin{align*}
+%  T(\xx)\nn = \left(
+%  \frac{1}{2}(\nn \otimes \xxi) + \frac{1}{2} 
+%    \tt \otimes \left[
+%    \begin{array}{cc}
+%      2 t_x t_y & t_y^2 - t_x^2 \\
+%      t_y^2 - t_x^2 & -2 t_x t_y
+%    \end{array}
+%    \right] \xxi\right) \nn
+%    -\frac{1}{\pi}\int_{\gamma}
+%      \frac{(\xx-\yy) \cdot \xxi}{\|\xx - \yy\|^2} 
+%      \frac{(\xx - \yy) \cdot \nn}{\|\xx - \yy\|^2} (\xx - \yy)ds_\yy,
+%     \quad \xx \in \gamma,
+%\end{align*}
+%where $\nn$ and $\tt$ are the vesicle's outward unit normal and tangent
+%vector, respectively.  
+%
 %With the stress tensor computed for $\xx \in
 %\gamma$, the shear and normal stresses are
 %\begin{align*}
