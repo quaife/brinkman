@@ -19,7 +19,7 @@
 %  4)  latex apssamp.tex
 %
 %\documentclass[aps,prb,showpacs,amsmath,amssymb,superscriptaddress]{revtex4-1}
-\documentclass[prf,superscriptaddress,showpacs]{revtex4-1}
+\documentclass[prf,superscriptaddress,showkeys]{revtex4-1}
 
 %\documentclass[%
 %reprint,
@@ -137,9 +137,9 @@ between vesicles in a viscous fluid.
 %\end{description}
 \end{abstract}
 
-\pacs{Valid PACS appear here}% PACS, the Physics and Astronomy
+\pacs{87.16.D-,83.80.Lz,83.60.-a,47.11.Hj}% PACS, the Physics and Astronomy
                              % Classification Scheme.
-%\keywords{Suggested keywords}%Use showkeys class option if keyword
+\keywords{Vesicle hydrodynamics, membrane adhesion, drop and bubble phenomena/drop interactions, interfacial flows/thin fluid films, rheology/flow confinement, biological fluid dynamics/collective behavior/clustering, emergence of patterns}%Use showkeys class option if keyword
                               %display desired
 \maketitle
 
@@ -223,7 +223,7 @@ ignored~\cite{Veerapaneni2009_JCP,  RahimianVeerapaneniBiros2010_JCP}
 for numerical convenience, mostly because a small time step is often
 needed to resolve the dynamics of the lubrication thin film between two
 membranes with adhesion.  However, adhesive interactions between RBCs
-lead to different RBC clusters that are expected to alter the
+lead to RBC clusters that are expected to alter the
 rheological properties of the RBC suspension~\cite{NeuMeiselman2002_BJ,
 SvetinaZiherl2008_Bioelectrochemistry}. Hydrodynamic simulations of
 adhesive vesicles in a quiescent flow have revealed physical insights to
@@ -240,7 +240,7 @@ between a lipid bilayer membrane and another bilayer
 membrane~\cite{EvansMetcalfe1984_BJ, Book_PhysicalBasisCellAdhesion,
 Book_IntermolecularSurfaceForces, PerutkovaFrank-Bertoncelij2013_CSB} or
 a solid (such as a glass substrate or a nano particle).  Adhesion
-between a vesicle and a substrate has been extensively studied with more
+between a vesicle and a solid has been extensively studied with more
 focus on the static equilibrium shapes~\cite{Seifert1990_PRA,
 ShiFengGao2006_ActaMechSin, LinFreund2007_IntJSolidsStructures,
 GruhnFrankeDimova2007_Langmuir,das2008adhesion, zhang2009phase,Agudo-Canalejo2015_ACSNano,Agudo-CanalejoLipowsky2015_NanoLett,
@@ -249,17 +249,17 @@ process~\cite{cantat1999lift, suk-sei2001, BlountMiksisDavis2013_PRSa}.
 Adhesive interactions between lipid membranes are essential in many
 biomedical, biological, and biophysical processes.  For example, vesicle
 adhesion is crucial to initiate membrane fusion and fission in
-endocytosis and exocytosis and the transport of small vesicles through
+endocytosis, exocytosis and the transport of small vesicles through
 membrane surfaces.  In the absence of an external electric field and
 ions in the solvents, it is reported that the adhesive interactions
 between two membranes can be well approximated by the L.-J.-type
 potential~\cite{FlormannAouane2017_SciReports}, that consists of a
 long-range attraction component and a short-range repulsion
 component~\cite{Book_IntermolecularSurfaceForces}, and the combination
-of the two gives rise to adhesion at the separation distance that
-minimizes the interaction
-potential~\cite{Book_IntermolecularSurfaceForces}. 
+of the two gives rise to an equilibrium distance
+where the interaction potential is at minimum~\cite{Book_IntermolecularSurfaceForces}. 
 
+The strength of membrane-membrane adhesion can be estimated through the membrane contact angle at the edge of contact zone \cite{RamachandranAndersonLealIsraelachvili2010_Langmuir,MaresDanielIglic2012_SciWorldJ}. Alternatively,
 Evans and Metcalfe~\cite{EvansMetcalfe1984_BJ} used the micropipette to
 measure the adhesive force between two vesicles bound by strong
 adhesion.  They were able to measure the reduction in the free energy
@@ -390,7 +390,7 @@ each other through both hydrodynamic and adhesive forces.
 Individual vesicles are denoted as $\gamma_j$,
 $j=1,\ldots,M$, and they are parameterized in arclength as $\xx_j(s,t)$.
 The union of all vesicles is denoted by $\gamma$.  Given a background
-velocity $\uu_\infty$, the governing equations are
+velocity $\uu_\infty$, the governing (dimensionless) equations are
 \begin{equation}
 \begin{aligned}
   \mu \Delta \uu = \nabla p, \quad &\xx \in \RR^2,
@@ -404,13 +404,16 @@ velocity $\uu_\infty$, the governing equations are
   \xx_s \cdot \uu_s =0, \quad &\xx \in \gamma,
     &&\mbox{\em local inextensibility} \\
   \llbracket T \rrbracket \nn = \xxi, \quad &\xx \in \gamma,
-    &&\mbox{\em non-zero stress jump}
+    &&\mbox{\em stress balance on membranes}
 \end{aligned} \label{eq:gov}
 \end{equation}
-where $\llbracket T \rrbracket$ is the jump in the stress tensor, and
+where $\uu$ is the fluid velocity field, $p$ is the pressure, and the scaled viscosity $\mu=1$ inside the vesicles.
+$\mu=\mu_e/\mu_i$ outside the vesicle, with $\mu_i$ ($\mu_e$)  the viscosity of interior  (exterior) fluid.  We set
+the viscosity ratio $\mu_e/\mu_i=1$ for the rest of the paper.
+$T = - p I + \mu\left(\nabla \uu + \nabla \uu^T\right)$ is the stress tensor, $\llbracket T \rrbracket$ is the jump across membrane, and
 $\xxi$ is the traction that is the sum of the bending, stretching,
-and adhesion forces.  The bending force, arising from the Helfrich
-energy model, is $\BB \xx = -\kappa_b \xx_{ssss}$, where $\kappa_b$ is
+and adhesion forces defined in equation~(\ref{eqn:traction}).  The bending force, arising from the Helfrich
+energy model, is $\BB \xx = -\kappa_b \xx_{ssss}$, where the subscript $s$ denotes derivative with respect to arclength $s$. $\kappa_b$ is
 the bending rigidity modulus which we set to be 1 for all examples. The
 stretching force is $\TT \sigma = (\sigma \xx_s)_s$, where the tension,
 $\sigma$, acts as a Lagrange multiplier to satisfy the local
@@ -449,7 +452,7 @@ force, $\AA \xx$, that we now describe.
   vesicle.}
 \end{figure}
 
-The Adhesion potential for a vesicle membrane has been modeled by a
+The adhesion potential for a vesicle membrane has been modeled by a
 L.-J.~type potential
 %Sukumaran and Seifert~\cite{suk-sei2001} consider adhesion between a
 %single three-dimensional vesicle and a solid wall at $z=0$.  They use
@@ -469,7 +472,7 @@ equilibrium distance $z=\delta$.  For large distances ($z> \delta$) the
 adhesive potential is attractive while for small distances ($z <
 \delta$) the potential is repulsive to prevent physical contact.
 
-The exponents $(m,n)$ depend on the geometry and the molecular details
+The exponents $(m,n)$ in equation~(\ref{eq:adhesion_potential}) depend on the geometry and the molecular details
 of the two objects under
 adhesion~\cite{Book_IntermolecularSurfaceForces}: $(m,n)=(4,2)$
 corresponds to two flat, planar surfaces interacting with each other,
@@ -576,10 +579,10 @@ When the force on each vesicle is a function of the separation distance
 $h$ of the form
 \begin{align}
   \label{eq:Fh}
-  F(h) \sim \mathcal{H} \frac{\delta^m}{h^{m+1}}
-    \left(\left(\frac{\delta}{h}\right)^{m-n}-1\right),
+  F(h) \sim \mathcal{H} \frac{m\delta^m}{h^{m+1}}
+    \left(1-\left(\frac{\delta}{h}\right)^{n-m}\right),
 \end{align}
-with $n>m\ge 2$ being integers, attraction is dominant at ``large"
+with integers $m>n\ge 2$.  Attraction is dominant at ``large"
 distances ($h > \delta$) while repulsion is dominant at ``small"
 distances ($h<\delta$).  Integration of equation~\eqref{eq:dhdt} with
 the $F(h)$ as defined in equation~\eqref{eq:Fh} gives the relationship
@@ -589,13 +592,13 @@ h/\delta$:
 \begin{align*}
   t\frac{K_a^{2/3}}{\mu R_0^{10/3}}& = 
     \int^{h(t)}_{h(0)}-\frac{dh}{h^3 F^{1/3}} = 
-    -\frac{1}{\mathcal{H}^{1/3}\delta^{5/3}}\int^{\bar{h}(t)}_{\bar{h}(0)}
+    -\frac{1}{m^{1/3}\mathcal{H}^{1/3}\delta^{5/3}}\int^{\bar{h}(t)}_{\bar{h}(0)}
       \frac{d \bar{h}}{\bar{h}^{(8-m)/3}(\bar{h}^{m-n}-1)^{1/3}}.
 \end{align*}
 Solving for $t$,
 \begin{align}
 \label{eq:teq_scaling}
-  t\sim \frac{\mu R_0^{10/3}}{K_a^{2/3}}\frac{1}{\mathcal{H}^{1/3}\delta^{5/3}},
+  t\sim \frac{\mu R_0^{10/3}}{K_a^{2/3}}\frac{1}{ m^{1/3} \mathcal{H}^{1/3}\delta^{5/3}},
 \end{align}
 and equation~\eqref{eq:teq_scaling} tells us that both the adhesion
 strength $\mathcal{H}$ and the separation distance $\delta$ affect the
@@ -717,25 +720,33 @@ observe that the membrane tension in the contact region is very
 negative, indicating a dominant compression of membrane when the
 adhesion force is strong to keep the vesicles bound together.
 
-The right plot of Figure~\ref{fig:Dec18_vesicle_shape} is a zoom on the
+The right plot of Figure~\ref{fig:Dec18_vesicle_shape} is a zoom (not to-scale) on the
 membranes in the contact region, where the membranes are not perfectly
-flat---at all reduced area we observe that the membranes are slightly
+flat at all three values of reduced area: We observe that the membranes are slightly
 curved with a dip at the edge.  Such membrane undulation in the contact
-region is predicted by lubrication analyses on a membrane under adhesion
+region is predicted by lubrication analyses on an elastic membrane under adhesion
 with a solid substrate~\cite{BlountMiksisDavis2013_PRSa,
-YoungStone2017_PRF}.  Also the dip at the edge of contact region is
-related to but different from the buckling of membrane under strong
-adhesion: A closer inspection on the dip at the edge shows that the
-membrane distance is smaller than the neutral separation distance
-$\delta$ there. Thus the adhesion force is attractive for most of the
-membranes in the contact region except at the edge, where the adhesive
-force turns repulsive.  Results from the lubrication analysis show that
+YoungStone2017_PRF}.  
+%
+Results from the lubrication analysis show that
 this dip and slightly curved shape in the contact region are independent
 of the adhesion strength. The high membrane curvature at the edge may
 pose a problem for using the contact angle there to estimate the
 adhesion strength. This inspires us to investigate the possibility of
 using a dynamic fluid trap to measure the adhesion strength (see
 Section~\ref{sec:eflow}).
+
+
+Also the dip at the edge of contact region is
+related to (but different from) the buckling of membrane under strong
+adhesion: A closer inspection on the dip at the edge shows that the
+membrane distance is smaller than the neutral separation distance
+$\delta$ there for more deflated vesicles.
+For $\triangle A =0.6$ and $0.75$  the adhesion force is mostly attractive
+ in the contact region except at the edge, where the adhesive
+force turns repulsive.  For $\triangle A=0.95$, however, the adhesion force is mostly repulsive,
+leading to large tension in the rest of the vesicle membrane.
+
 
 \begin{figure}
 \includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_Ebleft_Eadhright_vs_rA_adR0p2_adS502.jpeg}
@@ -836,7 +847,7 @@ stagnation point for long time scales to facilitate image acquisition or
 other detailed measures such as particle image velocimetry of flow
 inside and around the particle.  To explore the application of such a
 fluid trap to measure the adhesion strength between two bound vesicle
-membranes, we propose the following thought experiment.  Beginning with
+membranes, we propose the following experiment.  Beginning with
 two identical vesicles in an equilibrium configuration that form a
 doublet with a flat contact region
 (Figure~\ref{fig:Dec18_vesicle_shape}), we turn on the fluid trap with
@@ -846,17 +857,17 @@ overcomes the adhesive force and the doublet is broken, or the adhesive
 force is sufficiently strong and the doublet reaches a stable stationary
 configuration.
 
-In the following numerical experiments we initially place a vesicle
-doublet with $\theta=\pi$, so that the diverging flow may be strong
-enough to pull vesicles away from the doublet.  At low extensional
-rates, we expect the doublet to stay bound at the fluid trap stagnation
-point.  On the other hand, the vesicle doublet may become unstable and
-eventually separate at higher extensional rates.  Thus we expect there
-to exist a critical extensional rate $\chi_c$ above which the vesicle
-doublet cannot stay bound under a given adhesion potential.  Therefore,
-the dependence of the critical extensional rate $\chi_c$ on the adhesion
-potential and the mechanical vesicle properties provides a means to
-probe the physics of membrane adhesion.
+%In the following numerical experiments we initially place a vesicle
+%doublet with $\theta=\pi$, so that the diverging flow may be strong
+%enough to pull vesicles away from the doublet.  At low extensional
+%rates, we expect the doublet to stay bound at the fluid trap stagnation
+%point.  On the other hand, the vesicle doublet may become unstable and
+%eventually separate at higher extensional rates.  Thus we expect there
+%to exist a critical extensional rate $\chi_c$ above which the vesicle
+%doublet cannot stay bound under a given adhesion potential.  Therefore,
+%the dependence of the critical extensional rate $\chi_c$ on the adhesion
+%potential and the mechanical vesicle properties provides a means to
+%probe the physics of membrane adhesion.
 
 \begin{figure}[htp]
    \includegraphics[width=0.25\textwidth]{figs/rotate1.pdf}
@@ -899,29 +910,6 @@ from the less stable configuration $\theta=\pi$ to the more stable
 configuration $\theta=\pi/2$, so that the fluid flow is pushing them
 together rather than pulling them apart.
 
-We consider vesicle doublets with reduced areas 0.70, 0.75, 0.80, 0.85,
-0.90, and 0.95, all with a length of $2\pi$, and we vary the extensional
-rate, $\chi$, between $10^{-2}$ and $10^{-1}$.  Since the stagnation
-point can be controlled in an experimental
-setting~\cite{Johnson-Chavarria2011_EMJ}, we mimic the active control of
-the microfluidic experiments by moving the center of the doublet at each
-time step so that the stagnation point occurs exactly in the middle of
-the doublet.  With this adjustment, the vesicles either remain as a
-doublet in the fluid trap centered around the stagnation point, or the
-doublet is broken and the vesicles separate from one another.  In
-Figures~\ref{fig:extensional1}, snapshots of a fluid trap containing a
-vesicle doublet of reduced area $\Delta A = 0.7$ are simulated at three
-different extensional rates.  We observe that the doublet rotates from
-$\theta=\pi$ configuration towards the more stable $\theta=\pi/2$
-configuration, as shown in Figures~\ref{fig:extensional1}.  We also
-observe that with moderate extensional rates, the doublet falls short of
-aligning their long axis with the diverging direction.  Moreover, the
-final inclination angle is closest to the stable $\theta=\pi/2$ for the
-smallest extensional rates.  While this doublet remains bound for all
-the considered extensional rates, a doublet with a reduced area of
-$\Delta A = 0.8$ is split with a critical extensional rate $\chi_c =
-0.1$ (Figure~\ref{fig:extensional3}).  
-
 \begin{figure}[htp]
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi2em2_ra070_image01.png}
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi2em2_ra070_image02.png}
@@ -946,6 +934,67 @@ $\Delta A = 0.8$ is split with a critical extensional rate $\chi_c =
   0.1$ ({\em bottom}).  The center of the vesicle, denoted with a black
   square, is the stagnation point.}
   \end{figure}
+
+In the following numerical experiments we initially place a vesicle
+doublet with $\theta=\pi$, so that the diverging flow may be strong
+enough to pull vesicles away from the doublet.  At low extensional
+rates, we expect the doublet to stay bound at the fluid trap stagnation
+point.  On the other hand, the vesicle doublet may become unstable and
+eventually separate at higher extensional rates.  Thus we expect there
+to exist a critical extensional rate $\chi_c$ above which the vesicle
+doublet cannot stay bound under a given adhesion potential.  Therefore,
+the dependence of the critical extensional rate $\chi_c$ on the adhesion
+potential and the mechanical vesicle properties provides a means to
+probe the physics of membrane adhesion.
+
+
+We consider vesicle doublets with reduced areas 0.70, 0.75, 0.80, 0.85,
+0.90, and 0.95, all with a length of $2\pi$, and we vary the extensional
+rate, $\chi$, between $10^{-2}$ and $10^{-1}$.  Since the stagnation
+point can be controlled in an experimental
+setting~\cite{Johnson-Chavarria2011_EMJ}, we mimic the active control of
+the microfluidic experiments by moving the center of the doublet at each
+time step so that the stagnation point occurs exactly in the middle of
+the doublet.  With this adjustment, the vesicles either remain as a
+doublet in the fluid trap centered around the stagnation point, or the
+doublet is broken and the vesicles separate from one another.  In
+Figures~\ref{fig:extensional1}, snapshots of a fluid trap containing a
+vesicle doublet of reduced area $\Delta A = 0.7$ are simulated at three
+different extensional rates.  We observe that the doublet rotates from
+$\theta=\pi$ configuration towards the more stable $\theta=\pi/2$
+configuration, as shown in Figures~\ref{fig:extensional1}.  We also
+observe that with moderate extensional rates, the doublet falls short of
+aligning their long axis with the diverging direction.  Moreover, the
+final inclination angle is closest to the stable $\theta=\pi/2$ for the
+smallest extensional rates.  While this doublet remains bound for all
+the considered extensional rates, a doublet with a reduced area of
+$\Delta A = 0.8$ is split with a critical extensional rate $\chi_c =
+0.1$ (Figure~\ref{fig:extensional3}).  
+
+%\begin{figure}[htp]
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi2em2_ra070_image01.png}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi2em2_ra070_image02.png}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi2em2_ra070_image03.png}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi2em2_ra070_image04.png}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi2em2_ra070_image05.png}\\
+%   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image01.png}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image02.png}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image03.png}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image04.png}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi7em2_ra070_image05.png} \\
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra070_image01.png}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra070_image02.png}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra070_image03.png}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra070_image04.png}
+%  \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra070_image05.png}
+%  \caption{\label{fig:extensional1} A vesicle doublet in an extensional
+%  flow with an initial inclination angle $\theta=\pi$.  The reduced
+%  area is $\Delta A = 0.7$, the Hamaker constant is $\mathcal{H} = 0.7$,
+%  the separation distance is $\delta = 0.4$, and the extensional rate is
+%  $\chi = 0.02$ ({\em top}), $\chi=0.07$ ({\em middle}), and $\chi =
+%  0.1$ ({\em bottom}).  The center of the vesicle, denoted with a black
+%  square, is the stagnation point.}
+%  \end{figure}
 
  \begin{figure}
     \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi1em1_ra080_image01.png}
@@ -1010,12 +1059,16 @@ starts to rotate around $t\sim 250$.  We notice that the net force on
 each vesicle is almost anti-parallel to the diverging flow in the
 far-field so to balance the hydrodynamic drag force that pulls the
 vesicles apart.  Then, as the doublet starts to rotate, each vesicle
-experiences a drag force from both the up and down diverging streaming
-flows.  For small extensional rate, the rotation will continue until
+experiences a drag force from the diverging streaming
+flows.  
+%
+For small extensional rate, the rotation continues until
 $\theta = \pi/2$ so the doublet remains perfectly symmetric with respect
-to their mid-plane and each vesicle experiences drag forces that cancel
-in both directions.  For slightly higher extensional rate, we observe
-that the two vesicles slide against each other as the doublet rotates.
+to their mid-plane, and each vesicle experiences drag forces (from the diverging flow) that cancel
+each other.  
+%
+For slightly higher extensional rate in Figure~\ref{fig:extensionalVorticity}, we observe
+that the two vesicles slide against each other (around $t=280$) as the doublet rotates.
 The slight sliding motion leads to a transition in the contact region
 membrane shape from a bulging profile to an S-shape profile of nearly
 uniform height except near the edge of contact region.  This adjustment
@@ -1063,8 +1116,11 @@ they are deflected to opposite sides of the $y$ axis, pass one another,
 and then separate.  However, in the presence of adhesion, the vesicles
 can form a doublet for certain values of the separation distance
 $\delta$, Hamaker constant $\mathcal{H}$, shear rate $\chi$, and reduced
-area $\Delta A$.  At all reduced areas, the vesicles have a length of
-$2\pi$.  Figure~\ref{fig:doublet090} shows snapshots of two vesicles
+area $\Delta A$.  
+At all reduced areas, the vesicles have a length of
+$2\pi$ to be consistent with simulations in previous sections.  
+
+Figure~\ref{fig:doublet090} shows snapshots of two vesicles
 that have formed a doublet and the color coding is the tension along the
 vesicle.  The two vesicles are identical with reduced area $\Delta A =
 0.9$, shear rate $\chi = 0.5$, separation distance $\delta = 0.4$, and
@@ -1312,13 +1368,12 @@ by the Flatiron Institute, a division of Simons Foundation.
 Consider a suspension of two vesicles $\gamma_1$ and $\gamma_2$
 parameterized as $\xx_1(s)$ and $\xx_2(s)$, respectively, with $s \in
 [0,1]$.  Here $s$ is the arclength, and we have assumed, without loss of
-generality, that both vesicles have length one.  We use the van der
-Waals potential
+generality, that both vesicles have length one.  We use the  L.-J. type potential
 \begin{align*}
   \phi(z) = \mathcal{H} \left[ 
     \left(\frac{\delta}{z}\right)^m - \frac{m}{n}\left(\frac{\delta}{z}\right)^n \right],
 \end{align*}
-where $z$ is the distance between two points.  Then, we define the total
+where $z$ is the distance between two points on a pair of vesicles.  Then, we define the total
 adhesive energy on $\gamma_1$ to be
 \begin{align*}
   U_1 = \int_{\gamma_1} \int_{\gamma_2} \phi(\|\xx_1 - \xx_2\|) 
