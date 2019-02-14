@@ -84,7 +84,7 @@
 
 \preprint{APS/123-QED}
 
-\title{Hydrodynamics and rheology of vesicle doublets}
+\title{Hydrodynamics and rheology of a vesicle doublet suspension}
 % Force line breaks with \\
 %\thanks{A footnote to the article title}%
 
@@ -120,11 +120,10 @@ diverging stream, thus providing a simple method to measure the adhesion
 strength between two vesicle membranes. 
 %
 In a planar shear flow, numerical simulations reveal that a vesicle
-doublet may form as two vesicles approach each other provided that the adhesion
+doublet may form provided that the adhesion
 strength is sufficiently large at a given vesicle reduced area. Once a
 doublet is formed, the effective shear viscosity of a dilute suspension
-of vesicle doublets is found to be a function of both reduced area and
-the adhesion strength.  Results from these numerical studies and
+of vesicle doublets is found to be a function of  reduced area.  Results from these numerical studies and
 analysis shed light on the hydrodynamic and rheological consequences of adhesive interactions
 between vesicles in a viscous fluid.
 %\begin{description}
@@ -151,14 +150,14 @@ between vesicles in a viscous fluid.
 \section{Introduction}
 Vesicles (closed fluid-filled phospholipid bilayer membranes) have been
 widely utilized as biological cell mimics in biophysics and material
-engineering~\cite{sackmann1996, Barthes-Biesel2016_ARFM}.  The ever
-expanding applications have encouraged detailed experimental,
-theoretical, and numerical investigations of vesicle hydrodynamics in
-applied flow, electric fields, and magnetic fields.  Theoretical
-investigations often take the form of small-deformation analysis or
-spheroidal dynamics of a nearly-spherical vesicle (or nearly-circular in
-two dimensions) subjected to an applied flow or under an external
-forcing~\cite{Barthes-BieselRallison1981_JFM, Misbah2006_PRL,
+engineering~\cite{sackmann1996, FenzSengupta2012_IntegrBiol,Barthes-Biesel2016_ARFM}.  The ever
+expanding applications of vesicles have encouraged detailed experimental,
+theoretical, and numerical investigations of vesicle dynamics in
+applied flow, electric fields, and magnetic fields.  
+Experimental investigations of vesicles have uncovered vesicle properties and various novel applications
+\cite{Dobereiner2000_CurrentOpinionCIS,EvansRawiczSmith2013_FaradayDiscussions,SugiyamaToyota2018_Life}. 
+Theoretical investigations are often limited to small-deformation analysis on a nearly spherical vesicle
+or spheroidal analysis on a spheroidal vesicle \cite{Barthes-BieselRallison1981_JFM, Misbah2006_PRL,
 Vlahovska2007_PRE, Finken2008_EPL, ZhangZahnTanLin2013_PoF,
 Nganguia2013_PRE}.  On the other hand, various numerical methods have
 been developed for simulating the transient hydrodynamics of vesicle
@@ -199,16 +198,17 @@ the formation of vesicle doublets~\cite{Ziherl2007_PRL,
 ZiherlSvetina2007_PNAS} or
 clusters~\cite{SvetinaZiherl2008_Bioelectrochemistry,
 FlormannAouane2017_SciReports}.  As a model for red blood cell (RBC)
-aggregates, an idealized model for adhesive vesicle-vesicle interactions
-gives rise to vesicle configurations similar to those observed in
+aggregates, a simplified model for adhesive vesicle-vesicle interactions
+can reproduce vesicle shapes similar to those observed in
 experiments of fibrinogen-induced RBC
 aggregates~\cite{SvetinaZiherl2008_Bioelectrochemistry,
 FlormannAouane2017_SciReports}.  Using the Lennard-Jones
 (L.-J.)~potential for point-point interaction between two vesicle
 membranes without the molecular details of adhesive interactions between
 RBCs, Flormann {\em et al.}~\cite{FlormannAouane2017_SciReports} found
-the contact zone to buckle under strong adhesion.  A direct consequence
-of the buckling is the sigmoidal shape of the adhesion region, which is
+that, under strong adhesion, 
+the membrane may buckle to a sigmoidal shape in the contact region.
+Such a sigmoidal vesicle shape is 
 also observed in RBC doublets and explained in a slightly different
 model~\cite{ZiherlSvetina2007_PNAS}.  It remains unknown how adhesive
 interactions between vesicles might lead to different vesicle
@@ -243,8 +243,8 @@ a solid (such as a glass substrate or a nano particle).  Adhesion
 between a vesicle and a substrate has been extensively studied with more
 focus on the static equilibrium shapes~\cite{Seifert1990_PRA,
 ShiFengGao2006_ActaMechSin, LinFreund2007_IntJSolidsStructures,
-GruhnFrankeDimova2007_Langmuir,das2008adhesion, zhang2009phase,
-SteinkuhlerAgudo-Canalejo2016_BJ} than the transient adhesion
+GruhnFrankeDimova2007_Langmuir,das2008adhesion, zhang2009phase,Agudo-Canalejo2015_ACSNano,Agudo-CanalejoLipowsky2015_NanoLett,
+SteinkuhlerAgudo-Canalejo2016_BJ,Agudo-CanalejoLipowsky2017_SoftMatt} than the transient adhesion
 process~\cite{cantat1999lift, suk-sei2001, BlountMiksisDavis2013_PRSa}.
 Adhesive interactions between lipid membranes are essential in many
 biomedical, biological, and biophysical processes.  For example, vesicle
@@ -1286,7 +1286,7 @@ negative tension in the contact regions.}
 Finally, it is not clear how thermal fluctuations may affect the
 hydrodynamics of vesicles under adhesion. For example, does the
 fluctuating hydrodynamics in the thin film between two vesicles enhance
-adhesion to keep vesicles bound under linear flows?  Recently Liu {\em
+adhesion to keep vesicles bound under linear flows as speculated in cells \cite{FenzBihrSchmidt2017_NaturePhys}?  Recently Liu {\em
 et al.}~\cite{LiuChuNewbyRead2018_bioRxiv} used immersed boundary
 simulations to show that, at a separation distance of tens of
 nanometers, the thin film between the two membranes facilitate the
@@ -1294,7 +1294,7 @@ coupling between membranes via strong hydrodynamic interactions. In
 particular, they demonstrate numerically that the fluctuation in one
 membrane is highly correlated to the other membrane without any physical
 contact. We are actively pursuing this direction with hydrodynamic
-modeling and simulations of adhesive membranes with thermal fluctions.
+modeling and simulations of adhesive membranes with thermal fluctuations.
 
 \acknowledgments
 
