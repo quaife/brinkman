@@ -412,8 +412,8 @@ velocity $\uu_\infty$, the governing (dimensionless) equations are
     &&\mbox{\em stress balance on membranes}
 \end{aligned} \label{eq:gov}
 \end{equation}
-where $\uu$ is the fluid velocity field, $p$ is the pressure, and the scaled viscosity $\mu=1$ inside the vesicles.
-$\mu=\mu_e/\mu_i$ outside the vesicle, with $\mu_i$ ($\mu_e$)  the viscosity of interior  (exterior) fluid.  We set
+where $\uu$ is the fluid velocity field, $p$ is the pressure, and the scaled viscosity $\mu=1$ inside the vesicles. Outside the vesicle
+$\mu=\mu_e/\mu_i$ with $\mu_i$ ($\mu_e$)  the viscosity of the interior  (exterior) fluid.  We set
 the viscosity ratio $\mu_e/\mu_i=1$ for the rest of the paper.
 $T = - p I + \mu\left(\nabla \uu + \nabla \uu^T\right)$ is the stress
 tensor, $\llbracket T \rrbracket$ is the jump across the membrane, and
@@ -1367,6 +1367,58 @@ NSF-DMS 1614863 and NSF-DMS 1412789.  Both SV and YNY were also supported
 by the Flatiron Institute, a division of Simons Foundation.
 
 \begin{appendices}
+\section{Integral Equation Formulation}
+\label{sec:AppendixB}
+Using potential theory and following~\cite{Veerapaneni2009_JCP}, we recast the governing equations~\eqref{eq:gov} as integro-differential equations for the evolution of membrane positions: 
+%
+\begin{align*}
+  &\dot{\xx} = \uu_{\infty}(\xx) + \SS[\xxi](\xx), \\
+  &\xx_s \cdot \dot{\xx}_s = 0,
+ \end{align*}
+%
+where the single-layer potential $\SS[\cdot]$ is defined by
+\begin{align}
+  \SS[\xxi](\xx) &= \frac{1}{4\pi\mu} \int_\gamma \left(
+    -\log \|\xx - \yy\| + \frac{(\xx - \yy) \otimes (\xx - \yy)}{\|\xx - \yy\|^2} \right) 
+    \xxi(\yy) ds_\yy, 
+  \label{eqn:SLP}
+\end{align}
+%
+and the membrane force $\xxi$ is a sum of the bending, tension and adhesion forces: 
+\begin{align}
+\xxi = -\kappa_b \xx_{ssss} + (\sigma \xx_s)_s + \AA\xx.
+\label{eqn:traction}
+\end{align}
+Defining the bending operator as $\BB[\ff](\xx) = -\kappa_b \ff_{ssss}$,
+the tension operator $\TT[\sigma](\xx) = (\sigma \xx_s)_s$, and using
+IMEX-Euler, the no-slip boundary results in the time stepping method
+\begin{align*}
+  \xx^{N+1} - \Delta t \SS^N \BB^N \xx^{N+1} - 
+    \Delta t \SS^N \TT^N \sigma^{N+1} = \xx^N + 
+    \Delta t \SS^N \AA^N \xx^N,
+\end{align*}
+and the inextensibility constraint that is discretized as
+\begin{align*}
+  \xx_s^{N} \cdot \xx_{s}^{N+1} = 1.
+\end{align*}
+We discretize the vesicles at a set of collocation points, compute the
+bending and tension terms with Fourier differentiation, and apply Alpert
+quadrature~\cite{alp1999} to the weakly-singular single-layer potential
+$\SS$.  The source and target points of the adhesion force never
+coincide since they are always on different vesicles, so the adhesion
+force~\eqref{eqn:adhesionForce} is computed with the spectrally accurate
+trapezoid rule~\cite{tre-wei2014}.  
+
+The dynamics of a doublet undergoes many different time scales over time
+horizons that are sufficiently large to characterize the formation of a
+doublet and its rheological properties.  Therefore, time adaptivity is
+crucial so that a user-specified tolerance is achieved without using a
+guess-and-check procedure to find an appropriately small fixed time step
+size.  To control the error and achieve second-order accuracy in time,
+we use a time adaptive spectral deferred correction method that
+applies IMEX-Euler twice per time step~\cite{quaife2016adaptive}. 
+
+
 \section{Adhesion Force}
 \label{sec:appendixA}
 Consider a suspension of two vesicles $\gamma_1$ and $\gamma_2$
@@ -1463,56 +1515,6 @@ force for a suspension of $M$ vesicles.
 %depends sensitively on the vesicle reduced volume  and the elastic capillary number \cite{KantslerSegreSteinberg2008_PRL,ZhaoShaqfeh2013_JFM,Narsimhan2014_JFM,DahlNarsimhanGouveia2016_SoftMatt}: Asymmetric shape and oscillatory undulation of the vesicle membrane are two examples of the complex vesicle hydrodynamics in an extensional flow.
 
 
-\section{Integral Equation Formulation}
-\label{sec:AppendixB}
-Using potential theory and following~\cite{Veerapaneni2009_JCP}, we recast the governing equations~\eqref{eq:gov} as integro-differential equations for the evolution of membrane positions: 
-%
-\begin{align*}
-  &\dot{\xx} = \uu_{\infty}(\xx) + \SS[\xxi](\xx), \\
-  &\xx_s \cdot \dot{\xx}_s = 0,
- \end{align*}
-%
-where the single-layer potential $\SS[\cdot]$ is defined by
-\begin{align}
-  \SS[\xxi](\xx) &= \frac{1}{4\pi\mu} \int_\gamma \left(
-    -\log \|\xx - \yy\| + \frac{(\xx - \yy) \otimes (\xx - \yy)}{\|\xx - \yy\|^2} \right) 
-    \xxi(\yy) ds_\yy, 
-  \label{eqn:SLP}
-\end{align}
-%
-and the membrane force $\xxi$ is a sum of the bending, tension and adhesion forces: 
-\begin{align}
-\xxi = -\kappa_b \xx_{ssss} + (\sigma \xx_s)_s + \AA\xx.
-\label{eqn:traction}
-\end{align}
-Defining the bending operator as $\BB[\ff](\xx) = -\kappa_b \ff_{ssss}$,
-the tension operator $\TT[\sigma](\xx) = (\sigma \xx_s)_s$, and using
-IMEX-Euler, the no-slip boundary results in the time stepping method
-\begin{align*}
-  \xx^{N+1} - \Delta t \SS^N \BB^N \xx^{N+1} - 
-    \Delta t \SS^N \TT^N \sigma^{N+1} = \xx^N + 
-    \Delta t \SS^N \AA^N \xx^N,
-\end{align*}
-and the inextensibility constraint that is discretized as
-\begin{align*}
-  \xx_s^{N} \cdot \xx_{s}^{N+1} = 1.
-\end{align*}
-We discretize the vesicles at a set of collocation points, compute the
-bending and tension terms with Fourier differentiation, and apply Alpert
-quadrature~\cite{alp1999} to the weakly-singular single-layer potential
-$\SS$.  The source and target points of the adhesion force never
-coincide since they are always on different vesicles, so the adhesion
-force~\eqref{eqn:adhesionForce} is computed with the spectrally accurate
-trapezoid rule~\cite{tre-wei2014}.  
-
-The dynamics of a doublet undergoes many different time scales over time
-horizons that are sufficiently large to characterize the formation of a
-doublet and its rheological properties.  Therefore, time adaptivity is
-crucial so that a user-specified tolerance is achieved without using a
-guess-and-check procedure to find an appropriately small fixed time step
-size.  To control the error and achieve second-order accuracy in time,
-we use a time adaptive spectral deferred correction method that
-applies IMEX-Euler twice per time step~\cite{quaife2016adaptive}. 
 
 %To characterize the rheological properties of the suspension of a
 %doublet, it is necessary to compute the shear and normal stresses.  At a
