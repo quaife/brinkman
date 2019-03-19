@@ -78,5 +78,31 @@ There are multiple ways to convert the PDE problem into integral equations. Base
 \beq \dot{\mbx} = \mbu_\infty(\mbx) + \beta (\mbf_\text{mem}\cdot\mbn)\mbn + \sgl [\mbf_\text{mem}], \eeq
 \beq \mbx_s\cdot\dot{\mbx}_s = 0 \eeq
 This satisfies all the jump conditions. As usual, $\sgl$ is the single layer potential. 
-\end{document}
 
+\section{Numerics}
+The time derivative is discretized as 
+ \begin{multline}  \mbx^N = X^{N+1} - \Delta t\sgl^N\bigg(\mathcal{B}^N\mbx^{N+1}+\mathcal{T}^N\sigma^{N+1}\bigg) - \\ \Delta t\beta\bigg((\mathcal{B}^N\mbx^{N+1}+\mathcal{T}\sigma^{N+1})\cdot \mbn \bigg)\cdot \mbn
+ \end{multline}
+ To write this in matrix form later on, we define 
+ \beq \mathcal{P} [\mbx]\mbf = \bigg(\mbf \cdot \mbn\bigg)\mbn, \eeq
+ so that 
+
+ \begin{multline}\mbx^N = X^{N+1} - \Delta t\sgl^N\bigg(\mathcal{B}^N\mbx^{N+1}+\mathcal{T}^N\sigma^{N+1}\bigg) - \\ \Delta t\beta \mathcal{P}^N\bigg(\mathcal{B}^N\mbx^{N+1}+\mathcal{T}\sigma^{N+1}\bigg). \end{multline}
+ 
+ For the inexstensibility condition,
+ \beq \dbl^N\mbx^N \cdot \dbl\mbx^{N+1} = 1. \eeq
+ 
+ We obtain the matrix
+\begin{multline}
+ \begin{pmatrix}
+ 	\mbx^N \\ \textbf{1} 
+ \end{pmatrix} = \\
+\begin{pmatrix}
+	I - \Delta t \sgl^N\mathcal{B}^N - \Delta t \beta \mathcal{P}^N\mathcal{B}^N & -\Delta t \sgl^N \mathcal{T}^N-\Delta t\beta \mathcal{P}^N\mathcal{T}^N \\ & \textbf{0}
+\end{pmatrix}
+\begin{pmatrix}
+	\mbx^{N+1} \\ \sigma^{N+1}
+\end{pmatrix} 
+\end{multline}
+
+\end{document}
