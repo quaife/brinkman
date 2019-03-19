@@ -162,6 +162,40 @@ end
 end % adhesionTerm
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function force = expForce(o,d)
+% force = expForce(d) computes the exponential force due to a point
+% force at (0,0).  d is a length scale.
+
+oc = curve;
+force = zeros(2*o.N,o.nv);
+[x,y] = oc.getXY(o.X);
+%phi = exp(-(x.^2 + y.^2)/d^2);
+%fx = -2/d^2*phi.*x;
+%fy = -2/d^2*phi.*y;
+x0 = 0;
+y0 = 0;
+%y0 = max(y) + 2;
+r = sqrt((x-x0).^2 + (y-y0).^2);
+fx1 = -exp(-r/d).*x./sqrt(x.^2 + y.^2);
+fy1 = -exp(-r/d).*y./sqrt(x.^2 + y.^2);
+
+x0 = 0;
+y0 = -10;
+r = sqrt((x-x0).^2 + (y-y0).^2);
+fx2 = exp(-r/d).*x./sqrt(x.^2 + y.^2);
+fy2 = exp(-r/d).*y./sqrt(x.^2 + y.^2);
+
+%[tx,ty] = oc.getXY(o.xt);
+%nx = ty; ny = -tx;
+%s = find(x.*nx + y.*ny > 0);
+%fx(s) = 0;
+%fy(s) = 0;
+
+force = [fx1 + fx2;fy1 + fy2];
+
+end % expForce
+
 
 
 

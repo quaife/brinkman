@@ -71,6 +71,7 @@ alpha         % safety factor scaling for new time step size
 adhesion      % use adhesion in the model
 adStrength    % strength of adhesion
 adRange       % range of adhesion
+expForce      % exponential force towards a points ource
 fmmPrecision  % precision of fmm
 end % properties
 
@@ -145,6 +146,8 @@ o.adStrength = prams.adStrength;
 % strength of adhesion
 o.adRange = prams.adRange;
 % range of adhesion
+
+o.expForce = options.expForce;
 
 o.fmmPrecision = options.fmmPrecision;
 o.op = poten(prams.N,o.fmmPrecision);
@@ -1244,6 +1247,41 @@ if o.adhesion
 %  pause
 end
 % Compute velocity due to adhesion
+
+
+if o.expForce
+  d = 0.8;
+  expForce = vesicle.expForce(d);
+  if ~o.fmm
+    kernel = @op.exactStokesSL;
+    kernelDirect = @op.exactStokesSL;
+  else
+    kernel = @op.exactStokesSLfmm;
+    kernelDirect = @op.exactStokesSL;
+  end
+
+%  expForce_vel = expForce;
+  expForce_vel = 1e1*op.exactStokesSLdiag(vesicle,o.Galpert,expForce);
+  % diagonal term of exponential force
+
+  rhs1 = rhs1 + o.dt*expForce_vel*diag(1./alpha);
+%  figure(2);clf; hold on
+%  plot(vesicle.X(1:end/2,:),vesicle.X(end/2+1:end,:),'r-o')
+%  quiver(vesicle.X(1:end/2),vesicle.X(end/2+1:end),...
+%      expForce(1:end/2),expForce(end/2+1:end));
+%  axis equal;
+%  figure(3);clf; hold on
+%  plot(vesicle.X(1:end/2,:),vesicle.X(end/2+1:end,:),'r-o')
+%  quiver(vesicle.X(1:end/2),vesicle.X(end/2+1:end),...
+%      expForce_vel(1:end/2),expForce_vel(end/2+1:end));
+%  axis equal;
+%  mean(expForce_vel(1:end/2))
+%  mean(expForce_vel(end/2+1:end))
+%  pause
+end
+% Compute velocity due to exponential point force
+
+
 
 
 % START TO COMPUTE RIGHT-HAND SIDE DUE TO SOLID WALLS
