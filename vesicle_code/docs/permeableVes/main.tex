@@ -108,7 +108,7 @@ vesicle are governed by
 \end{align}
 Using the notation $\BB^N$ to denote the bending operator due to the
 vesicle configuration at time $t_N$, and similar notation for the other
-operators, we apply the semi-implicit time
+operators, we apply the semi-implicit time stepping method
 \begin{multline}  
   \frac{\mbx^{N+1} - \mbx^N}{\Delta t} = \mbu_\infty(\mbx^N) 
   + \beta \PP^N(\BB^N\mbx^{N+1} + \TT^N\sigma^{N+1})  \\
@@ -142,7 +142,7 @@ where
     -\Delta t \PP^N \TT^N - \Delta t \sgl^N \TT^N \\
     \dbl^N & 0
   \end{array}
-  \right)
+  \right).
 \eeq
 
  
