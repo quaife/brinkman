@@ -92,10 +92,10 @@ equation~\eqref{eqn:vesVelocity} is discretized with a semi-implicit
 time stepping method similar to our previous works.  First, we introduce
 the notation
 \begin{align}
-  \BB[\mbx]\mbf &= \frac{d^4}{ds^4} \mbf, \\
-  \TT[\mbx]\sigma &= (\sigma \mbx_s)_s, \\
-  \PP[\mbx]\mbf &= (\mbf \cdot \mbn) \mbn, \\
-  \dbl[\mbx]\mbf &= \mbx_s \cdot \mbf_s
+  B[\mbx]\mbf &= -\kappa_b\frac{d^4}{ds^4} \mbf, \\
+  T[\mbx]\sigma &= (\sigma \mbx_s)_s, \\
+  P[\mbx]\mbf &= (\mbf \cdot \mbn) \mbn, \\
+  D[\mbx]\mbf &= \mbx_s \cdot \mbf_s
 \end{align}
 where $\mbn$ is the is the outward unit normal of the vesicle
 parameterized by $\mbx$, and $d/ds$ is its arclength derivative.
@@ -103,23 +103,23 @@ Dropping the dependence of the operators on $\mbx$, the dynamics of the
 vesicle are governed by
 \begin{align}
   \dot{\mbx} &= \mbu_{\infty}(\mbx) + 
-  \beta \PP(\BB\mbx + \TT\sigma) + \sgl(\BB\mbx + \TT\sigma), \\
-  \dbl \dot{\mbx} &= 0.
+  \beta P(B\mbx + T\sigma) + \sgl(B\mbx + T\sigma), \\
+  D \dot{\mbx} &= 0.
 \end{align}
-Using the notation $\BB^N$ to denote the bending operator due to the
+Using the notation $B^N$ to denote the bending operator due to the
 vesicle configuration at time $t_N$, and similar notation for the other
 operators, we apply the semi-implicit time stepping method
 \begin{multline}  
   \frac{\mbx^{N+1} - \mbx^N}{\Delta t} = \mbu_\infty(\mbx^N) 
-  + \beta \PP^N(\BB^N\mbx^{N+1} + \TT^N\sigma^{N+1})  \\
-  + \sgl^N(\BB^N\mbx^{N+1} + \TT^N\sigma^{N+1}).
+  + \beta P^N(B^N\mbx^{N+1} + T^N\sigma^{N+1})  \\
+  + \sgl^N(B^N\mbx^{N+1} + T^N\sigma^{N+1}).
 \end{multline}
-Applying $\dbl$ to the first-order time discretization of
+Applying $D$ to the first-order time discretization of
 equation~\eqref{eqn:vesVelocity}, the inextensibility condition is
 \begin{align*}
-  &\dbl^N(\mbx^{N+1} - \mbx^N) = 0 \\ 
-  \Rightarrow &\dbl^N\mbx^{N+1} = \dbl^N \mbx^N \\ 
-  \Rightarrow &\dbl^N\mbx^{N+1} = 1.
+  &D^N(\mbx^{N+1} - \mbx^N) = 0 \\ 
+  \Rightarrow &D^N\mbx^{N+1} = D^N \mbx^N \\ 
+  \Rightarrow &D^N\mbx^{N+1} = 1.
 \end{align*}
 Finally, we write the time stepping method in matrix form as
 \begin{align}
@@ -138,9 +138,9 @@ where
 \beq
  A = \left(
   \begin{array}{cc}
-    I - \Delta t \beta \PP^N - \Delta t \sgl^N \BB^N & 
-    -\Delta t \PP^N \TT^N - \Delta t \sgl^N \TT^N \\
-    \dbl^N & 0
+    I - \Delta t \beta P^N - \Delta t \sgl^N B^N & 
+    -\Delta t P^N T^N - \Delta t \sgl^N T^N \\
+    D^N & 0
   \end{array}
   \right).
 \eeq
