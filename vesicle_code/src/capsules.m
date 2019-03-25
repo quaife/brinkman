@@ -175,16 +175,15 @@ force = zeros(2*o.N,o.nv);
 %fy = -2/d^2*phi.*y;
 x0 = 0;
 y0 = 0;
-%y0 = max(y) + 2;
 r = sqrt((x-x0).^2 + (y-y0).^2);
-fx1 = -exp(-r/d).*x./sqrt(x.^2 + y.^2);
-fy1 = -exp(-r/d).*y./sqrt(x.^2 + y.^2);
+fx1 = -exp(-r/d).*(x-x0)./r;
+fy1 = -exp(-r/d).*(y-y0)./r;
 
 x0 = 0;
 y0 = -10;
 r = sqrt((x-x0).^2 + (y-y0).^2);
-fx2 = exp(-r/d).*x./sqrt(x.^2 + y.^2);
-fy2 = exp(-r/d).*y./sqrt(x.^2 + y.^2);
+fx2 = -exp(-r/d).*(x-x0)./r;
+fy2 = -exp(-r/d).*(y-y0)./r;
 
 %[tx,ty] = oc.getXY(o.xt);
 %nx = ty; ny = -tx;

@@ -1250,7 +1250,7 @@ end
 
 
 if o.expForce
-  d = 0.8;
+  d = 1.8;
   expForce = vesicle.expForce(d);
   if ~o.fmm
     kernel = @op.exactStokesSL;
@@ -1261,7 +1261,7 @@ if o.expForce
   end
 
 %  expForce_vel = expForce;
-  expForce_vel = 1e1*op.exactStokesSLdiag(vesicle,o.Galpert,expForce);
+  expForce_vel = 1e2*op.exactStokesSLdiag(vesicle,o.Galpert,expForce);
   % diagonal term of exponential force
 
   rhs1 = rhs1 + o.dt*expForce_vel*diag(1./alpha);
