@@ -73,6 +73,8 @@ adStrength    % strength of adhesion
 adRange       % range of adhesion
 expForce      % exponential force towards a points ource
 fmmPrecision  % precision of fmm
+SP            % semipermeable membrane
+pBeta         % Physical beta
 end % properties
 
 methods
@@ -118,6 +120,7 @@ o.orderGL = options.orderGL;
 % Gauss-Lobatto order
 o.GLpts = o.gaussLobatto(o.orderGL);
 % load Gauss-Lobatto points
+
 %% if options.correctShape
 %  o.rtolArea = prams.rtolArea;
 %  o.rtolLength = prams.rtolLength;
@@ -157,6 +160,11 @@ if options.confined
 else
   o.opWall = [];
 end
+
+o.SP = options.semipermeable;
+% Semipermeable membrane
+o.pBeta = prams.PhysBeta;
+% Physical Beta
 
 % Build class with quadrature points and weights as well as lagrange
 % interpolation matrix
@@ -1428,6 +1436,8 @@ if usePreco
       tic
     end
     [Ben,Ten,Div] = vesicle.computeDerivs;
+    P = vesicle.computeNormals;
+    
     if o.profile
       fprintf('Build differential operators        %5.1e\n',toc);
     end
@@ -1456,7 +1466,6 @@ if usePreco
       % schur complement of the upper left 2*N by 2*N block
     end
     
-    
     for k=1:nv
       if strcmp(o.solver,'method1')
         if any(vesicle.viscCont ~= 1)
@@ -1468,8 +1477,8 @@ if usePreco
         else
           [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
             [o.beta*eye(2*N) + ...
-                o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k) ...
-            -o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
+                o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k)+o.dt*10e-3*P*Ben(:,:,k) ...
+            -o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k)-o.dt*10e-3*P*Ten(:,:,k); ...
             o.beta*Div(:,:,k) zeros(N)]);
         end
       elseif strcmp(o.solver,'method2')
@@ -1662,6 +1671,12 @@ alpha = (1+vesicle.viscCont)/2;
 
 Gf = op.exactStokesSLdiag(vesicle,o.Galpert,f);
 % Gf is the single-layer potential applied to the traction jump. 
+if o.SP
+    Pf = vesicle.normalProjection(f);
+    %Calculate the normal projection for semipermeable membrane
+else
+    Pf = 0;
+end
 
 if any(vesicle.viscCont ~= 1)
   DXm = op.exactStokesDLdiag(vesicle,o.D,Xm);
@@ -1874,6 +1889,7 @@ valPos = valPos - o.dt*Fwall2Ves*diag(1./alpha);
 % velocity due to solid walls evaluated on vesicles
 valPos = valPos - o.dt*LetsVes*diag(1./alpha);
 % velocity on vesicles due to the rotlets and stokeslets
+valPos = valPos + o.pBeta*Pf*o.dt;
 % END OF EVALUATING VELOCITY ON VESICLES
 %**************************************************************************
 % Repulsion Magnitude Test
