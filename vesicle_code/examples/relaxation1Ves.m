@@ -4,7 +4,7 @@ fprintf('Simple elliptical vesicle in a relaxation flow.\n');
 fprintf('First-order semi-implicit time stepping.\n');
 
 % Physics parameters
-prams.N = 128*2;               % points per vesicle
+prams.N = 96;               % points per vesicle
 prams.nv = 1;               % number of vesicles
 prams.T = 10;               % time horizon (two tumbling)
 prams.m = 1000;              % number of time steps
@@ -68,17 +68,17 @@ options.errorFile = 'output/relaxation1VesError.bin';
 % Also add src to path
 
 oc = curve;
-ra = 0.65;
+ra = 0.99;
 %scale = sqrt(ra);
 scale = 1;
 X = oc.initConfig(prams.N,...
     'reducedArea',ra,...
-    'angle',pi/2,...
+    'angle',0,...
     'center',[0;-5],...
     'scale',scale);
 % Initial configuration of reduce area 0.65 and aligned
-%theta = (0:prams.N-1)'*2*pi/prams.N;
-%X = [0.99*cos(theta);sin(theta)];
+theta = (0:prams.N-1)'*2*pi/prams.N;
+X = [cos(theta);3*sin(theta)-5];
 
 Xfinal = Ves2D(X,[],prams,options);
 % Run vesicle code

@@ -1475,11 +1475,21 @@ if usePreco
             -o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
             o.beta*Div(:,:,k) zeros(N)]);
         else
-          [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
-            [o.beta*eye(2*N) + ...
-                o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k)+o.dt*10e-3*P*Ben(:,:,k) ...
-            -o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k)-o.dt*10e-3*P*Ten(:,:,k); ...
-            o.beta*Div(:,:,k) zeros(N)]);
+          if o.SP
+            [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
+              [o.beta*eye(2*N) + ...
+                  o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k)+...
+                  o.dt*vesicle.kappa(k)*o.pBeta*P*Ben(:,:,k), ...
+              -o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k)-...
+               o.dt*o.pBeta*P*Ten(:,:,k); ...
+              o.beta*Div(:,:,k), zeros(N)]);
+          else
+            [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
+              [o.beta*eye(2*N) + ...
+                  o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k), ...
+              -o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
+              o.beta*Div(:,:,k), zeros(N)]);
+          end
         end
       elseif strcmp(o.solver,'method2')
         if any(vesicle.viscCont ~= 1)
@@ -1672,10 +1682,10 @@ alpha = (1+vesicle.viscCont)/2;
 Gf = op.exactStokesSLdiag(vesicle,o.Galpert,f);
 % Gf is the single-layer potential applied to the traction jump. 
 if o.SP
-    Pf = vesicle.normalProjection(f);
-    %Calculate the normal projection for semipermeable membrane
+  Pf = vesicle.normalProjection(f);
+  %Calculate the normal projection for semipermeable membrane
 else
-    Pf = 0;
+  Pf = zeros(2*N,nv);
 end
 
 if any(vesicle.viscCont ~= 1)
@@ -1889,7 +1899,7 @@ valPos = valPos - o.dt*Fwall2Ves*diag(1./alpha);
 % velocity due to solid walls evaluated on vesicles
 valPos = valPos - o.dt*LetsVes*diag(1./alpha);
 % velocity on vesicles due to the rotlets and stokeslets
-valPos = valPos + o.pBeta*Pf*o.dt;
+valPos = valPos - o.pBeta*Pf*o.dt;
 % END OF EVALUATING VELOCITY ON VESICLES
 %**************************************************************************
 % Repulsion Magnitude Test
