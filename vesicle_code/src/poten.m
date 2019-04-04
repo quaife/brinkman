@@ -321,6 +321,74 @@ end % nearSingInt
 % START OF ROUTINES THAT BUILD LAYER-POTENTIAL MATRICIES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function G = stokesSLmatrix2(o,vesicle)
+% G = stokesSLmatrix2(vesicle) generates the single-layer potential for
+% Stokes vesicle is a data structure defined as in the curve class G is
+% (2N,2N,nv) array where N is the number of points per curve and nv is
+% the number of curves in X.  This loops over the columns
+
+oc = curve;
+[x,y] = oc.getXY(vesicle.X);
+% Vesicle positions
+Nquad = numel(o.qw);
+% number of quadrature points including the extra terms that Alpert's
+% rule brings into the quadrature
+qw = o.qw(:,ones(vesicle.N,1));
+
+%G = zeros(vesicle.N,vesicle.N,vesicle.nv);
+G = zeros(2*vesicle.N,2*vesicle.N,vesicle.nv);
+for k=1:vesicle.nv  % Loop over curves
+  xx = x(:,k);
+  yy = y(:,k);
+  % locations
+  sa = vesicle.sa(:,k)';
+  sa = sa(ones(vesicle.N,1),:);
+  % Jacobian
+
+  xtar = xx(:,ones(Nquad,1))'; 
+  ytar = yy(:,ones(Nquad,1))'; 
+  % target points
+
+  xsou = xx(:,ones(vesicle.N,1)); 
+  ysou = yy(:,ones(vesicle.N,1));
+  % source points
+  xsou = xsou(o.Rfor);
+  ysou = ysou(o.Rfor);
+  % have to rotate each column so that it is compatiable with o.qp
+  % which is the matrix that takes function values and maps them to the
+  % intermediate values required for Alpert quadrature
+
+  diffx = xtar - o.qp*xsou;
+  diffy = ytar - o.qp*ysou;
+  rho2 = (diffx.^2 + diffy.^2).^(-1);
+  % one over distance squared
+  
+  logpart = 0.5*o.qp'*(qw .* log(rho2));
+  % sign changed to positive because rho2 is one over distance squared
+
+  Gves = logpart + o.qp'*(qw.*diffx.^2.*rho2);
+  Gves = Gves(o.Rbac);
+  G(1:vesicle.N,1:vesicle.N,k) = Gves'.*sa;
+  % (1,1)-term
+
+  Gves = logpart + o.qp'*(qw.*diffy.^2.*rho2);
+  Gves = Gves(o.Rbac);
+  G(vesicle.N+1:end,vesicle.N+1:end,k) = Gves'.*sa;
+  % (2,2)-term
+
+  Gves = o.qp'*(qw.*diffx.*diffy.*rho2);
+  Gves = Gves(o.Rbac);
+  G(1:vesicle.N,vesicle.N+1:end,k) = Gves'.*sa;
+  % (1,2)-term
+  G(vesicle.N+1:end,1:vesicle.N,k) = G(1:vesicle.N,vesicle.N+1:end,k);
+  % (2,1)-term
+end
+
+end % stokesSLmatrix2
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function G = stokesSLmatrix(o,vesicle)
 % G = stokesSLmatrix(vesicle) generates the single-layer potential for
@@ -345,8 +413,8 @@ function G = stokesSLmatrixAlpert(o,vesicle)
 % (2N,2N,nv) array where N is the number of points per curve and nv is
 % the number of curves in X 
 
-% It can be upsampled or not, if vesicle.N > o.N then upsampled vesicle is
-% sent here.
+% It can be upsampled or not, if vesicle.N > o.N then upsampled vesicle
+% is sent here.
 
 oc = curve;
 [x,y] = oc.getXY(vesicle.X);

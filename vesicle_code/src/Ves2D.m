@@ -116,7 +116,7 @@ while time < prams.T - 1e-10
           prams.viscCont,walls,wallsCoarse,om,time,accept);
   countGMRES = countGMRES + iter;
   tTstep = toc(tTstep);
-    
+  
   if options.profile
     fprintf('Time to correct area and length     %5.1e\n',toc);
   end

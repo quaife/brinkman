@@ -102,7 +102,6 @@ function ben = bendingTerm(o,f)
 
 ben = -[curve.arcDeriv(f(1:o.N,:),4,o.isa,o.IK);...
   curve.arcDeriv(f(o.N+1:2*o.N,:),4,o.isa,o.IK)]*diag(o.kappa);
-
 end % bendingTerm
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -112,7 +111,6 @@ function ten = tensionTerm(o,sig)
 
 ten = [curve.arcDeriv(sig.*o.xt(1:o.N,:),1,o.isa,o.IK);...
     curve.arcDeriv(sig.*o.xt(o.N+1:2*o.N,:),1,o.isa,o.IK)];
-
 end % tensionTerm
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -244,6 +242,30 @@ Div = real(Div);
 end % computeDerivs
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function ProjMat  = computeNormals(vesicle)
+    %Computes the matrix that
+    oc = curve;
+    tangent = vesicle.xt;
+    [tanx,tany] = oc.getXY(tangent);
+    nx = tany;
+    ny = -tanx;
+    % decompose tangent and normal vectors into their x and y
+    % coordinates
+%    ProjMat1 = zeros(vesicle.N);
+%    ProjMat2 = zeros(vesicle.N);
+%    ProjMat3 = zeros(vesicle.N);
+%    ProjMat4 = zeros(vesicle.N);
+%   
+%    ProjMat1 = diag(nx.*nx);
+%    ProjMat2 = diag(nx.*ny);
+%    ProjMat3 = diag(ny.*nx);
+%    ProjMat4 = diag(ny.*ny);
+%    ProjMat = [ProjMat1, ProjMat2; ProjMat3, ProjMat4];
+    ProjMat = [diag(nx.*nx), diag(nx.*ny); diag(ny.*nx) diag(ny.*ny)];
+    
+end %computeNormals
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [sigma,eta,RS,vesVel,iter] = computeSigAndEta(...
     vesicle,tt,walls)
 % computes the tension, density function (if flow is confined), and
@@ -369,6 +391,7 @@ end
 
 % build vesicle part of the block-diagonal preconditioner
 % GMRES
+
 
 if 1
 tic
@@ -1186,7 +1209,7 @@ oc = curve;
 [tanx,tany] = oc.getXY(tangent);
 nx = tany;
 ny = -tanx;
-% decompose tangent and normal vectors into their x and y
+% decompose tangent and vectors into their x and y
 % coordinates
 
 [~,NearV2T] = vesicle.getZone(stressTar,2);
@@ -1577,6 +1600,28 @@ end
 %pause
 
 end % computeShearStress
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function Pf = normalProjection(vesicle,f)
+% TODO: Description of function here
+
+oc = curve;
+%calculates the normal projection
+tangent = vesicle.xt;
+[tanx,tany] = oc.getXY(tangent);
+nx = tany;
+ny = -tanx;
+% decompose tangent and normal vectors into their x and y
+% coordinates
+[fx,fy] = oc.getXY(f);
+% decompose f vector into its x and y coordinates
+fdotn = fx.*nx + fy.*ny;
+Pfx = fdotn.*nx;
+Pfy = fdotn.*ny;
+% Normal projection
+Pf = [Pfx; Pfy];
+
+end %normalProjection
 
 end % methods
 
