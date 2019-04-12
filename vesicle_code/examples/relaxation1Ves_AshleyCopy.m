@@ -1,16 +1,17 @@
-%clear all; clc
+clear all; clc
 
 fprintf('Simple elliptical vesicle in a relaxation flow.\n');
 fprintf('First-order semi-implicit time stepping.\n');
 
 % Physics parameters
-prams.N = 32;               % points per vesicle
+prams.N = 128;               % points per vesicle
 prams.nv = 1;               % number of vesicles
 prams.T = 2;               % time horizon (two tumbling)
-prams.m = 200;              % number of time steps
+prams.m = 800;              % number of time steps
 prams.kappa = 1e-2;         % bending coefficient
 prams.viscCont = 1;         % viscosity contrast
-options.farField = 'relaxation'; % background velocity
+options.farField = 'shear'; % background velocity
+options.farFieldSpeed = 2;
 options.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -23,7 +24,7 @@ options.semipermeable = true;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-10;
 prams.errorTol = 1000;
-prams.PhysBeta = 1e0;
+prams.PhysBeta = 1;
 
 % ADD-ONS
 options.alignCenterAngle = false;
@@ -56,9 +57,9 @@ options.usePlot = true;
 options.axis = [-5 5 -5 5];
 options.track = false;
 % Save vesicle information and create a log file
-options.logFile = 'output/relaxation1Ves.log';
+options.logFile = 'output/1Vesicle_Shear2_beta1_RApt65.log';
 % Name of log file for saving messages
-options.dataFile = 'output/relaxation1VesData.bin';
+options.dataFile = 'output/1Vesicle_Shear2_beta1_RApt65.bin';
 % Name of binary data file for storing vesicle information
 
 options.saveError = true;

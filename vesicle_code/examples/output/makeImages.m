@@ -2,7 +2,7 @@ addpath ../../src
 set(0,'DefaultAxesFontSize',22)
 options.savefig = false;
 
-irate = 1; % controls the speed of the visualization
+irate = 10; % controls the speed of the visualization
 
 if 0
 %  file = 'extensional2VesData.bin';
@@ -15,12 +15,12 @@ if 0
   ax = [-12 12 -2 2];
   options.confined = false;
 end
-if 0
-  file = 'relaxation1VesData.bin';
+if 1
+  file = '1Vesicle_Shear1_beta0_RApt99.bin';
   ax = ([-3 3 -3 3]);
   options.confined = false;
 end
-if 1
+if 0
   file = '~/projects/brinkman/vesicle_code/results/relaxationManyVes/Segment2/relaxationManyVesData.bin';
 %  file = 'relaxationManyVesData.bin';
   ax = [-5 5 -6 6];
