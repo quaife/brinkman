@@ -98,12 +98,11 @@ the notation
   B[\mbx]\mbf &= -\kappa_b\frac{d^4}{ds^4} \mbf, \\
   T[\mbx]\sigma &= (\sigma \mbx_s)_s, \\
   P[\mbx]\mbf &= (\mbf \cdot \mbn) \mbn, \\
-  D[\mbx]\mbf &= \mbx_s \cdot \mbf_s
+  D[\mbx]\mbf &= \mbx_s \cdot \mbf_s,
 \end{align}
-where $\mbn$ is the is the outward unit normal of the vesicle
-parameterized by $\mbx$, and $d/ds$ is its arclength derivative.
-Dropping the dependence of the operators on $\mbx$, the dynamics of the
-vesicle are governed by
+where $\mbn$ is the outward unit normal of the vesicle parameterized by
+$\mbx$, and $d/ds$ is its arclength derivative.  Dropping the dependence
+of the operators on $\mbx$, the dynamics of the vesicle are governed by
 \begin{align}
   \dot{\mbx} &= \mbu_{\infty}(\mbx) + 
   \beta P(B\mbx + T\sigma) + \sgl(B\mbx + T\sigma), \\
@@ -176,13 +175,13 @@ concentration field is
   -D\pderiv{c}{\mbn} = c \pderiv{\mbx}{t} + 
     k_c \jump{c}, \quad \mbx \in \gamma.
 \end{align}
-To couple the vesicle dynamics to the concentration, the vesicle
-velocity satisfies the slip condition
+To couple the vesicle dynamics to the concentration, there is a
+difference between the fluid velocity and vesicle velocity
 \begin{align}
   \mbu - \pderiv{\mbx}{t} = j_w \mbn,
 \end{align}
-where $j_w$ is the water flux through the vesicle.
-In~\cite{yao-mor2017}, this flux is
+where $j_w$ is the water flux through the vesicle.  This is the
+osmophoretic flow.  In~\cite{yao-mor2017}, this flux is
 \begin{align}
   j_w = -k_w(RT\jump{c} + \mbf_\text{mem} \cdot \mbn).
 \end{align}
@@ -199,7 +198,7 @@ let $\beta = k_w$.
 	\includegraphics[width=.9\textwidth]{figures/2.jpg}
 	\includegraphics[width=.9\textwidth]{figures/3.jpg}
 	\caption{Reduced area as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 0$.}
-	\label{Shear0}
+%	\label{Shear0}
 \end{figure}
 
 \begin{figure}
@@ -208,7 +207,7 @@ let $\beta = k_w$.
 	\includegraphics[width=.9\textwidth]{figures/5.jpg}
 	\includegraphics[width=.9\textwidth]{figures/6.jpg}
 	\caption{Reduced area as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 0.5$.}
-	\label{Shear0}
+%	\label{Shear0}
 \end{figure}
 
 \begin{figure}
@@ -217,7 +216,7 @@ let $\beta = k_w$.
 	\includegraphics[width=.9\textwidth]{figures/8.jpg}
 	\includegraphics[width=.9\textwidth]{figures/9.jpg}
 	\caption{Reduced area as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 1$.}
-	\label{Shear0}
+%	\label{Shear0}
 \end{figure}
 
 \begin{figure}
@@ -226,7 +225,7 @@ let $\beta = k_w$.
 	\includegraphics[width=.9\textwidth]{figures/11.jpg}
 	\includegraphics[width=.9\textwidth]{figures/12.jpg}
 	\caption{Reduced area as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 2$.}
-	\label{Shear0}
+%	\label{Shear0}
 \end{figure}
  
  
@@ -236,7 +235,7 @@ let $\beta = k_w$.
  	\includegraphics[width=.9\textwidth]{figures/BE2.jpg}
  	\includegraphics[width=.9\textwidth]{figures/BE3.jpg}
  	\caption{Bending energy as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 0$.}
- 	\label{Shear0}
+% 	\label{Shear0}
  \end{figure}
  
  \begin{figure}
@@ -245,7 +244,7 @@ let $\beta = k_w$.
  	\includegraphics[width=.9\textwidth]{figures/BE5.jpg}
  	\includegraphics[width=.9\textwidth]{figures/BE6.jpg}
  	\caption{Bending energy as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 0.5$.}
- 	\label{Shear0}
+% 	\label{Shear0}
  \end{figure}
  
  \begin{figure}
@@ -254,7 +253,7 @@ let $\beta = k_w$.
  	\includegraphics[width=.9\textwidth]{figures/BE8.jpg}
  	\includegraphics[width=.9\textwidth]{figures/BE9.jpg}
  	\caption{Bending energy as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 1$.}
- 	\label{Shear0}
+% 	\label{Shear0}
  \end{figure}
  
  \begin{figure}
