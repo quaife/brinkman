@@ -172,13 +172,13 @@ force = zeros(2*o.N,o.nv);
 %fx = -2/d^2*phi.*x;
 %fy = -2/d^2*phi.*y;
 x0 = 0;
-y0 = 0;
+y0 = 3.5;
 r = sqrt((x-x0).^2 + (y-y0).^2);
 fx1 = -exp(-r/d).*(x-x0)./r;
 fy1 = -exp(-r/d).*(y-y0)./r;
 
 x0 = 0;
-y0 = -10;
+y0 = -3.5;
 r = sqrt((x-x0).^2 + (y-y0).^2);
 fx2 = -exp(-r/d).*(x-x0)./r;
 fy2 = -exp(-r/d).*(y-y0)./r;
@@ -189,7 +189,7 @@ fy2 = -exp(-r/d).*(y-y0)./r;
 %fx(s) = 0;
 %fy(s) = 0;
 
-force = [fx1 + fx2;fy1 + fy2];
+force = [fx1 + 1*fx2;fy1 + 1*fy2];
 
 end % expForce
 

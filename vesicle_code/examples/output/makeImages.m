@@ -2,7 +2,7 @@ addpath ../../src
 set(0,'DefaultAxesFontSize',22)
 options.savefig = false;
 
-irate = 10; % controls the speed of the visualization
+irate = 1; % controls the speed of the visualization
 
 if 0
 %  file = 'extensional2VesData.bin';
@@ -15,15 +15,15 @@ if 0
   ax = [-12 12 -2 2];
   options.confined = false;
 end
-if 1
-  file = '1Vesicle_Shear1_beta0_RApt99.bin';
-  ax = ([-3 3 -3 3]);
+if 0
+  file = '1Vesicle_Shear2_beta1_RApt65.bin';
+  ax = (2*[-3 3 -3 3]);
   options.confined = false;
 end
-if 0
-  file = '~/projects/brinkman/vesicle_code/results/relaxationManyVes/Segment2/relaxationManyVesData.bin';
+if 1
+  file ='~/projects/microtubule/runs/relaxation1Ves_RA095_kappa1em2_expD1ep0/relaxation1VesData.bin';
 %  file = 'relaxationManyVesData.bin';
-  ax = [-5 5 -6 6];
+  ax = [-3 3 -3.5 3.5];
   options.confined = false;
   options.savefig = false;
   count = 1;
@@ -79,14 +79,16 @@ ntime = numel(time);
 
 figure(1); clf
 for k = istart:irate:iend
-  xx = interpft(posx(:,:,k),96); yy = interpft(posy(:,:,k),96);  
+  xx = interpft(posx(:,:,k),256); yy = interpft(posy(:,:,k),256);  
+  xx = posx(:,:,k);
+  yy = posy(:,:,k);
   vec1 = [xx(:,:);xx(1,:)];
   vec2 = [yy(:,:);yy(1,:)];
   if 1
     clf
     plot(vec1,vec2,'r','linewidth',3)
     hold on;
-    plot(vec1(1,:),vec2(1,:),'b.','markersize',20)
+%    plot(vec1(1,:),vec2(1,:),'b.','markersize',20)
     if options.confined
       vec1 = [wallx(:,:);wallx(1,:)];
       vec2 = [wally(:,:);wally(1,:)];

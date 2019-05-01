@@ -126,6 +126,13 @@ while time < prams.T - 1e-10
   end
   % go back to old time
 
+  if 1
+  xmid = mean(X(1:end/2,1));
+  ymid = mean(X(end/2+1:end,1));
+  X(1:end/2) = X(1:end/2) - xmid;
+  X(end/2+1:end) = X(end/2+1:end) - ymid;
+  end
+
   if 0
   for k = 1:prams.nv
     z = X(1:end/2,k) + 1i*X(end/2+1:end,k);

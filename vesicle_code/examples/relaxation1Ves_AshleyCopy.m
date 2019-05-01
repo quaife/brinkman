@@ -6,12 +6,12 @@ fprintf('First-order semi-implicit time stepping.\n');
 % Physics parameters
 prams.N = 128;               % points per vesicle
 prams.nv = 1;               % number of vesicles
-prams.T = 2;               % time horizon (two tumbling)
+prams.T = 20;               % time horizon (two tumbling)
 prams.m = 800;              % number of time steps
-prams.kappa = 1e-2;         % bending coefficient
+prams.kappa = 1e-1;         % bending coefficient
 prams.viscCont = 1;         % viscosity contrast
 options.farField = 'shear'; % background velocity
-options.farFieldSpeed = 2;
+options.farFieldSpeed = 1;
 options.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.

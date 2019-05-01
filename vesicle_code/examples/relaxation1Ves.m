@@ -4,11 +4,11 @@ fprintf('Simple elliptical vesicle in a relaxation flow.\n');
 fprintf('First-order semi-implicit time stepping.\n');
 
 % Physics parameters
-prams.N = 96;               % points per vesicle
+prams.N = 256;               % points per vesicle
 prams.nv = 1;               % number of vesicles
-prams.T = 10;               % time horizon (two tumbling)
+prams.T = 100;               % time horizon (two tumbling)
 prams.m = 1000;              % number of time steps
-prams.kappa = 1;         % bending coefficient
+prams.kappa = 1e-2;         % bending coefficient
 prams.viscCont = 1;         % viscosity contrast
 options.farField = 'relaxation'; % background velocity
 options.order = 1;          % time stepping order
@@ -44,14 +44,14 @@ if 1
 end
 
 options.orderGL = 2;
-options.nsdc = 1;
-options.expectedOrder = 2;
+options.nsdc = 0;
+options.expectedOrder = 1;
 
 options.expForce = true;
 
 % Plot on-the-fly
 options.usePlot = true;
-options.axis = [-5 5 -10 0];
+options.axis = [-3 3 -3.5 3.5];
 options.track = false;
 % Save vesicle information and create a log file
 options.logFile = 'output/relaxation1Ves.log';
@@ -68,17 +68,21 @@ options.errorFile = 'output/relaxation1VesError.bin';
 % Also add src to path
 
 oc = curve;
-ra = 0.99;
+ra = 0.95;
 %scale = sqrt(ra);
 scale = 1;
 X = oc.initConfig(prams.N,...
     'reducedArea',ra,...
-    'angle',0,...
-    'center',[0;-5],...
+    'angle',pi/2,...
+    'center',[0;0],...
     'scale',scale);
 % Initial configuration of reduce area 0.65 and aligned
-theta = (0:prams.N-1)'*2*pi/prams.N;
-X = [cos(theta);3*sin(theta)-5];
+ymax = max(X(end/2+1:end));
+X = X/ymax*3; % make maximum y value equal to 3
+
+
+%theta = (0:prams.N-1)'*2*pi/prams.N;
+%X = [cos(theta);3*sin(theta)-5];
 
 Xfinal = Ves2D(X,[],prams,options);
 % Run vesicle code

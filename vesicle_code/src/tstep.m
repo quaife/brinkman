@@ -1258,7 +1258,7 @@ end
 
 
 if o.expForce
-  d = 1.8;
+  d = 2.0;
   expForce = vesicle.expForce(d);
   if ~o.fmm
     kernel = @op.exactStokesSL;
@@ -1269,10 +1269,11 @@ if o.expForce
   end
 
 %  expForce_vel = expForce;
-  expForce_vel = 1e2*op.exactStokesSLdiag(vesicle,o.Galpert,expForce);
+  expForce_vel = 1e1*op.exactStokesSLdiag(vesicle,o.Galpert,expForce);
   % diagonal term of exponential force
 
   rhs1 = rhs1 + o.dt*expForce_vel*diag(1./alpha);
+
 %  figure(2);clf; hold on
 %  plot(vesicle.X(1:end/2,:),vesicle.X(end/2+1:end,:),'r-o')
 %  quiver(vesicle.X(1:end/2),vesicle.X(end/2+1:end),...
@@ -1283,8 +1284,8 @@ if o.expForce
 %  quiver(vesicle.X(1:end/2),vesicle.X(end/2+1:end),...
 %      expForce_vel(1:end/2),expForce_vel(end/2+1:end));
 %  axis equal;
-%  mean(expForce_vel(1:end/2))
-%  mean(expForce_vel(end/2+1:end))
+%%  mean(expForce_vel(1:end/2))
+%%  mean(expForce_vel(end/2+1:end))
 %  pause
 end
 % Compute velocity due to exponential point force
@@ -1885,6 +1886,14 @@ else
   FDLPwall2wall = zeros(2*Nbd,nvbd);
 end
 
+
+%c = 1/100;
+%ind = (1:N)';
+%gaussian = exp(-c*(ind - N/2).^2);
+%clf
+%plot(gaussian)
+%pause
+
 % END OF EVALUATING POTENTIAL DUE TO STOKESLETS AND ROTLETS
 % START OF EVALUATING VELOCITY ON VESICLES
 valPos = valPos - o.dt*Gf*diag(1./alpha);
@@ -1899,6 +1908,7 @@ valPos = valPos - o.dt*Fwall2Ves*diag(1./alpha);
 % velocity due to solid walls evaluated on vesicles
 valPos = valPos - o.dt*LetsVes*diag(1./alpha);
 % velocity on vesicles due to the rotlets and stokeslets
+%valPos = valPos - o.pBeta*Pf.*[gaussian;gaussian]*o.dt;
 valPos = valPos - o.pBeta*Pf*o.dt;
 % END OF EVALUATING VELOCITY ON VESICLES
 %**************************************************************************
