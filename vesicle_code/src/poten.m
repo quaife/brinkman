@@ -622,9 +622,48 @@ for k=1:vesicle.nv  % Loop over curves
   
   G(:,:,k) = G(:,:,k).*sak;
   % multiply G by the Jacobian
+
+  G(:,:,k) = 2*G(:,:,k);
+  % qw assumes the scaling is 1/(4*pi) which is what comes out of Stokes
 end % k
 
 end % laplaceSLmatrix
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function G = laplaceSLmatrixPrime(o,vesicle)
+% G = laplaceSLmatrixPrime(vesicle) generates the derivative of the
+% single-layer potential.  vesicle is a data structure defined as in the
+% capsules class G is (N,N,nv) array where N is the number of points per
+% curve and nv is the number of curves in X
+
+oc = curve;
+[x,y] = oc.getXY(vesicle.X); % Vesicle positions
+nx = vesicle.xt(vesicle.N+1:2*vesicle.N,:);
+ny = -vesicle.xt(1:vesicle.N,:);
+
+G = zeros(o.N,o.N,vesicle.nv);
+% initalize derivative of single-layer potential to zero
+for k=1:vesicle.nv  % Loop over curves
+  for j=1:vesicle.N % Loop over targets
+    rx = x(j,k) - x(:,k);
+    ry = y(j,k) - y(:,k);
+    rdotn = rx*nx(j,k) + ry*ny(j,k);
+    rho2 = rx.^2 + ry.^2;
+    rho2(j) = 1;
+    % Set diagonal term to one to avoid dividing by zero
+
+    G(j,:,k) = rdotn./rho2.*vesicle.sa(:,k);
+
+    G(j,j,k) = 0.5*vesicle.cur(j,k)*vesicle.sa(j,k);
+  end % j
+  G(:,:,k) = G(:,:,k)*2*pi/vesicle.N/(2*pi);
+end % k
+
+
+end % laplaceSLmatrixPrime
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function D = laplaceDLmatrix(o,vesicle)
@@ -2100,7 +2139,7 @@ for k2 = 1:ncol % loop over columns of target points
 
 end % k2
 % Evaluate single-layer potential at arbitrary target points
-laplaceSLPtar = -1/(4*pi)*laplaceSLPtar;
+laplaceSLPtar = -1/(2*pi)*laplaceSLPtar;
 % -1/4/pi is the coefficient in front of the single-layer potential as
 % defined in poten.laplaceSLmatrix
 
@@ -2124,7 +2163,7 @@ if (nargin == 3 && vesicle.nv > 1)
     end % j
   end % k1
   % Evaluate single-layer potential at vesicles but oneself
-  laplaceSLP = -1/(4*pi)*laplaceSLP;
+  laplaceSLP = -1/(2*pi)*laplaceSLP;
   % -1/4/pi is the coefficient in front of the single-layer potential as
   % defined in poten.laplaceSLmatrix
 end % nargin == 3

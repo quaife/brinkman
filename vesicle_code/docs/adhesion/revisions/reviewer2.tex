@@ -1,0 +1,236 @@
+\documentclass[11pt]{article}
+
+\usepackage{fullpage}
+\usepackage{todonotes}
+\usepackage{amsmath,amsfonts,amssymb,stmaryrd}
+\usepackage{color}
+\newcommand{\comment}[1]{{\color{blue} #1}}
+
+\begin{document}
+\noindent
+Thank you for your constructive comments.  The attached manuscript
+addresses all the reviewer 2's comments and the result is what we
+believe is a stronger manuscript.
+\\ \\ \noindent 
+We also note that a few typos from the manuscript’s original form have
+been addressed. An itemized list of the changes addressing the
+reviewers’ comments are below.
+\\ \\ \noindent 
+Sincerely, \\ \noindent
+Yuan-Nan Young, Shravan Veerapaneni, and Bryan Quaife
+
+\vspace{20pt}
+\noindent
+\comment{General comment: I found that the figure captions are often
+incomplete and that details of the legends are missing and are only
+given in the text. I think figures should be self explanatory (e.g.
+signification of symbols of fig. 9 right (angles corresponding to symbol
+sizes); in fig. 10: scale/unit of vorticity, Fig 11: indicate in the
+caption that the coloraturas corresponds to tension; Fig 12: color code
+in figure caption...)}
+\begin{itemize}
+  \item rebuttal
+\end{itemize}
+
+\noindent
+\comment{Abstract: it should be mentioned in the abstract that this is 2D
+modelling. 2D simulations of vesicles are often perfectly fine to
+investigate the physics of phenomena but in some cases 3D effects may
+have their importance, at least for quantitative comparisons with
+experiments. The reader should identify either from the title or
+abstract that this study is 2D.}
+\begin{itemize}
+  \item rebuttal
+\end{itemize}
+
+\noindent
+\comment{Introduction, 2nd paragraph: the transition in the effective
+viscosity of vesicle or RBC suspensions was also validated
+experimentally in ref [18] (Vitkova et al.), not only in [20-22].}
+\begin{itemize}
+  \item rebuttal
+\end{itemize}
+
+\noindent
+\comment{Intro, 3rd paragraph: the buckling instability of aggregating RBC
+membranes was not only predicted theroretically and numerically in
+Flormann et al. [32] but also experimentally. In addition, a more
+recent paper by Hoore et al. (Soft Matter 14, 6278-6289 (2018)) showed
+the influence of the membrane shear elasticity on doublet shapes by 3D
+modelling. This reference may be added.}
+\begin{itemize}
+  \item rebuttal
+\end{itemize}
+
+\noindent
+\comment{Concerning the stability and dynamics of clusters of vesicles with
+adhesive interaction, there have been at least two papers on clusters
+in micro-channel flow (computational and experimental) that should be
+cited: Brust et al., Scientific Reports 4, 4348 (2014) and Claveria et
+al., Soft Matter. 2016 vol 12(39):8235-8245. About rheology, at least
+the historical paper by Chien on the shear-thinning of blood related
+to RBC aggregation should be cited : Chien, S., Usami, S., Dellenback,
+R.~J., Gregersen, M.~I., Nanninga, L.~B.~\& Guest, M.~M. Blood
+viscosity: Influence of erythrocyte aggregation. Science 157, 829–831
+(1967).}
+\begin{itemize}
+  \item rebuttal
+\end{itemize}
+
+\noindent
+\comment{In addition to ref [54], Gires et al. also published experimental
+measurements of hydrodynamic interactions between vesicles in Gires et
+al., Phys.~Fluids 26, 013304 (2014)}
+\begin{itemize}
+  \item rebuttal
+\end{itemize}
+
+\noindent
+\comment{In II. Governing equations and fig. 1: the right panel of the
+figure and comments at the end of the section say that the part of
+vesicle membranes that is out of the contact zone, including the parts
+that are facing the outer fluid, experience an attractive interaction.
+This is an artifact due to the long-range potential chosen by the
+authors to model the interaction. In most experimental systems, the
+adhesive forces leading to cluster formation are either due to direct
+bridging of membranes or depletion phenomena that lead to osmotic
+pressure gradients. This is the case for RBC aggregation for instance.
+In both mechanisms, there is indeed no attractive force between membrane
+parts that are out of the contact zone. It is perfectly fine to model
+the interaction by an adhesion potential such as represented in fig 1
+left, but its use introduces this artifact that should be acknowledged
+by the authors. It is also due to the fact that the value of parameter
+$\delta$ (the equilibrium distance) is not small compared to vesicle
+dimensions. This is a numerical necessity to avoid the need to have
+extremely refined meshes but again in experiments, the equilibrium
+distance is usually much smaller that vesicle sizes and is more
+comparable to molecular sizes (size of bridging molecules or of
+depletion-inducing macromolecules). This deserves to be acknowledged
+also, even though it may not impact too much the results.}
+\begin{itemize}
+  \item rebuttal
+\end{itemize}
+
+\noindent
+\comment{Along the same line, the repulsing spots in fig 1 right or Fig 3
+right as well as the amplitude of the deformation in the contact zone
+are again a consequence of the choice of parameter values for the
+interaction potential and would probably not be so strong in real
+cases where the equilibrium distance between membranes is much shorter
+and the range of the potential is shorter.}
+\begin{itemize}
+  \item rebuttal
+\end{itemize}
+
+\noindent
+\comment{I cannot figure out why the external part of vesicles on profile 1
+in fig 3-left is yellow. Shouldn't the force be weakly attractive in
+that region, as in fig 1-right?}
+\begin{itemize}
+  \item rebuttal
+\end{itemize}
+
+\noindent
+\comment{Figs 4-5 and related text: it would have been interesting to
+compare results with the bending energy of vesicles without adhesion
+potential in their equilibrium shape, to show the energy gain due to
+adhesion (bending and total energy). This could be a way to compare
+the total energy of the doublet to the energy of dissociated vesicles
+and infer about the stability of doublets.}
+\begin{itemize}
+  \item rebuttal
+\end{itemize}
+
+\noindent
+\comment{Fig 9(right): I regret that the authors did not extend the study
+to lower values of the reduced area, to reach values comparable to red
+blood cells which are more deflated that $\Delta A=0.7$. Also, the range
+of shear rates could have been slightly increased to reach the
+stability limit of the most deflated vesicles. Here, we do not know
+what happens below reduced areas of 0.8.}
+\begin{itemize}
+  \item rebuttal
+\end{itemize}
+
+\noindent
+\comment{ Figs 9(right) and 12(right): the stability diagrams are presented
+in different parameter spaces for the extensional and shear flow
+cases. It would have been interesting to see e.g. the diagram in the
+interaction energy vs. flow strength $\chi$ for both cases, for
+comparison.}
+\begin{itemize}
+  \item rebuttal
+\end{itemize}
+
+\noindent
+\comment{Fig.~10: the black arrows, as I understand, represent the total
+attractive force due to the interaction potential. Would the authors
+be able to represent also the total hydrodynamic forces on vesicles
+which presumably balance the torque of interaction forces? Is there a
+tank-treading motion of membranes?}
+\begin{itemize}
+  \item rebuttal
+\end{itemize}
+
+\noindent
+\comment{Fig 12: the authors did not comment the evolution of the
+frequency of distance oscillations in doublets when the Hamaker constant
+is varied. Can it be compared to the natural rotation frequency of the
+shear flow $\chi/2$? Does a strongly adhesive doublet tend to behave as
+a tumbling rigid object following something similar to Jeffery orbits?}
+\begin{itemize}
+  \item rebuttal
+\end{itemize}
+
+\noindent
+\comment{Fig 12-right: is the stability limit between the red and blue
+zones linear? This would mean that a stability criterion could take
+the form of a dimensionless number involving the ratio of Hamaker
+constant/shear rate, a potentially interesting result.}
+\begin{itemize}
+  \item rebuttal
+\end{itemize}
+
+\noindent
+\comment{Fig 13 and comments about rheology: I am not sure to understand
+the meaning of the left figure where it is shown that the intrinsic
+viscosity of the doublet in suspension is about twice the viscosity of a
+single vesicle. By definition, the intrinsic viscosity does not depend
+on volume fraction, so I do not expect such a big difference between
+bound vesicles and isolated vesicles. With the values chosen for the
+Hamaker constant and the shear rate, it seems (from fig 12-left) that
+the interaction is quite strong and that the distance between the two
+vesicles in the doublet is always very short (close to the equilibrium
+distance $\delta$). So the doublet must be roughly tumbling as a single
+object and unless a co-rotating tank-treading motion of the two
+membranes produces a strong dissipation by shear flow in the gap between
+the two vesicles, the difference should not be so large. It is also
+quite curious that the intrinsic viscosity of the doublet is so close to
+exactly twice the viscosity of a single vesicle. Could the authors check
+and elaborate on this ? Was the volume fraction properly scaled out
+here? Also in the right panel, the bending/tension part is compared to
+twice the intrinsic viscosity of a suspension of isolated vesicles. Why
+twice ? Finally, it is not clear how technically the bending/tension and
+adhesion parts are separated.  Overall I think the study on rheology
+needs much more development than what is presented here with only one
+set of parameter values and very little quantitative comments.}
+\begin{itemize}
+  \item rebuttal
+\end{itemize}
+
+\noindent
+\comment{In the conclusions, an example of aggregation of vesicles enclosed
+in a bigger one is presented. I do not think this brings much to this
+paper. Why not keep this for a future paper dedicated to this specific
+problem and instead show examples of aggregates without the enclosing
+large vesicle? In what conditions (reduced volume, Hamaker constant)
+can linear structures (rouleaux) be formed for instance (see the paper
+by Hoore et al whose reference is given above for instance).}
+\begin{itemize}
+  \item rebuttal
+\end{itemize}
+
+
+
+
+\end{document}
