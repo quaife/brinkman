@@ -10,7 +10,7 @@ prams.T = 20;               % time horizon (two tumbling)
 prams.m = 800;              % number of time steps
 prams.kappa = 1e-1;         % bending coefficient
 prams.viscCont = 1;         % viscosity contrast
-options.farField = 'shear'; % background velocity
+options.farField = 'relaxation'; % background velocity
 options.farFieldSpeed = 1;
 options.order = 1;          % time stepping order
 options.vesves = 'implicit';
@@ -32,7 +32,7 @@ options.correctShape = false;
 options.reparameterization = false;
 
 % TIME ADAPTIVITY (parameters for new implementation)
-options.timeAdap = false;
+options.timeAdap = true;
 
 prams.rtolArea = 1e+10;
 prams.rtolLength = 1e-2;

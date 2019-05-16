@@ -27,7 +27,7 @@ prams.errorTol = 1;
 % ADD-ONS
 options.correctShape = false;
 options.adhesion = true;
-prams.adRange = 4e-1;
+prams.adRange = 1e-1;
 prams.adStrength = 7e-1;
 
 % TIME ADAPTIVITY (parameters for new implementation)
@@ -45,7 +45,7 @@ options.expectedOrder = 2;
 
 % Plot on-the-fly
 options.usePlot = true;
-options.axis = [-5 5 -3 3];
+options.axis = [-10 10 -3 3];
 options.track = false;
 % Save vesicle information and create a log file
 options.logFile = 'output/shear2Ves.log';
@@ -65,7 +65,7 @@ oc = curve;
 centerx = [-1.5 1.5];
 centery = zeros(1,2);
 ang = pi/2*ones(2,1);
-ra = 0.99;
+ra = 0.9;
 scale = 1/2*sqrt(ra);
 X = oc.initConfig(prams.N,'nv',prams.nv,...
     'reducedArea',ra,...

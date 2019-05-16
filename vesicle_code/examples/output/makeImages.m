@@ -2,11 +2,11 @@ addpath ../../src
 set(0,'DefaultAxesFontSize',22)
 options.savefig = false;
 
-irate = 1; % controls the speed of the visualization
+irate = 10; % controls the speed of the visualization
 
-if 0
-%  file = 'extensional2VesData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR4em1adS7em1Chi7em2_ra070/extensional2VesData.bin';
+if 1
+  file = 'extensional2VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR4em1adS7em1Chi7em2_ra070/extensional2VesData.bin';
   ax = [-2 2 -2 2];
   options.confined = false;
 end
@@ -20,10 +20,10 @@ if 0
   ax = (2*[-3 3 -3 3]);
   options.confined = false;
 end
-if 1
-  file ='~/projects/microtubule/runs/relaxation1Ves_RA095_kappa1em2_expD1ep0/relaxation1VesData.bin';
+if 0
+  file = '~/projects/brinkman/vesicle_code/results/May092019/relaxation1Ves/kappa1em1_beta1ep0_ra0p35/relaxation1VesData.bin';
 %  file = 'relaxationManyVesData.bin';
-  ax = [-3 3 -3.5 3.5];
+  ax = [-3 3 -6 6];
   options.confined = false;
   options.savefig = false;
   count = 1;
@@ -45,13 +45,14 @@ if 0
   options.confined = false;
 end
 if 0
-  file = 'shear1VesAData.bin.run2';
-  ax = [-8 8 -5 5];
+  file = '~/projects/brinkman/vesicle_code/results/May092019/shear1Ves/kappa1em1_beta1ep0_chi1ep1_ra0p35/shear1VesData.bin';
+%  file = 'shear1VesData.bin';
+  ax = [-5 5 -5 5];
   options.confined = false;
 end
 if 0
-%  file = 'shear2VesGData.bin.run1';
-  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR4em1adS1e0Chi2e0_ra070/shear2VesData.bin';
+%  file = 'shear2VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR1em1adS9em1Chi7p5em1_ra090/shear2VesData.bin';
   ax = [-10 10 -3 3];
   options.confined = false;
 end
@@ -88,7 +89,7 @@ for k = istart:irate:iend
     clf
     plot(vec1,vec2,'r','linewidth',3)
     hold on;
-%    plot(vec1(1,:),vec2(1,:),'b.','markersize',20)
+    plot(vec1(1,:),vec2(1,:),'b.','markersize',20)
     if options.confined
       vec1 = [wallx(:,:);wallx(1,:)];
       vec2 = [wally(:,:);wally(1,:)];

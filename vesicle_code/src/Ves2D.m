@@ -126,7 +126,7 @@ while time < prams.T - 1e-10
   end
   % go back to old time
 
-  if 1
+  if 0
   xmid = mean(X(1:end/2,1));
   ymid = mean(X(end/2+1:end,1));
   X(1:end/2) = X(1:end/2) - xmid;
