@@ -5,8 +5,8 @@ options.savefig = false;
 irate = 10; % controls the speed of the visualization
 
 if 1
-  file = 'extensional2VesData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR4em1adS7em1Chi7em2_ra070/extensional2VesData.bin';
+%  file = 'extensional2VesDData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR4em1adS7em1Chi8em2_ra065/extensional2VesData.bin';
   ax = [-2 2 -2 2];
   options.confined = false;
 end
