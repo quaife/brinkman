@@ -1,4 +1,4 @@
-function [] = extensional2Ves
+%function [] = extensional2Ves
 
 clear all; clc
 
@@ -12,7 +12,7 @@ prams.m = 1000;             % number of time steps
 prams.kappa = [1 1];         % bending coefficient
 prams.viscCant = [1 1];         % viscosity contrast
 options.farField = 'extensional'; % background velocity
-options.farFieldSpeed = 0.1;
+options.farFieldSpeed = 0.07;
 aptions.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -63,10 +63,10 @@ options.errorFile = 'output/extensional2VesError.bin';
 % Set options and parameters that the user doesn't
 % Also add src to path
 
-posx1 = load('posx1_RA065.dat');
-posy1 = load('posy1_RA065.dat');
-posx2 = load('posx2_RA065.dat');
-posy2 = load('posy2_RA065.dat');
+posx1 = load('posx1_RA070_rotated.dat');
+posy1 = load('posy1_RA070_rotated.dat');
+posx2 = load('posx2_RA070_rotated.dat');
+posy2 = load('posy2_RA070_rotated.dat');
 
 
 if 0
