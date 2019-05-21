@@ -4,7 +4,7 @@ options.savefig = false;
 
 irate = 10; % controls the speed of the visualization
 
-if 1
+if 0
   file = 'extensional2VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves_rotated/adR4em1adS7em1Chi1em1_ra070/extensional2VesData.bin';
   ax = [-2 2 -2 2];
@@ -50,9 +50,9 @@ if 0
   ax = [-5 5 -5 5];
   options.confined = false;
 end
-if 0
-  file = 'shear2VesBData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR1em1adS4em1Chi2p5em1_ra090/shear2VesData.bin';
+if 1
+  file = 'shear2VesAData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR4em1adS6em1Chi5em1_ra090/shear2VesData.bin';
   ax = [-10 10 -3 3];
   options.confined = false;
 end
