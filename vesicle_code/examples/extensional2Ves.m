@@ -12,7 +12,7 @@ prams.m = 1000;             % number of time steps
 prams.kappa = [1 1];         % bending coefficient
 prams.viscCant = [1 1];         % viscosity contrast
 options.farField = 'extensional'; % background velocity
-options.farFieldSpeed = 0.07;
+options.farFieldSpeed = 0.06;
 aptions.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
