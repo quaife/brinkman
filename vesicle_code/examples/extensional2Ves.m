@@ -12,7 +12,7 @@ prams.m = 1000;             % number of time steps
 prams.kappa = [1 1];         % bending coefficient
 prams.viscCant = [1 1];         % viscosity contrast
 options.farField = 'extensional'; % background velocity
-options.farFieldSpeed = 0.06;
+options.farFieldSpeed = 0.07;
 aptions.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -113,6 +113,6 @@ X = [posx1 posx2; posy1 posy2];
 %    'scale',scale);
 %% Initial configuration of reduce area 0.65 and aligned
 
-Xfinal = Ves2D_hack(X,[],prams,options);
+Xfinal = Ves2D(X,[],prams,options);
 % Run vesicle code
 
