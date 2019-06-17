@@ -84,8 +84,9 @@
 \newcommand{\subfigimg}[3][,]{%
   \setbox1=\hbox{\includegraphics[#1]{#3}}% Store image in box
   \leavevmode\rlap{\usebox1}% Print image
-  \rlap{\hspace*{0pt}\raisebox{\dimexpr\ht1-0\baselineskip}{\bf #2}}% Print label
-  \phantom{\usebox1}% Insert appropriate spcing
+  \rlap{\hspace*{0pt}\raisebox{\dimexpr\ht1-0\baselineskip}{\bf
+  \normalsize #2}}% Print label
+  \phantom{\usebox1}% Insert appropriate spacing
 }
 
 \begin{document}
@@ -1221,23 +1222,22 @@ where
 $\phi$ is the area fraction of vesicles, $\tau$ is the stress due to the
 vesicles, $\langle \cdot \rangle$ is the spatial average, $|\omega|$ is
 the total area of both vesicles, and $\xxi$ is the traction as defined
-in equation~\eqref{eqn:traction}.  In the left plot of
-Figure~\ref{fig:shearIntrinsicViscosity}, we compare the intrinsic
+in equation~\eqref{eqn:traction}.  In
+Figure~\ref{fig:shearIntrinsicViscosity}(a), we compare the intrinsic
 viscosity of a single tank-treading vesicle to a doublet.  To validate
 our simulations, we superimpose (black marks) the intrinsic viscosity
 calculated by Ghigliotti {\em et
 al.}~\cite{GhigliottiBibenMisbah2010_JFM}.  The presence of the doublet
-slightly increases the intrinsic viscosity at all the reduced
-areas.  To further characterize the effect of adhesion, in the right
-plot of Figure~\ref{fig:shearIntrinsicViscosity} we decompose the
-intrinsic viscosity into the contributions from the bending and tension
-(blue), and the contribution from the adhesion (red).  We also
-superimpose the intrinsic viscosity of a single tank-treading
-vesicle (dashed curve) to demonstrate that the bending and tension of
-the doublet behave similarly, but not identically, to a dilute
-suspensions of non-adhering tank-treading vesicles.  We see that the
-effect of the adhesion on the intrinsic viscosity is largest for
-vesicles with small reduced areas.
+slightly increases the intrinsic viscosity at all the reduced areas.  To
+further characterize the effect of adhesion, in
+Figure~\ref{fig:shearIntrinsicViscosity}(b) we decompose the intrinsic
+viscosity into the contributions from the bending and tension (blue),
+and the contribution from the adhesion (red).  We also superimpose the
+intrinsic viscosity of a single tank-treading vesicle (dashed curve) to
+demonstrate that the bending and tension of the doublet behave
+similarly, but not identically, to a dilute suspensions of non-adhering
+tank-treading vesicles.  We see that the effect of the adhesion on the
+intrinsic viscosity is largest for vesicles with small reduced areas.
 
 \begin{figure}[]
   \begin{tabular}{@{}p{0.45\linewidth}@{\quad}p{0.45\linewidth}@{}}
@@ -1247,17 +1247,16 @@ vesicles with small reduced areas.
 %  \centering
 %  \includegraphics[width=0.45\textwidth]{figs/shear2Ves_adR4em1adS7em1Chi5em1.pdf}
 %  \includegraphics[width=0.45\textwidth]{figs/doublet_decomp.pdf}
-  \caption{\label{fig:shearIntrinsicViscosity} {\em Left}: The intrinsic
+  \caption{\label{fig:shearIntrinsicViscosity} (a) The intrinsic
   viscosity of a tank-treading vesicle (blue) and a doublet (red).  The
   shear rate is $\chi = 0.5$, the Hamaker constant is $\mathcal{H} =
   0.7$, and the separation distance is $\delta = 0.4$.  The black marks
   denote intrinsic viscosity values computed by Ghigliotti {\em et
-  al.}~\cite{GhigliottiBibenMisbah2010_JFM} (cf.~Figure 5).  {\em
-  Right}: The decomposition of the intrinsic viscosity into the
-  contributions for the bending and tension (blue) of the vesicles, and
-  the contribution from the vesicle adhesion (red).  Also included is
-  the intrinsic viscosity of a single tank-treading vesicle (dashed
-  black line).}
+  al.}~\cite{GhigliottiBibenMisbah2010_JFM} (cf.~Figure 5).  (b) The
+  decomposition of the intrinsic viscosity into the contributions for
+  the bending and tension (blue) of the vesicles, and the contribution
+  from the vesicle adhesion (red).  Also included is the intrinsic
+  viscosity of a single tank-treading vesicle (dashed black line).}
 \end{figure}
 
 
