@@ -50,6 +50,7 @@
 \usepackage{dcolumn}% Align table columns on decimal point
 \usepackage{bm}% bold math
 \usepackage{stmaryrd}
+%\usepackage{subfig}
 %\usepackage{hyperref}% add hypertext capabilities
 %\usepackage[mathlines]{lineno}% Enable numbering of text and display math
 %\linenumbers\relax % Commence numbering lines
@@ -80,6 +81,13 @@
 \newcommand{\xxi}{\boldsymbol{\xi}}
 \newcommand{\yy}{\mathbf{y}}
 
+\newcommand{\subfigimg}[3][,]{%
+  \setbox1=\hbox{\includegraphics[#1]{#3}}% Store image in box
+  \leavevmode\rlap{\usebox1}% Print image
+  \rlap{\hspace*{0pt}\raisebox{\dimexpr\ht1-0\baselineskip}{\bf #2}}% Print label
+  \phantom{\usebox1}% Insert appropriate spcing
+}
+
 \begin{document}
 
 \preprint{APS/123-QED}
@@ -102,30 +110,31 @@
              %  but any date may be explicitly specified
 
 \begin{abstract}
-The dynamics of an adhesive vesicle doublet under various flow conditions is
-investigated numerically using a high-order, adaptive-in-time boundary
-integral method. In a quiescent flow, two nearby vesicles
-move slowly towards each other under the adhesive potential, pushing out
-fluid between them to form a vesicle doublet at equilibrium. A lubrication
-analysis on such draining of a thin film gives the dependencies of
-draining time on adhesion strength and separation distance that are in
-good agreement with numerical results.
+The dynamics of an adhesive two-dimensional vesicle doublet under
+various flow conditions is investigated numerically using a high-order,
+adaptive-in-time boundary integral method. In a quiescent flow, two
+nearby vesicles move slowly towards each other under the adhesive
+potential, pushing out fluid between them to form a vesicle doublet at
+equilibrium. A lubrication analysis on such draining of a thin film
+gives the dependencies of draining time on adhesion strength and
+separation distance that are in good agreement with numerical results.
 %
-In a microfluid trap where the stagnation of an extensional flow is dynamically
-placed in the middle of a vesicle doublet through an active control
-loop, novel dynamics of a vesicle doublet is observed. Numerical
+In a microfluid trap where the stagnation of an extensional flow is
+dynamically placed in the middle of a vesicle doublet through an active
+control loop, novel dynamics of a vesicle doublet is observed. Numerical
 simulations show that there exists a critical extensional flow rate
-above which adhesive interaction is overcome by the 
-diverging stream, thus providing a simple method to measure the adhesion
-strength between two vesicle membranes. 
+above which adhesive interaction is overcome by the diverging stream,
+thus providing a simple method to measure the adhesion strength between
+two vesicle membranes. 
 %
 In a planar shear flow, numerical simulations reveal that a vesicle
-doublet may form provided that the adhesion
-strength is sufficiently large at a given vesicle reduced area. Once a
-doublet is formed, the effective shear viscosity of a dilute suspension
-of vesicle doublets is found to be a function of  reduced area.  Results from these numerical studies and
-analysis shed light on the hydrodynamic and rheological consequences of adhesive interactions
-between vesicles in a viscous fluid.
+doublet may form provided that the adhesion strength is sufficiently
+large at a given vesicle reduced area. Once a doublet is formed, the
+effective shear viscosity of a dilute suspension of vesicle doublets is
+found to be a function of  reduced area.  Results from these numerical
+studies and analysis shed light on the hydrodynamic and rheological
+consequences of adhesive interactions between vesicles in a viscous
+fluid.
 %\begin{description}
 %\item[Usage]
 %Secondary publications and information retrieval purposes.
@@ -179,7 +188,7 @@ dynamics~\cite{Misbah2006_PRL, Vlahovska2007_PRE}, and this leads to a
 transition in the effective shear viscosity of the vesicle
 suspension~\cite{Misbah2006_PRL,Vitkova2008_BJ} that is also validated
 by direct numerical simulations~\cite{GhigliottiBibenMisbah2010_JFM} and
-experiments~\cite{DeschampsKantsler2009_PNAS,
+experiments~\cite{Vitkova2008_BJ,DeschampsKantsler2009_PNAS,
 KantslerSegreSteinberg2008_EPL, ZabuskySegreDeschamps2011_PoF}.  Between
 tank-treading and tumbling vesicle dynamics, a breathing (tremble) mode
 is also observed~\cite{Misbah2006_PRL, KantslerSegreSteinberg2008_PRL,
@@ -1154,28 +1163,43 @@ determining a critical Hamaker constant, $\mathcal{H}_c$, which
 determines if the vesicles form a doublet or separate.  We fix the
 separation distance to $\delta = 0.4$ and the vesicle reduced area to
 $\Delta A = 0.9$.  In the left plot of
-Figure~\ref{fig:sflow_phase_diagram}, we plot the minimum distance
+Figure~\ref{fig:sflow_distance}, we plot the minimum distance
 between the vesicles as a function of time for various Hamaker
 constants.  The red curves correspond to Hamaker constants that are too
 small to bind the vesicles into a doublet, and the blue curves
 correspond to Hamaker constants that are sufficiently large to form a
-doublet.
+doublet.  Figure~\ref{fig:sflow_phase_diagram} indicates whether a
+doublet with reduced area $\Delta A = 0.9$ is formed (blue) or not (red)
+for a variety of shear rates, Hamaker constants, and at two different
+separation distances.  The plot includes a line of best fit between the
+stable and unstable regions.  Since the transition is linear, this
+indicates that a dimensionless number involving the ratio of the Hamaker
+constant could be used to determine if a doublet forms or not.
 
 \begin{figure}
   \includegraphics[height=0.27\textwidth]{figs/shear_adR4em1Chi5em1_ra090.pdf}
-  \includegraphics[height=0.27\textwidth]{figs/shear_adR4em1_ra090_phaseDiagram.pdf}
-  \includegraphics[height=0.27\textwidth]{figs/shear_adR1em1_ra090_phaseDiagram.pdf}
-  \caption{\label{fig:sflow_phase_diagram} {\em Left}: Distance between
-  a pair of vesicles in a planar shear flow with shear rate $\chi=0.5$,
+  \caption{\label{fig:sflow_distance} {\em Left}: The distance between a
+  pair of vesicles in a planar shear flow with shear rate $\chi=0.5$,
   and separation distance $\delta = 0.4$.  The different lines
   correspond to a linear spacing of Hamaker constants ranging from
-  $\mathcal{H}=0.1$ and $\mathcal{H}=1.0$.  {\em Center and Right}:
-  Phase diagram of vesicle hydrodynamics in a shear flow with $\delta =
-  0.4$ (center) and $\delta = 0.1$ (right) with reduced area  $\Delta A
-  = 0.9$. The critical Hamaker constant $\mathcal{H}$ for binding of two
-  vesicles in a shear flow depends on the shear rate $\chi$.  For a
-  doublet to form, lower separation distances require a stronger Hamaker
-  constants at a given shear rate.}
+  $\mathcal{H}=0.1$ and $\mathcal{H}=1.0$.  {\em Right}:
+  \todo[inline]{frequency of the oscillation}}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[height=0.37\textwidth]{figs/shear_adR1em1_ra090_phaseDiagram.pdf}
+  \includegraphics[height=0.37\textwidth]{figs/shear_adR4em1_ra090_phaseDiagram.pdf}
+  \caption{\label{fig:sflow_phase_diagram} Phase diagram of vesicle
+  hydrodynamics in a shear flow with $\delta = 0.1$ (left) and $\delta =
+  0.4$ (right) with reduced area $\Delta A = 0.9$. The critical Hamaker
+  constant $\mathcal{H}$ for binding of two vesicles in a shear flow
+  depends on the shear rate $\chi$.  For a doublet to form, lower
+  separation distances require a stronger Hamaker constants at a given
+  shear rate.  The stability limit appears to be linear, indicating that
+  there is potentially a stability criteria that depends on a
+  dimensionless number involving the ratio of the Hamaker constant and
+  shear rate.}
 \end{figure}
 
 Finally, we investigate the rheology of a suspension of a doublet by
@@ -1215,10 +1239,14 @@ suspensions of non-adhering tank-treading vesicles.  We see that the
 effect of the adhesion on the intrinsic viscosity is largest for
 vesicles with small reduced areas.
 
-\begin{figure}[htp]
-  \centering
-  \includegraphics[width=0.45\textwidth]{figs/shear2Ves_adR4em1adS7em1Chi5em1.pdf}
-  \includegraphics[width=0.45\textwidth]{figs/doublet_decomp.pdf}
+\begin{figure}[]
+  \begin{tabular}{@{}p{0.45\linewidth}@{\quad}p{0.45\linewidth}@{}}
+  \subfigimg[width=\linewidth]{(a)}{figs/doublet_decomp.pdf} &
+  \subfigimg[width=\linewidth]{(b)}{figs/doublet_decomp.pdf}
+  \end{tabular}
+%  \centering
+%  \includegraphics[width=0.45\textwidth]{figs/shear2Ves_adR4em1adS7em1Chi5em1.pdf}
+%  \includegraphics[width=0.45\textwidth]{figs/doublet_decomp.pdf}
   \caption{\label{fig:shearIntrinsicViscosity} {\em Left}: The intrinsic
   viscosity of a tank-treading vesicle (blue) and a doublet (red).  The
   shear rate is $\chi = 0.5$, the Hamaker constant is $\mathcal{H} =

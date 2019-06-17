@@ -4,7 +4,7 @@ options.savefig = false;
 
 irate = 10; % controls the speed of the visualization
 
-if 1
+if 0
   file = 'extensional2VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves_rotated/adR4em1adS7em1Chi7em2_ra070/extensional2VesData.bin';
   ax = [-2 2 -2 2];
@@ -21,7 +21,7 @@ if 0
   options.confined = false;
 end
 if 0
-  file = '~/projects/brinkman/vesicle_code/results/May092019/relaxation1Ves/kappa1em1_beta1ep0_ra0p35/relaxation1VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/May092019/relaxation1Ves/kappa1em1_beta1ep0_ra0p95/relaxation1VesData.bin';
 %  file = 'relaxationManyVesData.bin';
   ax = [-3 3 -6 6];
   options.confined = false;
@@ -45,14 +45,14 @@ if 0
   options.confined = false;
 end
 if 0
-  file = '~/projects/brinkman/vesicle_code/results/May092019/shear1Ves/kappa1em1_beta1ep0_chi1ep1_ra0p35/shear1VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/May092019/shear1Ves/kappa1em1_beta1ep0_chi1ep0_ra0p55/shear1VesData.bin';
 %  file = 'shear1VesData.bin';
   ax = [-5 5 -5 5];
   options.confined = false;
 end
-if 0
+if 1
 %  file = 'shear2VesAData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR4em1adS6em1Chi2p5em1_ra090/shear2VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR1em1adS2e0Chi1p25e0_ra090/shear2VesData.bin';
   ax = [-10 10 -3 3];
   options.confined = false;
 end
