@@ -1335,55 +1335,58 @@ asymmetric S-shape, and parachute shape.  It is also possible that
 viscosity contrast may also lead to different equilibrium doublet
 shapes.  Future work includes three dimensional simulations, dispersive
 vesicle properties (such as reduced area and bending modulus), viscosity
-contrast, and effects of confinement on adhesive interactions.
+contrast, and effects of confinement on adhesive interactions.  Another
+future direction is to consider the clustering and packing of an
+unbounded suspension of vesicles~\cite{FlormannAouane2017_SciReports}.
 
-Flormann {\it et al.} studied the clustering and packing of an
-unbounded suspension of vesicles~\cite{FlormannAouane2017_SciReports}.  In engineering
-applications of vesicle emulsions, smaller vesicles are often enclosed in
-a big vesicle, as shown in Figure~\ref{fig:relaxationManyVes}, where
-the left panel shows an initial condition of five vesicles suspended
-inside of a larger vesicle.  The second panel from the left shows the
-membrane configuration and flow streamlines at an intermediate time.
-There is no imposed flow, so the dynamics is governed entirely by the
-vesicle forces, including adhesion.  In the absence of confinement, we
-would expect the vesicles to align themselves as a rouleaux with the
-membranes forming a parachute, male-female, or S-shape
-configuration~\cite{FlormannAouane2017_SciReports}.  However, because of
-the bounding vesicle and the dense packing, the interior vesicles align
-themselves differently.  The bounding membrane evolves dynamically
-together with all the interior vesicles to minimize the total membrane
-energy.
-
-As a result of force balance, the equilibrium shape of the bounding
-vesicle is far from a symmetric shape while the interior smaller
-vesicles are of similar shape to each other.  We also plot the tension
-(third) and adhesion (fourth) of the final equilibrium configuration.
-We remark that the adhesion force is attractive on all the vesicle
-membranes while large positive membrane tension is found only on the
-bounding vesicle.  In particular, the interior vesicles form a flat
-contact region with a large negative tension.  We are now conducting
-simulations of such vesicle configuration under a planar shear flow.
-
-
-\begin{figure}[htp]
-\centering
-\includegraphics[height=0.24\textwidth,trim={10cm 0cm 10cm 0cm},clip]{figs/relaxationManyVesInitialCondition.png}
-\includegraphics[height=0.24\textwidth,trim={2cm 0cm 2cm 0cm},clip]{figs/relaxationManyVesStreamlines.png}
-\includegraphics[height=0.24\textwidth,trim={2cm 0cm 1cm 0cm},clip]{figs/relaxationManyVesTension.png}
-\includegraphics[height=0.24\textwidth,trim={2cm 0cm 2cm 0cm},clip]{figs/relaxationManyVesAdhesion.png}
-\caption{\label{fig:relaxationManyVes} Five vesicles in a quiescent flow
-suspended in a bounding vesicle.   All vesicles are interacting through
-hydrodynamic flow and an adhesion potential with Hamaker constant
-$\mathcal{H} = 0.7$ and separation distance $\delta = 0.4$.  From left
-to right, the plots are the initial condition, the streamlines at an
-intermediate time, the tension at the steady-state configuration, and
-the adhesion force projected onto the outward unit normal at the
-steady-state configuration.  Along the bounding vesicle, the tension is
-largest and the adhesion is smallest in the regions that are
-well-separated from the interior vesicles.  Similar to other
-simulations, the interior vesicles are relatively flat and have a large
-negative tension in the contact regions.}
-\end{figure}
+%Flormann {\it et al.} studied the clustering and packing of an unbounded
+%suspension of vesicles~\cite{FlormannAouane2017_SciReports}.  In
+%engineering applications of vesicle emulsions, smaller vesicles are
+%often enclosed in a big vesicle, as shown in
+%Figure~\ref{fig:relaxationManyVes}, where the left panel shows an
+%initial condition of five vesicles suspended inside of a larger vesicle.
+%The second panel from the left shows the membrane configuration and flow
+%streamlines at an intermediate time.  There is no imposed flow, so the
+%dynamics is governed entirely by the vesicle forces, including adhesion.
+%In the absence of confinement, we would expect the vesicles to align
+%themselves as a rouleaux with the membranes forming a parachute,
+%male-female, or S-shape
+%configuration~\cite{FlormannAouane2017_SciReports}.  However, because of
+%the bounding vesicle and the dense packing, the interior vesicles align
+%themselves differently.  The bounding membrane evolves dynamically
+%together with all the interior vesicles to minimize the total membrane
+%energy.
+%
+%As a result of force balance, the equilibrium shape of the bounding
+%vesicle is far from a symmetric shape while the interior smaller
+%vesicles are of similar shape to each other.  We also plot the tension
+%(third) and adhesion (fourth) of the final equilibrium configuration.
+%We remark that the adhesion force is attractive on all the vesicle
+%membranes while large positive membrane tension is found only on the
+%bounding vesicle.  In particular, the interior vesicles form a flat
+%contact region with a large negative tension.  We are now conducting
+%simulations of such vesicle configuration under a planar shear flow.
+%
+%
+%\begin{figure}[htp]
+%\centering
+%\includegraphics[height=0.24\textwidth,trim={10cm 0cm 10cm 0cm},clip]{figs/relaxationManyVesInitialCondition.png}
+%\includegraphics[height=0.24\textwidth,trim={2cm 0cm 2cm 0cm},clip]{figs/relaxationManyVesStreamlines.png}
+%\includegraphics[height=0.24\textwidth,trim={2cm 0cm 1cm 0cm},clip]{figs/relaxationManyVesTension.png}
+%\includegraphics[height=0.24\textwidth,trim={2cm 0cm 2cm 0cm},clip]{figs/relaxationManyVesAdhesion.png}
+%\caption{\label{fig:relaxationManyVes} Five vesicles in a quiescent flow
+%suspended in a bounding vesicle.   All vesicles are interacting through
+%hydrodynamic flow and an adhesion potential with Hamaker constant
+%$\mathcal{H} = 0.7$ and separation distance $\delta = 0.4$.  From left
+%to right, the plots are the initial condition, the streamlines at an
+%intermediate time, the tension at the steady-state configuration, and
+%the adhesion force projected onto the outward unit normal at the
+%steady-state configuration.  Along the bounding vesicle, the tension is
+%largest and the adhesion is smallest in the regions that are
+%well-separated from the interior vesicles.  Similar to other
+%simulations, the interior vesicles are relatively flat and have a large
+%negative tension in the contact regions.}
+%\end{figure}
 
 Finally, it is not clear how thermal fluctuations may affect the
 hydrodynamics of vesicles under adhesion. For example, does the
