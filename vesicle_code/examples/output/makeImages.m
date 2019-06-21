@@ -20,6 +20,12 @@ if 0
   ax = (2*[-3 3 -3 3]);
   options.confined = false;
 end
+
+if 1
+%   file ='~/projects/microtubule/runs/relaxation1Ves_RA095_kappa1em2_expD1ep0/relaxation1VesData.bin';
+ file = 'relaxation1VesData.bin';
+  ax = [-3 3 -3.5 3.5];
+
 if 0
   file = '~/projects/brinkman/vesicle_code/results/May092019/relaxation1Ves/kappa1em1_beta1ep0_ra0p95/relaxation1VesData.bin';
 %  file = 'relaxationManyVesData.bin';

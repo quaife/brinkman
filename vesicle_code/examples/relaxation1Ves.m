@@ -6,9 +6,14 @@ fprintf('First-order semi-implicit time stepping.\n');
 % Physics parameters
 prams.N = 128;               % points per vesicle
 prams.nv = 1;               % number of vesicles
-prams.T = 100;               % time horizon (two tumbling)
+prams.T = 30;               % time horizon (two tumbling)
 prams.m = 1000;              % number of time steps
+
+% prams.kappa = 1e-4;         % bending coefficient
+
+
 prams.kappa = 1e-1;         % bending coefficient
+
 prams.viscCont = 1;         % viscosity contrast
 options.farField = 'relaxation'; % background velocity
 options.order = 1;          % time stepping order
@@ -70,15 +75,24 @@ options.errorFile = 'output/relaxation1VesError.bin';
 % Also add src to path
 
 oc = curve;
+
+ra = 0.65;
+%scale = sqrt(ra);
+scale = 1;
+
 ra = 0.35;
 scale = sqrt(ra);
 %scale = 1;
+
 X = oc.initConfig(prams.N,...
     'reducedArea',ra,...
     'angle',pi/2,...
     'center',[0;0],...
     'scale',scale);
 % Initial configuration of reduce area 0.65 and aligned
+
+ymax = max(X(end/2+1:end));
+X = X/ymax*3.3; % make maximum y value equal to 3
 %ymax = max(X(end/2+1:end));
 %X = X/ymax*3; % make maximum y value equal to 3
 

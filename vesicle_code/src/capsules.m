@@ -178,7 +178,7 @@ fx1 = -exp(-r/d).*(x-x0)./r;
 fy1 = -exp(-r/d).*(y-y0)./r;
 
 x0 = 0;
-y0 = -3.5;
+y0 = -13.5;
 r = sqrt((x-x0).^2 + (y-y0).^2);
 fx2 = -exp(-r/d).*(x-x0)./r;
 fy2 = -exp(-r/d).*(y-y0)./r;
