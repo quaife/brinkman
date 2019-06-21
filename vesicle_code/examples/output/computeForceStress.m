@@ -14,7 +14,7 @@ if 0
   file = 'shear4VesData.bin';
 end
 if 1
-  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR4em1adS7em1Chi7em2_ra070/extensional2VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR4em1adS7em1Chi1em1_ra070/extensional2VesData.bin';
 end
 
 oc = curve;

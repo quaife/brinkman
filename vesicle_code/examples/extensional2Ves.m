@@ -1,4 +1,4 @@
-function [] = extensional2Ves
+%function [] = extensional2Ves
 
 clear all; clc
 
@@ -7,12 +7,12 @@ fprintf('Two elliptical vesicles in a extensional flow.\n');
 % Physics parameters
 prams.N = 128;               % points per vesicle
 prams.nv = 2;               % number of vesicles
-prams.T = 1000;               % time horizon (two tumbling)
-prams.m = 8192*16;             % number of time steps
+prams.T = 4000;               % time horizon (two tumbling)
+prams.m = 1000;             % number of time steps
 prams.kappa = [1 1];         % bending coefficient
 prams.viscCant = [1 1];         % viscosity contrast
 options.farField = 'extensional'; % background velocity
-options.farFieldSpeed = 0.09;
+options.farFieldSpeed = 0.07;
 aptions.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -33,16 +33,16 @@ prams.adRange = 4e-1;
 prams.adStrength = 7e-1;
 
 % TIME ADAPTIVITY (parameters for new implementation)
-options.timeAdap = false;
+options.timeAdap = true;
 
-prams.rtolArea = 1e-1*10;
-prams.rtolLength = 1e-1*10;
+prams.rtolArea = 1e-1;
+prams.rtolLength = 1e-1;
 prams.betaUp = 1.2;
 prams.betaDown = 0.5;
 prams.alpha = 0.9;
 
 options.orderGL = 2;
-options.nsdc = 0;
+options.nsdc = 1;
 options.expectedOrder = 1;
 
 % Plot on-the-fly
@@ -63,10 +63,10 @@ options.errorFile = 'output/extensional2VesError.bin';
 % Set options and parameters that the user doesn't
 % Also add src to path
 
-posx1 = load('posx1_RA070_Final.dat');
-posy1 = load('posy1_RA070_Final.dat');
-posx2 = load('posx2_RA070_Final.dat');
-posy2 = load('posy2_RA070_Final.dat');
+posx1 = load('posx1_RA070_rotated.dat');
+posy1 = load('posy1_RA070_rotated.dat');
+posx2 = load('posx2_RA070_rotated.dat');
+posy2 = load('posy2_RA070_rotated.dat');
 
 
 if 0
@@ -101,10 +101,10 @@ posy2 = interpft(posy2,prams.N);
 X = [posx1 posx2; posy1 posy2];
 
 %oc = curve;
-%centerx = [-2 2];
-%centery = zeros(1,2);
+%centerx = zeros(1,2);
+%centery = [-1 1];
 %ang = 0*ones(2,1);
-%ra = 0.9;
+%ra = 0.6;
 %scale = 0.5*sqrt(ra);
 %X = oc.initConfig(prams.N,'nv',prams.nv,...
 %    'reducedArea',ra,...
@@ -113,6 +113,6 @@ X = [posx1 posx2; posy1 posy2];
 %    'scale',scale);
 %% Initial configuration of reduce area 0.65 and aligned
 
-Xfinal = Ves2D_hack(X,[],prams,options);
+Xfinal = Ves2D(X,[],prams,options);
 % Run vesicle code
 
