@@ -850,7 +850,9 @@ else
   % between being accepted and rejected.
 end
 
+%YNY maximum time step size
 %o.dt = min(o.dt,1e-1);
+%YNY maximum time step size
 % safety factor added to the optimal time step size also, time step size
 % is not scaled up or down too fast For safety factor, take 1/p root.
 % In our formulation, this makes alpha the desired value for err
@@ -1269,7 +1271,7 @@ if o.expForce
   end
 
 %  expForce_vel = expForce;
-  expForce_vel = 1e1*op.exactStokesSLdiag(vesicle,o.Galpert,expForce);
+  expForce_vel = 5e1*op.exactStokesSLdiag(vesicle,o.Galpert,expForce);
   % diagonal term of exponential force
 
   rhs1 = rhs1 + o.dt*expForce_vel*diag(1./alpha);
