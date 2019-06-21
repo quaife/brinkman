@@ -441,31 +441,35 @@ force, $\AA \xx$, that we now describe.
 %\subsection{Adhesion Model}
 %
 \begin{figure}[htp]
-  \begin{minipage}{0.31\textwidth}
-    \centering
-    \includegraphics[height=5cm,trim={0cm 0cm 2cm 0cm},clip]{figs/adhesionPotential.pdf}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.31\textwidth}
-    \centering
-    \includegraphics[height=5cm]{figs/configCartoon.pdf}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.31\textwidth}
-    \centering
-    \includegraphics[height=5cm,trim={3cm 0cm 2cm 0cm},clip]{figs/Adhesion_Force.png}
-  \end{minipage}
-  \caption{\label{fig:adhesionModel} {\em Left}: The adhesion potential
+  \begin{tabular}{@{}p{0.3\linewidth}@{\qquad}p{0.3\linewidth}@{\qquad}p{0.3\linewidth}@{}}
+  \subfigimg[height=\linewidth]{(a)}{figs/adhesionPotential.pdf} &
+  \subfigimg[height=\linewidth]{(b)}{figs/configCartoon.pdf} &
+  \subfigimg[height=\linewidth]{(c)}{figs/Adhesion_Force.png}
+  \end{tabular}
+%  \begin{minipage}{0.31\textwidth}
+%    \centering
+%    \includegraphics[height=5cm,trim={0cm 0cm 2cm 0cm},clip]{figs/adhesionPotential.pdf}
+%  \end{minipage}
+%  \hfill
+%  \begin{minipage}{0.31\textwidth}
+%    \centering
+%    \includegraphics[height=5cm]{figs/configCartoon.pdf}
+%  \end{minipage}
+%  \hfill
+%  \begin{minipage}{0.31\textwidth}
+%    \centering
+%    \includegraphics[height=5cm,trim={3cm 0cm 2cm 0cm},clip]{figs/Adhesion_Force.png}
+%  \end{minipage}
+  \caption{\label{fig:adhesionModel} (a) The adhesion potential
   $\phi(z)$ in equation~\eqref{eq:adhesion_potential}.  Distances less
   than $\delta$ are repulsive and distances greater than $\delta$ are
-  attractive.  {\em Center}: Each point on a vesicle is repelled or
-  attracted by all points on the other vesicles.  {\em Right}: The
-  resulting adhesive force is found by integrating over all points on
-  all other vesicles (equation~\eqref{eqn:adhesionForce}).  The color is
-  the dot product of the adhesion force with the vector joining the
-  vesicles.  Therefore, the green and yellow regions are repelled by the
-  other vesicle while the blue regions are attracted to the other
-  vesicle.}
+  attractive.  (b) Each point on a vesicle is repelled or attracted by
+  all points on the other vesicles.  (c) The resulting adhesive force is
+  found by integrating over all points on all other vesicles
+  (equation~\eqref{eqn:adhesionForce}).  The color is the dot product of
+  the adhesion force with the vector joining the vesicles.  Therefore,
+  the green and yellow regions are repelled by the other vesicle while
+  the blue regions are attracted to the other vesicle.}
 \end{figure}
 
 The adhesion potential for a vesicle membrane has been modeled by a
@@ -482,11 +486,11 @@ where $\mathcal{H}$ is the Hamaker constant and $\delta$ is the adhesion
 length scale, and $z$ is the distance between a patch on the vesicle
 membrane and a point on the other object, which could be another vesicle
 membrane or a flat solid wall.  The characteristics of the
-L.-J.~potential are summarized in the left panel of
-Figure~\ref{fig:adhesionModel}: The adhesive force is zero at the
-equilibrium distance $z=\delta$.  For large distances ($z> \delta$) the
-adhesive potential is attractive while for small distances ($z <
-\delta$) the potential is repulsive to prevent physical contact.
+L.-J.~potential are summarized in Figure~\ref{fig:adhesionModel}(a): The
+adhesive force is zero at the equilibrium distance $z=\delta$.  For
+large distances ($z> \delta$) the adhesive potential is attractive while
+for small distances ($z < \delta$) the potential is repulsive to prevent
+physical contact.
 
 The exponents $(m,n)$ in equation~(\ref{eq:adhesion_potential}) depend
 on the geometry and the molecular details of the two objects under
@@ -532,14 +536,14 @@ adhesive force at a point $\xx$ on vesicle $j$ is shown to be
   \left(\delta^{m-n} - \|\xx - \yy\|^{m-n} \right) ds_\yy.
   \label{eqn:adhesionForce}
 \end{align}
-This summation of adhesive forces is illustrated in the middle panel of
-Figure~\ref{fig:adhesionModel}.  The right panel of
-Figure~\ref{fig:adhesionModel} is an example of the calculated adhesive
-force projected onto their center-of-mass vector. We notice that the
-adhesive force is repulsive in the contact region, while for the rest of
-the membranes there is an attractive force that acts to pull the two
-vesicles together. The summary of boundary integral formulation can be
-found in Appendix~\ref{sec:AppendixB}.
+This summation of adhesive forces is illustrated in
+Figure~\ref{fig:adhesionModel}(b).  Figure~\ref{fig:adhesionModel}(c) is
+an example of the calculated adhesive force projected onto their
+center-of-mass vector. We notice that the adhesive force is repulsive in
+the contact region, while for the rest of the membranes there is an
+attractive force that acts to pull the two vesicles together. The
+summary of boundary integral formulation can be found in
+Appendix~\ref{sec:AppendixB}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -628,22 +632,25 @@ adhesion potential, while the scaling with respect to adhesion strength
 is independent of the specific form of the potential.
 
 \begin{figure}
-\includegraphics[keepaspectratio=true,scale=0.4]{figs/Dec13a_time_scaling01.png}
-\includegraphics[keepaspectratio=true,scale=0.4]{figs/Dec13a_time_scaling02.png}
+  \begin{tabular}{@{}p{0.45\linewidth}@{\quad}p{0.45\linewidth}@{}}
+  \subfigimg[width=\linewidth]{(a)}{figs/Dec13a_time_scaling01.png} &
+  \subfigimg[width=\linewidth]{(b)}{figs/Dec13a_time_scaling02.png}
+  \end{tabular}
+%\includegraphics[keepaspectratio=true,scale=0.4]{figs/Dec13a_time_scaling01.png}
+%\includegraphics[keepaspectratio=true,scale=0.4]{figs/Dec13a_time_scaling02.png}
 \caption{\label{fig:qflow00} Scaling of the time it takes for two
-  vesicles to reach equilibrium. {\em Left}: Scaling with respect to
-  $\delta$ with $\mathcal{H}=0.1$.  {\em Right}: Scaling with respect to
-  $\mathcal{H}$ with
-  $\delta = 0.4$. Arrows indicate the time by when the equilibrium is
-  reached within $1\%$.}
+vesicles to reach equilibrium. (a) Scaling with respect to $\delta$ with
+$\mathcal{H}=0.1$. (b) Scaling with respect to $\mathcal{H}$ with
+$\delta = 0.4$. The arrows indicate the time by when the equilibrium is
+reached within $1\%$.}
 \end{figure}
 
 To test the scaling of the duration $t$ with respect to $\mathcal{H}$
 and $\delta$, we simulate the vesicle adhesion dynamics in a quiescent
 flow.  Starting with two vesicles at a distance of twice the vesicle
-radius, the long-range attraction pulls the vesicles together.  The left
-plot of Figure~\ref{fig:qflow00} shows the scaled adhesion energy versus
-time with $\mathcal{H}=0.1$ and three values of $\delta$ as labeled.
+radius, the long-range attraction pulls the vesicles together.
+Figure~\ref{fig:qflow00}(a) shows the scaled adhesion energy versus time
+with $\mathcal{H}=0.1$ and three values of $\delta$ as labeled.
 Adhesion energy reaches minimum at equilibrium, and the scaled $E_{adh}$
 evolves towards zero at equilibrium.  The arrows indicate the times when
 the scaled adhesion energy reaches within $1\%$ of equilibrium: $t\sim
@@ -657,10 +664,9 @@ $\delta=0.4$:
 \end{align*}
 
 The scaling with respect to adhesion strength $\mathcal{H}$ is
-illustrated in the right plot of Figure~\ref{fig:qflow00}, where $\delta
-= 0.4$ and $\mathcal{H}$ varies from $0.1$ to $0.5$ as labeled.  Again
-the arrows indicate the times when the equilibrium is reached within
-$1\%$:
+illustrated in Figure~\ref{fig:qflow00}(b), where $\delta = 0.4$ and
+$\mathcal{H}$ varies from $0.1$ to $0.5$ as labeled.  Again the arrows
+indicate the times when the equilibrium is reached within $1\%$:
 \begin{align*}
   \frac{t_{\mathcal{H}=0.1}}{t_{\mathcal{H}=0.5}} \sim \frac{34}{20} = 1.71 
   &\Longleftrightarrow \left(\frac{0.5}{0.1}\right)^{1/3}\sim 1.71.
@@ -706,17 +712,18 @@ A=0.95$, $0.75$, and $0.6$ with $\mathcal{H}=5$ and $\delta = 0.2$.
 %  \includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_vesicle_shape_vs_rA_00.jpeg}
 %  \includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_vesicle_shape_vs_rA_01.jpeg}
    \includegraphics[keepaspectratio=true,scale=0.45]{figs/Dec18_vesicle_shape_vs_rA_composite.png}
-  \caption{\label{fig:Dec18_vesicle_shape} Equilibrium configurations of
-  a doublet of identical vesicles under adhesion in a quiescent flow at
-  three values of $\Delta A$.  The vesicle reduced areas of $\Delta
-  A=0.95$, $0.75$, and $0.6$ are labeled.  The vesicle length is fixed at $2\pi$, the
-  dimensionless bending rigidity modulus is $\kappa_b=1$, the Hamaker
-  constant is $\mathcal{H}=5$, and the separation distance is
-  $\delta=0.2$.  {\em Left}:  The color coding is the
-  tension along the vesicle.  The overall equilibrium shapes of two
-  vesicles under adhesive interactions vary with the reduced area.  {\em
-  Right}: The membrane shapes in the contact region. The color coding is the adhesive force
-  projected along the center-of-mass vector.} 
+  \caption{\label{fig:Dec18_vesicle_shape} The equilibrium
+  configurations of a doublet of identical vesicles under adhesion in a
+  quiescent flow at three values of $\Delta A$.  The vesicle reduced
+  areas of $\Delta A=0.95$, $0.75$, and $0.6$ are labeled.  The vesicle
+  length is fixed at $2\pi$, the dimensionless bending rigidity modulus
+  is $\kappa_b=1$, the Hamaker constant is $\mathcal{H}=5$, and the
+  separation distance is $\delta=0.2$.  The color coding is the tension
+  along the vesicle.  The overall equilibrium shapes of two vesicles
+  under adhesive interactions vary with the reduced area.  The right
+  figure shows the  membrane shapes in the contact region. The color
+  coding is the adhesive force projected along the center-of-mass
+  vector.} 
 \end{figure}
 The equilibrium vesicle shape for $\Delta A=0.95$ is the circular cap
 with a flat contact region.  This is similar to the observed shapes of
@@ -735,7 +742,7 @@ negative, indicating a dominant compression of membrane when the
 adhesion force is strong to keep the vesicles bound together.
 
 The right plot of Figure~\ref{fig:Dec18_vesicle_shape} is a zoom (not
-to-scale) on the membranes in the contact region, where the membranes
+to-scale) of the membranes in the contact region, where the membranes
 are not perfectly flat at all three values of reduced area: We observe
 that the membranes are slightly curved with a dip at the edge.  Such
 membrane undulation in the contact region is predicted by lubrication
@@ -763,46 +770,53 @@ leading to large tension in the rest of the vesicle membrane.
 
 
 \begin{figure}
-\includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_Ebleft_Eadhright_vs_rA_adR0p2_adS502.jpeg}
-\includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_EbEadh_vs_rA_adR0p2_adS502.jpeg}
-  \caption{\label{fig:Dec18_vesicle_equilibrium1}   {\em Left}: The
-  total bending energy (solid curve) and adhesion energy (dash-dotted
-  curve) plotted against the reduced area $\Delta A$. {\em Right}: The
-  sum of two energies plotted against reduced area $\Delta A$. The two
-  vesicles in the doublet are of the same length and reduced area.  The
-  Hamaker constant is $\mathcal{H} = 5$ and the separation distance is
-  $\delta = 0.2$.}
+  \begin{tabular}{@{}p{0.45\linewidth}@{\quad}p{0.45\linewidth}@{}}
+  \subfigimg[width=\linewidth]{(a)}{figs/Dec18_Ebleft_Eadhright_vs_rA_adR0p2_adS502.jpeg} &
+  \subfigimg[width=\linewidth]{(b)}{figs/Dec18_EbEadh_vs_rA_adR0p2_adS502.jpeg}
+  \end{tabular}
+%\includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_Ebleft_Eadhright_vs_rA_adR0p2_adS502.jpeg}
+%\includegraphics[keepaspectratio=true,scale=0.175]{figs/Dec18_EbEadh_vs_rA_adR0p2_adS502.jpeg}
+  \caption{\label{fig:Dec18_vesicle_equilibrium1}   (a) The total
+  bending energy (solid curve) and adhesion energy (dash-dotted curve)
+  plotted against the reduced area $\Delta A$. (b) The sum of two
+  energies plotted against reduced area $\Delta A$. The two vesicles in
+  the doublet are of the same length and reduced area.  The Hamaker
+  constant is $\mathcal{H} = 5$ and the separation distance is $\delta =
+  0.2$.}
 \end{figure}
 
-The left plot of Figure~\ref{fig:Dec18_vesicle_equilibrium1} shows the
-total bending energy and adhesion energy as a function of the reduced
-area. The smaller the reduced area, the more vesicle area is available
-for deformation and thus the bending energy is higher.  In contrast, the
+Figure~\ref{fig:Dec18_vesicle_equilibrium1}(a) shows the total bending
+energy and adhesion energy as a function of the reduced area. The
+smaller the reduced area, the more vesicle area is available for
+deformation and thus the bending energy is higher.  In contrast, the
 total adhesion energy becomes more negative as the reduced area
-decreases.  The sum of two energies is plotted in the right plot of
-Figure~\ref{fig:Dec18_vesicle_equilibrium1}, where a local minimum in
+decreases.  The sum of two energies is plotted in
+Figure~\ref{fig:Dec18_vesicle_equilibrium1}(b), where a local minimum in
 the total energy is found around $\Delta A = 0.85$.
 
 \begin{figure}
-\includegraphics[keepaspectratio=true,scale=0.18]{figs/Dec18_Eb_vs_sigma_rA0p9502.jpeg}
-\includegraphics[keepaspectratio=true,scale=0.18]{figs/Dec18_Eadh_vs_sigma_rA0p9502.jpeg}
-  \caption{\label{fig:Dec18_equilibrium} 
-  The total bending energy ({\em left}) and adhesion energy ({\em
-  right}) of a vesicle doublet at equilibrium versus the adhesion
-  strength $\mathcal{H}$.  The two identical vesicles in the doublet
-  have a length of $2\pi$ and a reduced area of $\Delta A=0.95$, with
-  separation distance $\delta = 0.2$ (triangles), $0.3$ (crosses), and
-  $0.4$ (circles).}
+  \begin{tabular}{@{}p{0.45\linewidth}@{\quad}p{0.45\linewidth}@{}}
+  \subfigimg[width=\linewidth]{(a)}{figs/Dec18_Eb_vs_sigma_rA0p9502.jpeg} &
+  \subfigimg[width=\linewidth]{(b)}{figs/Dec18_Eadh_vs_sigma_rA0p9502.jpeg}
+  \end{tabular}
+%\includegraphics[keepaspectratio=true,scale=0.18]{figs/Dec18_Eb_vs_sigma_rA0p9502.jpeg}
+%\includegraphics[keepaspectratio=true,scale=0.18]{figs/Dec18_Eadh_vs_sigma_rA0p9502.jpeg}
+  \caption{\label{fig:Dec18_equilibrium} The total bending energy (a)
+  and adhesion energy (b) of a vesicle doublet at equilibrium versus the
+  adhesion strength $\mathcal{H}$.  The two identical vesicles in the
+  doublet have a length of $2\pi$ and a reduced area of $\Delta A=0.95$,
+  with separation distance $\delta = 0.2$ (triangles), $0.3$ (crosses),
+  and $0.4$ (circles).}
 \end{figure}
 
 Figure~\ref{fig:Dec18_equilibrium} demonstrates how the adhesion
 strength $\mathcal{H}$ and separation distance $\delta$ affect the
 equilibrium configuration of two vesicles under adhesive interactions.
 Both vesicles have a length of $2\pi$ and a reduced area of $\Delta A =
-0.95$.  The total bending (left) and adhesion (right) energies at
-equilibrium are plotted against $\mathcal{H}$ for three values of the
-separation distance $\delta$.  We observe that for $\Delta A=0.95$ the
-equilibrium vesicle shape does not vary much with the adhesion strength
+0.95$.  The total bending (a) and adhesion (b) energies at equilibrium
+are plotted against $\mathcal{H}$ for three values of the separation
+distance $\delta$.  We observe that for $\Delta A=0.95$ the equilibrium
+vesicle shape does not vary much with the adhesion strength
 $\mathcal{H}$, while the total adhesion energy varies linearly with
 $\mathcal{H}$.
 
@@ -861,15 +875,14 @@ stagnation point for long time scales to facilitate image acquisition or
 other detailed measures such as particle image velocimetry of flow
 inside and around the particle.  To explore the application of such a
 fluid trap to measure the adhesion strength between two bound vesicle
-membranes, we propose the following experiment.  Beginning with
-two identical vesicles in an equilibrium configuration that form a
-doublet with a flat contact region
-(Figure~\ref{fig:Dec18_vesicle_shape}), we turn on the fluid trap with
-the stagnation point placed at the center of the vesicle doublet.
-Depending on the Hamaker constant, we expect that either the flow
-overcomes the adhesive force and the doublet is broken, or the adhesive
-force is sufficiently strong and the doublet reaches a stable stationary
-configuration.
+membranes, we propose the following experiment.  Beginning with two
+identical vesicles in an equilibrium configuration that form a doublet
+with a flat contact region (Figure~\ref{fig:Dec18_vesicle_shape}), we
+turn on the fluid trap with the stagnation point placed at the center of
+the vesicle doublet.  Depending on the Hamaker constant, we expect that
+either the flow overcomes the adhesive force and the doublet is broken,
+or the adhesive force is sufficiently strong and the doublet reaches a
+stable stationary configuration.
 
 %In the following numerical experiments we initially place a vesicle
 %doublet with $\theta=\pi$, so that the diverging flow may be strong
@@ -884,11 +897,16 @@ configuration.
 %probe the physics of membrane adhesion.
 
 \begin{figure}[htp]
-   \includegraphics[width=0.25\textwidth]{figs/rotate1.pdf}
-   \hspace{20pt}
-   \includegraphics[width=0.25\textwidth]{figs/angleDefinition.pdf}
-   \hspace{20pt}
-   \includegraphics[width=0.25\textwidth]{figs/rotate2.pdf}
+  \begin{tabular}{@{}p{0.3\linewidth}@{\quad}p{0.3\linewidth}@{\quad}p{0.3\linewidth}@{}}
+  \subfigimg[width=\linewidth]{(a)}{figs/rotate1.pdf} &
+  \subfigimg[width=\linewidth]{(b)}{figs/angleDefinition.pdf} &
+  \subfigimg[width=\linewidth]{(c)}{figs/rotate2.pdf}
+  \end{tabular}
+%   \includegraphics[width=0.25\textwidth]{figs/rotate1.pdf}
+%   \hspace{20pt}
+%   \includegraphics[width=0.25\textwidth]{figs/angleDefinition.pdf}
+%   \hspace{20pt}
+%   \includegraphics[width=0.25\textwidth]{figs/rotate2.pdf}
    \caption{\label{fig:InclinationAngle} The definition of the
    inclination angle of a vesicle doublet at the center of an
    extensional flow.  An inclination angle of $\pi$ indicates a doublet
@@ -913,16 +931,16 @@ two vesicles at the separation distance.  With the converging flow
 pushing the two vesicles towards the stagnation point dynamically placed
 at the doublet center, this configuration is expected to be more stable
 than the $\theta=\pi$ configuration in the left of
-Figure~\ref{fig:InclinationAngle}. This is because when $\theta=\pi$ the
-diverging flow is pulling the vesicles away from each other as shown in
-the illustration.  However, when the doublet inclination angle is fixed
-at $\theta=\pi/2$, the vesicle doublet stays intact if the adhesive
-force is strong enough to dominate the fluid drag.  However, it is
-possible that the diverging flow may overcome adhesion and break up the
-doublet.  It is also reasonable to expect a vesicle doublet to rotate
-from the less stable configuration $\theta=\pi$ to the more stable
-configuration $\theta=\pi/2$, so that the fluid flow is pushing them
-together rather than pulling them apart.
+Figure~\ref{fig:InclinationAngle}(a). This is because when $\theta=\pi$
+the diverging flow is pulling the vesicles away from each other as shown
+in the illustration.  However, when the doublet inclination angle is
+fixed at $\theta=\pi/2$, the vesicle doublet stays intact if the
+adhesive force is strong enough to dominate the fluid drag.  However, it
+is possible that the diverging flow may overcome adhesion and break up
+the doublet.  It is also reasonable to expect a vesicle doublet to
+rotate from the less stable configuration $\theta=\pi$ to the more
+stable configuration $\theta=\pi/2$, so that the fluid flow is pushing
+them together rather than pulling them apart.
 
 \begin{figure}[htp]
   \includegraphics[width = 0.16\textwidth,trim={4cm 2cm 4cm 1cm},clip]{figs/extensional_adR4em1adS7em1Chi2em2_ra070_image01.png}
@@ -1024,14 +1042,15 @@ $\Delta A = 0.8$ is split with a critical extensional rate $\chi_c =
   stagnation point.}
 \end{figure}
 
-In Figure~\ref{fig:extensionalInclinationAngle}, we plot the inclination
-angle of the doublet as a function of time for four different
-extensional rates (left) and the final inclination angle for all
-doublets that reach an equilibrium state (middle).  We observe that not
+In Figure~\ref{fig:extensionalInclinationAngle}(a), we plot the
+inclination angle of the doublet as a function of time for four
+different extensional rates,  and the final inclination angle for all
+doublets that reach an equilibrium state are in
+Figure~\ref{fig:extensionalInclinationAngle}(b).  We observe that not
 only do smaller extensional rates result in smaller inclination angles,
 but smaller reduced areas also result in smaller inclination angles.  We
-summarize the final inclination angle of the doublet in the right plot
-of Figure~\ref{fig:extensionalInclinationAngle}.  The size of the round
+summarize the final inclination angle of the doublet in
+Figure~\ref{fig:extensionalInclinationAngle}(c).  The size of the round
 dots are scaled to the final inclination angle as defined in
 Figure~\ref{fig:InclinationAngle}.  At smaller extensional rates, the
 vesicles come closer to aligning their long axis with the diverging
@@ -1040,27 +1059,31 @@ direction.  When the doublet is broken at reduced area $\Delta A =
 of the vesicle with the diverging direction and then the vesicles
 separate (Figure~\ref{fig:extensional3}).  For very low extensional
 rates, the time horizon is insufficient for the doublet to reach an
-equilibrium state, and these simulations are marked with a square.  The
-right plot of Figure~\ref{fig:extensionalInclinationAngle} also
-summarizes the reduced areas and extensional rates that result in a
-bound vesicle doublet in a fluid trap: Parameter values with a blue mark
-result in a fluid trap and parameter values with a red mark result in
-vesicle separation.
+equilibrium state, and these simulations are marked with a square.
+Figure~\ref{fig:extensionalInclinationAngle}(c) also summarizes the
+reduced areas and extensional rates that result in a bound vesicle
+doublet in a fluid trap: Parameter values with a blue mark result in a
+fluid trap and parameter values with a red mark result in vesicle
+separation.
 
 \begin{figure}[htp]
-  \includegraphics[height=0.26\textwidth]{figs/adR4em1adS7em1_ra070_inclinationAngle.pdf}
-  \includegraphics[height=0.26\textwidth]{figs/adR4em1adS7em1_finalInclinationAngle.pdf}
-  \includegraphics[height=0.26\textwidth]{figs/extensional_adR4em1adS7em1_phaseDiagram.pdf}
-  \caption{\label{fig:extensionalInclinationAngle} {\em Left}: The
-  inclination angle of a doublet formed by vesicles of reduced area
-  $\Delta A = 0.7$ in an extensional flow with an extensional rate
-  $\chi$.  {\em Middle}: The final inclination angle of doublets.  At
-  larger extensional rates, the doublet is broken by the flow.  {\em
-  Right}: A phase diagram of the long-time behavior of a fluid trap
-  formed by two adhering vesicles in an extensional flow.  Results are
-  not reported for some of the low extensional rates since the doublet
-  had not tilted to an equilibrium inclination angle for the given time
-  horizon.}
+  \begin{tabular}{@{}p{0.3\linewidth}@{\quad}p{0.3\linewidth}@{\quad}p{0.3\linewidth}@{}}
+  \subfigimg[width=\linewidth]{(a)}{figs/adR4em1adS7em1_ra070_inclinationAngle.pdf} &
+  \subfigimg[width=\linewidth]{(b)}{figs/adR4em1adS7em1_finalInclinationAngle.pdf} &
+  \subfigimg[width=\linewidth]{(c)}{figs/extensional_adR4em1adS7em1_phaseDiagram.pdf}
+  \end{tabular}
+%  \includegraphics[height=0.26\textwidth]{figs/adR4em1adS7em1_ra070_inclinationAngle.pdf}
+%  \includegraphics[height=0.26\textwidth]{figs/adR4em1adS7em1_finalInclinationAngle.pdf}
+%  \includegraphics[height=0.26\textwidth]{figs/extensional_adR4em1adS7em1_phaseDiagram.pdf}
+  \caption{\label{fig:extensionalInclinationAngle} (a) The inclination
+  angle of a doublet formed by vesicles of reduced area $\Delta A = 0.7$
+  in an extensional flow with an extensional rate $\chi$.  (b) The final
+  inclination angle of doublets.  At larger extensional rates, the
+  doublet is broken by the flow.  (c) A phase diagram of the long-time
+  behavior of a fluid trap formed by two adhering vesicles in an
+  extensional flow.  Results are not reported for some of the low
+  extensional rates since the doublet had not tilted to an equilibrium
+  inclination angle for the given time horizon.}
 \end{figure}
 
 Finally, to further characterize the rotating dynamics of a doublet in
@@ -1163,19 +1186,18 @@ We characterize the effect of the Hamaker constant and shear rate by
 determining a critical Hamaker constant, $\mathcal{H}_c$, which
 determines if the vesicles form a doublet or separate.  We fix the
 separation distance to $\delta = 0.4$ and the vesicle reduced area to
-$\Delta A = 0.9$.  In the left plot of
-Figure~\ref{fig:sflow_distance}, we plot the minimum distance
+$\Delta A = 0.9$.  In
+Figure~\ref{fig:sflow_distance}(a), we plot the minimum distance
 between the vesicles as a function of time for various Hamaker
 constants.  The red curves correspond to Hamaker constants that are too
 small to bind the vesicles into a doublet, and the blue curves
 correspond to Hamaker constants that are sufficiently large to form a
-doublet.  We also plot the time required for the doublet to make a
-complete revolution at a variety of Hamaker constants and shear rates.
-For a fixed Hamaker contant, as expected, the period decreases for
-larger shear rates.  In addition, for a fixed shear rate, the period
-decreases as the Hamaker constant increases, but the period eventually
-plateaus.  More interesting, for larger shear rates, the period of the
-doublet appears to be independent of the Hamaker constant.
+doublet.  In Figure~\ref{fig:sflow_distance}(b), we plot the time
+required for the doublet to make a complete revolution at a variety of
+Hamaker constants and shear rates.  For a fixed Hamaker contant, as
+expected, the period decreases for larger shear rates.  In addition, for
+a fixed shear rate, the period decreases as the Hamaker constant
+increases, but the period eventually plateaus.
 
 Figure~\ref{fig:sflow_phase_diagram} indicates whether a doublet with
 reduced area $\Delta A = 0.9$ is formed (blue) or not (red) for a
@@ -1186,25 +1208,33 @@ indicates that a dimensionless number involving the ratio of the Hamaker
 constant could be used to determine if a doublet forms or not.
 
 \begin{figure}
-  \includegraphics[height=0.34\textwidth]{figs/shear_adR4em1Chi5em1_ra090.pdf}
-  \includegraphics[height=0.34\textwidth]{figs/shear_adR4em1Chi5em1_ra090_period.pdf}
-  \caption{\label{fig:sflow_distance} {\em Left}: The distance between a
-  pair of vesicles in a planar shear flow with shear rate $\chi=0.5$,
-  and separation distance $\delta = 0.4$.  The different lines
-  correspond to a linear spacing of Hamaker constants ranging from
-  $\mathcal{H}=0.1$ and $\mathcal{H}=1.0$.  {\em Right}: The time
-  required for a doublet to complete a single rotation.  The reduced
-  area is $\Delta A = 0.90$ and the separation distance is $\delta =
-  0.4$.  The different lines correspond to different shear rates.}
+  \begin{tabular}{@{}p{0.45\linewidth}@{\quad}p{0.45\linewidth}@{}}
+  \subfigimg[width=\linewidth]{(a)}{figs/shear_adR4em1Chi5em1_ra090.pdf} &
+  \subfigimg[width=\linewidth]{(b)}{figs/shear_adR4em1Chi5em1_ra090_period.pdf}
+  \end{tabular}
+%  \includegraphics[height=0.34\textwidth]{figs/shear_adR4em1Chi5em1_ra090.pdf}
+%  \includegraphics[height=0.34\textwidth]{figs/shear_adR4em1Chi5em1_ra090_period.pdf}
+  \caption{\label{fig:sflow_distance} (a) The distance between a pair of
+  vesicles in a planar shear flow with shear rate $\chi=0.5$, and
+  separation distance $\delta = 0.4$.  The different lines correspond to
+  a linear spacing of Hamaker constants ranging from $\mathcal{H}=0.1$
+  and $\mathcal{H}=1.0$.  (b) The time required for a doublet to
+  complete a single rotation.  The reduced area is $\Delta A = 0.90$ and
+  the separation distance is $\delta = 0.4$.  The different lines
+  correspond to different shear rates.}
 \end{figure}
 
 \begin{figure}
-  \centering
-  \includegraphics[height=0.37\textwidth]{figs/shear_adR1em1_ra090_phaseDiagram.pdf}
-  \includegraphics[height=0.37\textwidth]{figs/shear_adR4em1_ra090_phaseDiagram.pdf}
+  \begin{tabular}{@{}p{0.45\linewidth}@{\quad}p{0.45\linewidth}@{}}
+  \subfigimg[width=\linewidth]{(a)}{figs/shear_adR1em1_ra090_phaseDiagram.pdf} &
+  \subfigimg[width=\linewidth]{(b)}{figs/shear_adR4em1_ra090_phaseDiagram.pdf}
+  \end{tabular}
+%  \centering
+%  \includegraphics[height=0.37\textwidth]{figs/shear_adR1em1_ra090_phaseDiagram.pdf}
+%  \includegraphics[height=0.37\textwidth]{figs/shear_adR4em1_ra090_phaseDiagram.pdf}
   \caption{\label{fig:sflow_phase_diagram} Phase diagram of vesicle
-  hydrodynamics in a shear flow with $\delta = 0.1$ (left) and $\delta =
-  0.4$ (right) with reduced area $\Delta A = 0.9$. The critical Hamaker
+  hydrodynamics in a shear flow with $\delta = 0.1$ (a) and $\delta =
+  0.4$ (b) with reduced area $\Delta A = 0.9$. The critical Hamaker
   constant $\mathcal{H}$ for binding of two vesicles in a shear flow
   depends on the shear rate $\chi$.  For a doublet to form, lower
   separation distances require a stronger Hamaker constants at a given
