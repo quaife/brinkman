@@ -21,10 +21,11 @@ if 0
   options.confined = false;
 end
 
-if 1
+if 0
 %   file ='~/projects/microtubule/runs/relaxation1Ves_RA095_kappa1em2_expD1ep0/relaxation1VesData.bin';
  file = 'relaxation1VesData.bin';
   ax = [-3 3 -3.5 3.5];
+end
 
 if 0
   file = '~/projects/brinkman/vesicle_code/results/May092019/relaxation1Ves/kappa1em1_beta1ep0_ra0p95/relaxation1VesData.bin';
@@ -58,7 +59,7 @@ if 0
 end
 if 1
 %  file = 'shear2VesAData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR4em1adS1e0Chi1e0_ra090/shear2VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR4em1adS1p9e0Chi7p5em1_ra090/shear2VesData.bin';
   ax = [-10 10 -3 3];
   options.confined = false;
 end
@@ -96,6 +97,10 @@ for k = istart:irate:iend
     plot(vec1,vec2,'r','linewidth',3)
     hold on;
     plot(vec1(1,:),vec2(1,:),'b.','markersize',20)
+    ar = 1;
+    plot(ar*cos(linspace(0,2*pi,100)),ar*2.9197*sin(linspace(0,2*pi,100)),'b--')
+    axis equal
+    pause
     if options.confined
       vec1 = [wallx(:,:);wallx(1,:)];
       vec2 = [wally(:,:);wally(1,:)];

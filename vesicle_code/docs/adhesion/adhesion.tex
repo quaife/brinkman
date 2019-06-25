@@ -1192,12 +1192,44 @@ between the vesicles as a function of time for various Hamaker
 constants.  The red curves correspond to Hamaker constants that are too
 small to bind the vesicles into a doublet, and the blue curves
 correspond to Hamaker constants that are sufficiently large to form a
-doublet.  In Figure~\ref{fig:sflow_distance}(b), we plot the time
-required for the doublet to make a complete revolution at a variety of
-Hamaker constants and shear rates.  For a fixed Hamaker contant, as
-expected, the period decreases for larger shear rates.  In addition, for
-a fixed shear rate, the period decreases as the Hamaker constant
-increases, but the period eventually plateaus.
+doublet.
+
+In Figure~\ref{fig:sflow_distance}(b), we plot the time required for the
+doublet to make a complete revolution at a variety of Hamaker constants
+and shear rates.  For a fixed Hamaker constant, as expected, the period
+decreases for larger shear rates.  In addition, for a fixed shear rate,
+the period decreases as the Hamaker constant increases, but the period
+eventually plateaus.  The dynamics of these doublet have similar
+behavior to a single rigid body undergoing a Jeffery orbit in a shear
+flow.  Therefore, we define the effective aspect ratio
+$\lambda_{\mathrm{eff}}$ which satisfies
+\begin{align*}
+  \frac{2\pi}{\chi}\left(\lambda + \lambda^{-1} \right) = p,
+\end{align*}
+where $p$ is the period of the doublet.  The effective aspect ratio is
+the aspect ratio of an ellipse in a shear flow that is undergoing a
+Jeffery orbit with period $p$.  For the Hamaker constant $\mathcal{H} =
+2$, the shear rates, periods, and effective aspect ratio are summarized
+in Table~\ref{tbl:aspectRatio}.  Since the effective aspect ratio is
+comparable for all three shear rates, this indicates that the dynamics
+of a vesicle doublet in a shear flow resembles a rigid body undergoing a
+Jeffery orbit.
+\begin{table}[htp]
+  \begin{tabular}{>{\centering\arraybackslash}p{2cm}
+>{\centering\arraybackslash}p{2cm}
+>{\centering\arraybackslash}p{2cm}}
+  $\chi$ & $p$ & $\lambda_{\mathrm{eff}}$ \\
+  \hline
+  0.50 & 38.06 & 2.92 \\
+  0.75 & 24.81 & 2.85 \\
+  1.00 & 19.47 & 3.00 
+\end{tabular}
+\caption{\label{tbl:aspectRatio} The shear rate, period, and effective
+aspect ratio of a vesicle doublet with reduced area $\Delta A = 0.9$,
+Hamaker constant $\mathcal{H} = 2$, and separation distance $\delta =
+0.4$.  The effective aspect ratios are comparable for all three shear
+rates.}
+\end{table}
 
 Figure~\ref{fig:sflow_phase_diagram} indicates whether a doublet with
 reduced area $\Delta A = 0.9$ is formed (blue) or not (red) for a
