@@ -5,9 +5,10 @@ options.savefig = false;
 irate = 10; % controls the speed of the visualization
 
 if 0
-  file = 'extensional2VesData.bin';
+%  file = 'extensional2VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves_rotated/adR4em1adS7em1Chi7em2_ra070/extensional2VesData.bin';
-  ax = [-2 2 -2 2];
+  file = '~/projects/brinkman/vesicle_code/results/yuan_runs/june_28_2019/extensional2VesData75be.bin';
+  ax = 2*[-2 2 -2 2];
   options.confined = false;
 end
 if 0
@@ -59,7 +60,7 @@ if 0
 end
 if 1
 %  file = 'shear2VesAData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR4em1adS1p9e0Chi7p5em1_ra090/shear2VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR4em1adS2p3e0Chi5em1_ra090/shear2VesData.bin';
   ax = [-10 10 -3 3];
   options.confined = false;
 end
@@ -97,10 +98,9 @@ for k = istart:irate:iend
     plot(vec1,vec2,'r','linewidth',3)
     hold on;
     plot(vec1(1,:),vec2(1,:),'b.','markersize',20)
-    ar = 1;
-    plot(ar*cos(linspace(0,2*pi,100)),ar*2.9197*sin(linspace(0,2*pi,100)),'b--')
-    axis equal
-    pause
+%    ar = 1;
+%    plot(ar*cos(linspace(0,2*pi,100)),ar*2.9197*sin(linspace(0,2*pi,100)),'b--')
+%    pause
     if options.confined
       vec1 = [wallx(:,:);wallx(1,:)];
       vec2 = [wally(:,:);wally(1,:)];

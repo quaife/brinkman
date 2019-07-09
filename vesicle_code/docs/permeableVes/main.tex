@@ -148,6 +148,24 @@ where
   \right).
 \end{align}
 
+\section{Area of a Vesicle}
+The area inside a single vesicle $\gamma$ parameterized with $\mbx$ is
+\begin{align}
+  A(t) = \int_{\gamma} (\mbx \cdot \mbn)\, ds = 
+    \int_{0}^{2\pi} \left(\mbx \cdot \pderiv{\mbx}{\theta}^\perp\right)
+    \, d\theta.
+\end{align}
+Taking the time derivative of $A(t)$,
+\begin{align}
+  \dot{A}(t) &= \int_{0}^{2\pi} \left(
+    \dot{\mbx} \cdot \pderiv{\mbx}{\theta}^{\perp} + 
+    \mbx \cdot \pderiv{\dot{\mbx}}{\theta}^{\perp}\right) \\
+    \, d\theta.
+  &= \int_{0}^{2\pi} \left(
+    (\dot{\mbx} \cdot \mbn)\|\mbx'(\theta)\| \right) d\theta +
+     \int_{0}^{2\pi}
+    \mbx \cdot \frac{d}{dt}\left(\mbn |\frac{d\mbx}{d\theta}| \right)
+\end{align}
 
 \section{Including a concentration field}
 Based on the work of Yao and Mori~\cite{yao-mor2017}, we introduce a
