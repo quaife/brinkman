@@ -395,17 +395,18 @@ directions.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Governing Equations \label{sec:ge}}
-We consider a suspension of locally inextensible vesicles in an unbounded
-two-dimensional viscous fluid.  For simplicity, we assume the fluid
-viscosity both inside and outside the vesicles is the same; however,
-incorporating viscosity contrast is rather straightforward in our
-numerical algorithm.  
-While we focus on a vesicle doublet suspension for the rest of the paper, here we provide the most general formulation for multiple vesicles interacting with
-each other through both hydrodynamic and adhesive forces.
-Individual vesicles are denoted as $\gamma_j$,
-$j=1,\ldots,M$, and they are parameterized in arclength as $\xx_j(s,t)$.
-The union of all vesicles is denoted by $\gamma$.  Given a background
-velocity $\uu_\infty$, the governing (dimensionless) equations are
+We consider a suspension of locally inextensible vesicles in an
+unbounded two-dimensional viscous fluid.  For simplicity, we assume the
+fluid viscosity both inside and outside the vesicles is the same;
+however, incorporating viscosity contrast is rather straightforward in
+our numerical algorithm.  While we focus on a vesicle doublet suspension
+for the rest of the paper, here we provide the most general formulation
+for multiple vesicles interacting with each other through both
+hydrodynamic and adhesive forces.  Individual vesicles are denoted as
+$\gamma_j$, $j=1,\ldots,M$, and they are parameterized in arclength as
+$\xx_j(s,t)$.  The union of all vesicles is denoted by $\gamma$.  Given
+a background velocity $\uu_\infty$, the governing (dimensionless)
+equations are
 \begin{equation}
 \begin{aligned}
   \mu \Delta \uu = \nabla p, \quad &\xx \in \RR^2,
@@ -552,16 +553,15 @@ Appendix~\ref{sec:AppendixB}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Adhesion of two vesicles in a quiescent flow} 
 \label{sec:qflow} 
-We consider two identical vesicles
-suspended in a quiescent flow.  Without any external forcing such as an
-imposed electric field or a fluid flow in the far-field, the long-range
-attraction pulls the vesicles together until their separation distance
-is close to $\delta$. The L.-J.~type potential prohibits physical
-contact between the two membranes and instead keeps them close to the
-separation distance $\delta$.  In
-Section~\ref{subsec:qflow_draining_times}, we compute the expected time
-for the vesicles to reach an equilibrium configuration and compare the
-analysis with numerical simulations.  In
+We consider two identical vesicles suspended in a quiescent flow.
+Without any external forcing such as an imposed electric field or a
+fluid flow in the far-field, the long-range attraction pulls the
+vesicles together until their separation distance is close to $\delta$.
+The L.-J.~type potential prohibits physical contact between the two
+membranes and instead keeps them close to the separation distance
+$\delta$.  In Section~\ref{subsec:qflow_draining_times}, we compute the
+expected time for the vesicles to reach an equilibrium configuration and
+compare the analysis with numerical simulations.  In
 Section~\ref{subsec:qflow_adhesion_parameters}, we characterize the
 effects of the adhesion parameters and the vesicles' reduced area on the
 shape of the contact region and the bending and adhesive energies.
@@ -1203,19 +1203,22 @@ they are deflected to opposite sides of the $y$ axis, pass one another,
 and then separate.  However, in the presence of adhesion, the vesicles
 can form a doublet for certain values of the separation distance
 $\delta$, Hamaker constant $\mathcal{H}$, shear rate $\chi$, and reduced
-area $\Delta A$.  
-At all reduced areas, the vesicles have a length of
+area $\Delta A$.  At all reduced areas, the vesicles have a length of
 $2\pi$ to be consistent with simulations in previous sections.  
 
-Figure~\ref{fig:doublet090} shows snapshots of two vesicles
+Figures~\ref{fig:doublet090-weakAdhesion}
+and~\ref{fig:doublet090-strongAdhesion} show snapshots of two vesicles
 that have formed a doublet and the color coding is the tension along the
 vesicle.  The two vesicles are identical with reduced area $\Delta A =
 0.9$, shear rate $\chi = 0.5$, separation distance $\delta = 0.4$, and
-Hamaker constant $\mathcal{H} = 0.7$.  The vesicles in the doublet move
-in tandem rather than performing the tank-treading motion that is
-observed in the absence of adhesion.  Similar to the quiescent example,
-the membrane tension is negative in the contact region indicating that
-the membrane is being compressed when the adhesive force is strongest.
+Hamaker constant $\mathcal{H} = 0.7$
+(Figure~\ref{fig:doublet090-weakAdhesion}) and $\mathcal{H} = 2.1$
+(Figure~\ref{fig:doublet090-strongAdhesion}).  The vesicles in the
+doublet move in tandem rather than performing the tank-treading motion
+that is observed in the absence of adhesion.  Similar to the quiescent
+example, the membrane tension is negative in the contact region
+indicating that the membrane is being compressed when the adhesive force
+is strongest.
 
 \begin{figure}[htp]
   \includegraphics[width=0.24\textwidth]{figs/adR4em1adS7em1Chi5em1_ra090_image01.png}
@@ -1226,23 +1229,36 @@ the membrane is being compressed when the adhesive force is strongest.
   \includegraphics[width=0.24\textwidth]{figs/adR4em1adS7em1Chi5em1_ra090_image06.png}
   \includegraphics[width=0.24\textwidth]{figs/adR4em1adS7em1Chi5em1_ra090_image07.png}
   \includegraphics[width=0.24\textwidth]{figs/adR4em1adS7em1Chi5em1_ra090_image08.png}
-  \caption{\label{fig:doublet090} The formation of a doublet in a shear
-  flow.  The reduced area is $\Delta A = 0.9$, the Hamaker constant is
-  $\mathcal{H}=0.7$, the separation distance is $\delta = 0.4$, and the
-  shear rate is $\chi=0.5$.}
+  \caption{\label{fig:doublet090-weakAdhesion} The formation of a
+  doublet in a shear flow.  The reduced area is $\Delta A = 0.9$, the
+  Hamaker constant is $\mathcal{H}=0.7$, the separation distance is
+  $\delta = 0.4$, and the shear rate is $\chi=0.5$.}
 \end{figure}
-\todo[inline]{Redo this image with Hamaker constant 2.1 (or 2.2) which
-has a comparable period so that we can see the different dynamics}
+
+
+\begin{figure}[htp]
+  \includegraphics[width=0.24\textwidth]{figs/adR4em1adS2p1e0Chi5em1_ra090_image01.png}
+  \includegraphics[width=0.24\textwidth]{figs/adR4em1adS2p1e0Chi5em1_ra090_image02.png}
+  \includegraphics[width=0.24\textwidth]{figs/adR4em1adS2p1e0Chi5em1_ra090_image03.png}
+  \includegraphics[width=0.24\textwidth]{figs/adR4em1adS2p1e0Chi5em1_ra090_image04.png}
+  \includegraphics[width=0.24\textwidth]{figs/adR4em1adS2p1e0Chi5em1_ra090_image05.png}
+  \includegraphics[width=0.24\textwidth]{figs/adR4em1adS2p1e0Chi5em1_ra090_image06.png}
+  \includegraphics[width=0.24\textwidth]{figs/adR4em1adS2p1e0Chi5em1_ra090_image07.png}
+  \includegraphics[width=0.24\textwidth]{figs/adR4em1adS2p1e0Chi5em1_ra090_image08.png}
+  \caption{\label{fig:doublet090-strongAdhesion} The formation of a
+  doublet in a shear flow.  The reduced area is $\Delta A = 0.9$, the
+  Hamaker constant is $\mathcal{H}=2.1$, the separation distance is
+  $\delta = 0.4$, and the shear rate is $\chi=0.5$.}
+\end{figure}
 
 We characterize the effect of the Hamaker constant and shear rate by
 determining a critical Hamaker constant, $\mathcal{H}_c$, which
 determines if the vesicles form a doublet or separate.  We fix the
 separation distance to $\delta = 0.4$ and the vesicle reduced area to
-$\Delta A = 0.9$.  In
-Figure~\ref{fig:sflow_distance}(a), we plot the minimum distance
-between the vesicles as a function of time for various Hamaker
-constants.  The red curves correspond to Hamaker constants that are too
-small to bind the vesicles into a doublet, and the blue curves
+$\Delta A = 0.9$.  In Figure~\ref{fig:sflow_distance}(a), we plot the
+minimum distance between the vesicles as a function of time for various
+Hamaker constants.  The red curves correspond to Hamaker constants that
+are too small to bind the vesicles into a doublet, and the blue curves
 correspond to Hamaker constants that are sufficiently large to form a
 doublet.
 
