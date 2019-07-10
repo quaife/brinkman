@@ -189,7 +189,7 @@ fy2 = -exp(-r/d).*(y-y0)./r;
 %fx(s) = 0;
 %fy(s) = 0;
 
-force = [fx1 + 1*fx2;fy1 + 1*fy2];
+force = [fx1 + 0*fx2;fy1 + 0*fy2];
 
 end % expForce
 

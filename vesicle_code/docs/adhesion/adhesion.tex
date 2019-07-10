@@ -859,7 +859,7 @@ $\mathcal{H}$.
 %% \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Adhesion of two vesicles in an extensional flow} 
+\section{Adhesion of two vesicles in a planar extensional flow} 
 \label{sec:eflow} 
 
 \begin{figure}[htp]
@@ -907,17 +907,49 @@ $\mathcal{H}$.
   \includegraphics[width = 0.16\textwidth,trim={4cm 0.5cm 4cm 0.5cm},clip]
     {figs/extensional_displacement1em1_adS6em1_image05.png}
 
-  \caption{\label{fig:extensionalNonsymmetric} }
+  \caption{\label{fig:extensionalNonsymmetric}Dynamics of a vesicle pair in a planar extensional flow. ${\cal H} = 0.7$ for the first three rows, and ${\cal H}=0.6$ for the bottom row. From top to bottom, the initial vertical displacement $\triangle y=0$, 0.02, 0.1 and 0.1. The reduced area is ???, the strain rate $\chi = ???$ and the adhesion distance $\delta = ???$. }
   \end{figure}
 
 
 The hydrodynamics of a single vesicle in an extensional flow has
 revealed novel nonlinear vesicle dynamics not found for a viscous
 drop~\cite{KantslerSegreSteinberg2008_PRL, ZhaoShaqfeh2013_JFM,
-Narsimhan2014_JFM, DahlNarsimhanGouveia2016_SoftMatt}.  The stagnation
-point (zero-velocity at the origin) in an extensional flow, $\uu
-=\chi(-x,y)$, is a saddle point where two laminar streams converge along
-an axis and then diverge in the orthogonal direction.  With an active
+Narsimhan2014_JFM, DahlNarsimhanGouveia2016_SoftMatt}.  Here we focus on a
+planar extensional flow  where the fluid velocity field $\uu=\chi(-x,y)$ is centered at the 
+the origin ($(x,y)=(0,0)$), the stagnation point where the fluid flow converges horizontally and diverges vertically.
+Placed symmetrically at the stagnation point of an extensional flow,
+a single vesicle may remain steady and symmetric for low strain rate $\chi$.
+For sufficiently large strain rate $\chi$ the vesicle may undergo asymmetric deformation \cite{KantslerSegreSteinberg2008_PRL,Narsimhan2014_JFM,DahlNarsimhanGouveia2016_SoftMatt}. 
+
+To investigate how two vesicles interact with each other in a planar extensional flow,
+at the beginning of the simulations
+we place a vesicle at the stagnation point (left panels in Figure~\ref{fig:extensionalNonsymmetric}), 
+and the other vesicle at $(x,y) = (2,\triangle y)$ where the initial vertical displacement $\triangle y$ increases from
+$\triangle y=0$ for the top row, $\triangle y = 0.02$ for the second row, to
+$\triangle y =0.1$ for the bottom two rows in Figure~\ref{fig:extensionalNonsymmetric}.
+The adhesion strength ${\cal H} = 0.7$ for the top three rows, and ${\cal H} =0.6$ for the bottom row.
+
+Once the planar extensional flow is turned on at $t=0^+$, two vesicles move
+towards each other  as shown in  Figure \ref{fig:extensionalNonsymmetric}.
+For $\triangle y=0$ in the top row, the two vesicles stay on the $x$-axis as they move towards each other, 
+form a doublet and reach a steady 
+configuration that is symmetric with respect to the stagnation point. 
+
+As the initial vertical displacement increases, we observe that 
+the two vesicles rotate as they are within close range of each other 
+and form a doublet for ${\cal H}=0.7$ as they move away from the origin.
+In particular we observe that the two vesicles are in sideway contact for $\triangle y = 0.02$ in the second row,
+ while for $\triangle y = 0.1$ the two vesicles form a contact region near the tip.
+%
+For weaker adhesion ${\cal H}=0.6$ the two vesicles with an initial vertical displacement $\triangle y = 0.1$ no longer form a doublet
+and are separate from each other at $t=100$.
+
+In an extensional flow the two vesicles easily move away from the stagnation point as shown in Figure~\ref{fig:extensionalNonsymmetric}.
+A small initial vertical displacement $\triangle y$ causes the vesicle pair to not only rotate but also move along the diverging flow to large
+distance from the stagnation point, where the flow strength increases. Thus in the microfluidic experiment it is often more desirable to trap the vesicle around the center of an extensional flow \cite{Spjut2010_MSThesis_Chapter3}.
+
+
+With an active
 control algorithm to place the stagnation point at a desirable location
 by adjusting the streaming flow strength with a feedback
 loop~\cite{Johnson-Chavarria2011_EMJ}, a particle can be trapped at the

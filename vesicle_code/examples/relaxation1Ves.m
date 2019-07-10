@@ -5,14 +5,15 @@ fprintf('First-order semi-implicit time stepping.\n');
 
 % Physics parameters
 prams.N = 128;               % points per vesicle
+prams.N = 256;               % points per vesicle
 prams.nv = 1;               % number of vesicles
 prams.T = 30;               % time horizon (two tumbling)
 prams.m = 1000;              % number of time steps
 
-% prams.kappa = 1e-4;         % bending coefficient
-
-
 prams.kappa = 1e-1;         % bending coefficient
+prams.kappa = 1e-2;         % bending coefficient
+
+
 
 prams.viscCont = 1;         % viscosity contrast
 options.farField = 'relaxation'; % background velocity
@@ -63,11 +64,11 @@ options.track = false;
 % Save vesicle information and create a log file
 options.logFile = 'output/relaxation1Ves.log';
 % Name of log file for saving messages
-options.dataFile = 'output/relaxation1VesData.bin';
+options.dataFile = 'output/pulling1_k1em2Data.bin';
 % Name of binary data file for storing vesicle information
 
 options.saveError = true;
-options.errorFile = 'output/relaxation1VesError.bin';
+options.errorFile = 'output/pulling1_k1em2Error.bin';
 % Name of binary data file for storing truncation errors after each step
 
 [options,prams] = initVes2D(options,prams);
@@ -80,9 +81,9 @@ ra = 0.65;
 %scale = sqrt(ra);
 scale = 1;
 
-ra = 0.35;
-scale = sqrt(ra);
-%scale = 1;
+% ra = 0.35;
+% scale = sqrt(ra);
+% %scale = 1;
 
 X = oc.initConfig(prams.N,...
     'reducedArea',ra,...
