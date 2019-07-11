@@ -893,7 +893,7 @@ $\mathcal{H}$.
     {figs/extensional_displacement1em1_adS7em1_image03.png}
   \includegraphics[height = 0.2\textwidth,trim={4cm 0cm 4cm 0cm},clip]
     {figs/extensional_displacement1em1_adS7em1_image04.png}
-  \includegraphics[height = 0.2\textwidth,trim={4cm 0cm 4cm 0cm},clip]
+  \includegraphics[height = 0.2\textwidth,trim={3.5cm 0cm 4cm 0cm},clip]
     {figs/extensional_displacement1em1_adS7em1_image05.png} \\
 
   \includegraphics[height = 0.2\textwidth,trim={1cm 0cm 1cm 0cm},clip]
@@ -904,7 +904,7 @@ $\mathcal{H}$.
     {figs/extensional_displacement1em1_adS6em1_image03.png}
   \includegraphics[height = 0.2\textwidth,trim={4cm 0cm 4cm 0cm},clip]
     {figs/extensional_displacement1em1_adS6em1_image04.png}
-  \includegraphics[height = 0.2\textwidth,trim={4cm 0cm 4cm 0cm},clip]
+  \includegraphics[height = 0.2\textwidth,trim={3.5cm 0cm 4cm 0cm},clip]
     {figs/extensional_displacement1em1_adS6em1_image05.png}
   \caption{\label{fig:extensionalNonsymmetric}Dynamics of a vesicle pair in a planar extensional flow. ${\cal H} = 0.7$ for the first three rows, and ${\cal H}=0.6$ for the bottom row. From top to bottom, the initial vertical displacement $\triangle y=0$, 0.02, 0.1 and 0.1. The reduced area is ???, the strain rate $\chi = ???$ and the adhesion distance $\delta = ???$. }
   \end{figure}
@@ -923,29 +923,42 @@ For sufficiently large strain rate $\chi$ the vesicle may undergo asymmetric def
 To investigate how two vesicles interact with each other in a planar extensional flow,
 at the beginning of the simulations
 we place a vesicle at the stagnation point (left panels in Figure~\ref{fig:extensionalNonsymmetric}), 
-and the other vesicle at $(x,y) = (2,\triangle y)$ where the initial vertical displacement $\triangle y$ increases from
+and the other vesicle at $(x,y) = (3,\triangle y)$ where the initial vertical displacement $\triangle y$ varies from
 $\triangle y=0$ for the top row, $\triangle y = 0.02$ for the second row, to
 $\triangle y =0.1$ for the bottom two rows in Figure~\ref{fig:extensionalNonsymmetric}.
 The adhesion strength ${\cal H} = 0.7$ for the top three rows, and ${\cal H} =0.6$ for the bottom row.
 
 Once the planar extensional flow is turned on at $t=0^+$, two vesicles move
 towards each other  as shown in  Figure \ref{fig:extensionalNonsymmetric}.
-For $\triangle y=0$ in the top row, the two vesicles stay on the $x$-axis as they move towards each other, 
-form a doublet and reach a steady 
-configuration that is symmetric with respect to the stagnation point. 
+For $\triangle y=0$ in the top row, the two vesicles stay on the $x$-axis as they move closer to 
+form a doublet. We observe that the left vesicle (initially centered at $(0,0)$) moves to the left due to the impinging
+vesicle from the right. As time progresses they form a doublet
+and reach a steady configuration that is symmetric with respect to the stagnation point 
+(filled squares in Figure \ref{fig:extensionalNonsymmetric}).
 
-As the initial vertical displacement increases, we observe that 
-the two vesicles rotate as they are within close range of each other 
-and form a doublet for ${\cal H}=0.7$ as they move away from the origin.
-In particular we observe that the two vesicles are in sideway contact for $\triangle y = 0.02$ in the second row,
- while for $\triangle y = 0.1$ the two vesicles form a contact region near the tip.
-%
-For weaker adhesion ${\cal H}=0.6$ the two vesicles with an initial vertical displacement $\triangle y = 0.1$ no longer form a doublet
-and are separate from each other at $t=100$.
+As the initial vertical displacement $\triangle y$ increases, we observe similar vesicle dynamics only at the beginning 
+when the right vesicle moves towards the left vesicle as the left vesicle is pushed to the left of the stagnation point. 
+As both vesicles come to close vicinity of the stagnation point, the diverging flow pulls the
+right vesicle (elevated with a small vertical displacement at $t=0$) further away, causing rotation of vesicles as a pair. 
+We also observe that the larger the initial vertical displacement, the larger the rotation and the faster both vesicles move
+away from the stagnation point.
 
-In an extensional flow the two vesicles easily move away from the stagnation point as shown in Figure~\ref{fig:extensionalNonsymmetric}.
-A small initial vertical displacement $\triangle y$ causes the vesicle pair to not only rotate but also move along the diverging flow to large
-distance from the stagnation point, where the flow strength increases. Thus in the microfluidic experiment it is often more desirable to trap the vesicle around the center of an extensional flow \cite{Spjut2010_MSThesis_Chapter3}.
+
+For strong adhesion (such as the cases with ${\cal H}=0.7$ in Figure \ref{fig:extensionalNonsymmetric}),
+ the two vesicles rotate and move away from the stagnation point as a doublet even for $\triangle y=0.1$, where
+ two vesicles are in close vicinity of each other only at the tip at $t=100$ in the third row.
+For weaker adhesion (${\cal H}=0.6$ in Figure \ref{fig:extensionalNonsymmetric})  
+the two vesicles no longer form a doublet as they are quite separate from each other at $t=100$.
+
+ with an initial vertical displacement $\triangle y = 0.1$ no longer form a doublet
+and are separate from each other at the end of simulation ($t=100$).
+
+
+
+Results in Figure~\ref{fig:extensionalNonsymmetric} illustrate that
+in an extensional flow vesicles are prone to move away from the stagnation point:
+A small initial vertical displacement $\triangle y$ of one vesicle causes both vesicles to not only rotate but also move away from the
+center. Thus in the microfluidic experiment it is often more desirable to trap the vesicle around the center of an extensional flow \cite{Spjut2010_MSThesis_Chapter3}.
 
 
 With an active
