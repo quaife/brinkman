@@ -59,8 +59,8 @@ if 0
   options.confined = false;
 end
 if 1
-%  file = 'shear2VesAData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR4em1adS3e0Chi7p5em1_ra090/shear2VesData.bin';
+  file = 'shear2VesDData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR4em1adS3e0Chi7p5em1_ra090/shear2VesData.bin';
   ax = [-3 3 -3 3];
   options.confined = false;
 end
