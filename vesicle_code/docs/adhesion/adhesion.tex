@@ -1257,15 +1257,15 @@ separation.
 \section{Adhesion of two vesicles in a shear flow}
 \label{sec:sflow} 
 We consider two vesicles suspended in the shear flow $\uu = \chi(y,0)$,
-where $\chi$ is the shear rate.  The vesicles are placed on the $y$ axis
-so that the background velocity drives the vesicles towards one another.
-In the absence of adhesion, once the vesicles are sufficiently close,
-they are deflected to opposite sides of the $y$ axis, pass one another,
-and then separate.  However, in the presence of adhesion, the vesicles
-can form a doublet for certain values of the separation distance
-$\delta$, Hamaker constant $\mathcal{H}$, shear rate $\chi$, and reduced
-area $\Delta A$.  At all reduced areas, the vesicles have a length of
-$2\pi$ to be consistent with simulations in previous sections.  
+where $\chi$ is the shear rate.  The initial placement of the vesicles
+is chosen so that the flow dives them towards one another.  In the
+absence of adhesion, once the vesicles are sufficiently close, they are
+deflected to opposite sides of the $y$ axis, pass one another, and then
+separate.  However, in the presence of adhesion, the vesicles can form a
+doublet for certain values of the separation distance $\delta$, Hamaker
+constant $\mathcal{H}$, shear rate $\chi$, and reduced area $\Delta A$.
+At all reduced areas, the vesicles have a length of $2\pi$ to be
+consistent with simulations in previous sections.  
 
 Figures~\ref{fig:doublet090-weakAdhesion}
 and~\ref{fig:doublet090-strongAdhesion} show snapshots of two vesicles
@@ -1276,10 +1276,20 @@ constant $\mathcal{H} = 0.7$ (Figure~\ref{fig:doublet090-weakAdhesion})
 and $\mathcal{H} = 2.1$ (Figure~\ref{fig:doublet090-strongAdhesion}).
 Similar to the quiescent example, the membrane tension is negative in
 the contact region indicating that the membrane is being compressed when
-the adhesive force is strongest.  For both Hamaker constants, the
-vesicles in the doublet move in tandem with a tank-reading motion that
-is much slower than the tank-treading motion that occurs in the absense
-of ahdesion.  
+the adhesive force is strongest.  The two values for the Hamaker
+constant are chosen since the vesicles dynamics have similar periods of
+$t^* \approx 42$.  For both the Hamaker constants, the vesicles in the
+doublet move in tandem with a tank-reading motion that is much slower
+than the tank-treading motion that occurs in the absense of ahdesion.
+However, the dynamics of a single period for theses two Hamaker
+constants differ significantly.  For the weaker adhesive force, the
+individual vesicles undergo a sliding motion as they pass one another,
+and the contact region between the vesicles moves along the vesicle
+throughout the simulation (Figure~\ref{fig:doublet090-weakAdhesion}).
+However, at larger Hamaker constants, once the contact region is formed,
+the doublet maintains the same structure and undergoes a tumbling
+dynamic similar to a Jeffery orbit.
+
 
 \begin{figure}[htp]
   \includegraphics[width=0.19\textwidth]{figs/adR4em1adS7em1Chi5em1_ra090_image01.png}
@@ -1316,61 +1326,82 @@ of ahdesion.
   $\delta = 0.4$, and the shear rate is $\chi=0.5$.}
 \end{figure}
 
-In Figure~\ref{fig:sflow_distance}(a), we plot the minimum distance
-between the two vesicles as a function of time for various Hamaker
-constants.  For Hamaker constants less than a critical value,
-$\mathcal{H}_c$, the adhesive force is not strong enough to form a
-doublet, and the distance between the vesicles grows with time (red
-curves).  However, when $\mathcal{H} > \mathcal{H}_c$, the adhesive
-force is sufficiently strong to bind the vesicles into a doublet, and
-then the doublet undergoes a periodic motion (blue curves).  In
-Figure~\ref{fig:sflow_distance}(b), we plot the time required for the
+To further understand the nature of the doublet,
+Figure~\ref{fig:sflow_distance}(a) shows the minimum distance between
+the two vesicles as a function of time.  For Hamaker constants less than
+a critical value, $\mathcal{H}_c$, the adhesive force is not strong
+enough to form a doublet, and the distance between the vesicles grows
+with time (red curves).  However, when $\mathcal{H} > \mathcal{H}_c$,
+the adhesive force is sufficiently strong to bind the vesicles into a
+doublet, and then the doublet undergoes a periodic motion (blue curves).
+In Figure~\ref{fig:sflow_distance}(b), we plot the time required for the
 doublet to make a complete revolution for three different shear rates.
-For a fixed Hamaker constant, as expected, the period decreases for
-larger shear rates.  More interestingly, at a fixed shear rate, the
-period depends non-monotonically on the Hamaker constant.  When the
-Hamaker constant is first sufficiently large to form a doublet, the
-individual vesicles undergo a sliding motion as they pass one another,
-and the contact region between the vesicles moves along the vesicle
-throughout the simulation (Figure~\ref{fig:doublet090-weakAdhesion}).
-However, at larger Hamaker constants, once the contact region is formed,
-the doublet maintains the same structure and undergoes a tumbling
-dynamic similar to a Jeffery orbit.  The simulations illustrated in
-Figures~\ref{fig:doublet090-weakAdhesion}
-and~\ref{fig:doublet090-strongAdhesion} are chosen so that the doublet
-has roughly the same period, but the structure of the doublet is
-fundamentally different for these different Hamaker constants.
+Initially, as the shear rate increases, the period decreases.  However,
+the transition from the weakly adhesive doublet
+(Figure~\ref{fig:doublet090-weakAdhesion} to the stronger adhesive
+doublet (Figure~\ref{fig:doublet090-strongAdhesion}) results in an
+increase in the period.  However, once the Hamaker constant is
+sufficiently strong that the contact region remains fixed throughout the
+dynamics, the period of the doublet again decreases as the shear rate
+increases.
 
-To further understand the behavior of the Jeffery orbit, we define an
-effective aspect ratio $\lambda_{\mathrm{eff}}$ which satisfies
-\begin{align*}
-  \frac{2\pi}{\chi}\left(\lambda + \lambda^{-1} \right) = p,
-\end{align*}
-where $p$ is the period of the doublet.  The effective aspect ratio is
-the aspect ratio of an ellipse in a shear flow that is undergoing a
-Jeffery orbit with period $p$.  For the Hamaker constant $\mathcal{H} =
-2$, the shear rates, periods, and effective aspect ratio are summarized
-in Table~\ref{tbl:aspectRatio}.  Since the effective aspect ratio is
+Especially at the large Hamaker constants, the dynamics of the doublet
+resemble those of a Jeffery orbit.  An ellipse with aspect ratio
+$\lambda$ undergoes a periodic tumbling motion with
+period~\cite{jef1922}
+\begin{align}
+  p = \frac{2\pi}{\chi}\left(\lambda + \lambda^{-1} \right).
+  \label{eqn:JefferyPeriod}
+\end{align}
+Instead of measuring the aspect ratio of a doublet in a flow with shear
+rate $\chi$, we use the computed period to define an effective aspect
+ratio $\lambda_{\mathrm{eff}}$ that satisfies~\eqref{eqn:JefferyPeriod}.
+Therefore, the effective aspect ratio is the aspect ratio of an ellipse
+in a shear flow that is undergoing a Jeffery orbit with period $p$.  For
+the Hamaker constants $\mathcal{H} = 1.5$ and $\mathcal{H} = 3.5$, the
+shear rates, periods, and effective aspect ratio are summarized in
+Table~\ref{tbl:aspectRatio}.  
+
+Since the effective aspect ratio is
 comparable for all three shear rates, this indicates that the dynamics
 of a vesicle doublet in a shear flow resembles a rigid body undergoing a
 Jeffery orbit.
 \begin{table}[htp]
+\begin{minipage}{0.45\textwidth}
+  $\mathcal{H} = 1.5$ \\
   \begin{tabular}{>{\centering\arraybackslash}p{2cm}
 >{\centering\arraybackslash}p{2cm}
 >{\centering\arraybackslash}p{2cm}}
   $\chi$ & $p$ & $\lambda_{\mathrm{eff}}$ \\
   \hline
-  0.50 & 38.06 & 2.92 \\
-  0.75 & 24.81 & 2.85 \\
-  1.00 & 19.47 & 3.00 
+%  0.50 & 38.06 & 2.92 \\
+%  0.75 & 24.81 & 2.85 \\
+%  1.00 & 19.47 & 3.00 
+  0.50 & 36.34 & 2.49 \\
+  0.75 & 25.86 & 2.72 \\
+  1.00 & 20.73 & 2.96 
 \end{tabular}
-\todo[inline]{Update these values with new periods.  Maybe need to
-consider more than one Hamaker constant}
+\end{minipage}
+%\hfill
+\begin{minipage}{0.45\textwidth}
+  $\mathcal{H} = 3.5$ \\
+  \begin{tabular}{>{\centering\arraybackslash}p{2cm}
+>{\centering\arraybackslash}p{2cm}
+>{\centering\arraybackslash}p{2cm}}
+  $\chi$ & $p$ & $\lambda_{\mathrm{eff}}$ \\
+  \hline
+  0.50 & 28.46 & 1.66 \\
+  0.75 & 22.01 & 2.17 \\
+  1.00 & 17.91 & 2.44 
+\end{tabular}
+\end{minipage}
 \caption{\label{tbl:aspectRatio} The shear rate, period, and effective
 aspect ratio of a vesicle doublet with reduced area $\Delta A = 0.9$,
-Hamaker constant $\mathcal{H} = 2$, and separation distance $\delta =
-0.4$.  The effective aspect ratios are comparable for all three shear
-rates.}
+separation distance $\delta = 0.4$, and 
+Hamaker constants $\mathcal{H} = 1.5$ and $\mathcal{H} = 3.5$.  The
+effective aspect ratios depend on both the Hamaker constant and the
+shear rate, indicating that the reported Hamaker constants, the dynamics
+of the doublet differ from that of a Jeffery orbit.}
 \end{table}
 \todo[inline]{period results with $\delta$ = 0.1, 0.2, 0.3, 0.4 so that
 we can simply say how it affects the period}
