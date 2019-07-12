@@ -1348,12 +1348,11 @@ Therefore, the effective aspect ratio is the aspect ratio of an ellipse
 in a shear flow that is undergoing a Jeffery orbit with period $p$.  For
 the Hamaker constants $\mathcal{H} = 1.5$ and $\mathcal{H} = 3.5$, the
 shear rates, periods, and effective aspect ratio are summarized in
-Table~\ref{tbl:aspectRatio}.  
+Table~\ref{tbl:aspectRatio}.  The effective aspect ratio of the doublet
+depends on both the Hamaker constant and the shear rate, and this
+indicates that the doublet's dynamics differ from those of a rigid body
+undergoing a Jeffery orbit.
 
-Since the effective aspect ratio is
-comparable for all three shear rates, this indicates that the dynamics
-of a vesicle doublet in a shear flow resembles a rigid body undergoing a
-Jeffery orbit.
 \begin{table}[htp]
 \begin{minipage}{0.45\textwidth}
   $\mathcal{H} = 1.5$ \\
@@ -1394,26 +1393,21 @@ of the doublet differ from that of a Jeffery orbit.}
 \todo[inline]{period results with $\delta$ = 0.1, 0.2, 0.3, 0.4 so that
 we can simply say how it affects the period}
 
-We characterize the effect of the Hamaker constant and shear rate by
-determining a critical Hamaker constant, $\mathcal{H}_c$, which
-determines if the vesicles form a doublet or separate.  
-
-
-Figure~\ref{fig:sflow_phase_diagram} indicates whether a doublet with
-reduced area $\Delta A = 0.9$ is formed (blue) or not (red) for a
-variety of shear rates, Hamaker constants, and at two different
-separation distances.  The plot includes a line of best fit between the
-stable and unstable regions.  Since the transition is linear, this
-indicates that a dimensionless number involving the ratio of the Hamaker
-constant could be used to determine if a doublet forms or not.
+Next, for several shear rates, we determine the critical Hamaker
+constant, $\mathcal{H}_c$, that determines if the vesicles form a
+doublet or separate.  Figure~\ref{fig:sflow_phase_diagram} indicates
+whether a doublet with $\Delta A = 0.9$ is formed (blue) or not (red)
+for two different separation distances.  The plot includes a line of
+best fit between the stable and unstable regions.  Since the transition
+is linear, this indicates that a dimensionless number involving the
+ratio of the Hamaker constant could be used to determine if a doublet
+forms or not.
 
 \begin{figure}
   \begin{tabular}{@{}p{0.45\linewidth}@{\quad}p{0.45\linewidth}@{}}
   \subfigimg[width=\linewidth]{(a)}{figs/shear_adR4em1Chi5em1_ra090.pdf} &
   \subfigimg[width=\linewidth]{(b)}{figs/shear_adR4em1Chi5em1_ra090_period.pdf}
   \end{tabular}
-%  \includegraphics[height=0.34\textwidth]{figs/shear_adR4em1Chi5em1_ra090.pdf}
-%  \includegraphics[height=0.34\textwidth]{figs/shear_adR4em1Chi5em1_ra090_period.pdf}
   \caption{\label{fig:sflow_distance} (a) The distance between a pair of
   vesicles in a planar shear flow with shear rate $\chi=0.5$, and
   separation distance $\delta = 0.4$.  The different lines correspond to
@@ -1429,9 +1423,6 @@ constant could be used to determine if a doublet forms or not.
   \subfigimg[width=\linewidth]{(a)}{figs/shear_adR1em1_ra090_phaseDiagram.pdf} &
   \subfigimg[width=\linewidth]{(b)}{figs/shear_adR4em1_ra090_phaseDiagram.pdf}
   \end{tabular}
-%  \centering
-%  \includegraphics[height=0.37\textwidth]{figs/shear_adR1em1_ra090_phaseDiagram.pdf}
-%  \includegraphics[height=0.37\textwidth]{figs/shear_adR4em1_ra090_phaseDiagram.pdf}
   \caption{\label{fig:sflow_phase_diagram} Phase diagram of vesicle
   hydrodynamics in a shear flow with $\delta = 0.1$ (a) and $\delta =
   0.4$ (b) with reduced area $\Delta A = 0.9$. The critical Hamaker
