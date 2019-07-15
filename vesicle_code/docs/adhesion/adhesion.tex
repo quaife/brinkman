@@ -19,7 +19,7 @@
 %  4)  latex apssamp.tex
 %
 %\documentclass[aps,prb,showpacs,amsmath,amssymb,superscriptaddress]{revtex4-1}
-\documentclass[prf,superscriptaddress,showkeys]{revtex4-1}
+\documentclass[prf,superscriptaddress,showkeys,longbibliography]{revtex4-1}
 
 %\documentclass[%
 %reprint,
@@ -224,8 +224,11 @@ model~\cite{ZiherlSvetina2007_PNAS}.  It remains unknown how adhesive
 interactions between vesicles might lead to different vesicle
 hydrodynamics that results in different rheological properties of a
 vesicle suspension. Such studies will provide useful insight into the
-rheology of blood flow and how to use nano solutes to control the
-hypertension by adjusting the adhesive interactions between RBCs.
+rheology of blood flow~\cite{chi-usa-del-gre-nan-gue1967} and how to use
+nano solutes to control the hypertension by adjusting the adhesive
+interactions between RBCs.
+\todo[inline]{Add references by Brust aet al.~ and Claveria et al}
+
 
 In numerical simulations of a vesicle suspension, the adhesive
 interaction between two vesicles is often
@@ -233,16 +236,16 @@ ignored~\cite{Veerapaneni2009_JCP,  RahimianVeerapaneniBiros2010_JCP}
 for numerical convenience, mostly because a small time step is often
 needed to resolve the dynamics of the lubrication thin film between two
 membranes with adhesion.  However, adhesive interactions between RBCs
-lead to RBC clusters that are expected to alter the
-rheological properties of the RBC suspension~\cite{NeuMeiselman2002_BJ,
+lead to RBC clusters that are expected to alter the rheological
+properties of the RBC suspension~\cite{NeuMeiselman2002_BJ,
 SvetinaZiherl2008_Bioelectrochemistry}. Hydrodynamic simulations of
 adhesive vesicles in a quiescent flow have revealed physical insights to
 the equilibrium shapes of RBC aggregates in both
 experiments~\cite{FlormannAouane2017_SciReports} and
-theory~\cite{ZiherlSvetina2007_PNAS}. The main goal of this work is to
+theory~\cite{ZiherlSvetina2007_PNAS}.  The main goal of this work is to
 investigate the hydrodynamics of adhesive vesicles in flow conditions
-common in microfluidics such as a planar shear flow and an
-extensional flow.
+common in microfluidics such as a planar shear flow and an extensional
+flow.
 
 The electrostatic nature of lipid molecules (a hydrophobic tail and a
 hydrophilic head with an electric dipole) complicates the interactions
@@ -349,11 +352,12 @@ from spherical shape and the membrane is almost flat in the ``contact"
 region. Gires {\em et al.}~used small-deformation analysis to
 investigate the hydrodynamic interactions between two vesicles in a
 planar shear flow with a long separation
-distance~\cite{GiresDankerMisbah2012_PRE}. They found that the vesicle
-interaction could be either attractive or repulsive depending on the
-organization of the two vesicles relative to the shear flow. To the best
-of authors' knowledge, the effects of close-range vesicle adhesion on
-their hydrodynamics under an external flow have not been studied and
+distance~\cite{GiresDankerMisbah2012_PRE}.  \todo[inline]{Also cite
+Gires et al.~Physics of Fluids 26, 013304, 2014} They found that the
+vesicle interaction could be either attractive or repulsive depending on
+the organization of the two vesicles relative to the shear flow. To the
+best of authors' knowledge, the effects of close-range vesicle adhesion
+on their hydrodynamics under an external flow have not been studied and
 quantified. The goal of this work is to use state-of-the-art boundary
 integral simulations to numerically investigate the dynamics of two
 vesicles in both planar shear flow and extensional flow for a wide range
@@ -1402,8 +1406,6 @@ effective aspect ratios depend on both the Hamaker constant and the
 shear rate, indicating that the reported Hamaker constants, the dynamics
 of the doublet differ from that of a Jeffery orbit.}
 \end{table}
-\todo[inline]{period results with $\delta$ = 0.1, 0.2, 0.3, 0.4 so that
-we can simply say how it affects the period}
 
 Next, for several shear rates, we determine the critical Hamaker
 constant, $\mathcal{H}_c$, that determines if the vesicles form a
@@ -1476,10 +1478,9 @@ al.}~\cite{GhigliottiBibenMisbah2010_JFM}.  The presence of the doublet
 slightly increases the intrinsic viscosity at all the reduced areas.
 We also compute the intrinsic viscosity of a doublet with $\Delta A =
 0.9$, $\chi = 0.5$, and $\mathcal{H} = 2.1$.  Again, this doublet has a
-similar period to the case $\mathcal{H} = 2.1$.  At this larger Hamaker
+similar period to the case $\mathcal{H} = 0.7$. At this larger Hamaker
 constant, the effective viscosity increases slightly from $1.97$ to
 $2.06$.
-
 
 To further characterize the effect of adhesion, in
 Figure~\ref{fig:shearIntrinsicViscosity}(b) we decompose the intrinsic
@@ -1517,8 +1518,6 @@ and tension.
   the bending and tension (black) of the vesicles, and the contribution
   from the vesicle adhesion (green).  Also included is the intrinsic
   viscosity of a single tank-treading vesicle (blue).}
-  \todo[inline]{Update the caption to discuss larger Hamaker constant
-  case}
 \end{figure}
 
 
@@ -1661,8 +1660,8 @@ grants DMS-1719834 and DMS-1454010.  YNY acknowledges support from
 NSF-DMS 1614863 and NSF-DMS 1412789.  Both SV and YNY were also supported
 by the Flatiron Institute, a division of Simons Foundation.
 
-BQ and YNY contributed equally to model development, code development,
-and simulations.  All authors contributed equally to writing the
+BQ and YNY contributed equally to model development and simulations. BQ
+developed the code. All authors contributed equally to writing the
 manuscript.
 
 
@@ -1859,94 +1858,6 @@ force for a suspension of $M$ vesicles.
 
 
 \bibliography{refs}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\subsection{\label{sec:level2}Second-level heading: Formatting}
-%
-%This file may be formatted in either the \texttt{preprint} or
-%\texttt{reprint} style. \texttt{reprint} format mimics final journal output. 
-%Either format may be used for submission purposes. \texttt{letter} sized paper should
-%be used when submitting to APS journals.
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\subsubsection{Wide text (A level-3 head)}
-%The \texttt{widetext} environment will make the text the width of the
-%full page, as on page~\pageref{eq:wideeq}. (Note the use the
-%\verb+\pageref{#1}+ command to refer to the page number.) 
-%\paragraph{Note (Fourth-level head is run in)}
-%The width-changing commands only take effect in two-column formatting. 
-%There is no effect if text is in a single column.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\subsection{\label{sec:citeref}Citations and References}
-%
-%
-%
-%A citation in text uses the command \verb+\cite{#1}+ or
-%\verb+\onlinecite{#1}+ and refers to an entry in the bibliography. 
-%An entry in the bibliography is a reference to another document.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\subsubsection{Citations}
-
-
-%Because REV\TeX\ uses the \verb+natbib+ package of Patrick Daly, 
-%the entire repertoire of commands in that package are available for your document;
-%see the \verb+natbib+ documentation for further details. Please note that
-%REV\TeX\ requires version 8.31a or later of \verb+natbib+.
-%
-%\paragraph{Syntax}
-%The argument of \verb+\cite+ may be a single \emph{key}, 
-%or may consist of a comma-separated list of keys.
-%The citation \emph{key} may contain 
-%letters, numbers, the dash (-) character, or the period (.) character. 
-%New with natbib 8.3 is an extension to the syntax that allows for 
-%a star (*) form and two optional arguments on the citation key itself.
-%The syntax of the \verb+\cite+ command is thus (informally stated)
-%\begin{quotation}\flushleft\leftskip1em
-%\verb+\cite+ \verb+{+ \emph{key} \verb+}+, or\\
-%\verb+\cite+ \verb+{+ \emph{optarg+key} \verb+}+, or\\
-%\verb+\cite+ \verb+{+ \emph{optarg+key} \verb+,+ \emph{optarg+key}\ldots \verb+}+,
-%\end{quotation}\noindent
-%where \emph{optarg+key} signifies 
-%\begin{quotation}\flushleft\leftskip1em
-%\emph{key}, or\\
-%\texttt{*}\emph{key}, or\\
-%\texttt{[}\emph{pre}\texttt{]}\emph{key}, or\\
-%\texttt{[}\emph{pre}\texttt{]}\texttt{[}\emph{post}\texttt{]}\emph{key}, or even\\
-%\texttt{*}\texttt{[}\emph{pre}\texttt{]}\texttt{[}\emph{post}\texttt{]}\emph{key}.
-%\end{quotation}\noindent
-%where \emph{pre} and \emph{post} is whatever text you wish to place 
-%at the beginning and end, respectively, of the bibliographic reference
-%(see Ref.~[\onlinecite{witten2001}] and the two under Ref.~[\onlinecite{feyn54}]).
-%(Keep in mind that no automatic space or punctuation is applied.)
-%It is highly recommended that you put the entire \emph{pre} or \emph{post} portion 
-%within its own set of braces, for example: 
-%\verb+\cite+ \verb+{+ \texttt{[} \verb+{+\emph{text}\verb+}+\texttt{]}\emph{key}\verb+}+.
-%The extra set of braces will keep \LaTeX\ out of trouble if your \emph{text} contains the comma (,) character.
-%
-%The star (*) modifier to the \emph{key} signifies that the reference is to be 
-%merged with the previous reference into a single bibliographic entry, 
-%a common idiom in APS and AIP articles (see below, Ref.~[\onlinecite{epr}]). 
-%When references are merged in this way, they are separated by a semicolon instead of 
-%the period (full stop) that would otherwise appear.
-%
-%\paragraph{Eliding repeated information}
-%When a reference is merged, some of its fields may be elided: for example, 
-%when the author matches that of the previous reference, it is omitted. 
-%If both author and journal match, both are omitted.
-%If the journal matches, but the author does not, the journal is replaced by \emph{ibid.},
-%as exemplified by Ref.~[\onlinecite{epr}]. 
-%These rules embody common editorial practice in APS and AIP journals and will only
-%be in effect if the markup features of the APS and AIP Bib\TeX\ styles is employed.
-%
-%\paragraph{The options of the cite command itself}
-%Please note that optional arguments to the \emph{key} change the reference in the bibliography, 
-%not the citation in the body of the document. 
-%For the latter, use the optional arguments of the \verb+\cite+ command itself:
-%\verb+\cite+ \texttt{*}\allowbreak
-%\texttt{[}\emph{pre-cite}\texttt{]}\allowbreak
-%\texttt{[}\emph{post-cite}\texttt{]}\allowbreak
-%\verb+{+\emph{key-list}\verb+}+.
 
 \end{document}
 %
