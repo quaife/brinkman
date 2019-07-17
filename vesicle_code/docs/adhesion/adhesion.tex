@@ -1276,24 +1276,24 @@ separation.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Adhesion of two vesicles in a shear flow}
 \label{sec:sflow} 
-We consider two vesicles suspended in the shear flow $\uu = \chi(y,0)$,
-where $\chi$ is the shear rate.  To be consistent with simlulations in
-previous sections, the vesicles have a length of $2\pi$ for all reduced
-areas.  The initial placement of the vesicles is chosen so that the flow
-dives them towards one another.  In the absence of adhesion, once the
-vesicles are sufficiently close, they are deflected to opposite sides of
-the $y$ axis, pass one another, and then separate.  However, in the
-presence of adhesion, the vesicles can form a doublet for certain values
-of the separation distance $\delta$, Hamaker constant $\mathcal{H}$,
-shear rate $\chi$, and reduced area $\Delta A$.  If a doublet does form,
-then it undergoes a periodic motion with a period that depends on the
-same parameters.
+We consider two vesicles suspended in the shear flow $\uu =
+\dot\gamma(y,0)$, where $\dot\gamma$ is the shear rate.  To be
+consistent with simlulations in previous sections, the vesicles have a
+length of $2\pi$ for all reduced areas.  The initial placement of the
+vesicles is chosen so that the flow dives them towards one another.  In
+the absence of adhesion, once the vesicles are sufficiently close, they
+are deflected to opposite sides of the $y$ axis, pass one another, and
+then separate.  However, in the presence of adhesion, the vesicles can
+form a doublet for certain values of the separation distance $\delta$,
+Hamaker constant $\mathcal{H}$, shear rate $\dot\gamma$, and reduced
+area $\Delta A$.  If a doublet does form, then it undergoes a periodic
+motion with a period that depends on the same parameters.
 
 Figures~\ref{fig:doublet090-weakAdhesion}
 and~\ref{fig:doublet090-strongAdhesion} show snapshots of two vesicles
 that have formed a doublet and the color coding is the tension along the
 vesicle.  Each of the vesicles have reduced area $\Delta A = 0.9$, shear
-rate $\chi = 0.5$, separation distance $\delta = 0.4$, and Hamaker
+rate $\dot\gamma = 0.5$, separation distance $\delta = 0.4$, and Hamaker
 constant $\mathcal{H} = 0.7$ (Figure~\ref{fig:doublet090-weakAdhesion})
 and $\mathcal{H} = 2.1$ (Figure~\ref{fig:doublet090-strongAdhesion}).
 Similar to the quiescent example, the membrane tension is negative in
@@ -1302,8 +1302,8 @@ the adhesive force is strongest.  The two values for the Hamaker
 constant are chosen since the period of the dynamics of the doublets are
 both $t^* \approx 42$.  For both the Hamaker constants, the vesicles in
 the doublet move in tandem with a tank-reading motion that is much
-slower than the tank-treading motion that occurs in the absense of
-ahdesion.  However, the dynamics of a single period for theses two
+slower than the tank-treading motion that occurs in the absence of
+adhesion.  However, the dynamics of a single period for theses two
 Hamaker constants differ significantly.  For the weaker adhesive force,
 the individual vesicles undergo a sliding motion as they pass one
 another (Figure~\ref{fig:doublet090-weakAdhesion}).  However, at larger
@@ -1325,8 +1325,8 @@ a Jeffery orbit.
   \caption{\label{fig:doublet090-weakAdhesion} The formation of a weakly
   adhered doublet in a shear flow.  The reduced area is $\Delta A =
   0.9$, the Hamaker constant is $\mathcal{H}=0.7$, the separation
-  distance is $\delta = 0.4$, and the shear rate is $\chi=0.5$.  The
-  interaction between the two vesicles is a sliding motion, and the
+  distance is $\delta = 0.4$, and the shear rate is $\dot\gamma=0.5$.
+  The interaction between the two vesicles is a sliding motion, and the
   dynamics has a period of about 42.  The color coding is the tension.}
 \end{figure}
 
@@ -1345,15 +1345,15 @@ a Jeffery orbit.
   \caption{\label{fig:doublet090-strongAdhesion} The formation of a
   strongly adhered doublet in a shear flow.  The reduced area is $\Delta
   A = 0.9$, the Hamaker constant is $\mathcal{H}=2.1$, the separation
-  distance is $\delta = 0.4$, and the shear rate is $\chi=0.5$.  Since
-  the contact region is unchanged throughout the simulation, the
+  distance is $\delta = 0.4$, and the shear rate is $\dot\gamma=0.5$.
+  Since the contact region is unchanged throughout the simulation, the
   dynamics of the doublet resembles a rigid body motion with a period of
   about 42.  The color coding is the tension.}
 \end{figure}
 
 To further understand the formation of the doublet, we compute the
 distance between two vesicles with reduced area $\Delta A = 0.9$,
-separation distance $\delta = 0.5$, and shear rate $\chi = 0.5$.
+separation distance $\delta = 0.5$, and shear rate $\dot\gamma = 0.5$.
 Figure~\ref{fig:sflow_distance}(a) shows this minimum distance as a
 function of time for varying Hamaker constants.  For Hamaker constants
 less than a critical value, $\mathcal{H}_c$, the adhesive force is not
@@ -1377,16 +1377,17 @@ resemble those of a Jeffery orbit.  An ellipse with aspect ratio
 $\lambda$ undergoes a periodic tumbling motion with
 period~\cite{jef1922}
 \begin{align}
-  p = \frac{2\pi}{\chi}\left(\lambda + \lambda^{-1} \right).
+  p = \frac{2\pi}{\dot\gamma}\left(\lambda + \lambda^{-1} \right).
   \label{eqn:JefferyPeriod}
 \end{align}
 Instead of measuring the aspect ratio of a doublet in a flow with shear
-rate $\chi$, we use the computed period to define an effective aspect
-ratio $\lambda_{\mathrm{eff}}$ that satisfies~\eqref{eqn:JefferyPeriod}.
-Therefore, the effective aspect ratio is the aspect ratio of an ellipse
-in a shear flow that is undergoing a Jeffery orbit with period $p$.  For
-the Hamaker constants $\mathcal{H} = 1.5$ and $\mathcal{H} = 3.5$, the
-shear rates, periods, and effective aspect ratio are summarized in
+rate $\dot\gamma$, we use the computed period to define an effective
+aspect ratio $\lambda_{\mathrm{eff}}$ that
+satisfies~\eqref{eqn:JefferyPeriod}.  Therefore, the effective aspect
+ratio is the aspect ratio of an ellipse in a shear flow that is
+undergoing a Jeffery orbit with period $p$.  For the Hamaker constants
+$\mathcal{H} = 1.5$ and $\mathcal{H} = 3.5$, the shear rates, periods,
+and effective aspect ratio are summarized in
 Table~\ref{tbl:aspectRatio}.  The effective aspect ratio of the doublet
 depends on both the Hamaker constant and the shear rate, and this
 indicates that the doublet's dynamics differ from those of a rigid body
@@ -1398,7 +1399,7 @@ undergoing a Jeffery orbit.
   \begin{tabular}{>{\centering\arraybackslash}p{2cm}
 >{\centering\arraybackslash}p{2cm}
 >{\centering\arraybackslash}p{2cm}}
-  $\chi$ & $p$ & $\lambda_{\mathrm{eff}}$ \\
+  $\dot\gamma$ & $p$ & $\lambda_{\mathrm{eff}}$ \\
   \hline
 %  0.50 & 38.06 & 2.92 \\
 %  0.75 & 24.81 & 2.85 \\
@@ -1414,7 +1415,7 @@ undergoing a Jeffery orbit.
   \begin{tabular}{>{\centering\arraybackslash}p{2cm}
 >{\centering\arraybackslash}p{2cm}
 >{\centering\arraybackslash}p{2cm}}
-  $\chi$ & $p$ & $\lambda_{\mathrm{eff}}$ \\
+  $\dot\gamma$ & $p$ & $\lambda_{\mathrm{eff}}$ \\
   \hline
   0.50 & 28.46 & 1.66 \\
   0.75 & 22.01 & 2.17 \\
@@ -1446,7 +1447,7 @@ if a doublet forms or not.
   \subfigimg[width=\linewidth]{(b)}{figs/shear_adR4em1Chi5em1_ra090_period.pdf}
   \end{tabular}
   \caption{\label{fig:sflow_distance} (a) The distance between a pair of
-  vesicles in a planar shear flow with shear rate $\chi=0.5$, and
+  vesicles in a planar shear flow with shear rate $\dot\gamma=0.5$, and
   separation distance $\delta = 0.4$.  The different lines correspond to
   a linear spacing of Hamaker constants ranging from $\mathcal{H}=0.1$
   and $\mathcal{H}=1.0$.  (b) The time required for a doublet to
@@ -1464,7 +1465,7 @@ if a doublet forms or not.
   hydrodynamics in a shear flow with $\delta = 0.1$ (a) and $\delta =
   0.4$ (b) with reduced area $\Delta A = 0.9$. The critical Hamaker
   constant $\mathcal{H}$ for binding of two vesicles in a shear flow
-  depends on the shear rate $\chi$.  For a doublet to form, lower
+  depends on the shear rate $\dot\gamma$.  For a doublet to form, lower
   separation distances require a stronger Hamaker constants at a given
   shear rate.  The stability limit appears to be linear, indicating that
   there is potentially a stability criteria that depends on a
@@ -1480,7 +1481,7 @@ with the same energy dissipation per macroscopic element of fluid.  In a
 simple shear flow, the intrinsic viscosity, $[\mu]$ is
 \begin{align*}
   [\mu]:= \frac{\mu_{\mathrm{eff}} - \mu_0}{\phi \mu_0} = 
-  \frac{1}{\chi \mu_0 (T_e - T_i)} \int_{T_i}^{T_e} 
+  \frac{1}{\dot\gamma \mu_0 (T_e - T_i)} \int_{T_i}^{T_e} 
   \langle \tau_{12} \rangle dt,
 \end{align*}
 where
@@ -1495,31 +1496,31 @@ in equation~\eqref{eqn:traction}.  In
 Figure~\ref{fig:shearIntrinsicViscosity}(a), we compare the intrinsic
 viscosity of a single tank-treading vesicle to a doublet with Hamaker
 constant $\mathcal{H} = 0.7$, separation distance $\delta = 0.4$, and
-shear rate $\chi = 0.5$.  To validate our simulations, we superimpose
-(black marks) the intrinsic viscosity calculated by Ghigliotti {\em et
-al.}~\cite{GhigliottiBibenMisbah2010_JFM}.  The presence of the doublet
-slightly increases the intrinsic viscosity at all the reduced areas.
-We also compute the intrinsic viscosity of a doublet with $\Delta A =
-0.9$, $\chi = 0.5$, and $\mathcal{H} = 2.1$.  Again, this doublet has a
-similar period to the case $\mathcal{H} = 0.7$. At this larger Hamaker
-constant, the effective viscosity increases slightly from $1.97$ to
-$2.06$.  To further characterize the effect of adhesion, in
-Figure~\ref{fig:shearIntrinsicViscosity}(b) we decompose the intrinsic
-viscosity into the contributions from the bending and tension (black),
-and the contribution from the adhesion (green).  We also superimpose the
-intrinsic viscosity of a single tank-treading vesicle (blue) to
-demonstrate that the bending and tension of the doublet behave
-similarly, but not identically, to a dilute suspensions of non-adhering
-tank-treading vesicles.  We see that the effect of the adhesion on the
-intrinsic viscosity is largest for vesicles with small reduced areas.
-We also decompose the intrinsic viscosity contributions of the doublet
-with $\mathcal{H} = 2.1$ and $\Delta A = 0.9$.  When compared with the
-smaller Hamaker constant, the intrinsic viscosity contribution due to
-bending and tension is reduced from $1.85$ to $1.71$, and the
-contribution due to adhesion is increased from $0.12$ to $0.36$.
-Therefore, as the Hamaker constant increases, the increase in the
-intrinsic viscosity is due to the adhesive force rather than the bending
-and tension.
+shear rate $\dot\gamma = 0.5$.  To validate our simulations, we
+superimpose (black marks) the intrinsic viscosity calculated by
+Ghigliotti {\em et al.}~\cite{GhigliottiBibenMisbah2010_JFM}.  The
+presence of the doublet slightly increases the intrinsic viscosity at
+all the reduced areas.  We also compute the intrinsic viscosity of a
+doublet with $\Delta A = 0.9$, $\dot\gamma = 0.5$, and $\mathcal{H} =
+2.1$.  Again, this doublet has a similar period to the case $\mathcal{H}
+= 0.7$. At this larger Hamaker constant, the effective viscosity
+increases slightly from $1.97$ to $2.06$.  To further characterize the
+effect of adhesion, in Figure~\ref{fig:shearIntrinsicViscosity}(b) we
+decompose the intrinsic viscosity into the contributions from the
+bending and tension (black), and the contribution from the adhesion
+(green).  We also superimpose the intrinsic viscosity of a single
+tank-treading vesicle (blue) to demonstrate that the bending and tension
+of the doublet behave similarly, but not identically, to a dilute
+suspensions of non-adhering tank-treading vesicles.  We see that the
+effect of the adhesion on the intrinsic viscosity is largest for
+vesicles with small reduced areas.  We also decompose the intrinsic
+viscosity contributions of the doublet with $\mathcal{H} = 2.1$ and
+$\Delta A = 0.9$.  When compared with the smaller Hamaker constant, the
+intrinsic viscosity contribution due to bending and tension is reduced
+from $1.85$ to $1.71$, and the contribution due to adhesion is increased
+from $0.12$ to $0.36$.  Therefore, as the Hamaker constant increases,
+the increase in the intrinsic viscosity is due to the adhesive force
+rather than the bending and tension.
 
 \begin{figure}[]
   \begin{tabular}{@{}p{0.45\linewidth}@{\quad}p{0.45\linewidth}@{}}
@@ -1531,9 +1532,9 @@ and tension.
 %  \includegraphics[width=0.45\textwidth]{figs/doublet_decomp.pdf}
   \caption{\label{fig:shearIntrinsicViscosity} (a) The intrinsic
   viscosity of a tank-treading vesicle (blue) and a doublet (red).  The
-  shear rate is $\chi = 0.5$, the Hamaker constant is $\mathcal{H} =
-  0.7$, and the separation distance is $\delta = 0.4$.  The black marks
-  denote intrinsic viscosity values computed by Ghigliotti {\em et
+  shear rate is $\dot\gamma = 0.5$, the Hamaker constant is $\mathcal{H}
+  = 0.7$, and the separation distance is $\delta = 0.4$.  The black
+  marks denote intrinsic viscosity values computed by Ghigliotti {\em et
   al.}~\cite{GhigliottiBibenMisbah2010_JFM} (cf.~Figure 5).  (b) The
   decomposition of the intrinsic viscosity into the contributions for
   the bending and tension (black) of the vesicles, and the contribution
