@@ -32,7 +32,7 @@ blood cells, capsules, drops, and adhered particles. Most (maybe all) of
 the principals discussed are more-or-less understood, and would
 therefore not of themselves constitute a novel contribution.}
 \begin{itemize}
-  \item We thank the referee for this comment. The referee is correct by labeling boundary integral simulation as a standard approach.
+  \item We thank the referee for this comment. The referee is absolutely correct by labeling boundary integral simulation as a standard approach.
   However, the boundary integral algorithm we used for this work is not standard boundary integral algorithm for two reasons: (1) First the time marching is adaptive, allowing us to efficiently run the simulations for a long time with accuracy and convergence. (2) Second we adopted a slightly sophisticated near singular evaluation to ensure that our numerical results are convergent when two boundaries are close to each other. Without adaptive time marching, the boundary integral simulations of vesicles often give unreliable results as shown in
 Kabacaoglu {\it et al.}, J. Comp. Phys. (2018). In addition it is very time consuming to simulate two vesicles to equilibrate in close vicinity of each other in a quiescent flow. 
 Without a good near-singular evaluation in the boundary integral calculation, the simulations will be contaminated by the errors incurred when two moving deformable boundaries are close to each other.
@@ -43,7 +43,12 @@ Without a good near-singular evaluation in the boundary integral calculation, th
 For example, we are able to verify the scaling of the draining time with respect to adhesion strength and equilibrium separation distance by analyzing the numerical simulation results. 
 A similar scaling is found in Ramachandran {\it et al.}, Phys. Fluids (2010) where they assumed the vesicles are spherical cap with a flat contact region. It is not clear how their scaling for the draining time can differentiate the contribution from either adhesion strength or equilibrium separation distance, while our scaling clearly illustrates how each component contributes differently to the draining time. It is also not clear how such scaling can be verified by comparing against experimental data.
 
-For the vesicles in a planar extensional flow, we cannot find any work in the literature that shows how two red blood cells/capsules move toward each other around the stagnation point. Furthermore we cannot find any work in the literature that uses extensional flow to measure the adhesion strength between two interfaces/particles/membranes. All the work we can find on drop in an extensional flow/four-roll mill is for a single drop (clean drop or a surfactant-laden drop).
+For the vesicles in a planar extensional flow, we cannot find any work in the literature that shows how two red blood cells/capsules move toward each other around the stagnation point. Furthermore we cannot find any work in the literature that uses extensional flow to measure the adhesion strength between two interfaces/particles/membranes. All the work we can find on drop in an extensional flow/four-roll mill is for a single drop (clean drop or a surfactant-laden drop) or a vesicle.
+
+For the vesicles in a planar shear flow, there are numerical simulations and experiments on how two drops/vesicles interact with each other. 
+However, to our best attempt, we did not find any work on the effects of adhesions on drop-drop/vesicle-vesicle interactions in a shear flow (possibly due to the numerical issues that we mentioned earlier). Our simulation results show that (1) adhesion significantly affects the vesicle-vesicle interaction in the shear flow, and in the revision we provided means to quantify such effects, and (2) adhesion also induces additional dissipation in a dilute suspension of vesicle doublets. To our best knowledge these results are not available in the literature. Even though our simulations are two-dimensional, previous works have demonstrated that two-dimensional vesicle hydrodynamics bear some general similarity to their three-dimensional counterparts. 
+
+{\bf Changes:} We made revisions with this comment in mind, to make sure that our results are highlighted and the readers can see clearly how these results are unique and maybe useful.
   
   
 \end{itemize}
