@@ -5,15 +5,11 @@ fprintf('First-order semi-implicit time stepping.\n');
 
 % Physics parameters
 prams.N = 128;               % points per vesicle
-prams.N = 256;               % points per vesicle
 prams.nv = 1;               % number of vesicles
-prams.T = 30;               % time horizon (two tumbling)
-prams.m = 1000;              % number of time steps
+prams.T = 1e-3;               % time horizon (two tumbling)
+prams.m = 1;              % number of time steps
 
-prams.kappa = 1e-1;         % bending coefficient
-prams.kappa = 1e-2;         % bending coefficient
-
-
+prams.kappa = 1;         % bending coefficient
 
 prams.viscCont = 1;         % viscosity contrast
 options.farField = 'relaxation'; % background velocity
@@ -25,7 +21,7 @@ options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
 options.antiAlias = false;
-options.semipermeable = true;
+options.semipermeable = false;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-10;
 prams.errorTol = 1000;
@@ -37,7 +33,7 @@ options.correctShape = false;
 options.reparameterization = false;
 
 % TIME ADAPTIVITY (parameters for new implementation)
-options.timeAdap = true;
+options.timeAdap = false;
 
 prams.rtolArea = 1e10;
 prams.rtolLength = 1e-2;
@@ -52,8 +48,8 @@ if 1
 end
 
 options.orderGL = 2;
-options.nsdc = 0;
-options.expectedOrder = 1;
+options.nsdc = 2;
+options.expectedOrder = 2;
 
 options.expForce = false;
 

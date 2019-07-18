@@ -10,12 +10,12 @@
 \begin{document}
 \noindent
 Thank you for your constructive comments.  The attached manuscript
-addresses all the reviewer 2's comments and the result is what we
+addresses all the referee 2's comments and the result is what we
 believe is a stronger manuscript.
 \\ \\ \noindent 
 We also note that a few typos from the manuscript’s original form have
-been addressed. An itemized list of the changes addressing the
-reviewers’ comments are below.
+been addressed. An itemized list of the changes addressing the referee's
+comments are below.
 \\ \\ \noindent 
 Sincerely, \\ \noindent
 Yuan-Nan Young, Shravan Veerapaneni, and Bryan Quaife
@@ -79,7 +79,8 @@ R.~J., Gregersen, M.~I., Nanninga, L.~B.~\& Guest, M.~M. Blood
 viscosity: Influence of erythrocyte aggregation. Science 157, 829–831
 (1967).}
 \begin{itemize}
-  \item \todo[inline]{Other 2 papers of Misbah's group}
+  \item The reference of Brust et al.~has been added.
+  \item The reference of Claveria et al~Has been added.
   \item The reference of Chien et al.~has been added.
 \end{itemize}
 
@@ -114,7 +115,28 @@ comparable to molecular sizes (size of bridging molecules or of
 depletion-inducing macromolecules). This deserves to be acknowledged
 also, even though it may not impact too much the results.}
 \begin{itemize}
-  \item rebuttal
+  \item The referee is correct that vesicles outside of the contact zone
+    do not feel a long range attractive interaction.  Our model follows
+    the works on red blood cells by Flormann {\em et al.}~Scientific
+    Reports (2017) and Hoore {\em et al.}~Soft Matter (2018).  In both
+    these papers, the Lennard-Jones potential is used to model the
+    adhesive interaction between red blood cells.  These models are
+    found to be in good agreement with experiments and other models for
+    adhesion (Ziherl and Svetina, PNAS (2017)).
+
+  \item We have added more references and a better description on the
+    usage of the Lennard-Jones potential for vesicle adhesion to explain
+    its validity and applicability.
+
+  \item We have added additional simulations that use a smaller value
+    for the separation distance $\delta$.  First, this demonstrates that
+    we are able to stably simulate adhering vesicles where the
+    lubrication layer is thin.  Second, the decreased value of $\delta$
+    gives similar results.  For example, in Figure 14, we show
+    numerically that, for two different separation distances, there is a
+    linear relationship between the shear rate and Hamaker constant that
+    determines if two vesicles in a shear flow will form a doublet or
+    not.
 \end{itemize}
 
 \noindent
@@ -125,7 +147,11 @@ interaction potential and would probably not be so strong in real
 cases where the equilibrium distance between membranes is much shorter
 and the range of the potential is shorter.}
 \begin{itemize}
-  \item rebuttal
+  \item As mentioned in the Introduction and Section II, we are focusing
+    on intermediate adhesive strengths.  In the Introduction, we give
+    several references where strong adhesion is studied, but the effect
+    of the intermediate adhesion strengths on the vesicle dynamics has
+    not received much attention.
 \end{itemize}
 
 \noindent
@@ -186,8 +212,9 @@ tank-treading motion of membranes?}
 \begin{itemize}
   \item We have removed Figure 10 from the previous version.
 
-  \item There is a very slow tank-treading motion \todo[inline]{Discuss
-    this further}
+  \item There is a very slow tank-treading motion.  However, since we
+    have removed Figure 10 from the original version, we have chosen to
+    not focus on the vorticity and torque of the vesicles.
 \end{itemize}
 
 \noindent
@@ -215,7 +242,7 @@ zones linear? This would mean that a stability criterion could take
 the form of a dimensionless number involving the ratio of Hamaker
 constant/shear rate, a potentially interesting result.}
 \begin{itemize}
-  \item We thank the reviewer for this observation.  We increased the
+  \item We thank the referee for this observation.  We increased the
     parameter space of the phase diagram, and it does appear that there
     is a linear relationship.
   \item We have superimposed a straight line to show the transition
@@ -249,7 +276,7 @@ adhesion parts are separated.  Overall I think the study on rheology
 needs much more development than what is presented here with only one
 set of parameter values and very little quantitative comments.}
 \begin{itemize}
-  \item The reviewer is correct that we miscalculated the intrinsic
+  \item The referee is correct that we miscalculated the intrinsic
     viscosity.  We had initially divided by only the area inside a
     single vesicle rather than both vesicles in the doublet.  This has
     been corrected, and now there is only a small increase in the
