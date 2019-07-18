@@ -349,16 +349,16 @@ from spherical shape and the membrane is almost flat in the ``contact"
 region. Gires {\em et al.}~used small-deformation analysis to
 investigate the hydrodynamic interactions between two vesicles in a
 planar shear flow with a long separation
-distance~\cite{GiresDankerMisbah2012_PRE}.  \todo[inline]{Also cite
-Gires et al.~Physics of Fluids 26, 013304, 2014} They found that the
-vesicle interaction could be either attractive or repulsive depending on
-the organization of the two vesicles relative to the shear flow. To the
-best of authors' knowledge, the effects of close-range vesicle adhesion
-on their hydrodynamics under an external flow have not been studied and
-quantified. The goal of this work is to use state-of-the-art boundary
-integral simulations to numerically investigate the dynamics of two
-vesicles in both planar shear flow and extensional flow for a wide range
-of vesicle shapes and adhesive strength and distance.
+distance~\cite{GiresDankerMisbah2012_PRE}.  They found that the vesicle
+interaction could be either attractive or repulsive depending on the
+organization of the two vesicles relative to the shear
+flow~\cite{gir-sri-mis-pod-cou2014}. To the best of authors' knowledge,
+the effects of close-range vesicle adhesion on their hydrodynamics under
+an external flow have not been studied and quantified. The goal of this
+work is to use state-of-the-art boundary integral simulations to
+numerically investigate the dynamics of two vesicles in both planar
+shear flow and extensional flow for a wide range of vesicle shapes and
+adhesive strength and distance.
 
 Boundary integral equation (BIE) approaches are well-suited for solving
 the low Reynolds flow problems considered here as they lead to reduction
@@ -862,8 +862,6 @@ $\mathcal{H}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Adhesion of two vesicles in a planar extensional flow} 
 \label{sec:eflow} 
-\todo[inline]{Do we discuss the slow tank treading motion when the
-vesicles reach steady state.  Reviewer 2 had a comment about this}
 
 \begin{figure}[htp]
   \includegraphics[height = 0.2\textwidth,trim={1cm 0cm 1cm 0cm},clip]
@@ -1168,7 +1166,7 @@ different reduced area and extension rate.
 
 In Figure~\ref{fig:extensionalInclinationAngle}(a), we plot the
 inclination angle of the doublet as a function of time for four
-different extension rates,  and the final inclination angle for all
+different extension rates, and the final inclination angle for all
 doublets that reach an equilibrium state are in
 Figure~\ref{fig:extensionalInclinationAngle}(b).  We observe that not
 only do smaller extension rates result in smaller inclination angles,
@@ -1181,14 +1179,13 @@ vesicles come closer to aligning their long axis with the diverging
 direction.  When the doublet is broken at reduced area $\Delta A =
 0.80$, the extension rate is sufficiently large to align the long axis
 of the vesicle with the diverging direction and then the vesicles
-separate (Figure~\ref{fig:extensional3}).  For very low extension
-rates, the time horizon is insufficient for the doublet to reach an
-equilibrium state, and these simulations are marked with a square.
+separate (Figure~\ref{fig:extensional3}).  For very low extension rates,
+the time horizon is insufficient for the doublet to reach an equilibrium
+state, and these simulations are marked with a square.
 Figure~\ref{fig:extensionalInclinationAngle}(c) also summarizes the
-reduced areas and extension rates that result in a bound vesicle
-doublet in a fluid trap: Parameter values with a blue mark result in a
-fluid trap and parameter values with a red mark result in vesicle
-separation.
+reduced areas and extension rates that result in a bound vesicle doublet
+in a fluid trap: Parameter values with a blue mark result in a fluid
+trap and parameter values with a red mark result in vesicle separation.
 
 \begin{figure}[htp]
   \begin{tabular}{@{}p{0.3\linewidth}@{\quad}p{0.3\linewidth}@{\quad}p{0.3\linewidth}@{}}
@@ -1199,20 +1196,22 @@ separation.
 %  \includegraphics[height=0.26\textwidth]{figs/adR4em1adS7em1_ra070_inclinationAngle.pdf}
 %  \includegraphics[height=0.26\textwidth]{figs/adR4em1adS7em1_finalInclinationAngle.pdf}
 %  \includegraphics[height=0.26\textwidth]{figs/extensional_adR4em1adS7em1_phaseDiagram.pdf}
-  \caption{\label{fig:extensionalInclinationAngle} (a) The inclination
-  angle of a doublet formed by vesicles of reduced area $\Delta A = 0.7$
-  in an extensional flow with an extension rate $\dot\epsilon$.  For all
-  extension rates, the vesicle's orientation angle tends to a value in
-  $(\frac{\pi}{2},\pi)$. (b) The final inclination angle of the doublets
-  for a variety of reduced areas.  At larger extension rates, the
-    doublet is broken by the flow.  (c) A phase diagram of the long-time
-    behavior of a fluid trap formed by two adhering vesicles in an
-    extensional flow.  Reduced areas and extension rates that do not
-    form a doublet are marked in red, and those that do form a doublet
-    are marked in blue.  For the blue marks, the size is proportional to
-    the final inclination angle.  Squares indicate that the doublet had
-    not tilted to an equilibrium inclination angle in the given time
-    horizon.}
+  \caption{\label{fig:extensionalInclinationAngle} The long time
+  behavior of two vesicles in a fluid trap with Hamaker constant
+  $\mathcal{H} = 0.7$ and separation distance $\delta = 0.4$. (a) The
+  inclination angle of a doublet formed by vesicles of reduced area
+  $\Delta A = 0.7$ in an extensional flow with an extension rate
+  $\dot\epsilon$.  For all extension rates, the vesicle's orientation
+  angle tends to a value in $(\frac{\pi}{2},\pi)$. (b) The final
+  inclination angle of the doublets for a variety of reduced areas.  At
+  larger extension rates, the doublet is broken by the flow.  (c) A
+  phase diagram of the long-time behavior of a fluid trap formed by two
+  adhering vesicles in an extensional flow.  Reduced areas and extension
+  rates that do not form a doublet are marked in red, and those that do
+  form a doublet are marked in blue.  For the blue marks, the size is
+  proportional to the final inclination angle.  Squares indicate that
+  the doublet had not tilted to an equilibrium inclination angle in the
+  given time horizon.}
 \end{figure}
 
 %Finally, to further characterize the rotating dynamics of a doublet in
@@ -1272,20 +1271,21 @@ separation.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Adhesion of two vesicles in a shear flow}
+\section{Adhesion of two vesicles in a planar shear flow}
 \label{sec:sflow} 
-We consider two vesicles suspended in the shear flow $\uu =
+We consider two vesicles suspended in the planar shear flow $\uu =
 \dot\gamma(y,0)$, where $\dot\gamma$ is the shear rate.  To be
-consistent with simlulations in previous sections, the vesicles have a
+consistent with simulations in previous sections, the vesicles have a
 length of $2\pi$ for all reduced areas.  The initial placement of the
-vesicles is chosen so that the flow dives them towards one another.  In
-the absence of adhesion, once the vesicles are sufficiently close, they
-are deflected to opposite sides of the $y$ axis, pass one another, and
-then separate.  However, in the presence of adhesion, the vesicles can
-form a doublet for certain values of the separation distance $\delta$,
-Hamaker constant $\mathcal{H}$, shear rate $\dot\gamma$, and reduced
-area $\Delta A$.  If a doublet does form, then it undergoes a periodic
-motion with a period that depends on the same parameters.
+vesicles is chosen so that the flow dives them towards one another in a
+head-on collision.  In the absence of adhesion, once the vesicles are
+sufficiently close, they are deflected to opposite sides of the $y$
+axis, pass one another, and then separate.  However, in the presence of
+adhesion, the vesicles can form a doublet for certain values of the
+separation distance $\delta$, Hamaker constant $\mathcal{H}$, shear rate
+$\dot\gamma$, and reduced area $\Delta A$.  If a doublet does form, then
+it undergoes a periodic motion with a period that depends on the same
+parameters.
 
 Figures~\ref{fig:doublet090-weakAdhesion}
 and~\ref{fig:doublet090-strongAdhesion} show snapshots of two vesicles
@@ -1437,7 +1437,11 @@ for two different separation distances.  The plot includes a line of
 best fit between the stable and unstable regions.  Since the transition
 is linear for both separation distances, this indicates that a
 dimensionless number involving the ratio of the Hamaker constant and
-shear rate could be used to determine if a doublet forms or not.
+shear rate could be used to determine if a doublet forms or not.  We
+note that the critical Hamaker constant also depends on the reduced
+area.  For smaller reduced areas, we expect a smaller contact region to
+form and this will lower the Hamaker constant, and this behavior will be
+investigated in future work.
 
 \begin{figure}
   \begin{tabular}{@{}p{0.45\linewidth}@{\quad}p{0.45\linewidth}@{}}
