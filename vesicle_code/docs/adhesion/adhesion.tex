@@ -1589,11 +1589,21 @@ is in good agreement with numerical results.  Once two membranes are
 within separation distance $\delta$, the adhesive force turns repulsive
 and the membranes flatten to form a contact region.  Our simulations
 show that the membranes in the contact region are actually curved with
-end points at the shortest distance.  Once a vesicle doublet forms, we
+end points at the shortest distance, consistent with results for moderate 
+adhesion strength in \cite{FlormannAouane2017_SciReports}.  
+Once a vesicle doublet forms, we
 examine the dependence of membrane bending and adhesion energies on the
 reduced area, the Hamaker constant, and the separation distance.
 
-Next we conduct a numerical experiment where a vesicle doublet is placed
+Next we conduct numerical simulations of two vesicles in a planar extensional flow. 
+With initial configurations where two vesicles collide around the stagnation point 
+(one vesicle at the stagnation point and the other vesicle placed close to the converging axis),
+the two vesicles form a doublet and stay around the flow center only when two 
+vesicles collide head-on with no displacement $\triangle y=0$. 
+For $\triangle y >0$ we find that the vesicles rotate and move away from the stagnation point, and eventually
+move further from each other due to the strong diverging flow in the far-field.
+
+This inspires us to conduct a numerical experiment where a vesicle doublet is placed
 at the center of a fluid trap, which can be actively controlled in
 microfluidic channel so that fluid trap center is effectively the
 stagnation point of an extensional flow characterized by a extensional
@@ -1612,7 +1622,7 @@ separate a vesicle doublet with reduced area of $\Delta A = 0.8$ and a
 Hamaker constant $\mathcal{H}=0.7$, which corresponds to $\sim 1$ $\mu
 J/m^2$.  These conditions are quite realizable in microfluidic
 experiments, and we hope that our simulations will inspire microfluidic
-experiments.
+experiments to be designed to measure membrane-membrane adhesion.
 
 We also examine how adhesive interaction may dynamically lead to the
 formation of a vesicle doublet.  We simulate two vesicles approaching
