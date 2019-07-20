@@ -120,34 +120,25 @@ equilibrium. A lubrication analysis on such draining of a thin film
 gives the dependencies of draining time on adhesion strength and
 separation distance that are in good agreement with numerical results.
 %
-In a planar extensional flow we find a stable vesicle doublet forms only when two 
-vesicles collide head-on around the stagnation point. 
-In a microfluid trap where the stagnation of an extensional flow is
+In a planar extensional flow we find a stable vesicle doublet forms only
+when two vesicles collide head-on around the stagnation point.  In a
+microfluid trap where the stagnation of an extensional flow is
 dynamically placed in the middle of a vesicle doublet through an active
-control loop, novel dynamics of a vesicle doublet is observed. Numerical
-simulations show that there exists a critical extensional flow rate
-above which adhesive interaction is overcome by the diverging stream,
-thus providing a simple method to measure the adhesion strength between
-two vesicle membranes. 
+control loop, novel dynamics of a vesicle doublet are observed.
+Numerical simulations show that there exists a critical extensional flow
+rate above which adhesive interaction is overcome by the diverging
+stream, thus providing a simple method to measure the adhesion strength
+between two vesicle membranes. 
 %
 In a planar shear flow, numerical simulations reveal that a vesicle
 doublet may form provided that the adhesion strength is sufficiently
-large at a given vesicle reduced area. 
-Once a doublet is formed, its oscillatory dynamics is found to depend on the adhesion strength and their reduced area.
-Furthermore the effective shear viscosity of a dilute suspension of vesicle doublets is
-found to be a function of  reduced area.  Results from these numerical
-studies and analysis shed light on the hydrodynamic and rheological
-consequences of adhesive interactions between vesicles in a viscous
-fluid.
-%\begin{description}
-%\item[Usage]
-%Secondary publications and information retrieval purposes.
-%\item[PACS numbers]
-%May be entered using the \verb+\pacs{#1}+ command.
-%\item[Structure]
-%You may use the \texttt{description} environment to structure your abstract;
-%use the optional argument of the \verb+\item+ command to give the category of each item. 
-%\end{description}
+large at a given vesicle reduced area.  Once a doublet is formed, its
+oscillatory dynamics is found to depend on the adhesion strength and
+their reduced area.  Furthermore the effective shear viscosity of a
+dilute suspension of vesicle doublets is found to be a function of the
+reduced area.  Results from these numerical studies and analysis shed
+light on the hydrodynamic and rheological consequences of adhesive
+interactions between vesicles in a viscous fluid.
 \end{abstract}
 
 \pacs{87.16.D-,83.80.Lz,83.60.-a,47.11.Hj}% PACS, the Physics and Astronomy
@@ -163,14 +154,17 @@ fluid.
 \section{Introduction}
 Vesicles (closed fluid-filled phospholipid bilayer membranes) have been
 widely utilized as biological cell mimics in biophysics and material
-engineering~\cite{sackmann1996, FenzSengupta2012_IntegrBiol,Barthes-Biesel2016_ARFM}.  The ever
-expanding applications of vesicles have encouraged detailed experimental,
-theoretical, and numerical investigations of vesicle dynamics in
-applied flow, electric fields, and magnetic fields.  
-Experimental investigations of vesicles have uncovered vesicle properties and various novel applications
-\cite{Dobereiner2000_CurrentOpinionCIS,EvansRawiczSmith2013_FaradayDiscussions,SugiyamaToyota2018_Life}. 
-Theoretical investigations are often limited to small-deformation analysis on a nearly spherical vesicle
-or spheroidal analysis on a spheroidal vesicle \cite{Barthes-BieselRallison1981_JFM, Misbah2006_PRL,
+engineering~\cite{sackmann1996, FenzSengupta2012_IntegrBiol,
+Barthes-Biesel2016_ARFM}.  The ever expanding applications of vesicles
+have encouraged detailed experimental, theoretical, and numerical
+investigations of vesicle dynamics in applied flow, electric fields, and
+magnetic fields.  Experimental investigations of vesicles have uncovered
+vesicle properties and various novel
+applications~\cite{Dobereiner2000_CurrentOpinionCIS,
+EvansRawiczSmith2013_FaradayDiscussions, SugiyamaToyota2018_Life}.
+Theoretical investigations are often limited to small-deformation
+analysis on a nearly spherical vesicle or spheroidal analysis on a
+spheroidal vesicle~\cite{Barthes-BieselRallison1981_JFM, Misbah2006_PRL,
 Vlahovska2007_PRE, Finken2008_EPL, ZhangZahnTanLin2013_PoF,
 Nganguia2013_PRE}.  On the other hand, various numerical methods have
 been developed for simulating the transient hydrodynamics of vesicle
@@ -192,7 +186,7 @@ dynamics~\cite{Misbah2006_PRL, Vlahovska2007_PRE}, and this leads to a
 transition in the effective shear viscosity of the vesicle
 suspension~\cite{Misbah2006_PRL,Vitkova2008_BJ} that is also validated
 by direct numerical simulations~\cite{GhigliottiBibenMisbah2010_JFM} and
-experiments~\cite{Vitkova2008_BJ,DeschampsKantsler2009_PNAS,
+experiments~\cite{Vitkova2008_BJ, DeschampsKantsler2009_PNAS,
 KantslerSegreSteinberg2008_EPL, ZabuskySegreDeschamps2011_PoF}.  Between
 tank-treading and tumbling vesicle dynamics, a breathing (tremble) mode
 is also observed~\cite{Misbah2006_PRL, KantslerSegreSteinberg2008_PRL,
@@ -209,19 +203,22 @@ Collective hydrodynamics of vesicles is dictated by the vesicle-vesicle
 interactions.  In a quiescent flow, vesicle-vesicle adhesion leads to
 the formation of vesicle doublets~\cite{Ziherl2007_PRL,
 ZiherlSvetina2007_PNAS} or
-clusters~\cite{SvetinaZiherl2008_Bioelectrochemistry,GuWangGunzburger2016_MathBiol,
-FlormannAouane2017_SciReports}.  As a model for red blood cell (RBC)
-aggregates, a simplified model for adhesive vesicle-vesicle interactions
-can reproduce vesicle shapes similar to those observed in experiments of
-fibrinogen-induced RBC
-aggregates~\cite{SvetinaZiherl2008_Bioelectrochemistry,GuWangGunzburger2016_MathBiol,FlormannAouane2017_SciReports,HooreYayaPodgorski2018_SoftMatt,bru-aou-thi-flo-ver-Kae-las-sel-ben-pod-cou-mis-wag2014,cla-aou-thi-abk-cou-mis-joh-wag2017}.
-Using the Lennard-Jones (L.-J.)~potential for point-point interaction
-between two vesicle membranes without the molecular details of adhesive
-interactions between RBCs, Flormann {\em et
-al.}~\cite{FlormannAouane2017_SciReports} found that, under strong
-adhesion, the membrane may buckle to a sigmoidal shape in the contact
-region.  Such a sigmoidal vesicle shape is also observed in RBC doublets
-and explained in a slightly different
+clusters~\cite{SvetinaZiherl2008_Bioelectrochemistry,
+GuWangGunzburger2016_MathBiol, FlormannAouane2017_SciReports}.  As a
+model for red blood cell (RBC) aggregates, a simplified model for
+adhesive vesicle-vesicle interactions can reproduce vesicle shapes
+similar to those observed in experiments of fibrinogen-induced RBC
+aggregates~\cite{SvetinaZiherl2008_Bioelectrochemistry,
+GuWangGunzburger2016_MathBiol, FlormannAouane2017_SciReports,
+HooreYayaPodgorski2018_SoftMatt,
+bru-aou-thi-flo-ver-Kae-las-sel-ben-pod-cou-mis-wag2014,
+cla-aou-thi-abk-cou-mis-joh-wag2017}.  Using the Lennard-Jones
+(L.-J.)~potential for point-point interaction between two vesicle
+membranes without the molecular details of adhesive interactions between
+RBCs, Flormann {\em et al.}~\cite{FlormannAouane2017_SciReports} found
+that, under strong adhesion, the membrane may buckle to a sigmoidal
+shape in the contact region.  Such a sigmoidal vesicle shape is also
+observed in RBC doublets and explained in a slightly different
 model~\cite{ZiherlSvetina2007_PNAS}.  It remains unknown how adhesive
 interactions between vesicles might lead to different vesicle
 hydrodynamics that results in different rheological properties of a
@@ -254,31 +251,31 @@ membrane~\cite{EvansMetcalfe1984_BJ, Book_PhysicalBasisCellAdhesion,
 Book_IntermolecularSurfaceForces, PerutkovaFrank-Bertoncelij2013_CSB} or
 a solid (such as a glass substrate or a nano particle).  Adhesion
 between a vesicle and a solid has been extensively studied with more
-focus on the static equilibrium shapes~\cite{Seifert1990_PRA,BernardGuedeau-Boudeville2000_Langmuir,
-ShiFengGao2006_ActaMechSin, LinFreund2007_IntJSolidsStructures,
-GruhnFrankeDimova2007_Langmuir,das2008adhesion,
-zhang2009phase,Agudo-Canalejo2015_ACSNano,Agudo-CanalejoLipowsky2015_NanoLett,
-SteinkuhlerAgudo-Canalejo2016_BJ,Agudo-CanalejoLipowsky2017_SoftMatt}
-than the transient adhesion process~\cite{cantat1999lift, suk-sei2001,
-BlountMiksisDavis2013_PRSa}.  Adhesive interactions between lipid
-membranes are essential in many biomedical, biological, and biophysical
-processes.  For example, vesicle adhesion is crucial to initiate
-membrane fusion and fission in endocytosis, exocytosis, and the
-transport of small vesicles through membrane surfaces.  In the absence
-of an external electric field and ions in the solvents, it is reported
-that the adhesive interactions between two membranes can be well
-approximated by the L.-J.-type
+focus on the static equilibrium shapes~\cite{Seifert1990_PRA,
+BernardGuedeau-Boudeville2000_Langmuir, ShiFengGao2006_ActaMechSin,
+LinFreund2007_IntJSolidsStructures, GruhnFrankeDimova2007_Langmuir,
+das2008adhesion, zhang2009phase, Agudo-Canalejo2015_ACSNano,
+Agudo-CanalejoLipowsky2015_NanoLett, SteinkuhlerAgudo-Canalejo2016_BJ,
+Agudo-CanalejoLipowsky2017_SoftMatt} than the transient adhesion
+process~\cite{cantat1999lift, suk-sei2001, BlountMiksisDavis2013_PRSa}.
+Adhesive interactions between lipid membranes are essential in many
+biomedical, biological, and biophysical processes.  For example, vesicle
+adhesion is crucial to initiate membrane fusion and fission in
+endocytosis, exocytosis, and the transport of small vesicles through
+membrane surfaces.  In the absence of an external electric field and
+ions in the solvents, it is reported that the adhesive interactions
+between two membranes can be well approximated by the L.-J.-type
 potential~\cite{FlormannAouane2017_SciReports}, that consists of a
-long-range attraction component (truncated at some finite distance beyond which membrane interaction becomes negligible) 
-and a short-range repulsion
-component~\cite{Book_IntermolecularSurfaceForces}, and the combination
-of the two gives rise to an equilibrium distance where the interaction
-potential is at its minimum~\cite{Book_IntermolecularSurfaceForces}. 
+long-range attraction component (truncated at some finite distance
+beyond which membrane interaction becomes negligible) and a short-range
+repulsion component~\cite{Book_IntermolecularSurfaceForces}, and the
+combination of the two gives rise to an equilibrium distance where the
+interaction potential is at its
+minimum~\cite{Book_IntermolecularSurfaceForces}. 
 
 The strength of membrane-membrane adhesion can be estimated through the
 membrane contact angle at the edge of contact
-zone~\cite{RamachandranAndersonLealIsraelachvili2010_Langmuir,
-MaresDanielIglic2012_SciWorldJ}.  Alternatively, Evans and
+zone~\cite{RamachandranAndersonLealIsraelachvili2010_Langmuir, MaresDanielIglic2012_SciWorldJ}.  Alternatively, Evans and
 Metcalfe~\cite{EvansMetcalfe1984_BJ} used the micropipette to measure
 the adhesive force between two vesicles bound by strong adhesion.  They
 were able to measure the reduction in the free energy per unit area of
@@ -292,13 +289,10 @@ between a vesicle and a substrate~\cite{GruhnFrankeDimova2007_Langmuir},
 the boundary between weak and strong adhesion is around $1$ $\mu J/m^2$:
 the vesicle-substrate interaction is ``strong" when the adhesion energy
 density is larger than $1$ $\mu J/m^2$ and ``weak" when the energy
-density is less than $1$ $\mu J/m^2$.  
-%In this work we use the ratio of
-%the adhesion energy to the bending energy for classification of adhesion
-%strength. 
-The ratio of total adhesion energy to the bending energy
-(bending modulus of lipid bilayer membranes $\sim 10^{-19}$ $J$) gives
-a measure of vesicle deformation in the presence of
+density is less than $1$ $\mu J/m^2$. The ratio of total adhesion energy
+to the bending energy (bending modulus of lipid bilayer membranes $\sim
+10^{-19}$ $J$) gives a measure of the vesicle deformation in the
+presence of
 adhesion~\cite{RamachandranAndersonLealIsraelachvili2010_Langmuir}. 
 
 In this work we focus on regimes where such ratio is of order one,
@@ -307,8 +301,8 @@ strong adhesion (adhesion energy/bending energy $\gg 1$) regimes.  In
 this regime the membrane deformation may increase the ``contact area''
 between two vesicles and enhance the adhesion effects.  The
 equilibration of vesicle membranes in the strong adhesion regime has
-been well-studied and documented
-(see~\cite{Agrawal2011_MathMechSolids,RamachandranAndersonLealIsraelachvili2010_Langmuir,
+been well-studied and documented (see~\cite{Agrawal2011_MathMechSolids,
+RamachandranAndersonLealIsraelachvili2010_Langmuir,
 SteinkuhlerAgudo-Canalejo2016_BJ, FlormannAouane2017_SciReports} and
 references therein). However it is unclear how the adhesion couples to
 the vesicle hydrodynamics in this regime.  This paper aims to address
@@ -384,20 +378,20 @@ adhesion process of two vesicles in a quiescent flow in
 Section~\ref{sec:qflow}, where we also present a simple lubrication
 model to estimate how long it takes for two nearby vesicles to reach the
 separation distance set by the adhesion potential.  In
-Section~\ref{sec:eflow} we first study the hydrodynamics of two vesicles in
-a planar extensional flow. We then numerically investigate the hydrodynamics of
-a vesicle doublet in a fluid trap where the stagnation point is actively
-controlled to be at the center of the vesicle doublet. From these
-results we propose a novel application of the microfluidic fluid trap to
-probe the adhesion strength between lipid bilayer membranes in
-solutions. In Section~\ref{sec:sflow} we investigate how two vesicles
-may form a doublet as they move toward each other under a planar shear
-flow.  We map out the parameter regions for bound/unbound vesicles under
-a planar shear flow, and we also investigate the effects of adhesive
-interactions on the rheological properties of a dilute suspension of
-vesicle doublets.  Finally in Section~\ref{sec:conclusions} we discuss
-the implications of our results and point out a few potential future
-directions.
+Section~\ref{sec:eflow} we first study the hydrodynamics of two vesicles
+in a planar extensional flow. We then numerically investigate the
+hydrodynamics of a vesicle doublet in a fluid trap where the stagnation
+point is actively controlled to be at the center of the vesicle doublet.
+From these results we propose a novel application of the microfluidic
+fluid trap to probe the adhesion strength between lipid bilayer
+membranes in solutions. In Section~\ref{sec:sflow} we investigate how
+two vesicles may form a doublet as they move toward each other under a
+planar shear flow.  We map out the parameter regions for bound/unbound
+vesicles under a planar shear flow, and we also investigate the effects
+of adhesive interactions on the rheological properties of a dilute
+suspension of vesicle doublets.  Finally in
+Section~\ref{sec:conclusions} we discuss the implications of our results
+and point out a few potential future directions.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Governing Equations \label{sec:ge}}
@@ -429,20 +423,23 @@ equations are
     &&\mbox{\em stress balance on membranes}
 \end{aligned} \label{eq:gov}
 \end{equation}
-where $\uu$ is the fluid velocity field, $p$ is the pressure, and the scaled viscosity $\mu=1$ inside the vesicles. Outside the vesicle
-$\mu=\mu_e/\mu_i$ with $\mu_i$ ($\mu_e$)  the viscosity of the interior  (exterior) fluid.  We set
-the viscosity ratio $\mu_e/\mu_i=1$ for the rest of the paper.
-$T = - p I + \mu\left(\nabla \uu + \nabla \uu^T\right)$ is the stress
-tensor, $\llbracket T \rrbracket$ is the jump across the membrane, and
-$\xxi$ is the traction that is the sum of the bending, stretching,
-and adhesion forces defined in equation~(\ref{eqn:traction}) of Appendix \ref{sec:AppendixB}.  The bending force, arising from the Helfrich
-energy model, is $\BB \xx = -\kappa_b \xx_{ssss}$, where the subscript $s$ denotes derivative with respect to arclength $s$. $\kappa_b$ is
-the bending modulus which we set to be 1 for all examples. The
-stretching force is $\TT \sigma = (\sigma \xx_s)_s$, where the tension,
-$\sigma$, acts as a Lagrange multiplier to satisfy the local
-extensibility constraint.  The resistance to bending and stretching are
-standard assumptions on vesicles.  In this work, we include an adhesive
-force, $\AA \xx$, that we now describe.
+where $\uu$ is the fluid velocity field, $p$ is the pressure, and the
+scaled viscosity $\mu=1$ inside the vesicles. Outside the vesicle
+$\mu=\mu_e/\mu_i$ with $\mu_i$ ($\mu_e$) the viscosity of the interior
+(exterior) fluid.  We set the viscosity ratio $\mu_e/\mu_i=1$ for the
+rest of the paper.  $T = - p I + \mu\left(\nabla \uu + \nabla
+\uu^T\right)$ is the stress tensor, $\llbracket T \rrbracket$ is the
+jump across the membrane, and $\xxi$ is the traction that is the sum of
+the bending, stretching, and adhesion forces defined in
+equation~(\ref{eqn:traction}) of Appendix~\ref{sec:AppendixB}.  The
+bending force, arising from the Helfrich energy model, is $\BB \xx =
+-\kappa_b \xx_{ssss}$, where the subscript $s$ denotes derivative with
+respect to arclength $s$. $\kappa_b$ is the bending modulus which we set
+to be 1 for all examples. The stretching force is $\TT \sigma = (\sigma
+\xx_s)_s$, where the tension, $\sigma$, acts as a Lagrange multiplier to
+satisfy the local extensibility constraint.  The resistance to bending
+and stretching are standard assumptions on vesicles.  In this work, we
+include an adhesive force, $\AA \xx$, that we now describe.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\subsection{Adhesion Model}
@@ -453,20 +450,6 @@ force, $\AA \xx$, that we now describe.
   \subfigimg[height=\linewidth]{(b)}{figs/configCartoon.pdf} &
   \subfigimg[height=\linewidth]{(c)}{figs/Adhesion_Force.png}
   \end{tabular}
-%  \begin{minipage}{0.31\textwidth}
-%    \centering
-%    \includegraphics[height=5cm,trim={0cm 0cm 2cm 0cm},clip]{figs/adhesionPotential.pdf}
-%  \end{minipage}
-%  \hfill
-%  \begin{minipage}{0.31\textwidth}
-%    \centering
-%    \includegraphics[height=5cm]{figs/configCartoon.pdf}
-%  \end{minipage}
-%  \hfill
-%  \begin{minipage}{0.31\textwidth}
-%    \centering
-%    \includegraphics[height=5cm,trim={3cm 0cm 2cm 0cm},clip]{figs/Adhesion_Force.png}
-%  \end{minipage}
   \caption{\label{fig:adhesionModel} (a) The adhesion potential
   $\phi(z)$ in equation~\eqref{eq:adhesion_potential}.  Distances less
   than $\delta$ are repulsive and distances greater than $\delta$ are
@@ -481,25 +464,23 @@ force, $\AA \xx$, that we now describe.
 
 The adhesion potential for a vesicle membrane has been modeled by a
 L.-J.~type potential
-%Sukumaran and Seifert~\cite{suk-sei2001} consider adhesion between a
-%single three-dimensional vesicle and a solid wall at $z=0$.  They use
-%the adhesion potential of the function form
 \begin{align}
 \label{eq:adhesion_potential}
   \phi(z) = \mathcal{H} \left[ 
     \left(\frac{\delta}{z}\right)^m - \frac{m}{n} \left(\frac{\delta}{z}\right)^n \right],
 \end{align}
-where $\mathcal{H}$ is the Hamaker constant and $\delta$ is the adhesion
+where $\mathcal{H}$ is the Hamaker constant, $\delta$ is the adhesion
 length scale, and $z$ is the distance between a patch on the vesicle
 membrane and a point on the other object, which could be another vesicle
 membrane or a flat solid wall.  The characteristics of the
 L.-J.~potential are summarized in Figure~\ref{fig:adhesionModel}(a): The
 adhesive force is zero at the equilibrium distance $z=\delta$.  For
-large distances ($z> \delta$) the adhesive potential is attractive while
-for small distances ($z < \delta$) the potential is repulsive to prevent
-physical contact. The long-range attraction component should decay sufficiently fast
-to mimic the finite-range attraction between RBCs. However, here to simplify
-the formulation we do not introduce such a truncation in the attraction.
+large distances ($z > \delta$) the adhesive potential is attractive
+while for small distances ($z < \delta$) the potential is repulsive to
+prevent physical contact. The long-range attraction component should
+decay sufficiently fast to mimic the finite-range attraction between
+RBCs. However, here to simplify the formulation we do not introduce such
+a truncation in the attraction.
 
 The exponents $(m,n)$ in equation~(\ref{eq:adhesion_potential}) depend
 on the geometry and the molecular details of the two objects under
@@ -510,14 +491,14 @@ and has been a common choice for studying membrane-solid adhesion
 LinFreund2007_IntJSolidsStructures, BlountMiksisDavis2013_PRSa,
 YoungStone2017_PRF}.  On the other hand, $(m,n) = (12,6)$ corresponds to
 the L.-J.~potential between two molecules, and has been used to model
-membrane-membrane adhesion  \cite{FlormannAouane2017_SciReports}.  In
-our case, the adhesion potential is between two small patches of lipid
+membrane-membrane adhesion~\cite{FlormannAouane2017_SciReports}.  In our
+case, the adhesion potential is between two small patches of lipid
 bilayer membrane (because the lipid molecules are coarse-grained in the
 continuum modeling).  Thus a reasonable choice for $(m,n)$ between two
 coarse-grained membrane patches would be between those for two planar
 surfaces and two point molecules.
  
-Large value of $m$ corresponds to a sharp increase in the repulsion
+A large value of $m$ corresponds to a sharp increase in the repulsion
 force as two objects are within the separation distance $\delta$.  This
 poses a numerical challenge since the problem becomes stiff (i.e.,
 requires a very small time step) for large $m$.  The adaptive
@@ -552,8 +533,9 @@ center-of-mass vector. We notice that the adhesive force is repulsive in
 the contact region, while for the rest of the membranes there is an
 attractive force that acts to pull the two vesicles together. The
 summary of boundary integral formulation can be found in
-Appendix~\ref{sec:AppendixB}. For the rest of the paper, 
-the dimensionless bending modulus is set to be one ($\kappa_b = 1$) unless otherwise specified.
+Appendix~\ref{sec:AppendixB}. For the rest of the paper, the
+dimensionless bending modulus is set to be one ($\kappa_b = 1$) unless
+otherwise specified.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -561,6 +543,7 @@ the dimensionless bending modulus is set to be one ($\kappa_b = 1$) unless other
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Adhesion of two vesicles in a quiescent flow} 
 \label{sec:qflow} 
+\todo[inline]{Bryan is here}
 We consider two identical vesicles suspended in a quiescent flow.
 Without any external forcing such as an imposed electric field or a
 fluid flow in the far-field, the long-range attraction pulls the
@@ -1119,7 +1102,6 @@ configuration to be more stable than the $\theta=\pi$ configuration.
   coding is the tension.}
   \end{figure}
 
-\todo[inline]{Bryan is here}
 In the following numerical experiments we initially place a vesicle
 doublet with $\theta=\pi$, so that the diverging flow may be strong
 enough to pull vesicles away from the doublet.  At low extension rates,

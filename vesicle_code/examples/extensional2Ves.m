@@ -5,10 +5,10 @@ clear all; clc
 fprintf('Two elliptical vesicles in a extensional flow.\n');
 
 % Physics parameters
-prams.N = 128;               % points per vesicle
+prams.N = 64;               % points per vesicle
 prams.nv = 2;               % number of vesicles
-prams.T = 4000;               % time horizon (two tumbling)
-prams.m = 1000;             % number of time steps
+prams.T = 100;               % time horizon (two tumbling)
+prams.m = 100;             % number of time steps
 prams.kappa = [1 1];         % bending coefficient
 prams.viscCant = [1 1];         % viscosity contrast
 options.farField = 'extensional'; % background velocity
@@ -28,21 +28,21 @@ prams.errorTol = 1;
 
 % ADD-ONS
 options.correctShape = false;
-options.adhesion = true;
+options.adhesion = false;
 prams.adRange = 4e-1;
 prams.adStrength = 7e-1;
 
 % TIME ADAPTIVITY (parameters for new implementation)
-options.timeAdap = true;
+options.timeAdap = false;
 
-prams.rtolArea = 1e-1;
-prams.rtolLength = 1e-1;
+prams.rtolArea = 1e-2;
+prams.rtolLength = 1e-2;
 prams.betaUp = 1.2;
 prams.betaDown = 0.5;
 prams.alpha = 0.9;
 
 options.orderGL = 2;
-options.nsdc = 1;
+options.nsdc = 0;
 options.expectedOrder = 1;
 
 % Plot on-the-fly
@@ -100,18 +100,18 @@ posy2 = interpft(posy2,prams.N);
 
 X = [posx1 posx2; posy1 posy2];
 
-%oc = curve;
-%centerx = zeros(1,2);
-%centery = [-1 1];
-%ang = 0*ones(2,1);
-%ra = 0.6;
-%scale = 0.5*sqrt(ra);
-%X = oc.initConfig(prams.N,'nv',prams.nv,...
-%    'reducedArea',ra,...
-%    'center',[centerx;centery],...
-%    'angle',ang,...
-%    'scale',scale);
-%% Initial configuration of reduce area 0.65 and aligned
+oc = curve;
+centerx = [0 3];
+centery = zeros(1,2);
+ang = pi/2*ones(2,1);
+ra = 0.95;
+scale = 0.5*sqrt(ra);
+X = oc.initConfig(prams.N,'nv',prams.nv,...
+    'reducedArea',ra,...
+    'center',[centerx;centery],...
+    'angle',ang,...
+    'scale',scale);
+% Initial configuration of reduce area 0.65 and aligned
 
 Xfinal = Ves2D(X,[],prams,options);
 % Run vesicle code

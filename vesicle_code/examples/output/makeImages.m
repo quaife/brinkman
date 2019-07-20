@@ -2,13 +2,13 @@ addpath ../../src
 set(0,'DefaultAxesFontSize',22)
 options.savefig = false;
 
-irate = 10; % controls the speed of the visualization
+irate = 5; % controls the speed of the visualization
 
-if 0
-%  file = 'extensional2VesData.bin';
+if 1
+  file = 'extensional1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves_rotated/adR4em1adS7em1Chi7em2_ra070/extensional2VesData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/yuan_runs/june_28_2019/extensional2VesData75be.bin';
-  ax = 2*[-2 2 -2 2];
+%  file = '~/projects/brinkman/vesicle_code/results/yuan_runs/june_28_2019/extensional2VesData75be.bin';
+  ax = 1*[-2 2 -2 2];
   options.confined = false;
 end
 if 0
@@ -58,7 +58,7 @@ if 0
   ax = [-5 5 -5 5];
   options.confined = false;
 end
-if 1
+if 0
   file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR1em1adS4e0Chi5em1_ra090/shear2VesData.bin';
   ax = [-3 3 -3 3];
   options.confined = false;
@@ -76,6 +76,17 @@ end
 istart = 1;
 iend = numel(time);
 ntime = numel(time);
+
+oc = curve;
+[~,~,L] = oc.geomProp([posx(:,1,1);posy(:,1,1)]);
+for k = 1:numel(time)
+  [~,~,cur1] = oc.diffProp([posx(:,1,k);posy(:,1,k)]);
+  ten(:,1,k) = ten(:,1,k) + 1.5*L*cur1.^2;
+
+%  [~,~,cur2] = oc.diffProp([posx(:,2,k);posy(:,2,k)]);
+%  ten(:,2,k) = ten(:,2,k) + 1.5*cur2.^2;
+end
+
 
 %min_ten = floor(min(min(min(ten))));
 %max_ten = floor(max(max(max(ten))));
