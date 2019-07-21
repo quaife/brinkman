@@ -8,12 +8,13 @@
 
 \begin{document}
 \noindent
-We thank the referee for the comments.  Below are our point-to-point responses to 
-all the reviewer 1's comments.  We have made revisions based on these comments.
-We also note that a few typos from the original manuscript have
-been corrected.  A separate list of changes can be found along with this list of responses.
+We thank the referee for the comments.  Below are our point-to-point
+responses to all the reviewer 1's comments.  We have made revisions
+based on these comments.  We also note that a few typos from the
+original manuscript have been corrected.  A separate list of changes can
+be found along with this list of responses.
 
-
+\medskip
 \noindent 
 Sincerely, \\ \noindent
 Yuan-Nan Young, Shravan Veerapaneni, and Bryan Quaife
@@ -32,106 +33,218 @@ blood cells, capsules, drops, and adhered particles. Most (maybe all) of
 the principals discussed are more-or-less understood, and would
 therefore not of themselves constitute a novel contribution.}
 \begin{itemize}
-  \item We thank the referee for this comment. The referee is absolutely correct by labeling boundary integral simulation as a standard approach. However, the boundary integral algorithm as applied to the adhesion problem here is quite novel for two reasons: (1) First, we applied a new adaptive time marching developed recently in \texttt{Quaife, Biros, \textbf{JCP} (2016)}, allowing us to efficiently run long time-horizon simulations. (2) Second, the close vesicle-vesicle interactions in the doublet case is quite challenging to capture accurately; here, we employed a novel near-singular integral evaluation scheme which is an extension of the method developed in  \texttt{Quaife, Biros, \textbf{JCP} (2014)}. Without adaptive time marching, the boundary integral simulations of vesicles often give unreliable results as shown in
-Kabacaoglu {\it et al.}, J. Comp. Phys. (2018). In addition it is very time consuming to simulate two vesicles to equilibrate in close vicinity of each other in a quiescent flow. 
-Without a good near-singular evaluation in the boundary integral calculation, the simulations will be contaminated by the errors incurred when two moving deformable boundaries are close to each other.
+\item We thank the referee for this comment. The referee is absolutely
+  correct by labeling boundary integral simulation as a standard
+    approach. However, the boundary integral algorithm as applied to the
+    adhesion problem here is quite novel for two reasons: (1) First, we
+    applied a new adaptive time marching developed recently in Quaife
+    and Biros {\em Journal of Computational Physics}, {\bf
+    306}:478--499, 2016, allowing us to efficiently run long
+    time-horizon simulations. (2) Second, the close vesicle-vesicle
+    interactions in the doublet case is quite challenging to capture
+    accurately; here, we employed a novel near-singular integral
+    evaluation scheme which is an extension of the method developed in
+    Quaife and Biros {\em Journal of Computational Physics}, {\bf
+    274}:245--267, 2014. Without adaptive time marching, the boundary
+    integral simulations of vesicles often give unreliable results as
+    shown in Kabacao\u{g}lu {\em et al.}, {\em Journal of Computational
+    Physics}, {\bf 357}:43--77, 2018. In addition it is very time
+    consuming to simulate two vesicles to equilibrate in close vicinity
+    of each other in a quiescent flow.  Without a good near-singular
+    evaluation in the boundary integral calculation, the simulations
+    will be contaminated by the errors incurred when two moving
+    deformable boundaries are close to each other.
   
- We thank the referee for pointing out that similar physical setup has been studied for red blood cells, capsules, drops and adhere particles. However it is not clear to us if our results for vesicles are so similar to those for red blood cell/drop/particles in the literature that no new understanding is contributed in this work.
-  
-For example, we are able to verify the scaling of the draining time with respect to adhesion strength and equilibrium separation distance by analyzing the numerical simulation results. 
-A similar scaling is found in Ramachandran {\it et al.}, Phys. Fluids (2010) where they assumed the vesicles are spherical cap with a flat contact region. It is not clear how their scaling for the draining time can differentiate the contribution from either adhesion strength or equilibrium separation distance, while our scaling clearly illustrates how each component contributes differently to the draining time. It is also not clear how such scaling can be verified by comparing against experimental data.
+ We thank the referee for pointing out that similar physical setup has
+    been studied for red blood cells, capsules, drops, and adhering
+    particles. However, it is not clear to us if our results for
+    vesicles are so similar to those for red blood cells, drops, and
+    particles from the literature. For example, we are able to verify
+    the scaling of the draining time with respect to adhesion strength
+    and equilibrium separation distance by analyzing the numerical
+    simulation results.  A similar scaling is found in Ramachandran {\em
+    et al.}, Phys. Fluids (2010) where they assumed the vesicles are
+    spherical cap with a flat contact region.  It is not clear how their
+    scaling for the draining time can differentiate the contribution
+    from either adhesion strength or equilibrium separation distance,
+    while our scaling clearly illustrates how each component contributes
+    differently to the draining time. It is also not clear how such
+    scaling can be verified by comparing against experimental data.
 
-For the vesicles in a planar extensional flow, we cannot find any work in the literature that shows how two red blood cells/capsules move toward each other around the stagnation point. Furthermore we cannot find any work in the literature that uses extensional flow to measure the adhesion strength between two interfaces/particles/membranes. All the work we can find on drop in an extensional flow/four-roll mill is for a single drop (clean drop or a surfactant-laden drop) or a vesicle.
+For the vesicles in a planar extensional flow, we cannot find any work
+    in the literature that shows how two red blood cells or capsules move
+    toward each other around the stagnation point. Furthermore we cannot
+    find any work in the literature that uses extensional flow to
+    measure the adhesion strength between two
+    interfaces/particles/membranes. All the work we can find on a drop
+    in an extensional flow/four-roll mill is for a single drop (clean
+    drop or a surfactant-laden drop) or a vesicle.
 
-For the vesicles in a planar shear flow, there are numerical simulations and experiments on how two drops/vesicles interact with each other. 
-However, to our best attempt, we did not find any work on the effects of adhesions on drop-drop/vesicle-vesicle interactions in a shear flow (possibly due to the numerical issues that we mentioned earlier). Our simulation results show that (1) adhesion significantly affects the vesicle-vesicle interaction in the shear flow, and in the revision we provided means to quantify such effects, and (2) adhesion also induces additional dissipation in a dilute suspension of vesicle doublets. To our best knowledge these results are not available in the literature. Even though our simulations are two-dimensional, previous works have demonstrated that two-dimensional vesicle hydrodynamics bear some general similarity to their three-dimensional counterparts. 
+For the vesicles in a planar shear flow, there are numerical simulations
+    and experiments on how two drops/vesicles interact with each other.
+    However, to our best attempt, we did not find any work on the
+    effects of adhesion on drop-drop/vesicle-vesicle interactions in a
+    shear flow (possibly due to the numerical issues that we mentioned
+    earlier). Our simulation results show that (1) adhesion
+    significantly affects the vesicle-vesicle interaction in the shear
+    flow, and in the revision we provided means to quantify such
+    effects; and (2) adhesion also induces additional dissipation in a
+    dilute suspension of vesicle doublets. To the best of our knowledge,
+    these results are not available in the literature. Even though our
+    simulations are two-dimensional, previous works have demonstrated
+    that two-dimensional vesicle hydrodynamics bear some general
+    similarity to their three-dimensional counterparts. 
 
-{\bf Changes:} We made revisions with this comment in mind, to make sure that our results are highlighted and the readers can see clearly how these results are unique and maybe useful.
+{\bf Changes:} We made revisions with this comment in mind, to make sure
+that our results are highlighted and the readers can see clearly how
+these results are unique and maybe useful.
   
   
 \end{itemize}
 
 \noindent
-\item\comment{Second, the simulations are 2D, which makes it difficult to accept
-whether the predicted results would be observed in experiments. There
-was also no direct comparison with any experimental studies.}
+\item \comment{Second, the simulations are 2D, which makes it difficult
+  to accept whether the predicted results would be observed in
+  experiments. There was also no direct comparison with any experimental
+  studies.}
 \begin{itemize}
-  \item We thank the referee for this comment. The referee is absolutely correct: two-dimensional and three-dimensional hydrodynamics are in general very different. There are
-  cases where the two-dimensional and three-dimensional  vesicle hydrodynamics are in good agreement. For example, the two-dimensional simulations of packing of RBCs in Flormann {\it et al.}, Sci. Rep. (2017) are shown to be in good agreement with both experiments and three-dimensional simulations. In addition, the two-dimensional theoretical prediction of the buckling instability of the contact region between RBCs is validated by comparing with experiments in that paper.
-  Another example where two-dimensional vesicle hydrodynamics in shear flow is in general agreement with the three-dimensional vesicle hydrodynamics is illustrated in Ghigliotti {\it et al.}, J. Fluid Mech. (2010). 
+  \item We thank the referee for this comment. The referee is absolutely
+    correct: two-dimensional and three-dimensional hydrodynamics are in
+    general very different. There are cases where the two-dimensional
+    and three-dimensional vesicle hydrodynamics are in good agreement.
+    For example, the two-dimensional simulations of packing of RBCs in
+    Flormann {\em et al.}, Sci.~Rep.~(2017) are shown to be in good
+    agreement with both experiments and three-dimensional simulations.
+    In addition, the two-dimensional theoretical prediction of the
+    buckling instability of the contact region between RBCs is validated
+    by comparing with experiments in that paper.  Another example where
+    two-dimensional vesicle hydrodynamics in shear flow is in general
+    agreement with the three-dimensional vesicle hydrodynamics is
+    illustrated in Ghigliotti {\em et al.}, J.~Fluid Mech.~(2010). 
   
-  The current work is the first step we took to investigate the effects of adhesion on vesicle hydrodynamics. We are working on the three-dimensional version  and with the two-dimensional results as a guidance we will be able to elucidate more physical insight when we analyze the results from three-dimensional simulations in the near future.
+  The current work is the first step we took to investigate the effects
+    of adhesion on vesicle hydrodynamics. We are working on the
+    three-dimensional version and with the two-dimensional results as a
+    guidance we will be able to elucidate more physical insight when we
+    analyze the results from three-dimensional simulations in the near
+    future.
   
   \noindent
-  {\bf Changes:} We have added some comparison with three-dimensional (both numerical and experimental) results of two RBCs in shear flow in the revision.
+  {\bf Changes:} We have added some comparison with three-dimensional
+    (both numerical and experimental) results of two RBCs in shear flow
+    in the revision.
 \end{itemize}
 
 \noindent
 \item\comment{My third concern is the use of L-J potential. In practice, the
 vesicle surface would be coated with some adhesive molecules (e.g.
 receptor/ligand). Is the L-J type adhesive field appropriate for such
-interactions? ALso, in reality, these bonds are stochastic in nature.}
+interactions? Also, in reality, these bonds are stochastic in nature.}
 \begin{itemize}
-  \item We thank the referee for this point. 
-   In this work we focus on the adhesion effects on the hydrodynamics 
-   of two vesicles drawn together by an external flow.
-   Thus the L.-J. type potential is to keep the equilibrium distance, 
-   following the modeling works on red blood cells (RBCs) by Flormann {\it et al.}, Sci. Rep. (2017) and Hoore {\it et al.} Soft Matt. (2018).
-  In both papers the L-J potential is used to model the interaction between RBCs. The focus of this work is to show the hydrodynamic implication of such interaction between two vesicles without any coating of adhesive protein macromolecules. Results from these modeling works using L-J potential are found to be in good agreement with experiments and previous modeling results using different adhesion potential (Ziherl and Svetina, PNAS (2007)).
+  \item We thank the referee for this point.  In this work we focus on
+    the adhesion effects on the hydrodynamics of two vesicles drawn
+    together by an external flow.  Thus the L.-J.~type potential is to
+    keep the equilibrium distance, following the modeling works on red
+    blood cells (RBCs) by Flormann {\em et al.}, Sci.~Rep.~(2017) and
+    Hoore {\em et al.} Soft Matt.!(2018).  In both papers the
+    L.-J.~potential is used to model the interaction between RBCs. The
+    focus of this work is to show the hydrodynamic implication of such
+    interaction between two vesicles without any coating of adhesive
+    protein macromolecules. Results from these modeling works using a
+    L.-J.~potential are found to be in good agreement with experiments
+    and previous modeling results using different adhesion potential
+    (Ziherl and Svetina, PNAS (2007)).
   
-  The referee is correct that the biological adhesion requires physical contact and is stochastic in nature. We are modeling such stochastic binding for adhesion between two membranes in a viscous solvent.
+    The referee is correct that the biological adhesion requires
+    physical contact and is stochastic in nature. We are modeling such
+    stochastic binding for adhesion between two membranes in a viscous
+    solvent.
   
   \noindent
-  {\bf Changes:} We have added more references and a better description on the usage of L-J potential for vesicle adhesion to explain its validity and applicability.
+  {\bf Changes:} We have added more references and a better description
+    on the usage of L.-J.~potential for vesicle adhesion to explain its
+    validity and applicability.
   
 \end{itemize}
 
 \noindent
-\item\comment{The authors talks about the "fluid trap". This is indeed a tricky
-issue in any experiment dealing with extensional flow as how to
-maintain the drop/vesicle at the stagnation point. But in a numerical
-simulation this should not be any issue at all., because even of the
-vesicle moves away from the stagnation point its dynamics is still
-governed by the velocity gradient which is same everywhere in the flow
-field.}
+\item\comment{The authors talks about the ''fluid trap". This is indeed
+  a tricky issue in any experiment dealing with extensional flow as how
+  to maintain the drop/vesicle at the stagnation point. But in a
+  numerical simulation this should not be any issue at all., because
+  even of the vesicle moves away from the stagnation point its dynamics
+  is still governed by the velocity gradient which is same everywhere in
+  the flow field.}
 \begin{itemize}
-  \item We thank the referee for this comment. The ``fluid trap", in its earliest form, was first achieved in an experiment by Bentley and Leal in 1986: A computer-controlled four-roll mill for
-  investigations  of particle and drop dynamics in two-dimensional linear shear flows, Journal of Fluid Mechanics, vol. 167, pp. 219-240 (1986).  Bentley and Leal showed that their computer-aided feedback control in the four-roll mill can keep the particle/drop at the center of the four-roll mill for a very long time.
-  Over the years the techniques of using the four-roll mill as a fluid trap have been improved and extended to microfluidics (see Hudson {\it et al.}, Applied Phys. Lett. (2004) and Lee {\it et al.}, Applied Phys. Lett. (2007) for example.)
-  In the original manuscript we simulate the fluid trap based on the setups by both the Schroeder's group at UIUC and S. Muller's group that can efficiently control the location of the stagnation point. 
+  \item We thank the referee for this comment. The ``fluid trap", in its
+    earliest form, was first achieved in an experiment by Bentley and
+    Leal in 1986: A computer-controlled four-roll mill for
+    investigations of particle and drop dynamics in two-dimensional
+    linear shear flows, {\em Journal of Fluid Mechanics} {\bf
+    167}:219-240, 1986.  Bentley and Leal showed that their
+    computer-aided feedback control in the four-roll mill can keep the
+    particle/drop at the center of the four-roll mill for a very long
+    time.  Over the years the techniques of using the four-roll mill as
+    a fluid trap have been improved and extended to microfluidics (see
+    Hudson {\em et al.}, Applied Phys.~Lett.~(2004) and Lee {\em et
+    al.}, Applied Phys.~Lett.~(2007), for example.) In the original
+    manuscript we simulate the fluid trap based on the setups by both
+    the Schroeder's group at UIUC and S. Muller's group that can
+    efficiently control the location of the stagnation point. 
   
-  Our motivation is to present these simulation results so the experimentalist may be interested to use the fluid trap as a non-invasive tool to measure the adhesion strength between vesicles. We hope that there will be experimental data for us to compare our simulations results in the near future.
+    Our motivation is to present these simulation results so the
+    experimentalist may be interested to use the fluid trap as a
+    non-invasive tool to measure the adhesion strength between vesicles.
+    We hope that there will be experimental data for us to compare our
+    simulations results in the near future.
   
    \noindent
-  {\bf Changes:} We have added these references on fluid trap in the revised manuscript. In addition we have rewritten a couple of relevant paragraphs to convey our motivation.
+  {\bf Changes:} We have added these references on fluid trap in the
+    revised manuscript. In addition we have rewritten a couple of
+    relevant paragraphs to convey our motivation.
  \end{itemize}
 
 
 \noindent
-\item\comment{There was not enough physical insights on the vesicle alignment
-in extensional flow as presented in section IV. If the vesicles are
-placed centrally, what causes the pair to become asymmetric in the first
-place, since all components in the model are deterministic? The authors
-used vorticity contours, but the external flow is irrotational; so what
-is the origin of vorticity, and is it appropriate to use vorticity to
-explain the behavior?}
+\item\comment{There was not enough physical insights on the vesicle
+  alignment in extensional flow as presented in section IV. If the
+  vesicles are placed centrally, what causes the pair to become
+  asymmetric in the first place, since all components in the model are
+  deterministic? The authors used vorticity contours, but the external
+  flow is irrotational; so what is the origin of vorticity, and is it
+  appropriate to use vorticity to explain the behavior?}
 \begin{itemize}
-  \item We have reorganized section IV based on the referee's feedback. To investigate the vesicle hydrodynamics in a planar extensional flow we conducted new simulations where a left vesicle is placed at the stagnation point and the right vesicle is moving towards it. Depending on the initial elevation of the right vesicle off the $x$-axis, the vesicle hydrodynamics is different and we find configurations that are similar to those that we observe in the fluid trap. The simulation data show that the membrane tension is highly non-uniform, and we speculate that the Marangoni stress contributes to asymmetric configuration of vesicles around the stagnation point, as for a single surfactant-laden drop in an extensional flow.
+  \item We have reorganized section IV based on the referee's feedback.
+    To investigate the vesicle hydrodynamics in a planar extensional
+    flow, we conducted new simulations where a left vesicle is placed at
+    the stagnation point and the right vesicle is moving towards it.
+    Depending on the initial elevation of the right vesicle off the
+    $x$-axis, the vesicle hydrodynamics is different and we find
+    configurations that are similar to those that we observe in the
+    fluid trap. The simulation data shows that the membrane tension is
+    highly non-uniform, and we speculate that the Marangoni stress
+    contributes to asymmetric configuration of vesicles around the
+    stagnation point, as for a single surfactant-laden drop in an
+    extensional flow.
   
-  \noindent
-  {\bf Changes:} We have removed the part on visualizing flow around vesicles in the fluid trap. Instead we added simulations at the beginning of new Section IV to examine the vesicle hydrodynamics in a planar extensional flow.
+  \noindent {\bf Changes:} We have removed the part on visualizing flow
+    around vesicles in the fluid trap. Instead we added simulations at
+    the beginning of new Section IV to examine the vesicle hydrodynamics
+    in a planar extensional flow.
 \end{itemize}
 
 \noindent
-\item\comment{I did not find figure 14 relevant for the present article. This
-result is not relevant, and also presented just to show what the authors
-intend to do in future.}
+\item\comment{I did not find figure 14 relevant for the present article.
+  This result is not relevant, and also presented just to show what the
+  authors intend to do in future.}
 \begin{itemize}
-  \item We agree with the referee and  have removed this example from the manuscript.  Instead, we
-    mention that future work includes a suspension of many vesicles.
+  \item We agree with the referee and  have removed this example from
+    the manuscript.
     
     \noindent
-    {\bf Changes:} We removed this example from the conclusion and instead we expand future work to include a suspension of many vesicles.
+    {\bf Changes:} We removed this example from the conclusion and
+    instead we expand future work to include a suspension of many
+    vesicles.
 \end{itemize}
 
 \end{enumerate}
