@@ -25,7 +25,8 @@ center;     % center of the point required for stokeslets
             % and rotlets
 IK;         % index of Fourier modes for fft and ifft
             % that are needed repetatively
-
+SP          % semipermeable membrane
+pBeta       % Physical beta
 end %properties
 
 methods
@@ -243,26 +244,16 @@ end % computeDerivs
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function ProjMat  = computeNormals(vesicle)
-    %Computes the matrix that
+    ProjMat = zeros(2*vesicle.N,2*vesicle.N,vesicle.nv);
     oc = curve;
-    tangent = vesicle.xt;
-    [tanx,tany] = oc.getXY(tangent);
-    nx = tany;
-    ny = -tanx;
-    % decompose tangent and normal vectors into their x and y
-    % coordinates
-%    ProjMat1 = zeros(vesicle.N);
-%    ProjMat2 = zeros(vesicle.N);
-%    ProjMat3 = zeros(vesicle.N);
-%    ProjMat4 = zeros(vesicle.N);
-%   
-%    ProjMat1 = diag(nx.*nx);
-%    ProjMat2 = diag(nx.*ny);
-%    ProjMat3 = diag(ny.*nx);
-%    ProjMat4 = diag(ny.*ny);
-%    ProjMat = [ProjMat1, ProjMat2; ProjMat3, ProjMat4];
-    ProjMat = [diag(nx.*nx), diag(nx.*ny); diag(ny.*nx) diag(ny.*ny)];
-    
+    for k = 1:vesicle.nv
+        tangent = vesicle.xt(:,k);
+        [tanx,tany] = oc.getXY(tangent);
+        nx = tany;
+        ny = -tanx;
+        ProjMat(:,:,k) = [diag(nx.*nx), diag(nx.*ny); diag(ny.*nx) diag(ny.*ny)];
+    end
+          
 end %computeNormals
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -359,9 +350,13 @@ else
   % no slip boundary condition for velocity on solid walls
 end
 % If doing unbounded flow, add in the background velocity
+if tt.SP
+    P = vesicle.computeNormals;
+else
+    P = zeros(2*N,2*N,nv);
+end
 
-velBen = Fslp + op.exactStokesSLdiag(vesicle,tt.Galpert,f) + Ffar;
-
+velBen = Fslp + tt.pBeta(1)*P*f + op.exactStokesSLdiag(vesicle,tt.Galpert,f) + Ffar;
 
 for k = 1:nv
   istart = (k-1)*3*N + 1;
@@ -383,11 +378,24 @@ for k = 1:nv
           -tt.Galpert(:,:,k)*Ten(:,:,k); ...
       Div(:,:,k) zeros(N)]);
   else
+%     [tt.bdiagVes.L(:,:,k),tt.bdiagVes.U(:,:,k)] = lu(...
+%       [eye(2*N) ...
+%       -tt.Galpert(:,:,k)*Ten(:,:,k); ...
+%       Div(:,:,k) zeros(N)]);      
     [tt.bdiagVes.L(:,:,k),tt.bdiagVes.U(:,:,k)] = lu(...
-      [eye(2*N) -tt.Galpert(:,:,k)*Ten(:,:,k); ...
+      [eye(2*N) ...
+      -tt.pBeta(k)*P(:,:,k)*Ten(:,:,k)-tt.Galpert(:,:,k)*Ten(:,:,k); ...
       Div(:,:,k) zeros(N)]);
   end
 end
+
+%             [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
+%               [o.beta*eye(2*N) + ...
+%                o.dt*vesicle.kappa(k)*o.pBeta(k)*P(:,:,k)*Ben(:,:,k)+ ...
+%                   o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k),...
+%               -o.dt/alpha(k)*o.pBeta(k)*P(:,:,k)*Ten(:,:,k) - ...
+%               o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
+%               o.beta*Div(:,:,k), zeros(N)]);
 
 % build vesicle part of the block-diagonal preconditioner
 % GMRES

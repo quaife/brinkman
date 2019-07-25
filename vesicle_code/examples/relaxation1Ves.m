@@ -1,17 +1,14 @@
-%clear all; clc
-
+function[Xfinal] = relaxation1Ves(beta, m, betas, ms)
 fprintf('Simple elliptical vesicle in a relaxation flow.\n');
 fprintf('First-order semi-implicit time stepping.\n');
 
 % Physics parameters
 prams.N = 128;               % points per vesicle
 prams.nv = 1;               % number of vesicles
-prams.T = 1e-3;               % time horizon (two tumbling)
-prams.m = 1;              % number of time steps
-
-prams.kappa = 1;         % bending coefficient
-
-prams.viscCont = 1;         % viscosity contrast
+prams.T = 1e-2;               % time horizon (two tumbling)
+prams.m = m;              % number of time steps
+prams.kappa = ones(prams.nv,1); % bending coefficient
+prams.viscCont = ones(prams.nv,1);         % viscosity contrast
 options.farField = 'relaxation'; % background velocity
 options.order = 1;          % time stepping order
 options.vesves = 'implicit';
@@ -21,11 +18,14 @@ options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
 options.antiAlias = false;
-options.semipermeable = false;
+options.semipermeable = true;
+options.adhesion = true;
+defaultPram.adStrength = 1;
+defaultPram.adRange = 4e-1;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-10;
 prams.errorTol = 1000;
-prams.PhysBeta = 1;
+prams.PhysBeta = beta*ones(prams.nv,1);
 
 % ADD-ONS
 options.alignCenterAngle = false;
@@ -34,7 +34,6 @@ options.reparameterization = false;
 
 % TIME ADAPTIVITY (parameters for new implementation)
 options.timeAdap = false;
-
 prams.rtolArea = 1e10;
 prams.rtolLength = 1e-2;
 if 1
@@ -48,23 +47,23 @@ if 1
 end
 
 options.orderGL = 2;
-options.nsdc = 2;
+options.nsdc = 1;
 options.expectedOrder = 2;
 
 options.expForce = false;
 
 % Plot on-the-fly
 options.usePlot = true;
-options.axis = [-5 5 -5 5];
+options.axis = [-10 10 -10 10];
 options.track = false;
 % Save vesicle information and create a log file
-options.logFile = 'output/relaxation1Ves.log';
+options.logFile = sprintf('%s','output/nsdc1_relaxation2Ves',ms,'_',betas,'.log');
 % Name of log file for saving messages
-options.dataFile = 'output/pulling1_k1em2Data.bin';
+options.dataFile = sprintf('%s','output/nsdc1_relaxation2Ves',ms,'_',betas,'.bin');
 % Name of binary data file for storing vesicle information
 
 options.saveError = true;
-options.errorFile = 'output/pulling1_k1em2Error.bin';
+options.errorFile =sprintf('%s','output/nsdc1_relaxation2Ves',ms,'_',betas,'Error.log');
 % Name of binary data file for storing truncation errors after each step
 
 [options,prams] = initVes2D(options,prams);
@@ -74,29 +73,18 @@ options.errorFile = 'output/pulling1_k1em2Error.bin';
 oc = curve;
 
 ra = 0.65;
-%scale = sqrt(ra);
 scale = 1;
 
-% ra = 0.35;
-% scale = sqrt(ra);
-% %scale = 1;
+centerx = [-5 5];
+centery = [0 0];
+ang = [pi/2 pi/2];
 
-X = oc.initConfig(prams.N,...
+X = oc.initConfig(prams.N,'nv',prams.nv,...
     'reducedArea',ra,...
-    'angle',pi/2,...
-    'center',[0;0],...
+    'center',[centerx;centery],...
+    'angle',ang,...
     'scale',scale);
-% Initial configuration of reduce area 0.65 and aligned
-
-ymax = max(X(end/2+1:end));
-X = X/ymax*3.3; % make maximum y value equal to 3
-%ymax = max(X(end/2+1:end));
-%X = X/ymax*3; % make maximum y value equal to 3
-
-
-%theta = (0:prams.N-1)'*2*pi/prams.N;
-%X = [cos(theta);3*sin(theta)-5];
 
 Xfinal = Ves2D(X,[],prams,options);
 % Run vesicle code
-
+end

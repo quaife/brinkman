@@ -628,9 +628,9 @@ end
 eaBefore = abs(a - a0)./abs(a0);
 elBefore = abs(l - l0)./abs(l0);
 message = ['sdcCount   ' num2str(0,'%2d') ...
-  ': Residual = ' num2str(normRes(end),'%5.2e') ...
-  ', eA = ' num2str(max(eaBefore),'%5.4e') ...
-  ', eL = ' num2str(max(elBefore),'%5.4e')];
+          ': Residual = ' num2str(normRes(end),'%5.2e') ...
+          ', eA = ' num2str(max(eaBefore),'%5.4e') ...
+          ', eL = ' num2str(max(elBefore),'%5.4e')];
 om.writeMessage(message,'%s\n');
 % print the provisional solution's residual and errors
 
@@ -710,23 +710,6 @@ for sdcCount = 1:o.nsdc
 
   normRes = max(abs(residual(:,:,end)));
   normRes = max(normRes);
-
-  message = ['sdcCount   ' num2str(sdcCount,'%2d') ...
-    ': Residual = ' num2str(normRes(end),'%5.2e') ...
-    ', eA = ' num2str(max(ea),'%5.4e') ...
-    ', eL = ' num2str(max(el),'%5.4e')];
-  om.writeMessage(message,'%s\n');
-  
-  if max(ea) > max(eaBefore) || max(el) > max(elBefore)
-    message = ['SDC increases the error, do not accept corrected solution'];
-    om.writeMessage(message,'%s\n');
-
-    Xprov = Xprov - alpha*deltaX;
-    sigmaProv = sigmaProv - alpha*deltaSigma;
-    etaProv = etaProv - alpha*deltaEta;
-    RSprov = RSprov - alpha*deltaRS;    
-    % Do not accept SDC correction
-  end
   
   if sdcCount < o.nsdc
     for n = 1:abs(o.orderGL)
@@ -746,10 +729,31 @@ for sdcCount = 1:o.nsdc
       o.computeVelocities(vesicle,Galpert,D,walls,...
           etaProv,RSprov,NearV2V,NearV2W,NearW2V,NearW2W);
   end
+  normRes = max(abs(residual(:,:,end)));
+  normRes = max(normRes);
+  message = ['sdcCount   ' num2str(sdcCount,'%2d') ...
+    ': Residual = ' num2str(normRes(end),'%5.2e') ...
+    ', eA = ' num2str(max(ea),'%5.4e') ...
+    ', eL = ' num2str(max(el),'%5.4e')];
+  om.writeMessage(message,'%s\n');
+  
+%   if max(ea) > max(eaBefore) || max(el) > max(elBefore)
+%     message = ['SDC increases the error, do not accept corrected solution'];
+%     om.writeMessage(message,'%s\n');
+% 
+%     Xprov = Xprov - alpha*deltaX;
+%     sigmaProv = sigmaProv - alpha*deltaSigma;
+%     etaProv = etaProv - alpha*deltaEta;
+%     RSprov = RSprov - alpha*deltaRS;    
+%     % Do not accept SDC correction
+%   end
+ 
+
   % if we are only recording the error in area and length, don't need
   % to compute the final residual
   
 end
+
 % End of doing SDC corrections
 % update solution with an SDC iteration
 
@@ -1439,8 +1443,13 @@ if usePreco
       tic
     end
     [Ben,Ten,Div] = vesicle.computeDerivs;
-    P = vesicle.computeNormals;
     
+    if o.SP
+        P = vesicle.computeNormals;
+    else
+        P = zeros(2*N,2*N,nv);
+    end
+        
     if o.profile
       fprintf('Build differential operators        %5.1e\n',toc);
     end
@@ -1474,26 +1483,20 @@ if usePreco
         if any(vesicle.viscCont ~= 1)
           [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
             [o.beta*(eye(2*N) - o.D(:,:,k)/alpha(k)) + ...
-                o.dt/alpha(k)*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k) ...
-            -o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
+            o.dt/alpha(k)*vesicle.kappa(k)*o.pBeta(k)*P(:,:,k)*Ben(:,:,k)+...
+            o.dt/alpha(k)*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k) ...
+            -o.dt/alpha(k)*P(:,:,k)*Ten(:,:,k) - ...
+            o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
             o.beta*Div(:,:,k) zeros(N)]);
-        else
-          if o.SP
+        else           
             [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
               [o.beta*eye(2*N) + ...
-                  o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k)+...
-                  o.dt*vesicle.kappa(k)*o.pBeta*P*Ben(:,:,k), ...
-              -o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k)-...
-               o.dt*o.pBeta*P*Ten(:,:,k); ...
+               o.dt*vesicle.kappa(k)*o.pBeta(k)*P(:,:,k)*Ben(:,:,k)+ ...
+                  o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k),...
+              -o.dt/alpha(k)*o.pBeta(k)*P(:,:,k)*Ten(:,:,k) - ...
+              o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
               o.beta*Div(:,:,k), zeros(N)]);
-          else
-            [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
-              [o.beta*eye(2*N) + ...
-                  o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k), ...
-              -o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
-              o.beta*Div(:,:,k), zeros(N)]);
-          end
-        end
+         end
       elseif strcmp(o.solver,'method2')
         if any(vesicle.viscCont ~= 1)
           [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu( ...
@@ -1684,8 +1687,14 @@ alpha = (1+vesicle.viscCont)/2;
 
 Gf = op.exactStokesSLdiag(vesicle,o.Galpert,f);
 % Gf is the single-layer potential applied to the traction jump. 
+%f = rand(2*N,nv);
 if o.SP
+%  P = vesicle.computeNormals;  
   Pf = vesicle.normalProjection(f);
+%  norm(P(:,:,1)-P(:,:,2))
+%   norm(Pf(:,1)-P(:,:,1)*f(:,1))
+%   norm(Pf(:,2)-P(:,:,2)*f(:,2))
+%   pause
   %Calculate the normal projection for semipermeable membrane
 else
   Pf = zeros(2*N,nv);
@@ -1911,7 +1920,8 @@ valPos = valPos - o.dt*Fwall2Ves*diag(1./alpha);
 valPos = valPos - o.dt*LetsVes*diag(1./alpha);
 % velocity on vesicles due to the rotlets and stokeslets
 %valPos = valPos - o.pBeta*Pf.*[gaussian;gaussian]*o.dt;
-valPos = valPos - o.pBeta*Pf*o.dt;
+valPos = valPos - o.pBeta(1)*Pf*o.dt;
+
 % END OF EVALUATING VELOCITY ON VESICLES
 %**************************************************************************
 % Repulsion Magnitude Test
@@ -2168,6 +2178,7 @@ IvesVel = o.lobattoInt(vesVel);
 % that are exact for polynomials defined at the 
 % Gauss-Lobatto points
 for n = 1:abs(o.orderGL)
+ 
   residual(:,:,n) = vesicle(1).X - vesicle(n).X + ...
       o.dt/2 * IvesVel(:,:,n);
 end
@@ -2378,7 +2389,7 @@ alpha = (1+vesicle.viscCont)/2;
 valVel = valVel * diag(alpha);
 % multiply top row of matrix by alpha
 
-valVel = valVel + op.exactStokesSLdiag(vesicle,o.Galpert,f) + Fslp;
+valVel = valVel + op.exactStokesSLdiag(vesicle,o.Galpert,f)+ o.pBeta(1)*vesicle.normalProjection(f) + Fslp ;
 valDen = valDen - FSLPwall;
 % subtract off terms that TimeMatVec introduces but we do not have in
 % this linear system
