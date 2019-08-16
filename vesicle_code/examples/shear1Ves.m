@@ -6,9 +6,9 @@ fprintf('First-order semi-implicit time stepping.\n');
 % Physics parameters
 prams.N = 128;               % points per vesicle
 prams.nv = 1;               % number of vesicles
-prams.T = 5;               % time horizon (two tumbling)
-prams.m = 1000;              % number of time steps
-prams.kappa = 1e-1;         % bending coefficient
+prams.T = 1;               % time horizon (two tumbling)
+prams.m = 1;              % number of time steps
+prams.kappa = 1;         % bending coefficient
 prams.viscCont = 1;         % viscosity contrast
 options.farField = 'shear'; % background velocity
 options.farFieldSpeed = 10;
@@ -20,11 +20,11 @@ options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
 options.antiAlias = false;
-options.semipermeable = true;
+options.semipermeable = false;
 prams.gmresMaxIter = 3*prams.N;
-prams.gmresTol = 1e-10;
+prams.gmresTol = 1e-8;
 prams.errorTol = 1000;
-prams.fluxCoeff = 1;
+prams.fluxCoeff = 0;
 
 % ADD-ONS
 options.alignCenterAngle = false;
@@ -47,8 +47,8 @@ if 1
 end
 
 options.orderGL = 2;
-options.nsdc = 1;
-options.expectedOrder = 2;
+options.nsdc = 0;
+options.expectedOrder = 1;
 
 options.expForce = false;
 
@@ -71,14 +71,14 @@ options.errorFile = 'output/shear1VesError.bin';
 % Also add src to path
 
 theta = (0:prams.N-1)'*2*pi/prams.N;
-%prams.fluxShape = sin(theta);
+prams.fluxShape = 0*sin(theta);
 %prams.fluxShape = ones(prams.N,1);
-prams.fluxShape = exp(-4*(theta - pi/2).^2) + ...
-                  exp(-4*(theta - 3*pi/2).^2);
+%prams.fluxShape = exp(-4*(theta - pi/2).^2) + ...
+%                  exp(-4*(theta - 3*pi/2).^2);
 % set up the distribution for the flux
 
 oc = curve;
-ra = 0.85;
+ra = 0.99;
 scale = sqrt(ra);
 %scale = 1;
 X = oc.initConfig(prams.N,...
@@ -91,8 +91,8 @@ X = oc.initConfig(prams.N,...
 %X = X/ymax*3; % make maximum y value equal to 3
 
 
-%theta = (0:prams.N-1)'*2*pi/prams.N;
-%X = [cos(theta);3*sin(theta)-5];
+theta = (0:prams.N-1)'*2*pi/prams.N;
+X = [cos(theta);1.2*sin(theta)];
 
 Xfinal = Ves2D(X,[],prams,options);
 % Run vesicle code

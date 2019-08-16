@@ -1500,14 +1500,27 @@ if usePreco
             -o.dt/alpha(k)*P(:,:,k)*Ten(:,:,k)*o.fluxCoeff(:,k).*[o.fluxShape;o.fluxShape] - ...
             o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
             o.beta*Div(:,:,k) zeros(N)]);
+          % TODO: THIS MOST LIKELY HAS A BUG
         else           
-            [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
-              [o.beta*eye(2*N) + ...
-               o.dt*vesicle.kappa(k)*o.fluxCoeff(:,k)*P(:,:,k)*Ben(:,:,k).*[o.fluxShape;o.fluxShape]+ ...
-                  o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k),...
-              -o.dt/alpha(k)*o.fluxCoeff(:,k).*P(:,:,k)*Ten(:,:,k).*[o.fluxShape;o.fluxShape] - ...
-              o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
-              o.beta*Div(:,:,k), zeros(N)]);
+%          [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
+%            [o.beta*eye(2*N) + o.dt * o.fluxCoeff(:,k) * ...
+%              vesicle.kappa(k)*kron(eye(2),diag(o.fluxShape)) * ...
+%              P(:,:,k)*Ben(:,:,k) + ...
+%              o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k),...
+%            -o.dt/alpha(k)*o.fluxCoeff(:,k) * ...
+%              kron(eye(2),diag(o.fluxShape))*P(:,:,k)*Ten(:,:,k) - ...
+%            o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
+%            o.beta*Div(:,:,k), zeros(N)]);
+          [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
+            [o.beta*eye(2*N) + ...
+              o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k),...
+            - o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
+            o.beta*Div(:,:,k), zeros(N)]);
+          Preco = ... 
+            [o.beta*eye(2*N) - ...
+              o.dt*vesicle.kappa(k)*o.Galpert(:,:,k),...
+            -0*o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
+            0*o.beta*Div(:,:,k), zeros(N)];
         end
       elseif strcmp(o.solver,'method2')
         if any(vesicle.viscCont ~= 1)
@@ -1563,10 +1576,47 @@ if 1
     RS = RSm(:,2:end);
     initGMRES = [initGMRES;etaM(:);RS(:)];
   end
+
+%  Z = zeros(384);
+%  for k = 1:384
+%    e = zeros(384,1);
+%    e(k) = 1;
+%    Z(:,k) = o.TimeMatVec(e,vesicle,walls);
+%  end
+%  Z2 = bdiagVes.L(:,:,1)*bdiagVes.U(:,:,1);
+%
+%  clf
+%  surf(Z(1:256,1:256))
+%  surf(flipud(log10(abs(Z - Z2))))
+%  view(2);
+%  shading interp;
+%  axis equal;
+%  axis([0 384 0 384])
+%  colorbar
+%  pause
+%
+%%  res = o.TimeMatVec(bdiagVes.U(:,:,1)\(bdiagVes.L(:,:,1)\rhs),...
+%%    vesicle,walls) - rhs;
+  clf; hold on
+  xx = [rand(256,1);rand(128,1)];
+%  xx = [ones(N,1);zeros(N,1);zeros(N,1)];
+%  z2 = bdiagVes(:,:,1).L * (bdiagVes(:,:,1).U * xx);
+  z2 = Preco*xx;
+%  z2 = 
+
+
+  plot(z2,'b')
+  z1 = o.TimeMatVec(xx,vesicle,walls);
+%
+%  clf
+%%  plot(res)
+%  plot(z1 - z)
+%  pause
   
   if usePreco
     % when doing corrections, expect that these guys will be small
     % GMRES
+    disp('STOPPPPP')
     [Xn,iflag,R,I,resvec] = gmres(@(X) o.TimeMatVec(X,vesicle,walls),...
         rhs,[],o.gmresTol,o.gmresMaxIter,...
         @o.preconditionerBD,[],initGMRES);
@@ -1692,6 +1742,17 @@ otlets = Xn(3*nv*N+2*nvbd*Nbd+1:end);
 
 f = vesicle.tracJump(Xm,sigmaM);
 % f is the traction jump stored as a 2N x nv matrix
+f = [Xm;f(2*N+1:end)];
+
+%[Ben,Ten,Div] = vesicle.computeDerivs;
+%theta = (0:N-1)'*2*pi/N;
+%X1 = [zeros(N,1);ones(N,1)];
+%sig1 = zeros(N,1);
+%f1 = vesicle.tracJump(X1,sig1);
+%f2 = Ben*X1 + Ten*sig1;
+%clf; hold on
+%plot(f2)
+%pause
 
 alpha = (1+vesicle.viscCont)/2; 
 % constant that multiplies the time derivative in the 
@@ -1699,7 +1760,6 @@ alpha = (1+vesicle.viscCont)/2;
 
 Gf = op.exactStokesSLdiag(vesicle,o.Galpert,f);
 % Gf is the single-layer potential applied to the traction jump. 
-%f = rand(2*N,nv);
 if o.SP  
   Pf = vesicle.normalProjection(f);
   %Calculate the normal projection for semipermeable membrane
@@ -1977,6 +2037,8 @@ end
 
 valPos = valPos + o.beta*Xm;
 % beta times solution coming from time derivative
+plot(valPos,'r--')
+pause
 
 val = zeros(3*N*nv,1);
 % Initialize output from vesicle and inextensibility equations to zero

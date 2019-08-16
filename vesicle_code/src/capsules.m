@@ -350,12 +350,12 @@ else
 end
 % If doing unbounded flow, add in the background velocity
 if tt.SP
-    P = vesicle.computeNormals;
+  P = vesicle.computeNormals;
 else
-    P = zeros(2*N,2*N,nv);
+  P = zeros(2*N,2*N,nv);
 end
 
-velBen = Fslp + diag(tt.fluxCoeff)*P*f.*[tt.fluxShape;tt.fluxShape] + ...
+velBen = Fslp + tt.fluxCoeff*[tt.fluxShape;tt.fluxShape].*(P*f) + ...
     op.exactStokesSLdiag(vesicle,tt.Galpert,f) + Ffar;
 
 for k = 1:nv
@@ -383,20 +383,22 @@ for k = 1:nv
 %       -tt.Galpert(:,:,k)*Ten(:,:,k); ...
 %       Div(:,:,k) zeros(N)]);      
     [tt.bdiagVes.L(:,:,k),tt.bdiagVes.U(:,:,k)] = lu(...
-      [eye(2*N), ...
-      -tt.fluxCoeff(:,k)*P(:,:,k)*Ten(:,:,k).*[tt.fluxShape;tt.fluxShape]-tt.Galpert(:,:,k)*Ten(:,:,k); ...
+      [eye(2*N), -tt.fluxCoeff(:,k) * ...
+        kron(eye(2),diag(tt.fluxShape)) * ...
+        P(:,:,k)*Ten(:,:,k)-tt.Galpert(:,:,k)*Ten(:,:,k); ...
       Div(:,:,k), zeros(N)]);
   end
 end
 % build vesicle part of the block-diagonal preconditioner GMRES
 
-
-[sigDen,F,R,I] = gmres(@(X) tt.sigDenMatVec(X,vesicle,walls),rhs,...
-    [],tt.gmresTol,min(tt.gmresMaxIter,N*nv+2*Nbd*nvbd + 3*(nvbd-1)),...
-    @tt.preconditionerBD);
-% solve for tension and density function with block-diagonal 
-% preconditioning
-iter = I(2);
+%[sigDen,F,R,I] = gmres(@(X) tt.sigDenMatVec(X,vesicle,walls),rhs,...
+%    [],tt.gmresTol,min(tt.gmresMaxIter,N*nv+2*Nbd*nvbd + 3*(nvbd-1)),...
+%    @tt.preconditionerBD);
+%% solve for tension and density function with block-diagonal 
+%% preconditioning
+%iter = I(2);
+sigDen = rhs;
+iter = 1;
 
 % Solve with LU DECOMPOSITION
 if 0
