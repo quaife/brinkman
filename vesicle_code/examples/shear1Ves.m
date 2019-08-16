@@ -24,7 +24,7 @@ options.semipermeable = true;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-10;
 prams.errorTol = 1000;
-prams.PhysBeta = 1;
+prams.fluxCoeff = 1;
 
 % ADD-ONS
 options.alignCenterAngle = false;
@@ -47,7 +47,7 @@ if 1
 end
 
 options.orderGL = 2;
-options.nsdc = 0;
+options.nsdc = 1;
 options.expectedOrder = 1;
 
 options.expForce = false;
@@ -70,8 +70,15 @@ options.errorFile = 'output/shear1VesError.bin';
 % Set options and parameters that the user doesn't
 % Also add src to path
 
+theta = (0:prams.N-1)'*2*pi/prams.N;
+%prams.fluxShape = sin(theta);
+%prams.fluxShape = ones(prams.N,1);
+prams.fluxShape = exp(-4*(theta - pi/2).^2) + ...
+                  exp(-4*(theta - 3*pi/2).^2);
+% set up the distribution for the flux
+
 oc = curve;
-ra = 0.35;
+ra = 0.85;
 scale = sqrt(ra);
 %scale = 1;
 X = oc.initConfig(prams.N,...

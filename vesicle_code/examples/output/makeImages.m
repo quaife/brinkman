@@ -4,7 +4,10 @@ options.savefig = false;
 
 irate = 5; % controls the speed of the visualization
 
-if 1
+if 0
+  file = 'parabolic1VesData.bin';
+end
+if 0
   file = 'extensional1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves_rotated/adR4em1adS7em1Chi7em2_ra070/extensional2VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/yuan_runs/june_28_2019/extensional2VesData75be.bin';
@@ -52,9 +55,9 @@ if 0
   ax = [-2 2 -2 2];
   options.confined = false;
 end
-if 0
-  file = '~/projects/brinkman/vesicle_code/results/May092019/shear1Ves/kappa1em1_beta1ep0_chi1ep0_ra0p55/shear1VesData.bin';
-%  file = 'shear1VesData.bin';
+if 1
+%  file = '~/projects/brinkman/vesicle_code/results/May092019/shear1Ves/kappa1em1_beta1ep0_chi1ep0_ra0p55/shear1VesData.bin';
+  file = 'shear1VesData.bin';
   ax = [-5 5 -5 5];
   options.confined = false;
 end
@@ -118,7 +121,7 @@ for k = istart:irate:iend
     end
     hold off
     axis equal
-    axis(ax)
+%    axis(ax)
     titleStr = ['t = ' num2str(time(k),'%4.2e') ...
       ' eA = ' num2str(ea(k),'%4.2e') ...
       ' eL = ' num2str(el(k),'%4.2e')];

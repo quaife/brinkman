@@ -26,7 +26,6 @@ center;     % center of the point required for stokeslets
 IK;         % index of Fourier modes for fft and ifft
             % that are needed repetatively
 SP          % semipermeable membrane
-pBeta       % Physical beta
 end %properties
 
 methods
@@ -356,7 +355,8 @@ else
     P = zeros(2*N,2*N,nv);
 end
 
-velBen = Fslp + tt.pBeta(1)*P*f + op.exactStokesSLdiag(vesicle,tt.Galpert,f) + Ffar;
+velBen = Fslp + tt.fluxCoeff(1)*P*f + ...
+    op.exactStokesSLdiag(vesicle,tt.Galpert,f) + Ffar;
 
 for k = 1:nv
   istart = (k-1)*3*N + 1;
@@ -384,34 +384,19 @@ for k = 1:nv
 %       Div(:,:,k) zeros(N)]);      
     [tt.bdiagVes.L(:,:,k),tt.bdiagVes.U(:,:,k)] = lu(...
       [eye(2*N) ...
-      -tt.pBeta(k)*P(:,:,k)*Ten(:,:,k)-tt.Galpert(:,:,k)*Ten(:,:,k); ...
+      -tt.fluxCoeff(k)*P(:,:,k)*Ten(:,:,k)-tt.Galpert(:,:,k)*Ten(:,:,k); ...
       Div(:,:,k) zeros(N)]);
   end
 end
-
-%             [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
-%               [o.beta*eye(2*N) + ...
-%                o.dt*vesicle.kappa(k)*o.pBeta(k)*P(:,:,k)*Ben(:,:,k)+ ...
-%                   o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k),...
-%               -o.dt/alpha(k)*o.pBeta(k)*P(:,:,k)*Ten(:,:,k) - ...
-%               o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
-%               o.beta*Div(:,:,k), zeros(N)]);
-
-% build vesicle part of the block-diagonal preconditioner
-% GMRES
+% build vesicle part of the block-diagonal preconditioner GMRES
 
 
-if 1
-tic
 [sigDen,F,R,I] = gmres(@(X) tt.sigDenMatVec(X,vesicle,walls),rhs,...
     [],tt.gmresTol,min(tt.gmresMaxIter,N*nv+2*Nbd*nvbd + 3*(nvbd-1)),...
     @tt.preconditionerBD);
-toc
-%pause
 % solve for tension and density function with block-diagonal 
 % preconditioning
 iter = I(2);
-end
 
 % Solve with LU DECOMPOSITION
 if 0

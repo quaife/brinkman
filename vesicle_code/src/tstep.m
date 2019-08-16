@@ -74,7 +74,8 @@ adRange       % range of adhesion
 expForce      % exponential force towards a points ource
 fmmPrecision  % precision of fmm
 SP            % semipermeable membrane
-pBeta         % Physical beta
+fluxCoeff     % Water flux coefficient
+fluxShape     % Water flux distribution
 end % properties
 
 methods
@@ -154,6 +155,8 @@ o.expForce = options.expForce;
 
 o.fmmPrecision = options.fmmPrecision;
 o.op = poten(prams.N,o.fmmPrecision);
+% Build class with quadrature points and weights as well as lagrange
+% interpolation matrix
 
 if options.confined
   o.opWall = poten(prams.Nbd,o.fmmPrecision);
@@ -163,11 +166,14 @@ end
 
 o.SP = options.semipermeable;
 % Semipermeable membrane
-o.pBeta = prams.PhysBeta;
-% Physical Beta
+o.fluxCoeff = prams.fluxCoeff;
+% Water flux coefficient
 
-% Build class with quadrature points and weights as well as lagrange
-% interpolation matrix
+%theta = (0:prams.N-1)'*2*pi/prams.N;
+%o.fluxShape = sin(theta);
+% NOTE: Hacked in for now
+o.fluxShape = prams.fluxShape;
+
 end % tstep: constructor
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1483,7 +1489,7 @@ if usePreco
         if any(vesicle.viscCont ~= 1)
           [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
             [o.beta*(eye(2*N) - o.D(:,:,k)/alpha(k)) + ...
-            o.dt/alpha(k)*vesicle.kappa(k)*o.pBeta(k)*P(:,:,k)*Ben(:,:,k)+...
+            o.dt/alpha(k)*vesicle.kappa(k)*o.fluxCoeff(k)*P(:,:,k)*Ben(:,:,k)+...
             o.dt/alpha(k)*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k) ...
             -o.dt/alpha(k)*P(:,:,k)*Ten(:,:,k) - ...
             o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
@@ -1491,12 +1497,12 @@ if usePreco
         else           
             [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
               [o.beta*eye(2*N) + ...
-               o.dt*vesicle.kappa(k)*o.pBeta(k)*P(:,:,k)*Ben(:,:,k)+ ...
+               o.dt*vesicle.kappa(k)*o.fluxCoeff(:,k)*P(:,:,k)*Ben(:,:,k)+ ...
                   o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k),...
-              -o.dt/alpha(k)*o.pBeta(k)*P(:,:,k)*Ten(:,:,k) - ...
+              -o.dt/alpha(k)*o.fluxCoeff(:,k)*P(:,:,k)*Ten(:,:,k) - ...
               o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
               o.beta*Div(:,:,k), zeros(N)]);
-         end
+        end
       elseif strcmp(o.solver,'method2')
         if any(vesicle.viscCont ~= 1)
           [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu( ...
@@ -1897,14 +1903,6 @@ else
   FDLPwall2wall = zeros(2*Nbd,nvbd);
 end
 
-
-%c = 1/100;
-%ind = (1:N)';
-%gaussian = exp(-c*(ind - N/2).^2);
-%clf
-%plot(gaussian)
-%pause
-
 % END OF EVALUATING POTENTIAL DUE TO STOKESLETS AND ROTLETS
 % START OF EVALUATING VELOCITY ON VESICLES
 valPos = valPos - o.dt*Gf*diag(1./alpha);
@@ -1919,18 +1917,10 @@ valPos = valPos - o.dt*Fwall2Ves*diag(1./alpha);
 % velocity due to solid walls evaluated on vesicles
 valPos = valPos - o.dt*LetsVes*diag(1./alpha);
 % velocity on vesicles due to the rotlets and stokeslets
-%valPos = valPos - o.pBeta*Pf.*[gaussian;gaussian]*o.dt;
-valPos = valPos - o.pBeta(1)*Pf*o.dt;
-
+valPos = valPos - o.dt*[o.fluxShape;o.fluxShape] .* ...
+    Pf*diag(o.fluxCoeff);
+%valPos = valPos - o.dt*Pf*diag(o.fluxCoeff);
 % END OF EVALUATING VELOCITY ON VESICLES
-%**************************************************************************
-% Repulsion Magnitude Test
-% relVel = (Gf+o.beta*DXm+Fslp+Fdlp+LetsVes)*diag(1./alpha);
-% integVel = (relVel(1:end/2,1).^2+relVel(end/2+1:end,1).^2).^0.5;
-% SurfVelInteg = sum(integVel)*2*pi/N;
-% disp('Velocity Integral')
-% SurfVelInteg
-%**************************************************************************
 
 % START OF EVALUATING VELOCITY ON WALLS
 if o.confined
@@ -1952,6 +1942,7 @@ valWalls = valWalls + FDLPwall2wall;
 valWalls = valWalls + LetsWalls;
 % velocity on walls due to the rotlets and stokeslets
 % END OF EVALUATING VELOCITY ON WALLS
+
 % START OF EVALUATING INEXTENSIBILITY CONDITION
 if (strcmp(o.solver,'method1'))
   valTen = o.beta * vesicle.surfaceDiv(Xm);
@@ -2389,7 +2380,8 @@ alpha = (1+vesicle.viscCont)/2;
 valVel = valVel * diag(alpha);
 % multiply top row of matrix by alpha
 
-valVel = valVel + op.exactStokesSLdiag(vesicle,o.Galpert,f)+ o.pBeta(1)*vesicle.normalProjection(f) + Fslp ;
+valVel = valVel + op.exactStokesSLdiag(vesicle,o.Galpert,f) + ...
+      [o.fluxShape;o.fluxShape].*vesicle.normalProjection(f)*diag(o.fluxCoeff) + Fslp;
 valDen = valDen - FSLPwall;
 % subtract off terms that TimeMatVec introduces but we do not have in
 % this linear system

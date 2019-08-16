@@ -9,7 +9,8 @@ if isempty(strfind(P, subPath)),addpath(subPath);end
 
 PramList = {'N','nv','T','m','Nbd','nvbd','kappa','viscCont',...
     'gmresTol','gmresMaxIter','errorTol','rtolArea','rtolLength',...
-    'betaUp','betaDown','alpha','adStrength','adRange','PhysBeta'};
+    'betaUp','betaDown','alpha','adStrength','adRange',...
+    'fluxCoeff','fluxShape'};
 defaultPram.N = 64;
 defaultPram.nv = 1;
 defaultPram.T = 1;
@@ -28,7 +29,8 @@ defaultPram.betaDown = 0.5;
 defaultPram.alpha = 0.9;
 defaultPram.adStrength = 4e-1;
 defaultPram.adRange = 8e-1;
-defaultPram.PhysBeta = 0; %Not sure what to put here yet
+defaultPram.fluxCoeff = 1e-1; 
+defaultPram.fluxShape = ones(prams.N,prams.nv); 
 
 for k = 1:length(PramList)
   if ~isfield(prams,PramList{k})
@@ -43,7 +45,8 @@ OptList = {'order','expectedOrder','inextens','farField',...
     'quiver','axis','saveData','logFile','dataFile','verbose',...
     'profile','collision','timeAdap',...
     'pressure','SDCcorrect','orderGL','nsdc','adhesion','expForce',...
-    'correctShape','fmmPrecision','errorFile','saveError', 'semipermeable'};
+    'correctShape','fmmPrecision','errorFile','saveError',...
+    'semipermeable'};
 
 defaultOpt.order = 1;
 defaultOpt.expectedOrder = 2;

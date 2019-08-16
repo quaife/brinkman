@@ -24,7 +24,7 @@ options.semipermeable = true;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-10;
 prams.errorTol = 1000;
-prams.PhysBeta = 1;
+prams.fluxCoeff = 1;
 
 % ADD-ONS
 options.alignCenterAngle = false;

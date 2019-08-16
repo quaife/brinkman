@@ -24,8 +24,8 @@ defaultPram.adStrength = 1;
 defaultPram.adRange = 4e-1;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-10;
-prams.errorTol = 1000;
-prams.PhysBeta = beta*ones(prams.nv,1);
+prams.errortol = 1000;
+prams.fluxCoeff = beta*ones(prams.nv,1);
 
 % ADD-ONS
 options.alignCenterAngle = false;
