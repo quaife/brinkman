@@ -48,7 +48,7 @@ end
 
 options.orderGL = 2;
 options.nsdc = 1;
-options.expectedOrder = 1;
+options.expectedOrder = 2;
 
 options.expForce = false;
 

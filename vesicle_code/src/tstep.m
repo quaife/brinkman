@@ -326,6 +326,7 @@ for n = 1:prams.m
       [],[],[],[],[],[],[],...
       prams.kappa,prams.viscCont,walls,wallsCoarse,...
       updatePreco,vesicle);
+  
   % take one time step
 
   if numel(Xtra) > 1
@@ -1127,8 +1128,10 @@ else
   % vesicle-vesicle and vesicle-wall interactions are handled
   % implicitly in TimeMatVec
 end
+
 for k = 1:nv
   rhs1(:,k) = rhs1(:,k) + o.dt/alpha(k)*Fslp(:,k);
+      
 end
 
 rhs3 = rhs3 - FSLPwall;
@@ -1302,8 +1305,11 @@ if o.expForce
 end
 % Compute velocity due to exponential point force
 
-
-
+% if o.SP 
+%     f = vesicle.tracJump(vesicle.X,zeros(N,nv));
+%     Gf = op.exactStokesSLdiag(vesicle,o.Galpert,f);
+%     rhs1 = rhs1 + o.dt/alpha(k)*diag(o.fluxCoeff).*vesicle.normalProjection(f).*[o.fluxShape;o.fluxShape]+o.dt/alpha*Gf;
+% end
 
 % START TO COMPUTE RIGHT-HAND SIDE DUE TO SOLID WALLS
 if o.confined
@@ -1442,8 +1448,8 @@ usePreco = true;
 %usePreco = false;
     
 % START BUILDING BLOCK-DIAGONAL PRECONDITIONER
-if usePreco
-  if updatePreco
+if usePreco   
+  if updatePreco 
     % only build the preconditioner if updatePreco == true
     if o.profile
       tic
@@ -1489,17 +1495,17 @@ if usePreco
         if any(vesicle.viscCont ~= 1)
           [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
             [o.beta*(eye(2*N) - o.D(:,:,k)/alpha(k)) + ...
-            o.dt/alpha(k)*vesicle.kappa(k)*o.fluxCoeff(k)*P(:,:,k)*Ben(:,:,k)+...
+            o.dt/alpha(k)*vesicle.kappa(k)*o.fluxCoeff(k)*P(:,:,k)*Ben(:,:,k).*[o.fluxShape;o.fluxShape]+...
             o.dt/alpha(k)*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k) ...
-            -o.dt/alpha(k)*P(:,:,k)*Ten(:,:,k) - ...
+            -o.dt/alpha(k)*P(:,:,k)*Ten(:,:,k)*o.fluxCoeff(:,k).*[o.fluxShape;o.fluxShape] - ...
             o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
             o.beta*Div(:,:,k) zeros(N)]);
         else           
             [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
               [o.beta*eye(2*N) + ...
-               o.dt*vesicle.kappa(k)*o.fluxCoeff(:,k)*P(:,:,k)*Ben(:,:,k)+ ...
+               o.dt*vesicle.kappa(k)*o.fluxCoeff(:,k)*P(:,:,k)*Ben(:,:,k).*[o.fluxShape;o.fluxShape]+ ...
                   o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k),...
-              -o.dt/alpha(k)*o.fluxCoeff(:,k)*P(:,:,k)*Ten(:,:,k) - ...
+              -o.dt/alpha(k)*o.fluxCoeff(:,k).*P(:,:,k)*Ten(:,:,k).*[o.fluxShape;o.fluxShape] - ...
               o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
               o.beta*Div(:,:,k), zeros(N)]);
         end
@@ -1694,13 +1700,8 @@ alpha = (1+vesicle.viscCont)/2;
 Gf = op.exactStokesSLdiag(vesicle,o.Galpert,f);
 % Gf is the single-layer potential applied to the traction jump. 
 %f = rand(2*N,nv);
-if o.SP
-%  P = vesicle.computeNormals;  
+if o.SP  
   Pf = vesicle.normalProjection(f);
-%  norm(P(:,:,1)-P(:,:,2))
-%   norm(Pf(:,1)-P(:,:,1)*f(:,1))
-%   norm(Pf(:,2)-P(:,:,2)*f(:,2))
-%   pause
   %Calculate the normal projection for semipermeable membrane
 else
   Pf = zeros(2*N,nv);
