@@ -103,7 +103,8 @@ function IK = modes(N,nv)
 % IK = modes(N) builds the order of the fourier modes required for using
 % fft and ifft to do spectral differentiation
 
-IK = 1i*[(0:N/2-1) 0 (-N/2+1:-1)]';
+%IK = 1i*[(0:N/2-1) 0 (-N/2+1:-1)]';
+IK = 1i*[(0:N/2-1) -N/2 (-N/2+1:-1)]';
 % diagonal term for Fourier differentiation with the -N/2 mode
 % zeroed to avoid Nyquist frequency
 
@@ -124,7 +125,6 @@ function D1 = fourierDiff(N)
 
 D1 = fft1.fourierInt(N);
 D1 = D1'*diag(1i*N*(-N/2:N/2-1))*D1;
-
 
 end % fourierDiff
 

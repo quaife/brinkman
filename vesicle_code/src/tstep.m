@@ -25,7 +25,7 @@ expectedOrder % order that is used to pick new time step size
 dt            % Time step size
 currentTime   % current time needed for adaptive time stepping
 finalTime     % time horizon
-solver        % method1, method2, method3, or method4.  Changes how
+solver        % method1 or method2.  Changes how
               % inextensiblity condition is treated
 Galpert       % Single-layer stokes potential matrix using Alpert
 D             % Double-layer stokes potential matrix
@@ -1397,8 +1397,8 @@ if (strcmp(o.solver,'method1'))
     rhs2 = 1/2*(rhs2 - divf);
   end
 else 
-  % If using method2, method3, or method4, vesicle-vesicle interaction
-  % affects the right-hand side of the inextensibility condition
+  % If using method2, vesicle-vesicle interaction affects the right-hand
+  % side of the inextensibility condition
 
   if ~o.confined && ~o.SDCcorrect
     if any(viscCont ~= 1)
@@ -1455,11 +1455,11 @@ if usePreco
       tic
     end
     [Ben,Ten,Div] = vesicle.computeDerivs;
-    
+
     if o.SP
-        P = vesicle.computeNormals;
+      P = vesicle.computeNormals;
     else
-        P = zeros(2*N,2*N,nv);
+      P = zeros(2*N,2*N,nv);
     end
         
     if o.profile
@@ -1472,23 +1472,8 @@ if usePreco
       tic
     end
 
-    if (strcmp(o.solver,'method1') || strcmp(o.solver,'method2'))
-      bdiagVes.L = zeros(3*N,3*N,nv);
-      bdiagVes.U = zeros(3*N,3*N,nv);
-    elseif strcmp(o.solver,'method3')
-      bdiagVes.GT = zeros(2*N,N,nv); % SLP of tension
-      bdiagVes.DGT = zeros(N,N,nv); % divergence of SLP of tension
-      bdiagVes.DGB = zeros(N,2*N,nv); % divergence of SLP of bending
-      bdiagVes.schur = zeros(2*N,2*N,nv); 
-      % schur complement of the lower right N by N block
-    elseif strcmp(o.solver,'method4')
-      bdiagVes.GT = zeros(2*N,N,nv); % SLP of tension
-      bdiagVes.IpBen = zeros(2*N,2*N,nv); 
-      % inverse of identity plus SLP of Bending
-      bdiagVes.DGB = zeros(N,2*N,nv); % divergence of SLP of bending
-      bdiagVes.schur = zeros(N,N,nv); 
-      % schur complement of the upper left 2*N by 2*N block
-    end
+    bdiagVes.L = zeros(3*N,3*N,nv);
+    bdiagVes.U = zeros(3*N,3*N,nv);
     
     for k=1:nv
       if strcmp(o.solver,'method1')
@@ -1502,25 +1487,15 @@ if usePreco
             o.beta*Div(:,:,k) zeros(N)]);
           % TODO: THIS MOST LIKELY HAS A BUG
         else           
-%          [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
-%            [o.beta*eye(2*N) + o.dt * o.fluxCoeff(:,k) * ...
-%              vesicle.kappa(k)*kron(eye(2),diag(o.fluxShape)) * ...
-%              P(:,:,k)*Ben(:,:,k) + ...
-%              o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k),...
-%            -o.dt/alpha(k)*o.fluxCoeff(:,k) * ...
-%              kron(eye(2),diag(o.fluxShape))*P(:,:,k)*Ten(:,:,k) - ...
-%            o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
-%            o.beta*Div(:,:,k), zeros(N)]);
           [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
-            [o.beta*eye(2*N) + ...
+            [o.beta*eye(2*N) + o.dt * o.fluxCoeff(:,k) * ...
+              vesicle.kappa(k)*kron(eye(2),diag(o.fluxShape)) * ...
+              P(:,:,k)*Ben(:,:,k) + ...
               o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k),...
-            - o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
+            -o.dt/alpha(k)*o.fluxCoeff(:,k) * ...
+              kron(eye(2),diag(o.fluxShape))*P(:,:,k)*Ten(:,:,k) - ...
+            o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
             o.beta*Div(:,:,k), zeros(N)]);
-          Preco = ... 
-            [o.beta*eye(2*N) - ...
-              o.dt*vesicle.kappa(k)*o.Galpert(:,:,k),...
-            -0*o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
-            0*o.beta*Div(:,:,k), zeros(N)];
         end
       elseif strcmp(o.solver,'method2')
         if any(vesicle.viscCont ~= 1)
@@ -1577,46 +1552,29 @@ if 1
     initGMRES = [initGMRES;etaM(:);RS(:)];
   end
 
-%  Z = zeros(384);
-%  for k = 1:384
-%    e = zeros(384,1);
-%    e(k) = 1;
-%    Z(:,k) = o.TimeMatVec(e,vesicle,walls);
-%  end
-%  Z2 = bdiagVes.L(:,:,1)*bdiagVes.U(:,:,1);
-%
-%  clf
-%  surf(Z(1:256,1:256))
-%  surf(flipud(log10(abs(Z - Z2))))
-%  view(2);
-%  shading interp;
-%  axis equal;
-%  axis([0 384 0 384])
-%  colorbar
-%  pause
-%
-%%  res = o.TimeMatVec(bdiagVes.U(:,:,1)\(bdiagVes.L(:,:,1)\rhs),...
-%%    vesicle,walls) - rhs;
-  clf; hold on
-  xx = [rand(256,1);rand(128,1)];
-%  xx = [ones(N,1);zeros(N,1);zeros(N,1)];
-%  z2 = bdiagVes(:,:,1).L * (bdiagVes(:,:,1).U * xx);
-  z2 = Preco*xx;
-%  z2 = 
+  if 0
+    Z = zeros(3*N);
+    for k = 1:3*N
+      e = zeros(3*N,1);
+      e(k) = 1;
+      Z(:,k) = o.TimeMatVec(e,vesicle,walls);
+    end
+    Z2 = bdiagVes.L(:,:,1)*bdiagVes.U(:,:,1);
 
-
-  plot(z2,'b')
-  z1 = o.TimeMatVec(xx,vesicle,walls);
-%
-%  clf
-%%  plot(res)
-%  plot(z1 - z)
-%  pause
+    clf
+    surf(Z(1:2*N,1:2*N))
+    surf(flipud(log10(abs(Z - Z2))))
+    view(2);
+    shading interp;
+    axis equal;
+    axis([0 3*N 0 3*N])
+    colorbar
+    pause
+  end % DEBUG: Look at the TimeMatVec in matrix form
   
   if usePreco
     % when doing corrections, expect that these guys will be small
     % GMRES
-    disp('STOPPPPP')
     [Xn,iflag,R,I,resvec] = gmres(@(X) o.TimeMatVec(X,vesicle,walls),...
         rhs,[],o.gmresTol,o.gmresMaxIter,...
         @o.preconditionerBD,[],initGMRES);
@@ -1666,16 +1624,6 @@ end
 
 u = (o.beta*X - Xo)/o.dt;
 % Compute the velocity using the differencing stencil
-G = o.Galpert;
-
-%figure(1); clf;
-%plot(Div*G*(-Ben*X + Ten*sigma))
-%figure(2); clf;
-%plot(sigma)
-%cond(bdiagVes.L*bdiagVes.U)
-%pause
-
-
 
 end % timeStep
 
@@ -1742,17 +1690,6 @@ otlets = Xn(3*nv*N+2*nvbd*Nbd+1:end);
 
 f = vesicle.tracJump(Xm,sigmaM);
 % f is the traction jump stored as a 2N x nv matrix
-f = [Xm;f(2*N+1:end)];
-
-%[Ben,Ten,Div] = vesicle.computeDerivs;
-%theta = (0:N-1)'*2*pi/N;
-%X1 = [zeros(N,1);ones(N,1)];
-%sig1 = zeros(N,1);
-%f1 = vesicle.tracJump(X1,sig1);
-%f2 = Ben*X1 + Ten*sig1;
-%clf; hold on
-%plot(f2)
-%pause
 
 alpha = (1+vesicle.viscCont)/2; 
 % constant that multiplies the time derivative in the 
@@ -2024,21 +1961,16 @@ else
   else
     valTen = -1/o.dt*vesicle.surfaceDiv(valPos);
   end
-  % method2, method3, and method4 sets the surface divergence of the sum
-  % of single-layer potentials due to bending and tension plus the
-  % farField to zero.  The only difference between the two methods is
-  % how the preconditioner is used.  method2 uses the possibly
-  % ill-conditioned full matrix where as method3 and method 4 use the
-  % two schur complements.  Eventually will phase out method2 and it
-  % will be fully replaced by method3 and method4
+  % method2 sets the surface divergence of the sum of single-layer
+  % potentials due to bending and tension plus the farField to zero.
 end
 % Two possible discretizations of the inextensibility condition
 % END OF EVALUATING INEXTENSIBILITY CONDITION
 
 valPos = valPos + o.beta*Xm;
 % beta times solution coming from time derivative
-plot(valPos,'r--')
-pause
+%semilogy(abs(fftshift(fft(valPos(1:end/2)))),'bo');
+%pause
 
 val = zeros(3*N*nv,1);
 % Initialize output from vesicle and inextensibility equations to zero
@@ -2533,16 +2465,8 @@ function val = preconditionerBD(o,z)
 % val = preconditionBD(z) applies the block diagonal preconditioner
 % required by preconditioned-GMRES to the vector z
 
-if (strcmp(o.solver,'method1') || strcmp(o.solver,'method2'))
-  nv = size(o.bdiagVes.L,3); % number of vesicles
-  N = size(o.bdiagVes.L,1)/3; % number of points
-elseif strcmp(o.solver,'method3')
-  nv = size(o.bdiagVes.schur,3); % number of vesicles
-  N = size(o.bdiagVes.schur,1)/2; % number of vesicles
-elseif strcmp(o.solver,'method4')
-  nv = size(o.bdiagVes.schur,3); % number of vesicles
-  N = size(o.bdiagVes.schur,1); % number of vesicles
-end
+nv = size(o.bdiagVes.L,3); % number of vesicles
+N = size(o.bdiagVes.L,1)/3; % number of points
 nvbd = size(o.wallDLP,3); % number of solid walls
 Nbd = size(o.wallDLP,1)/2; % number of points per solid wall
 
@@ -2551,49 +2475,12 @@ zves = z(1:3*N*nv);
 % handled in the next section of this routine
 valVes = zeros(3*N*nv,1);
 
-if (strcmp(o.solver,'method1') || strcmp(o.solver,'method2'))
-  for k=1:nv
-    valVes((k-1)*3*N+1:3*k*N) = o.bdiagVes.U(:,:,k)\...
-      (o.bdiagVes.L(:,:,k)\zves((k-1)*3*N+1:3*k*N));
-  end % k
-  % precondition with the block diagonal preconditioner for the
-  % vesicle position and tension
-elseif strcmp(o.solver,'method3')
-  for k = 1:nv
-    istart = (k-1)*3*N+1;
-    iend = istart + 2*N - 1;
-    bx = zves(istart:iend); 
-    istart = iend + 1;
-    iend = istart + N - 1;
-    bsig = zves(istart:iend);
-    % seperate position and tension terms
-
-    rhs = bx + o.dt*o.bdiagVes.GT(:,:,k)*o.bdiagVes.DGT(:,:,k)*bsig;
-    pos = o.bdiagVes.schur(:,:,k)*rhs;
-    rhs = bsig + o.bdiagVes.DGB(:,:,k)*pos;
-    sig = o.bdiagVes.DGT(:,:,k)*rhs;
-    valVes((k-1)*3*N+1:3*k*N) = [pos;sig];
-    % use schur decomposition to operate preconditioner
-  end % k
-elseif strcmp(o.solver,'method4')
-  for k = 1:nv
-    istart = (k-1)*3*N+1;
-    iend = istart + 2*N - 1;
-    bx = zves(istart:iend); 
-    istart = iend + 1;
-    iend = istart + N - 1;
-    bsig = zves(istart:iend);
-    % seperate position and tension terms
-
-    rhs = bsig + o.bdiagVes.DGB(:,:,k)*o.bdiagVes.IpBen(:,:,k)*bx;
-    sig = o.bdiagVes.schur(:,:,k)*rhs;
-    rhs = bx + o.dt*o.bdiagVes.GT(:,:,k)*sig;
-    pos = o.bdiagVes.IpBen(:,:,k)*rhs;
-    valVes((k-1)*3*N+1:3*k*N) = [pos;sig];
-    % use schur decomposition to operate preconditioner
-  end % k
-
-end % o.solver
+for k=1:nv
+  valVes((k-1)*3*N+1:3*k*N) = o.bdiagVes.U(:,:,k)\...
+    (o.bdiagVes.L(:,:,k)\zves((k-1)*3*N+1:3*k*N));
+end % k
+% precondition with the block diagonal preconditioner for the vesicle
+% position and tension
 
 zwalls = z(3*N*nv+1:end);
 % part of z from solid walls

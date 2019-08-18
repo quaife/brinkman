@@ -102,6 +102,7 @@ function ben = bendingTerm(o,f)
 
 ben = -[curve.arcDeriv(f(1:o.N,:),4,o.isa,o.IK);...
   curve.arcDeriv(f(o.N+1:2*o.N,:),4,o.isa,o.IK)]*diag(o.kappa);
+
 end % bendingTerm
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -192,9 +193,6 @@ fy2 = -exp(-r/d).*(y-y0)./r;
 force = [fx1 + 0*fx2;fy1 + 0*fy2];
 
 end % expForce
-
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [Ben,Ten,Div] = computeDerivs(o)
@@ -391,14 +389,12 @@ for k = 1:nv
 end
 % build vesicle part of the block-diagonal preconditioner GMRES
 
-%[sigDen,F,R,I] = gmres(@(X) tt.sigDenMatVec(X,vesicle,walls),rhs,...
-%    [],tt.gmresTol,min(tt.gmresMaxIter,N*nv+2*Nbd*nvbd + 3*(nvbd-1)),...
-%    @tt.preconditionerBD);
-%% solve for tension and density function with block-diagonal 
-%% preconditioning
-%iter = I(2);
-sigDen = rhs;
-iter = 1;
+[sigDen,F,R,I] = gmres(@(X) tt.sigDenMatVec(X,vesicle,walls),rhs,...
+    [],tt.gmresTol,min(tt.gmresMaxIter,N*nv+2*Nbd*nvbd + 3*(nvbd-1)),...
+    @tt.preconditionerBD);
+% solve for tension and density function with block-diagonal 
+% preconditioning
+iter = I(2);
 
 % Solve with LU DECOMPOSITION
 if 0
