@@ -1,0 +1,575 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%This is the LaTeX ARTICLE template for RSC journals
+%Copyright The Royal Society of Chemistry 2016
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[twoside,twocolumn,9pt]{article}
+\usepackage{extsizes}
+\usepackage[super,sort&compress,comma]{natbib} 
+\usepackage[version=3]{mhchem}
+\usepackage[left=1.5cm, right=1.5cm, top=1.785cm, bottom=2.0cm]{geometry}
+\usepackage{balance}
+\usepackage{times,mathptmx}
+\usepackage{sectsty}
+\usepackage{graphicx} 
+\usepackage{lastpage}
+\usepackage[format=plain,justification=justified,singlelinecheck=false,font={stretch=1.125,small,sf},labelfont=bf,labelsep=space]{caption}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{fnpos}
+\usepackage[english]{babel}
+\addto{\captionsenglish}{%
+  \renewcommand{\refname}{Notes and references}
+}
+\usepackage{array}
+\usepackage{droidsans}
+\usepackage{charter}
+\usepackage[T1]{fontenc}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{setspace}
+\usepackage[compact]{titlesec}
+\usepackage{hyperref}
+%%%Please don't disable any packages in the preamble, as this may cause the template to display incorrectly.%%%
+
+
+\usepackage{epstopdf}%This line makes .eps figures into .pdf - please comment out if not required.
+
+\definecolor{cream}{RGB}{222,217,201}
+
+\usepackage{amsmath,amsfonts,amssymb,bm}
+\usepackage{epsfig}
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+
+\input my_macros2.tex	
+\begin{document}
+
+\pagestyle{fancy}
+\thispagestyle{plain}
+\fancypagestyle{plain}{
+
+%%%HEADER%%%
+\fancyhead[C]{\includegraphics[width=18.5cm]{head_foot/header_bar}}
+\fancyhead[L]{\hspace{0cm}\vspace{1.5cm}\includegraphics[height=30pt]{head_foot/journal_name}}
+\fancyhead[R]{\hspace{0cm}\vspace{1.7cm}\includegraphics[height=55pt]{head_foot/RSC_LOGO_CMYK}}
+\renewcommand{\headrulewidth}{0pt}
+}
+%%%END OF HEADER%%%
+
+%%%PAGE SETUP - Please do not change any commands within this section%%%
+\makeFNbottom
+\makeatletter
+\renewcommand\LARGE{\@setfontsize\LARGE{15pt}{17}}
+\renewcommand\Large{\@setfontsize\Large{12pt}{14}}
+\renewcommand\large{\@setfontsize\large{10pt}{12}}
+\renewcommand\footnotesize{\@setfontsize\footnotesize{7pt}{10}}
+\makeatother
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\renewcommand\footnoterule{\vspace*{1pt}% 
+\color{cream}\hrule width 3.5in height 0.4pt \color{black}\vspace*{5pt}} 
+\setcounter{secnumdepth}{5}
+
+\makeatletter 
+\renewcommand\@biblabel[1]{#1}            
+\renewcommand\@makefntext[1]% 
+{\noindent\makebox[0pt][r]{\@thefnmark\,}#1}
+\makeatother 
+\renewcommand{\figurename}{\small{Fig.}~}
+\sectionfont{\sffamily\Large}
+\subsectionfont{\normalsize}
+\subsubsectionfont{\bf}
+\setstretch{1.125} %In particular, please do not alter this line.
+\setlength{\skip\footins}{0.8cm}
+\setlength{\footnotesep}{0.25cm}
+\setlength{\jot}{10pt}
+\titlespacing*{\section}{0pt}{4pt}{4pt}
+\titlespacing*{\subsection}{0pt}{15pt}{1pt}
+%%%END OF PAGE SETUP%%%
+
+%%%FOOTER%%%
+\fancyfoot{}
+\fancyfoot[LO,RE]{\vspace{-7.1pt}\includegraphics[height=9pt]{head_foot/LF}}
+\fancyfoot[CO]{\vspace{-7.1pt}\hspace{13.2cm}\includegraphics{head_foot/RF}}
+\fancyfoot[CE]{\vspace{-7.2pt}\hspace{-14.2cm}\includegraphics{head_foot/RF}}
+\fancyfoot[RO]{\footnotesize{\sffamily{1--\pageref{LastPage} ~\textbar  \hspace{2pt}\thepage}}}
+\fancyfoot[LE]{\footnotesize{\sffamily{\thepage~\textbar\hspace{3.45cm} 1--\pageref{LastPage}}}}
+\fancyhead{}
+\renewcommand{\headrulewidth}{0pt} 
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\arrayrulewidth}{1pt}
+\setlength{\columnsep}{6.5mm}
+\setlength\bibsep{1pt}
+%%%END OF FOOTER%%%
+
+%%%FIGURE SETUP - please do not change any commands within this section%%%
+\makeatletter 
+\newlength{\figrulesep} 
+\setlength{\figrulesep}{0.5\textfloatsep} 
+
+\newcommand{\topfigrule}{\vspace*{-1pt}% 
+\noindent{\color{cream}\rule[-\figrulesep]{\columnwidth}{1.5pt}} }
+
+\newcommand{\botfigrule}{\vspace*{-2pt}% 
+\noindent{\color{cream}\rule[\figrulesep]{\columnwidth}{1.5pt}} }
+
+\newcommand{\dblfigrule}{\vspace*{-1pt}% 
+\noindent{\color{cream}\rule[-\figrulesep]{\textwidth}{1.5pt}} }
+
+\makeatother
+%%%END OF FIGURE SETUP%%%
+
+%%%TITLE, AUTHORS AND ABSTRACT%%%
+\twocolumn[
+\begin{@twocolumnfalse}
+\vspace{3cm}
+\sffamily
+\begin{tabular}{m{4.5cm} p{13.5cm} }
+
+\includegraphics{head_foot/DOI} & \noindent\LARGE{\textbf{Semi-permeable
+  vesicles: Mathematical formulation, numerics, and physics}} \\
+\vspace{0.3cm} & \vspace{0.3cm} \\
+
+ & \noindent\large{Ashley Gannon,\textit{$^{a}$} Yuan-Nan
+  Young,\textit{$^{b}$} Shravan Veeranapanei,\textit{$^{c}$} and Bryan
+  Quaife$^{\ast}$ \textit{$^{d}$}} \\
+
+\includegraphics{head_foot/dates} & 
+\noindent\normalsize{We consider a single semi-permeable vesicle in a
+  variety of flows} \\
+\end{tabular}
+
+\end{@twocolumnfalse} \vspace{0.6cm}
+
+]
+%%%END OF TITLE, AUTHORS AND ABSTRACT%%%
+
+%%%FONT SETUP - please do not change any commands within this section
+\renewcommand*\rmdefault{bch}\normalfont\upshape
+\rmfamily
+\section*{}
+\vspace{-1cm}
+
+
+%%%FOOTNOTES%%%
+
+\footnotetext{\textit{$^{a}$~Department of Scientific Computing, Florida
+State University, Tallahassee, FL, USA.}}
+\footnotetext{\textit{$^{b}$~Department of Mathematical Sciences, New
+Jersey Institute of Technology, Newark, NJ, USA.}}
+\footnotetext{\textit{$^{c}$~Department of Mathematics, University of
+Michigan, Ann Arbor, MI, USA.}}
+\footnotetext{\textit{$^{d}$~Department of Scientific Computing, Florida
+State University, Tallahassee, FL, USA. E-mail: bquaife@fsu.edu}}
+
+%Please use \dag to cite the ESI in the main text of the article.
+%If you article does not have ESI please remove the the \dag symbol from the title and the footnotetext below.
+%\footnotetext{\dag~Electronic Supplementary Information (ESI) available:
+%[details of any supplementary information available should be included
+%here]. See DOI: 00.0000/00000000.}
+%\footnotetext{\ddag~Additional footnotes to the title and authors can be
+%included \textit{e.g.}\ `Present address:' or `These authors contributed
+%equally to this work' as above using the symbols: \ddag, \textsection,
+%and \P. Please place the appropriate symbol next to the author's name
+%and include a \texttt{\textbackslash footnotetext} entry in the the
+%correct place in the list.}
+
+
+%%%END OF FOOTNOTES%%%
+
+%%%MAIN TEXT%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problem formulation} \label{sc:formulate}
+Consider a semi-permeable vesicle suspended in an unbounded viscous
+fluid domain, subjected to an imposed flow $\mbu_\infty(\mbx)$, for any
+$\mbx \in \RR^2$.  Assume that the interior and exterior fluids have the same viscosity $\mu$. Let $\mbx$ be the position of the interface $\gamma$, $\mbu$ the fluid velocity and $p$ the pressure. In the vanishing Reynolds number limit, the governing equations for the ambient fluid can be written as: 
+%
+\begin{subequations}
+\begin{align}
+-\nabla p + \mu \triangle \mbu = 0 \quad\text{in}\quad
+  \RR^2\setminus\gamma  &  \\
+% 
+\nabla \cdot \mbu = 0  \quad\text{in}\quad \RR^2\setminus\gamma &\\
+%
+\mbu(\mbx) \rightarrow \mbu_\infty(\mbx) \quad \text{as} \quad  \norm{\mbx} \rightarrow \infty & 
+ \end{align} \label{eqn:governing}
+\end{subequations}%
+%
+The modified jump conditions in the case of a semi-permeable vesicle can
+be summarized as follows.  Let $\mbn$ the outward normal to $\gamma$ and
+$\jump{\cdot}$ denote the jump across the interface. The jump condition
+for the hydrodynamic stress remains the same:
+\begin{align} 
+  \jump{\Sigma\cdot\mbn} = \mbf_\text{mem}, 
+\end{align}
+where $\Sigma$ is the hydrodynamic stress tensor. The fluid velocity is
+continuous across the membrane i.e.,
+\begin{align}
+  \jump{\mbu} = 0. 
+\end{align}
+However, the kinematic condition is modified to account for the fact
+that the fluid can move through the membrane. A standard choice appears
+to be
+%
+\begin{align}
+  \mbu - \dot{\mbx} = - \beta (\mbf_\text{mem} \cdot \mbn) \mbn
+      \quad\text{on}\quad\gamma. 
+\end{align}
+%
+Here, $\beta$ is a constant and the membrane force is the usual
+sum of the bending and tension forces.
+
+We can use the governing equations to write a differential equation for
+the area of the vesicle as a function of time. The area inside a single
+vesicle $\gamma$ parameterized with $\mbx$ is
+\begin{align}
+  A(t) = \frac{1}{2}\int_{\gamma} (\mbx \cdot \mbn)\, ds = 
+    \frac{1}{2}\int_{0}^{2\pi} \left(\mbx \cdot
+    \pderiv{\mbx}{\theta}^\perp\right)
+    \, d\theta.
+\end{align}
+Taking the time derivative of $A(t)$,
+\begin{align}
+  \dot{A}(t) &= \frac{1}{2}\int_{0}^{2\pi} \left(\dot{\mbx} \cdot
+  \pderiv{\mbx}{\theta}^{\perp} + 
+    \mbx \cdot \pderiv{\dot{\mbx}}{\theta}^{\perp}\right) d\theta, \\
+  &= \frac{1}{2}
+  \int_{0}^{2\pi}(\dot{\mbx}\cdot\mbn)\left\|\pderiv{\mbx}{\theta}\right\|d\theta +
+     \frac{1}{2}\int_{0}^{2\pi}
+    \left(\mbx \cdot \pderiv{\dot{\mbx}}{\theta}^{\perp}\right)d\theta, \\
+  &= \frac{k_w}{2} \int_{\gamma}\left(\mbf\cdot\mbn\right)ds +
+  \frac{1}{2}\int_{0}^{2\pi}\left(\mbx \cdot \pderiv{}{t}\left(\mbn
+  \left\|\pderiv{\mbx}{\theta}\right\|\right)\right)d\theta, \\
+  &= \frac{k_w}{2} \int_{\gamma}\left(\mbf\cdot\mbn\right)ds + \frac{1}{2}
+  \int_{\gamma}\left(\mbx\cdot\dot{\mbn}\right)ds + \frac{1}{2}\int_{0}^{2\pi}
+  \frac{\mbx\cdot\mbn}{\left\|\pderiv{\mbx}{\theta}\right\|}
+  \left(\pderiv{\mbx}{\theta}\cdot
+  \pderiv{\dot{\mbx}}{\theta}\right)d\theta \\
+  &= \frac{k_w}{2} \int_{\gamma}\left(\mbf\cdot\mbn\right)ds + \frac{1}{2}
+  \int_{\gamma}\left(\mbx\cdot\dot{\mbn}\right)ds + \frac{1}{2}\int_{\gamma}
+  (\mbx\cdot\mbn) (\mbx_s \cdot \dot{\mbx}_s)\, ds.
+\end{align}
+To satisfy the inextensibilty condition, $\mbx_s \cdot \dot{\mbx}_s = 0$.
+Therefore the time derivative of $A(t)$ is
+\begin{align}
+     \dot{A}(t) &= \frac{k_w}{2}
+     \int_{\gamma}\left(\mbf\cdot\mbn\right)ds
+     + \frac{1}{2} \int_{\gamma}\left(\mbx\cdot\dot{\mbn}\right)ds.
+\end{align}
+... 
+\begin{align}
+    \dot{A}(t) &= \frac{k_w}{2}
+    \int_{\gamma}\left(\mbf\cdot\mbn\right)ds+\frac{1}{2}\int_{\gamma}\left(\mbx\cdot\dot{\mbn}\right) ds,
+\end{align}
+which we re-write as
+\begin{align}
+    \dot{A}(t) &= \frac{k_w}{2}
+    \int_{\gamma}\left(\mbf\cdot\mbn\right)ds-\frac{1}{2}\int_{\gamma}\left(\mbx^{\perp}\cdot\dot{\mbx}_s\right) ds.
+\end{align}
+Applying integration by parts,
+\begin{align}
+    \dot{A}(t) &= \frac{k_w}{2}
+    \int_{\gamma}\left(\mbf\cdot\mbn\right)ds+\frac{1}{2}\int_{\gamma}\left(\mbx^{\perp}_s\cdot\dot{\mbx}\right) ds,
+\end{align}
+which we re-write as
+\begin{align}
+    \dot{A}(t) &= \frac{k_w}{2}
+    \int_{\gamma}\left(\mbf\cdot\mbn\right)ds+\frac{1}{2}\int_{\gamma}\left(\dot{\mbx}\cdot\mbn\right),\\
+    \dot{A}(t) &= k_w \int_{\gamma}\left(\mbf\cdot\mbn\right)ds.
+\end{align}
+At steady stae,
+\begin{align}
+    \dot{A}(t) &= k_w \int_{\gamma}\left(\mbf\cdot\mbn\right)ds =0.
+\end{align}
+We now replace $\mbf$ with its relation
+\begin{align}
+   k_w\int_{\gamma}
+   \left((-\kappa_b\mbx_{ssss}+(\sigma\mbx_s)_s)\cdot\mbn\right)ds &=0.
+\end{align}
+Applying integration by parts,
+\begin{align}
+     k_w\int_{\gamma}\left(\kappa_b\mbx_{sss}-\sigma\mbx_s\right)\cdot
+     \mbn_s ds &=0.
+\end{align}
+From the Frenet-Serret formulas, we have 
+\begin{align}
+     -k_w\int_{\gamma}
+     \left(\kappa_b\mbx_{sss}-\sigma\mbx_s\right)\cdot\kappa\mbx_s ds &=0.
+\end{align}
+
+Applying integration by parts and Frenet-Serret again
+\begin{align}
+     k_w\int_{\gamma}
+     \kappa_b\kappa\left(\mbx_{ss}\cdot\mbx_{ss}\right)ds + k_w
+     \int_{\gamma} \kappa_b \kappa_s(\mbx_{ss} \cdot \mbx_s)ds +k_w\int_{\gamma}\kappa\sigma ds  &= 0,\\
+    k_w\int_{\gamma} \kappa_b\kappa(\kappa\mbn \cdot
+     \kappa\mbn)+ k_w \int_{\gamma} \kappa_b \kappa_s(\mbx_{ss} \cdot
+     \mbx_s)ds +k_w\int_{\gamma}\kappa\sigma ds &= 0,
+\end{align}
+which we re-write as
+\begin{align}
+   k_w\int_{\gamma}\kappa_b\kappa^3 ds + k_w \int_{\gamma} \kappa_b
+   \kappa_s(\mbx_{ss} \cdot \mbx_s)ds +k_w\int_{\gamma} \kappa\sigma ds = 0.
+\end{align}
+Applying Frenet-serret again,
+\begin{align}
+    k_w\int_{\gamma}\kappa_b\kappa^3 ds + k_w \int_{\gamma} \kappa_b
+    \kappa_s(\kappa\mbn \cdot \TT)ds +k_w\int_{\gamma} \kappa\sigma ds = 0, \\
+    k_w\int_{\gamma}\kappa_b\kappa^3 ds +k_w\int_{\gamma} \kappa\sigma ds  = 0, 
+\end{align}
+we compare this to our numerical results.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Integral equation formulation and non-dimensionalization}
+There are multiple ways to convert the PDE problem into integral
+equations. The coupled set of
+integro-differential equations satisfy the given interfacial conditions:
+\begin{align}
+  \label{eqn:vesVelocity}
+  \dot{\mbx} &= \mbu_\infty(\mbx) + k_w
+  (RT\jump{c}+\mbf_\text{mem}\cdot\mbn)\mbn
+  + \SS [\mbf_\text{mem}],  \\
+  \mbx_s\cdot\dot{\mbx}_s &= 0 
+\end{align}
+This satisfies all the jump conditions. As usual, $\SS$ is the single
+layer potential.  We introduce the notation
+\begin{align}
+  B[\mbx]\mbf &= -\kappa_b\frac{d^4}{ds^4} \mbf, \\
+  T[\mbx]\sigma &= (\sigma \mbx_s)_s, \\
+  P[\mbx]\mbf &= (\mbf \cdot \mbn) \mbn, \\
+  D[\mbx]\mbf &= \mbx_s \cdot \mbf_s,
+\end{align}
+where $\mbn$ is the outward unit normal of the vesicle parameterized by
+$\mbx$, and $d/ds$ is its arclength derivative.  Dropping the dependence
+of the operators on $\mbx$, the dynamics of the vesicle are governed by
+\begin{align}
+  \dot{\mbx} &= \mbu_{\infty}(\mbx) + 
+  k_wRT\jump{c}\mbn + k_wP(B\mbx + T\sigma) + \SS(B\mbx + T\sigma), \label{eq:full}\\
+  D \dot{\mbx} &= 0.
+\end{align}
+
+Following the analysis of~\cite{vee-gue-zor-bir2009} and
+disregarding background flow, we define scales of $\mbx$, $t$, $k_w$,
+and $c$ to nondimensionalize equation (\ref{eq:full}) as follows. The
+length is scaled using the radius of a circle with the same perimeter,
+$L$, as the vesicle, $R_0 = \frac{L}{2\pi}$. From analysis, the time
+scale $\tau$ is defined as $\tau = \frac{\mu R_0^2}{k_b}$, the tension
+scale, $Q$, is defined as $Q = \frac{k_b}{R_0^2}$, the water flux scale,
+$W$, is defined as $W=\frac{R_0}{\mu}$, and the concentration scale,
+$C$, is defined as $C=\frac{k_b}{R_0^3RT}$. The governing equation in
+nondimensional form is
+\begin{align}
+    \dot{\Tilde{\mbx}} =  \Tilde{k_w}\jump{\tilde{c}}\mbn +
+    \Tilde{k_w}P\big(B[\Tilde{\mbx}]\Tilde{\mbx}+T[\Tilde{\mbx}]\Tilde{\sigma}\big)
+    +\SS\big( B[\Tilde{\mbx}]\Tilde{\mbx} + T[\Tilde{\mbx}]\Tilde{\sigma}\big).
+\end{align}
+In our current implementation, we let $\jump{c} = 0$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Numerical methods}
+To address stiffness associated with high-order derivatives,
+equation~\eqref{eqn:vesVelocity} is discretized with a semi-implicit
+time stepping method similar to our previous works.  First, we introduce
+the notation
+\begin{align}
+  B[\mbx]\mbf &= -\kappa_b\frac{d^4}{ds^4} \mbf, \\
+  T[\mbx]\sigma &= (\sigma \mbx_s)_s, \\
+  P[\mbx]\mbf &= (\mbf \cdot \mbn) \mbn, \\
+  D[\mbx]\mbf &= \mbx_s \cdot \mbf_s,
+\end{align}
+where $\mbn$ is the outward unit normal of the vesicle
+parameterized by $\mbx$, and $d/ds$ is its arclength derivative.
+Dropping the dependence of the operators on $\mbx$, the dynamics of the
+vesicle are governed by
+\begin{align}
+  \dot{\mbx} &= \mbu_{\infty}(\mbx) + 
+  \beta P(B\mbx + T\sigma) + \sgl(B\mbx + T\sigma), \\
+  D \dot{\mbx} &= 0.
+\end{align}
+Using the notation $B^N$ to denote the bending operator due to the
+vesicle configuration at time $t_N$, and similar notation for the other
+operators, we apply the semi-implicit time stepping method
+\begin{align}  
+  \frac{\mbx^{N+1} - \mbx^N}{\Delta t} = \mbu_\infty(\mbx^N) 
+  + \beta P^N(B^N\mbx^{N+1} + T^N\sigma^{N+1}) 
+  + \sgl^N(B^N\mbx^{N+1} + T^N\sigma^{N+1}).
+\end{align}
+Applying $D$ to the first-order time discretization of
+equation~\eqref{eqn:vesVelocity}, the inextensibility condition is
+\begin{align*}
+  &D^N(\mbx^{N+1} - \mbx^N) = 0 \\ 
+  \Rightarrow &D^N\mbx^{N+1} = D^N \mbx^N \\ 
+  \Rightarrow &D^N\mbx^{N+1} = 1.
+\end{align*}
+Finally, we write the time stepping method in matrix form as
+\begin{align}
+  A \left(
+    \begin{array}{c}
+      \mbx^{N+1} \\ \sigma^{N+1}
+    \end{array}
+  \right) = 
+  \left(
+    \begin{array}{c}
+      \mbx^{N} + \Delta t \mbu_\infty(\mbx^N) \\ \mathbf{1}
+    \end{array}
+  \right),
+\end{align}
+where
+\begin{align}
+ A = \left(
+  \begin{array}{cc}
+    I + \Delta t \beta P^N B^N + \Delta t \sgl^N B^N & 
+    -\Delta t P^N T^N - \Delta t \sgl^N T^N \\
+    D^N & 0
+  \end{array}
+  \right).
+\end{align}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Numerical simulations}
+We consider a single vesicle suspended in a viscous fluid under various
+conditions.  The main results we have so far are
+\begin{itemize}
+  \item Given a fixed $\beta$ and vesicle length, the final reduced area
+    is independent of the initial reduced area, and even the vesicle
+    shape. However, the final reduced area does depend on the initial
+    vesicle length and $\beta$.
+    
+  \item The final reduced area increases as the shear rate decreases. In
+    the limit of zero shear rate (quiescent flow), the semi-permeable
+    vesicles always tends to a circle
+
+  \item The inclination angle of a semi-permeable vesicle in a shear
+    flow is greater than the inclination angle of a clean vesicle with
+    the same reduced area as the final reduced area of the
+    semi-permeable vesicle.
+
+  \item We are able to look at the flux across the interface and
+    characterize where there is inflow and outflow.
+
+  \item For $\beta$ that depends on arclength, we have observed both a
+    breathing motion (semi-permeable only on opposite sides), and
+    migration (semi-permeable only on about 25\% of the vesicle).
+\end{itemize}
+
+\subsection{Content permeability rate}
+
+
+\subsection{Variable permeability rate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Conflicts of interest}
+In accordance with our policy on
+\href{http://www.rsc.org/journals-books-databases/journal-authors-reviewers/author-responsibilities/#code-of-conduct}{Conflicts
+of interest} please ensure that a conflicts of interest statement is
+included in your manuscript here.  Please note that this statement is
+required for all submitted manuscripts.  If no conflicts exist, please
+state that ``There are no conflicts to declare''.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Acknowledgements}
+The Acknowledgements come at the end of an article after Conflicts of interest and before the Notes and references.
+
+%%%END OF MAIN TEXT%%%
+
+%The \balance command can be used to balance the columns on the final page if desired. It should be placed anywhere within the first column of the last page.
+
+\balance
+
+%%%REFERENCES%%%
+\bibliography{refs} %You need to replace "rsc" on this line with the name of your .bib file
+\bibliographystyle{rsc} %the RSC's .bst file
+
+\end{document}
+
+
+
+% Template stuff
+%The main text of the article\cite{Mena2000} should appear here.
+%
+%\subsection{This is the subsection heading style}
+%Section headings can be typeset with and without numbers.\cite{Abernethy2003}
+%
+%\subsubsection{This is the subsubsection style.~~} These headings should end in a full point.  
+%
+%\paragraph{This is the next level heading.~~} For this level please use \texttt{\textbackslash paragraph}. These headings should also end in a full point.
+%
+%\section{Graphics and tables}
+%\subsection{Graphics}
+%Graphics should be inserted on the page where they are first mentioned (unless they are equations, which appear in the flow of the text).\cite{Cotton1999}
+%
+%\begin{figure}[h]
+%\centering
+%%  \includegraphics[height=3cm]{example1}
+%  \caption{An example figure caption.}
+%  \label{fgr:example}
+%\end{figure}
+%
+%\begin{figure*}
+% \centering
+%% \includegraphics[height=3cm]{example2}
+% \caption{A two-column figure.}
+% \label{fgr:example2col}
+%\end{figure*}
+%
+%\subsection{Tables}
+%Tables typeset in RSC house style do not include vertical lines. Table footnote symbols are lower-case italic letters and are typeset at the bottom of the table. Table captions do not end in a full point.\cite{Arduengo1992,Eisenstein2005}
+%
+%
+%\begin{table}[h]
+%\small
+%  \caption{\ An example of a caption to accompany a table}
+%  \label{tbl:example}
+%  \begin{tabular*}{0.48\textwidth}{@{\extracolsep{\fill}}lll}
+%    \hline
+%    Header one (units) & Header two & Header three \\
+%    \hline
+%    1 & 2 & 3 \\
+%    4 & 5 & 6 \\
+%    7 & 8 & 9 \\
+%    10 & 11 & 12 \\
+%    \hline
+%  \end{tabular*}
+%\end{table}
+%
+%Adding notes to tables can be complicated.  Perhaps the easiest method is to generate these manually.\footnote[4]{Footnotes should appear here. These might include comments relevant to but not central to the matter under discussion, limited experimental and spectral data, and crystallographic data.}
+%
+%\begin{table*}
+%\small
+%  \caption{\ An example of a caption to accompany a table \textendash\ table captions do not end in a full point}
+%  \label{tbl:example}
+%  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lllllll}
+%    \hline
+%    Header one & Header two & Header three & Header four & Header five & Header six  & Header seven\\
+%    \hline
+%    1 & 2 & 3 & 4 & 5 & 6  & 7\\
+%    8 & 9 & 10 & 11 & 12 & 13 & 14 \\
+%    15 & 16 & 17 & 18 & 19 & 20 & 21\\
+%    \hline
+%  \end{tabular*}
+%\end{table*}
+%
+%\section{Equations}
+%
+%Equations can be typeset inline \textit{e.g.}\ $ y = mx + c$ or displayed with and without numbers:
+%
+% \[ A = \pi r^2 \]
+%
+%\begin{equation}
+%  \frac{\gamma}{\epsilon x} r^2 = 2r
+%\end{equation}
+%
+%You can also put lists into the text. You can have bulleted or numbered lists of almost any kind. 
+%The \texttt{mhchem} package can also be used so that formulae are easy to input: \texttt{\textbackslash ce\{H2SO4\}} gives \ce{H2SO4}. 
+%
+%For footnotes in the main text of the article please number the footnotes to avoid duplicate symbols. \textit{e.g.}\ \texttt{\textbackslash footnote[num]\{your text\}}. The corresponding author $\ast$ counts as footnote 1, ESI as footnote 2, \textit{e.g.}\ if there is no ESI, please start at [num]=[2], if ESI is cited in the title please start at [num]=[3] \textit{etc.} Please also cite the ESI within the main body of the text using \dag.

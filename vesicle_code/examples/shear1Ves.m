@@ -1,4 +1,4 @@
-%clear all; clc
+clear all; clc
 
 fprintf('Simple elliptical vesicle in a shear flow.\n');
 fprintf('First-order semi-implicit time stepping.\n');
@@ -6,7 +6,7 @@ fprintf('First-order semi-implicit time stepping.\n');
 % Physics parameters
 prams.N = 128;               % points per vesicle
 prams.nv = 1;               % number of vesicles
-prams.T = 10;               % time horizon (two tumbling)
+prams.T = 50;               % time horizon (two tumbling)
 prams.m = 100;              % number of time steps
 prams.kappa = 1;         % bending coefficient
 prams.viscCont = 1;         % viscosity contrast
@@ -20,7 +20,7 @@ options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
 options.antiAlias = false;
-options.semipermeable = true;
+options.semipermeable = false;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-8;
 prams.errorTol = 1000;
@@ -47,7 +47,7 @@ if 1
 end
 
 options.orderGL = 2;
-options.nsdc = 0;
+options.nsdc = 1;
 options.expectedOrder = 1;
 
 options.expForce = false;
@@ -75,17 +75,21 @@ theta = (0:prams.N-1)'*2*pi/prams.N;
 prams.fluxShape = ones(prams.N,1);
 %prams.fluxShape = exp(-4*(theta - pi/2).^2) + ...
 %                  exp(-4*(theta - 3*pi/2).^2);
+%prams.fluxShape = exp(-4*(theta - pi/2).^2);
+
 % set up the distribution for the flux
 
 oc = curve;
-ra = 0.99;
-scale = sqrt(ra);
-%scale = 1;
+ra = 0.55;
+%scale = sqrt(ra);
+%scale = 1.7177;
+%scale = 0.4111;
+scale = 1;
 X = oc.initConfig(prams.N,...
     'reducedArea',ra,...
     'angle',pi/2,...
     'center',[0;0],...
-    'scale',scale);
+    'scale',scale,'folds',15,'star');
 % Initial configuration of reduce area 0.65 and aligned
 %ymax = max(X(end/2+1:end));
 %X = X/ymax*3; % make maximum y value equal to 3

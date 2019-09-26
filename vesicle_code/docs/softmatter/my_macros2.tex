@@ -1,0 +1,111 @@
+\newcommand{\grbf}[1] {\mbox{\boldmath${#1}$\unboldmath}}
+\newcommand{\al}{\alpha}
+\newcommand{\kp}{\kappa}
+%\newcommand{\tt}{\theta}
+\newcommand{\Eb}{E_{\beta}}
+\newcommand{\Tc}{\textsf{T}}
+\newcommand{\altt}{\frac{\alpha}{\theta}}
+\newcommand{\beq} {\begin{equation}}
+\newcommand{\eeq} {\end{equation}}
+\newcommand{\bit}{\begin{itemize}}
+\newcommand{\eit}{\end{itemize}}
+\newcommand{\bde}{\begin{description}}
+\newcommand{\ede}{\end{description}}
+\newcommand{\bce}{\begin{center}}
+\newcommand{\ece}{\end{center}}
+\newcommand{\ben} {\begin{enumerate}}
+\newcommand{\een} {\end{enumerate}}
+\newcommand{\bea} {\begin{eqnarray}}
+\newcommand{\eea} {\end{eqnarray}}
+\newcommand{\barr} {\begin{array}}
+\newcommand{\earr} {\end{array}}
+\newcommand{\bean} {\begin{eqnarray*}}
+\newcommand{\eean} {\end{eqnarray*}}
+% Change
+\newcommand{\intg}[1]{\int_0^{2\pi} \int_0^\pi #1 \, du\, dv}
+\newcommand{\pt}[1]{\frac{\partial #1}{\partial t}}
+\newcommand{\iOm}[1]{\int_{\Omega(t)} #1 \, d\Omega}
+\newcommand{\pn}[1]{\frac{\partial #1}{\partial n}}
+\newcommand{\igt}[1]{\int_0^t\int_{\gamma(\tau)} #1 \,d\gamma dt}
+\newcommand{\far}{\mathcal{S}_F}
+\newcommand{\near}{\mathcal{S}_L}
+%\renewcommand{\grbf}[1] {\mathbf{#1}}
+\newcommand{\expt}[1] {e^{-n^2\pi^2({#1})}}
+\newcommand{\gbf}[1] {\mathbf{#1}}
+\newcommand{\dbl}{\mathcal{D}}
+\newcommand{\sgl}{\mathcal{S}}
+\newcommand{\mcd}{\mathcal{D}}
+\newcommand{\mct}{\mathcal{T}}
+\newcommand{\splf}{\phi_{\tilde{\sgl}}}
+\newcommand{\bdp}{\rho}
+\newcommand{\TODO}[1]{ \fbox{\parbox{3in}{\bf #1}}}
+\newcommand{\ts}{\triangle t}
+\newcommand{\phit}{\tilde{\phi}}
+\newcommand{\phib}{\breve{\phi}}
+\newcommand{\bigO}{\mathcal{O}}
+\newcommand{\sumn}{\sum_{n=1}^{p}}
+\newcommand{\ifull}[1]{\int^{1}_{0} #1 \, d\theta}
+\newcommand{\inear}[1]{\int^{10\alpha}_{0} #1 \, d\theta}
+\newcommand{\ifar}[1]{\int_{10\alpha}^{1} #1 \, d\theta}
+\newcommand{\ikers}[1]{\int_{0}^{1}\frac{1}{\theta^{\gamma}} #1 \, d\theta}
+\newcommand{\ikerl}[1]{\int_{0}^{1}\log\theta #1 \, d\theta}
+\newcommand{\kernel}{\frac{\sqrt{\alpha}} {\sqrt{\theta^3}} e^{-\frac{\alpha}{\theta}}}
+\newcommand{\kernelJ}{\frac{1} {\sqrt{\theta}} e^{-\frac{\alpha}{\theta}}}
+\newcommand{\bdry}[1]{\int_{\gamma} #1 \, d\gamma}
+\newcommand{\bol}[1]{\textbf{#1}}
+\newcommand{\sint}{S_n}
+%\newcommand{\sintt}{S_{\textbf{n}}}
+\newcommand{\sintt}[1]{\hat{#1}_{\mbk}}
+\newcommand{\dsintt}{\tilde{S}_{n_1 n_2}}
+\newcommand{\cost}{C_n}
+\newcommand{\DG}{\frac{\partial G}{\partial n}}
+\newcommand{\tick}{\textbf{{\small $\hookrightarrow $ resolved}}}
+
+%% used in codes
+\newcommand{\cellc}{c^c}
+\newcommand{\radc}{r^c}
+\newcommand{\sd}{\sqrt{\delta}}
+\newcommand{\momc}{I_C}
+\newcommand{\radg}{r^g}
+\newcommand{\gausst}{G_{\delta}}
+\newcommand{\mbe}{\mathbf{E}}
+\newcommand{\mbx}{\mathbf{x}}
+\newcommand{\mby}{\mathbf{y}}
+\newcommand{\mbxu}{|\mathbf{x}_u|}
+\newcommand{\mbxa}{|\mathbf{x}_{\alpha}|}
+\newcommand{\mbn}{\mathbf{n}}
+\newcommand{\mbt}{\mathbf{t}}
+\newcommand{\mbr}{\mathbf{r}}
+\newcommand{\mbk}{\mathbf{k}}
+\newcommand{\mck}{\mathcal{K}}
+\newcommand{\mce}{\mathcal{E}}
+\newcommand{\mcp}{\mathcal{P}}
+\newcommand{\mcm}{\mathcal{M}}
+\newcommand{\mcb}{\mathcal{B}}
+\newcommand{\gauss}{\mathcal{G}}
+\newcommand{\gaussD}{\mathcal{G}^D}
+%\newcommand{\mbe}{\mathbf{e}}
+\newcommand{\mbf}{\mathbf{f}}
+\newcommand{\mbg}{\mathbf{g}}
+\newcommand{\mbu}{\mathbf{u}}
+\newcommand{\mba}{\mathbf{a}}
+\newcommand{\mbb}{\mathbf{b}}
+\newcommand{\cv}{\cos v}
+\newcommand{\sv}{\sin v}
+\newcommand{\lpb}{\triangle_S}
+\newcommand{\norm}[1]{|\!| #1 |\!|}
+\newcommand{\mbv}{\mathbf{v}}
+\newcommand{\sdiv}{\text{div}_\gamma}
+\newcommand{\Lg}{\mathcal{L}}
+\newcommand{\sumy}{\sum_{n=0}^p \sum_{m=-n}^n}
+\newcommand\defeq{\mathrel{\mathop :}=}
+\newcommand{\vnm}{\mathbf{V}_n^m}
+\newcommand{\wnm}{\mathbf{W}_n^m}
+\newcommand{\jump}[1]{\left[\!\left[ #1 \right]\!\right]_\gamma}
+
+%Bryan's macros
+\newcommand{\BB}{\mathcal{B}}
+\newcommand{\TT}{\mathcal{T}}
+\newcommand{\PP}{\mathcal{P}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}

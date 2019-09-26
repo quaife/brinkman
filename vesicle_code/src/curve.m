@@ -171,6 +171,13 @@ end
 % scale the size of the vesicle (reduced area is invariant under
 % scale)
 
+if(any(strcmp(options,'folds')))
+  folds = options{find(strcmp(options,'folds'))+1};
+else
+  folds = 1;
+end
+% number of folds for a star shape
+
 t = (0:N-1)'*2*pi/N;
 % Discretization in parameter space
 
@@ -184,9 +191,8 @@ if any(strcmp(options,'curly'))
   % radius of curly vesicle
 
 elseif any(strcmp(options,'star'))
-  folds = options{2};
-  radius = 1 + 0.98*cos(folds*t);
-  X = [radius.*cos(t);radius.*sin(t)];
+  radius = 1 + 0.2*cos(folds*t);
+  X = scale*[radius.*cos(t);radius.*sin(t)];
   % a star that comes very close to intersecting itself
   % at the origin
 

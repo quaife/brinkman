@@ -168,11 +168,8 @@ o.SP = options.semipermeable;
 % Semipermeable membrane
 o.fluxCoeff = prams.fluxCoeff;
 % Water flux coefficient
-
-%theta = (0:prams.N-1)'*2*pi/prams.N;
-%o.fluxShape = sin(theta);
-% NOTE: Hacked in for now
 o.fluxShape = prams.fluxShape;
+% Water flux shape
 
 end % tstep: constructor
 
@@ -1917,7 +1914,6 @@ valPos = valPos - o.dt*LetsVes*diag(1./alpha);
 % velocity on vesicles due to the rotlets and stokeslets
 valPos = valPos - o.dt*[o.fluxShape;o.fluxShape] .* ...
     Pf*diag(o.fluxCoeff);
-%valPos = valPos - o.dt*Pf*diag(o.fluxCoeff);
 % END OF EVALUATING VELOCITY ON VESICLES
 
 % START OF EVALUATING VELOCITY ON WALLS
