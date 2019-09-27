@@ -195,14 +195,18 @@ $\mbx \in \RR^2$.  Assume that the interior and exterior fluids have the same vi
 %
 \mbu(\mbx) \rightarrow \mbu_\infty(\mbx) \quad \text{as} \quad  \norm{\mbx} \rightarrow \infty & 
  \end{align} \label{eqn:governing}
-\end{subequations}%
-%
+\end{subequations}
+\begin{figure}[H]
+	\centering
+	\epsfig{file =figures/vesicleschem.pdf, width=.6\columnwidth}
+	\caption{$\Omega$ is the unbounded fluid domain and $\gamma$ is the vesicle membrane. In addition to the vesicle-induced flow, a shear flow is imposed in the far field, $\mbu_\infty$.}
+\end{figure}
 The modified jump conditions in the case of a semi-permeable vesicle can
 be summarized as follows.  Let $\mbn$ the outward normal to $\gamma$ and
 $\jump{\cdot}$ denote the jump across the interface. The jump condition
 for the hydrodynamic stress remains the same:
 \begin{align} 
-  \jump{\Sigma\cdot\mbn} = \mbf_\text{mem}, 
+  \jump{\Sigma\cdot\mbn} = \mbf, 
 \end{align}
 where $\Sigma$ is the hydrodynamic stress tensor. The fluid velocity is
 continuous across the membrane i.e.,
@@ -212,121 +216,20 @@ continuous across the membrane i.e.,
 However, the kinematic condition is modified to account for the fact
 that the fluid can move through the membrane. A standard choice appears
 to be
-%
 \begin{align}
-  \mbu - \dot{\mbx} = - \beta (\mbf_\text{mem} \cdot \mbn) \mbn
+  \mbu - \dot{\mbx} = - \beta (\text{RT}\jump{c}+\mbf \cdot \mbn) \mbn
       \quad\text{on}\quad\gamma. 
 \end{align}
-%
-Here, $\beta$ is a constant and the membrane force is the usual
-sum of the bending and tension forces.
-
-We can use the governing equations to write a differential equation for
-the area of the vesicle as a function of time. The area inside a single
-vesicle $\gamma$ parameterized with $\mbx$ is
-\begin{align}
-  A(t) = \frac{1}{2}\int_{\gamma} (\mbx \cdot \mbn)\, ds = 
-    \frac{1}{2}\int_{0}^{2\pi} \left(\mbx \cdot
-    \pderiv{\mbx}{\theta}^\perp\right)
-    \, d\theta.
-\end{align}
-Taking the time derivative of $A(t)$,
-\begin{align}
-  \dot{A}(t) &= \frac{1}{2}\int_{0}^{2\pi} \left(\dot{\mbx} \cdot
-  \pderiv{\mbx}{\theta}^{\perp} + 
-    \mbx \cdot \pderiv{\dot{\mbx}}{\theta}^{\perp}\right) d\theta, \\
-  %&= \frac{1}{2}
-  %\int_{0}^{2\pi}(\dot{\mbx}\cdot\mbn)\left\|\pderiv{\mbx}{\theta}\right\|d\theta +
-  %   \frac{1}{2}\int_{0}^{2\pi}
-  %  \left(\mbx \cdot \pderiv{\dot{\mbx}}{\theta}^{\perp}\right)d\theta, \\
-  %&= \frac{k_w}{2} \int_{\gamma}\left(\mbf\cdot\mbn\right)ds +
-  %\frac{1}{2}\int_{0}^{2\pi}\left(\mbx \cdot \pderiv{}{t}\left(\mbn
-  %\left\|\pderiv{\mbx}{\theta}\right\|\right)\right)d\theta, \\
-  %&= \frac{k_w}{2} \int_{\gamma}\left(\mbf\cdot\mbn\right)ds + \frac{1}{2}
-  %\int_{\gamma}\left(\mbx\cdot\dot{\mbn}\right)ds + \frac{1}{2}\int_{0}^{2\pi}
-  %\frac{\mbx\cdot\mbn}{\left\|\pderiv{\mbx}{\theta}\right\|}
-  %\left(\pderiv{\mbx}{\theta}\cdot
-  %\pderiv{\dot{\mbx}}{\theta}\right)d\theta \\
-  &= \frac{k_w}{2} \int_{\gamma}\left(\mbf\cdot\mbn\right)ds + \frac{1}{2}
-  \int_{\gamma}\left(\mbx\cdot\dot{\mbn}\right)ds + \frac{1}{2}\int_{\gamma}
-  (\mbx\cdot\mbn) (\mbx_s \cdot \dot{\mbx}_s)\, ds.
-\end{align}
-To satisfy the inextensibilty condition, $\mbx_s \cdot \dot{\mbx}_s = 0$, the time derivative of $A(t)$ is
-\begin{align}
-     \dot{A}(t) &= \frac{k_w}{2}
-     \int_{\gamma}\left(\mbf\cdot\mbn\right)ds
-     + \frac{1}{2} \int_{\gamma}\left(\mbx\cdot\dot{\mbn}\right)ds.
-\end{align}
-%... 
-%\begin{align}
-%    \dot{A}(t) &= \frac{k_w}{2}
-%    \int_{\gamma}\left(\mbf\cdot\mbn\right)ds+\frac{1}{2}\int_{\gamma}\left(\mbx\cdot\dot{\mbn}\right) ds,
-%\end{align}
-which we re-write as
-\begin{align}
-    \dot{A}(t) &= \frac{k_w}{2}
-    \int_{\gamma}\left(\mbf\cdot\mbn\right)ds-\frac{1}{2}\int_{\gamma}\left(\mbx^{\perp}\cdot\dot{\mbx}_s\right) ds.
-\end{align}
-Applying integration by parts and re-writing,
-%\begin{align}
-%    \dot{A}(t) &= \frac{k_w}{2}
-%    \int_{\gamma}\left(\mbf\cdot\mbn\right)ds+\frac{1}{2}\int_{\gamma}\left(\mbx^{\perp}_s\cdot\dot{\mbx}\right) ds,
-%\end{align}
-%which we re-write as
-\begin{align}
- %   \dot{A}(t) &= \frac{k_w}{2}
- %   \int_{\gamma}\left(\mbf\cdot\mbn\right)ds+\frac{1}{2}\int_{\gamma}\left(\dot{\mbx}\cdot\mbn\right),\\
-    \dot{A}(t) &= k_w \int_{\gamma}\left(\mbf\cdot\mbn\right)ds.
-\end{align}
-At steady state,
-\begin{align}
-    \dot{A}(t) &= k_w \int_{\gamma}\left(\mbf\cdot\mbn\right)ds =0.
-\end{align}
-Replacing $\mbf$ with its relation, applying integration by parts twice and using Frenet-serret formulas,  
-\begin{align}
-k_w\int_{\gamma}\kappa_b\kappa^3 ds +k_w\int_{\gamma} \kappa\sigma ds  = 0. 
-\end{align} 
-%We now replace $\mbf$ with its relation
-%\begin{align}
-%   k_w\int_{\gamma}
-%   \left((-\kappa_b\mbx_{ssss}+(\sigma\mbx_s)_s)\cdot\mbn\right)ds &=0.
-%\end{align}
-%Applying integration by parts,
-%\begin{align}
-%     k_w\int_{\gamma}\left(\kappa_b\mbx_{sss}-\sigma\mbx_s\right)\cdot
-%     \mbn_s ds &=0.
-%\end{align}
-%From the Frenet-Serret formulas, we have 
-%\begin{align}
-%     -k_w\int_{\gamma}
-%     \left(\kappa_b\mbx_{sss}-\sigma\mbx_s\right)\cdot\kappa\mbx_s ds &=0.
-%\end{align}
-
-%Applying integration by parts and Frenet-Serret again
-%\begin{align}
-%     k_w\int_{\gamma}
-%     \kappa_b\kappa\left(\mbx_{ss}\cdot\mbx_{ss}\right)ds + k_w
-%     \int_{\gamma} \kappa_b \kappa_s(\mbx_{ss} \cdot \mbx_s)ds +k_w\int_{\gamma}\kappa\sigma ds  &= 0,\\
-%    k_w\int_{\gamma} \kappa_b\kappa(\kappa\mbn \cdot
-%     \kappa\mbn)+ k_w \int_{\gamma} \kappa_b \kappa_s(\mbx_{ss} \cdot
-%     \mbx_s)ds +k_w\int_{\gamma}\kappa\sigma ds &= 0,
-%\end{align}
-%which we re-write as
-%\begin{align}
-%   k_w\int_{\gamma}\kappa_b\kappa^3 ds + k_w \int_{\gamma} \kappa_b
-%   \kappa_s(\mbx_{ss} \cdot \mbx_s)ds +k_w\int_{\gamma} \kappa\sigma ds = 0.
-%\end{align}
-%Applying Frenet-serret again,
-%\begin{align}
-%    k_w\int_{\gamma}\kappa_b\kappa^3 ds + k_w \int_{\gamma} \kappa_b
-%    \kappa_s(\kappa\mbn \cdot \TT)ds +k_w\int_{\gamma} \kappa\sigma ds = 0, \\
-%    k_w\int_{\gamma}\kappa_b\kappa^3 ds +k_w\int_{\gamma} \kappa\sigma ds  = 0, 
-%\end{align}
-%we compare this to our numerical results.
-
-
-
-
+Here, $\beta$, R, and T are constants, $c$ is the solute concentration, and the membrane force is the usual sum of the bending and tension forces,
+\begin{subequations}
+	\begin{align}
+	\mbf = \mbf_{\text{bending}}+\mbf_{\text{tension}},  &  \\
+	% 
+	\mbf_{\text{bending}} = -\kappa_b\mbx_{ssss}, &\\
+	%
+	\mbf_{\text{tension}} = (\sigma\mbx_s)_s. & 
+	\end{align} \label{eqn:bendten}
+\end{subequations}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Integral equation formulation and non-dimensionalization}
 There are multiple ways to convert the PDE problem into integral
@@ -334,12 +237,12 @@ equations. The coupled set of
 integro-differential equations satisfy the given interfacial conditions:
 \begin{align}
   \label{eqn:vesVelocity}
-  \dot{\mbx} &= \mbu_\infty(\mbx) + k_w
-  (RT\jump{c}+\mbf_\text{mem}\cdot\mbn)\mbn
-  + \SS [\mbf_\text{mem}],  \\
-  \mbx_s\cdot\dot{\mbx}_s &= 0 
+  \dot{\mbx} = \mbu_\infty(\mbx) + \beta
+  (RT\jump{c}+\mbf\cdot\mbn)\mbn
+  + \sgl [\mbf], & \\
+  \mbx_s\cdot\dot{\mbx}_s = 0 &
 \end{align}
-This satisfies all the jump conditions. As usual, $\SS$ is the single
+This satisfies all the jump conditions. As usual, $\sgl$ is the single
 layer potential.  We introduce the notation
 \begin{align}
   B[\mbx]\mbf &= -\kappa_b\frac{d^4}{ds^4} \mbf, \\
@@ -352,12 +255,12 @@ $\mbx$, and $d/ds$ is its arclength derivative.  Dropping the dependence
 of the operators on $\mbx$, the dynamics of the vesicle are governed by
 \begin{align}
   \dot{\mbx} &= \mbu_{\infty}(\mbx) + 
-  k_wRT\jump{c}\mbn + k_wP(B\mbx + T\sigma) + \SS(B\mbx + T\sigma), \label{eq:full}\\
+  \beta RT\jump{c}\mbn + \beta P(B\mbx + T\sigma) + \sgl(B\mbx + T\sigma), \label{eq:full}\\
   D \dot{\mbx} &= 0.
 \end{align}
 
 Following the analysis of~\cite{vee-gue-zor-bir2009} and
-disregarding background flow, we define scales of $\mbx$, $t$, $k_w$,
+disregarding background flow, we define scales of $\mbx$, $t$, $\beta$,
 and $c$ to nondimensionalize equation (\ref{eq:full}) as follows. The
 length is scaled using the radius of a circle with the same perimeter,
 $L$, as the vesicle, $R_0 = \frac{L}{2\pi}$. From analysis, the time
@@ -367,25 +270,18 @@ $W$, is defined as $W=\frac{R_0}{\mu}$, and the concentration scale,
 $C$, is defined as $C=\frac{k_b}{R_0^3RT}$. The governing equation in
 nondimensional form is
 \begin{align}
-    \dot{\Tilde{\mbx}} =  \Tilde{k_w}\jump{\tilde{c}}\mbn +
-    \Tilde{k_w}P\big(B[\Tilde{\mbx}]\Tilde{\mbx}+T[\Tilde{\mbx}]\Tilde{\sigma}\big)
-    +\SS\big( B[\Tilde{\mbx}]\Tilde{\mbx} + T[\Tilde{\mbx}]\Tilde{\sigma}\big).
+    \dot{\Tilde{\mbx}} = \Tilde{\mbu}_{\infty} + \Tilde{\beta}\jump{\tilde{c}}\mbn +
+    \Tilde{\beta}P\big(B[\Tilde{\mbx}]\Tilde{\mbx}+T[\Tilde{\mbx}]\Tilde{\sigma}\big)
+    +\sgl\big( B[\Tilde{\mbx}]\Tilde{\mbx} + T[\Tilde{\mbx}]\Tilde{\sigma}\big).
 \end{align}
-In our current implementation, we let $\jump{c} = 0$.
+In our current implementation, we let $\jump{c} = 0$. The remaining equations are written in dimensionless form, unless stated otherwise, and for simplicity of notation we remove the tildes.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Numerical methods}
 To address stiffness associated with high-order derivatives,
 equation~\eqref{eqn:vesVelocity} is discretized with a semi-implicit
-time stepping method similar to our previous works.  First, we introduce
-the notation
-\begin{align}
-  B[\mbx]\mbf &= -\kappa_b\frac{d^4}{ds^4} \mbf, \\
-  T[\mbx]\sigma &= (\sigma \mbx_s)_s, \\
-  P[\mbx]\mbf &= (\mbf \cdot \mbn) \mbn, \\
-  D[\mbx]\mbf &= \mbx_s \cdot \mbf_s,
-\end{align}
+time stepping method similar to our previous works.  
 where $\mbn$ is the outward unit normal of the vesicle
 parameterized by $\mbx$, and $d/ds$ is its arclength derivative.
 Dropping the dependence of the operators on $\mbx$, the dynamics of the
@@ -435,6 +331,110 @@ where
   \end{array}
   \right).
 \end{align}
+
+Analytically, we use the governing equations to write a differential equation for
+the area of the vesicle as a function of time. The area inside a single
+vesicle $\gamma$ parameterized with $\mbx$ is
+\begin{align}
+A(t) = \frac{1}{2}\int_{\gamma} (\mbx \cdot \mbn)\, ds = 
+\frac{1}{2}\int_{0}^{2\pi} \left(\mbx \cdot
+\pderiv{\mbx}{\theta}^\perp\right)
+\, d\theta.
+\end{align}
+Taking the time derivative of $A(t)$,
+\begin{align}
+\dot{A}(t) &= \frac{1}{2}\int_{0}^{2\pi} \left(\dot{\mbx} \cdot
+\pderiv{\mbx}{\theta}^{\perp} + 
+\mbx \cdot \pderiv{\dot{\mbx}}{\theta}^{\perp}\right) d\theta, \\
+%&= \frac{1}{2}
+%\int_{0}^{2\pi}(\dot{\mbx}\cdot\mbn)\left\|\pderiv{\mbx}{\theta}\right\|d\theta +
+%   \frac{1}{2}\int_{0}^{2\pi}
+%  \left(\mbx \cdot \pderiv{\dot{\mbx}}{\theta}^{\perp}\right)d\theta, \\
+%&= \frac{\beta}{2} \int_{\gamma}\left(\mbf\cdot\mbn\right)ds +
+%\frac{1}{2}\int_{0}^{2\pi}\left(\mbx \cdot \pderiv{}{t}\left(\mbn
+%\left\|\pderiv{\mbx}{\theta}\right\|\right)\right)d\theta, \\
+%&= \frac{\beta}{2} \int_{\gamma}\left(\mbf\cdot\mbn\right)ds + \frac{1}{2}
+%\int_{\gamma}\left(\mbx\cdot\dot{\mbn}\right)ds + \frac{1}{2}\int_{0}^{2\pi}
+%\frac{\mbx\cdot\mbn}{\left\|\pderiv{\mbx}{\theta}\right\|}
+%\left(\pderiv{\mbx}{\theta}\cdot
+%\pderiv{\dot{\mbx}}{\theta}\right)d\theta \\
+&= \frac{\beta}{2} \int_{\gamma}\left(\mbf\cdot\mbn\right)ds + \frac{1}{2}
+\int_{\gamma}\left(\mbx\cdot\dot{\mbn}\right)ds + \frac{1}{2}\int_{\gamma}
+(\mbx\cdot\mbn) (\mbx_s \cdot \dot{\mbx}_s)\, ds.
+\end{align}
+To satisfy the inextensibilty condition, $\mbx_s \cdot \dot{\mbx}_s = 0$, the time derivative of $A(t)$ is
+\begin{align}
+\dot{A}(t) &= \frac{\beta}{2}
+\int_{\gamma}\left(\mbf\cdot\mbn\right)ds
++ \frac{1}{2} \int_{\gamma}\left(\mbx\cdot\dot{\mbn}\right)ds.
+\end{align}
+%... 
+%\begin{align}
+%    \dot{A}(t) &= \frac{\beta}{2}
+%    \int_{\gamma}\left(\mbf\cdot\mbn\right)ds+\frac{1}{2}\int_{\gamma}\left(\mbx\cdot\dot{\mbn}\right) ds,
+%\end{align}
+which we re-write as
+\begin{align}
+\dot{A}(t) &= \frac{\beta}{2}
+\int_{\gamma}\left(\mbf\cdot\mbn\right)ds-\frac{1}{2}\int_{\gamma}\left(\mbx^{\perp}\cdot\dot{\mbx}_s\right) ds.
+\end{align}
+Applying integration by parts and re-writing,
+%\begin{align}
+%    \dot{A}(t) &= \frac{\beta}{2}
+%    \int_{\gamma}\left(\mbf\cdot\mbn\right)ds+\frac{1}{2}\int_{\gamma}\left(\mbx^{\perp}_s\cdot\dot{\mbx}\right) ds,
+%\end{align}
+%which we re-write as
+\begin{align}
+%   \dot{A}(t) &= \frac{\beta}{2}
+%   \int_{\gamma}\left(\mbf\cdot\mbn\right)ds+\frac{1}{2}\int_{\gamma}\left(\dot{\mbx}\cdot\mbn\right),\\
+\dot{A}(t) &= \beta \int_{\gamma}\left(\mbf\cdot\mbn\right)ds.
+\end{align}
+At steady state,
+\begin{align}
+\dot{A}(t) &= \beta \int_{\gamma}\left(\mbf\cdot\mbn\right)ds =0.
+\end{align}
+Replacing $\mbf$ with its relation, applying integration by parts twice and using Frenet-serret formulas,  
+\begin{align}
+\beta\int_{\gamma}\kappa_b\kappa^3 ds +\beta\int_{\gamma} \kappa\sigma ds  = 0. 
+\end{align} 
+%We now replace $\mbf$ with its relation
+%\begin{align}
+%   \beta\int_{\gamma}
+%   \left((-\kappa_b\mbx_{ssss}+(\sigma\mbx_s)_s)\cdot\mbn\right)ds &=0.
+%\end{align}
+%Applying integration by parts,
+%\begin{align}
+%     \beta\int_{\gamma}\left(\kappa_b\mbx_{sss}-\sigma\mbx_s\right)\cdot
+%     \mbn_s ds &=0.
+%\end{align}
+%From the Frenet-Serret formulas, we have 
+%\begin{align}
+%     -\beta\int_{\gamma}
+%     \left(\kappa_b\mbx_{sss}-\sigma\mbx_s\right)\cdot\kappa\mbx_s ds &=0.
+%\end{align}
+
+%Applying integration by parts and Frenet-Serret again
+%\begin{align}
+%     \beta\int_{\gamma}
+%     \kappa_b\kappa\left(\mbx_{ss}\cdot\mbx_{ss}\right)ds + \beta
+%     \int_{\gamma} \kappa_b \kappa_s(\mbx_{ss} \cdot \mbx_s)ds +\beta\int_{\gamma}\kappa\sigma ds  &= 0,\\
+%    \beta\int_{\gamma} \kappa_b\kappa(\kappa\mbn \cdot
+%     \kappa\mbn)+ \beta \int_{\gamma} \kappa_b \kappa_s(\mbx_{ss} \cdot
+%     \mbx_s)ds +\beta\int_{\gamma}\kappa\sigma ds &= 0,
+%\end{align}
+%which we re-write as
+%\begin{align}
+%   \beta\int_{\gamma}\kappa_b\kappa^3 ds + \beta \int_{\gamma} \kappa_b
+%   \kappa_s(\mbx_{ss} \cdot \mbx_s)ds +\beta\int_{\gamma} \kappa\sigma ds = 0.
+%\end{align}
+%Applying Frenet-serret again,
+%\begin{align}
+%    \beta\int_{\gamma}\kappa_b\kappa^3 ds + \beta \int_{\gamma} \kappa_b
+%    \kappa_s(\kappa\mbn \cdot \TT)ds +\beta\int_{\gamma} \kappa\sigma ds = 0, \\
+%    \beta\int_{\gamma}\kappa_b\kappa^3 ds +\beta\int_{\gamma} \kappa\sigma ds  = 0, 
+%\end{align}
+%we compare this to our numerical results.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
