@@ -235,91 +235,94 @@ Taking the time derivative of $A(t)$,
   \dot{A}(t) &= \frac{1}{2}\int_{0}^{2\pi} \left(\dot{\mbx} \cdot
   \pderiv{\mbx}{\theta}^{\perp} + 
     \mbx \cdot \pderiv{\dot{\mbx}}{\theta}^{\perp}\right) d\theta, \\
-  &= \frac{1}{2}
-  \int_{0}^{2\pi}(\dot{\mbx}\cdot\mbn)\left\|\pderiv{\mbx}{\theta}\right\|d\theta +
-     \frac{1}{2}\int_{0}^{2\pi}
-    \left(\mbx \cdot \pderiv{\dot{\mbx}}{\theta}^{\perp}\right)d\theta, \\
-  &= \frac{k_w}{2} \int_{\gamma}\left(\mbf\cdot\mbn\right)ds +
-  \frac{1}{2}\int_{0}^{2\pi}\left(\mbx \cdot \pderiv{}{t}\left(\mbn
-  \left\|\pderiv{\mbx}{\theta}\right\|\right)\right)d\theta, \\
-  &= \frac{k_w}{2} \int_{\gamma}\left(\mbf\cdot\mbn\right)ds + \frac{1}{2}
-  \int_{\gamma}\left(\mbx\cdot\dot{\mbn}\right)ds + \frac{1}{2}\int_{0}^{2\pi}
-  \frac{\mbx\cdot\mbn}{\left\|\pderiv{\mbx}{\theta}\right\|}
-  \left(\pderiv{\mbx}{\theta}\cdot
-  \pderiv{\dot{\mbx}}{\theta}\right)d\theta \\
+  %&= \frac{1}{2}
+  %\int_{0}^{2\pi}(\dot{\mbx}\cdot\mbn)\left\|\pderiv{\mbx}{\theta}\right\|d\theta +
+  %   \frac{1}{2}\int_{0}^{2\pi}
+  %  \left(\mbx \cdot \pderiv{\dot{\mbx}}{\theta}^{\perp}\right)d\theta, \\
+  %&= \frac{k_w}{2} \int_{\gamma}\left(\mbf\cdot\mbn\right)ds +
+  %\frac{1}{2}\int_{0}^{2\pi}\left(\mbx \cdot \pderiv{}{t}\left(\mbn
+  %\left\|\pderiv{\mbx}{\theta}\right\|\right)\right)d\theta, \\
+  %&= \frac{k_w}{2} \int_{\gamma}\left(\mbf\cdot\mbn\right)ds + \frac{1}{2}
+  %\int_{\gamma}\left(\mbx\cdot\dot{\mbn}\right)ds + \frac{1}{2}\int_{0}^{2\pi}
+  %\frac{\mbx\cdot\mbn}{\left\|\pderiv{\mbx}{\theta}\right\|}
+  %\left(\pderiv{\mbx}{\theta}\cdot
+  %\pderiv{\dot{\mbx}}{\theta}\right)d\theta \\
   &= \frac{k_w}{2} \int_{\gamma}\left(\mbf\cdot\mbn\right)ds + \frac{1}{2}
   \int_{\gamma}\left(\mbx\cdot\dot{\mbn}\right)ds + \frac{1}{2}\int_{\gamma}
   (\mbx\cdot\mbn) (\mbx_s \cdot \dot{\mbx}_s)\, ds.
 \end{align}
-To satisfy the inextensibilty condition, $\mbx_s \cdot \dot{\mbx}_s = 0$.
-Therefore the time derivative of $A(t)$ is
+To satisfy the inextensibilty condition, $\mbx_s \cdot \dot{\mbx}_s = 0$, the time derivative of $A(t)$ is
 \begin{align}
      \dot{A}(t) &= \frac{k_w}{2}
      \int_{\gamma}\left(\mbf\cdot\mbn\right)ds
      + \frac{1}{2} \int_{\gamma}\left(\mbx\cdot\dot{\mbn}\right)ds.
 \end{align}
-... 
-\begin{align}
-    \dot{A}(t) &= \frac{k_w}{2}
-    \int_{\gamma}\left(\mbf\cdot\mbn\right)ds+\frac{1}{2}\int_{\gamma}\left(\mbx\cdot\dot{\mbn}\right) ds,
-\end{align}
+%... 
+%\begin{align}
+%    \dot{A}(t) &= \frac{k_w}{2}
+%    \int_{\gamma}\left(\mbf\cdot\mbn\right)ds+\frac{1}{2}\int_{\gamma}\left(\mbx\cdot\dot{\mbn}\right) ds,
+%\end{align}
 which we re-write as
 \begin{align}
     \dot{A}(t) &= \frac{k_w}{2}
     \int_{\gamma}\left(\mbf\cdot\mbn\right)ds-\frac{1}{2}\int_{\gamma}\left(\mbx^{\perp}\cdot\dot{\mbx}_s\right) ds.
 \end{align}
-Applying integration by parts,
+Applying integration by parts and re-writing,
+%\begin{align}
+%    \dot{A}(t) &= \frac{k_w}{2}
+%    \int_{\gamma}\left(\mbf\cdot\mbn\right)ds+\frac{1}{2}\int_{\gamma}\left(\mbx^{\perp}_s\cdot\dot{\mbx}\right) ds,
+%\end{align}
+%which we re-write as
 \begin{align}
-    \dot{A}(t) &= \frac{k_w}{2}
-    \int_{\gamma}\left(\mbf\cdot\mbn\right)ds+\frac{1}{2}\int_{\gamma}\left(\mbx^{\perp}_s\cdot\dot{\mbx}\right) ds,
-\end{align}
-which we re-write as
-\begin{align}
-    \dot{A}(t) &= \frac{k_w}{2}
-    \int_{\gamma}\left(\mbf\cdot\mbn\right)ds+\frac{1}{2}\int_{\gamma}\left(\dot{\mbx}\cdot\mbn\right),\\
+ %   \dot{A}(t) &= \frac{k_w}{2}
+ %   \int_{\gamma}\left(\mbf\cdot\mbn\right)ds+\frac{1}{2}\int_{\gamma}\left(\dot{\mbx}\cdot\mbn\right),\\
     \dot{A}(t) &= k_w \int_{\gamma}\left(\mbf\cdot\mbn\right)ds.
 \end{align}
-At steady stae,
+At steady state,
 \begin{align}
     \dot{A}(t) &= k_w \int_{\gamma}\left(\mbf\cdot\mbn\right)ds =0.
 \end{align}
-We now replace $\mbf$ with its relation
+Replacing $\mbf$ with its relation, applying integration by parts twice and using Frenet-serret formulas,  
 \begin{align}
-   k_w\int_{\gamma}
-   \left((-\kappa_b\mbx_{ssss}+(\sigma\mbx_s)_s)\cdot\mbn\right)ds &=0.
-\end{align}
-Applying integration by parts,
-\begin{align}
-     k_w\int_{\gamma}\left(\kappa_b\mbx_{sss}-\sigma\mbx_s\right)\cdot
-     \mbn_s ds &=0.
-\end{align}
-From the Frenet-Serret formulas, we have 
-\begin{align}
-     -k_w\int_{\gamma}
-     \left(\kappa_b\mbx_{sss}-\sigma\mbx_s\right)\cdot\kappa\mbx_s ds &=0.
-\end{align}
+k_w\int_{\gamma}\kappa_b\kappa^3 ds +k_w\int_{\gamma} \kappa\sigma ds  = 0. 
+\end{align} 
+%We now replace $\mbf$ with its relation
+%\begin{align}
+%   k_w\int_{\gamma}
+%   \left((-\kappa_b\mbx_{ssss}+(\sigma\mbx_s)_s)\cdot\mbn\right)ds &=0.
+%\end{align}
+%Applying integration by parts,
+%\begin{align}
+%     k_w\int_{\gamma}\left(\kappa_b\mbx_{sss}-\sigma\mbx_s\right)\cdot
+%     \mbn_s ds &=0.
+%\end{align}
+%From the Frenet-Serret formulas, we have 
+%\begin{align}
+%     -k_w\int_{\gamma}
+%     \left(\kappa_b\mbx_{sss}-\sigma\mbx_s\right)\cdot\kappa\mbx_s ds &=0.
+%\end{align}
 
-Applying integration by parts and Frenet-Serret again
-\begin{align}
-     k_w\int_{\gamma}
-     \kappa_b\kappa\left(\mbx_{ss}\cdot\mbx_{ss}\right)ds + k_w
-     \int_{\gamma} \kappa_b \kappa_s(\mbx_{ss} \cdot \mbx_s)ds +k_w\int_{\gamma}\kappa\sigma ds  &= 0,\\
-    k_w\int_{\gamma} \kappa_b\kappa(\kappa\mbn \cdot
-     \kappa\mbn)+ k_w \int_{\gamma} \kappa_b \kappa_s(\mbx_{ss} \cdot
-     \mbx_s)ds +k_w\int_{\gamma}\kappa\sigma ds &= 0,
-\end{align}
-which we re-write as
-\begin{align}
-   k_w\int_{\gamma}\kappa_b\kappa^3 ds + k_w \int_{\gamma} \kappa_b
-   \kappa_s(\mbx_{ss} \cdot \mbx_s)ds +k_w\int_{\gamma} \kappa\sigma ds = 0.
-\end{align}
-Applying Frenet-serret again,
-\begin{align}
-    k_w\int_{\gamma}\kappa_b\kappa^3 ds + k_w \int_{\gamma} \kappa_b
-    \kappa_s(\kappa\mbn \cdot \TT)ds +k_w\int_{\gamma} \kappa\sigma ds = 0, \\
-    k_w\int_{\gamma}\kappa_b\kappa^3 ds +k_w\int_{\gamma} \kappa\sigma ds  = 0, 
-\end{align}
-we compare this to our numerical results.
+%Applying integration by parts and Frenet-Serret again
+%\begin{align}
+%     k_w\int_{\gamma}
+%     \kappa_b\kappa\left(\mbx_{ss}\cdot\mbx_{ss}\right)ds + k_w
+%     \int_{\gamma} \kappa_b \kappa_s(\mbx_{ss} \cdot \mbx_s)ds +k_w\int_{\gamma}\kappa\sigma ds  &= 0,\\
+%    k_w\int_{\gamma} \kappa_b\kappa(\kappa\mbn \cdot
+%     \kappa\mbn)+ k_w \int_{\gamma} \kappa_b \kappa_s(\mbx_{ss} \cdot
+%     \mbx_s)ds +k_w\int_{\gamma}\kappa\sigma ds &= 0,
+%\end{align}
+%which we re-write as
+%\begin{align}
+%   k_w\int_{\gamma}\kappa_b\kappa^3 ds + k_w \int_{\gamma} \kappa_b
+%   \kappa_s(\mbx_{ss} \cdot \mbx_s)ds +k_w\int_{\gamma} \kappa\sigma ds = 0.
+%\end{align}
+%Applying Frenet-serret again,
+%\begin{align}
+%    k_w\int_{\gamma}\kappa_b\kappa^3 ds + k_w \int_{\gamma} \kappa_b
+%    \kappa_s(\kappa\mbn \cdot \TT)ds +k_w\int_{\gamma} \kappa\sigma ds = 0, \\
+%    k_w\int_{\gamma}\kappa_b\kappa^3 ds +k_w\int_{\gamma} \kappa\sigma ds  = 0, 
+%\end{align}
+%we compare this to our numerical results.
 
 
 
@@ -395,10 +398,12 @@ vesicle are governed by
 Using the notation $B^N$ to denote the bending operator due to the
 vesicle configuration at time $t_N$, and similar notation for the other
 operators, we apply the semi-implicit time stepping method
-\begin{align}  
+\begin{align} 
+\begin{split}
   \frac{\mbx^{N+1} - \mbx^N}{\Delta t} = \mbu_\infty(\mbx^N) 
-  + \beta P^N(B^N\mbx^{N+1} + T^N\sigma^{N+1}) 
-  + \sgl^N(B^N\mbx^{N+1} + T^N\sigma^{N+1}).
+  + \beta P^N(B^N\mbx^{N+1} + T^N\sigma^{N+1}) \\
+   + \sgl^N(B^N\mbx^{N+1} + T^N\sigma^{N+1}).
+   \end{split} 
 \end{align}
 Applying $D$ to the first-order time discretization of
 equation~\eqref{eqn:vesVelocity}, the inextensibility condition is
@@ -457,6 +462,8 @@ conditions.  The main results we have so far are
   \item For $\beta$ that depends on arclength, we have observed both a
     breathing motion (semi-permeable only on opposite sides), and
     migration (semi-permeable only on about 25\% of the vesicle).
+    
+  \item Compare area results to analytic equation?
 \end{itemize}
 
 \subsection{Content permeability rate}
