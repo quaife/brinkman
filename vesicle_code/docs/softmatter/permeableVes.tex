@@ -180,6 +180,70 @@ State University, Tallahassee, FL, USA. E-mail: bquaife@fsu.edu}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 
+\begin{itemize}
+  \item Yao and Mori~\cite{yao-mor2017} use an immersed boundary method
+    to simulate osmotic water flow and solute diffusion with a
+    deformable elastic membrane.
+
+  \item Anderson~\cite{and1983} seems to be the first to consider
+    semipermeable vesicles with an osmotic gradient. This work describes
+    the governing equations and does a non-dimensionalization. The
+    scaling behavior of the vesicle velocity with respect to the
+    concentration Peclet number is analyzed.
+
+  \item Gupta et al.~\cite{gup-sre-tha2015} consider diffusio-phoretic
+    motion of a deformable vesicle. The vesicle has a certain region
+    that is chemically active while the rest of the vesicle is
+    noncatalytic. A L-J model is used to describe the molecular motion
+    in the catalytic region and this generates self-propulsion.
+
+  \item Jayathilake et al.~\cite{jay-kho-tan2010} consider a permeable
+    capsule being adhered to a substrate. They use an immersed interface
+    method developed by Leveque and Li in 1994.
+
+  \item Jayathilake et al.~\cite{jay-tan-kho-wij2010} consider osmotic
+    swelling of a deformable elastic membrane. Again, they use an
+    immersed interface method. The formulation and methods are very
+    close to the work of Anita Layton~\cite{lay2006}.
+
+  \item In Jayathlake's Ph.D.~thesis~\cite{jay2010}, he states that a
+    BIE could be used, but it is not applicable for non-linear problems.
+    This is not an issue for us since we are interested in the linear
+    Stokes equations. Section 2.2.1 gives the model formulation
+    including the non-dimensionalization.
+
+  \item Layton~\cite{lay2006} simulates water transport across a
+    elastic water-permeable membrane. Instead of an immersed boundary
+    method, she uses a finite difference method and incorporates the
+    interface using the modified stencils developed my Anita
+    Mayo~\cite{may1984}.  The numerical methods are fairly standard.
+
+  \item Li, Mori, and Sun~\cite{li-mor-sun2015} study flow-driven cell
+    migration in electric fields.  The cell boundaries include water and
+    ionic fluxes.
+
+  \item Liu et al.~\cite{liu-chu-new-rea-low-all2019} consider the
+    physical contact between pairs of permeable membranes. This might be
+    useful when we consider suspensions of semi-permeable vesicles.
+    Model parameters, including the membrane permeability, are given in
+    Table 1. They use a stochastic immersed boundary method.
+
+  \item Nardi et al.~\cite{nar-bru-sac1999} describe how vesicles in a
+    concentration gradient are osmotic motors. This is an experimental
+    paper that shows a velocity that is much larger than what the theory
+    predicts.
+
+  \item Stockie~\cite{sto2009} considers flow through porous immersed
+    boundaries. The method uses an immersed boundary method and the flow
+    through the membrane flux is described with Darcy's law.
+
+
+
+
+
+
+\end{itemize}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Problem formulation} \label{sc:formulate}
 Consider a semi-permeable vesicle suspended in an unbounded viscous
