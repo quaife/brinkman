@@ -110,13 +110,21 @@ while time < prams.T - 1e-10
   time = time + dt; % current time
   
   tTstep = tic;
+
+% find the protein locations in parameter space with respect to the
+% memebranes tracker points
+
   [X,sigma,u,eta,RS,iter,accept,dtScale,res,iflag] = ...
       tt.timeStepGL(Xstore,sigStore,uStore,...
           etaStore,RSstore,prams.kappa,...
           prams.viscCont,walls,wallsCoarse,om,time,accept);
   countGMRES = countGMRES + iter;
   tTstep = toc(tTstep);
-  
+
+% interpolate proteins on to the new membrane configuration
+
+% Update protein location with tangential pulling force.
+
   if options.profile
     fprintf('Time to correct area and length     %5.1e\n',toc);
   end

@@ -30,7 +30,7 @@ end %properties
 
 methods
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function o = capsules(X,sigma,u,kappa,viscCont)
 % capsules(X,sigma,u,kappa,viscCont) sets parameters and options for
 % the class; no computation takes place here.  

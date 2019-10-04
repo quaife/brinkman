@@ -6,8 +6,8 @@ fprintf('First-order semi-implicit time stepping.\n');
 % Physics parameters
 prams.N = 128;               % points per vesicle
 prams.nv = 1;               % number of vesicles
-prams.T = 50;               % time horizon (two tumbling)
-prams.m = 100;              % number of time steps
+prams.T = 500;               % time horizon (two tumbling)
+prams.m = 1000;              % number of time steps
 prams.kappa = 1;         % bending coefficient
 prams.viscCont = 1;         % viscosity contrast
 options.farField = 'shear'; % background velocity
@@ -20,11 +20,11 @@ options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
 options.antiAlias = false;
-options.semipermeable = false;
+options.semipermeable = true;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-8;
 prams.errorTol = 1000;
-prams.fluxCoeff = 1;
+prams.fluxCoeff = 2;
 
 % ADD-ONS
 options.alignCenterAngle = false;
@@ -72,11 +72,11 @@ options.errorFile = 'output/shear1VesError.bin';
 
 theta = (0:prams.N-1)'*2*pi/prams.N;
 %prams.fluxShape = 0*sin(theta);
-prams.fluxShape = ones(prams.N,1);
-%prams.fluxShape = exp(-4*(theta - pi/2).^2) + ...
-%                  exp(-4*(theta - 3*pi/2).^2);
-%prams.fluxShape = exp(-4*(theta - pi/2).^2);
-
+%prams.fluxShape = ones(prams.N,1); flux shape 1
+fluxWidth = 1;
+prams.fluxShape = exp(-fluxWidth*(theta - pi/2).^2) + ...
+                  exp(-fluxWidth*(theta - 3*pi/2).^2); % flux shape 2
+prams.fluxShape = exp(-fluxWidth*(theta - pi/2).^2); % flux shape 3
 % set up the distribution for the flux
 
 oc = curve;
@@ -89,7 +89,13 @@ X = oc.initConfig(prams.N,...
     'reducedArea',ra,...
     'angle',pi/2,...
     'center',[0;0],...
-    'scale',scale,'folds',15,'star');
+    'scale',scale);
+
+%X = oc.initConfig(prams.N,...
+%    'reducedArea',ra,...
+%    'angle',pi/2,...
+%    'center',[0;0],...
+%    'scale',scale,'folds',15,'star');
 % Initial configuration of reduce area 0.65 and aligned
 %ymax = max(X(end/2+1:end));
 %X = X/ymax*3; % make maximum y value equal to 3

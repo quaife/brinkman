@@ -2,7 +2,7 @@ addpath ../../src
 set(0,'DefaultAxesFontSize',22)
 options.savefig = false;
 
-irate = 5; % controls the speed of the visualization
+irate = 20; % controls the speed of the visualization
 
 if 0
   file = 'parabolic1VesData.bin';
@@ -57,8 +57,9 @@ if 0
 end
 if 1
 %  file = '~/projects/brinkman/vesicle_code/results/May092019/shear1Ves/kappa1em1_beta1ep0_chi1ep0_ra0p55/shear1VesData.bin';
-  file = 'shear1VesData.bin';
-  ax = [-5 5 -5 5];
+%  file = 'shear1VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/semipermeable/shear1VesData_fluxCoeff2_fluxShape3_fluxWidth1.bin';
+  ax = [-5 55 -5 5];
   options.confined = false;
 end
 if 0
@@ -121,7 +122,7 @@ for k = istart:irate:iend
     end
     hold off
     axis equal
-%    axis(ax)
+    axis(ax)
     titleStr = ['t = ' num2str(time(k),'%4.2e') ...
       ' eA = ' num2str(ea(k),'%4.2e') ...
       ' eL = ' num2str(el(k),'%4.2e')];
