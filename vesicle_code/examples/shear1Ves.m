@@ -5,12 +5,12 @@ fprintf('First-order semi-implicit time stepping.\n');
 
 % Physics parameters
 prams.N = 128;               % points per vesicle
-prams.nv = 1;               % number of vesicles
-prams.T = 500;               % time horizon (two tumbling)
-prams.m = 1000;              % number of time steps
-prams.kappa = 1;         % bending coefficient
-prams.viscCont = 1;         % viscosity contrast
-options.farField = 'shear'; % background velocity
+prams.nv = 2;               % number of vesicles
+prams.T = 50;               % time horizon (two tumbling)
+prams.m = 100000;              % number of time steps
+prams.kappa = 1*ones(prams.nv,1);   % bending coefficient
+prams.viscCont = ones(prams.nv,1);         % viscosity contrast
+options.farField = 'relaxation'; % background velocity
 options.farFieldSpeed = 1;
 options.order = 1;          % time stepping order
 options.vesves = 'implicit';
@@ -19,12 +19,16 @@ options.vesves = 'implicit';
 options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
+options.verbose = true;
 options.antiAlias = false;
 options.semipermeable = true;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-8;
 prams.errorTol = 1000;
-prams.fluxCoeff = 2;
+prams.fluxCoeff = .1;
+options.adhesion = true;
+prams.adRange = 0.4;
+prams.adStrength = 100;
 
 % ADD-ONS
 options.alignCenterAngle = false;
@@ -48,7 +52,7 @@ end
 
 options.orderGL = 2;
 options.nsdc = 1;
-options.expectedOrder = 1;
+options.expectedOrder = 2;
 
 options.expForce = false;
 
@@ -57,9 +61,9 @@ options.usePlot = true;
 options.axis = [-5 5 -5 5];
 options.track = false;
 % Save vesicle information and create a log file
-options.logFile = 'output/shear1Ves.log';
+options.logFile = 'output/shear1Ves_ASP_FCpt1FS1_RApt6_H50.log';
 % Name of log file for saving messages
-options.dataFile = 'output/shear1VesData.bin';
+options.dataFile = 'output/shear1VesData_ASP_FCpt1FS1_RApt6_H50.bin';
 % Name of binary data file for storing vesicle information
 
 options.saveError = true;
@@ -72,23 +76,24 @@ options.errorFile = 'output/shear1VesError.bin';
 
 theta = (0:prams.N-1)'*2*pi/prams.N;
 %prams.fluxShape = 0*sin(theta);
-%prams.fluxShape = ones(prams.N,1); flux shape 1
-fluxWidth = 1;
-prams.fluxShape = exp(-fluxWidth*(theta - pi/2).^2) + ...
-                  exp(-fluxWidth*(theta - 3*pi/2).^2); % flux shape 2
-prams.fluxShape = exp(-fluxWidth*(theta - pi/2).^2); % flux shape 3
+prams.fluxShape = ones(prams.N,1); %flux shape 1
+%fluxWidth = 1;
+%prams.fluxShape = exp(-fluxWidth*(theta - pi/2).^2) + ...
+%                  exp(-fluxWidth*(theta - 3*pi/2).^2); % flux shape 2
+%prams.fluxShape = exp(-fluxWidth*(theta - pi/2).^2); % flux shape 3
 % set up the distribution for the flux
 
 oc = curve;
-ra = 0.55;
-%scale = sqrt(ra);
-%scale = 1.7177;
-%scale = 0.4111;
-scale = 1;
+ra = 0.6;
+centerx = [-2.5 2.5];
+centery = zeros(1,2);
+ang = pi/2*ones(2,1);
+scale =  0.3843;
 X = oc.initConfig(prams.N,...
+    'nv', prams.nv, ...
     'reducedArea',ra,...
-    'angle',pi/2,...
-    'center',[0;0],...
+    'angle',ang,...
+    'center',[centerx;centery],...
     'scale',scale);
 
 %X = oc.initConfig(prams.N,...
