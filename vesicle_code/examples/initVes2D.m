@@ -17,8 +17,8 @@ defaultPram.T = 1;
 defaultPram.m = 100;
 defaultPram.Nbd = 0;
 defaultPram.nvbd = 0;
-defaultPram.kappa = 1e-1;
-defaultPram.viscCont = 1;
+defaultPram.kappa = 1e-1*ones(1,prams.nv);
+defaultPram.viscCont = ones(1,prams.nv);
 defaultPram.gmresTol = 1e-12;
 defaultPram.gmresMaxIter = 200;
 defaultPram.errorTol = 1e-1;
@@ -29,8 +29,8 @@ defaultPram.betaDown = 0.5;
 defaultPram.alpha = 0.9;
 defaultPram.adStrength = 4e-1;
 defaultPram.adRange = 8e-1;
-defaultPram.fluxCoeff = 1e-1; 
-defaultPram.fluxShape = ones(prams.N,prams.nv); 
+defaultPram.fluxCoeff = 0; 
+defaultPram.fluxShape = zeros(prams.N,prams.nv); 
 
 for k = 1:length(PramList)
   if ~isfield(prams,PramList{k})
