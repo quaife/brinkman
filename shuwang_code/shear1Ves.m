@@ -76,37 +76,57 @@ u1y = uy0(1);
 un(1,:)  = ux0.*sin(theta) - uy0.*cos(theta);
 utt(1,:) = ux0.*cos(theta) + uy0.*sin(theta);
  
-% Update arc length change over time
+% Update arc length change over time using a first-order Euler method.
+% For subsequent time steps, will use a multistep method as described in
+% equation (60)
 fsl = forcsl(m,theta,un);
-sln = sl + dt*fsl;
-% Get the veocity of the vesicle by its velocity of the tangential angle
+sln = sl + dt*fsl; % Forward Euler for the arclength
+
+% Get the veocity of the vesicle by its velocity of the tangential
+% angle, but without the stiff term. We believe that fntheta is the
+% nonlinear term N_1 defined in equation (54) from Sohn et al. JCP 2010
 fntheta = fthetaim(m,sl,theta,bendsti,un,utt);
-% compute phase velocity over time.
+
+% compute phase velocity of the concentration (con) species
 fncon = frconim(m,sl,rcon,theta,bendsti,bendratio,eps_ch,consta);
 
-% next evolve the shape and the phase distribution by the fourier space.
-temp1 = fft(fntheta);
+% next evolve the shape and the phase distribution in Fourier space.
+% Fourier series of the derivative of the tangent angle. i.e. Fourier
+% series of N_1
+temp1 = fft(fntheta); 
+% Fourier derivative of the tangent angle
 temp2 = fft(theta - 2*pi*(0:m-1)/m);
 
 Nk = pi*2*[0 1:m/2 m/2-1:-1:1];
 % c nonlocal model for theta	
 rsl = bendsti*(Nk/sl).^3/4;
+% 'n' is for 'new' since we'll be using multistep
 rsln = bendsti*(Nk/sln).^3/4;
-d1 = dt*(rsl+rsln)/2;
+% use trapezoid rule to approximate integral in equation (57)
+d1 = dt*(rsl + rsln)/2;
+% d1 is now exactly as in equation (57). Each Fourier mode has its own
+% integating factor
 d1 = exp(-d1);
 temp4(1,1:m) = d1.*(temp2(1,1:m) + dt*temp1(1,1:m));
 temp4 = real(ifft(temp4));
 
+% add back on the linear function that makes theta a function that grows
+% by 2*pi everytime you go completely around the shape (ie. vesicle)
 thetan = temp4 + 2*pi*(0:m-1)/m;
 
-% nonlocal model for theta	
+% lipid species model for u
 rk = 2*pi*[0 1:m/2 m/2-1:-1:1]; 
 rsl = eps_ch*(rk/sl).^4*consta;
 rsln = eps_ch*(rk/sln).^4*consta;
+% form stiffest term that is treated implicitly, but is also linear (and
+% diagonal) in Fourier space
 
-d1 = dt/nloop*(rsl+rsln)/2;
+% compute the integrating factor for each Fourier mode using the
+% trapezoid rule
+d1 = dt/nloop*(rsl + rsln)/2;
 d1 = exp(-d1);
 
+% Take small time steps to move the lipid species from time 0 to time dt
 for i=1:nloop
   % evolve the phase field on the surface
   fncon = frconim(m,sl,rcon,theta,bendsti,bendratio,eps_ch,consta);
@@ -120,9 +140,10 @@ end
 
 areasum = sum(sin(theta).*x(1:m)-cos(theta).*y(1,1:m))/2*sl/m;
 
+% update the position using un-numbered equation after (61)
 x0 = x0 + dt*u1x;
 y0 = y0 + dt*u1y;
-%do the integration factor stuff for rcon
+% do the integration factor stuff for rcon
 
 %write results if the time is right
 tcomp = dt*ktime;
