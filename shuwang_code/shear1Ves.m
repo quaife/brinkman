@@ -22,7 +22,7 @@ concentra = initialdata(5);
 oddeven = initialdata(6);
 % odd or even initial phase distribution
 % oddeven symmetry: random when -1.  nonsymmetric but set by sin & cos
-% when =0,    cos symmetry when 1,  sin symmetry when 2.
+% when 0,  cos symmetry when 1,  sin symmetry when 2.
 
 shortax = initialdata(7);
 % shape parameter (short axis)

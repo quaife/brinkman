@@ -6,8 +6,8 @@ function [un,ut,rlambdalnew,xo,yo,forc1,forc2,xcc,ycc,...
 
 global kmatrix velocity bendsti bendratio uinside uoutside m
                  
-% compute the cruvature
-dkap=acurv(sl,theta,m);
+% compute the curvature
+dkap = acurv(sl,theta,m);
 
 [xo,yo] = recon(m,x0,y0,sl,theta);     
 %right hand side
@@ -33,7 +33,7 @@ forc2(1,1:m) = -(-forc(1,1:m).*cos(theta(1,1:m)) + ...
 % first stokes equation with unconstrained force
 % sigma1 and sigma2 are the x y velocity of the original vesicle
 
-tau=[forc1 forc2]' ;
+tau = [forc1 forc2]' ;
 so.x = xo(1,1:m)'+ 1i*yo(1,1:m)'; 
 
 A3 = selfmatrix(so,kmatrix); 
@@ -52,9 +52,8 @@ sigma1(1,1:m) = k(1:m)'*c - forc001_l(1:m)*c1 + ...
     yo(1,1:m)*velocity;
 sigma2(1,1:m) = k(m+1:2*m)'*c - forc002_l(1:m)*c1;
 
-% Now get the righthandside of the linear system which is the local
+% Now get the right hand side of the linear system which is the local
 % incompressiblity condition 
-
 uun(1,1:m) = sigma1(1,1:m).*sin(theta(1,1:m)) - ...
              sigma2(1,1:m).*cos(theta(1,1:m));
 utn(1,1:m) = sigma1(1,1:m).*cos(theta(1,1:m)) + ...

@@ -49,7 +49,7 @@ end
 % inextensibility
 function zz = mfun(rr)
 
-r=rr';
+r = rr';
 ssigma(1,1:m) = r(1,1:m);
 ssigma(1,m+1) = ssigma(1,1);
 
