@@ -7,12 +7,12 @@ fprintf('Two elliptical vesicles in a extensional flow.\n');
 % Physics parameters
 prams.N = 64;               % points per vesicle
 prams.nv = 2;               % number of vesicles
-prams.T = 100;               % time horizon (two tumbling)
+prams.T = 10;               % time horizon (two tumbling)
 prams.m = 100;             % number of time steps
 prams.kappa = [1 1];         % bending coefficient
 prams.viscCant = [1 1];         % viscosity contrast
 options.farField = 'extensional'; % background velocity
-options.farFieldSpeed = 0.07;
+options.farFieldSpeed = 1;
 aptions.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -101,10 +101,11 @@ posy2 = interpft(posy2,prams.N);
 X = [posx1 posx2; posy1 posy2];
 
 oc = curve;
-centerx = [0 3];
-centery = zeros(1,2);
+centerx = [0 8];
+centery = [0 2];
+%centery = zeros(1,2);
 ang = pi/2*ones(2,1);
-ra = 0.95;
+ra = 0.65;
 scale = 0.5*sqrt(ra);
 X = oc.initConfig(prams.N,'nv',prams.nv,...
     'reducedArea',ra,...

@@ -99,6 +99,15 @@ time = (options.order-1)*tt.dt;
 % enough data to use the time stepping order that is desired
 
 accept = true;
+
+th = (0:prams.N-1)'*2*pi/prams.N;
+masterShape = exp(-3*(th - 0).^2) + ...
+              exp(-3*(th - pi).^2) + ...
+              exp(-3*(th - 2*pi).^2);
+masterShape = 1*masterShape;
+%masterShape = 100*ones(prams.N,1);
+sigma = ones(prams.N,1);
+
 % Main time stepping loop
 while time < prams.T - 1e-10
   if time+tt.dt > prams.T
@@ -113,6 +122,22 @@ while time < prams.T - 1e-10
 
 % find the protein locations in parameter space with respect to the
 % memebranes tracker points
+
+  if 0
+  [~,~,cur] = oc.diffProp(X);
+  ten = sigma + 1.5*cur.^2;
+  tt.fluxShape = masterShape.*(ten > 50);
+  if time < 5
+    tt.farField = @(X) tt.bgFlow(X,options.farField,...
+        options.farFieldSpeed);
+  else
+    tt.farField = @(X) tt.bgFlow(X,options.farField,...
+        options.farFieldSpeed);
+%    tt.farField = @(X) tt.bgFlow(X,options.farField,0);
+  end
+%  figure(2); clf;
+%  plot(tt.fluxShape)
+  end
 
   [X,sigma,u,eta,RS,iter,accept,dtScale,res,iflag] = ...
       tt.timeStepGL(Xstore,sigStore,uStore,...
@@ -134,7 +159,7 @@ while time < prams.T - 1e-10
   end
   % go back to old time
 
-  if 0
+  if 1
   xmid = mean(X(1:end/2,1));
   ymid = mean(X(end/2+1:end,1));
   X(1:end/2) = X(1:end/2) - xmid;
@@ -152,6 +177,7 @@ while time < prams.T - 1e-10
   end
   % remove Nyquist Fourier mode
 
+  if 0
   xmean1 = mean(X(1:end/2,1));
   xmean2 = mean(X(1:end/2,2));
   xmid = xmean1 + xmean2;
@@ -168,6 +194,7 @@ while time < prams.T - 1e-10
   % shift vertically so that the x axis is centered between the
   % vesicles midpoints
   % shift vertically so that the x axis is centered between the vesicles
+  end
   end
 
   if accept
