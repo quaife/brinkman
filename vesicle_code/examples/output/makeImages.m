@@ -2,16 +2,24 @@ addpath ../../src
 set(0,'DefaultAxesFontSize',22)
 options.savefig = false;
 
-irate = 20; % controls the speed of the visualization
+irate = 5; % controls the speed of the visualization
 
 if 0
   file = 'parabolic1VesData.bin';
 end
 if 0
-  file = 'extensional1VesData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves_rotated/adR4em1adS7em1Chi7em2_ra070/extensional2VesData.bin';
+  file = 'extensional1VesCleanData.bin'; irate = 2;
+%  file = 'extensional1VesSemiData.bin'; irate = 2;
+%  file = 'extensional1VesCircleCleanData.bin'; irate = 2;
+%  file = 'extensional1VesCircleSemiData.bin'; irate = 1;
+
+%  file = 'extensional1VesData.bin'; 
+
+
+%file = '~/projects/brinkman/vesicle_code/docs/adhesion/makefigs/extensional_adR4em1adS7em1Chi1em1_ra070/extensional2VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR4em1adS7em1Chi1em2_ra070/extensional2VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/yuan_runs/june_28_2019/extensional2VesData75be.bin';
-  ax = 1*[-2 2 -2 2];
+  ax = 1*[-3 3 -3 3];
   options.confined = false;
 end
 if 0
@@ -32,9 +40,9 @@ if 0
 end
 
 if 0
-  file = '~/projects/brinkman/vesicle_code/results/May092019/relaxation1Ves/kappa1em1_beta1ep0_ra0p95/relaxation1VesData.bin';
-%  file = 'relaxationManyVesData.bin';
-  ax = [-3 3 -6 6];
+%  file = '~/projects/brinkman/vesicle_code/results/May092019/relaxation1Ves/kappa1em1_beta1ep0_ra0p95/relaxation1VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/relaxationManyVes/Segment1/relaxationManyVesData.bin';
+  ax = [-6 6 -6 6];
   options.confined = false;
   options.savefig = false;
   count = 1;
@@ -57,13 +65,16 @@ if 0
 end
 if 1
 %  file = '~/projects/brinkman/vesicle_code/results/May092019/shear1Ves/kappa1em1_beta1ep0_chi1ep0_ra0p55/shear1VesData.bin';
-%  file = 'shear1VesData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/semipermeable/shear1VesData_fluxCoeff2_fluxShape3_fluxWidth1.bin';
-  ax = [-5 55 -5 5];
+%  irate = 1;
+  file = 'shear1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/semipermeable/shear1VesData_fluxCoeff2_fluxShape3_fluxWidth1.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/Oct102019/shear/shear1VesData_beta1e0_RA35.bin';
+  ax = [-5 5 -5 5];
   options.confined = false;
 end
 if 0
-  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR1em1adS4e0Chi5em1_ra090/shear2VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR1em1adS1e0Chi5em1_ra090/shear2VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR1em1adS3em1Chi2p5em1_ra090/shear2VesData.bin';
   ax = [-3 3 -3 3];
   options.confined = false;
 end
@@ -72,6 +83,23 @@ if 0
   ax = [-10.5 10.5 -3.5 3.5];
   options.confined = true;
 end
+
+if 0
+  file = 'shear1VesData_ASP_FC0FS1_RApt6_H3_Rpt6.bin';
+  options.confined = false;
+  ax = [-3 3 -2 2];
+end
+if 0
+  file = 'shear1VesData_ASP_FCpt1FS1_RApt6_H3_Rpt6.bin';
+  options.confined = false;
+  ax = [-3 3 -2 2];
+end
+if 0
+  file = 'shear1VesData_ASP_FCpt1FS1_RApt6_H5_Rpt6.bin';
+  options.confined = false;
+  ax = [-3 3 -2 2];
+end
+
 
 [posx,posy,ten,wallx,wally,ea,el,time,n,nv] = loadFile(file);
 %[posx,posy,ten,~,~,wallx,wally,ea,el,time,n,nv] = loadFileOld(file);
@@ -83,12 +111,19 @@ ntime = numel(time);
 
 oc = curve;
 [~,~,L] = oc.geomProp([posx(:,1,1);posy(:,1,1)]);
+area = zeros(size(time));
+ra = zeros(size(time));
+%incAng = zeros(size(time));
+trac = zeros(2*n,nv,ntime);
 for k = 1:numel(time)
-  [~,~,cur1] = oc.diffProp([posx(:,1,k);posy(:,1,k)]);
-  ten(:,1,k) = ten(:,1,k) + 1.5*L*cur1.^2;
+%for k = numel(time)-11:numel(time)
+  [ra(k),area(k)] = oc.geomProp([posx(:,1,k);posy(:,1,k)]);
+%  incAng(k) = InclinationAngle(posx(:,1,k),posy(:,1,k));
 
-%  [~,~,cur2] = oc.diffProp([posx(:,2,k);posy(:,2,k)]);
-%  ten(:,2,k) = ten(:,2,k) + 1.5*cur2.^2;
+  vesicle = capsules([posx(:,:,k);posy(:,:,k)],[],[],1,1);
+%  trac(:,:,k) = vesicle.tracJump([posx(:,:,k);posy(:,:,k)],0*ten(:,:,k));
+  [~,~,cur1] = oc.diffProp([posx(:,1,k);posy(:,1,k)]);
+  ten(:,:,k) = ten(:,:,k) + 1.5*cur1.^2;
 end
 
 
@@ -102,18 +137,24 @@ end
 
 figure(1); clf
 for k = istart:irate:iend
-  xx = interpft(posx(:,:,k),256); yy = interpft(posy(:,:,k),256);  
+%  xx = interpft(posx(:,:,k),256); yy = interpft(posy(:,:,k),256);  
   xx = posx(:,:,k);
   yy = posy(:,:,k);
+  tt = ten(:,:,k);
   vec1 = [xx(:,:);xx(1,:)];
   vec2 = [yy(:,:);yy(1,:)];
+  vec3 = [tt(:,:);tt(1,:)];
   if 1
     clf
     plot(vec1,vec2,'r','linewidth',3)
     hold on;
-    plot(vec1(1,:),vec2(1,:),'b.','markersize',20)
-%    ar = 1;
-%    plot(ar*cos(linspace(0,2*pi,100)),ar*2.9197*sin(linspace(0,2*pi,100)),'b--')
+%    plot(vec1(1,:),vec2(1,:),'b.','markersize',20)
+    hold on
+%    for j =1:1
+%      h = cline(vec1(:,j),vec2(:,j),vec3(:,j));
+%      set(h,'linewidth',3)
+%    end
+%    colorbar
 %    pause
     if options.confined
       vec1 = [wallx(:,:);wallx(1,:)];

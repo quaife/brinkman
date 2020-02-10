@@ -61,12 +61,6 @@ $\mbx \in \RR^2$.  Assume that the interior and exterior fluids have the same vi
 \end{subequations}%
 %
 The modified jump conditions in the case of a semi-permeable vesicle can be summarized as follows.  Let $\mbn$ the outward normal to $\gamma$ and $\jump{\cdot}$ denote the jump across the interface. The jump condition for the hydrodynamic stress remains the same:
-%
-%Then, define
-%\beq \mbf_i = \lim_{\mbx \rightarrow \gamma^-} \sigma (\mbx)\cdot\mbn,  \eeq
-%\beq \mbf_e =  \lim_{\mbx \rightarrow \gamma^+} \sigma (\mbx)\cdot\mbn, \eeq
-%\beq \jump{\mbv\cdot \mbt} = 0 \eeq
-%\beq \jump{\mbv\cdot\mbn} = \beta (\mbf_i + \mbf_e)\cdot\mbn \eeq
 \beq \jump{\Sigma\cdot\mbn} = \mbf_\text{mem}, \eeq
 where $\Sigma$ is the hydrodynamic stress tensor. The fluid velocity is continuous across the membrane i.e.,
 \beq \jump{\mbu} = 0. \eeq
@@ -75,6 +69,32 @@ However, the kinematic condition is modified to account for the fact that the fl
 \beq \mbu - \dot{\mbx} = - \beta (\mbf_\text{mem} \cdot \mbn) \mbn \quad\text{on}\quad\gamma. \eeq
 %
 Here, $\beta$ is a constant and the membrane force is the usual tension + bending. 
+
+%%%%%%%%%%%%%%
+\section{{$\Theta-L$} formulation}
+Here, we attempt to apply the formulation described by Sohn et
+al.~\cite{soh-tse-li-voi-low2010} to a semi-permeable vesicle.  In the
+semi-permeable formulation, the vesicle velocity is
+\begin{align}
+  \pderiv{\XX}{t} = \mbu(\XX(t)) + \beta (\mbf \cdot \mbn) \mbn.
+\end{align}
+In the {$\Theta-L$} variables, we require a normal velocity $V$, and a
+tangential velocity $T$. Since the inextensibility condition is $T_s +
+\kappa V = 0$, a condition for the vesicle velocity is
+\begin{align}
+  (\mbu \cdot \mbs)_s = -\kappa(\beta (\mbf \cdot \mbn) + 
+      \mbu \cdot \mbn).
+\end{align}
+This equation can be solved following equations (32)--(39)
+in~\cite{soh-tse-li-voi-low2010}, with the only difference being that
+$\tilde{\mbu}$ satisfies
+\begin{align}
+  (\tilde{\mbu} \cdot \mbs)_s + \kappa(\tilde{\mbu} \cdot \mbn) =
+    -(\mbv \cdot \mbs)_s - \kappa(\mbv \cdot \mbn) 
+    - \beta\kappa(\mbf \cdot \mbn).
+\end{align}
+Compared to equation (40), only the last term is new.
+
 
 \section{Integral equation formulation}
 There are multiple ways to convert the PDE problem into integral

@@ -1,11 +1,16 @@
-function[Xfinal] = relaxation1Ves(beta, m, betas, ms)
+%function[Xfinal] = relaxation1Ves(beta, m, betas, ms)
 fprintf('Simple elliptical vesicle in a relaxation flow.\n');
 fprintf('First-order semi-implicit time stepping.\n');
 
+beta = 1;
+m = 100;
+ms = m;
+betas = beta;
+
 % Physics parameters
-prams.N = 128;               % points per vesicle
+prams.N = 128*4;               % points per vesicle
 prams.nv = 1;               % number of vesicles
-prams.T = 1e-2;               % time horizon (two tumbling)
+prams.T = 1;               % time horizon (two tumbling)
 prams.m = m;              % number of time steps
 prams.kappa = ones(prams.nv,1); % bending coefficient
 prams.viscCont = ones(prams.nv,1);         % viscosity contrast
@@ -19,12 +24,12 @@ options.near = true;        % near-singular integration
 options.fmm = false;
 options.antiAlias = false;
 options.semipermeable = true;
-options.adhesion = true;
+options.adhesion = false;
 defaultPram.adStrength = 1;
 defaultPram.adRange = 4e-1;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-10;
-prams.errortol = 1000;
+prams.errorTol = 1000;
 prams.fluxCoeff = beta*ones(prams.nv,1);
 
 % ADD-ONS
@@ -54,17 +59,21 @@ options.expForce = false;
 
 % Plot on-the-fly
 options.usePlot = true;
-options.axis = [-10 10 -10 10];
+options.axis = [-3 3 -4 4];
 options.track = false;
 % Save vesicle information and create a log file
-options.logFile = sprintf('%s','output/nsdc1_relaxation2Ves',ms,'_',betas,'.log');
+%options.logFile = sprintf('%s','output/nsdc1_relaxation2Ves',ms,'_',betas,'.log');
+options.logFile = 'output/relaxation1Ves.log';
 % Name of log file for saving messages
-options.dataFile = sprintf('%s','output/nsdc1_relaxation2Ves',ms,'_',betas,'.bin');
+%options.dataFile = sprintf('%s','output/nsdc1_relaxation2Ves',ms,'_',betas,'.bin');
+options.dataFile = 'output/relaxation1VesData.bin';
 % Name of binary data file for storing vesicle information
 
 options.saveError = true;
 options.errorFile =sprintf('%s','output/nsdc1_relaxation2Ves',ms,'_',betas,'Error.log');
 % Name of binary data file for storing truncation errors after each step
+
+prams.fluxShape = beta*ones(prams.N,1); %flux shape 1
 
 [options,prams] = initVes2D(options,prams);
 % Set options and parameters that the user doesn't
@@ -75,9 +84,12 @@ oc = curve;
 ra = 0.65;
 scale = 1;
 
-centerx = [-5 5];
-centery = [0 0];
-ang = [pi/2 pi/2];
+%centerx = [-5 5];
+%centery = [0 0];
+%ang = [pi/2 pi/2];
+centerx = 0;
+centery = 0;
+ang = pi/2;
 
 X = oc.initConfig(prams.N,'nv',prams.nv,...
     'reducedArea',ra,...
@@ -87,4 +99,4 @@ X = oc.initConfig(prams.N,'nv',prams.nv,...
 
 Xfinal = Ves2D(X,[],prams,options);
 % Run vesicle code
-end
+%end

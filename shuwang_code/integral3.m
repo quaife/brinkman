@@ -1,4 +1,5 @@
 % integral of log|sin|: L
+% See first term in equation (43)
 function vel = integral3(sigma,m)
 
 % make sure velocity is zero initially
