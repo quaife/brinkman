@@ -22,7 +22,7 @@ cv2 = fd1(cv1,m);
 % derivative of the bending coefficient
 bs = fd1(rbn,m);
 
-% compute normal velocity-unconstraint from bending
+% compute normal velocity-unconstrained from bending
 un(1,1:m) = -(cv2(1,1:m)/sl^2+...
     rbn(1,1:m)/2.*dkap(1,1:m).*(dkap(1,1:m).*dkap(1,1:m)));
 vn(1,1:m) = -bs(1,1:m).*dkap(1,1:m).^2/sl/2;

@@ -6,32 +6,42 @@ function [un,ut,rlambdalnew,xo,yo,forc1,forc2,xcc,ycc,...
 
 global kmatrix velocity bendsti bendratio uinside uoutside m
                  
-% compute the curvature
+% compute the initial curvature using the tangent angle
 dkap = acurv(sl,theta,m);
-
+% Use the arclength dkap (calculated above), tan angle theta (input)
+% to recunstruct the curve to find the initial x and y
 [xo,yo] = recon(m,x0,y0,sl,theta);     
-%right hand side
+
+%Constructing the initial membrane interface based on curvature and total  
+%length? RHS of unlabeled eqns after 61?
 sum2 = sum(sin(theta(1,1:m)).*xo(1,1:m) - ...
            cos(theta(1,1:m)).*yo(1,1:m))/2*sl/m;
+       
 sumxx = sum(sin(theta(1,1:m)).*(xo(1,1:m).^2))/2*sl/m;
+
 sumyy = sum(-cos(theta(1,1:m)).*(yo(1,1:m).^2))/2*sl/m;
+
 xcc = sumxx/sum2;
 ycc = sumyy/sum2;
+
 area = sum2;
 
-% first stokes equation with unconstrained force
+%viscosity contrast
 ulam = uinside/uoutside;
 
+%find the normal and tangent velocities from the average velocity integral
+%possibly the small scale decomp step in eq 47 & 48 of v in 32?
 [forc,fforc] = uset_un(sl,theta,rcon,bendsti,bendratio,m);
 
-% turn the force densty at tangential normal direction into x,y
-% coordinate
+% turn the force densty at tangential and normal directions into x,y
+% coordinates eq 49&50 where n = (sin,-cos), s = (cos, sin)
 forc1(1,1:m) = -(forc(1,1:m).*sin(theta(1,1:m)) + ...
                 fforc(1,1:m).*cos(theta(1,1:m)));
 forc2(1,1:m) = -(-forc(1,1:m).*cos(theta(1,1:m)) + ...
                 fforc(1,1:m).*sin(theta(1,1:m)));
-% first stokes equation with unconstrained force
-% sigma1 and sigma2 are the x y velocity of the original vesicle
+
+% Find the velocities of the original vesicles, sigma1 and sigma2
+%Not sure where all this is coming from...
 
 tau = [forc1 forc2]' ;
 so.x = xo(1,1:m)'+ 1i*yo(1,1:m)'; 
@@ -53,7 +63,7 @@ sigma1(1,1:m) = k(1:m)'*c - forc001_l(1:m)*c1 + ...
 sigma2(1,1:m) = k(m+1:2*m)'*c - forc002_l(1:m)*c1;
 
 % Now get the right hand side of the linear system which is the local
-% incompressiblity condition 
+% incompressiblity (INEXTENSIBILITY?) condition 
 uun(1,1:m) = sigma1(1,1:m).*sin(theta(1,1:m)) - ...
              sigma2(1,1:m).*cos(theta(1,1:m));
 utn(1,1:m) = sigma1(1,1:m).*cos(theta(1,1:m)) + ...
@@ -64,10 +74,13 @@ utns = fd1(utn,m);
 
 rhs(1,1:m) = -(utns(1,1:m)/sl + uun(1,1:m).*dkap(1,1:m));
 
-% now solve the linear system
-slam = stokes(dkap,m,sl,theta,rhs,A,c,c1);
+%The velocity componentes in eq 30 are nonlocal linear functions of 
+%lambdaLL through the stress F. 
+%Call stokes which solves the linear system using GMRES. Each iteration of
+%GMRES requires a solution of stokes equation 
+slam = stokes(dkap,m,sl,theta,rhs,A,c,c1); %slam is v^u in eq 32?
 
-%suppose we have a box, and the box has cordinates as x_box y_box.
+%suppose we have a box, and the box has cordinates as x_box y_box. What????
 slams = fd1(slam,m);
 
 forcs1(1,1:m) = slam(1,1:m).*dkap(1,1:m).*sin(theta(1,1:m)) - ...
@@ -79,6 +92,9 @@ forcs2(1,1:m) = -slam(1,1:m).*dkap(1,1:m).*cos(theta(1,1:m)) - ...
 forc1(1,1:m) = forc1(1,1:m)+forcs1(1,1:m);  
 forc2(1,1:m) = forc2(1,1:m)+forcs2(1,1:m);  
 
+%this is repeating something we did before but I'm not sure what yet...
+%Find the normal and tangential velocities of the vesicles, un and ut?
+%Not sure where all this is coming from...
 tau=[forc1 forc2]' ;
 
 k=A*tau;
@@ -86,9 +102,12 @@ k=A*tau;
 forc001_l = integral3(forc1,m);
 forc002_l = integral3(forc2,m);
 
+
 un(1,1:m) = k(1:m)'*c - forc001_l(1:m)*c1 + yo(1,1:m)*velocity;
 ut(1,1:m) = k(m+1:2*m)'*c - forc002_l(1:m)*c1;
 
+%LambdaLL is rlambdanew, the solution of the nonlocal linear functionals in
+%30.
 rlambdalnew = slam;
 
 end
