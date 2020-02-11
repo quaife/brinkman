@@ -33,44 +33,46 @@ dkap = acurv(sl,theta,m);
 % to recunstruct the curve to find the initial x and y
 [xo,yo] = recon(m,x0,y0,sl,theta);     
 
-%Constructing the initial membrane interface based on curvature and total  
-%length? RHS of unlabeled eqns after 61?
+%Green's identity on (1/2)Integral(x dot n) to find the area inside 
+%the vesicle (Integral about the surface of dx)
 sum2 = sum(sin(theta(1,1:m)).*xo(1,1:m) - ...
            cos(theta(1,1:m)).*yo(1,1:m))/2*sl/m;
-       
+%Not sure what sumxx and sumyy are yet
 sumxx = sum(sin(theta(1,1:m)).*(xo(1,1:m).^2))/2*sl/m;
-
 sumyy = sum(-cos(theta(1,1:m)).*(yo(1,1:m).^2))/2*sl/m;
 
+%Some sort of area ratio?
 xcc = sumxx/sum2;
 ycc = sumyy/sum2;
 
+%This comes from Green's identity Integral dx about the surface = area
 area = sum2;
 
 % viscosity contrast
 ulam = uinside/uoutside;
 
-% find the normal and tangent velocities from the average velocity
-% integral possibly the small scale decomp step in eq (47) & (48) of v
-% in (32)?
+%find the normal and tangent velocities from the average velocity
+%integral possibly - unconstrained from bending
+%I think calling uset_un has something to do with calculating the 
+%variational derivatives in eq (13) & (14) unconstrained from bending in 
+%the RHS of eqn(33)
 [forc,fforc] = uset_un(sl,theta,rcon,bendsti,bendratio,m);
-
-% turn the force densty at tangential and normal directions into x,y
-% coordinates eq (49) & (50) where n = (sin,-cos), s = (cos, sin)
+%now that we have the variational derivatives, we compute the rest of the
+%jump condition in eq (33) where n = (sin,-cos), s = (cos, sin)
 forc1(1,1:m) = -(forc(1,1:m).*sin(theta(1,1:m)) + ...
                 fforc(1,1:m).*cos(theta(1,1:m)));
 forc2(1,1:m) = -(-forc(1,1:m).*cos(theta(1,1:m)) + ...
                 fforc(1,1:m).*sin(theta(1,1:m)));
-
-% Find the velocities of the original vesicles, sigma1 and sigma2
-% Not sure where all this is coming from...
+%Put forc1 and forc2 into a single array
 tau = [forc1 forc2]' ;
+%Define new variable so s.t. so'so^T = (x')^2+(y')^2 = ||r'||^2
 so.x = xo(1,1:m)' + 1i*yo(1,1:m)'; 
-
+%Construct Stokes matrix
 A3 = selfmatrix(so,kmatrix); 
-
+%Where does this 2 come from??
 A = 2*A3;
-k = A*tau;
+%k is the velocity on the interface corresponding to v^u in eq (32)
+k = A*tau; %[[P^u n]]_sigma = tau, then k = stokesMatrix*tau
 
 c = sl/pi/m/(1+ulam)/uoutside/2;
 c1 = sl/(1+ulam)/uoutside;
@@ -99,7 +101,7 @@ rhs(1,1:m) = -(utns(1,1:m)/sl + uun(1,1:m).*dkap(1,1:m));
 % lambdaLL through the stress F. 
 % Call stokes which solves the linear system using GMRES. Each iteration of
 % GMRES requires a solution of stokes equation 
-slam = stokes(dkap,m,sl,theta,rhs,A,c,c1); %slam is v^u in eq (32)?
+slam = stokes(dkap,m,sl,theta,rhs,A,c,c1); %slam is ?
 
 %suppose we have a box, and the box has cordinates as x_box y_box. What????
 slams = fd1(slam,m);
@@ -113,7 +115,6 @@ forcs2(1,1:m) = -slam(1,1:m).*dkap(1,1:m).*cos(theta(1,1:m)) - ...
 forc1(1,1:m) = forc1(1,1:m) + forcs1(1,1:m);  
 forc2(1,1:m) = forc2(1,1:m) + forcs2(1,1:m);  
 
-%this is repeating something we did before but I'm not sure what yet...
 %Find the normal and tangential velocities of the vesicles, un and ut?
 %Not sure where all this is coming from...
 tau=[forc1 forc2]' ;
