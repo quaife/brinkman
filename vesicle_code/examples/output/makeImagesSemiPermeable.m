@@ -4,8 +4,8 @@ options.savefig = false;
 
 irate = 1; % controls the speed of the visualization
 %file = 'relaxation1VesData.bin';
-%file = 'shear1VesData.bin';
-file = 'extensional1VesData.bin';
+file = 'shear1VesData.bin.20';
+%file = 'extensional1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/semipermeable/shear1VesData_fluxCoeff1_fluxShape3_fluxWidth4.bin';
 %file = '~/projects/brinkman/vesicle_code/examples/output/shear1VesData.bin';
 

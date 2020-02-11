@@ -1,4 +1,5 @@
-clear all; clc
+function [] = shear1Ves(fluxCoeff,farFieldSpeed,fileName)
+%clear all; clc
 
 fprintf('Simple elliptical vesicle in a shear flow.\n');
 fprintf('First-order semi-implicit time stepping.\n');
@@ -6,12 +7,13 @@ fprintf('First-order semi-implicit time stepping.\n');
 % Physics parameters
 prams.N = 128;               % points per vesicle
 prams.nv = 1;               % number of vesicles
-prams.T = 10;               % time horizon (two tumbling)
-prams.m = 5*100;              % number of time steps
+prams.T = 40;               % time horizon (two tumbling)
+prams.m = 500;              % number of time steps
 prams.kappa = ones(prams.nv,1);   % bending coefficient
 prams.viscCont = ones(prams.nv,1);         % viscosity contrast
 options.farField = 'shear'; % background velocity
-options.farFieldSpeed = 2.0;
+%options.farFieldSpeed = 3.0;
+options.farFieldSpeed = farFieldSpeed;
 options.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -25,7 +27,8 @@ options.semipermeable = true;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-8;
 prams.errorTol = 1000;
-prams.fluxCoeff = 1.0;
+%prams.fluxCoeff = 2.0;
+prams.fluxCoeff = fluxCoeff;
 options.adhesion = false;
 prams.adRange = 0.4;
 prams.adStrength = 100;
@@ -36,7 +39,7 @@ options.correctShape = false;
 options.reparameterization = false;
 
 % TIME ADAPTIVITY (parameters for new implementation)
-options.timeAdap = false;
+options.timeAdap = true;
 
 prams.rtolArea = 1e10;
 prams.rtolLength = 1e-2;
@@ -57,13 +60,17 @@ options.expectedOrder = 2;
 options.expForce = false;
 
 % Plot on-the-fly
-options.usePlot = true;
+options.usePlot = false;
 options.axis = [-5 5 -5 5];
 options.track = false;
 % Save vesicle information and create a log file
-options.logFile = 'output/shear1Ves.log';
+options.logFile = ['output/' fileName '.log'];
+%options.logFile = ['output/shear1Ves.log.' num2str(10*fluxCoeff)];
+%options.logFile = 'output/shear1Ves.log';
 % Name of log file for saving messages
-options.dataFile = 'output/shear1VesData.bin';
+options.dataFile = ['output/' fileName 'Data.bin'];
+%options.dataFile = ['output/shear1VesData.bin.' num2str(10*fluxCoeff)];
+%options.dataFile = 'output/shear1VesData.bin';
 % Name of binary data file for storing vesicle information
 
 options.saveError = true;
@@ -73,6 +80,8 @@ options.errorFile = 'output/shear1VesError.bin';
 [options,prams] = initVes2D(options,prams);
 % Set options and parameters that the user doesn't
 % Also add src to path
+options
+pause
 
 theta = (0:prams.N-1)'*2*pi/prams.N;
 %prams.fluxShape = 0*sin(theta);
@@ -84,7 +93,7 @@ prams.fluxShape = ones(prams.N,1); %flux shape 1
 % set up the distribution for the flux
 
 oc = curve;
-ra = 0.55;
+ra = 0.65;
 %centerx = [-2.5 2.5];
 %centery = zeros(1,2);
 centerx = 0;
