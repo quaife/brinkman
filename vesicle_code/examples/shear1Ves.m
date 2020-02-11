@@ -64,11 +64,13 @@ options.usePlot = false;
 options.axis = [-5 5 -5 5];
 options.track = false;
 % Save vesicle information and create a log file
-options.logFile = ['output/' fileName '.log'];
+options.logFile = ['output/' fileName '/shear1Ves.log'];
+%options.logFile = ['output/' fileName '.log'];
 %options.logFile = ['output/shear1Ves.log.' num2str(10*fluxCoeff)];
 %options.logFile = 'output/shear1Ves.log';
 % Name of log file for saving messages
-options.dataFile = ['output/' fileName 'Data.bin'];
+options.dataFile = ['output/' fileName '/shear1VesData.bin'];
+%options.dataFile = ['output/' fileName
 %options.dataFile = ['output/shear1VesData.bin.' num2str(10*fluxCoeff)];
 %options.dataFile = 'output/shear1VesData.bin';
 % Name of binary data file for storing vesicle information
@@ -80,8 +82,10 @@ options.errorFile = 'output/shear1VesError.bin';
 [options,prams] = initVes2D(options,prams);
 % Set options and parameters that the user doesn't
 % Also add src to path
-options
-pause
+
+if ~exist(['output/' fileName],'dir')
+  mkdir(['output/' fileName]);
+end
 
 theta = (0:prams.N-1)'*2*pi/prams.N;
 %prams.fluxShape = 0*sin(theta);
