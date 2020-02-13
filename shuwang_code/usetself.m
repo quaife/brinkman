@@ -74,6 +74,7 @@ A = 2*A3;
 %k is the velocity on the interface corresponding to v^u in eq (32)
 k = A*tau; %[[P^u n]]_sigma = tau, then k = stokesMatrix*tau
 
+% -----------------------------------------------------------------
 c = sl/pi/m/(1+ulam)/uoutside/2;
 c1 = sl/(1+ulam)/uoutside;
 
@@ -83,53 +84,52 @@ forc002_l = integral3(forc2,m);
 sigma1(1,1:m) = k(1:m)'*c - forc001_l(1:m)*c1 + ...
     yo(1,1:m)*velocity;
 sigma2(1,1:m) = k(m+1:2*m)'*c - forc002_l(1:m)*c1;
+% -----------------------------------------------------------------
 
-% Now get the right hand side of the linear system which is the local
-% incompressiblity (INEXTENSIBILITY?) condition 
+%Calculate v dot n in eq (40)
 uun(1,1:m) = sigma1(1,1:m).*sin(theta(1,1:m)) - ...
              sigma2(1,1:m).*cos(theta(1,1:m));
+%Calculate v dot s in eq (40)
 utn(1,1:m) = sigma1(1,1:m).*cos(theta(1,1:m)) + ...
              sigma2(1,1:m).*sin(theta(1,1:m));
-
 utn(m+1) = utn(1);
+%Calculate d/ds(v dot s) in eq (40)
 utns = fd1(utn,m);
 
+%Calculate the right hand side of equation (40)
 rhs(1,1:m) = -(utns(1,1:m)/sl + uun(1,1:m).*dkap(1,1:m));
-% rhs is the right hand side of equation (40)
 
-% The velocity components in eq (30) are nonlocal linear functions of 
-% lambdaLL through the stress F. 
-% Call stokes which solves the linear system using GMRES. Each iteration of
-% GMRES requires a solution of stokes equation 
-slam = stokes(dkap,m,sl,theta,rhs,A,c,c1); %slam is ?
-
-%suppose we have a box, and the box has cordinates as x_box y_box. What????
+% The velocity components in eq (40) are nonlocal linear functions of 
+% lambdaTilde. 
+% Call stokes which solves the linear system for LambdaTilde in 39 using 
+% GMRES. Each iteration of GMRES requires a solution of stokes equation 
+slam = stokes(dkap,m,sl,theta,rhs,A,c,c1); %slam is LambdaTilde in eq (39)?
+%calculate the fourier derivative
 slams = fd1(slam,m);
-
+%We can now calculate the traction jump in first part of equation (39)...?
 forcs1(1,1:m) = slam(1,1:m).*dkap(1,1:m).*sin(theta(1,1:m)) - ...
                 slams(1,1:m).*cos(theta(1,1:m))/sl;
 forcs2(1,1:m) = -slam(1,1:m).*dkap(1,1:m).*cos(theta(1,1:m)) - ...
                 slams(1,1:m).*sin(theta(1,1:m))/sl;
-% traction jump in first part of equation (39)
 
+%Are we adding the jump conditions in eq (39) and (33) here?
 forc1(1,1:m) = forc1(1,1:m) + forcs1(1,1:m);  
 forc2(1,1:m) = forc2(1,1:m) + forcs2(1,1:m);  
 
-%Find the normal and tangential velocities of the vesicles, un and ut?
-%Not sure where all this is coming from...
-tau=[forc1 forc2]' ;
 
+tau=[forc1 forc2]' ;
+%Calculating u tilde in eq (40)?
 k=A*tau;
 
+%.....
 forc001_l = integral3(forc1,m);
 forc002_l = integral3(forc2,m);
 
+%Are we updating u in eq (31) now with the u tilde?
 % compute normal and tangential velocities
 un(1,1:m) = k(1:m)'*c - forc001_l(1:m)*c1 + yo(1,1:m)*velocity;
 ut(1,1:m) = k(m+1:2*m)'*c - forc002_l(1:m)*c1;
 
-% LambdaLL is rlambdanew, the solution of the nonlocal linear
-% functionals in (30).
 rlambdalnew = slam;
 
 end
