@@ -67,6 +67,12 @@ x0 = x0/2;
 y0 = y0/2;
 kmatrix = formkmatrix(ngrid);
 
+% compute the x velocity, y velocity, Lagrange multiplier, body forces,
+% new shape, and center of mass using the initialized concentration
+% field. A step of Cahn-Hilliard is not taken until after this step.
+% However, not sure how the terms in equations (13) and (14) have been
+% incorporated into the forces. Also missing the u_s term in equation
+% (33)
 [ux0,uy0,rlambdalnew,x,y,forc1,forc2,xcc,ycc] = ...
     usetself(x0,y0,sl,theta,rcon);
 
@@ -80,7 +86,9 @@ utt(1,:) = ux0.*cos(theta) + uy0.*sin(theta);
 % For subsequent time steps, will use a multistep method as described in
 % equation (60)
 fsl = forcsl(m,theta,un);
-sln = sl + dt*fsl; % Forward Euler for the arclength
+sln = sl + dt*fsl; 
+% Forward Euler for the arclength. fsl should be zero, so this is just
+% checking for discretization and round-off errors
 
 % Get the veocity of the vesicle by its velocity of the tangential
 % angle, but without the stiff term. We believe that fntheta is the
@@ -116,6 +124,7 @@ thetan = temp4 + 2*pi*(0:m-1)/m;
 
 % lipid species model for u
 rk = 2*pi*[0 1:m/2 m/2-1:-1:1]; 
+% Fourier modes, but scaled by 2*pi
 rsl = eps_ch*(rk/sl).^4*consta;
 rsln = eps_ch*(rk/sln).^4*consta;
 % form stiffest term that is treated implicitly, but is also linear (and

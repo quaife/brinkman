@@ -1,6 +1,17 @@
 % This routine is about solving equation (75)
-function [fncon,termd]=frconim(m,sl,rcon,theta,bendsti,...
+function [fncon,termd] = frconim(m,sl,rcon,theta,bendsti,...
     bendratio,eps_ch,consta)
+% m - number of points on vesicle
+% sl - length of vesicle
+% rcon - concentration species
+% theta - opening angle
+% bendsti - bending stiffness
+% bendratio - bending ratio
+% eps_ch - small parameter in the flux in equation (65)
+% consta - ???
+
+% fncon - ???
+% termd - ???
  
 % compute the old forcing
 termd = fluxj(sl,theta,rcon,bendsti,bendratio,consta,m,eps_ch);
