@@ -64,11 +64,8 @@ if 0
   options.confined = false;
 end
 if 1
-%  file = '~/projects/brinkman/vesicle_code/results/May092019/shear1Ves/kappa1em1_beta1ep0_chi1ep0_ra0p55/shear1VesData.bin';
-%  irate = 1;
-  file = 'shear1VesData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/semipermeable/shear1VesData_fluxCoeff2_fluxShape3_fluxWidth1.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/Oct102019/shear/shear1VesData_beta1e0_RA35.bin';
+%  file = 'shear1VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi8p0em1_ra065_beta1p0em1/shear1VesData.bin';
   ax = [-5 5 -5 5];
   options.confined = false;
 end
@@ -145,16 +142,14 @@ for k = istart:irate:iend
   vec2 = [yy(:,:);yy(1,:)];
   vec3 = [tt(:,:);tt(1,:)];
   if 1
-    clf
-    plot(vec1,vec2,'r','linewidth',3)
-    hold on;
-%    plot(vec1(1,:),vec2(1,:),'b.','markersize',20)
-    hold on
-%    for j =1:1
-%      h = cline(vec1(:,j),vec2(:,j),vec3(:,j));
-%      set(h,'linewidth',3)
-%    end
-%    colorbar
+    clf; hold on;
+%    plot(vec1,vec2,'r','linewidth',3)
+%%    plot(vec1(1,:),vec2(1,:),'b.','markersize',20)
+    for j =1:1
+      h = cline(vec1(:,j),vec2(:,j),vec3(:,j));
+      set(h,'linewidth',3)
+    end
+    colorbar
 %    pause
     if options.confined
       vec1 = [wallx(:,:);wallx(1,:)];

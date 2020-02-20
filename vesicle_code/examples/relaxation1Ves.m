@@ -8,9 +8,9 @@ ms = m;
 betas = beta;
 
 % Physics parameters
-prams.N = 128*4;               % points per vesicle
+prams.N = 128;               % points per vesicle
 prams.nv = 1;               % number of vesicles
-prams.T = 1;               % time horizon (two tumbling)
+prams.T = 10;               % time horizon (two tumbling)
 prams.m = m;              % number of time steps
 prams.kappa = ones(prams.nv,1); % bending coefficient
 prams.viscCont = ones(prams.nv,1);         % viscosity contrast

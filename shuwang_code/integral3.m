@@ -12,7 +12,6 @@ csigma = ssigma./coeff;
 csigma(1,1) = 0;
 ssigma = real(ifft(csigma,m));
 
-
 %now ssigma=HD(ssigma) and now construct velocity
 vel(1,1:m) = ssigma(1,1:m)/2+bsigma*log(1/2)/2/pi;
 vel(1,m+1) = vel(1,1);

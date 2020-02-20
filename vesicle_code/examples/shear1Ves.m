@@ -60,7 +60,7 @@ options.expectedOrder = 2;
 options.expForce = false;
 
 % Plot on-the-fly
-options.usePlot = false;
+options.usePlot = true;
 options.axis = [-5 5 -5 5];
 options.track = false;
 % Save vesicle information and create a log file

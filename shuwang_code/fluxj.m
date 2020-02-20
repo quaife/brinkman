@@ -1,5 +1,5 @@
 % THIS ROUTINE COMPUTES THE FORCING ON THE RHS flux OF THE Cahn_Hillard
-% Equation for rcon  periodic on [0,1] and for closed curves
+% Equation for rcon periodic on [0,1] and for closed curves
 function term = fluxj(sl,theta,rcon,bendsti,bendratio,consta,m,eps_ch)
 
 % compute the 1st term from free energy
@@ -30,8 +30,3 @@ term(1,1:m) = consta/eps_ch*(term1(1,1:m)+term2(1,1:m))+term3(1,1:m);
 term(1,m+1) = term(1,1);
 
 end
-    
-      
-
-
- 

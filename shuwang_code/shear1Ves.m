@@ -56,7 +56,7 @@ nstep = round(T/dt);
 outpt = round(outpt/dt);
 % steps for saving to output
 
-%set the initial condition.
+% set the initial condition.
 [x,y,theta,rcon] = initialsetup(shortax,ngrid,concentra,oddeven);
 
 % here we keep the total arclength unchanged.

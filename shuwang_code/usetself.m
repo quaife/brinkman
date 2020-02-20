@@ -17,13 +17,12 @@ function [un,ut,rlambdalnew,xo,yo,forc1,forc2,xcc,ycc,...
 % as T_s + \kappa V = 0
 % xo - x-coordinates coming from the length, angle, and reference point
 % yo - y-coordinates coming from the length, angle, and reference point
-% forc1 - 
-% forc2 - 
+% forc1 - variational derivative with respect to the membrane shape
+% forc2 - variational derivative with respect to the lipid species
+% concentration
 % xcc - 
 % ycc - 
 % area - area inside the interface
-
-
 
 global kmatrix velocity bendsti bendratio uinside uoutside m
                  
@@ -67,24 +66,34 @@ forc2(1,1:m) = -(-forc(1,1:m).*cos(theta(1,1:m)) + ...
 tau = [forc1 forc2]' ;
 %Define new variable so s.t. so'so^T = (x')^2+(y')^2 = ||r'||^2
 so.x = xo(1,1:m)' + 1i*yo(1,1:m)'; 
-%Construct Stokes matrix
+% Construct Stokes matrix without the log singularity. ie. A3 only
+% contains the rightmost kernel in equation (43)
 A3 = selfmatrix(so,kmatrix); 
 %Where does this 2 come from??
 A = 2*A3;
-%k is the velocity on the interface corresponding to v^u in eq (32)
+%k is the velocity on the interface corresponding to v^u in eq (33)
 k = A*tau; %[[P^u n]]_sigma = tau, then k = stokesMatrix*tau
+% For now, unsure where the u_s term in equation (33) is in the traction
+% jump tau
 
-% -----------------------------------------------------------------
+% constants that multiply the weakly singular and regular parts of the
+% integral operators
 c = sl/pi/m/(1+ulam)/uoutside/2;
 c1 = sl/(1+ulam)/uoutside;
 
+% forc001_l and forc002_l are the log kernel in the left term in the
+% right hand side of equation (43) integrated against the density
+% functions forc1 and forc2. 'l' is referring to the logarithm.
 forc001_l = integral3(forc1,m);
 forc002_l = integral3(forc2,m);
 
+% velocity is the shear rate
 sigma1(1,1:m) = k(1:m)'*c - forc001_l(1:m)*c1 + ...
     yo(1,1:m)*velocity;
 sigma2(1,1:m) = k(m+1:2*m)'*c - forc002_l(1:m)*c1;
-% -----------------------------------------------------------------
+% sigma1 and sigma2 are the solution of equation (33) (still unsure
+% about the u_s term). Also, it includes the background shear flow which
+% is not stated in equation (33), but instead in equations (6) and (7)
 
 %Calculate v dot n in eq (40)
 uun(1,1:m) = sigma1(1,1:m).*sin(theta(1,1:m)) - ...
@@ -103,30 +112,32 @@ rhs(1,1:m) = -(utns(1,1:m)/sl + uun(1,1:m).*dkap(1,1:m));
 % lambdaTilde. 
 % Call stokes which solves the linear system for LambdaTilde in 39 using 
 % GMRES. Each iteration of GMRES requires a solution of stokes equation 
-slam = stokes(dkap,m,sl,theta,rhs,A,c,c1); %slam is LambdaTilde in eq (39)?
+slam = stokes(dkap,m,sl,theta,rhs,A,c,c1); %slam is LambdaTilde in eq (39)
 %calculate the fourier derivative
 slams = fd1(slam,m);
-%We can now calculate the traction jump in first part of equation (39)...?
+
+% We can now calculate the traction jump in first part of equation (39).
+% This comes from applying the product rule and using Frenet-Seret.
 forcs1(1,1:m) = slam(1,1:m).*dkap(1,1:m).*sin(theta(1,1:m)) - ...
                 slams(1,1:m).*cos(theta(1,1:m))/sl;
 forcs2(1,1:m) = -slam(1,1:m).*dkap(1,1:m).*cos(theta(1,1:m)) - ...
                 slams(1,1:m).*sin(theta(1,1:m))/sl;
 
-%Are we adding the jump conditions in eq (39) and (33) here?
+% Adding the jump conditions in eq (39) and (33)
 forc1(1,1:m) = forc1(1,1:m) + forcs1(1,1:m);  
 forc2(1,1:m) = forc2(1,1:m) + forcs2(1,1:m);  
 
-
 tau=[forc1 forc2]' ;
-%Calculating u tilde in eq (40)?
+% Calculating u tilde in equations (38) through (40) without the weakly
+% singular log kernel
 k=A*tau;
 
-%.....
+% compute the weakly singluar log kernel part
 forc001_l = integral3(forc1,m);
 forc002_l = integral3(forc2,m);
 
-%Are we updating u in eq (31) now with the u tilde?
-% compute normal and tangential velocities
+% Calulating  u in eqatuion (31) by adding the results from the
+% non-singular and weakly singular integral operators
 un(1,1:m) = k(1:m)'*c - forc001_l(1:m)*c1 + yo(1,1:m)*velocity;
 ut(1,1:m) = k(m+1:2*m)'*c - forc002_l(1:m)*c1;
 
