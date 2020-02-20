@@ -29,8 +29,11 @@ term2 = -eps_ch^2*rconss(1,1:m)/sl^2;
 %compute the 3rd term
 b0 = bendsti;
 b1 = bendsti*bendratio;
+% rbn is not even used after this.
 rbn = b0*(ones(1,m) - rcon(1,1:m)) + b1*rcon(1,1:m);
-rbndu = (b1 - b0)*ones(1,m); % difference between the bending ratios
+rbndu = (b1 - b0)*ones(1,m); 
+% difference between the bending ratios
+% Taking a difference seems really strange
 rbn = [rbn rbn(1)];
 
 % compute the curvature

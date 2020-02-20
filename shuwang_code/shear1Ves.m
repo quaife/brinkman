@@ -152,7 +152,6 @@ areasum = sum(sin(theta).*x(1:m)-cos(theta).*y(1,1:m))/2*sl/m;
 % update the position using un-numbered equation after (61)
 x0 = x0 + dt*u1x;
 y0 = y0 + dt*u1y;
-% do the integration factor stuff for rcon
 
 %write results if the time is right
 tcomp = dt*ktime;
