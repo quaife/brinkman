@@ -1,7 +1,7 @@
 \documentclass[aps,prl,showpacs]{revtex4}
 \usepackage{amsmath,amsfonts,bm, color}
 \usepackage{graphicx,epsfig}
-%\input vs_macros.tex
+\usepackage{todonotes}
 %Dfig puts a figure of specified size at the place indicated.
 \newcommand{\Dfig}[2]{\epsfig{figure=#1,width=#2cm}}
 
@@ -25,8 +25,6 @@
 }{}
 
 
-
-
 \newcommand{\co}[1]{\marginpar{\scriptsize \textcolor{red}{#1}}} % red comment
 
 \input my_macros2.tex	
@@ -34,41 +32,286 @@
 \begin{document}
 
 \title{Semi-permeable vesicles: mathematical formulation, numerics and physics}
-\author{}
+\author{Ashley Gannon, Bryan Quaife, Shravan Veerapaneni, and Yuan-Nan Young}
 
 \date{\today}
 
 \begin{abstract}
-We describe a mathematical model for a semi-permeable vesicle and derive a boundary integral equation formulation for simulating its hydrodynamics.  
+We describe a mathematical model for a semi-permeable vesicle and derive
+  a boundary integral equation formulation for simulating its
+  hydrodynamics.  
 \end{abstract}
 \maketitle
 
 
 \section{Problem formulation} \label{sc:formulate}
-Consider a semi-permeable vesicle suspended in an unbounded viscous
-fluid domain, subjected to an imposed flow $\mbu_\infty(\mbx)$, for any
-$\mbx \in \RR^2$.  Assume that the interior and exterior fluids have the same viscosity $\mu$. Let $\mbx$ be the position of the interface $\gamma$, $\mbu$ the fluid velocity and $p$ the pressure. In the vanishing Reynolds number limit, the governing equations for the ambient fluid can be written as: 
+Consider a two-dimensional semi-permeable vesicle suspended in an
+unbounded viscous fluid domain, subjected to an imposed flow
+$\mbu_\infty(\mbx)$, for any $\mbx \in \RR^2$.  Assume that the interior
+and exterior fluids have the same viscosity $\mu$. Let $\mbx$ be the
+position of the interface $\gamma$, $\mbu$ be the fluid velocity, and
+$p$ be the pressure. In the vanishing Reynolds number limit, the
+governing equations for the ambient fluid are
 %
 \begin{subequations}
-\begin{align}
--\nabla p + \mu \triangle \mbu = 0 \quad\text{in}\quad
-  \RR^2\setminus\gamma  &  \\
+\begin{alignat}{3}
+  \label{eqn:governing}
+  -\nabla p + \mu \triangle \mbu &= 0, 
+  &&\mbx \in \RR^2 \setminus \gamma, \\
 % 
-\nabla \cdot \mbu = 0  \quad\text{in}\quad \RR^2\setminus\gamma &\\
+  \nabla \cdot \mbu &= 0,  &&\mbx \in \RR^2 \setminus \gamma, \\
 %
-\mbu(\mbx) \rightarrow \mbu_\infty(\mbx) \quad \text{as} \quad  \norm{\mbx} \rightarrow \infty & 
- \end{align} \label{eqn:governing}
+  \mbu(\mbx) &\rightarrow \mbu_\infty(\mbx),
+    \qquad &&\norm{\mbx} \rightarrow \infty.
+\end{alignat}
 \end{subequations}%
 %
-The modified jump conditions in the case of a semi-permeable vesicle can be summarized as follows.  Let $\mbn$ the outward normal to $\gamma$ and $\jump{\cdot}$ denote the jump across the interface. The jump condition for the hydrodynamic stress remains the same:
-\beq \jump{\Sigma\cdot\mbn} = \mbf_\text{mem}, \eeq
-where $\Sigma$ is the hydrodynamic stress tensor. The fluid velocity is continuous across the membrane i.e.,
-\beq \jump{\mbu} = 0. \eeq
-However, the kinematic condition is modified to account for the fact that the fluid can move through the membrane. A standard choice appears to be
-%
-\beq \mbu - \dot{\mbx} = - \beta (\mbf_\text{mem} \cdot \mbn) \mbn \quad\text{on}\quad\gamma. \eeq
-%
-Here, $\beta$ is a constant and the membrane force is the usual tension + bending. 
+Letting $\mbn$ be the outward normal to $\gamma$, $\jump{\cdot}$ denote
+the jump across the interface, and $T$ denote the hydrodynamic stress
+tensor, the boundary conditions along the vesicle are
+\begin{align}
+  \label{eqn:jump1}
+  \jump{T\cdot\mbn} &= \mbf_\text{mem}, \\
+  \label{eqn:jump2}
+  \jump{\mbu} &= 0,
+\end{align}
+where $\mbf_\text{mem}$ is the standard membrane force that includes a
+bending and a tension term. In particular, $\mbf_\text{mem} =
+\mbf_\text{ben} + \mbf_\text{ten}$, where
+\begin{align}
+  \label{eqn:membraneForces}
+  \mbf_\text{ben} = -\kappa_b \mbx_{ssss}, \qquad
+  \mbf_\text{ten} = (\sigma \mbx_s)_s,
+\end{align}
+where $\kappa_b$ is the bending stiffness and $\sigma$ is a Lagrange
+multiplier, which acts like the tension, which is used to satisfy the
+inextensibility condition.
+
+The kinematic condition is modified to account for the fact that the
+fluid can move through the membrane. A standard choice appears
+is~\cite{}
+\begin{align}
+  \mbu - \dot{\mbx} = - \beta (\mbf_\text{mem} \cdot \mbn) \mbn, \qquad
+  \mbx \in \gamma,
+\end{align}
+where $\beta$ is a semi-permeability rate.  
+
+\subsection{Integral equation formulation}
+Since the flow is governed by the linear Stokes equations, it can be
+represented in terms of layer potentials. Given the boundary
+conditions~\eqref{eqn:jump1} and~\eqref{eqn:jump2} required on the
+interface, the fluid velocity can be represented as the single-layer
+potential
+\begin{align}
+  \mbu(\mbx) = \mbu_\infty(\mbx) + \sgl[\mbf_\text{mem}](\mbx), \quad
+    \mbx \in \Omega,
+\end{align}
+where
+\begin{align}
+  \sgl[\mbf](\mbx) = \frac{1}{4\pi\mu} \int_{\gamma} \left(
+    -\mathbf{I} \log\rho + \frac{\mbr \otimes \mbr}{\rho^2} \right)
+    \mbf(\mby) ds_{\mby},
+\end{align}
+where $\mbr = \mbx - \mby$ and $\rho = \norm{\mbr}$. Then, by the
+kinematic equation, the dynamics of the vesicle 
+\begin{align}
+  \label{eqn:vesVelocity}
+  \frac{d\mbx}{dt} = \mbu_\infty(\mbx) + \beta (\mbf_\text{mem}\cdot\mbn)\mbn
+  + \sgl [\mbf_\text{mem}](\mbx).
+\end{align}
+Finally, the inextensibility condition is given by
+\begin{align}
+  \mbx_s\cdot\dot{\mbx}_s = 0.
+\end{align}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Vesicle Area}
+Since the vesicle membrane is semi-permeable, the vesicle's area
+fluctuates.  Parameterizing the vesicle with $\mbx$, its area is
+\begin{align}
+  A(t) = \frac{1}{2}\int_{\gamma} (\mbx \cdot \mbn)\, ds = 
+    \frac{1}{2}\int_{0}^{2\pi} \left(\mbx \cdot \pderiv{\mbx}{\theta}^\perp\right)
+    \, d\theta.
+\end{align}
+
+\todo[inline]{Can do this part of the calculation using FTC}
+Taking the time derivative of $A(t)$,
+\begin{align}
+  \dot{A}(t) &= \frac{1}{2}\int_{0}^{2\pi} \left(\dot{\mbx} \cdot
+  \pderiv{\mbx}{\theta}^{\perp} + 
+    \mbx \cdot \pderiv{\dot{\mbx}}{\theta}^{\perp}\right) d\theta, \\
+  &= \frac{1}{2}
+  \int_{0}^{2\pi}(\dot{\mbx}\cdot\mbn)\left\|\pderiv{\mbx}{\theta}\right\|d\theta +
+     \frac{1}{2}\int_{0}^{2\pi}
+    \left(\mbx \cdot \pderiv{\dot{\mbx}}{\theta}^{\perp}\right)d\theta, \\
+  &= \frac{\beta}{2} \int_{\gamma}\left(\mbf\cdot\mbn\right)ds +
+  \frac{1}{2}\int_{0}^{2\pi}\left(\mbx \cdot \pderiv{}{t}\left(\mbn
+  \left\|\pderiv{\mbx}{\theta}\right\|\right)\right)d\theta, \\
+  &= \frac{\beta}{2} \int_{\gamma}\left(\mbf\cdot\mbn\right)ds + \frac{1}{2}
+  \int_{\gamma}\left(\mbx\cdot\dot{\mbn}\right)ds + \frac{1}{2}\int_{0}^{2\pi}
+  \frac{\mbx\cdot\mbn}{\left\|\pderiv{\mbx}{\theta}\right\|}
+  \left(\pderiv{\mbx}{\theta}\cdot
+  \pderiv{\dot{\mbx}}{\theta}\right)d\theta \\
+  &= \frac{\beta}{2} \int_{\gamma}\left(\mbf\cdot\mbn\right)ds + \frac{1}{2}
+  \int_{\gamma}\left(\mbx\cdot\dot{\mbn}\right)ds + \frac{1}{2}\int_{\gamma}
+  (\mbx\cdot\mbn) (\mbx_s \cdot \dot{\mbx}_s)\, ds.
+\end{align}
+To satisfy the inextensibilty condition, $\mbx_s \cdot \dot{\mbx}_s = 0$.
+Therefore the time derivative of $A(t)$ is
+\begin{align}
+     \dot{A}(t) &= \frac{\beta}{2} \int_{\gamma}\left(\mbf\cdot\mbn\right)ds
+     + \frac{1}{2} \int_{\gamma}\left(\mbx\cdot\dot{\mbn}\right)ds.
+\end{align}
+which we re-write as
+\begin{align}
+    \dot{A}(t) &= \frac{\beta}{2}
+    \int_{\gamma}\left(\mbf\cdot\mbn\right)ds-\frac{1}{2}\int_{\gamma}\left(\mbx^{\perp}\cdot\dot{\mbx}_s\right) ds.
+\end{align}
+Applying integration by parts,
+\begin{align}
+    \dot{A}(t) &= \frac{\beta}{2}
+    \int_{\gamma}\left(\mbf\cdot\mbn\right)ds+\frac{1}{2}\int_{\gamma}\left(\mbx^{\perp}_s\cdot\dot{\mbx}\right) ds,
+\end{align}
+which we re-write as
+\begin{align}
+    \dot{A}(t) &= \frac{\beta}{2}
+    \int_{\gamma}\left(\mbf\cdot\mbn\right)ds+\frac{1}{2}\int_{\gamma}\left(\dot{\mbx}\cdot\mbn\right),\\
+    \dot{A}(t) &= \beta \int_{\gamma}\left(\mbf\cdot\mbn\right)ds.
+\end{align}
+At steady state,
+\begin{align}
+    \dot{A}(t) &= \beta \int_{\gamma}\left(\mbf\cdot\mbn\right)ds =0.
+\end{align}
+We now replace $\mbf$ with its definition and apply integration by parts
+\begin{align}
+   0=\beta\int_{\gamma} 
+    (-\kappa_b\mbx_{ssss}+(\sigma\mbx_s)_s)\cdot\mbn\, ds =
+   \beta\int_{\gamma}\left(\kappa_b\mbx_{sss}-\sigma\mbx_s\right)\cdot
+     \mbn_s\, ds
+\end{align}
+From the Frenet-Serret formulas, we have 
+\begin{align}
+     -\beta\int_{\gamma}
+     \left(\kappa_b\mbx_{sss}-\sigma\mbx_s\right)\cdot\kappa\mbx_s ds &=0.
+\end{align}
+
+Applying integration by parts and Frenet-Serret again
+\begin{align}
+     \beta\int_{\gamma}
+     \kappa_b\kappa\left(\mbx_{ss}\cdot\mbx_{ss}\right)ds + \beta
+     \int_{\gamma} \kappa_b \kappa_s(\mbx_{ss} \cdot \mbx_s)ds +\beta\int_{\gamma}\kappa\sigma ds  &= 0,\\
+    \beta\int_{\gamma} \kappa_b\kappa(\kappa\mbn \cdot
+     \kappa\mbn)+ \beta \int_{\gamma} \kappa_b \kappa_s(\mbx_{ss} \cdot
+     \mbx_s)ds +\beta\int_{\gamma}\kappa\sigma ds &= 0,
+\end{align}
+which we re-write as
+\begin{align}
+   \beta\int_{\gamma}\kappa_b\kappa^3 ds + \beta \int_{\gamma} \kappa_b
+   \kappa_s(\mbx_{ss} \cdot \mbx_s)ds +\beta\int_{\gamma} \kappa\sigma ds = 0.
+\end{align}
+Applying Frenet-serret again,
+\begin{align}
+    \beta\int_{\gamma}\kappa_b\kappa^3 ds + \beta \int_{\gamma} \kappa_b
+    \kappa_s(\kappa\mbn \cdot \TT)ds +\beta\int_{\gamma} \kappa\sigma ds = 0, \\
+    \beta\int_{\gamma}\kappa_b\kappa^3 ds +\beta\int_{\gamma} \kappa\sigma ds  = 0.
+\end{align}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Numerical Methods}
+\subsection{Discretization in Space}
+
+\subsection{Discretization in Time}
+By using an integral equation formulation, the only unknowns are the
+vesicle position and tension, and the flow in the bulk does not have to
+be computed. However, the high-order derivatives in the bending and
+tension forces~\eqref{eqn:membraneForces} result in stiffness if an
+explicit time stepping method is applied to
+equation~\eqref{eqn:vesVelocity}. We apply a similar semi-implicit time
+stepping method to our previous works~\cite{vee-gue-zor-bir2009,
+qua-bir2014}. First, given a vesicle $\gamma$, with a boundary
+parameterized as $\mbx(s)$, we introduce notation for all the required
+differential and projection operators
+\begin{align}
+  B[\mbx]\mbf &= -\frac{d^4}{ds^4} \mbf, \\
+  T[\mbx]\sigma &= (\sigma \mbx_s)_s, \\
+  D[\mbx]\mbf &= \mbx_s \cdot \mbf_s, \\
+  P[\mbx]\mbf &= (\mbf \cdot \mbn) \mbn. 
+\end{align}
+Here, the normal vector $\mbn$ is the outward unit normal of the
+$\gamma$, and $d/ds$ is its arclength derivative. To simplify notation,
+we write $B\mbf$ to mean $B[\mbx]\mbf$, and use similar notation for the
+other operators. Then, the dynamics of the vesicle are governed by
+\begin{align}
+  \frac{d\mbx}{dt} &= \mbu_{\infty}(\mbx) + 
+  \beta P(B\mbx + T\sigma) + \sgl(B\mbx + T\sigma), \\
+  D \frac{d\mbx}{dt} &= 0.
+\end{align}
+By writing $B^N$ to mean the bending operator due to the vesicle
+configuration at time $t_N$, and similar notation for the other
+operators, we address the stiffness by introducing the semi-implicit
+time stepping method
+\begin{align}  
+  \frac{\mbx^{N+1} - \mbx^N}{\Delta t} = \mbu_\infty(\mbx^N) 
+  + \beta P^N\left(B^N\mbx^{N+1} + T^N\sigma^{N+1}\right) 
+  + \sgl^N\left(B^N\mbx^{N+1} + T^N\sigma^{N+1}\right).
+\end{align}
+Finally, the inextensibility condition is applied by requiring that 
+\begin{align}
+  D^N\mbx^{N+1} = 1.
+\end{align}
+
+\todo[inline]{A few lines about SDC}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Examples}
+We consider a single semi-permeable vesicle in four different flow
+regimes.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Quiescent Flow}
+\begin{itemize}
+  \item Always goes to a circle
+  \item Area formula works
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Shear Flow}
+\begin{itemize}
+  \item Never goes to a circle
+  \item Area formula works
+  \item Mild dependence on initial shape
+  \item Most slender tank treading shapes seen for small $\beta$ and
+    large $\chi$
+\end{itemize}
+
+%\input{figures/shearPhaseDiagram.tikz}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Extensional Flow}
+\begin{itemize}
+  \item ???
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Poiseuille Flow}
+\begin{itemize}
+  \item ???
+\end{itemize}
+
+
+
+
+
+ \bibliographystyle{plain}
+ \bibliography{refs}
+
+
+
+
+ \newpage
+ \paragraph{\bf \Huge OLD STUFF}
 
 %%%%%%%%%%%%%%
 \section{{$\Theta-L$} formulation}
@@ -96,54 +339,7 @@ $\tilde{\mbu}$ satisfies
 Compared to equation (40), only the last term is new.
 
 
-\section{Integral equation formulation}
-There are multiple ways to convert the PDE problem into integral
-equations. Based on my derivation, the coupled set of
-integro-differential equations satisfy the given interfacial conditions:
-\beq 
-  \dot{\mbx} = \mbu_\infty(\mbx) + \beta (\mbf_\text{mem}\cdot\mbn)\mbn + \sgl [\mbf_\text{mem}], 
-  \label{eqn:vesVelocity}
-\eeq
-\beq 
-  \mbx_s\cdot\dot{\mbx}_s = 0 
-\eeq
-This satisfies all the jump conditions. As usual, $\sgl$ is the single layer potential. 
-
-\section{Numerics}
-To address stiffness associated with high-order derivatives,
-equation~\eqref{eqn:vesVelocity} is discretized with a semi-implicit
-time stepping method similar to our previous works.  First, we introduce
-the notation
-\begin{align}
-  B[\mbx]\mbf &= -\kappa_b\frac{d^4}{ds^4} \mbf, \\
-  T[\mbx]\sigma &= (\sigma \mbx_s)_s, \\
-  P[\mbx]\mbf &= (\mbf \cdot \mbn) \mbn, \\
-  D[\mbx]\mbf &= \mbx_s \cdot \mbf_s,
-\end{align}
-where $\mbn$ is the outward unit normal of the vesicle
-parameterized by $\mbx$, and $d/ds$ is its arclength derivative.
-Dropping the dependence of the operators on $\mbx$, the dynamics of the
-vesicle are governed by
-\begin{align}
-  \dot{\mbx} &= \mbu_{\infty}(\mbx) + 
-  \beta P(B\mbx + T\sigma) + \sgl(B\mbx + T\sigma), \\
-  D \dot{\mbx} &= 0.
-\end{align}
-Using the notation $B^N$ to denote the bending operator due to the
-vesicle configuration at time $t_N$, and similar notation for the other
-operators, we apply the semi-implicit time stepping method
-\begin{align}  
-  \frac{\mbx^{N+1} - \mbx^N}{\Delta t} = \mbu_\infty(\mbx^N) 
-  + \beta P^N(B^N\mbx^{N+1} + T^N\sigma^{N+1}) 
-  + \sgl^N(B^N\mbx^{N+1} + T^N\sigma^{N+1}).
-\end{align}
-Applying $D$ to the first-order time discretization of
-equation~\eqref{eqn:vesVelocity}, the inextensibility condition is
-\begin{align*}
-  &D^N(\mbx^{N+1} - \mbx^N) = 0 \\ 
-  \Rightarrow &D^N\mbx^{N+1} = D^N \mbx^N \\ 
-  \Rightarrow &D^N\mbx^{N+1} = 1.
-\end{align*}
+%%%%%%%%%%%%%%
 Finally, we write the time stepping method in matrix form as
 \begin{align}
   A \left(
@@ -227,11 +423,6 @@ osmophoretic flow.  In~\cite{yao-mor2017}, this flux is
 In our current implementation, we drop the $RT\jump{c}$ term, and
 let $\beta = k_w$.
 
-
-
-\input{figures/shearPhaseDiagram.tikz}
-
-
 \section{Preliminary results}
 
 
@@ -307,9 +498,6 @@ let $\beta = k_w$.
  	\caption{Bending energy as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 2$.}
  	\label{Shear0}
  \end{figure}
-
- \bibliographystyle{plain}
- \bibliography{refs}
 
 
 \end{document}
