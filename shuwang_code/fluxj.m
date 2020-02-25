@@ -11,18 +11,20 @@ function term = fluxj(sl,theta,rcon,bendsti,bendratio,consta,m,eps_ch)
 % m - number of points on vesicle
 % eps_ch - small parameter in equation (65)
 
-%term - ???
+%term - a/e(f'(u)-e^2u_ss) term in eq (13) + 
 
-% compute the 1st term from free energy
+% compute the 1st term from free energy ...?
+
+% Computing the a/e(f'(u)-e^2u_ss) term in eq (13)
 % term1 is f'(u) where f(u) is defined immediately after equation (11).
 % This shows up in equation (13)
 % It is the derivative of the double-well potential
-term1 = 1/2*(rcon(1,1:m).*(ones(1,m)-rcon(1,1:m)).^2 - ...
+dfu = 1/2*(rcon(1,1:m).*(ones(1,m)-rcon(1,1:m)).^2 - ...
              rcon(1,1:m).^2.*(ones(1,m)-rcon(1,1:m)));
-
-% compute the 2nd term
-rcons = fd1(rcon,m); % derivative of the concentration
-rconss = fd1(rcons,m); % second derivative of the concentration
+% derivative of the concentration
+rcons = fd1(rcon,m); 
+% second derivative of the concentration
+rconss = fd1(rcons,m);
 % This is eps^2 * u_{ss} as defined in equation (13)
 term2 = -eps_ch^2*rconss(1,1:m)/sl^2;
 
@@ -44,7 +46,7 @@ term3 = 0.5*rbndu.*dkap(1,1:m).^2;
 
 % now put all terms together. Note that term3 is not multiplied by the
 % a/eps term
-term(1,1:m) = consta/eps_ch * (term1 + term2) + term3(1,1:m);
+term(1,1:m) = consta/eps_ch * (dfu + term2) + term3(1,1:m);
 term = [term term(1)];
 
 end

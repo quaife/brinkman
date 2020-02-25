@@ -14,10 +14,14 @@ function [fncon,termd] = frconim(m,sl,rcon,theta,bendsti,...
 % termd - ???
  
 % compute the old forcing
+%computing the variational derivative in eq (13) only for
+%the a/e(f'(u)-e^2u_ss) term
 termd = fluxj(sl,theta,rcon,bendsti,bendratio,consta,m,eps_ch);
-% now taking derivative of term, twice
+%setting up RHS of eq (75)
+% now taking derivative of termd twice
 rcons = fd1(termd,m);       
 rconss = fd1(rcons,m);
+
 betarcon = 1;
 fcon(1,1:m) = betarcon*rconss(1,1:m)/sl^2;
 fcon(1,m+1) = fcon(1,1);
