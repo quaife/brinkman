@@ -8,7 +8,7 @@ irate = 10000; % controls the speed of the visualization
 %file = 'extensional1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/semipermeable/shear1VesData_fluxCoeff1_fluxShape3_fluxWidth4.bin';
 %file = '~/projects/brinkman/vesicle_code/examples/output/shear1VesData.bin';
-file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi9p6e0_ra065_beta2p0e0/shear1VesData.bin';
+file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1_ra065_beta2p0e0/shear1VesData.bin';
 chi = 5.0; beta = 1.0;
 
 [posx,posy,sigma,wallx,wally,ea,el,time,n,nv] = loadFile(file);

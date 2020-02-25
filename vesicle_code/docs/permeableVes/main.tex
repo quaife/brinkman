@@ -220,6 +220,12 @@ Applying Frenet-serret again,
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Numerical Methods}
 \subsection{Discretization in Space}
+We apply a collocation method where the vesicle is discretized at $N$
+points. We need to compute derivatives of functions defined on the
+vesicle boundary, and these are done with Fourier differentiation.
+Finally, to compute the single-layer potential, we use an eight-order
+Alpert quadrature rule~\cite{alp1999} which resolves the logarithmic
+singularity of the integrand.
 
 \subsection{Discretization in Time}
 By using an integral equation formulation, the only unknowns are the

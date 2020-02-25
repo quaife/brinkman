@@ -23,15 +23,15 @@ rcons = fd1(termd,m);
 rconss = fd1(rcons,m);
 
 betarcon = 1;
-fcon(1,1:m) = betarcon*rconss(1,1:m)/sl^2;
-fcon(1,m+1) = fcon(1,1);
+fcon(1:m) = betarcon*rconss(1:m)/sl^2;
+fcon(m+1) = fcon(1);
 
 % now we must subtract off the stiffest part in Fourier space.
-temp(1,1:m) = fcon(1,1:m);
-tempt(1,1:m) = rcon(1,1:m);
+temp(1:m) = fcon(1:m);
+tempt(1:m) = rcon(1:m);
 
-temp(1,m+1) = temp(1,1);
-tempt(1,m+1) = tempt(1,1);
+temp = [temp temp(1)];
+tempt = [tempt tempt(1)];
 temp = fft(temp,m);
 tempt = fft(tempt,m);
 
