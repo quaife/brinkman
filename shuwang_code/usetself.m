@@ -14,7 +14,7 @@ function [un,ut,rlambdalnew,xo,yo,forc1,forc2,xcc,ycc,...
 % un - normal velocity
 % ut - tangential velocity
 % rlambdalnew - Lagrange multiplier for inextensibility which is given
-% as T_s + \kappa V = 0
+% as T_s + \kappa V = 0. This is defined in equation (39).
 % xo - x-coordinates coming from the length, angle, and reference point
 % yo - y-coordinates coming from the length, angle, and reference point
 % forc1 - variational derivative with respect to the membrane shape
@@ -32,8 +32,8 @@ dkap = acurv(sl,theta,m);
 % discretization points to form x and y coordinates of the vesicle
 [xo,yo] = recon(m,x0,y0,sl,theta);     
 
-%Green's identity on (1/2)Integral(x dot n) to find the area inside 
-%the vesicle (Integral about the surface of dx)
+% Green's identity on (1/2)Integral(x dot n) to find the area inside the
+% vesicle (Integral about the surface of dx)
 sum2 = sum(sin(theta(1,1:m)).*xo(1,1:m) - ...
            cos(theta(1,1:m)).*yo(1,1:m))/2*sl/m;
 

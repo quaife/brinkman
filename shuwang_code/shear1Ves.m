@@ -79,8 +79,8 @@ kmatrix = formkmatrix(ngrid);
 u1x = ux0(1);
 u1y = uy0(1);
 % put the x-y velocity into the normal and tangential velocity.
-un(1,:)  = ux0.*sin(theta) - uy0.*cos(theta);
-utt(1,:) = ux0.*cos(theta) + uy0.*sin(theta);
+un  = ux0.*sin(theta) - uy0.*cos(theta);
+utt = ux0.*cos(theta) + uy0.*sin(theta);
  
 % Update arc length change over time using a first-order Euler method.
 % For subsequent time steps, will use a multistep method as described in
@@ -90,41 +90,52 @@ sln = sl + dt*fsl;
 % Forward Euler for the arclength. fsl should be zero, so this is just
 % checking for discretization and round-off errors
 
-% Get the veocity of the vesicle by its velocity of the tangential
-% angle, but without the stiff term. We believe that fntheta is the
-% nonlinear term N_1 defined in equation (54) from Sohn et al. JCP 2010
+% Get the velocity of the vesicle by its velocity of the tangential
+% angle, but without the stiff term. fntheta is the nonlinear term N_1
+% defined in equation (54) but without the alpha derivative multiplied
+% by the integral operator \mathcal{L}
 fntheta = fthetaim(m,sl,theta,bendsti,un,utt);
 
-% compute phase velocity of the concentration (con) species
+% compute the non-stiff term for the velocity of the concentration
+% (rcon) of the lipid species. This is what they call N_2.
 fncon = frconim(m,sl,rcon,theta,bendsti,bendratio,eps_ch,consta);
 
 % next evolve the shape and the phase distribution in Fourier space.
 % Fourier series of the derivative of the tangent angle. i.e. Fourier
 % series of N_1
 temp1 = fft(fntheta); 
-% Fourier derivative of the tangent angle
+% Fourier derivative of the tangent angle adjusted by a linear function
+% so that we are taking the fft of a periodic function
 temp2 = fft(theta - 2*pi*(0:m-1)/m);
 
+% Nk are the Fourier modes
 Nk = pi*2*[0 1:m/2 m/2-1:-1:1];
-% c nonlocal model for theta	
+% stiff term in equation (55) that will be integrated implicitly using
+% an integrating factor
 rsl = bendsti*(Nk/sl).^3/4;
 % 'n' is for 'new' since we'll be using multistep
 rsln = bendsti*(Nk/sln).^3/4;
-% use trapezoid rule to approximate integral in equation (57)
+% use trapezoid rule to approximate integral in equation (57). This next
+% line is exactly equation (58) for the quadrature
 d1 = dt*(rsl + rsln)/2;
 % d1 is now exactly as in equation (57). Each Fourier mode has its own
 % integating factor
 d1 = exp(-d1);
+% This is the Forward Euler method that is analagous to equation(56)
 temp4(1,1:m) = d1.*(temp2(1,1:m) + dt*temp1(1,1:m));
 temp4 = real(ifft(temp4));
 
 % add back on the linear function that makes theta a function that grows
-% by 2*pi everytime you go completely around the shape (ie. vesicle)
+% by 2*pi everytime you go completely around the shape (ex. vesicle).
+% thetan is now the tangent angle of the new shape after taking a single
+% step of Euler with the stiffest term treated implicitly and integrated
+% with an integrating factor
 thetan = temp4 + 2*pi*(0:m-1)/m;
 
 % lipid species model for u
 rk = 2*pi*[0 1:m/2 m/2-1:-1:1]; 
-% Fourier modes, but scaled by 2*pi
+% Fourier modes, but scaled by 2*pi. Note that these two vectors will be
+% nearly identical since sl \approx sln by inextensibility
 rsl = eps_ch*(rk/sl).^4*consta;
 rsln = eps_ch*(rk/sln).^4*consta;
 % form stiffest term that is treated implicitly, but is also linear (and
@@ -133,15 +144,20 @@ rsln = eps_ch*(rk/sln).^4*consta;
 % compute the integrating factor for each Fourier mode using the
 % trapezoid rule
 d1 = dt/nloop*(rsl + rsln)/2;
+% d1 is the integrating factor in equation (70)
 d1 = exp(-d1);
 
 % Take small time steps to move the lipid species from time 0 to time dt
 for i=1:nloop
-  % evolve the phase field on the surface
+  % fncon is the non-linear term N_2 in equation (67)
   fncon = frconim(m,sl,rcon,theta,bendsti,bendratio,eps_ch,consta);
+  % temp1c is the fourier coefficients of N_2 as in equation (68)
   temp1c = fft(fncon(1:m));
+  % temp2c is the fourier coefficients of the lipid species
+  % concentration as in equation (68)
   temp2c = fft(rcon(1:m));
   
+  % First-order Euler method that is analagous to equation (69)
   temp4 = d1.*(temp2c + dt/nloop*temp1c);
   rconn = real(ifft(temp4));
   rcon = rconn;
@@ -149,11 +165,13 @@ end
 
 areasum = sum(sin(theta).*x(1:m)-cos(theta).*y(1,1:m))/2*sl/m;
 
-% update the position using un-numbered equation after (61)
+% update the position with Forward Euler. At future time steps,
+% second-order Adams-Bashforth will be used
 x0 = x0 + dt*u1x;
 y0 = y0 + dt*u1y;
 
-%write results if the time is right
+% write results to variables that will store results at some time steps
+% depending on parameter settings
 tcomp = dt*ktime;
 np = ktime/outpt+1;
 lambda = rlambdalnew(1:m)';
@@ -164,7 +182,7 @@ ss(1) = sl;
 vx = ux0';
 vy = uy0';
 
-%From the second step, use multistep the evolve the dynamics.
+% From the second step, use multistep the evolve the dynamics.
 for ktime = 1:nstep
   tic
   tcomp = ktime*dt;
