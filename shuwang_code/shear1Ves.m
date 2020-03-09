@@ -49,6 +49,7 @@ nloop = 20;
  
 ktime = 0;
 m = ngrid;
+% number of points on vesicle
 
 tcomp=dt*ktime;
 nstep = round(T/dt);
@@ -63,9 +64,14 @@ outpt = round(outpt/dt);
 x0 = x(1);
 y0 = y(1);
 sl = 2.6442;
+% For Shuwang: Why is sl defined here? It is actually an output
+% of the call to initialsetup. It is just currently not asked
+% for in the call above
 x0 = x0/2;
 y0 = y0/2;
 kmatrix = formkmatrix(ngrid);
+% For Shuwang: Not sure why we need kmatrix. It is a matrix that has a
+% checkerboard pattern of zeros and ones
 
 % compute the x velocity, y velocity, Lagrange multiplier, body forces,
 % new shape, and center of mass using the initialized concentration
@@ -162,6 +168,8 @@ for i=1:nloop
   rconn = real(ifft(temp4));
   rcon = rconn;
 end
+% For Shuwang: Why do we have to take a time step size that is 1/20 the
+% size of the time step size used for the hydrodynamics?
 
 areasum = sum(sin(theta).*x(1:m)-cos(theta).*y(1,1:m))/2*sl/m;
 
