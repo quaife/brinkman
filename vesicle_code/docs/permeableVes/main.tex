@@ -169,11 +169,10 @@ have
   &= \beta \int_\gamma \left(-\kappa_b \xx_{sss} + \sigma \xx_s 
     \right) \cdot \kappa \xx_s \, ds \\
   &= \beta \int_\gamma \left(\kappa_b \xx_{ss} \cdot 
-    (\kappa \xx_s)_s \right) \, ds +
-    \beta \int_\gamma \kappa \sigma \, ds \\
+    (\kappa \xx_s)_s + \kappa \sigma \right) \, ds \\
   &= \beta \int_\gamma \left(\kappa_b \kappa (\xx_{ss} \cdot \xx_{ss}) + 
-    \kappa_b \kappa_s (\xx_{ss} \cdot \xx_s) \right) \, ds +
-    \beta \int_\gamma \kappa \sigma \, ds \\
+    \kappa_b \kappa_s (\xx_{ss} \cdot \xx_s) + \kappa \sigma \right) 
+    \, ds \\
   &= \beta \int_\gamma \left(\kappa_b \kappa^3 + \kappa \sigma \right) 
     \, ds.
 \end{align*}
@@ -185,7 +184,7 @@ have
 We apply a collocation method where the vesicle is discretized at $N$
 points. We need to compute derivatives of functions defined on the
 vesicle boundary, and these are done with Fourier differentiation.
-Finally, to compute the single-layer potential, we use an eight-order
+Finally, to compute the single-layer potential, we use an eighth-order
 Alpert quadrature rule~\cite{alp1999} which resolves the logarithmic
 singularity of the integrand.
 
