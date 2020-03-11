@@ -70,8 +70,9 @@ sl = 2.6442;
 x0 = x0/2;
 y0 = y0/2;
 kmatrix = formkmatrix(ngrid);
-% For Shuwang: Not sure why we need kmatrix. It is a matrix that has a
-% checkerboard pattern of zeros and ones
+% kmatrix is checkerboard pattern of 0s and 1s which is dot multiplied y
+% the layer potential matricies so that the quadrature is odd/even
+% trapezoid rule.
 
 % compute the x velocity, y velocity, Lagrange multiplier, body forces,
 % new shape, and center of mass using the initialized concentration

@@ -108,12 +108,12 @@ conditions~\eqref{eqn:jump1} and~\eqref{eqn:jump2} required on the
 interface, the fluid velocity can be represented as the single-layer
 potential
 \begin{align}
-  \uu(\xx) = \uu_\infty(\xx) + \sgl[\ff_\text{mem}](\xx), \quad
+  \uu(\xx) = \uu_\infty(\xx) + \SS[\ff_\text{mem}](\xx), \quad
     \xx \in \Omega,
 \end{align}
 where
 \begin{align}
-  \sgl[\ff](\xx) = \frac{1}{4\pi\mu} \int_{\gamma} \left(
+  \SS[\ff](\xx) = \frac{1}{4\pi\mu} \int_{\gamma} \left(
     -\mathbf{I} \log\rho + \frac{\rr \otimes \rr}{\rho^2} \right)
     \ff(\yy) ds_{\yy},
 \end{align}
@@ -122,7 +122,7 @@ kinematic equation, the dynamics of the vesicle
 \begin{align}
   \label{eqn:vesVelocity}
   \frac{d\xx}{dt} = \uu_\infty(\xx) + \beta (\ff_\text{mem}\cdot\nn)\nn
-  + \sgl [\ff_\text{mem}](\xx).
+  + \SS [\ff_\text{mem}](\xx).
 \end{align}
 Finally, the inextensibility condition is given by
 \begin{align}
@@ -134,92 +134,49 @@ Finally, the inextensibility condition is given by
 Since the vesicle merrane is semi-permeable, the vesicle's area
 fluctuates.  Parameterizing the vesicle with $\xx$, its area is
 \begin{align}
-  A(t) = \frac{1}{2}\int_{\gamma} (\xx \cdot \nn)\, ds = 
-    \frac{1}{2}\int_{0}^{2\pi} \left(\xx \cdot \pderiv{\xx}{\theta}^\perp\right)
-    \, d\theta.
+  A(t) = \frac{1}{2}\int_{\gamma} (\xx \cdot \nn)\, ds .
 \end{align}
-
-\todo[inline]{Can do this part of the calculation using FTC}
-Taking the time derivative of $A(t)$,
+The time derivative of $A(t)$ includes terms due to the time derivative
+of $\xx \cdot \nn$, and a term due to interface
+stretching~\cite{lai-tse-hua2008}. However, this second term is zero
+because of the local inextensibility condition. Therefore, 
 \begin{align}
-  \dot{A}(t) &= \frac{1}{2}\int_{0}^{2\pi} \left(\dot{\xx} \cdot
-  \pderiv{\xx}{\theta}^{\perp} + 
-    \xx \cdot \pderiv{\dot{\xx}}{\theta}^{\perp}\right) d\theta, \\
-  &= \frac{1}{2}
-  \int_{0}^{2\pi}(\dot{\xx}\cdot\nn)\left\|\pderiv{\xx}{\theta}\right\|d\theta +
-     \frac{1}{2}\int_{0}^{2\pi}
-    \left(\xx \cdot \pderiv{\dot{\xx}}{\theta}^{\perp}\right)d\theta, \\
-  &= \frac{\beta}{2} \int_{\gamma}\left(\ff\cdot\nn\right)ds +
-  \frac{1}{2}\int_{0}^{2\pi}\left(\xx \cdot \pderiv{}{t}\left(\nn
-  \left\|\pderiv{\xx}{\theta}\right\|\right)\right)d\theta, \\
-  &= \frac{\beta}{2} \int_{\gamma}\left(\ff\cdot\nn\right)ds + \frac{1}{2}
-  \int_{\gamma}\left(\xx\cdot\dot{\nn}\right)ds + \frac{1}{2}\int_{0}^{2\pi}
-  \frac{\xx\cdot\nn}{\left\|\pderiv{\xx}{\theta}\right\|}
-  \left(\pderiv{\xx}{\theta}\cdot
-  \pderiv{\dot{\xx}}{\theta}\right)d\theta \\
-  &= \frac{\beta}{2} \int_{\gamma}\left(\ff\cdot\nn\right)ds + \frac{1}{2}
-  \int_{\gamma}\left(\xx\cdot\dot{\nn}\right)ds + \frac{1}{2}\int_{\gamma}
-  (\xx\cdot\nn) (\xx_s \cdot \dot{\xx}_s)\, ds.
+  \dot{A}(t) &= \frac{1}{2} \int_{\gamma} \pderiv{}{t} 
+    (\xx \cdot \nn) \, ds = 
+  \frac{1}{2} \int_{\gamma} (\dot{\xx} \cdot \nn)\, ds  + 
+  \frac{1}{2} \int_{\gamma} (\xx \cdot \dot{\nn})\, ds.
 \end{align}
-To satisfy the inextensibilty condition, $\xx_s \cdot \dot{\xx}_s = 0$.
-Therefore the time derivative of $A(t)$ is
+The second integrand can be computed as
 \begin{align}
-     \dot{A}(t) &= \frac{\beta}{2} \int_{\gamma}\left(\ff\cdot\nn\right)ds
-     + \frac{1}{2} \int_{\gamma}\left(\xx\cdot\dot{\nn}\right)ds.
+  \int_\gamma (\xx \cdot \dot{\nn})\, ds 
+    = -\int_\gamma \left(\xx^\perp \cdot \dot{\xx}_s\right)\, ds 
+    = \int_\gamma \left(\xx_s^\perp \cdot \dot{\xx}\right)\, ds 
+    = \int_\gamma (\dot{\xx} \cdot \nn)\, ds.
 \end{align}
-which we re-write as
+Therefore,
 \begin{align}
-    \dot{A}(t) &= \frac{\beta}{2}
-    \int_{\gamma}\left(\ff\cdot\nn\right)ds-\frac{1}{2}\int_{\gamma}\left(\xx^{\perp}\cdot\dot{\xx}_s\right) ds.
+  \dot{A}(t) &= \int_\gamma (\dot{\xx} \cdot \nn)\, ds 
+  = \int_\gamma \left(\beta (\ff \cdot \nn)\nn + \SS[\ff]\right) 
+      \cdot \nn\, ds 
+  = \beta \int_\gamma (\ff \cdot \nn)\, ds,
 \end{align}
-Applying integration by parts,
-\begin{align}
-    \dot{A}(t) &= \frac{\beta}{2}
-    \int_{\gamma}\left(\ff\cdot\nn\right)ds+\frac{1}{2}\int_{\gamma}\left(\xx^{\perp}_s\cdot\dot{\xx}\right) ds,
-\end{align}
-which we re-write as
-\begin{align}
-    \dot{A}(t) &= \frac{\beta}{2}
-    \int_{\gamma}\left(\ff\cdot\nn\right)ds+\frac{1}{2}\int_{\gamma}\left(\dot{\xx}\cdot\nn\right),\\
-    \dot{A}(t) &= \beta \int_{\gamma}\left(\ff\cdot\nn\right)ds.
-\end{align}
-At steady state,
-\begin{align}
-    \dot{A}(t) &= \beta \int_{\gamma}\left(\ff\cdot\nn\right)ds =0.
-\end{align}
-We now replace $\ff$ with its definition and apply integration by parts
-\begin{align}
-   0=\beta\int_{\gamma} 
-    (-\kappa_b\xx_{ssss}+(\sigma\xx_s)_s)\cdot\nn\, ds =
-   \beta\int_{\gamma}\left(\kappa_b\xx_{sss}-\sigma\xx_s\right)\cdot
-     \nn_s\, ds
-\end{align}
-From the Frenet-Serret formulas, we have 
-\begin{align}
-     -\beta\int_{\gamma}
-     \left(\kappa_b\xx_{sss}-\sigma\xx_s\right)\cdot\kappa\xx_s ds &=0.
-\end{align}
-
-Applying integration by parts and Frenet-Serret again
-\begin{align}
-     \beta\int_{\gamma}
-     \kappa_b\kappa\left(\xx_{ss}\cdot\xx_{ss}\right)ds + \beta
-     \int_{\gamma} \kappa_b \kappa_s(\xx_{ss} \cdot \xx_s)ds +\beta\int_{\gamma}\kappa\sigma ds  &= 0,\\
-    \beta\int_{\gamma} \kappa_b\kappa(\kappa\nn \cdot
-     \kappa\nn)+ \beta \int_{\gamma} \kappa_b \kappa_s(\xx_{ss} \cdot
-     \xx_s)ds +\beta\int_{\gamma}\kappa\sigma ds &= 0,
-\end{align}
-which we re-write as
-\begin{align}
-   \beta\int_{\gamma}\kappa_b\kappa^3 ds + \beta \int_{\gamma} \kappa_b
-   \kappa_s(\xx_{ss} \cdot \xx_s)ds +\beta\int_{\gamma} \kappa\sigma ds = 0.
-\end{align}
-Applying Frenet-serret again,
-\begin{align}
-    \beta\int_{\gamma}\kappa_b\kappa^3 ds + \beta \int_{\gamma} \kappa_b
-    \kappa_s(\kappa\nn \cdot \TT)ds +\beta\int_{\gamma} \kappa\sigma ds = 0, \\
-    \beta\int_{\gamma}\kappa_b\kappa^3 ds +\beta\int_{\gamma} \kappa\sigma ds  = 0.
-\end{align}
+where the last equality comes follows from the divergence theorem.
+Finally, using integration by parts and the Frenet-Serret identities, we
+have
+\begin{align*}
+  \dot{A}(t) &= \beta \int_\gamma \left( -\kappa_b \xx_{ssss} + 
+    (\sigma \xx_s)_s \right) \cdot \nn \, ds \\
+  &= \beta \int_\gamma \left(-\kappa_b \xx_{sss} + \sigma \xx_s 
+    \right) \cdot \kappa \xx_s \, ds \\
+  &= \beta \int_\gamma \left(\kappa_b \xx_{ss} \cdot 
+    (\kappa \xx_s)_s \right) \, ds +
+    \beta \int_\gamma \kappa \sigma \, ds \\
+  &= \beta \int_\gamma \left(\kappa_b \kappa (\xx_{ss} \cdot \xx_{ss}) + 
+    \kappa_b \kappa_s (\xx_{ss} \cdot \xx_s) \right) \, ds +
+    \beta \int_\gamma \kappa \sigma \, ds \\
+  &= \beta \int_\gamma \left(\kappa_b \kappa^3 + \kappa \sigma \right) 
+    \, ds.
+\end{align*}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -255,7 +212,7 @@ we write $B\ff$ to mean $B[\xx]\ff$, and use similar notation for the
 other operators. Then, the dynamics of the vesicle are governed by
 \begin{align}
   \frac{d\xx}{dt} &= \uu_{\infty}(\xx) + 
-  \beta P(B\xx + T\sigma) + \sgl(B\xx + T\sigma), \\
+  \beta P(B\xx + T\sigma) + \SS(B\xx + T\sigma), \\
   D \frac{d\xx}{dt} &= 0.
 \end{align}
 By writing $B^N$ to mean the bending operator due to the vesicle
@@ -265,7 +222,7 @@ time stepping method
 \begin{align}  
   \frac{\xx^{N+1} - \xx^N}{\Delta t} = \uu_\infty(\xx^N) 
   + \beta P^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right) 
-  + \sgl^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right).
+  + \SS^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right).
 \end{align}
 Finally, the inextensibility condition is applied by requiring that 
 \begin{align}
@@ -315,17 +272,15 @@ viscosity.
   \item ???
 \end{itemize}
 
-%\ifTikz
+\ifTikz
 \input{figures/extensionalPhaseDiagram.tikz}
-%\fi
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Poiseuille Flow}
 \begin{itemize}
   \item ???
 \end{itemize}
-
-
 
 
 
@@ -382,8 +337,8 @@ where
 \begin{align}
  A = \left(
   \begin{array}{cc}
-    I + \Delta t \beta P^N B^N + \Delta t \sgl^N B^N & 
-    -\Delta t P^N T^N - \Delta t \sgl^N T^N \\
+    I + \Delta t \beta P^N B^N + \Delta t \SS^N B^N & 
+    -\Delta t P^N T^N - \Delta t \SS^N T^N \\
     D^N & 0
   \end{array}
   \right).
@@ -407,6 +362,97 @@ Taking the time derivative of $A(t)$,
      \int_{0}^{2\pi}
     \xx \cdot \frac{d}{dt}\left(\nn |\frac{d\xx}{d\theta}| \right)
 \end{align}
+
+
+
+\begin{align}
+  A(t) = \frac{1}{2}\int_{\gamma} (\xx \cdot \nn)\, ds = 
+    \frac{1}{2}\int_{0}^{2\pi} \left(\xx \cdot \pderiv{\xx}{\theta}^\perp\right)
+    \, d\theta.
+\end{align}
+Taking the time derivative of $A(t)$,
+\begin{align}
+  \dot{A}(t) &= \frac{1}{2}\int_{0}^{2\pi} \left(\dot{\xx} \cdot
+  \pderiv{\xx}{\theta}^{\perp} + 
+    \xx \cdot \pderiv{\dot{\xx}}{\theta}^{\perp}\right) d\theta, \\
+  &= \frac{1}{2}
+  \int_{0}^{2\pi}(\dot{\xx}\cdot\nn)\left\|\pderiv{\xx}{\theta}\right\|d\theta +
+     \frac{1}{2}\int_{0}^{2\pi}
+    \left(\xx \cdot \pderiv{\dot{\xx}}{\theta}^{\perp}\right)d\theta, \\
+  &= \frac{\beta}{2} \int_{\gamma}\left(\ff\cdot\nn\right)ds +
+  \frac{1}{2}\int_{0}^{2\pi}\left(\xx \cdot \pderiv{}{t}\left(\nn
+  \left\|\pderiv{\xx}{\theta}\right\|\right)\right)d\theta, \\
+  &= \frac{\beta}{2} \int_{\gamma}\left(\ff\cdot\nn\right)ds + \frac{1}{2}
+  \int_{\gamma}\left(\xx\cdot\dot{\nn}\right)ds + \frac{1}{2}\int_{0}^{2\pi}
+  \frac{\xx\cdot\nn}{\left\|\pderiv{\xx}{\theta}\right\|}
+  \left(\pderiv{\xx}{\theta}\cdot
+  \pderiv{\dot{\xx}}{\theta}\right)d\theta \\
+  &= \frac{\beta}{2} \int_{\gamma}\left(\ff\cdot\nn\right)ds + \frac{1}{2}
+  \int_{\gamma}\left(\xx\cdot\dot{\nn}\right)ds + \frac{1}{2}\int_{\gamma}
+  (\xx\cdot\nn) (\xx_s \cdot \dot{\xx}_s)\, ds.
+\end{align}
+To satisfy the inextensibilty condition, $\xx_s \cdot \dot{\xx}_s = 0$.
+Therefore the time derivative of $A(t)$ is
+\begin{align}
+     \dot{A}(t) &= \frac{\beta}{2} \int_{\gamma}\left(\ff\cdot\nn\right)ds
+     + \frac{1}{2} \int_{\gamma}\left(\xx\cdot\dot{\nn}\right)ds.
+\end{align}
+which we re-write as
+\begin{align}
+    \dot{A}(t) &= \frac{\beta}{2}
+    \int_{\gamma}\left(\ff\cdot\nn\right)ds-\frac{1}{2}\int_{\gamma}\left(\xx^{\perp}\cdot\dot{\xx}_s\right) ds.
+\end{align}
+Applying integration by parts,
+\begin{align}
+    \dot{A}(t) &= \frac{\beta}{2}
+    \int_{\gamma}\left(\ff\cdot\nn\right)ds+\frac{1}{2}\int_{\gamma}\left(\xx^{\perp}_s\cdot\dot{\xx}\right) ds,
+\end{align}
+which we re-write as
+\begin{align}
+    \dot{A}(t) &= \frac{\beta}{2}
+    \int_{\gamma}\left(\ff\cdot\nn\right)ds+\frac{1}{2}\int_{\gamma}\left(\dot{\xx}\cdot\nn\right),\\
+    \dot{A}(t) &= \beta \int_{\gamma}\left(\ff\cdot\nn\right)ds.
+\end{align}
+
+
+At steady state,
+\begin{align}
+    \dot{A}(t) &= \beta \int_{\gamma}\left(\ff\cdot\nn\right)ds =0.
+\end{align}
+We now replace $\ff$ with its definition and apply integration by parts
+\begin{align}
+   0=\beta\int_{\gamma} 
+    (-\kappa_b\xx_{ssss}+(\sigma\xx_s)_s)\cdot\nn\, ds =
+   \beta\int_{\gamma}\left(\kappa_b\xx_{sss}-\sigma\xx_s\right)\cdot
+     \nn_s\, ds
+\end{align}
+From the Frenet-Serret formulas, we have 
+\begin{align}
+     -\beta\int_{\gamma}
+     \left(\kappa_b\xx_{sss}-\sigma\xx_s\right)\cdot\kappa\xx_s ds &=0.
+\end{align}
+
+Applying integration by parts and Frenet-Serret again
+\begin{align}
+     \beta\int_{\gamma}
+     \kappa_b\kappa\left(\xx_{ss}\cdot\xx_{ss}\right)ds + \beta
+     \int_{\gamma} \kappa_b \kappa_s(\xx_{ss} \cdot \xx_s)ds +\beta\int_{\gamma}\kappa\sigma ds  &= 0,\\
+    \beta\int_{\gamma} \kappa_b\kappa(\kappa\nn \cdot
+     \kappa\nn)+ \beta \int_{\gamma} \kappa_b \kappa_s(\xx_{ss} \cdot
+     \xx_s)ds +\beta\int_{\gamma}\kappa\sigma ds &= 0,
+\end{align}
+which we re-write as
+\begin{align}
+   \beta\int_{\gamma}\kappa_b\kappa^3 ds + \beta \int_{\gamma} \kappa_b
+   \kappa_s(\xx_{ss} \cdot \xx_s)ds +\beta\int_{\gamma} \kappa\sigma ds = 0.
+\end{align}
+Applying Frenet-serret again,
+\begin{align}
+    \beta\int_{\gamma}\kappa_b\kappa^3 ds + \beta \int_{\gamma} \kappa_b
+    \kappa_s(\kappa\nn \cdot \TT)ds +\beta\int_{\gamma} \kappa\sigma ds = 0, \\
+    \beta\int_{\gamma}\kappa_b\kappa^3 ds +\beta\int_{\gamma} \kappa\sigma ds  = 0.
+\end{align}
+
 
 \section{Including a concentration field}
 Based on the work of Yao and Mori~\cite{yao-mor2017}, we introduce a
