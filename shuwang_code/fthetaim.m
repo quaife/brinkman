@@ -1,7 +1,16 @@
 function fntheta = fthetaim(m,sl,theta,bendsti,un,utt)
+% m - number of discretization points
+% sl - total length
+% theta - opening angle of tangent vector
+% bendsti - max (or min?) bending stiffness 
+% un - normal velocity
+% utt - tangential velocity
 
+% fntheta - ???
+
+% compute right hand side of the ODE for \theta in equation (8) in Sohn
+% et al JCP 2010
 ftheta = forctheta(m,sl,theta,un,utt);
-% compute right hand side of equation (8) in Sohn et al JCP 2010
 
 % now we must subtract off the stiffest part in Fourier space.
 temp(1,1:m) = ftheta(1,1:m);
@@ -12,14 +21,11 @@ temp = fft(temp,m);
 tempt = fft(tempt,m);
 % for nonlocal model, but everything is nonlocal in our formulation!
 
+% Fourier modes
 N = pi*2*[0 1:m/2 m/2-1:-1:1];
 rlen = bendsti*(N/sl).^3/4;
 % To the power of 3 term comes from the third-derivative of the function
-% that L is being applied to
-
-%temp2(1,1:m) = real(temp(1,1:m)) + rlen(1,1:m).*real(tempt(1,1:m));
-%temp3(1,1:m) = imag(temp(1,1:m)) + rlen(1,1:m).*imag(tempt(1,1:m));
-%temp4 = real(ifft(temp2 + 1i*temp3,m));
+% that L is being applied to in equation (53)
 
 temp4 = real(ifft(temp(1,1:m) + rlen(1,1:m).*tempt(1,1:m)));
 
