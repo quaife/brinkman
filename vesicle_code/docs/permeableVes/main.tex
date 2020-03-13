@@ -85,12 +85,17 @@ bending and a tension term. In particular, $\ff_\text{mem} =
 \ff_\text{ben} + \ff_\text{ten}$, where
 \begin{align}
   \label{eqn:merraneForces}
-  \ff_\text{ben} = -\kappa_b \xx_{ssss}, \qquad
-  \ff_\text{ten} = (\sigma \xx_s)_s,
+  \ff_\text{ben} = -\xx_{ssss}, \qquad
+  \ff_\text{ten} = (\sigma \xx_s)_s.
 \end{align}
-where $\kappa_b$ is the bending stiffness and $\sigma$ is a Lagrange
-multiplier, which acts like the tension, which is used to satisfy the
-inextensibility condition.
+Since the bending stiffness only sets the time scale, we let $k_b = 1$
+throughout this paper. The Lagrange multiplier $\sigma$ is used to
+satisfy the inextensibility condition.  Finally, the tension of the
+vesicle is
+\begin{align}
+  \Lambda = \sigma + 1.5 \kappa^2,
+\end{align}
+where $\kappa$ is the membrane curvature.
 
 The kinematic condition is modified to account for the fact that the
 fluid can move through the merrane. A standard choice appears
@@ -131,7 +136,7 @@ Finally, the inextensibility condition is given by
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Vesicle Area}
-Since the vesicle merrane is semi-permeable, the vesicle's area
+Since the vesicle membrane is semi-permeable, the vesicle's area
 fluctuates.  Parameterizing the vesicle with $\xx$, its area is
 \begin{align}
   A(t) = \frac{1}{2}\int_{\gamma} (\xx \cdot \nn)\, ds .
@@ -163,19 +168,26 @@ Therefore,
 where the last equality comes follows from the divergence theorem.
 Finally, using integration by parts and the Frenet-Serret identities, we
 have
-\begin{align*}
-  \dot{A}(t) &= \beta \int_\gamma \left( -\kappa_b \xx_{ssss} + 
+\begin{align}
+  \dot{A}(t) &= \beta \int_\gamma \left( -\xx_{ssss} + 
     (\sigma \xx_s)_s \right) \cdot \nn \, ds \\
-  &= \beta \int_\gamma \left(-\kappa_b \xx_{sss} + \sigma \xx_s 
+  &= \beta \int_\gamma \left(-\xx_{sss} + \sigma \xx_s 
     \right) \cdot \kappa \xx_s \, ds \\
-  &= \beta \int_\gamma \left(\kappa_b \xx_{ss} \cdot 
+  &= \beta \int_\gamma \left(\xx_{ss} \cdot 
     (\kappa \xx_s)_s + \kappa \sigma \right) \, ds \\
-  &= \beta \int_\gamma \left(\kappa_b \kappa (\xx_{ss} \cdot \xx_{ss}) + 
-    \kappa_b \kappa_s (\xx_{ss} \cdot \xx_s) + \kappa \sigma \right) 
+  &= \beta \int_\gamma \left(\kappa (\xx_{ss} \cdot \xx_{ss}) + 
+    \kappa_s (\xx_{ss} \cdot \xx_s) + \kappa \sigma \right) 
     \, ds \\
-  &= \beta \int_\gamma \left(\kappa_b \kappa^3 + \kappa \sigma \right) 
+  &= \beta \int_\gamma \left(\kappa^3 + \kappa \sigma \right) 
     \, ds.
-\end{align*}
+\end{align}
+Finally, using the relationship between the Lagrange multiplier
+$\sigma$, and the tension $\Lambda$, the area of a semi-permeable
+vesicle is governed by
+\begin{align}
+  \dot{A}(t) = \beta \int_\gamma \left(
+    -\frac{\kappa^3}{2} + \kappa \Lambda \right) \, ds.
+\end{align}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -215,7 +227,7 @@ other operators. Then, the dynamics of the vesicle are governed by
   D \frac{d\xx}{dt} &= 0.
 \end{align}
 By writing $B^N$ to mean the bending operator due to the vesicle
-configuration at time $t_N$, and similar notation for the other
+configuration at time $t^N$, and similar notation for the other
 operators, we address the stiffness by introducing the semi-implicit
 time stepping method
 \begin{align}  
@@ -242,6 +254,11 @@ regimes.
   \item Always goes to a circle
   \item Area formula works
 \end{itemize}
+
+We consider a single semi-permeable vesicle in a quiescent flow. For
+impermeable vesicles, the vesicle relaxes to a shape with constant
+negative tension~\cite{kra-win-sei-lip1996}. 
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Shear Flow}
@@ -421,35 +438,35 @@ At steady state,
 We now replace $\ff$ with its definition and apply integration by parts
 \begin{align}
    0=\beta\int_{\gamma} 
-    (-\kappa_b\xx_{ssss}+(\sigma\xx_s)_s)\cdot\nn\, ds =
-   \beta\int_{\gamma}\left(\kappa_b\xx_{sss}-\sigma\xx_s\right)\cdot
+    (-k_b\xx_{ssss}+(\sigma\xx_s)_s)\cdot\nn\, ds =
+   \beta\int_{\gamma}\left(k_b\xx_{sss}-\sigma\xx_s\right)\cdot
      \nn_s\, ds
 \end{align}
 From the Frenet-Serret formulas, we have 
 \begin{align}
      -\beta\int_{\gamma}
-     \left(\kappa_b\xx_{sss}-\sigma\xx_s\right)\cdot\kappa\xx_s ds &=0.
+     \left(k_b\xx_{sss}-\sigma\xx_s\right)\cdot\kappa\xx_s ds &=0.
 \end{align}
 
 Applying integration by parts and Frenet-Serret again
 \begin{align}
      \beta\int_{\gamma}
-     \kappa_b\kappa\left(\xx_{ss}\cdot\xx_{ss}\right)ds + \beta
-     \int_{\gamma} \kappa_b \kappa_s(\xx_{ss} \cdot \xx_s)ds +\beta\int_{\gamma}\kappa\sigma ds  &= 0,\\
-    \beta\int_{\gamma} \kappa_b\kappa(\kappa\nn \cdot
-     \kappa\nn)+ \beta \int_{\gamma} \kappa_b \kappa_s(\xx_{ss} \cdot
+     k_b\kappa\left(\xx_{ss}\cdot\xx_{ss}\right)ds + \beta
+     \int_{\gamma} k_b \kappa_s(\xx_{ss} \cdot \xx_s)ds +\beta\int_{\gamma}\kappa\sigma ds  &= 0,\\
+    \beta\int_{\gamma} k_b\kappa(\kappa\nn \cdot
+     \kappa\nn)+ \beta \int_{\gamma} k_b \kappa_s(\xx_{ss} \cdot
      \xx_s)ds +\beta\int_{\gamma}\kappa\sigma ds &= 0,
 \end{align}
 which we re-write as
 \begin{align}
-   \beta\int_{\gamma}\kappa_b\kappa^3 ds + \beta \int_{\gamma} \kappa_b
+   \beta\int_{\gamma}k_b\kappa^3 ds + \beta \int_{\gamma} k_b
    \kappa_s(\xx_{ss} \cdot \xx_s)ds +\beta\int_{\gamma} \kappa\sigma ds = 0.
 \end{align}
 Applying Frenet-serret again,
 \begin{align}
-    \beta\int_{\gamma}\kappa_b\kappa^3 ds + \beta \int_{\gamma} \kappa_b
+    \beta\int_{\gamma}k_b\kappa^3 ds + \beta \int_{\gamma} k_b
     \kappa_s(\kappa\nn \cdot \TT)ds +\beta\int_{\gamma} \kappa\sigma ds = 0, \\
-    \beta\int_{\gamma}\kappa_b\kappa^3 ds +\beta\int_{\gamma} \kappa\sigma ds  = 0.
+    \beta\int_{\gamma}k_b\kappa^3 ds +\beta\int_{\gamma} \kappa\sigma ds  = 0.
 \end{align}
 
 

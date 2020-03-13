@@ -33,10 +33,10 @@ if 0
   options.confined = false;
 end
 
-if 0
-%   file ='~/projects/microtubule/runs/relaxation1Ves_RA095_kappa1em2_expD1ep0/relaxation1VesData.bin';
- file = 'relaxation1VesData.bin';
+if 1
+  file = 'relaxation1VesData.bin';
   ax = [-3 3 -3.5 3.5];
+  options.confined = false;
 end
 
 if 0
@@ -63,7 +63,7 @@ if 0
   ax = [-2 2 -2 2];
   options.confined = false;
 end
-if 1
+if 0
 %  file = 'shear1VesData.bin';
   file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi8p0em1_ra065_beta1p0em1/shear1VesData.bin';
   ax = [-5 5 -5 5];
@@ -112,6 +112,8 @@ area = zeros(size(time));
 ra = zeros(size(time));
 %incAng = zeros(size(time));
 trac = zeros(2*n,nv,ntime);
+cur = zeros(n,nv,ntime);
+sa = zeros(n,nv,ntime);
 for k = 1:numel(time)
 %for k = numel(time)-11:numel(time)
   [ra(k),area(k)] = oc.geomProp([posx(:,1,k);posy(:,1,k)]);
@@ -119,8 +121,8 @@ for k = 1:numel(time)
 
   vesicle = capsules([posx(:,:,k);posy(:,:,k)],[],[],1,1);
 %  trac(:,:,k) = vesicle.tracJump([posx(:,:,k);posy(:,:,k)],0*ten(:,:,k));
-  [~,~,cur1] = oc.diffProp([posx(:,1,k);posy(:,1,k)]);
-  ten(:,:,k) = ten(:,:,k) + 1.5*cur1.^2;
+  [sa(:,:,k),~,cur(:,:,k)] = oc.diffProp([posx(:,1,k);posy(:,1,k)]);
+  ten(:,:,k) = ten(:,:,k) + 1.5*cur(:,:,k).^2;
 end
 
 

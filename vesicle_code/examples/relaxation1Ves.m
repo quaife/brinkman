@@ -3,14 +3,14 @@ fprintf('Simple elliptical vesicle in a relaxation flow.\n');
 fprintf('First-order semi-implicit time stepping.\n');
 
 beta = 1;
-m = 100;
+m = 100*10;
 ms = m;
 betas = beta;
 
 % Physics parameters
 prams.N = 128;               % points per vesicle
 prams.nv = 1;               % number of vesicles
-prams.T = 10;               % time horizon (two tumbling)
+prams.T = 10*10;               % time horizon (two tumbling)
 prams.m = m;              % number of time steps
 prams.kappa = ones(prams.nv,1); % bending coefficient
 prams.viscCont = ones(prams.nv,1);         % viscosity contrast
@@ -23,7 +23,7 @@ options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
 options.antiAlias = false;
-options.semipermeable = true;
+options.semipermeable = false;
 options.adhesion = false;
 defaultPram.adStrength = 1;
 defaultPram.adRange = 4e-1;
@@ -81,7 +81,7 @@ prams.fluxShape = beta*ones(prams.N,1); %flux shape 1
 
 oc = curve;
 
-ra = 0.65;
+ra = 0.34;
 scale = 1;
 
 %centerx = [-5 5];
