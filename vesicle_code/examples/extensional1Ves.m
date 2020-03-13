@@ -1,4 +1,4 @@
-%function [] = extensional2Ves
+%function [] = extensional1Ves
 
 clear all; clc
 
@@ -8,11 +8,11 @@ fprintf('Two elliptical vesicles in a extensional flow.\n');
 prams.N = 128;               % points per vesicle
 prams.nv = 1;               % number of vesicles
 prams.T = 100;               % time horizon (two tumbling)
-prams.m = 1000;             % number of time steps
+prams.m = 10000;             % number of time steps
 prams.kappa = 1;         % bending coefficient
 prams.viscCant = 1;         % viscosity contrast
 options.farField = 'extensional'; % background velocity
-options.farFieldSpeed = 1;
+options.farFieldSpeed = 2;
 aptions.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -33,7 +33,8 @@ prams.adRange = 4e-1;
 prams.adStrength = 7e-1;
 
 % TIME ADAPTIVITY (parameters for new implementation)
-options.timeAdap = true;
+%options.timeAdap = true;
+options.timeAdap = false;
 
 prams.rtolArea = 1e+2;
 prams.rtolLength = 1e-1;
@@ -50,13 +51,13 @@ options.usePlot = true;
 options.axis = [-2 2 -5 5];
 options.track = false;
 % Save vesicle information and create a log file
-options.logFile = 'output/extensional1Ves.log';
+options.logFile = 'output/oscextVes3.log';
 % Name of log file for saving messages
-options.dataFile = 'output/extensional1VesData.bin';
+options.dataFile = 'output/oscextVes3Data.bin';
 % Name of binary data file for storing vesicle information
 
 options.saveError = true;
-options.errorFile = 'output/extensional1VesError.bin';
+options.errorFile = 'output/oscextVes3Error.bin';
 % Name of binary data file for storing truncation errors after each step
 
 [options,prams] = initVes2D(options,prams);
@@ -110,7 +111,7 @@ centerx = 0;
 centery = 0;
 ang = pi/2;
 ra = 0.65;
-scale = 1.4*sqrt(ra);
+scale = sqrt(ra);
 %scale = 0.5;
 X = oc.initConfig(prams.N,'nv',prams.nv,...
     'reducedArea',ra,...

@@ -101,15 +101,20 @@ time = (options.order-1)*tt.dt;
 accept = true;
 
 th = (0:prams.N-1)'*2*pi/prams.N;
-masterShape = exp(-3*(th - 0).^2) + ...
-              exp(-3*(th - pi).^2) + ...
-              exp(-3*(th - 2*pi).^2);
-masterShape = 1*masterShape;
+masterShape = ones(prams.N,1);
+%masterShape = exp(-3*(th - 0).^2) + ...
+%              exp(-3*(th - pi).^2) + ...
+%              exp(-3*(th - 2*pi).^2);
+%masterShape = 1*masterShape;
 %masterShape = 100*ones(prams.N,1);
 sigma = ones(prams.N,1);
 
 % Main time stepping loop
 while time < prams.T - 1e-10
+%Hacking for time-varying periodic flow 02/21/2020
+  tt.farField = @(X) tt.bgFlow(X,options.farField,...
+	options.farFieldSpeed*(1+sin(time))/2);
+%Hacking for time-varying periodic flow 02/21/2020
   if time+tt.dt > prams.T
     tt.dt = prams.T - time;
   end
