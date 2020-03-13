@@ -354,8 +354,13 @@ end
 for k = 1:nv
    Pf(:,k) = P(:,:,k)*Fslp(:,k); 
 end
-velBen = Fslp + tt.fluxCoeff.*[tt.fluxShape;tt.fluxShape].*Pf + ...
-    op.exactStokesSLdiag(vesicle,tt.Galpert,f) + Ffar;
+
+if tt.SP
+  velBen = Fslp + tt.fluxCoeff.*[tt.fluxShape;tt.fluxShape].*Pf + ...
+      op.exactStokesSLdiag(vesicle,tt.Galpert,f) + Ffar;
+else
+  velBen = Fslp + op.exactStokesSLdiag(vesicle,tt.Galpert,f) + Ffar;
+end
 
 for k = 1:nv
   istart = (k-1)*3*N + 1;
@@ -1527,9 +1532,9 @@ jump11 = +1/2*nx.*fx + 1/2*tx.*(2*tx.*ty.*fx + (ty.^2 - tx.^2).*fy);
 jump12 = +1/2*nx.*fy + 1/2*tx.*((ty.^2-tx.^2).*fx - 2*tx.*ty.*fy);
 jump22 = +1/2*ny.*fy + 1/2*ty.*((ty.^2-tx.^2).*fx - 2*tx.*ty.*fy);
 
-T11 = T11 - 1*jump11;
-T12 = T12 - 1*jump12;
-T22 = T22 - 1*jump22;
+T11 = T11 - 0*jump11;
+T12 = T12 - 0*jump12;
+T22 = T22 - 0*jump22;
 
 tt = tstep(options,prams);
 [~,bg11,bg12,bg22] = tt.farField(X);
@@ -1537,30 +1542,6 @@ tt = tstep(options,prams);
 T11 = 1*T11 + 1*bg11;
 T12 = 1*T12 + 1*bg12;
 T22 = 1*T22 + 1*bg22;
-
-%xtar = 0.3;
-%ytar = 1.2;
-%rx = xtar - X(1:end/2);
-%ry = ytar - X(end/2+1:end);
-%rho2 = rx.^2 + ry.^2;
-%rdotf = rx.*fx + ry.*fy;
-%coeff = -1/pi*rdotf./rho2.^2.*vesicle.sa*2*pi/N;
-%T11_tar = sum(coeff.*rx.*rx);
-%T11_exact = -(2*xtar^5 + 3*xtar*ytar^2-xtar^3+2*xtar^3*ytar^2)/...
-%    (xtar^2 + ytar^2)^3;
-%T12_tar = sum(coeff.*rx.*ry);
-%T12_exact = -(2*xtar^4*ytar+ytar^3-3*xtar^2*ytar+2*xtar^2*ytar^3)/...
-%    (xtar^2 + ytar^2)^3;
-%T22_tar = sum(coeff.*ry.*ry);
-%press = 1/2/pi*sum(rdotf./rho2.*vesicle.sa)*2*pi/N;
-%exact_press = xtar/(xtar^2 + ytar^2);
-%T11_tar 
-%T11_exact
-%T12_tar 
-%T12_exact
-%press 
-%exact_press
-%pause
 
 for ksou = 1:nv
   shearStress(:,ksou) = ...
@@ -1574,22 +1555,6 @@ for ksou = 1:nv
     (T12(:,ksou).*nx(:,ksou) + T22(:,ksou).*ny(:,ksou)).*...
         ny(:,ksou);
 end
-
-%x = X(1:end/2,:);
-%y = X(end/2+1:end,:);
-%tracx = zeros(N,nv);
-%tracy = zeros(N,nv);
-%tracx = T11.*nx + T12.*ny;
-%tracy = T12.*nx + T22.*ny;
-%figure(1); clf; hold on
-%plot(x,y,'r')
-%quiver(x,y,tracx,tracy)
-%axis equal
-%clf
-%z = (tracx.*y - tracy.*x).*vesicle.sa;
-%plot(z(:,1))
-%sum(z)
-%pause
 
 end % computeShearStress
 

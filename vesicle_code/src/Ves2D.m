@@ -128,18 +128,25 @@ while time < prams.T - 1e-10
 % find the protein locations in parameter space with respect to the
 % memebranes tracker points
 
-  if 0
+  if 1
+  vesicle = capsules(X,sigma,[],prams.kappa,prams.viscCont);
+  [shearStress,normalStress] = ...
+      vesicle.computeShearStress(options,prams);
   [~,~,cur] = oc.diffProp(X);
   ten = sigma + 1.5*cur.^2;
-  tt.fluxShape = masterShape.*(ten > 50);
-  if time < 5
-    tt.farField = @(X) tt.bgFlow(X,options.farField,...
-        options.farFieldSpeed);
-  else
-    tt.farField = @(X) tt.bgFlow(X,options.farField,...
-        options.farFieldSpeed);
-%    tt.farField = @(X) tt.bgFlow(X,options.farField,0);
-  end
+
+  W0 = 0.2;
+  W = W0*((shearStress + sqrt(16*ten.^2 + shearStress.^2) ...
+      - 4*ten).^2)./...
+          (shearStress + sqrt(16*ten.^2 + shearStress.^2));
+
+  fluxShape = 1./(1+2*exp(-W));
+
+  figure(2); clf;
+  plot(fluxShape)
+  pause
+
+%  tt.fluxShape = masterShape.*(ten > 50);
 %  figure(2); clf;
 %  plot(tt.fluxShape)
   end
