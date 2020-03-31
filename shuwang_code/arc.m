@@ -9,12 +9,11 @@ dsi = fin(ds,n);
 % get the integration of ds;
  
 ave = dsi(N+1);
-f(1:N+1) = (0:1:N)*ave/N-dsi(1:N+1);
+% ave is the length of the vesicle
+f = (0:1:N)*ave/N - dsi;
 fp = -ds;
 a = f/N;
-b = zeros(1,N+1);
 c = fp/N;
-d = zeros(1,N+1);
 x = fft(a(1:N+1),N);
 y = fft(c(1:N+1),N);
 x(n+1) = x(1);

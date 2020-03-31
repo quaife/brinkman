@@ -859,7 +859,7 @@ else
 end
 
 %YNY maximum time step size
-%o.dt = min(o.dt,1e-1);
+o.dt = min(o.dt,1e-2);
 %YNY maximum time step size
 % safety factor added to the optimal time step size also, time step size
 % is not scaled up or down too fast For safety factor, take 1/p root.

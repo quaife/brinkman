@@ -128,7 +128,7 @@ while time < prams.T - 1e-10
 % find the protein locations in parameter space with respect to the
 % memebranes tracker points
 
-  if 1
+  if 0
   vesicle = capsules(X,sigma,[],prams.kappa,prams.viscCont);
   [shearStress,normalStress] = ...
       vesicle.computeShearStress(options,prams);
