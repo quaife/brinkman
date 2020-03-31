@@ -63,7 +63,8 @@ outpt = round(outpt/dt);
 % here we keep the total arclength unchanged.
 x0 = x(1);
 y0 = y(1);
-sl = 2.6442;
+%sl = 2.6442;
+sl = 2*pi;
 % For Shuwang: Why is sl defined here? It is actually an output
 % of the call to initialsetup. It is just currently not asked
 % for in the call above

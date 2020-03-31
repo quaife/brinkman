@@ -15,6 +15,7 @@ dkap(ngrid+1) = dkap(1);
 stheta = sl*dkap - 2*pi;
 % derivative of the opening angle
 theta = fin(stheta,ngrid);
+
 % integrate to find the angle
 theta = theta + t0 + 2*pi*(0:ngrid)/ngrid;
 % add the appropriate constant and a linear function to make it the
