@@ -113,7 +113,7 @@ sigma = ones(prams.N,1);
 while time < prams.T - 1e-10
 %Hacking for time-varying periodic flow 02/21/2020
   tt.farField = @(X) tt.bgFlow(X,options.farField,...
-	options.farFieldSpeed*(1+sin(time))/2);
+	options.farFieldSpeed*(1+0*sin(time))/1);
 %Hacking for time-varying periodic flow 02/21/2020
   if time+tt.dt > prams.T
     tt.dt = prams.T - time;
@@ -140,11 +140,11 @@ while time < prams.T - 1e-10
       - 4*ten).^2)./...
           (shearStress + sqrt(16*ten.^2 + shearStress.^2));
 
-  fluxShape = 1./(1+2*exp(-W));
+  fluxShape = 1./(1+2*exp(-W))-1/3;
 
-  figure(2); clf;
+  figure(10); clf;
   plot(fluxShape)
-  pause
+%   pause(0.001)
 
 %  tt.fluxShape = masterShape.*(ten > 50);
 %  figure(2); clf;

@@ -7,12 +7,12 @@ fprintf('Two elliptical vesicles in a extensional flow.\n');
 % Physics parameters
 prams.N = 128;               % points per vesicle
 prams.nv = 1;               % number of vesicles
-prams.T = 100;               % time horizon (two tumbling)
+prams.T = 20;               % time horizon (two tumbling)
 prams.m = 10000;             % number of time steps
 prams.kappa = 1;         % bending coefficient
 prams.viscCant = 1;         % viscosity contrast
 options.farField = 'extensional'; % background velocity
-options.farFieldSpeed = 2;
+options.farFieldSpeed = 0.5;
 aptions.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -51,13 +51,13 @@ options.usePlot = true;
 options.axis = [-2 2 -5 5];
 options.track = false;
 % Save vesicle information and create a log file
-options.logFile = 'output/oscextVes3.log';
+options.logFile = 'output/ext_vbeta_Ves.log';
 % Name of log file for saving messages
-options.dataFile = 'output/oscextVes3Data.bin';
+options.dataFile = 'output/ext_vbeta_VesData.bin';
 % Name of binary data file for storing vesicle information
 
 options.saveError = true;
-options.errorFile = 'output/oscextVes3Error.bin';
+options.errorFile = 'output/ext_vbeta_VesError.bin';
 % Name of binary data file for storing truncation errors after each step
 
 [options,prams] = initVes2D(options,prams);
@@ -70,7 +70,7 @@ options.errorFile = 'output/oscextVes3Error.bin';
 %posy2 = load('posy2_RA070_rotated.dat');
 
 options.semipermeable = true;
-prams.fluxCoeff = 1e-1;
+prams.fluxCoeff = 1e0;
 
 if 0
 ysep = mean(posy2) - mean(posy1);
