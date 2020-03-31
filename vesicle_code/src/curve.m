@@ -191,7 +191,7 @@ if any(strcmp(options,'curly'))
   % radius of curly vesicle
 
 elseif any(strcmp(options,'star'))
-  radius = 1 + 0.2*cos(folds*t);
+  radius = 1 + 0.4*cos(folds*t);
   X = scale*[radius.*cos(t);radius.*sin(t)];
   % a star that comes very close to intersecting itself
   % at the origin

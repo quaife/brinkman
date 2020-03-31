@@ -1,10 +1,11 @@
 \documentclass[aps,prl,showpacs]{revtex4}
 
 \newif\ifTikz
-%\Tikztrue
-\Tikzfalse
+\Tikztrue
+%\Tikzfalse
 
-\usepackage{amsmath,amsfonts,bm, color}
+%\usepackage{showkeys}
+\usepackage{amsmath,amsfonts,bm}
 \usepackage{graphicx,epsfig}
 \usepackage{todonotes}
 %Dfig puts a figure of specified size at the place indicated.
@@ -80,11 +81,11 @@ tensor, the boundary conditions along the vesicle are
   \label{eqn:jump2}
   \jump{\uu} &= 0,
 \end{align}
-where $\ff_\text{mem}$ is the standard merrane force that includes a
-bending and a tension term. In particular, $\ff_\text{mem} =
-\ff_\text{ben} + \ff_\text{ten}$, where
+where $\nn$ points outward to the vesicle, and $\ff_\text{mem}$ is the
+standard membrane force that includes a bending and a tension term. In
+particular, $\ff_\text{mem} = \ff_\text{ben} + \ff_\text{ten}$, where
 \begin{align}
-  \label{eqn:merraneForces}
+  \label{eqn:membraneForces}
   \ff_\text{ben} = -\xx_{ssss}, \qquad
   \ff_\text{ten} = (\sigma \xx_s)_s.
 \end{align}
@@ -98,7 +99,7 @@ vesicle is
 where $\kappa$ is the membrane curvature.
 
 The kinematic condition is modified to account for the fact that the
-fluid can move through the merrane. A standard choice appears
+fluid can move through the membrane. A standard choice appears
 is~\cite{}
 \begin{align}
   \uu - \dot{\xx} = - \beta (\ff_\text{mem} \cdot \nn) \nn, \qquad
@@ -187,6 +188,7 @@ vesicle is governed by
 \begin{align}
   \dot{A}(t) = \beta \int_\gamma \left(
     -\frac{\kappa^3}{2} + \kappa \Lambda \right) \, ds.
+  \label{eqn:areaROC}
 \end{align}
 
 
@@ -204,7 +206,7 @@ singularity of the integrand.
 By using an integral equation formulation, the only unknowns are the
 vesicle position and tension, and the flow in the bulk does not have to
 be computed. However, the high-order derivatives in the bending and
-tension forces~\eqref{eqn:merraneForces} result in stiffness if an
+tension forces~\eqref{eqn:membraneForces} result in stiffness if an
 explicit time stepping method is applied to
 equation~\eqref{eqn:vesVelocity}. We apply a similar semi-implicit time
 stepping method to our previous works~\cite{vee-gue-zor-bir2009,
@@ -217,10 +219,10 @@ differential and projection operators
   D[\xx]\ff &= \xx_s \cdot \ff_s, \\
   P[\xx]\ff &= (\ff \cdot \nn) \nn. 
 \end{align}
-Here, the normal vector $\nn$ is the outward unit normal of the
-$\gamma$, and $d/ds$ is its arclength derivative. To simplify notation,
-we write $B\ff$ to mean $B[\xx]\ff$, and use similar notation for the
-other operators. Then, the dynamics of the vesicle are governed by
+Here, the normal vector $\nn$ is the outward unit normal of $\gamma$,
+and $d/ds$ is its arclength derivative. To simplify notation, we write
+$B\ff$ to mean $B[\xx]\ff$, and use similar notation for the other
+operators. Then, the dynamics of the vesicle are governed by
 \begin{align}
   \frac{d\xx}{dt} &= \uu_{\infty}(\xx) + 
   \beta P(B\xx + T\sigma) + \SS(B\xx + T\sigma), \\
@@ -256,8 +258,70 @@ regimes.
 \end{itemize}
 
 We consider a single semi-permeable vesicle in a quiescent flow. For
-impermeable vesicles, the vesicle relaxes to a shape with constant
-negative tension~\cite{kra-win-sei-lip1996}. 
+impermeable vesicles, the vesicle relaxes to a shape where the tension
+$\Lambda$ is constant and negative~\cite{kra-win-sei-lip1996}. In the
+semi-permeable case, the area of the vesicle is governed by
+equation~\eqref{eqn:areaROC}, where $\beta > 0$. We expect the
+semi-permeable vesicle to reach a steady-state shape, meaning that in
+the limit,
+\begin{align}
+  \int_{\gamma} \left(-\frac{\kappa^3}{2} + \kappa \Lambda \right) \, ds
+  \rightarrow 0.
+\end{align}
+Based on numerical observations, the steady-state shape is a circular
+vesicle with constant tension. Since the tension and curvature are
+constant, we can solve for the curvature in terms of the tension $\kappa
+= \sqrt{2\Lambda}$. Therefore, the steady state shape is a circle of
+radius $r = 1/\sqrt{2\Lambda}$, and therefore the length is
+\begin{align}
+  L = \frac{\sqrt{2}\pi}{\sqrt{\Lambda}},
+\end{align}
+which is constant by the local inextensibility constraint. Therefore, we
+can compute the final tension in terms of the length using the formula
+\begin{align}
+  \Lambda = \frac{2\pi^2}{L^2}.
+  \label{eqn:finalTension}
+\end{align}
+Therefore, in contrast to a impermeable vesicle, the final tension is
+positive rather than negative.
+
+We start by simulating a star-shaped vesicle in a quiescent flow with
+semi-permeability rate $\beta=1$. The vesicle shape at five time
+steps is in Figure~\ref{fig:starShape}. To perform this simulation,
+we use an adaptive second-order time stepping
+method~\cite{qua-bir2016}. The times and reduced areas are
+in the titles, and note that the shapes are not eqiuspaced in time.
+
+\begin{figure}[htp]
+  \begin{center}
+    \input{figures/starRelaxation2.tikz}
+    \input{figures/starRelaxation3.tikz}
+    \input{figures/starRelaxation4.tikz}
+    \input{figures/starRelaxation5.tikz}
+    \input{figures/starRelaxation6.tikz}
+  \end{center}
+  \caption{\label{fig:starShape} A initially star-shaped
+  semi-permeable vesicle in a shear quiescent flow with $\beta=1$. Note
+  that the time steps are not equispaced.}
+\end{figure}
+
+
+\begin{figure}[htp]
+  \input{figures/starAreaDeriv.tikz}
+  \qquad
+  \input{figures/starTension.tikz}
+  \caption{\label{fig:starArea} (a) The area (red) and its derivative
+  (blue) of an initially star-shaped vesicle as a function of time. The
+  dots correspond to the time steps shown in Figure~\ref{fig:starShape}.
+  (b) The tension of the vesicles illustrated in
+  Figure~\ref{fig:starShape}.  The tension at the time horizon $T=1$ is
+  also included. At this point, the vesicle is nearly circular and the
+  tension agrees with the constant value from
+  equation~\eqref{eqn:finalTension}. This dashed black line corresponds
+  to this constant tension value.}
+\end{figure}
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -488,7 +552,7 @@ $\gamma$ are
   (\uu c - D\nabla c) \cdot \nn = c \pderiv{\xx}{t} \cdot \nn + 
     j_c + j_p,
 \end{align}
-where $j_c$ and $j_p$ are the transmerrane chemical flux due to passive
+where $j_c$ and $j_p$ are the transmembrane chemical flux due to passive
 transport and active transport (pumps), respectively.  In the zero
 Peclet number limit, the absence of an active transport mechanism, and
 the choice for the passive flux, the boundary condition of the

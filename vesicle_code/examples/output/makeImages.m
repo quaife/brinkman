@@ -8,8 +8,8 @@ if 0
   file = 'parabolic1VesData.bin';
 end
 if 0
-  file = 'extensional1VesCleanData.bin'; irate = 2;
-%  file = 'extensional1VesSemiData.bin'; irate = 2;
+%  file = 'extensional1VesCleanData.bin'; irate = 2;
+  file = 'extensional1VesSemiData.bin'; irate = 2;
 %  file = 'extensional1VesCircleCleanData.bin'; irate = 2;
 %  file = 'extensional1VesCircleSemiData.bin'; irate = 1;
 
@@ -128,11 +128,8 @@ end
 
 %min_ten = floor(min(min(min(ten))));
 %max_ten = floor(max(max(max(ten))));
-%if (max_ss - min_ss < 1e-5)
-%  min_ss = min_ss - 
-%  max_ss = max_ss + 1;
-%end
-
+min_ten = -0;
+max_ten = +0.2;
 
 figure(1); clf
 for k = istart:irate:iend
@@ -147,7 +144,7 @@ for k = istart:irate:iend
     clf; hold on;
 %    plot(vec1,vec2,'r','linewidth',3)
 %%    plot(vec1(1,:),vec2(1,:),'b.','markersize',20)
-    for j =1:1
+    for j = 1:1
       h = cline(vec1(:,j),vec2(:,j),vec3(:,j));
       set(h,'linewidth',3)
     end
@@ -185,7 +182,7 @@ for k = istart:irate:iend
 %  set(gca,'ycolor','w');
 %  title('Tension')
 %  colorbar
-%  caxis([min_ten max_ten])
+  caxis([min_ten max_ten])
 %
 %  subplot(1,3,2);hold on
 %  vec3 = [ss(:,:);ss(1,:)];
