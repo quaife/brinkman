@@ -42,6 +42,9 @@ un = -(cv2(1:m)/sl^2 + rbn/2.*dkap(1,1:m).^3);
 % term is not in this routine since we are only calculating variations
 % due to changes in the vesicle shape and not the lipid species (yet).
 vn(1,1:m) = -bs(1,1:m).*dkap(1,1:m).^2/sl/2;
+clf;
+plot(cv2)
+pause
 
 un = [un un(1)];
 vn = [vn vn(1)];

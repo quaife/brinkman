@@ -29,15 +29,9 @@ rcon = rcon(1:4:4*ngrid+1);
 % downsample the concentration to the correct number of discretization
 % points
 
-figure(1); clf; hold on
-plot(acurv(sl,theta(1:end-1),64),'b')
-
 [theta,x0,y0] = initiallreconstruction(ngrid,theta,sl);
 % Find a vesicle shape with a similar area (within 1e-10), but with a
 % theta that is band-limited to only frequencies between -4 and 4.
-size(theta)
-plot(acurv(sl,theta(1:end),64),'r--')
-pause
 
 [x,y] = recon(ngrid,x0,y0,sl,theta);
 % find x and y coordinates of the band-limited theta. Note that theta

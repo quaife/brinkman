@@ -58,9 +58,12 @@ theta_periodicPart = theta - theta0 - (0:N-1)'*2*pi/N;
 %  Compute the periodic part of the opening angle
 thetah = fft(theta_periodicPart);
 thetah(6:N-4) = 0;
+% QUESTION: IN SHUWANG'S ORIGINAL CODE, THIS WAS NOT SET UP
+% SYMETRICALLY AROUND THE ZERO MODE. CHECKED AND THE IMAG PART OF thetah
+% IS NON-ZERO UNLESS THE COEFFICIENTS ARE ADJUSTED AS IN ABOVE
 % remove all modes with Frequency above 4. Note that Shuwang's original
 % code had an error since he did not truncate the positive and negative
-% coefficients to the same leve. Therefore, the imaginary part after
+% coefficients to the same level. Therefore, the imaginary part after
 % taking an ifft was not 0.
 theta_periodicPart = real(ifft(thetah));
 theta = theta_periodicPart + theta0 + (0:N-1)'*2*pi/N;
@@ -117,13 +120,20 @@ b0 = ves.bendsti;
 b1 = ves.bendsti * ves.bendratio;
 
 rbn = b0 * (ones(N,1) - rcon) + b1*rcon;
-Drbn = oc.diffFT(rbn,IK);
+Drbn = oc.diffFT(rbn,IK)/ves.L;
 
 Drbn_cur = oc.diffFT(rbn.*cur,IK)/ves.L;
 DDrbn_cur = oc.diffFT(Drbn_cur,IK)/ves.L;
 
-Eu = [];
-Esigma = [];
+Esigma = -DDrbn_cur - 0.5*rbn.*cur.^3;
+Eu = -Drbn.*cur.^2;
+% SHUWANG QUESTION: THIS IS A PLUS SIGN IN THE PAPER (EQUATION (13)),
+% BUT IS A MINUS SIGN IN SHUWANG'S CODE
+
+clf
+ves.L
+plot(DDrbn_cur)
+pause
 
 
 

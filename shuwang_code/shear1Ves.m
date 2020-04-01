@@ -64,7 +64,8 @@ outpt = round(outpt/dt);
 x0 = x(1);
 y0 = y(1);
 %sl = 2.6442;
-sl = 2*pi;
+%sl = 2*pi;
+sl = 4.844224110050042;
 % For Shuwang: Why is sl defined here? It is actually an output
 % of the call to initialsetup. It is just currently not asked
 % for in the call above

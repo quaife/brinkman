@@ -176,7 +176,6 @@ elseif any(strcmp(options,'star'))
 
 elseif any(strcmp(options,'ellipse'))
   X0 = [cos(alpha);shortax*sin(alpha)];
-
 else
   X0 = o.ellipse(N,ra);
   % build a vesicle of reduced area ra with N points
