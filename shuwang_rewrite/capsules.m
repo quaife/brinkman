@@ -120,20 +120,21 @@ b0 = ves.bendsti;
 b1 = ves.bendsti * ves.bendratio;
 
 rbn = b0 * (ones(N,1) - rcon) + b1*rcon;
-Drbn = oc.diffFT(rbn,IK)/ves.L;
+Drbn = oc.diffFT(rbn,IK)/(2/pi);
 
-Drbn_cur = oc.diffFT(rbn.*cur,IK)/ves.L;
-DDrbn_cur = oc.diffFT(Drbn_cur,IK)/ves.L;
+Drbn_cur = oc.diffFT(rbn.*cur,IK)/(ves.L/2/pi);
+DDrbn_cur = oc.diffFT(Drbn_cur,IK)/(ves.L/2/pi);
 
 Esigma = -DDrbn_cur - 0.5*rbn.*cur.^3;
 Eu = -Drbn.*cur.^2;
 % SHUWANG QUESTION: THIS IS A PLUS SIGN IN THE PAPER (EQUATION (13)),
 % BUT IS A MINUS SIGN IN SHUWANG'S CODE
 
-clf
-ves.L
-plot(DDrbn_cur)
-pause
+%clf
+%plot(Drbn)
+%max(Drbn)
+%plot(DDrbn_cur)
+%pause
 
 
 

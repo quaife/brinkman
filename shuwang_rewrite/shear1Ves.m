@@ -21,7 +21,7 @@ nstep = round(params.T/params.dt); % total number of time steps
 outpt = round(params.outpt/params.dt); 
 % integer values for when output is saved
 
-alpha = (0:params.N-1)'*2*pi/params.N;
+alpha = (0:params.N-1)'/params.N;
 oc = curve;
 [alpha,X] = oc.initConfig(params.N,false,'ellipse',...
       'shortax',params.shortax,'parameter',alpha);

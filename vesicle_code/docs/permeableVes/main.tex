@@ -1,8 +1,8 @@
 \documentclass[aps,prl,showpacs]{revtex4}
 
 \newif\ifTikz
-\Tikztrue
-%\Tikzfalse
+%\Tikztrue
+\Tikzfalse
 
 %\usepackage{showkeys}
 \usepackage{amsmath,amsfonts,bm}
@@ -261,12 +261,11 @@ We consider a single semi-permeable vesicle in a quiescent flow. For
 impermeable vesicles, the vesicle relaxes to a shape where the tension
 $\Lambda$ is constant and negative~\cite{kra-win-sei-lip1996}. In the
 semi-permeable case, the area of the vesicle is governed by
-equation~\eqref{eqn:areaROC}, where $\beta > 0$. We expect the
-semi-permeable vesicle to reach a steady-state shape, meaning that in
-the limit,
+equation~\eqref{eqn:areaROC}, where $\beta > 0$. Therefore, when the
+semi-permeable vesicle reaches a steady-state shape, we have
 \begin{align}
   \int_{\gamma} \left(-\frac{\kappa^3}{2} + \kappa \Lambda \right) \, ds
-  \rightarrow 0.
+  = 0.
 \end{align}
 Based on numerical observations, the steady-state shape is a circular
 vesicle with constant tension. Since the tension and curvature are
@@ -276,7 +275,7 @@ radius $r = 1/\sqrt{2\Lambda}$, and therefore the length is
 \begin{align}
   L = \frac{\sqrt{2}\pi}{\sqrt{\Lambda}},
 \end{align}
-which is constant by the local inextensibility constraint. Therefore, we
+which is constant by the local inextensibility constraint. Finally, we
 can compute the final tension in terms of the length using the formula
 \begin{align}
   \Lambda = \frac{2\pi^2}{L^2}.
@@ -286,41 +285,80 @@ Therefore, in contrast to a impermeable vesicle, the final tension is
 positive rather than negative.
 
 We start by simulating a star-shaped vesicle in a quiescent flow with
-semi-permeability rate $\beta=1$. The vesicle shape at five time
-steps is in Figure~\ref{fig:starShape}. To perform this simulation,
-we use an adaptive second-order time stepping
-method~\cite{qua-bir2016}. The times and reduced areas are
-in the titles, and note that the shapes are not eqiuspaced in time.
-
+semi-permeability rate $\beta=1$ (Figure~\ref{fig:starShape}). To
+perform this simulation, we use an adaptive second-order time stepping
+method~\cite{qua-bir2016}. The times and reduced areas are in the
+titles, and note that the shapes are not eqiuspaced in time.
 \begin{figure}[htp]
-  \begin{center}
+  \begin{minipage}{0.55\textwidth}
+    \input{figures/starRelaxation1.tikz}
     \input{figures/starRelaxation2.tikz}
     \input{figures/starRelaxation3.tikz}
     \input{figures/starRelaxation4.tikz}
     \input{figures/starRelaxation5.tikz}
     \input{figures/starRelaxation6.tikz}
-  \end{center}
-  \caption{\label{fig:starShape} A initially star-shaped
-  semi-permeable vesicle in a shear quiescent flow with $\beta=1$. Note
-  that the time steps are not equispaced.}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.4\textwidth}
+  \input{figures/starAreaDeriv.tikz}
+  \end{minipage}
+  \caption{\label{fig:starShape} A initially star-shaped semi-permeable
+  vesicle in a shear quiescent flow with $\beta=1$. Note that the time
+  steps are not equispaced. The area (red) and its derivative (blue) of
+  an initially star-shaped vesicle as a function of time. The dots
+  correspond to the time steps shown in six time steps
+  show on the left.}
 \end{figure}
 
 
 \begin{figure}[htp]
-  \input{figures/starAreaDeriv.tikz}
-  \qquad
-  \input{figures/starTension.tikz}
-  \caption{\label{fig:starArea} (a) The area (red) and its derivative
-  (blue) of an initially star-shaped vesicle as a function of time. The
-  dots correspond to the time steps shown in Figure~\ref{fig:starShape}.
-  (b) The tension of the vesicles illustrated in
-  Figure~\ref{fig:starShape}.  The tension at the time horizon $T=1$ is
-  also included. At this point, the vesicle is nearly circular and the
-  tension agrees with the constant value from
-  equation~\eqref{eqn:finalTension}. This dashed black line corresponds
-  to this constant tension value.}
+\begin{minipage}{0.40\textwidth}
+\input{figures/starTension.tikz}
+\end{minipage}
+\hfill
+\begin{minipage}{0.55\textwidth}
+  \centering
+\includegraphics[width=0.32\textwidth]{figures/StarTensionTime1.pdf}
+\includegraphics[width=0.32\textwidth]{figures/StarTensionTime2.pdf}
+\includegraphics[width=0.32\textwidth]{figures/StarTensionTime3.pdf} \\
+\includegraphics[width=0.32\textwidth]{figures/StarTensionTime4.pdf}
+\includegraphics[width=0.32\textwidth]{figures/StarTensionTime5.pdf}
+\includegraphics[width=0.32\textwidth]{figures/StarTensionTime6.pdf}
+\end{minipage}
+  \caption{\label{fig:starTension} The tension of the time steps shown
+  in Figure~\ref{fig:starShape}. The tension at the time horizon $T=1$
+  is also included. At this point, the vesicle is nearly circular and
+  the tension is constant and positive. The constant is given by
+  equation~\eqref{eqn:finalTension}, and this value corresponds to the
+  dashed black line.}
 \end{figure}
 
+\begin{figure}[htp]
+\begin{minipage}{0.40\textwidth}
+\input{figures/starFlux.tikz}
+\end{minipage}
+\hfill
+\begin{minipage}{0.55\textwidth}
+\includegraphics[width=0.32\textwidth]{figures/StarFluxTime1.pdf}
+\includegraphics[width=0.32\textwidth]{figures/StarFluxTime2.pdf}
+\includegraphics[width=0.32\textwidth]{figures/StarFluxTime3.pdf} \\
+\includegraphics[width=0.32\textwidth]{figures/StarFluxTime4.pdf}
+\includegraphics[width=0.32\textwidth]{figures/StarFluxTime5.pdf}
+\includegraphics[width=0.32\textwidth]{figures/StarFluxTime6.pdf}
+\end{minipage}
+  \caption{\label{fig:starFlux} The flux of the time steps shown in
+  Figure~\ref{fig:starShape}. The tension at the time horizon $T=1$ is
+  also included. At this point, the vesicle is nearly circular and there
+  is no flux.}
+\end{figure}
+
+%\begin{figure}[htp]
+%  \input{figures/starFlux.tikz}
+%  \caption{\label{fig:starFlux} The flux of the time steps shown in
+%  Figure~\ref{fig:starShape}. The tension at the time horizon $T=1$ is
+%  also included. At this point, the vesicle is nearly circular and their
+%  is no flux.}
+%\end{figure}
 
 
 

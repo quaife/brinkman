@@ -155,27 +155,26 @@ end
 if(any(strcmp(options,'parameter')));
   alpha = options{find(strcmp(options,'parameter'))+1};
 else
-  alpha = (0:N-1)'*2*pi/N;
+  alpha = (0:N-1)'/N;
 end
 % Discretization in parameter space
 
 if any(strcmp(options,'curly'))
   a = 1; b = 3*a; c = 0.85; 
-  r = 0.5*sqrt( (a*cos(alpha)).^2 + (b*sin(alpha)).^2) + ...
-      .07*cos(12*alpha);
-  x = scale*c*r.*cos(alpha);
-  y = scale*r.*sin(alpha);
+  r = 0.5*sqrt( (a*cos(2*pi*alpha)).^2 + (b*sin(2*pi*alpha)).^2) + ...
+      .07*cos(12*2*pi*alpha);
+  x = scale*c*r.*cos(2*pi*alpha);
+  y = scale*r.*sin(2*pi*alpha);
   X0 = [x;y];
   % radius of curly vesicle
 
 elseif any(strcmp(options,'star'))
-  radius = 1 + 0.2*cos(folds*alpha);
-  X0 = [radius.*cos(alpha);radius.*sin(alpha)];
-  % a star that comes very close to intersecting itself
-  % at the origin
+  radius = 1 + 0.2*cos(folds*2*pi*alpha);
+  X0 = [radius.*cos(2*pi*alpha);radius.*sin(2*pi*alpha)];
+  % a star that comes very close to intersecting itself at the origin
 
 elseif any(strcmp(options,'ellipse'))
-  X0 = [cos(alpha);shortax*sin(alpha)];
+  X0 = [cos(2*pi*alpha);shortax*sin(2*pi*alpha)];
 else
   X0 = o.ellipse(N,ra);
   % build a vesicle of reduced area ra with N points
@@ -190,13 +189,10 @@ X(N+1:2*N) = scale*(sin(theta) * X0(1:N) +  cos(theta) * X0(N+1:2*N));
 % Rotate and scale vesicle
 
 if ~equispaced
-%  figure(1); clf
-%  plot(X(1:end/2),X(end/2+1:end),'b-o')
-%  axis equal
-%  figure(2); clf;
+%  figure(1); clf;
 %  plot(X(1:end/2),X(end/2+1:end),'b--')
-%  axis equal
-%  hold on
+%  axis equal;
+%  hold on;
   sa = o.diffProp(X); % compute arclength of the vesicle shape
   alpha = o.arc(sa);
   % find parameter values that give discretization points that are
@@ -205,9 +201,10 @@ if ~equispaced
        'reducedArea',ra,'shortax',shortax,'scale',scale,...
        'folds',folds,'parameter',alpha);
 end
-%figure(2); hold on;
+%figure(1); hold on;
 %plot(X(1:end/2),X(end/2+1:end),'ro')
 %axis equal;
+%pause
 
 end % initConfig
 
@@ -217,7 +214,7 @@ function alpha = arc(o,sa)
 % used to distribute points evenly in arclength
 
 N = numel(sa);
-length = sum(sa)*2*pi/N; 
+length = sum(sa)/N; 
 % total length of vesicle. This is spectrally accurate since it is the
 % trapezoid rule applied to a periodic function
 tol = 1e-13; % tolerance
@@ -225,16 +222,14 @@ IK = o.modes(N);
 
 intsa = o.intFT(sa,IK);
 
-f = (0:N-1)'*2*pi/N*(length/2/pi) - intsa;
+f = (0:N-1)'*length/N - intsa;
 % we are interested in fiding the N roots of f. First one is at 0
 df = -sa;
 % derivative of f so that we can apply Newton's method
 fh = fft(f)/N;
+
 dfh = fft(df)/N;
 % Fourier coeffients of f and its derivative
-
-IK = o.modes(N); 
-% Fourier modes needed for doing fourier interpolation
 
 alpha = zeros(N,1);
 
@@ -242,7 +237,7 @@ for j = 2:N
   alpha(j) = alpha(j-1);
   for k = 1:100 % apply Newton's method
     falpha = real(sum(fh.*exp(IK*alpha(j)))) + ...
-        ((j-1)*length/N - alpha(j)*length/2/pi);
+        ((j-1)*length/N - alpha(j)*length);
     % f at alpha
     dfalpha = real(sum(dfh.*exp(IK*alpha(j))));
     % derivative of f at alpha
@@ -398,7 +393,7 @@ zeroMode = -sum(fh(2:end)./IK(2:end));
 intfh = [zeroMode;fh(2:end)./IK(2:end)];
 % non-zero modes of the integral of f
 
-intf = real(fh(1)/N * (0:N-1)'*2*pi/N + ifft(intfh));
+intf = real(fh(1)/N * (0:N-1)'/N + ifft(intfh));
 % sum of the linear term and the contribution from the periodic part
 
 end % intFT
@@ -408,7 +403,7 @@ function IK = modes(o,N)
 % IK = modes(N) builds the order of the fourier modes required for using
 % fft and ifft to do spectral differentiation
 
-IK = 1i*[(0:N/2-1) -N/2 (-N/2+1:-1)]';
+IK = 2*pi*1i*[(0:N/2-1) -N/2 (-N/2+1:-1)]';
 % diagonal term for Fourier differentiation
 
 end % modes
