@@ -21,10 +21,13 @@ end
     oddeven,smallperturbation);
 % initialize the vesicle shape, opening angle, length, and concentration
 % of lipid species
- 
+
 theta = theta(1:4:length(theta));
 % upsampled by a factor of 4 when calling initiall. Now need to
 % downsample back to ngrid
+rcon = rcon(1:4:4*ngrid+1);
+% downsample the concentration to the correct number of discretization
+% points
 
 [theta,x0,y0] = initiallreconstruction(ngrid,theta,sl);
 % Find a vesicle shape with a similar area (within 1e-10), but with a
@@ -33,9 +36,6 @@ theta = theta(1:4:length(theta));
 [x,y] = recon(ngrid,x0,y0,sl,theta);
 % find x and y coordinates of the band-limited theta. Note that theta
 % has already been downsampled, so x and y have ngrid discretization
-% points
-rcon = rcon(1:4:4*ngrid+1);
-% downsample the concentration to the correct number of discretization
 % points
 
 end

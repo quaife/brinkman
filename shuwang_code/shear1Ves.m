@@ -63,7 +63,9 @@ outpt = round(outpt/dt);
 % here we keep the total arclength unchanged.
 x0 = x(1);
 y0 = y(1);
-sl = 2.6442;
+%sl = 2.6442;
+%sl = 2*pi;
+sl = 4.844224110050042;
 % For Shuwang: Why is sl defined here? It is actually an output
 % of the call to initialsetup. It is just currently not asked
 % for in the call above
@@ -86,8 +88,8 @@ kmatrix = formkmatrix(ngrid);
 u1x = ux0(1);
 u1y = uy0(1);
 % put the x-y velocity into the normal and tangential velocity.
-un  = ux0.*sin(theta) - uy0.*cos(theta);
-utt = ux0.*cos(theta) + uy0.*sin(theta);
+un  = ux0.*sin(theta) - uy0.*cos(theta); % ???Tangential Velocity???
+utt = ux0.*cos(theta) + uy0.*sin(theta); % ???Normal Velocity???
  
 % Update arc length change over time using a first-order Euler method.
 % For subsequent time steps, will use a multistep method as described in

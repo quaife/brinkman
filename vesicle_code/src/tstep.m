@@ -68,6 +68,8 @@ opWall        % class for walls
 betaUp        % maximum amount time step is scaled up
 betaDown      % maximum amount time step is scaled down
 alpha         % safety factor scaling for new time step size
+dtMin         % minimum time step size
+dtMax         % maximum time step size
 adhesion      % use adhesion in the model
 adStrength    % strength of adhesion
 adRange       % range of adhesion
@@ -143,6 +145,8 @@ end
 o.betaUp = prams.betaUp;
 o.betaDown = prams.betaDown;
 o.alpha = prams.alpha;
+o.dtMin = prams.dtMin;
+o.dtMax = prams.dtMax;
 % safety factors for adaptive time stepping
 
 o.adhesion = options.adhesion;
@@ -859,16 +863,18 @@ else
 end
 
 %YNY maximum time step size
-o.dt = min(o.dt,1e-2);
 %YNY maximum time step size
 % safety factor added to the optimal time step size also, time step size
 % is not scaled up or down too fast For safety factor, take 1/p root.
 % In our formulation, this makes alpha the desired value for err
 % regardless of the order of the method.
+
+o.dt = min(o.dt,o.dtMax);
+% make sure we don't exceed the maximum allowable time step size
 dtScale = o.dt/dtOld;
 % time step scaling
 
-if err > 1
+if (err > 1 && o.dt > o.dtMin)
   accept = false;
   % reject time step because the error is too large
   message = ['Time Step REJECTED with error ' ...
@@ -881,6 +887,21 @@ if err > 1
       num2str(o.dt,'%4.2e')];
   om.writeMessage(message,'%s\n')
   om.writeMessage(' ','%s\n')
+elseif (err > 1 && o.dt <= o.dtMin)
+  % accept the time step because the time step is too small, eventhough
+  % the error is too large
+  o.dt = o.dtMin;
+  % set new time step size to mimium allowable value
+  accept = true;
+  message = ['Time Step ACCEPTED with error ' ...
+      num2str(err,'%4.2e')];
+  om.writeMessage(message,'%s\n')
+  message = ['Time step scaled by           ' ... 
+      num2str(1,'%4.2e')];
+  om.writeMessage(message,'%s\n')
+  message = ['New time step size is         ' ...
+      num2str(o.dt,'%4.2e')];
+  om.writeMessage(message,'%s\n')
 else
   accept = true;
   % accept the solution because the error is small

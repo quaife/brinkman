@@ -30,6 +30,12 @@ cv2 = fd1(cv1,m); % second derivative of bending times curvature
 
 % derivative of the bending coefficient
 bs = fd1(rbn,m);
+clf
+plot(bs)
+max(bs)
+%plot(dkap)
+%plot(cv2(1:m)/sl^2)
+pause
 
 % un variable is equation (14) with spotaneous curvature set to zero.
 % The sl^2 term is needed since fd1 computes derivatives w.r.t. [0,2*pi]
@@ -42,6 +48,8 @@ un = -(cv2(1:m)/sl^2 + rbn/2.*dkap(1,1:m).^3);
 % term is not in this routine since we are only calculating variations
 % due to changes in the vesicle shape and not the lipid species (yet).
 vn(1,1:m) = -bs(1,1:m).*dkap(1,1:m).^2/sl/2;
+% MIGHT COME FROM THE NEGATIVE SIGN IN EQUATION (23) WHICH HAS A
+% NEGATIVE IN FRONT OF THE VARIATION W.R.T. $u$
 
 un = [un un(1)];
 vn = [vn vn(1)];

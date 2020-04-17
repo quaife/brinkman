@@ -39,6 +39,7 @@ theta2 = dtheta + a + (0:m-1)*2*pi/m;
 [x,y] = recon(m,x0,y0,sl,theta2);
 % compute the new geometry with the filtered theta
 
+
 area = sum(sin(theta(1:m)).*x(1:m)-...
            cos(theta(1:m)).*y(1:m))/2*sl/m;
 % compute the area of the modified vesicle shape)
@@ -67,7 +68,6 @@ while abs(area-areasum)/areasum>1e-10
   % stop if it takes too many iterations
 
 end
-
 
 x0=x(1);
 y0=y(1);

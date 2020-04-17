@@ -11,8 +11,8 @@ function [un,ut,rlambdalnew,xo,yo,forc1,forc2,xcc,ycc,...
 % rcon - lipid species concentration
 
 % OUTPUT VARIABLES
-% un - normal velocity
-% ut - tangential velocity
+% un - normal velocity? or x velocity?
+% ut - tangential velocity? or y velocity?
 % rlambdalnew - Lagrange multiplier for inextensibility which is given
 % as T_s + \kappa V = 0. This is defined in equation (39).
 % xo - x-coordinates coming from the length, angle, and reference point

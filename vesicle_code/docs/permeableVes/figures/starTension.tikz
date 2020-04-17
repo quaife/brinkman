@@ -1,4 +1,4 @@
-\begin{tikzpicture}[scale=0.7]
+\begin{tikzpicture}[scale=0.6]
 
   \begin{axis}[
     xmin = 0,
@@ -1587,7 +1587,7 @@
   (6.2832,2.6999e-1)
 };
 
-\node at (axis cs:0,2) [anchor=south east] {(b)};
+%\node at (axis cs:0,2) [anchor=south east] {(b)};
 
 \end{axis}
 

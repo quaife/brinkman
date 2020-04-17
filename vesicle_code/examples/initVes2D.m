@@ -10,7 +10,7 @@ if isempty(strfind(P, subPath)),addpath(subPath);end
 PramList = {'N','nv','T','m','Nbd','nvbd','kappa','viscCont',...
     'gmresTol','gmresMaxIter','errorTol','rtolArea','rtolLength',...
     'betaUp','betaDown','alpha','adStrength','adRange',...
-    'fluxCoeff','fluxShape'};
+    'fluxCoeff','fluxShape','dtMax','dtMin'};
 defaultPram.N = 64;
 defaultPram.nv = 1;
 defaultPram.T = 1;
@@ -31,6 +31,8 @@ defaultPram.adStrength = 4e-1;
 defaultPram.adRange = 8e-1;
 defaultPram.fluxCoeff = 0; 
 defaultPram.fluxShape = zeros(prams.N,prams.nv); 
+defaultPram.dtMax = 1e0;
+defaultPram.dtMin = 1e-5;
 
 for k = 1:length(PramList)
   if ~isfield(prams,PramList{k})
