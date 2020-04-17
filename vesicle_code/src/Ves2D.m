@@ -100,21 +100,12 @@ time = (options.order-1)*tt.dt;
 
 accept = true;
 
-th = (0:prams.N-1)'*2*pi/prams.N;
-masterShape = ones(prams.N,1);
-%masterShape = exp(-3*(th - 0).^2) + ...
-%              exp(-3*(th - pi).^2) + ...
-%              exp(-3*(th - 2*pi).^2);
-%masterShape = 1*masterShape;
-%masterShape = 100*ones(prams.N,1);
-sigma = ones(prams.N,1);
-
 % Main time stepping loop
 while time < prams.T - 1e-10
-%Hacking for time-varying periodic flow 02/21/2020
-  tt.farField = @(X) tt.bgFlow(X,options.farField,...
-	options.farFieldSpeed*(1+sin(time))/2);
-%Hacking for time-varying periodic flow 02/21/2020
+%%Hacking for time-varying periodic flow 02/21/2020
+%  tt.farField = @(X) tt.bgFlow(X,options.farField,...
+%	options.farFieldSpeed*(1+sin(time))/2);
+%%Hacking for time-varying periodic flow 02/21/2020
   if time+tt.dt > prams.T
     tt.dt = prams.T - time;
   end
@@ -125,42 +116,12 @@ while time < prams.T - 1e-10
   
   tTstep = tic;
 
-% find the protein locations in parameter space with respect to the
-% memebranes tracker points
-
-  if 0
-  vesicle = capsules(X,sigma,[],prams.kappa,prams.viscCont);
-  [shearStress,normalStress] = ...
-      vesicle.computeShearStress(options,prams);
-  [~,~,cur] = oc.diffProp(X);
-  ten = sigma + 1.5*cur.^2;
-
-  W0 = 0.2;
-  W = W0*((shearStress + sqrt(16*ten.^2 + shearStress.^2) ...
-      - 4*ten).^2)./...
-          (shearStress + sqrt(16*ten.^2 + shearStress.^2));
-
-  fluxShape = 1./(1+2*exp(-W));
-
-  figure(2); clf;
-  plot(fluxShape)
-  pause
-
-%  tt.fluxShape = masterShape.*(ten > 50);
-%  figure(2); clf;
-%  plot(tt.fluxShape)
-  end
-
   [X,sigma,u,eta,RS,iter,accept,dtScale,res,iflag] = ...
       tt.timeStepGL(Xstore,sigStore,uStore,...
           etaStore,RSstore,prams.kappa,...
           prams.viscCont,walls,wallsCoarse,om,time,accept);
   countGMRES = countGMRES + iter;
   tTstep = toc(tTstep);
-
-% interpolate proteins on to the new membrane configuration
-
-% Update protein location with tangential pulling force.
 
   if options.profile
     fprintf('Time to correct area and length     %5.1e\n',toc);
@@ -177,6 +138,7 @@ while time < prams.T - 1e-10
   X(1:end/2) = X(1:end/2) - xmid;
   X(end/2+1:end) = X(end/2+1:end) - ymid;
   end
+  % Shift single vesicle as in a fluid trap
 
   if 0
   for k = 1:prams.nv
@@ -186,6 +148,7 @@ while time < prams.T - 1e-10
     z = ifft(ifftshift(zh));
     X(1:end/2,k) = real(z);
     X(end/2+1:end,k) = imag(z);
+  end
   end
   % remove Nyquist Fourier mode
 
@@ -207,7 +170,8 @@ while time < prams.T - 1e-10
   % vesicles midpoints
   % shift vertically so that the x axis is centered between the vesicles
   end
-  end
+  % Shift vesicle doublet as in a fluid trap
+
 
   if accept
     vesicle = capsules(X,sigma,u,prams.kappa,prams.viscCont);

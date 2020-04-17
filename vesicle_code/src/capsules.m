@@ -346,14 +346,18 @@ else
   % no slip boundary condition for velocity on solid walls
 end
 % If doing unbounded flow, add in the background velocity
+
 if tt.SP
   P = vesicle.computeNormals;
 else
   P = zeros(2*N,2*N,nv);
 end
+% Normal projection matrix
+
 for k = 1:nv
-   Pf(:,k) = P(:,:,k)*Fslp(:,k); 
+  Pf(:,k) = P(:,:,k)*Fslp(:,k); 
 end
+% Compute normal projection of 
 
 if tt.SP
   velBen = Fslp + tt.fluxCoeff.*[tt.fluxShape;tt.fluxShape].*Pf + ...
