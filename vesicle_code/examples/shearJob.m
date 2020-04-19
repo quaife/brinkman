@@ -2,8 +2,8 @@
 % beta = beta'; chi = chi';
 % beta = beta(:);
 % chi = chi(:);
-beta = [0.1,1,10];
-chi = [10,0.1,1];
+beta = 1;%[0.1,1,10];
+chi = 1;%[10,0.1,1];
 
 for k = 1:numel(beta)
   str = ['Chi' num2str(chi(k),'%2.1e') '_ra065_beta' ...

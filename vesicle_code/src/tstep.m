@@ -214,9 +214,9 @@ o.bdiagWall = o.wallsPrecond(wallsCoarse);
 end % initialConfined
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [Xstore,sigStore,uStore,etaStore,RSstore,Xtra] = ...
+function [Xstore,sigStore,uStore,etaStore,RSstore] = ...
   firstSteps(o,options,prams,Xinit,sigInit,uInit,...
-  walls,wallsCoarse,om,Xtra,pressTar)
+  walls,wallsCoarse,om,pressTar)
 % [Xstore,sigStore,uStore,etaStore,RSstore] = ...
 %   firstSteps(options,prams,Xinit,sigInit,uInit,...
 %   walls,wallsCoarse,om,pressTar)
@@ -274,7 +274,7 @@ vesicle.sig = sigStore(:,:,1);
 
 om.initializeFiles(Xinit,sigStore(:,:,1),...
     etaStore(:,:,1),...
-    RSstore(:,:,1),Xwalls,Xtra,pressTar);
+    RSstore(:,:,1),Xwalls,pressTar);
 % delete previous versions of files and write some initial
 % options/parameters to files and the console
 
@@ -310,12 +310,6 @@ for n = 1:prams.m
       updatePreco,vesicle);
   % take one time step
 
-  if numel(Xtra) > 1
-    vel = o.tracersVel(X,sigma,u,...
-        prams.kappa,prams.viscCont,walls,eta,RS,Xtra);
-    Xtra = Xtra + tt.dt*vel;
-  end
-
   accept = true;
   dtScale = 0;
   res = 0;
@@ -331,7 +325,7 @@ for n = 1:prams.m
   % density function
 
   terminate = om.outputInfo(X,sigma,u,eta,RS,...
-      Xwalls,Xtra,time,iter,dtScale,res,iflag);
+      Xwalls,time,iter,dtScale,res,iflag);
   % save data, write to log file, write to console as
   % requested
 end 

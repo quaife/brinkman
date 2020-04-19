@@ -76,12 +76,12 @@ end % constructor: monitor
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function initializeFiles(o,X,sig,...
-    eta,RS,Xwalls,Xtra,pressTar)
-% initializeFiles(X,sig,eta,RS,Xwalls,Xtra,pressTar) does the initial
+    eta,RS,Xwalls,pressTar)
+% initializeFiles(X,sig,eta,RS,Xwalls,pressTar) does the initial
 % writing of data to files and the console.  It first deletes any
 % previous data and then writes the number of points, tracer initial
 % conditions, pressure targets X and Xwalls are the vesicles and solid
-% walls, Xtra and pressTar are initial conditions for the tracers and
+% walls, and pressTar are initial conditions for the tracers and
 % pressure/stress target locations
 
 N = o.N; % points per vesicle
@@ -186,7 +186,7 @@ end % initializeFiles
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function terminate = outputInfo(o,X,sigma,u,eta,RS,...
-    Xwalls,Xtra,time,iter,dtScale,res,iflag)
+    Xwalls,time,iter,dtScale,res,iflag)
 % computes the error in area and length and write messages to the data
 % file, the log file, and the console.  Tells the simulation to stop if
 % error in area or length is too large.  X, sigma, u are the position,

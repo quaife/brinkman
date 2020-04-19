@@ -1,8 +1,8 @@
-function Xfinal  = Ves2D_hack(X,Xwalls,prams,options,Xtra,pressTar)
+function Xfinal  = Ves2D_hack(X,Xwalls,prams,options,pressTar)
 % Ves2D does time stepping on the intial configuration X
 % with parameters and options defined in prams and options.
-% Also can pass a set of initial tracer locations (Xtra) and 
-% target points where one wants the pressure and stress (pressTar)
+% Also can pass a set of initial target points where one wants 
+% the pressure and stress (pressTar)
 
 global matvecs ;  % number of matvecs
 global derivs  ;  % number of times we compute differential
@@ -10,10 +10,7 @@ global derivs  ;  % number of times we compute differential
 global fmms       % number of fmm calls
 
 if nargin == 4
-  Xtra = [];       % Xtra is positions of tracers for visualization
   pressTar = [];   % points to compute pressure for postprocessing
-elseif nargin == 5
-  pressTar = [];   
 end
 
 matvecs = 0; 
@@ -87,10 +84,10 @@ end
 % If flow is unbounded, there is no density function eta.  If bounded,
 % compute a structure for the solid walls 
 %
-[Xstore,sigStore,uStore,etaStore,RSstore,Xtra] = ...
+[Xstore,sigStore,uStore,etaStore,RSstore] = ...
     tt.firstSteps(options,prams,...
     Xstore(:,:,end),sigStore(:,:,end),uStore(:,:,end),...
-    walls,wallsCoarse,om,Xtra,pressTar);
+    walls,wallsCoarse,om,pressTar);
 % For higher-order methods (only 2nd order for now), need to initially
 % take smaller time steps so that we have two initial conditions
 
@@ -161,7 +158,7 @@ while time < prams.T - 1e-10
     % compute the shear and normal stress along the vesicles
 
     terminate = om.outputInfo(X,sigma,u,eta,RS,...
-        Xwalls,Xtra,time,iter,dtScale,res,iflag);
+        Xwalls,time,iter,dtScale,res,iflag);
     % check if we have violated the error in area or length also plot
     % and save the current solution to dat file.  Print information to
     % log file and console
