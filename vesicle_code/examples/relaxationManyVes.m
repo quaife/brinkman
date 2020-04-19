@@ -19,13 +19,11 @@ options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
 options.verbose = true;
-options.antiAlias = false;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-10;
 prams.errorTol = 1;
 
-% ADD-ONS
-options.correctShape = false;
+% ADHESION
 options.adhesion = true;
 prams.adRange = 4e-1;
 prams.adStrength = 7e-1;
@@ -46,16 +44,11 @@ options.expectedOrder = 1;
 % Plot on-the-fly
 options.usePlot = true;
 options.axis = [-5 5 -5 5];
-options.track = false;
 % Save vesicle information and create a log file
 options.logFile = 'output/relaxationManyVes.log';
 % Name of log file for saving messages
 options.dataFile = 'output/relaxationManyVesData.bin';
 % Name of binary data file for storing vesicle information
-
-options.saveError = true;
-options.errorFile = 'output/relaxationManyVesError.bin';
-% Name of binary data file for storing truncation errors after each step
 
 [options,prams] = initVes2D(options,prams);
 % Set options and parameters that the user doesn't

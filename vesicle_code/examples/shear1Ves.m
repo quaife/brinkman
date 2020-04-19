@@ -22,7 +22,6 @@ options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
 options.verbose = true;
-options.antiAlias = false;
 options.semipermeable = true;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-8;
@@ -33,25 +32,16 @@ options.adhesion = false;
 prams.adRange = 0.4;
 prams.adStrength = 100;
 
-% ADD-ONS
-options.alignCenterAngle = false;
-options.correctShape = false;
-options.reparameterization = false;
-
 % TIME ADAPTIVITY (parameters for new implementation)
 options.timeAdap = true;
 
 prams.rtolArea = 1e10;
 prams.rtolLength = 1e-2;
-if 1
-  prams.dtMax = 2;
-  prams.dtMin = 1e-4;
-  prams.betaInc = 1e-1;
-  prams.betaDec = 5e-1;
-  prams.betaUp = 1.2;
-  prams.betaDown = 0.5;
-  prams.alpha = 0.9;
-end
+prams.dtMax = 2;
+prams.dtMin = 1e-4;
+prams.betaUp = 1.2;
+prams.betaDown = 0.5;
+prams.alpha = 0.9;
 
 options.orderGL = 2;
 options.nsdc = 1;
@@ -62,7 +52,6 @@ options.expForce = false;
 % Plot on-the-fly
 options.usePlot = true;
 options.axis = [-5 5 -5 5];
-options.track = false;
 % Save vesicle information and create a log file
 options.logFile = ['output/' fileName '/shear1Ves.log'];
 %options.logFile = ['output/' fileName '.log'];
@@ -74,10 +63,6 @@ options.dataFile = ['output/' fileName '/shear1VesData.bin'];
 %options.dataFile = ['output/shear1VesData.bin.' num2str(10*fluxCoeff)];
 %options.dataFile = 'output/shear1VesData.bin';
 % Name of binary data file for storing vesicle information
-
-options.saveError = true;
-options.errorFile = 'output/shear1VesError.bin';
-% Name of binary data file for storing truncation errors after each step
 
 [options,prams] = initVes2D(options,prams);
 % Set options and parameters that the user doesn't

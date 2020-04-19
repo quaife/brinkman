@@ -116,18 +116,10 @@ o.orderGL = options.orderGL;
 o.GLpts = o.gaussLobatto(o.orderGL);
 % load Gauss-Lobatto points
 
-%% if options.correctShape
-%  o.rtolArea = prams.rtolArea;
-%  o.rtolLength = prams.rtolLength;
-% else
-   o.rtolArea = prams.rtolArea/prams.T;
-   o.rtolLength = prams.rtolLength/prams.T;
-% end
-% if the shape is being corrected after each time step, then the
-% rtolArea and rtolLength are exactly the tolerance for the error
-% accumulated at each time step.  However, if the shape is not being
-% corrected, then the tolerance should be achieved at the time horizon,
-% so we need to nondimensionalize by dividing by the time horizon
+o.rtolArea = prams.rtolArea/prams.T;
+o.rtolLength = prams.rtolLength/prams.T;
+% The tolerance should be achieved at the time horizon, so we need to
+% nondimensionalize by dividing by the time horizon
 o.nsdc = options.nsdc;
 % number of sdc iterations to take
 if o.order > 1

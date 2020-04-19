@@ -440,10 +440,10 @@ end % computeSigAndEta
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [eta,RS,iter] = computeEta(walls,tt)
-% [eta,RS,iter] = computeEta(walls,tt) computes wall densities and RS when
-% there is no vesicle but we want to compute the tracers. This is called by
-% tstep.m/noVesTracers. It uses the the exact inverse of
-% the double-layer potential for stokes flow in a bounded domain which is
+% [eta,RS,iter] = computeEta(walls,tt) computes wall densities and RS
+% when there is no vesicle but we want to compute the tracers. This is
+% called by tstep.m/noVesTracers. It uses the the exact inverse of the
+% double-layer potential for stokes flow in a bounded domain which is
 % computed by tstep.m/wallsPrecond.
 
 Nbd = walls.N; % points per solid wall

@@ -10,8 +10,8 @@ global derivs  ;  % number of times we compute differential
 global fmms       % number of fmm calls
 
 if nargin == 4
-  Xtra = [];       % Xtra is positions of tracers for visualization
   pressTar = [];   % points to compute pressure for postprocessing
+  Xtra = [];
 elseif nargin == 5
   pressTar = [];   
 end

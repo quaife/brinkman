@@ -19,14 +19,10 @@ options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
 options.verbose = true;
-options.antiAlias = false;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-10;
 %prams.errorTol = 1;
 prams.errorTol = 1000;
-
-% ADD-ONS
-options.correctShape = false;
 
 options.adhesion = true;
 prams.adRange = 2e-1;
@@ -54,7 +50,6 @@ options.expectedOrder = 2;
 % Plot on-the-fly
 options.usePlot = true;
 options.axis = [-10 10 -3 3];
-options.track = false;
 % Save vesicle information and create a log file
 %options.logFile = 'output/relax2Ves_SPA_FCpt1_FS1_ARpt1_ASpt7_T500ats_64_m1.log';
 options.logFile = 'Fig3pt75_remake_Q2019_SPbpt1.log';
@@ -62,10 +57,6 @@ options.logFile = 'Fig3pt75_remake_Q2019_SPbpt1.log';
 %options.dataFile = 'output/relax2VesData_SPA_FCpt1_FS1_ARpt1_ASpt7_T500ats_64_m1.bin';
 options.dataFile = 'Fig3pt75_remake_Q2019_SPbpt1.bin';
 % Name of binary data file for storing vesicle information
-
-options.saveError = true;
-options.errorFile = 'output/shear2VesError.bin';
-% Name of binary data file for storing truncation errors after each step
 
 [options,prams] = initVes2D(options,prams);
 % Set options and parameters that the user doesn't

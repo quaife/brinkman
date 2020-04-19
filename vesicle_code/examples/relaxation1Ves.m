@@ -2,7 +2,7 @@
 fprintf('Simple elliptical vesicle in a relaxation flow.\n');
 fprintf('First-order semi-implicit time stepping.\n');
 
-beta = 1;
+beta = 1e-3;
 m = 10000;
 ms = m;
 betas = beta;
@@ -10,20 +10,15 @@ betas = beta;
 % Physics parameters
 prams.N = 256;               % points per vesicle
 prams.nv = 1;               % number of vesicles
-prams.T = 1;               % time horizon (two tumbling)
+prams.T = 2e3;               % time horizon (two tumbling)
 prams.m = m;              % number of time steps
 prams.kappa = ones(prams.nv,1); % bending coefficient
 prams.viscCont = ones(prams.nv,1);         % viscosity contrast
 options.farField = 'relaxation'; % background velocity
 options.order = 1;          % time stepping order
-options.vesves = 'implicit';
-% Discretization of vesicle-vesicle interactions.
-% Either 'explicit' or 'implicit'
-options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
-options.antiAlias = false;
-options.semipermeable = true;
+options.semipermeable = false;
 options.adhesion = false;
 defaultPram.adStrength = 1;
 defaultPram.adRange = 4e-1;
@@ -35,24 +30,15 @@ if ~options.semipermeable
 end
 prams.fluxCoeff = beta*ones(prams.nv,1);
 
-% ADD-ONS
-options.alignCenterAngle = false;
-options.correctShape = false;
-options.reparameterization = false;
-
 % TIME ADAPTIVITY (parameters for new implementation)
 options.timeAdap = true;
 prams.rtolArea = 1e10;
 prams.rtolLength = 1e-2;
-if 1
-  prams.dtMax = 2;
-  prams.dtMin = 1e-4;
-  prams.betaInc = 1e-1;
-  prams.betaDec = 5e-1;
-  prams.betaUp = 1.2;
-  prams.betaDown = 0.5;
-  prams.alpha = 0.9;
-end
+prams.betaUp = 1.2;
+prams.betaDown = 0.5;
+prams.alpha = 0.9;
+prams.dtMax = 1e2;
+prams.dtMin = 1e-4;
 
 options.orderGL = 2;
 options.nsdc = 1;
@@ -63,7 +49,6 @@ options.expForce = false;
 % Plot on-the-fly
 options.usePlot = true;
 options.axis = [-3 3 -4 4];
-options.track = false;
 % Save vesicle information and create a log file
 %options.logFile = sprintf('%s','output/nsdc1_relaxation2Ves',ms,'_',betas,'.log');
 options.logFile = 'output/relaxation1Ves.log';
@@ -72,9 +57,8 @@ options.logFile = 'output/relaxation1Ves.log';
 options.dataFile = 'output/relaxation1VesData.bin';
 % Name of binary data file for storing vesicle information
 
-options.saveError = true;
-options.errorFile =sprintf('%s','output/nsdc1_relaxation2Ves',ms,'_',betas,'Error.log');
-% Name of binary data file for storing truncation errors after each step
+options.fluxShape = 1; % constant value
+options.fluxShape = 2; % gating via tension
 
 prams.fluxShape = beta*ones(prams.N,1); %flux shape 1
 
@@ -91,11 +75,11 @@ centerx = 0;
 centery = 0;
 ang = pi/2;
 
-X = oc.initConfig(prams.N,'nv',prams.nv,...
-    'reducedArea',ra,...
-    'center',[centerx;centery],...
-    'angle',ang,...
-    'scale',scale);
+%X = oc.initConfig(prams.N,'nv',prams.nv,...
+%    'reducedArea',ra,...
+%    'center',[centerx;centery],...
+%    'angle',ang,...
+%    'scale',scale);
 
 X = oc.initConfig(prams.N,'star',...
     'folds',5,...

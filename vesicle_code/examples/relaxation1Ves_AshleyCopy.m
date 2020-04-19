@@ -19,17 +19,11 @@ options.vesves = 'implicit';
 options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
-options.antiAlias = false;
 options.semipermeable = true;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-10;
 prams.errorTol = 1000;
 prams.fluxCoeff = 1;
-
-% ADD-ONS
-options.alignCenterAngle = false;
-options.correctShape = false;
-options.reparameterization = false;
 
 % TIME ADAPTIVITY (parameters for new implementation)
 options.timeAdap = true;
@@ -55,16 +49,11 @@ options.expForce = false;
 % Plot on-the-fly
 options.usePlot = true;
 options.axis = [-5 5 -5 5];
-options.track = false;
 % Save vesicle information and create a log file
 options.logFile = 'output/1Vesicle_Shear2_beta1_RApt65.log';
 % Name of log file for saving messages
 options.dataFile = 'output/1Vesicle_Shear2_beta1_RApt65.bin';
 % Name of binary data file for storing vesicle information
-
-options.saveError = true;
-options.errorFile = 'output/relaxation1VesError.bin';
-% Name of binary data file for storing truncation errors after each step
 
 [options,prams] = initVes2D(options,prams);
 % Set options and parameters that the user doesn't

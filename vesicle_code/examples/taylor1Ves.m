@@ -18,16 +18,9 @@ options.vesves = 'implicit';
 options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
-options.antiAlias = false;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-10;
 prams.errorTol = 1;
-
-% ADD-ONS
-options.alignCenterAngle = true;
-options.correctShape = true;
-options.reparameterization = false;
-
 
 % TIME ADAPTIVITY (parameters for new implementation)
 options.timeAdap = false;
@@ -44,16 +37,12 @@ options.expectedOrder = 1;
 
 % Plot on-the-fly
 options.usePlot = true;
-options.track = false;
 % Save vesicle information and create a log file
 options.logFile = 'output/taylor1Ves.log';
 % Name of log file for saving messages
 options.dataFile = 'output/taylor1VesData.bin';
 % Name of binary data file for storing vesicle information
 
-options.saveError = true;
-options.errorFile = 'output/taylor1VesError.bin';
-% Name of binary data file for storing truncation errors after each step
 options.axis = [0 pi 0 pi];
 
 [options,prams] = initVes2D(options,prams);

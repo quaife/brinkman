@@ -18,13 +18,10 @@ options.vesves = 'implicit';
 options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
-options.antiAlias = false;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-10;
 prams.errorTol = 1;
 
-% ADD-ONS
-options.correctShape = false;
 options.adhesion = true;
 prams.adRange = 4e-1;
 prams.adStrength = 2e-1;
@@ -45,16 +42,11 @@ options.expectedOrder = 2;
 % Plot on-the-fly
 options.usePlot = true;
 options.axis = [-10 10 -5 5];
-options.track = false;
 % Save vesicle information and create a log file
 options.logFile = 'output/shear4Ves.log';
 % Name of log file for saving messages
 options.dataFile = 'output/shear4VesData.bin';
 % Name of binary data file for storing vesicle information
-
-options.saveError = true;
-options.errorFile = 'output/shear4VesError.bin';
-% Name of binary data file for storing truncation errors after each step
 
 [options,prams] = initVes2D(options,prams);
 % Set options and parameters that the user doesn't

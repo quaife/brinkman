@@ -2,14 +2,16 @@ addpath ../../src
 set(0,'DefaultAxesFontSize',22)
 options.savefig = false;
 
-irate = 10000; % controls the speed of the visualization
+irate = 1;
+%irate = 10000; % controls the speed of the visualization
 %file = 'relaxation1VesData.bin';
 %file = 'shear1VesData.bin';
 %file = 'extensional1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/semipermeable/shear1VesData_fluxCoeff1_fluxShape3_fluxWidth4.bin';
 %file = '~/projects/brinkman/vesicle_code/examples/output/shear1VesData.bin';
-file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1_ra065_beta2p0e0/shear1VesData.bin';
-chi = 5.0; beta = 1.0;
+%file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1_ra065_beta2p0e0/shear1VesData.bin';
+file = '~/projects/brinkman/vesicle_code/results/relaxation1Ves/star_beta1p0e0/relaxation1VesData.bin';
+chi = 0.0; beta = 1.0;
 
 [posx,posy,sigma,wallx,wally,ea,el,time,n,nv] = loadFile(file);
 % load positions, "tension", stresses, errors, time, number of points, and
@@ -51,7 +53,7 @@ for k = 1:iend
 end
 
 for k = istart:irate:iend
-
+  if 0
   %calculate the moment of inertia using the formula in section 4.1 of
   %Rahimian, Veerapaneni, Biros 2010
   center = [mean(posx), mean(posy)];
@@ -74,6 +76,7 @@ for k = istart:irate:iend
   end
   %In radians
   IA(k) = angle(z);
+  end
 
   normal_trac(:,k) = ...
        trac(1:end/2,k) .* normal(1:end/2,k) + ...

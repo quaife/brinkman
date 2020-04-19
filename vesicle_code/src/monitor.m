@@ -10,8 +10,6 @@ reducedArea     % reduced area
 verbose         % write data to console
 saveData        % save the vesicle positions, tension, etc
 usePlot         % plot the vesicles
-track           % place tracker points on the vesicles
-quiver          % plot the velocity field on the vesicles
 axis            % axis of the plot
 dataFile        % name of the file to write the data
 logFile         % name of the file to write the log
@@ -52,8 +50,6 @@ o.nvbd = prams.nvbd;                % number of solid walls
 o.verbose = options.verbose;        % write data to console
 o.saveData = options.saveData;      % save the data
 o.usePlot = options.usePlot;        % plot the data
-o.track = options.track;            % include tracker points
-o.quiver = options.quiver;          % include velocity vectors
 o.axis = options.axis;              % axis of plot
 o.dataFile = options.dataFile;      % data file name
 o.logFile = options.logFile;        % log file name
