@@ -60,16 +60,14 @@ adStrength    % strength of adhesion
 adRange       % range of adhesion
 expForce      % exponential force towards a points ource
 fmmPrecision  % precision of fmm
-SP            % semipermeable membrane
-fluxCoeff     % Water flux coefficient
-fluxShape     % Water flux distribution
+
 end % properties
 
 methods
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function o = tstep(options,prams)
-% o=tstep(options,prams: constructor.  Initialize class.  Take all
+% o = tstep(options,prams: constructor.  Initialize class.  Take all
 % elements of options and prams needed by the time stepper
 
 o.expectedOrder = options.expectedOrder; % Expected time stepping order
@@ -135,15 +133,6 @@ else
   o.opWall = [];
 end
 
-o.SP = options.semipermeable;
-% Semipermeable membrane
-o.fluxCoeff = prams.fluxCoeff;
-% Water flux coefficient
-o.fluxShape = options.fluxShape;
-% Water flux shape
-%   ==1: constant
-%   ==2: gated via tension
-
 end % tstep: constructor
 
 
@@ -205,17 +194,8 @@ etaStore = zeros(2*Nbd);
 RSstore = zeros(3,nvbd);
 
 Xstore(:,:,1) = Xinit;
-vesicle = capsules(Xinit,zeros(N,nv),[],prams.kappa,prams.viscCont);
-if options.semipermeable
-  vesicle.SP = true;
-  vesicle.beta = ones(N,nv)*diag(prams.fluxCoeff);
-  % regardless of the gating function, use a constant permeability rate
-  % for finding the initial tension. Otherwise, there is a nonlinear
-  % system that needs to be solved for the tension, but maybe this could
-  % be done later with a fixed-point iteration
-else
-  vesicle.SP = false;
-end
+vesicle = capsules(Xinit,zeros(N,nv),[],prams.kappa,prams.viscCont,...
+    options.semipermeable,prams.fluxCoeff,options.fluxShape);
 
 [sigStore,etaStore,RSstore,u,iter] = vesicle.computeSigAndEta(o,walls);
 vesicle.sig = sigStore;
@@ -306,9 +286,8 @@ u = uProv(:,:,1);
 SP = ves.SP;
 beta = ves.beta;
 
-vesicle(1) = capsules(X,sigma,u,kappa,viscCont);
-vesicle(1).SP = vesicle.SP;
-vesicle(1).beta = beta;
+vesicle(1) = capsules(X,sigma,u,kappa,viscCont,...
+    ves.SP,ves.fluxCoeff,ves.fluxShape);
 % vesicle configuration at first Gauss-Lobatto point which is the
 % initial condition of the current time step 
 
@@ -338,8 +317,6 @@ for k = 1:abs(o.orderGL)-1
       vesicle(k),etaProv(:,:,k),RSprov(:,:,k),...
       [],[],[],[],[],[],[],...
       walls,wallsCoarse,updatePreco);
-  disp(subIter)
-  pause
 %  [X,sigma,u,eta,RS,subIter,iflagTemp] = o.timeStepOld(...
 %      Xprov(:,:,k),sigmaProv(:,:,k),...
 %      uProv(:,:,k),etaProv(:,:,k),...
@@ -378,11 +355,8 @@ for k = 1:abs(o.orderGL)-1
     NearV2W{k} = o.NearV2W;
     NearW2W{k} = o.NearW2W;
 
-    vesicle(k+1) = capsules(X,sigma,u,kappa,viscCont);
-    vesicle(k+1).SP = vesicle(k).SP;
-    if vesicle(k+1).SP
-      vesicle(k+1).beta = vesicle(k).beta;
-    end
+    vesicle(k+1) = capsules(X,sigma,u,kappa,viscCont,...
+        ves.SP,ves.fluxCoeff,ves.fluxShape);
     % BQ: THIS NEEDS TO BE FIXED TO HANDLE GATING
     % need to save if doing SDC corrections 
   end
@@ -396,7 +370,6 @@ for k = 1:abs(o.orderGL)-1
   % Gauss-Lobatto point
 end % k
 
-% BQ: LEFT OF HERE
 % need to save the near-singular integration structure and
 % layer-potential matricies at the final Gauss-Lobatto point for future
 % SDC sweeps and computing the residual, if there are any SDC sweeps
@@ -521,14 +494,22 @@ for sdcCount = 1:o.nsdc
     o.NearW2V = NearW2V{n+1};
     o.NearW2W = NearW2W{n+1};
     [X,sigma,u,eta,RS,subIter,iflagTemp] = o.timeStep(...
-        Xprov(:,:,n+1),sigmaProv(:,:,n+1),...
-        uStore,etaProv(:,:,n+1),RSprov(:,:,n+1),...
+        vesicle(n+1),etaProv(:,:,n+1),RSprov(:,:,n+1),...
         deltaX(:,:,n),deltaSigma(:,:,n),...
         deltaEta(:,:,n),deltaRS(:,:,n),...
         residual(:,:,n+1) - residual(:,:,n),...
         vesVel(:,:,n+1),wallVel(:,:,n+1),...
-        kappa,viscCont,walls,wallsCoarse,updatePreco,vesicle(n+1),...
+        walls,wallsCoarse,updatePreco,...
         vesicle(1).sa,vesicle(1).IK);
+%    [X,sigma,u,eta,RS,subIter,iflagTemp] = o.timeStepOld(...
+%        Xprov(:,:,n+1),sigmaProv(:,:,n+1),...
+%        uStore,etaProv(:,:,n+1),RSprov(:,:,n+1),...
+%        deltaX(:,:,n),deltaSigma(:,:,n),...
+%        deltaEta(:,:,n),deltaRS(:,:,n),...
+%        residual(:,:,n+1) - residual(:,:,n),...
+%        vesVel(:,:,n+1),wallVel(:,:,n+1),...
+%        kappa,viscCont,walls,wallsCoarse,updatePreco,vesicle(n+1),...
+%        vesicle(1).sa,vesicle(1).IK);
     % Form the sdc update
     iter = iter + subIter;
 
@@ -563,7 +544,9 @@ for sdcCount = 1:o.nsdc
   if sdcCount < o.nsdc
     for n = 1:abs(o.orderGL)
       vesicle(n) = capsules(Xprov(:,:,n),sigmaProv(:,:,n),...
-          [],kappa,viscCont);
+        [],kappa,viscCont,...
+        ves.SP,ves.fluxCoeff,ves.fluxShape);
+      % BQ: NEED TO FIX THIS TO HANDLE GATING
       Galpert(:,:,:,n) = o.op.stokesSLmatrix(vesicle(n));
       if any(viscCont ~= 1)
         D(:,:,:,n) = o.op.stokesDLmatrix(vesicle(n));
@@ -576,6 +559,7 @@ for sdcCount = 1:o.nsdc
     [vesVel,divVesVel,wallVel,residual] = ...
       o.computeVelocities(vesicle,Galpert,D,walls,...
           etaProv,RSprov,NearV2V,NearV2W,NearW2V,NearW2W);
+    % update the velocities and residuals
   end
   normRes = max(abs(residual(:,:,end)));
   normRes = max(normRes);
@@ -725,11 +709,6 @@ function [X,sigma,u,eta,RS,iter,iflag] = timeStep(o,...
     diffResidual,vesVel,wallVel,walls,wallsCoarse,...
     updatePreco,sa,IK)
 % TODO: UPDATE THE COMMENT BELOW
-% [X,sigma,u,eta,RS,iter,iflag] = timeStep(o,...
-%    Xstore,sigStore,uStore,etaStore,RSstore,...
-%    deltaX,deltaSig,deltaEta,deltaRS,...
-%    diffResidual,vesVel,wallVel,kappa,viscCont,walls,wallsCoarse,...
-%    updatePreco,sa,IK)
 % uses implicit vesicle-vesicle interactions and discretizes the
 % inextensibility condition using what used to be called method1.  Must
 % pass in the vesicle positions, tension, and velocity from enough
@@ -767,7 +746,6 @@ RSm = zeros(3,nvbd);
 
 Xm = Xm + Xstore;
 sigmaM = sigmaM + sigStore;
-uM = uM + uStore;
 if o.confined
   etaM = etaM + etaStore;
   RSm = RSm + RSstore;
@@ -1083,7 +1061,7 @@ if usePreco
     end
     [Ben,Ten,Div] = vesicle.computeDerivs;
 
-    if o.SP
+    if vesicle.SP
       P = vesicle.computeNormals;
     else
       P = zeros(2*N,2*N,nv);
@@ -1255,8 +1233,7 @@ end
 Nbd = size(Xwalls,1)/2; % Number of points on the solid walls
 nvbd = size(Xwalls,2); % number of solid wall components
 alpha = (1 + viscCont)/2; 
-% constant that appears in front of time derivative in
-% vesicle dynamical equations
+% constant that appears in front of time derivative for vesicle dynamics
 
 Xm = zeros(2*N,nv);
 sigmaM = zeros(N,nv);
@@ -1604,14 +1581,14 @@ if usePreco
     
     for k=1:nv
       if any(vesicle.viscCont ~= 1)
-        [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
-          [eye(2*N) - o.D(:,:,k)/alpha(k) + ...
-          o.dt/alpha(k)*vesicle.kappa(k)*o.fluxCoeff(k)*P(:,:,k)*Ben(:,:,k).*[o.fluxShape(:,k);o.fluxShape(:,k)]+...
-          o.dt/alpha(k)*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k),...
-          -o.dt/alpha(k)*P(:,:,k)*Ten(:,:,k)*o.fluxCoeff.*[o.fluxShape(:,k);o.fluxShape(:,k)] - ...
-          o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
-          Div(:,:,k),zeros(N)]);
-        % TODO: THIS MOST LIKELY HAS A BUG
+%        [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
+%          [eye(2*N) - o.D(:,:,k)/alpha(k) + ...
+%          o.dt/alpha(k)*vesicle.kappa(k)*o.fluxCoeff(k)*P(:,:,k)*Ben(:,:,k).*[o.fluxShape(:,k);o.fluxShape(:,k)]+...
+%          o.dt/alpha(k)*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k),...
+%          -o.dt/alpha(k)*P(:,:,k)*Ten(:,:,k)*o.fluxCoeff.*[o.fluxShape(:,k);o.fluxShape(:,k)] - ...
+%          o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
+%          Div(:,:,k),zeros(N)]);
+%        % TODO: THIS MOST LIKELY HAS A BUG
       else           
         [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
           [eye(2*N) + o.dt * o.fluxCoeff * ...

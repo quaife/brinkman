@@ -26,6 +26,8 @@ center;     % center of the point required for stokeslets
 IK;         % index of Fourier modes for fft and ifft
             % that are needed repetatively
 SP;         % flag for semipermeability
+fluxCoeff;  % strength of the permeability field
+fluxShape;  % flag for the type of permeability distribution
 beta;       % permeability distribution
 
 end %properties
@@ -33,7 +35,7 @@ end %properties
 methods
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function o = capsules(X,sigma,u,kappa,viscCont)
+function o = capsules(X,sigma,u,kappa,viscCont,SP,fluxCoeff,fluxShape)
 % capsules(X,sigma,u,kappa,viscCont) sets parameters and options for
 % the class; no computation takes place here.  
 %
@@ -62,21 +64,31 @@ o.IK = fft1.modes(o.N,o.nv);
 % ordering of the fourier modes.  It is faster to compute once here and
 % pass it around to the fft differentitation routine
 
-o.beta = [];
-SP = [];
+if nargin == 5
+  o.SP = false;
+  o.fluxCoeff = 0;
+  o.fluxShape = [];
+else
+  o.SP = SP;
+  if o.SP
+    o.fluxCoeff = fluxCoeff;
+    o.fluxShape = fluxShape;
+    o.permeabilityRate;
+  end
+end
 
 end % capsules
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function permeabilityRate(vesicle,fluxCoeff,fluxShape)
+function permeabilityRate(vesicle)
 % o.permeabilityRate(fluxCoeff,fluxShape) sets the permeability rate of
 % the vesicle
 
-if fluxShape == 1
-  vesicle.beta = fluxCoeff*ones(vesicle.N,vesicle.nv);
-elseif fluxShape == 2
+if vesicle.fluxShape == 1
+  vesicle.beta = vesicle.fluxCoeff*ones(vesicle.N,vesicle.nv);
+elseif vesicle.fluxShape == 2
   tension = vesicle.sig + 1.5*vesicle.cur.^2;
-  vesicle.beta = 1./(1+exp(-2.5*(tension-10)))*diag(prams.fluxCoeff);
+  vesicle.beta = 1./(1+exp(-2.5*(tension-10)))*diag(vesicle.fluxCoeff);
 end
 
 end % permeabilityRate

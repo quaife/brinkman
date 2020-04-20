@@ -109,14 +109,8 @@ while time < prams.T - 1e-10
   tTstep = tic;
 
   vesicle = capsules(Xstore,sigStore,uStore,...
-      prams.kappa,prams.viscCont);
-  if options.semipermeable
-    vesicle.SP = true;
-    vesicle.permeabilityRate(prams.fluxCoeff,...
-        options.fluxShape);
-  else
-    vesicle.SP = false;
-  end
+      prams.kappa,prams.viscCont,options.semipermeable,...
+      prams.fluxCoeff,options.fluxShape);
     
   [X,sigma,u,eta,RS,iter,accept,dtScale,res,iflag] = ...
       tt.timeStepGL(vesicle,etaStore,RSstore,...
