@@ -309,7 +309,7 @@ end % k1
 
 LP = farField + nearField;
 
-% *************************************************************************
+% **********************************************************************
 % Add kernel due to far points and near points.  Far points were
 % upsampled if source==vesicle so need to truncate here.  We are 
 % only using Ntar target points.  Note that it is only the sources 
@@ -321,100 +321,12 @@ end % nearSingInt
 % START OF ROUTINES THAT BUILD LAYER-POTENTIAL MATRICIES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function G = stokesSLmatrix2(o,vesicle)
-% G = stokesSLmatrix2(vesicle) generates the single-layer potential for
-% Stokes vesicle is a data structure defined as in the curve class G is
-% (2N,2N,nv) array where N is the number of points per curve and nv is
-% the number of curves in X.  This loops over the columns
-
-oc = curve;
-[x,y] = oc.getXY(vesicle.X);
-% Vesicle positions
-Nquad = numel(o.qw);
-% number of quadrature points including the extra terms that Alpert's
-% rule brings into the quadrature
-qw = o.qw(:,ones(vesicle.N,1));
-
-%G = zeros(vesicle.N,vesicle.N,vesicle.nv);
-G = zeros(2*vesicle.N,2*vesicle.N,vesicle.nv);
-for k=1:vesicle.nv  % Loop over curves
-  xx = x(:,k);
-  yy = y(:,k);
-  % locations
-  sa = vesicle.sa(:,k)';
-  sa = sa(ones(vesicle.N,1),:);
-  % Jacobian
-
-  xtar = xx(:,ones(Nquad,1))'; 
-  ytar = yy(:,ones(Nquad,1))'; 
-  % target points
-
-  xsou = xx(:,ones(vesicle.N,1)); 
-  ysou = yy(:,ones(vesicle.N,1));
-  % source points
-  xsou = xsou(o.Rfor);
-  ysou = ysou(o.Rfor);
-  % have to rotate each column so that it is compatiable with o.qp
-  % which is the matrix that takes function values and maps them to the
-  % intermediate values required for Alpert quadrature
-
-  diffx = xtar - o.qp*xsou;
-  diffy = ytar - o.qp*ysou;
-  rho2 = (diffx.^2 + diffy.^2).^(-1);
-  % one over distance squared
-  
-  logpart = 0.5*o.qp'*(qw .* log(rho2));
-  % sign changed to positive because rho2 is one over distance squared
-
-  Gves = logpart + o.qp'*(qw.*diffx.^2.*rho2);
-  Gves = Gves(o.Rbac);
-  G(1:vesicle.N,1:vesicle.N,k) = Gves'.*sa;
-  % (1,1)-term
-
-  Gves = logpart + o.qp'*(qw.*diffy.^2.*rho2);
-  Gves = Gves(o.Rbac);
-  G(vesicle.N+1:end,vesicle.N+1:end,k) = Gves'.*sa;
-  % (2,2)-term
-
-  Gves = o.qp'*(qw.*diffx.*diffy.*rho2);
-  Gves = Gves(o.Rbac);
-  G(1:vesicle.N,vesicle.N+1:end,k) = Gves'.*sa;
-  % (1,2)-term
-  G(vesicle.N+1:end,1:vesicle.N,k) = G(1:vesicle.N,vesicle.N+1:end,k);
-  % (2,1)-term
-end
-
-end % stokesSLmatrix2
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function G = stokesSLmatrix(o,vesicle)
 % G = stokesSLmatrix(vesicle) generates the single-layer potential for
 % Stokes vesicle is a data structure defined as in the curve class G is
 % (2N,2N,nv) array where N is the number of points per curve and nv is
 % the number of curves in X 
-
-ialpert = true;
-
-if ~ialpert
-  G = o.stokesSLmatrixKR(vesicle);
-else
-  G = o.stokesSLmatrixAlpert(vesicle);
-end
-
-end % stokesSLmatrix
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function G = stokesSLmatrixAlpert(o,vesicle)
-% G = stokesSLmatrix(vesicle) generates the single-layer potential for
-% Stokes vesicle is a data structure defined as in the curve class G is
-% (2N,2N,nv) array where N is the number of points per curve and nv is
-% the number of curves in X 
-
-% It can be upsampled or not, if vesicle.N > o.N then upsampled vesicle
-% is sent here.
 
 oc = curve;
 [x,y] = oc.getXY(vesicle.X);
@@ -427,7 +339,6 @@ Rbac = o.Rbac;
 Rfor = o.Rfor;
 % number of quadrature points including the extra terms that Alpert's
 % rule brings into the quadrature
-
 
 G = zeros(2*o.N,2*o.N,vesicle.nv);
 for k=1:vesicle.nv  % Loop over curves
@@ -481,8 +392,7 @@ for k=1:vesicle.nv  % Loop over curves
   G(o.N+1:end,o.N+1:end,k) = G22;
 end
 
-end % stokesSLmatrixAlpert
-
+end % stokesSLmatrix
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function D = stokesDLmatrix(o,vesicle)
@@ -570,9 +480,10 @@ end % stokesDLmatrix
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function N0 = stokesN0matrix(o,vesicle)
-% N0 = stokesN0matrix(vesicle) generates the the integral operator with kernel
-% normal(x) \otimes normal(y) which removes the rank one defficiency of the
-% double-layer potential.  Need this operator for solid walls
+% N0 = stokesN0matrix(vesicle) generates the the integral operator with
+% kernel normal(x) \otimes normal(y) which removes the rank one
+% defficiency of the double-layer potential.  Need this operator for
+% solid walls
 
 oc = curve;
 [x,y] = oc.getXY(vesicle.X); % Vesicle positions
@@ -631,41 +542,6 @@ end % laplaceSLmatrix
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function G = laplaceSLmatrixPrime(o,vesicle)
-% G = laplaceSLmatrixPrime(vesicle) generates the derivative of the
-% single-layer potential.  vesicle is a data structure defined as in the
-% capsules class G is (N,N,nv) array where N is the number of points per
-% curve and nv is the number of curves in X
-
-oc = curve;
-[x,y] = oc.getXY(vesicle.X); % Vesicle positions
-nx = vesicle.xt(vesicle.N+1:2*vesicle.N,:);
-ny = -vesicle.xt(1:vesicle.N,:);
-
-G = zeros(o.N,o.N,vesicle.nv);
-% initalize derivative of single-layer potential to zero
-for k=1:vesicle.nv  % Loop over curves
-  for j=1:vesicle.N % Loop over targets
-    rx = x(j,k) - x(:,k);
-    ry = y(j,k) - y(:,k);
-    rdotn = rx*nx(j,k) + ry*ny(j,k);
-    rho2 = rx.^2 + ry.^2;
-    rho2(j) = 1;
-    % Set diagonal term to one to avoid dividing by zero
-
-    G(j,:,k) = rdotn./rho2.*vesicle.sa(:,k);
-
-    G(j,j,k) = 0.5*vesicle.cur(j,k)*vesicle.sa(j,k);
-  end % j
-  G(:,:,k) = G(:,:,k)*2*pi/vesicle.N/(2*pi);
-end % k
-
-
-end % laplaceSLmatrixPrime
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function D = laplaceDLmatrix(o,vesicle)
 % D = laplaceDLmatrix(vesicle), generate double layer potential for
 % laplace.  vesicle is a data structure defined as in the capsules
@@ -699,7 +575,6 @@ for k=1:vesicle.nv  % Loop over curves
 
   end % j
 end % k
-
 
 end % laplaceDLmatrix
 
@@ -1074,9 +949,6 @@ for k=1:vesicle.nv  % Loop over curves
     % half the terms in the quadrature
   end % j
 
-
-
-
   index1 = (2:2:vesicle.N)'; % even-indexed source points
   for j=1:2:vesicle.N % Loop over targets
     rx = x(j,k) - x(index1,k);
@@ -1134,7 +1006,6 @@ for k=1:vesicle.nv  % Loop over curves
     % Have built the stress tensor applied to [0;1] at half the points
     % Have built the stress tensor applied to [1;0] at the other 
     % half of the points
-
 
     coeff = -8*ry.*rdotn./rho2.^3.*rx.^2 + ...
         rdotn./rho2.^2.*ry + ...
@@ -1575,7 +1446,7 @@ end
 stokesSLPtar = 1/(4*pi)*stokesSLPtar;
 % Avoid loop over the target points.  Only loop over its columns
 
-%% 1/4/pi is the coefficient in front of the single-layer potential
+% 1/4/pi is the coefficient in front of the single-layer potential
 
 
 stokesSLP = zeros(2*vesicle.N,vesicle.nv); % Initialize to zero
@@ -1622,70 +1493,6 @@ if (nargin == 3 && vesicle.nv > 1)
 end % nargin == 3
 
 end % exactStokesSL
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [vortSLP,vortSLPtar] = exactVortSL(o,vesicle,f,Xtar,K1)
-% compute the vorticity of the single-layer potential.  The kernel seems
-% to be singular, so our near singular-integration scheme will not work.
-% Also, cna only do vorticity at target points, and they should be
-% sufficiently separated from the vesicles
-
-if nargin == 5
-  Ntar = size(Xtar,1)/2;
-  ncol = size(Xtar,2);
-  vortSLPtar = zeros(Ntar,ncol);
-else
-  K1 = [];
-  vortSLPtar = [];
-  ncol = 0;
-  % if nargin ~= 5, the user does not need the velocity at arbitrary
-  % points
-end
-
-den = f.*[vesicle.sa;vesicle.sa]*2*pi/vesicle.N;
-% multiply by arclength term
-
-oc = curve;
-[xsou,ysou] = oc.getXY(vesicle.X(:,K1));
-xsou = xsou(:); ysou = ysou(:);
-xsou = xsou(:,ones(Ntar,1))';
-ysou = ysou(:,ones(Ntar,1))';
-% This is faster than repmat
-
-[denx,deny] = oc.getXY(den(:,K1));
-denx = denx(:); deny = deny(:);
-denx = denx(:,ones(Ntar,1))';
-deny = deny(:,ones(Ntar,1))';
-% This is faster than repmat
-
-for k = 1:ncol % loop over columns of target points 
-  [xtar,ytar] = oc.getXY(Xtar(:,k));
-  xtar = xtar(:,ones(vesicle.N*numel(K1),1));
-  ytar = ytar(:,ones(vesicle.N*numel(K1),1));
-  
-  diffx = xtar-xsou; diffy = ytar-ysou;
-  
-  dis2 = diffx.^2 + diffy.^2;
-  s = find(min(dis2,[],2) < 1e-3);
-  % distance squared of source and target location
-  coeff = diffy.*denx - diffx.*deny;
-
-  vortSLPtar(:,k) = sum(coeff./dis2,2);
-  vortSLPtar(s,k) = 1e10;
-end
-vortSLPtar = 1/(2*pi)*vortSLPtar;
-% Avoid loop over the target points.  Only loop over its columns
-
-%% 1/4/pi is the coefficient in front of the single-layer potential
-
-vortSLP = zeros(2*vesicle.N,vesicle.nv); % Initialize to zero
-
-if (nargin == 3 && vesicle.nv > 1)
-  disp('CAN''T HANDLE THIS CASE')
-end % nargin == 3
-
-
-end % exactVortSL
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

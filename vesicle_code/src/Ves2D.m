@@ -108,10 +108,19 @@ while time < prams.T - 1e-10
   
   tTstep = tic;
 
+  vesicle = capsules(Xstore,sigStore,uStore,...
+      prams.kappa,prams.viscCont);
+  if options.semipermeable
+    vesicle.SP = true;
+    vesicle.permeabilityRate(prams.fluxCoeff,...
+        options.fluxShape);
+  else
+    vesicle.SP = false;
+  end
+    
   [X,sigma,u,eta,RS,iter,accept,dtScale,res,iflag] = ...
-      tt.timeStepGL(Xstore,sigStore,uStore,...
-          etaStore,RSstore,prams.kappa,...
-          prams.viscCont,walls,wallsCoarse,om,time,accept);
+      tt.timeStepGL(vesicle,etaStore,RSstore,...
+          walls,wallsCoarse,om,time,accept);
   countGMRES = countGMRES + iter;
   tTstep = toc(tTstep);
 
@@ -166,11 +175,6 @@ while time < prams.T - 1e-10
 
 
   if accept
-    vesicle = capsules(X,sigma,u,prams.kappa,prams.viscCont);
-    [shearStress,normalStress] = ...
-        vesicle.computeShearStress(options,prams);
-    % compute the shear and normal stress along the vesicles
-
     terminate = om.outputInfo(X,sigma,u,eta,RS,...
         Xwalls,time,iter,dtScale,res,iflag);
     % check if we have violated the error in area or length also plot

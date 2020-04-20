@@ -13,7 +13,7 @@ classdef curve
 methods
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [x,y]=getXY(o,X)
+function [x,y] = getXY(o,X)
 % [x,y] = getXY(X) get the [x,y] component of curves X
 N = size(X,1)/2;
 x = X(1:N,:);
@@ -33,10 +33,10 @@ end % setXY
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [Dx,Dy]=getDXY(o,X)
-% [Dx,Dy]=getDXY(X), compute the derivatives of each component of X 
-% these are the derivatives with respect the parameterization 
-% not arclength
+function [Dx,Dy] = getDXY(o,X)
+% [Dx,Dy] = getDXY(X), compute the derivatives of each component of X
+% these are the derivatives with respect the parameterization not
+% arclength
 x = X(1:end/2,:);
 y = X(end/2+1:end,:);
 N = size(x,1);
@@ -69,7 +69,7 @@ nv = size(X,2);
 jacobian = sqrt(Dx.^2 + Dy.^2); 
 
 if nargout>1  % if user requires tangent
-  tangent = o.setXY( Dx./jacobian, Dy./jacobian);
+  tangent = o.setXY(Dx./jacobian,Dy./jacobian);
 end
 
 if nargout>2  % if user requires curvature
@@ -240,12 +240,6 @@ elseif any(strcmp(options,'couette'))
   y = [20*sin(t)+cen(2,1) 10*sin(-t)+cen(2,2)];
   X = o.setXY(x,y);
   % annular domain
-  
-elseif any(strcmp(options,'couetteOuter'))
-  x = [20*cos(t)+cen(1,1) 10*cos(-t)+cen(1,2)];
-  y = [20*sin(t)+cen(2,1) 10*sin(-t)+cen(2,2)];
-  X = o.setXY(x,y);
-  % annular domain  
 
 elseif any(strcmp(options,'doubleCouette'))
   x = [20*cos(t)+cen(1,1) 5*cos(-t)+cen(1,2) 5*cos(-t)+cen(1,3)];
@@ -380,7 +374,6 @@ end
 % iteration quits if reduced area is achieved within 1% or 
 % maxiter iterations have been performed
 
-
 end % ellipse
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -411,10 +404,8 @@ walls = capsules(Xwalls,[],[],0,0,true);
 % build object for walls
 radx = 1/2*(max(xwalls(:,1)) - min(xwalls(:,1)));
 rady = 1/2*(max(ywalls(:,1)) - min(ywalls(:,1)));
-
-% need radx and rady to decide where to randomly
-% sample the geometry.  This way we do not pick 
-% a center that is  outside of the solid walls 
+% need radx and rady to decide where to randomly sample the geometry.
+% This way we do not pick a center that is  outside of the solid walls
 % on a regular basis
 
 X = zeros(2*N,nv);
@@ -451,13 +442,12 @@ while k <= nv
   
   if accept 
     X(:,k) = [xpot;ypot];
-    % if vesicle is not outside of physical walls, accept it as
-    % a potential new vesicle.  It will be kept as long as it intersects
+    % if vesicle is not outside of physical walls, accept it as a
+    % potential new vesicle.  It will be kept as long as it intersects
     % no other vesicles
 
     vesicle = capsules(X(:,1:k),[],[],0,0,true);
-    % create an object with the current configuration of
-    % vesicles
+    % create an object with the current configuration of vesicles
     NearV2V = vesicle.getZone([],1);
     icollisionVes = vesicle.collision(...
         [],NearV2V,[],fmm,1,tt.op);

@@ -25,7 +25,9 @@ center;     % center of the point required for stokeslets
             % and rotlets
 IK;         % index of Fourier modes for fft and ifft
             % that are needed repetatively
-SP          % semipermeable membrane
+SP;         % flag for semipermeability
+beta;       % permeability distribution
+
 end %properties
 
 methods
@@ -60,7 +62,25 @@ o.IK = fft1.modes(o.N,o.nv);
 % ordering of the fourier modes.  It is faster to compute once here and
 % pass it around to the fft differentitation routine
 
+o.beta = [];
+SP = [];
+
 end % capsules
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function permeabilityRate(vesicle,fluxCoeff,fluxShape)
+% o.permeabilityRate(fluxCoeff,fluxShape) sets the permeability rate of
+% the vesicle
+
+if fluxShape == 1
+  vesicle.beta = fluxCoeff*ones(vesicle.N,vesicle.nv);
+elseif fluxShape == 2
+  tension = vesicle.sig + 1.5*vesicle.cur.^2;
+  vesicle.beta = 1./(1+exp(-2.5*(tension-10)))*diag(prams.fluxCoeff);
+end
+
+end % permeabilityRate
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [ben,ten,adh] = computeEnergies(vesicle,W0,d0)
@@ -241,17 +261,21 @@ end % computeDerivs
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function ProjMat  = computeNormals(vesicle)
-    ProjMat = zeros(2*vesicle.N,2*vesicle.N,vesicle.nv);
-    oc = curve;
-    for k = 1:vesicle.nv
-        tangent = vesicle.xt(:,k);
-        [tanx,tany] = oc.getXY(tangent);
-        nx = tany;
-        ny = -tanx;
-        ProjMat(:,:,k) = [diag(nx.*nx), diag(nx.*ny); diag(ny.*nx) diag(ny.*ny)];
-    end
+% ProjMat  = computeNormals() computes the normal projection matrix of
+% the vesicle shape
+
+ProjMat = zeros(2*vesicle.N,2*vesicle.N,vesicle.nv);
+oc = curve;
+for k = 1:vesicle.nv
+  tangent = vesicle.xt(:,k);
+  [tanx,tany] = oc.getXY(tangent);
+  nx = tany;
+  ny = -tanx;
+  ProjMat(:,:,k) = [diag(nx.*nx), diag(nx.*ny); ...
+                    diag(ny.*nx), diag(ny.*ny)];
+end
           
-end %computeNormals
+end % computeNormals
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [sigma,eta,RS,vesVel,iter] = computeSigAndEta(...
@@ -347,25 +371,26 @@ else
 end
 % If doing unbounded flow, add in the background velocity
 
-if tt.SP
+velBen = Fslp + op.exactStokesSLdiag(vesicle,tt.Galpert,f) + Ffar;
+
+if vesicle.SP
   P = vesicle.computeNormals;
+  % Normal projection matrix
+
+  for k = 1:nv
+    Pf(:,k) = P(:,:,k)*f(:,k); 
+  end
+  % Compute normal projection of traction
+  % If doing gating pemeability, solving for the initial tension becomes
+  % a non-linear problem. Instead, we take the maximum permeability rate
+  % and solve for the corresponding tension. Hopefully this error will
+  % be supressed as the dynamics evolve
+  velBen = velBen + [vesicle.beta;vesicle.beta].*Pf;
+%  tt.fluxShape = tt.fluxCoeff*ones(N,nv);
+%  velBen = velBen + tt.fluxCoeff.*[tt.fluxShape;tt.fluxShape].*Pf;
+%  velBen = velBen + tt.fluxCoeff.*Pf;
 else
   P = zeros(2*N,2*N,nv);
-end
-% Normal projection matrix
-
-for k = 1:nv
-  Pf(:,k) = P(:,:,k)*f(:,k); 
-end
-% Compute normal projection of 
-
-tt.fluxShape = tt.fluxCoeff*ones(N,nv);
-
-if tt.SP
-  velBen = Fslp + tt.fluxCoeff.*[tt.fluxShape;tt.fluxShape].*Pf + ...
-      op.exactStokesSLdiag(vesicle,tt.Galpert,f) + Ffar;
-else
-  velBen = Fslp + op.exactStokesSLdiag(vesicle,tt.Galpert,f) + Ffar;
 end
 
 for k = 1:nv
@@ -389,9 +414,8 @@ for k = 1:nv
       Div(:,:,k) zeros(N)]);
   else
     [tt.bdiagVes.L(:,:,k),tt.bdiagVes.U(:,:,k)] = lu(...
-      [eye(2*N), -tt.fluxCoeff * ...
-        kron(eye(2),diag(tt.fluxShape(:,k))) * ...
-        P(:,:,k)*Ten(:,:,k)-tt.Galpert(:,:,k)*Ten(:,:,k); ...
+      [eye(2*N), -diag([vesicle.beta;vesicle.beta])*...
+      P(:,:,k)*Ten(:,:,k) - tt.Galpert(:,:,k)*Ten(:,:,k); ...
       Div(:,:,k), zeros(N)]);
   end
 end
@@ -403,16 +427,6 @@ end
 % solve for tension and density function with block-diagonal 
 % preconditioning
 iter = I(2);
-
-% Solve with LU DECOMPOSITION
-if 0
-sigDen = tt.preconditionerBD(rhs);
-iflag = 0;
-R = 0;
-I = [1;1];
-resvec = [0];
-iter = I(2);
-end
 
 vesVel = zeros(2*N,nv);
 sigma = zeros(N,nv); % tension
@@ -435,49 +449,6 @@ end
 % unstack the tension and density function from the GMRES solver
 
 end % computeSigAndEta
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [eta,RS,iter] = computeEta(walls,tt)
-% [eta,RS,iter] = computeEta(walls,tt) computes wall densities and RS
-% when there is no vesicle but we want to compute the tracers. This is
-% called by tstep.m/noVesTracers. It uses the the exact inverse of the
-% double-layer potential for stokes flow in a bounded domain which is
-% computed by tstep.m/wallsPrecond.
-
-Nbd = walls.N; % points per solid wall
-nvbd = walls.nv; % number of solid walls
-
-rhs = zeros(2*Nbd*nvbd + 3*(nvbd-1),1);
-
-U = tt.farField(walls.X);
-% no slip boundary condition for velocity on solid walls
-
-
-for k = 1:nvbd
-  istart = 1 + (k-1)*2*Nbd;
-  iend = k*2*Nbd;
-  rhs(istart:iend) = U(:,k);
-end
-
-etaRS = tt.bdiagWall*rhs;
-I = [1;1];
-iter = I(2);
-
-eta = zeros(2*Nbd,nvbd); % solid wall density
-RS = zeros(3,nvbd); % rotlets and stokeslets
-
-for k = 1:nvbd
-  eta(:,k) = etaRS((k-1)*2*Nbd+1:k*2*Nbd);
-end
-for k = 2:nvbd
-  istart = 2*nvbd*Nbd + 3*(k-2) + 1;
-  iend = istart + 2;
-  RS(:,k) = etaRS(istart:iend);
-end
-% unstack the density and RS function from the GMRES solver
-
-end % computeSigAndEta
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [NearSelf,NearOther] = getZone(vesicle1,vesicle2,relate)
@@ -536,7 +507,6 @@ jj = ceil((ysou - ymin)/H);
 bin = (jj-1)*Nx + ii;
 % Find bin of each point using lexiographic ordering (x then y)
 
-
 %figure(2);
 %clf; hold on
 %plot(xsou,ysou,'k.')
@@ -552,11 +522,6 @@ bin = (jj-1)*Nx + ii;
 % DEBUG: This does a simple plot of the points with a grid that 
 % aligns with the boundary of the boxes
 
-%whos
-%disp([Nbins nv1])
-%disp([xmin xmax ymin ymax])
-%disp([h H])
-%pause
 fpt = zeros(Nbins,nv1);
 lpt = zeros(Nbins,nv1);
 % allocate space for storing first and last points
@@ -626,17 +591,6 @@ end
 
 
 if (relate == 1 || relate == 3)
-%  distSS = -ones(N1,nv1,nv1); 
-%  % dist(n,k,j) is the distance of point n on vesicle k to
-%  % vesicle j
-%  zoneSS = -ones(N1,nv1,nv1); 
-%  % near or far zone
-%  nearestSS = -ones(2*N1,nv1,nv1); 
-%  % nearest point using local interpolant
-%  icpSS = -ones(N1,nv1,nv1); 
-%  % index of closest discretization point
-%  argnearSS = -ones(N1,nv1,nv1); 
-%  % argument in [0,1] of local interpolant
   for k = 1:nv1
     distSS{k} = spalloc(N1,nv1,0);
     % dist(n,k,j) is the distance of point n on vesicle k to
@@ -649,9 +603,8 @@ if (relate == 1 || relate == 3)
     argnearSS{k} = spalloc(N1,nv1,0);
     % argument in [0,1] of local interpolant
   end
-  % New way of representing near-singular integration structure so that
-  % we can use sparse matricies.
-
+  % Represent near-singular integration structure so that we can use
+  % sparse matricies.
 
   % begin classifying points where we are considering 
   % vesicle to vesicle relationships
@@ -742,12 +695,8 @@ if (relate == 1 || relate == 3)
           % Point ipt of vesicle k2 is in the near zone of
           % vesicle k
         end
-
-
       end % ipt
-
     end % k2
-
   end % k
 
   NearSelf.dist = distSS;
@@ -851,9 +800,7 @@ if (relate == 2 || relate == 3)
           end
         end % d0 < 2*h
       end % numel(neighpts) > 0
-
     end % ii and jj
-
   end % k
 
   NearOther.dist = distST;
@@ -862,8 +809,8 @@ if (relate == 2 || relate == 3)
   NearOther.icp = icpST;
   NearOther.argnear = argnearST;
   % store near-singluar integration requirements in structure NearOther
-
 end % relate == 2 || relate == 3
+
 end % getZone
 
 
@@ -956,39 +903,39 @@ if ~fmm
 else
   kernel = @op.exactLaplaceDLfmm;
 end
-% kernel for laplace's double layer potential.  Only difference
-% is if FMM is used or not
+% kernel for laplace's double layer potential.  Only difference is if
+% FMM is used or not
 
 if near
   DLP = @(X) zeros(2*size(X,1),size(X,2));
-  % can cheat here because we know that the double-layer
-  % potential applied to our function f will always be 0
-  % This won't work if we are considering density functions
-  % that are not one everywhere
+  % can cheat here because we know that the double-layer potential
+  % applied to our function f will always be 0 This won't work if we are
+  % considering density functions that are not one everywhere
 
   Fdlp = op.nearSingInt(vesicle,f,DLP,...
           NearV2V,kernel,kernel,vesicle,true,false);
   % Apply the double-layer laplace potential with constant boundary
-  % condition.  Skips self-vesicle term.  This means that if the vesicles have
-  % crossed, the Fdlp will achieve a value of 1.  If they have not crossed, it
-  % will be 0
+  % condition.  Skips self-vesicle term.  This means that if the
+  % vesicles have crossed, the Fdlp will achieve a value of 1.  If they
+  % have not crossed, it will be 0
   if ~isempty(walls)
     FDLPwall = op.nearSingInt(vesicle,f,DLP,...
             NearV2W,kernel,kernel,walls,false,false);
   end
-  % Evaulate the laplace double-layer potential due to all vesicles with the
-  % solid walls acting as the targets.  Will be zero at all the targets if
-  % none of the vesicles have crossed the solid walls
+  % Evaulate the laplace double-layer potential due to all vesicles with
+  % the solid walls acting as the targets.  Will be zero at all the
+  % targets if none of the vesicles have crossed the solid walls
 else
   Fdlp = kernel(vesicle,f,[]);
   if ~isempty(walls)
     [~,FDLPwall] = kernel(vesicle,f,[],walls.X,(1:vesicle.nv));
-    % vesicles are sources and solid walls are targets.  If vesicles have not
-    % crossed a solid wall, values is 0
+    % vesicles are sources and solid walls are targets.  If vesicles
+    % have not crossed a solid wall, values is 0
   end
 end
 Fdlp = Fdlp(1:vesicle.N,:);
-% this layer-potential is not vector valued, so we throw away the second half.
+% this layer-potential is not vector valued, so we throw away the second
+% half.
 
 bufferVes = 1e-4;
 bufferWall = 1e-4;
@@ -996,8 +943,8 @@ bufferWall = 1e-4;
 % assign a value of 1 when near points cross.  This is because I did not
 % swtich the direction of the normal for this case.  So, the lagrange
 % interpolation points may look something like [0 1 1 1 1 ...] instead
-% of [1 1 1 1 1 ...].  The local interpolant is affected by this and
-% a value somewhere between 0 and 1 will be returned
+% of [1 1 1 1 1 ...].  The local interpolant is affected by this and a
+% value somewhere between 0 and 1 will be returned
 icollisionVes = any(abs(Fdlp(:)) > bufferVes);
 
 if ~isempty(walls)
@@ -1562,29 +1509,25 @@ end % computeShearStress
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function Pf = normalProjection(vesicle,f)
-% TODO: Description of function here
+% Pf = vesicle.normalProjection(f) computes the normal projection of f
+% onto the shape defined by the vesicle shape
 
 oc = curve;
-%calculates the normal projection
 tangent = vesicle.xt;
 [tanx,tany] = oc.getXY(tangent);
 nx = tany;
 ny = -tanx;
-% decompose tangent and normal vectors into their x and y
-% coordinates
+% decompose tangent and normal into their x and y coordinates
 [fx,fy] = oc.getXY(f);
-% decompose f vector into its x and y coordinates
+% decompose f into its x and y coordinates
 fdotn = fx.*nx + fy.*ny;
-Pfx = fdotn.*nx;
-Pfy = fdotn.*ny;
+
+Pf = [fdotn.*nx; fdotn.*ny];
 % Normal projection
-Pf = [Pfx; Pfy];
 
 end %normalProjection
 
 end % methods
 
 end %capsules
-
-
 
