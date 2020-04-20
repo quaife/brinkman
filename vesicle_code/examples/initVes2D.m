@@ -41,7 +41,7 @@ for k = 1:length(PramList)
   end
 end
 
-OptList = {'order','expectedOrder','farField',...
+OptList = {'expectedOrder','farField',...
     'farFieldSpeed','near',...
     'fmm','fmmDLP','confined','usePlot',...
     'axis','saveData','logFile','dataFile','verbose',...
@@ -49,7 +49,6 @@ OptList = {'order','expectedOrder','farField',...
     'pressure','SDCcorrect','orderGL','nsdc','adhesion','expForce',...
     'fmmPrecision','semipermeable','fluxShape'};
 
-defaultOpt.order = 1;
 defaultOpt.expectedOrder = 2;
 defaultOpt.farField = 'shear';
 defaultOpt.farFieldSpeed = 1;
@@ -98,20 +97,5 @@ end
 if numel(prams.viscCont) ~=prams.nv
   prams.viscCont = prams.viscCont*ones(1,prams.nv);
 end
-
-
-if options.nsdc > 0
-  if options.order > 1
-    fprintf('***************************************************\n')
-    fprintf('Can only do sdc updates with first-order\n');
-    fprintf('Setting sdc corrections to zero\n');
-    fprintf('PUSH ANY KEY TO CONTINUE\n');
-    pause
-    fprintf('***************************************************\n')
-    options.nsdc = 0;
-  end
-end
-
-
 
 

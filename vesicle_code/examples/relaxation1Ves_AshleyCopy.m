@@ -12,7 +12,6 @@ prams.kappa = 1e-1;         % bending coefficient
 prams.viscCont = 1;         % viscosity contrast
 options.farField = 'relaxation'; % background velocity
 options.farFieldSpeed = 1;
-options.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
 % Either 'explicit' or 'implicit'

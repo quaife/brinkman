@@ -34,9 +34,9 @@ if 0
 end
 
 if 1
-%  file = 'relaxation1VesData.bin';
+  file = 'relaxation1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/relaxation1Ves/star_beta1p0e0/relaxation1VesData.bin';
-    file = '~/projects/brinkman/vesicle_code/results/Apr142020/starBeta1em1/relaxation1VesData.bin';
+%    file = '~/projects/brinkman/vesicle_code/results/Apr142020/starBeta1em1/relaxation1VesData.bin';
 %  ax = [-3 3 -3.5 3.5];
   ax = 4*[-1 1 -1 1];
   options.confined = false;

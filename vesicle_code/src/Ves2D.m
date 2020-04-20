@@ -59,20 +59,19 @@ om.writeMessage(message,'%s\n')
 oc = curve;
 tt = tstep(options,prams);
 % build an object of class tstep with required options and parameters
-Xstore = zeros(2*N,nv,options.order);
-sigStore = zeros(N,nv,options.order);
-uStore = zeros(2*N,nv,options.order);
-etaStore = zeros(2*prams.Nbd,prams.nvbd,options.order);
-RSstore = zeros(3,prams.nvbd,options.order);
-% need to store options.order previous time steps to do
-% higher-order time stepping
+Xstore = zeros(2*N,nv);
+sigStore = zeros(N,nv);
+uStore = zeros(2*N,nv);
+etaStore = zeros(2*prams.Nbd,prams.nvbd);
+RSstore = zeros(3,prams.nvbd);
+% palce to store previous time step to do time stepping
 % RSstore is the rotlets and stokeslets stored as
 % [stokeslet1;stokeslet2;rotlet]
-Xstore(:,:,1) = X;
+Xstore = X;
 % initial configuration from user
 
 if ~options.confined
-  uStore(:,:,1) = tt.farField(X);
+  uStore = tt.farField(X);
   etaStore = [];
   RSstore = [];
   walls = [];
@@ -85,18 +84,14 @@ end
 % compute a structure for the solid walls 
 %
 [Xstore,sigStore,uStore,etaStore,RSstore] = ...
-    tt.firstSteps(options,prams,...
-    Xstore(:,:,end),sigStore(:,:,end),uStore(:,:,end),...
+    tt.firstSteps(options,prams,Xstore,sigStore,uStore,...
     walls,wallsCoarse,om,pressTar);
-% For higher-order methods (only 2nd order for now), need to initially
-% take smaller time steps so that we have two initial conditions
+% Was for higher-order multistep methods which have been fazed out.
 
-time = (options.order-1)*tt.dt;
-% initial time.  firstSteps took the first time steps so that there is
-% enough data to use the time stepping order that is desired
+time = 0;
+% initial time
 
 accept = true;
-
 % Main time stepping loop
 while time < prams.T - 1e-10
 %%Hacking for time-varying periodic flow 02/21/2020
@@ -212,23 +207,13 @@ while time < prams.T - 1e-10
   end % if accept
   % save data if solution was accepted, compute pressure and stress
 
-  for k = 1:options.order-1
-    Xstore(:,:,k) = Xstore(:,:,k+1);
-    sigStore(:,:,k) = sigStore(:,:,k+1);
-    uStore(:,:,k) = uStore(:,:,k+1);
-    etaStore(:,:,k) = etaStore(:,:,k+1);
-    RSstore(:,:,k) = RSstore(:,:,k+1);
-  end
-  % Save the time steps still required if using second
-  % order time stepping
-  Xstore(:,:,options.order) = X;
-  sigStore(:,:,options.order) = sigma;
-  uStore(:,:,options.order) = u;
-  etaStore(:,:,options.order) = eta;
-  RSstore(:,:,options.order) = RS;
-  % update the positions, tension, and velocity field of
-  % the vesicles, and the density function and rotlet and
-  % stokeslets
+  Xstore = X;
+  sigStore = sigma;
+  uStore = u;
+  etaStore = eta;
+  RSstore = RS;
+  % update the positions, tension, and velocity field of the vesicles,
+  % and the density function and rotlet and stokeslets
 end
 % end of main 
 

@@ -11,7 +11,6 @@ prams.kappa = ones(1,prams.nv);         % bending coefficient
 prams.viscCant = ones(1,prams.nv);         % viscosity contrast
 options.farField = 'relaxation'; % background velocity
 options.farFieldSpeed = 0.5;
-aptions.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
 % Either 'explicit' or 'implicit'
@@ -29,9 +28,8 @@ prams.adRange = 2e-1;
 prams.adStrength = 5;
 
 options.SemiPermeable = true;
-prams.fluxShape = ones(prams.N,prams.nv);
+%prams.fluxShape = ones(prams.N,prams.nv);
 prams.fluxCoeff = .1;
-
 
 % TIME ADAPTIVITY (parameters for new implementation)
 options.timeAdap = true;

@@ -13,7 +13,6 @@ prams.kappa = 1;         % bending coefficient
 prams.viscCant = 1;         % viscosity contrast
 options.farField = 'extensional'; % background velocity
 options.farFieldSpeed = 2;
-aptions.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
 % Eithe 'explicit' or 'implicit'
@@ -97,7 +96,7 @@ end
 %%X = [posx1 posx2; posy1 posy2];
 %X = [posx1 - mean(posx1);posy1 - mean(posy1)];
 
-prams.fluxShape = prams.fluxCoeff*ones(prams.N,1); %flux shape 1
+%prams.fluxShape = prams.fluxCoeff*ones(prams.N,1); %flux shape 1
 
 oc = curve;
 centerx = 0;

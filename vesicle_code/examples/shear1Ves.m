@@ -14,7 +14,6 @@ prams.viscCont = ones(prams.nv,1);         % viscosity contrast
 options.farField = 'shear'; % background velocity
 %options.farFieldSpeed = 3.0;
 options.farFieldSpeed = farFieldSpeed;
-options.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
 % Either 'explicit' or 'implicit'

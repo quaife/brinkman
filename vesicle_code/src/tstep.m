@@ -9,17 +9,6 @@ classdef tstep < handle
 
 
 properties
-Xcoeff        % Coefficients that are used in the discretization of the
-              % time derivative when doing IMEX.  For example, if doing
-              % IMEX Euler, Xcoeff = [1]
-rhsCoeff      % Coefficients that are used in the discretization of the
-              % explicit terms of IMEX.  In our case, this is
-              % configuration of the arclength and layer potentials are
-              % discretized.  For example, if doing IMEX Euler,
-              % rhscoeff = [1]
-beta          % Term multiplying implicit term in discretization of
-              % derivative
-order         % Time stepping order
 expectedOrder % order that is used to pick new time step size
               % (parameter used in adaptive time stepping)
 dt            % Time step size
@@ -83,11 +72,8 @@ function o = tstep(options,prams)
 % o=tstep(options,prams: constructor.  Initialize class.  Take all
 % elements of options and prams needed by the time stepper
 
-o.order = options.order; % Time stepping order
 o.expectedOrder = options.expectedOrder; % Expected time stepping order
 o.dt = prams.T/prams.m; % Time step size
-[o.Xcoeff,o.rhsCoeff,o.beta] = o.getCoeff(o.order);
-% Get coefficients for doing time integration
 o.currentTime = 0;
 % Method always starts at time 0
 o.finalTime = prams.T;
@@ -122,9 +108,6 @@ o.rtolLength = prams.rtolLength/prams.T;
 % nondimensionalize by dividing by the time horizon
 o.nsdc = options.nsdc;
 % number of sdc iterations to take
-if o.order > 1
-  o.SDCcorrect = false;
-end
 
 o.betaUp = prams.betaUp;
 o.betaDown = prams.betaDown;
@@ -163,33 +146,6 @@ o.fluxShape = options.fluxShape;
 
 end % tstep: constructor
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [Xcoeff,rhsCoeff,beta] = getCoeff(o,order)
-% [Xcoeff,rhsCoeff,beta] = getCoeff(order) generates the coefficients
-% required to discretize the derivative.  First-order time  derivatives
-% are approximated by beta*x^{N+1} + rhscoeff.*[x^{N} x^{N-1} ...]
-% Explicit terms (operators) are discretized at Xcoeff.*[x^{N} x^{N-1}
-% ...] All rules are from Ascher, Ruuth, Wetton 1995.
-
-if (order == 4) % fourth-order
-  beta = 25/12;
-  Xcoeff = [-1; 4; -6; 4]; 
-  rhsCoeff = [-1/4; 4/3; -3; 4];
-elseif (order == 3) % third-order
-  beta = 11/6;
-  Xcoeff = [1; -3; 3];
-  rhsCoeff = [1/3; -3/2; 3];
-elseif (order == 2) % second-order
-  beta = 1.5;
-  Xcoeff = [-1; 2];
-  rhsCoeff = [-0.5; 2];
-else % first-order
-  beta = 1;
-  Xcoeff = 1;
-  rhsCoeff = 1;
-end
-
-end % getCoeff
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [walls,wallsCoarse] = initialConfined(o,prams,Xwalls)
@@ -242,39 +198,22 @@ else
   nvbd = 0;
 end
 
-prams.T = prams.T/prams.m*(o.order-1);
-% time horizon is enough time steps so that we can
-% continue with higher-order time integrator
-if o.order ~=1
-  mR = min(ceil(prams.m/32),100)*o.order^2;
-  mR = mR * (o.order - 1);
-else
-  mR = 1;
-end
-% For second-order time stepping, this keeps the local error from time
-% step 0 to dt on the order of dt^3
-prams.m = mR*(o.order-1);
-% number of time steps to take in range [0,dt]
-
-Xstore = zeros(2*N,nv,prams.m+1);
-sigStore = zeros(N,nv,prams.m+1);
-uStore = zeros(2*N,nv,prams.m+1);
-etaStore = zeros(2*Nbd,nvbd,prams.m+1);
-RSstore = zeros(3,nvbd,prams.m+1);
+Xstore = zeros(2*N,nv);
+sigStore = zeros(N,nv);
+uStore = zeros(2*N,nv);
+etaStore = zeros(2*Nbd);
+RSstore = zeros(3,nvbd);
 
 Xstore(:,:,1) = Xinit;
 vesicle = capsules(Xinit,zeros(N,nv),[],...
     prams.kappa,prams.viscCont);
 
-[sigStore(:,:,1),etaStore(:,:,1),RSstore(:,:,1),u,iter] = ...
-    vesicle.computeSigAndEta(o,walls);
-vesicle.sig = sigStore(:,:,1);
+[sigStore,etaStore,RSstore,u,iter] = vesicle.computeSigAndEta(o,walls);
+vesicle.sig = sigStore(:,:);
 % need intial tension, density function, rotlets, and stokeslets so that
-% we can do SDC updates, coupling with advection-diffusion system, etc
+% we can do SDC updates
 
-om.initializeFiles(Xinit,sigStore(:,:,1),...
-    etaStore(:,:,1),...
-    RSstore(:,:,1),Xwalls,pressTar);
+om.initializeFiles(Xinit,sigStore,etaStore,RSstore,Xwalls,pressTar);
 % delete previous versions of files and write some initial
 % options/parameters to files and the console
 
@@ -282,84 +221,6 @@ message = ['GMRES took ',num2str(iter),...
     ' iterations to find intial tension and density function'];
 om.writeMessage(message,'%s\n');
 om.writeMessage(' ','%s\n');
-
-for n = 1:prams.m
-  time = n*prams.T/prams.m;
-
-  options.order = min(n,o.order);
-  tt = tstep(options,prams);
-  % take the highester order possible
-  tt.SDCcorrect = false;
-  % no SDC corrections
-  tt.wallDLP = o.wallDLP;
-  tt.wallN0 = o.wallN0;
-  tt.bdiagWall = o.bdiagWall;
-  % build inverse of the wall-to-wall intearctions includes diagonal and
-  % off-diagonal terms.  That is, it could be used to solve the stokes
-  % equations in a multiply-connected domain with no vesicles
- 
-  updatePreco = true;
-  [X,sigma,u,eta,RS,iter,iflag] = tt.timeStep(...
-      Xstore(:,:,n-tt.order+1:n),...
-      sigStore(:,:,n-tt.order+1:n),...
-      uStore(:,:,n-tt.order+1:n),...
-      etaStore(:,:,n-tt.order+1:n),...
-      RSstore(:,:,n-tt.order+1:n),...
-      [],[],[],[],[],[],[],...
-      prams.kappa,prams.viscCont,walls,wallsCoarse,...
-      updatePreco,vesicle);
-  % take one time step
-
-  accept = true;
-  dtScale = 0;
-  res = 0;
-  % Required for adaptive time stepping which have not been
-  % implemented yet for high-order time stepping
-
-  Xstore(:,:,n+1) = X;
-  sigStore(:,:,n+1) = sigma;
-  uStore(:,:,n+1) = u;
-  etaStore(:,:,n+1) = eta;
-  RSstore(:,:,n+1) = RS;
-  % save and update position, tension, velocity, and
-  % density function
-
-  terminate = om.outputInfo(X,sigma,u,eta,RS,...
-      Xwalls,time,iter,dtScale,res,iflag);
-  % save data, write to log file, write to console as
-  % requested
-end 
-% end of using small time steps to get the simulation far enough
-% to use the desired order time integrator
-
-if o.order > 1
-  if options.pressure
-    op = poten(N,o.fmmPrecision);
-    [press,stress1,stress2] = op.pressAndStress(...
-        X,sigma,u,prams.kappa,prams.viscCont,...
-        walls,pressTar,eta,RS,options.confined,...
-        options.fmm);
-    % compute the pressure and stress due to the vesicles
-    % and the solid walls
-    if options.saveData
-      om.writePressure(press);
-      om.writeStress(stress1(1:end/2),'11');
-      om.writeStress(stress1(1+end/2:end),'12');
-      om.writeStress(stress2(1:end/2),'21');
-      om.writeStress(stress2(1+end/2:end),'22');
-    end
-  end % ~options.pressure
-  % write pressure and stress to output file at time dt
-
-  Xstore = Xstore(:,:,1:mR:end);
-  sigStore = sigStore(:,:,1:mR:end);
-  uStore = uStore(:,:,1:mR:end);
-  etaStore = etaStore(:,:,1:mR:end);
-  RSstore = RSstore(:,:,1:mR:end);
-end
-% Only want every mR^{th} solution as these correspond to
-% time steps that are multiples of dt
-% Only need to do this if the time stepping order is not 1
 
 end % firstSteps
 
@@ -458,9 +319,9 @@ for k = 1:abs(o.orderGL)-1
   o.SDCcorrect = false;
 
   [X,sigma,u,eta,RS,subIter,iflagTemp] = o.timeStep(...
-      Xprov(:,:,k-o.order+1:k),sigmaProv(:,:,k-o.order+1:k),...
-      uProv(:,:,k-o.order+1:k),etaProv(:,:,k-o.order+1:k),...
-      RSprov(:,:,k-o.order+1:k),[],[],[],[],[],[],[],...
+      Xprov(:,:,k),sigmaProv(:,:,k),...
+      uProv(:,:,k),etaProv(:,:,k),...
+      RSprov(:,:,k),[],[],[],[],[],[],[],...
       kappa,viscCont,walls,wallsCoarse,updatePreco,vesicle(k));
   % form provisional solution at next Gauss-Lobatto point
   iter = iter + subIter;
@@ -933,24 +794,17 @@ uM = zeros(2*N,nv);
 Xo = zeros(2*N,nv);
 etaM = zeros(2*Nbd,nvbd);
 RSm = zeros(3,nvbd);
-for k = 1:o.order
-  Xm = Xm + Xstore(:,:,k)*o.Xcoeff(k);
-  sigmaM = sigmaM + sigStore(:,:,k)*o.Xcoeff(k);
-  uM = uM + uStore(:,:,k)*o.Xcoeff(k);
-  if o.confined
-    etaM = etaM + etaStore(:,:,k)*o.Xcoeff(k);
-    RSm = RSm + RSstore(:,:,k)*o.Xcoeff(k);
-  end
-  Xo = Xo + Xstore(:,:,k)*o.rhsCoeff(k);
+
+Xm = Xm + Xstore;
+sigmaM = sigmaM + sigStore;
+uM = uM + uStore;
+if o.confined
+  etaM = etaM + etaStore;
+  RSm = RSm + RSstore;
 end
+Xo = Xo + Xstore;
 % Form linear combinations of previous time steps needed for Ascher,
-% Ruuth, and Wetton IMEX methods
-
-
-if o.order ~= 1
-  vesicle = capsules(Xm,sigmaM,uM,kappa,viscCont);
-end
-% build an object vesicle that contains tangent vector, jacobian, etc.
+% Ruuth, and Wetton first-order IMEX methods
 
 op = o.op;
 if ~o.SDCcorrect
@@ -1279,23 +1133,23 @@ if usePreco
     for k=1:nv
       if any(vesicle.viscCont ~= 1)
         [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
-          [o.beta*(eye(2*N) - o.D(:,:,k)/alpha(k)) + ...
+          [(eye(2*N) - o.D(:,:,k)/alpha(k)) + ...
           o.dt/alpha(k)*vesicle.kappa(k)*o.fluxCoeff(k)*P(:,:,k)*Ben(:,:,k).*[o.fluxShape(:,k);o.fluxShape(:,k)]+...
           o.dt/alpha(k)*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k) ...
           -o.dt/alpha(k)*P(:,:,k)*Ten(:,:,k)*o.fluxCoeff.*[o.fluxShape(:,k);o.fluxShape(:,k)] - ...
           o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
-          o.beta*Div(:,:,k) zeros(N)]);
+          Div(:,:,k) zeros(N)]);
         % TODO: THIS MOST LIKELY HAS A BUG
       else           
         [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
-          [o.beta*eye(2*N) + o.dt * o.fluxCoeff * ...
+          [eye(2*N) + o.dt * o.fluxCoeff * ...
             vesicle.kappa(k)*kron(eye(2),diag(o.fluxShape(:,k))) * ...
             P(:,:,k)*Ben(:,:,k) + ...
             o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k),...
           -o.dt/alpha(k)*o.fluxCoeff * ...
             kron(eye(2),diag(o.fluxShape(:,k)))*P(:,:,k)*Ten(:,:,k) - ...
           o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
-          o.beta*Div(:,:,k), zeros(N)]);
+          Div(:,:,k), zeros(N)]);
       end
     end
     o.bdiagVes = bdiagVes;
@@ -1392,7 +1246,7 @@ for k = 2:nvbd
 end
 % unstack the rotlets and stokeslets
 
-u = (o.beta*X - Xo)/o.dt;
+u = (X - Xo)/o.dt;
 % Compute the velocity using the differencing stencil
 
 end % timeStep
@@ -1657,11 +1511,11 @@ end
 % START OF EVALUATING VELOCITY ON VESICLES
 valPos = valPos - o.dt*Gf*diag(1./alpha);
 % self-bending and self-tension terms
-valPos = valPos - o.beta*DXm*diag(1./alpha);
+valPos = valPos - DXm*diag(1./alpha);
 % self-viscosity contrast term
 valPos = valPos - o.dt*Fslp*diag(1./alpha);
 % single-layer potential due to all other vesicles
-valPos = valPos - o.beta*Fdlp*diag(1./alpha);
+valPos = valPos - Fdlp*diag(1./alpha);
 % double-layer potential due to all other vesicles
 valPos = valPos - o.dt*Fwall2Ves*diag(1./alpha);
 % velocity due to solid walls evaluated on vesicles
@@ -1684,7 +1538,7 @@ end
 
 valWalls = valWalls + FSLPwall;
 % velocity on walls due to the vesicle traction jump
-valWalls = valWalls + o.beta*FDLPwall/o.dt;
+valWalls = valWalls + FDLPwall/o.dt;
 % velocity on walls due to the vesicle viscosity jump
 valWalls = valWalls + FDLPwall2wall;
 % velocity on walls due to all other walls
@@ -1693,15 +1547,12 @@ valWalls = valWalls + LetsWalls;
 % END OF EVALUATING VELOCITY ON WALLS
 
 % START OF EVALUATING INEXTENSIBILITY CONDITION
-valTen = o.beta * vesicle.surfaceDiv(Xm);
+valTen = vesicle.surfaceDiv(Xm);
 % compute surface divergence of the current GMRES iterate by setting
 % this equal to the surface divergence of the previous time step
 % END OF EVALUATING INEXTENSIBILITY CONDITION
 
-valPos = valPos + o.beta*Xm;
-% beta times solution coming from time derivative
-%semilogy(abs(fftshift(fft(valPos(1:end/2)))),'bo');
-%pause
+valPos = valPos + Xm;
 
 val = zeros(3*N*nv,1);
 % Initialize output from vesicle and inextensibility equations to zero
@@ -1760,10 +1611,6 @@ residual = zeros(2*N,nv,abs(o.orderGL));
 % residual of the Picard integral coming from the time
 % derivative term of the vesicle position
 
-order = o.order;
-o.order = 1;
-[o.Xcoeff,o.rhsCoeff,o.beta] = o.getCoeff(o.order);
-% need to save the time stepping order
 dt = o.dt;
 % need to save current time step
 o.dt = 1;
@@ -1880,9 +1727,7 @@ for n = 1:abs(o.orderGL)
 end
 
 o.dt = dt;
-o.order = order;
-[o.Xcoeff,o.rhsCoeff,o.beta] = o.getCoeff(o.order);
-% change back to original time step
+% change back to original time step size
 
 IvesVel = o.lobattoInt(vesVel);
 % integrate the vesicles velocity using quadrature rules 

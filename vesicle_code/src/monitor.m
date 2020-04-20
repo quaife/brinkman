@@ -22,7 +22,6 @@ N               % points per vesicle
 nv              % number of vesicles
 Nbd             % points per solid wall (if any)
 nvbd            % number of solid wall components (if any)
-order           % time stepping order
 orderGL         % order of Gauss-Lobatto quadrature
 pressure        % calculate pressure
 rtolArea        % allowable relative area change
@@ -57,7 +56,6 @@ o.T = prams.T;                      % time horizon
 o.m = prams.m;                      % number of time steps
 o.errorTol = prams.errorTol;        % error tolerance
 o.timeAdap = options.timeAdap;      % time adpativity
-o.order = options.order;            % time stepping order
 o.orderGL = options.orderGL;        % order of Gauss-Lobatto 
                                     % quadtrature
 o.pressure = options.pressure;      % calculate pressure
@@ -137,11 +135,6 @@ end
 o.writeMessage(message,'%s\n')
 % write time step size or that we are doing
 % adaptive time stepping
-
-message = ['Time stepping order is ' ...
-    num2str(o.order)];
-o.writeMessage(message,'%s\n')
-% write time step order
 
 if o.timeAdap
   message = ['Allowable error in area is:   ' ...

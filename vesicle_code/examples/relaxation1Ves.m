@@ -15,10 +15,9 @@ prams.m = m;              % number of time steps
 prams.kappa = ones(prams.nv,1); % bending coefficient
 prams.viscCont = ones(prams.nv,1);         % viscosity contrast
 options.farField = 'relaxation'; % background velocity
-options.order = 1;          % time stepping order
 options.near = true;        % near-singular integration
 options.fmm = false;
-options.semipermeable = false;
+options.semipermeable = true;
 options.adhesion = false;
 defaultPram.adStrength = 1;
 defaultPram.adRange = 4e-1;
@@ -58,9 +57,9 @@ options.dataFile = 'output/relaxation1VesData.bin';
 % Name of binary data file for storing vesicle information
 
 options.fluxShape = 1; % constant value
-options.fluxShape = 2; % gating via tension
+%options.fluxShape = 2; % gating via tension
 
-prams.fluxShape = beta*ones(prams.N,1); %flux shape 1
+%prams.fluxShape = beta*ones(prams.N,1); %flux shape 1
 
 [options,prams] = initVes2D(options,prams);
 % Set options and parameters that the user doesn't
