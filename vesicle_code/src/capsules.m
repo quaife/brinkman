@@ -68,13 +68,12 @@ if nargin == 5
   o.SP = false;
   o.fluxCoeff = 0;
   o.fluxShape = [];
+  o.permeabilityRate;
 else
   o.SP = SP;
-  if o.SP
-    o.fluxCoeff = fluxCoeff;
-    o.fluxShape = fluxShape;
-    o.permeabilityRate;
-  end
+  o.fluxCoeff = fluxCoeff;
+  o.fluxShape = fluxShape;
+  o.permeabilityRate;
 end
 
 end % capsules
