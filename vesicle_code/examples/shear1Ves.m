@@ -12,7 +12,7 @@ prams.m = 500;              % number of time steps
 prams.kappa = ones(prams.nv,1);   % bending coefficient
 prams.viscCont = ones(prams.nv,1);         % viscosity contrast
 options.farField = 'shear'; % background velocity
-options.farFieldSpeed = 3;
+options.farFieldSpeed = 1;
 %options.farFieldSpeed = farFieldSpeed;
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -25,8 +25,10 @@ options.semipermeable = true;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-8;
 prams.errorTol = 1000;
-prams.fluxCoeff = 2.0;
+prams.fluxCoeff = 1.0e1;
 %prams.fluxCoeff = fluxCoeff;
+options.fluxShape = 1;
+
 options.adhesion = false;
 prams.adRange = 0.4;
 prams.adStrength = 100;
@@ -70,15 +72,6 @@ options.dataFile = 'output/shear1VesData.bin';
 %if ~exist(['output/' fileName],'dir')
 %  mkdir(['output/' fileName]);
 %end
-
-theta = (0:prams.N-1)'*2*pi/prams.N;
-%prams.fluxShape = 0*sin(theta);
-prams.fluxShape = ones(prams.N,1); %flux shape 1
-%fluxWidth = 1;
-%prams.fluxShape = exp(-fluxWidth*(theta - pi/2).^2) + ...
-%                  exp(-fluxWidth*(theta - 3*pi/2).^2); % flux shape 2
-%prams.fluxShape = exp(-fluxWidth*(theta - pi/2).^2); % flux shape 3
-% set up the distribution for the flux
 
 oc = curve;
 ra = 0.65;

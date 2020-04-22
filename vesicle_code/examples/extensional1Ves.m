@@ -96,8 +96,6 @@ end
 %%X = [posx1 posx2; posy1 posy2];
 %X = [posx1 - mean(posx1);posy1 - mean(posy1)];
 
-%prams.fluxShape = prams.fluxCoeff*ones(prams.N,1); %flux shape 1
-
 oc = curve;
 centerx = 0;
 centery = 0;
