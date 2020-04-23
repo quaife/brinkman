@@ -10,21 +10,17 @@ reducedArea     % reduced area
 verbose         % write data to console
 saveData        % save the vesicle positions, tension, etc
 usePlot         % plot the vesicles
-track           % place tracker points on the vesicles
-quiver          % plot the velocity field on the vesicles
 axis            % axis of the plot
 dataFile        % name of the file to write the data
 logFile         % name of the file to write the log
 T               % time horizion
 m               % number of time steps
 errorTol        % error tolerance for errors in area and length
-tracers         % use tracers to monitor passive particles
 timeAdap        % use time adaptivity
 N               % points per vesicle
 nv              % number of vesicles
 Nbd             % points per solid wall (if any)
 nvbd            % number of solid wall components (if any)
-order           % time stepping order
 orderGL         % order of Gauss-Lobatto quadrature
 pressure        % calculate pressure
 rtolArea        % allowable relative area change
@@ -32,6 +28,9 @@ rtolLength      % allowable relative length change
 adhesion        % flag to tell if adhesion is in model
 adStrength      % strength of adhesion (W_0)
 adRange         % range of adhesion (d_0)
+permeable       % flag to tell if semi-permeability is in the model
+fluxCoeff       % permeability strength
+fluxShape       % permeability shape
 
 end % properties
 
@@ -52,8 +51,6 @@ o.nvbd = prams.nvbd;                % number of solid walls
 o.verbose = options.verbose;        % write data to console
 o.saveData = options.saveData;      % save the data
 o.usePlot = options.usePlot;        % plot the data
-o.track = options.track;            % include tracker points
-o.quiver = options.quiver;          % include velocity vectors
 o.axis = options.axis;              % axis of plot
 o.dataFile = options.dataFile;      % data file name
 o.logFile = options.logFile;        % log file name
@@ -61,7 +58,6 @@ o.T = prams.T;                      % time horizon
 o.m = prams.m;                      % number of time steps
 o.errorTol = prams.errorTol;        % error tolerance
 o.timeAdap = options.timeAdap;      % time adpativity
-o.order = options.order;            % time stepping order
 o.orderGL = options.orderGL;        % order of Gauss-Lobatto 
                                     % quadtrature
 o.pressure = options.pressure;      % calculate pressure
@@ -72,6 +68,10 @@ o.adhesion = options.adhesion;
 o.adStrength = prams.adStrength;
 o.adRange = prams.adRange;
 
+o.permeable = options.semipermeable;
+o.fluxCoeff = prams.fluxCoeff;
+o.fluxShape = options.fluxShape;
+
 oc = curve;
 [o.reducedArea,o.area,o.length] = oc.geomProp(X);
 % area, length, and reduced area of initial shape
@@ -79,14 +79,13 @@ oc = curve;
 end % constructor: monitor
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function initializeFiles(o,X,sig,...
-    eta,RS,Xwalls,Xtra,pressTar)
-% initializeFiles(X,sig,eta,RS,Xwalls,Xtra,pressTar) does the initial
-% writing of data to files and the console.  It first deletes any
-% previous data and then writes the number of points, tracer initial
-% conditions, pressure targets X and Xwalls are the vesicles and solid
-% walls, Xtra and pressTar are initial conditions for the tracers and
-% pressure/stress target locations
+function initializeFiles(o,X,sig,eta,RS,Xwalls,pressTar)
+% initializeFiles(X,sig,eta,RS,Xwalls,pressTar) does the initial writing
+% of data to files and the console.  It first deletes any previous data
+% and then writes the number of points, tracer initial conditions,
+% pressure targets X and Xwalls are the vesicles and solid walls, and
+% pressTar are initial conditions for the tracers and pressure/stress
+% target locations
 
 N = o.N; % points per vesicle
 nv = o.nv; % number of vesicles
@@ -117,6 +116,7 @@ o.writeMessage(message,'%s\n')
 
 message = [num2str(nv) ' total vesicles'];
 o.writeMessage(message,'%s\n')
+o.writeMessage(' ','%s\n')
 % write number of vesicles
 
 if ~o.timeAdap
@@ -139,45 +139,53 @@ else
   end
 end
 o.writeMessage(message,'%s\n')
-% write time step size or that we are doing
-% adaptive time stepping
-
-message = ['Time stepping order is ' ...
-    num2str(o.order)];
-o.writeMessage(message,'%s\n')
-% write time step order
+% write time step size or that we are doing adaptive time stepping
 
 if o.timeAdap
-  message = ['Allowable error in area is:   ' ...
+  message = ['Allowable error in area is:       ' ...
       num2str(o.rtolArea,'%4.2e')];
   o.writeMessage(message,'%s\n')
-  message = ['Allowable error in length is: ' ...
+  message = ['Allowable error in length is:     ' ...
       num2str(o.rtolLength,'%4.2e')];
   o.writeMessage(message,'%s\n\n')
+  o.writeMessage(' ','%s\n')
 end
-% write the allowable tolerances for the residual,
-% error, and area
+% write the allowable tolerances for the residual, error, and area
 
 if o.adhesion
-  message = ['Adhesion strength is:         ' ...
+  message = ['Adhesion strength is:             ' ...
       num2str(o.adStrength,'%4.2e')];
   o.writeMessage(message,'%s\n')
-  message = ['Adhesion range is:            ' ...
+  message = ['Adhesion range is:                ' ...
       num2str(o.adRange,'%4.2e')];
-  o.writeMessage(message,'%s\n\n')
+  o.writeMessage(message,'%s\n')
+  o.writeMessage(' ','%s\n')
+end
+
+if o.permeable
+  message = ['Semi-permeability coefficient is: ' ...
+      num2str(o.fluxCoeff,'%4.2e')];
+  o.writeMessage(message,'%s\n')
+  if (o.fluxShape == 1)
+    message = ['Permeability rate is constant'];
+  else
+    message = ['Permeability rate is gated with tension'];
+  end
+  o.writeMessage(message,'%s\n')
+  o.writeMessage(' ','%s\n')
 end
 
 if o.saveData
   o.writeData(X,sig,0,0,0,0);
   % save initial configuartion
 
-  message = ['Initial Areas are:            ' ...
+  message = ['Initial Areas are:                ' ...
       num2str(o.area(1),'%10.2e')];
   o.writeMessage(message,'%s\n')
-  message = ['Initial Lengths are:          ' ...
+  message = ['Initial Lengths are:              ' ...
       num2str(o.length(1),'%10.2e')];
   o.writeMessage(message,'%s\n')
-  message = ['Initial Reduced Areas are:    ' ...
+  message = ['Initial Reduced Areas are:        ' ...
       num2str(o.reducedArea(1),'%10.2e')];
   o.writeMessage(message,'%s\n\n')
 end
@@ -190,15 +198,15 @@ end % initializeFiles
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function terminate = outputInfo(o,X,sigma,u,eta,RS,...
-    Xwalls,Xtra,time,iter,dtScale,res,iflag)
+    Xwalls,time,iter,dtScale,res,iflag)
 % computes the error in area and length and write messages to the data
 % file, the log file, and the console.  Tells the simulation to stop if
 % error in area or length is too large.  X, sigma, u are the position,
 % tension, and velocity of vesicles, Xwalls is the parameterization of
-% the solid walls, time is the current time, iter is the number of
-% GMRES iterations, dtScale is the amount the time step is scaled by,
-% res is the residual incurred from the previous time step to the
-% current, and iflag is the success of gmres
+% the solid walls, time is the current time, iter is the number of GMRES
+% iterations, dtScale is the amount the time step is scaled by, res is
+% the residual incurred from the previous time step to the current, and
+% iflag is the success of gmres
 
 errorTol = o.errorTol;
 terminate = false;

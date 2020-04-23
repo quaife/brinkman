@@ -13,7 +13,6 @@ prams.kappa = 1;         % bending coefficient
 prams.viscCant = 1;         % viscosity contrast
 options.farField = 'extensional'; % background velocity
 options.farFieldSpeed = 0.5;
-aptions.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
 % Eithe 'explicit' or 'implicit'
@@ -21,13 +20,11 @@ options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
 options.verbose = true;
-options.antiAlias = false;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-6;
 prams.errorTol = 1;
 
-% ADD-ONS
-options.correctShape = false;
+% ADHESION
 options.adhesion = false;
 prams.adRange = 4e-1;
 prams.adStrength = 7e-1;
@@ -49,7 +46,6 @@ options.expectedOrder = 2;
 % Plot on-the-fly
 options.usePlot = true;
 options.axis = [-2 2 -5 5];
-options.track = false;
 % Save vesicle information and create a log file
 options.logFile = 'output/ext_vbeta_Ves.log';
 % Name of log file for saving messages
@@ -103,8 +99,6 @@ end
 %
 %%X = [posx1 posx2; posy1 posy2];
 %X = [posx1 - mean(posx1);posy1 - mean(posy1)];
-
-prams.fluxShape = prams.fluxCoeff*ones(prams.N,1); %flux shape 1
 
 oc = curve;
 centerx = 0;

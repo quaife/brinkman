@@ -9,24 +9,11 @@ classdef tstep < handle
 
 
 properties
-Xcoeff        % Coefficients that are used in the discretization of the
-              % time derivative when doing IMEX.  For example, if doing
-              % IMEX Euler, Xcoeff = [1]
-rhsCoeff      % Coefficients that are used in the discretization of the
-              % explicit terms of IMEX.  In our case, this is
-              % configuration of the arclength and layer potentials are
-              % discretized.  For example, if doing IMEX Euler,
-              % rhscoeff = [1]
-beta          % Term multiplying implicit term in discretization of
-              % derivative
-order         % Time stepping order
 expectedOrder % order that is used to pick new time step size
               % (parameter used in adaptive time stepping)
 dt            % Time step size
 currentTime   % current time needed for adaptive time stepping
 finalTime     % time horizon
-solver        % method1 or method2.  Changes how
-              % inextensiblity condition is treated
 Galpert       % Single-layer stokes potential matrix using Alpert
 D             % Double-layer stokes potential matrix
 lapDLP        % Double-layer laplace potential matrix
@@ -40,8 +27,6 @@ bdiagVes      % precomputed inverse of block-diagonal precondtioner
 bdiagTen
 bdiagWall     % precomputed inverse of block-diagonal precondtioner
               % only for wall-wall interactions
-vesves        % Discretization of vesicle-vesicle interactions.
-              % Can be implicit or explicit
 fmm           % with or without the FMM
 fmmDLP        % use FMM for the double-layer potential
 near          % with or without near-singular integration
@@ -75,31 +60,22 @@ adStrength    % strength of adhesion
 adRange       % range of adhesion
 expForce      % exponential force towards a points ource
 fmmPrecision  % precision of fmm
-SP            % semipermeable membrane
-fluxCoeff     % Water flux coefficient
-fluxShape     % Water flux distribution
+
 end % properties
 
 methods
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function o = tstep(options,prams)
-% o=tstep(options,prams: constructor.  Initialize class.  Take all
+% o = tstep(options,prams: constructor.  Initialize class.  Take all
 % elements of options and prams needed by the time stepper
 
-o.order = options.order; % Time stepping order
 o.expectedOrder = options.expectedOrder; % Expected time stepping order
 o.dt = prams.T/prams.m; % Time step size
-[o.Xcoeff,o.rhsCoeff,o.beta] = o.getCoeff(o.order);
-% Get coefficients for doing time integration
 o.currentTime = 0;
 % Method always starts at time 0
 o.finalTime = prams.T;
 % Need the time horizon for adaptive time stepping
-o.solver = options.inextens;
-% Discretization of inextensibility
-o.vesves = options.vesves;
-% Vesicle-vesicle interactions
 o.fmm = options.fmm;
 o.fmmDLP = options.fmmDLP;
 % fast-multipole method
@@ -111,7 +87,7 @@ o.gmresTol = prams.gmresTol;
 % GMRES tolerance
 o.gmresMaxIter = prams.gmresMaxIter;
 % maximum number of GMRES iterations
-o.farField = @(X) o.bgFlow(X,options.farField,options.farFieldSpeed);
+o.farField = @(X) o.bgFlow(X,options.farField,'k',options.farFieldSpeed);
 % Far field boundary condition built as a function handle
 o.confined = options.confined;
 % Confined or unbounded geometry
@@ -124,23 +100,12 @@ o.orderGL = options.orderGL;
 o.GLpts = o.gaussLobatto(o.orderGL);
 % load Gauss-Lobatto points
 
-%% if options.correctShape
-%  o.rtolArea = prams.rtolArea;
-%  o.rtolLength = prams.rtolLength;
-% else
-   o.rtolArea = prams.rtolArea/prams.T;
-   o.rtolLength = prams.rtolLength/prams.T;
-% end
-% if the shape is being corrected after each time step, then the
-% rtolArea and rtolLength are exactly the tolerance for the error
-% accumulated at each time step.  However, if the shape is not being
-% corrected, then the tolerance should be achieved at the time horizon,
-% so we need to nondimensionalize by dividing by the time horizon
+o.rtolArea = prams.rtolArea/prams.T;
+o.rtolLength = prams.rtolLength/prams.T;
+% The tolerance should be achieved at the time horizon, so we need to
+% nondimensionalize by dividing by the time horizon
 o.nsdc = options.nsdc;
 % number of sdc iterations to take
-if o.order > 1
-  o.SDCcorrect = false;
-end
 
 o.betaUp = prams.betaUp;
 o.betaDown = prams.betaDown;
@@ -168,42 +133,8 @@ else
   o.opWall = [];
 end
 
-o.SP = options.semipermeable;
-% Semipermeable membrane
-o.fluxCoeff = prams.fluxCoeff;
-% Water flux coefficient
-o.fluxShape = prams.fluxShape;
-% Water flux shape
-
 end % tstep: constructor
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [Xcoeff,rhsCoeff,beta] = getCoeff(o,order)
-% [Xcoeff,rhsCoeff,beta] = getCoeff(order) generates the coefficients
-% required to discretize the derivative.  First-order time  derivatives
-% are approximated by beta*x^{N+1} + rhscoeff.*[x^{N} x^{N-1} ...]
-% Explicit terms (operators) are discretized at Xcoeff.*[x^{N} x^{N-1}
-% ...] All rules are from Ascher, Ruuth, Wetton 1995.
-
-if (order == 4) % fourth-order
-  beta = 25/12;
-  Xcoeff = [-1; 4; -6; 4]; 
-  rhsCoeff = [-1/4; 4/3; -3; 4];
-elseif (order == 3) % third-order
-  beta = 11/6;
-  Xcoeff = [1; -3; 3];
-  rhsCoeff = [1/3; -3/2; 3];
-elseif (order == 2) % second-order
-  beta = 1.5;
-  Xcoeff = [-1; 2];
-  rhsCoeff = [-0.5; 2];
-else % first-order
-  beta = 1;
-  Xcoeff = 1;
-  rhsCoeff = 1;
-end
-
-end % getCoeff
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [walls,wallsCoarse] = initialConfined(o,prams,Xwalls)
@@ -228,9 +159,9 @@ o.bdiagWall = o.wallsPrecond(wallsCoarse);
 end % initialConfined
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [Xstore,sigStore,uStore,etaStore,RSstore,Xtra] = ...
+function [Xstore,sigStore,uStore,etaStore,RSstore] = ...
   firstSteps(o,options,prams,Xinit,sigInit,uInit,...
-  walls,wallsCoarse,om,Xtra,pressTar)
+  walls,wallsCoarse,om,pressTar)
 % [Xstore,sigStore,uStore,etaStore,RSstore] = ...
 %   firstSteps(options,prams,Xinit,sigInit,uInit,...
 %   walls,wallsCoarse,om,pressTar)
@@ -256,44 +187,22 @@ else
   nvbd = 0;
 end
 
-prams.T = prams.T/prams.m*(o.order-1);
-% time horizon is enough time steps so that we can
-% continue with higher-order time integrator
-if o.order ~=1
-  mR = min(ceil(prams.m/32),100)*o.order^2;
-  mR = mR * (o.order - 1);
-else
-  mR = 1;
-end
-% For second-order time stepping, this keeps the local error from time
-% step 0 to dt on the order of dt^3
-prams.m = mR*(o.order-1);
-% number of time steps to take in range [0,dt]
-
-Xstore = zeros(2*N,nv,prams.m+1);
-sigStore = zeros(N,nv,prams.m+1);
-uStore = zeros(2*N,nv,prams.m+1);
-etaStore = zeros(2*Nbd,nvbd,prams.m+1);
-RSstore = zeros(3,nvbd,prams.m+1);
+Xstore = zeros(2*N,nv);
+sigStore = zeros(N,nv);
+uStore = zeros(2*N,nv);
+etaStore = zeros(2*Nbd);
+RSstore = zeros(3,nvbd);
 
 Xstore(:,:,1) = Xinit;
-vesicle = capsules(Xinit,zeros(N,nv),[],...
-    prams.kappa,prams.viscCont);
+vesicle = capsules(Xinit,zeros(N,nv),[],prams.kappa,prams.viscCont,...
+    options.semipermeable,prams.fluxCoeff,options.fluxShape);
 
-[sigStore(:,:,1),etaStore(:,:,1),RSstore(:,:,1),u,iter] = ...
-    vesicle.computeSigAndEta(o,walls);
-vesicle.sig = sigStore(:,:,1);
+[sigStore,etaStore,RSstore,u,iter] = vesicle.computeSigAndEta(o,walls);
+vesicle.sig = sigStore;
+% need intial tension, density function, rotlets, and stokeslets so that
+% we can do SDC updates
 
-[shearStress,normalStress] = ...
-    vesicle.computeShearStress(options,prams);
-
-% need intial tension, density function, rotlets, and stokeslets so
-% that we can do SDC updates, couling with advection-diffusion system,
-% etc
-
-om.initializeFiles(Xinit,sigStore(:,:,1),...
-    etaStore(:,:,1),...
-    RSstore(:,:,1),Xwalls,Xtra,pressTar);
+om.initializeFiles(Xinit,sigStore,etaStore,RSstore,Xwalls,pressTar);
 % delete previous versions of files and write some initial
 % options/parameters to files and the console
 
@@ -302,100 +211,16 @@ message = ['GMRES took ',num2str(iter),...
 om.writeMessage(message,'%s\n');
 om.writeMessage(' ','%s\n');
 
-for n = 1:prams.m
-  time = n*prams.T/prams.m;
-
-  options.order = min(n,o.order);
-  tt = tstep(options,prams);
-  % take the highester order possible
-  tt.SDCcorrect = false;
-  % no SDC corrections
-  tt.wallDLP = o.wallDLP;
-  tt.wallN0 = o.wallN0;
-  tt.bdiagWall = o.bdiagWall;
-  % build inverse of the wall-to-wall intearctions includes diagonal and
-  % off-diagonal terms.  That is, it could be used to solve the stokes
-  % equations in a multiply-connected domain with no vesicles
- 
-  updatePreco = true;
-  [X,sigma,u,eta,RS,iter,iflag] = tt.timeStep(...
-      Xstore(:,:,n-tt.order+1:n),...
-      sigStore(:,:,n-tt.order+1:n),...
-      uStore(:,:,n-tt.order+1:n),...
-      etaStore(:,:,n-tt.order+1:n),...
-      RSstore(:,:,n-tt.order+1:n),...
-      [],[],[],[],[],[],[],...
-      prams.kappa,prams.viscCont,walls,wallsCoarse,...
-      updatePreco,vesicle);
-  
-  % take one time step
-
-  if numel(Xtra) > 1
-    vel = o.tracersVel(X,sigma,u,...
-        prams.kappa,prams.viscCont,walls,eta,RS,Xtra);
-    Xtra = Xtra + tt.dt*vel;
-  end
-
-  accept = true;
-  dtScale = 0;
-  res = 0;
-  % Required for adaptive time stepping which have not been
-  % implemented yet for high-order time stepping
-
-  Xstore(:,:,n+1) = X;
-  sigStore(:,:,n+1) = sigma;
-  uStore(:,:,n+1) = u;
-  etaStore(:,:,n+1) = eta;
-  RSstore(:,:,n+1) = RS;
-  % save and update position, tension, velocity, and
-  % density function
-
-  terminate = om.outputInfo(X,sigma,u,eta,RS,...
-      Xwalls,Xtra,time,iter,dtScale,res,iflag);
-  % save data, write to log file, write to console as
-  % requested
-end 
-% end of using small time steps to get the simulation far enough
-% to use the desired order time integrator
-
-if o.order > 1
-  if options.pressure
-    op = poten(N,o.fmmPrecision);
-    [press,stress1,stress2] = op.pressAndStress(...
-        X,sigma,u,prams.kappa,prams.viscCont,...
-        walls,pressTar,eta,RS,options.confined,...
-        options.fmm);
-    % compute the pressure and stress due to the vesicles
-    % and the solid walls
-    if options.saveData
-      om.writePressure(press);
-      om.writeStress(stress1(1:end/2),'11');
-      om.writeStress(stress1(1+end/2:end),'12');
-      om.writeStress(stress2(1:end/2),'21');
-      om.writeStress(stress2(1+end/2:end),'22');
-    end
-  end % ~options.pressure
-  % write pressure and stress to output file at time dt
-
-  Xstore = Xstore(:,:,1:mR:end);
-  sigStore = sigStore(:,:,1:mR:end);
-  uStore = uStore(:,:,1:mR:end);
-  etaStore = etaStore(:,:,1:mR:end);
-  RSstore = RSstore(:,:,1:mR:end);
-end
-% Only want every mR^{th} solution as these correspond to
-% time steps that are multiples of dt
-% Only need to do this if the time stepping order is not 1
-
 end % firstSteps
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [X,sigma,u,eta,RS,iter,accept,dtScale,normRes,iflag] = timeStepGL(o,Xstore,sigStore,uStore,...
-    etaStore,RSstore,kappa,viscCont,walls,wallsCoarse,om,time,accept)
+function [X,sigma,u,eta,RS,iter,accept,dtScale,normRes,iflag] = ...
+    timeStepGL(o,ves,etaStore,RSstore,...
+        walls,wallsCoarse,om,time,accept)
 % [X,sigma,u,eta,RS,iter,dt,accept,dtScale,normRes,iflag] = ...
-%    timeStepGL(Xstore,sigStore,uStore,...
-%    etaStore,RSstore,kappa,viscCont,walls,wallsCoarse,a0,l0)
+%    timeStepGL(ves,...
+%    etaStore,RSstore,walls,wallsCoarse,a0,l0)
 % takes the desired number of time steps at Gauss-Lobatto points to
 % find solution at dt given solution at 0.  Calls o.timeStep which is
 % what we use for the constant sized time step integration.  Returns a
@@ -403,6 +228,11 @@ function [X,sigma,u,eta,RS,iter,accept,dtScale,normRes,iflag] = timeStepGL(o,Xst
 % time step was scaled.  errors is the norm of the residual and iflag
 % is tells if any of the gmres runs failed
 
+Xstore = ves.X;
+sigStore = ves.sig;
+uStore = ves.u;
+kappa = ves.kappa;
+viscCont = ves.viscCont;
 N = size(Xstore,1)/2; % number of points per vesicle
 nv = size(Xstore,2); % number of vesicles
 Nbd = size(etaStore,1)/2; % number of points per solid wall
@@ -416,17 +246,15 @@ sigmaProv = zeros(N,nv,abs(o.orderGL));
 uProv = zeros(2*N,nv,abs(o.orderGL));
 etaProv = zeros(2*Nbd,nvbd,abs(o.orderGL));
 RSprov = zeros(3,nvbd,abs(o.orderGL));
-% need to save the position, tension, velocity, density
-% functions, rotlets/stokeslets at the Gauss-Lobatto
-% time steps
+% need to save the position, tension, velocity, density functions,
+% rotlets/stokeslets at the Gauss-Lobatto time steps
 for k = 1:nv
   Xprov(:,k,1) = Xstore(:,k);
   sigmaProv(:,k,1) = sigStore(:,k);
   uProv(:,k,1) = uStore(:,k);
 end
-% Store the initial conditions in the provisional
-% solution which will store the solution at all
-% Gauss-Lobatto points
+% Store the initial conditions in the provisional solution which will
+% store the solution at all Gauss-Lobatto points
 
 for k = 1:nvbd
   etaProv(:,k,1) = etaStore(:,k);
@@ -441,8 +269,8 @@ if any(viscCont ~= 1)
 else
   D = [];
 end
-% need the double-layer potential at all levels
-% of the provisional solution
+% need the double-layer potential at all levels of the provisional
+% solution
 
 deltaX = zeros(2*N,nv,abs(o.orderGL));
 deltaSigma = zeros(N,nv,abs(o.orderGL));
@@ -455,12 +283,15 @@ deltaRS = zeros(3,nvbd,abs(o.orderGL));
 X = Xprov(:,:,1);
 sigma = sigmaProv(:,:,1);
 u = uProv(:,:,1);
+SP = ves.SP;
+beta = ves.beta;
 
-vesicle(1) = capsules(X,sigma,u,kappa,viscCont);
-% vesicle configuration at first Gauss-Lobatto point
+vesicle(1) = capsules(X,sigma,u,kappa,viscCont,...
+    ves.SP,ves.fluxCoeff,ves.fluxShape);
+% vesicle configuration at first Gauss-Lobatto point which is the
+% initial condition of the current time step 
 
 if o.timeAdap
-  Xinit_tadap = X;
   [~,aInit,lInit] = oc.geomProp(X);
   eaInit = abs(aInit - a0)./a0;
   elInit = abs(lInit - l0)./l0;
@@ -483,10 +314,14 @@ for k = 1:abs(o.orderGL)-1
   o.SDCcorrect = false;
 
   [X,sigma,u,eta,RS,subIter,iflagTemp] = o.timeStep(...
-      Xprov(:,:,k-o.order+1:k),sigmaProv(:,:,k-o.order+1:k),...
-      uProv(:,:,k-o.order+1:k),etaProv(:,:,k-o.order+1:k),...
-      RSprov(:,:,k-o.order+1:k),[],[],[],[],[],[],[],...
-      kappa,viscCont,walls,wallsCoarse,updatePreco,vesicle(k));
+      vesicle(k),etaProv(:,:,k),RSprov(:,:,k),...
+      [],[],[],[],[],[],[],...
+      walls,wallsCoarse,updatePreco);
+%  [X,sigma,u,eta,RS,subIter,iflagTemp] = o.timeStepOld(...
+%      Xprov(:,:,k),sigmaProv(:,:,k),...
+%      uProv(:,:,k),etaProv(:,:,k),...
+%      RSprov(:,:,k),[],[],[],[],[],[],[],...
+%      kappa,viscCont,walls,wallsCoarse,updatePreco,vesicle(k));
   % form provisional solution at next Gauss-Lobatto point
   iter = iter + subIter;
   % running counter for the total number of gmres iterations
@@ -504,8 +339,8 @@ for k = 1:abs(o.orderGL)-1
   if iflagTemp ~= 0
     iflag = iflagTemp;
   end
-  % if any of the gmres iterations fail, assign the failure to
-  % flag to iflag for monitor to output
+  % if any of the gmres iterations fail, assign the failure to flag to
+  % iflag for monitor to output
 
   if o.nsdc > 0
     Galpert(:,:,:,k) = o.Galpert;
@@ -513,14 +348,16 @@ for k = 1:abs(o.orderGL)-1
       D(:,:,:,k) = o.D;
     end
     % want to save single-layer potential for computing the residual.
-    % This will not save the  one, but this is computed in
+    % This will not save the one, but this is computed in
     % computeResidual
     NearV2V{k} = o.NearV2V;
     NearW2V{k} = o.NearW2V;
     NearV2W{k} = o.NearV2W;
     NearW2W{k} = o.NearW2W;
 
-    vesicle(k+1) = capsules(X,sigma,u,kappa,viscCont);
+    vesicle(k+1) = capsules(X,sigma,u,kappa,viscCont,...
+        ves.SP,ves.fluxCoeff,ves.fluxShape);
+    % BQ: THIS NEEDS TO BE FIXED TO HANDLE GATING
     % need to save if doing SDC corrections 
   end
 
@@ -533,7 +370,6 @@ for k = 1:abs(o.orderGL)-1
   % Gauss-Lobatto point
 end % k
 
-
 % need to save the near-singular integration structure and
 % layer-potential matricies at the final Gauss-Lobatto point for future
 % SDC sweeps and computing the residual, if there are any SDC sweeps
@@ -542,8 +378,7 @@ if o.nsdc > 0
     if o.confined
       [NearV2V{abs(o.orderGL)},NearV2W{abs(o.orderGL)}] = ...
           vesicle(abs(o.orderGL)).getZone(walls,3);
-      %--------------------------------------------------------------------
-      % Need vesicle to vesicle and vesicle to wall interactions
+      % vesicle to vesicle and vesicle to wall interactions
       if nvbd == 1 
         [NearW2W{abs(o.orderGL)},NearW2V{abs(o.orderGL)}] = ...
             walls.getZone(vesicle(abs(o.orderGL)),2);
@@ -551,7 +386,7 @@ if o.nsdc > 0
         [NearW2W{abs(o.orderGL)},NearW2V{abs(o.orderGL)}] = ...
             walls.getZone(vesicle(abs(o.orderGL)),3);
       end
-      % Only need wall to vesicle interactions.  Wall to wall 
+      % Only need wall to vesicle interactions.  Wall to wall
       % interactions should also use near-singular integration since
       % they may be close to one another
     else
@@ -607,30 +442,30 @@ uInit = uProv;
 sigmaInit = sigmaProv;
 etaInit = etaProv;
 RSinit = RSprov;
-% save the very first provisional solution so that it can be taken
-% as the solution if sdc corrections increase the error but this
-% original provisional solution has the smallest error
+% save the very first provisional solution so that it can be taken as
+% the solution if SDC iterations increase the error but this original
+% provisional solution has the smallest error
 if o.nsdc > 0
   [vesVel,divVesVel,wallVel,residual] = ...
       o.computeVelocities(vesicle,Galpert,D,walls,...
         etaProv,RSprov,NearV2V,NearV2W,NearW2V,NearW2W);
   % form the residual as well as the velocities due to the different
   % components which are necessary to form the right-hand sides when
-  % doing sdc corrections
+  % doing SDC iterations
 
   normRes = max(abs(residual(:,:,end)));
   normRes = max(normRes);
-  % save the size of the residual at the final Gauss-Lobatto
-  % point.  We may have more of these later if we do a full
-  % deferred correction method.  Use the maximum L2 error where
-  % the maximum is taken over all the vesicles
+  % save the size of the residual at the final Gauss-Lobatto point.  We
+  % may have more of these later if we do a full deferred correction
+  % method.  Use the maximum L2 error where the maximum is taken over
+  % all the vesicles
 else
   normRes = 0;
 end
-% compute the integrand that is in the residual and the residual 
-% of the picard integral formulation of the dynamic equation
-% If the residual is not desired, then errors is set to 0 and
-% this will never refine the time step size
+% compute the integrand that is in the residual and the residual of the
+% picard integral formulation of the dynamic equation If the residual is
+% not desired, then errors is set to 0 and this will never refine the
+% time step size
 
 [~,a,l] = oc.geomProp(Xprov(:,:,end));
 eaBefore = abs(a - a0)./abs(a0);
@@ -659,14 +494,22 @@ for sdcCount = 1:o.nsdc
     o.NearW2V = NearW2V{n+1};
     o.NearW2W = NearW2W{n+1};
     [X,sigma,u,eta,RS,subIter,iflagTemp] = o.timeStep(...
-        Xprov(:,:,n+1),sigmaProv(:,:,n+1),...
-        uStore,etaProv(:,:,n+1),RSprov(:,:,n+1),...
+        vesicle(n+1),etaProv(:,:,n+1),RSprov(:,:,n+1),...
         deltaX(:,:,n),deltaSigma(:,:,n),...
         deltaEta(:,:,n),deltaRS(:,:,n),...
         residual(:,:,n+1) - residual(:,:,n),...
         vesVel(:,:,n+1),wallVel(:,:,n+1),...
-        kappa,viscCont,walls,wallsCoarse,updatePreco,vesicle(n+1),...
+        walls,wallsCoarse,updatePreco,...
         vesicle(1).sa,vesicle(1).IK);
+%    [X,sigma,u,eta,RS,subIter,iflagTemp] = o.timeStepOld(...
+%        Xprov(:,:,n+1),sigmaProv(:,:,n+1),...
+%        uStore,etaProv(:,:,n+1),RSprov(:,:,n+1),...
+%        deltaX(:,:,n),deltaSigma(:,:,n),...
+%        deltaEta(:,:,n),deltaRS(:,:,n),...
+%        residual(:,:,n+1) - residual(:,:,n),...
+%        vesVel(:,:,n+1),wallVel(:,:,n+1),...
+%        kappa,viscCont,walls,wallsCoarse,updatePreco,vesicle(n+1),...
+%        vesicle(1).sa,vesicle(1).IK);
     % Form the sdc update
     iter = iter + subIter;
 
@@ -684,33 +527,12 @@ for sdcCount = 1:o.nsdc
   end
   o.dt = dt;
   % go back to original time step
-  
-  alpha = 1;
-%  eaOld = ea;
-%  elOld = el;
-%  ea = 2*eaOld; el = 2*elOld;
-%  while ((ea > eaOld || el > elOld) && 2*alpha > 1e-2)
-%    [~,a,l] = oc.geomProp(Xprov(:,:,end) + alpha*deltaX(:,:,end));
-%    ea = abs(a - a0)./abs(a0);
-%    el = abs(l - l0)./abs(l0);
-%    alpha = alpha/2;
-%  end
-%  alpha = 2*alpha;
-%  % do a line search so that the updated solution has a smaller area
-%  % and length
-%  if alpha < 1e-2
-%    alpha = 0;
-%  end
-%  % if the line search was unsuccessful, don't update the provisional
-%  % solution
 
-
-  Xprov = Xprov + alpha*deltaX;
-  sigmaProv = sigmaProv + alpha*deltaSigma;
-  etaProv = etaProv + alpha*deltaEta;
-  RSprov = RSprov + alpha*deltaRS;
+  Xprov = Xprov + deltaX;
+  sigmaProv = sigmaProv + deltaSigma;
+  etaProv = etaProv + deltaEta;
+  RSprov = RSprov + deltaRS;
   % update provision solution
-  
 
   [~,a,l] = oc.geomProp(Xprov(:,:,end));
   ea = abs(a - a0)./abs(a0);
@@ -722,8 +544,9 @@ for sdcCount = 1:o.nsdc
   if sdcCount < o.nsdc
     for n = 1:abs(o.orderGL)
       vesicle(n) = capsules(Xprov(:,:,n),sigmaProv(:,:,n),...
-          [],kappa,viscCont);
-      % find correct upsampling rate
+        [],kappa,viscCont,...
+        ves.SP,ves.fluxCoeff,ves.fluxShape);
+      % BQ: NEED TO FIX THIS TO HANDLE GATING
       Galpert(:,:,:,n) = o.op.stokesSLmatrix(vesicle(n));
       if any(viscCont ~= 1)
         D(:,:,:,n) = o.op.stokesDLmatrix(vesicle(n));
@@ -736,6 +559,7 @@ for sdcCount = 1:o.nsdc
     [vesVel,divVesVel,wallVel,residual] = ...
       o.computeVelocities(vesicle,Galpert,D,walls,...
           etaProv,RSprov,NearV2V,NearV2W,NearW2V,NearW2W);
+    % update the velocities and residuals
   end
   normRes = max(abs(residual(:,:,end)));
   normRes = max(normRes);
@@ -744,24 +568,9 @@ for sdcCount = 1:o.nsdc
     ', eA = ' num2str(max(ea),'%5.4e') ...
     ', eL = ' num2str(max(el),'%5.4e')];
   om.writeMessage(message,'%s\n');
-  
-%   if max(ea) > max(eaBefore) || max(el) > max(elBefore)
-%     message = ['SDC increases the error, do not accept corrected solution'];
-%     om.writeMessage(message,'%s\n');
-% 
-%     Xprov = Xprov - alpha*deltaX;
-%     sigmaProv = sigmaProv - alpha*deltaSigma;
-%     etaProv = etaProv - alpha*deltaEta;
-%     RSprov = RSprov - alpha*deltaRS;    
-%     % Do not accept SDC correction
-%   end
- 
-
   % if we are only recording the error in area and length, don't need
   % to compute the final residual
-  
 end
-
 % End of doing SDC corrections
 % update solution with an SDC iteration
 
@@ -776,33 +585,17 @@ else
   selfDist = [];
   wallDist = [];
   collUprate = 1;
-  % if not doing adaptive time stepping, keep the same
-  % time step size and always accept solution
+  % if not doing adaptive time stepping, keep the same time step size
+  % and always accept solution
 end
 
 if accept
-%  for k=1:nv
-%    z = Xprov(1:end/2,k,end) + 1i*Xprov(end/2+1:end,k,end);
-%    zh = fftshift(fft(z));
-%    zh(1) = 0;
-%    z = ifft(ifftshift(zh));
-%    Xprov(1:end/2,k,end) = real(z);
-%    Xprov(end/2+1:end,k,end) = imag(z);
-%
-%    z = sigmaProv(:,k,end);
-%    zh = fftshift(fft(z));
-%    zh(1) = 0;
-%    sigmaProv(:,k,end) = ifft(ifftshift(zh));
-%  end
-    
-
   % take the new solution
   X = Xprov(:,:,end);
   sigma = sigmaProv(:,:,end);
   u = uProv(:,:,end);
   eta = etaProv(:,:,end);
   RS = RSprov(:,:,end);
-
 else
   % revert to the old solution
   X = Xstore;
@@ -845,29 +638,20 @@ err = max(max(errArea./tauArea),max(errLength./tauLength));
 % Maximum of relative errors in area and length
 % Want this quantity to be as close to 1 as possible
 
-actualOrder = o.expectedOrder;
-% order of time stepping method
-dtOPT = err^(-1/(actualOrder))*o.dt;
+dtOPT = err^(-1/(o.expectedOrder))*o.dt;
 % optimal time step size
 
 dtOld = o.dt;
 if accept
-  o.dt = alpha^(1/actualOrder) * ...
+  o.dt = alpha^(1/o.expectedOrder) * ...
       min(betaUp*o.dt,max(dtOPT,betaDown*o.dt));
 else
-  o.dt = alpha^(1/(actualOrder)) * ...
+  o.dt = alpha^(1/(o.expectedOrder)) * ...
       min(o.dt,max(dtOPT,betaDown*o.dt));
   % don't want to scale up this time step if it was previously rejected.
   % This hopefully gets rid of pattern where a solution alternates
   % between being accepted and rejected.
 end
-
-%YNY maximum time step size
-%YNY maximum time step size
-% safety factor added to the optimal time step size also, time step size
-% is not scaled up or down too fast For safety factor, take 1/p root.
-% In our formulation, this makes alpha the desired value for err
-% regardless of the order of the method.
 
 o.dt = min(o.dt,o.dtMax);
 % make sure we don't exceed the maximum allowable time step size
@@ -920,28 +704,26 @@ end % newTimeStepSize
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [X,sigma,u,eta,RS,iter,iflag] = timeStep(o,...
-    Xstore,sigStore,uStore,etaStore,RSstore,...
+    vesicle,etaStore,RSstore,...
     deltaX,deltaSig,deltaEta,deltaRS,...
-    diffResidual,vesVel,wallVel,kappa,viscCont,walls,wallsCoarse,...
-    updatePreco,vesicle,sa,IK)
-% [X,sigma,u,eta,RS,iter,iflag] = timeStep(o,...
-%    Xstore,sigStore,uStore,etaStore,RSstore,...
-%    deltaX,deltaSig,deltaEta,deltaRS,...
-%    diffResidual,vesVel,wallVel,kappa,viscCont,walls,wallsCoarse,...
-%    updatePreco,sa,IK)
-% uses explicit or implicit vesicle-vesicle interactions and
-% discretizes the inextensibility condition in three different way
-% (method1, method2, or method 3).  Must pass in the vesicle positions,
-% tension, and velocity from enough previous time steps (depends on
-% o.order).  Returns a new positions, tension, velocity, density
-% function defined on the solid walls and the number of required GMRES
-% iterations if o.SDCcorrect=true, then it uses deltaX, deltaSig, etc
-% to compute the right-hand sides needed for sdc updates updatePreco is
-% a flog that decides if the block-diagonal preconditioner should be
-% updated or not
-% NOTE THAT A LOT OF THE FEATURES ARE NOT IMPLEMENTED WITH EXPLICIT
-% VESICLE-VESICLE INTERACTIONS.
+    diffResidual,vesVel,wallVel,walls,wallsCoarse,...
+    updatePreco,sa,IK)
+% TODO: UPDATE THE COMMENT BELOW
+% uses implicit vesicle-vesicle interactions and discretizes the
+% inextensibility condition using what used to be called method1.  Must
+% pass in the vesicle positions, tension, and velocity from enough
+% previous time steps (depends on o.order).  Returns a new positions,
+% tension, velocity, density function defined on the solid walls and the
+% number of required GMRES iterations if o.SDCcorrect=true, then it uses
+% deltaX, deltaSig, etc to compute the right-hand sides needed for sdc
+% updates updatePreco is a flog that decides if the block-diagonal
+% preconditioner should be updated or not
 
+Xstore = vesicle.X;
+sigStore = vesicle.sig;
+uStore = vesicle.u;
+kappa = vesicle.kappa;
+viscCont = vesicle.viscCont;
 N = size(Xstore,1)/2; % Number of points per vesicle
 nv = size(Xstore,2); % Number of vesicles
 if o.confined
@@ -961,25 +743,16 @@ uM = zeros(2*N,nv);
 Xo = zeros(2*N,nv);
 etaM = zeros(2*Nbd,nvbd);
 RSm = zeros(3,nvbd);
-for k = 1:o.order
-  Xm = Xm + Xstore(:,:,k)*o.Xcoeff(k);
-  sigmaM = sigmaM + sigStore(:,:,k)*o.Xcoeff(k);
-  uM = uM + uStore(:,:,k)*o.Xcoeff(k);
-  if o.confined
-    etaM = etaM + etaStore(:,:,k)*o.Xcoeff(k);
-    RSm = RSm + RSstore(:,:,k)*o.Xcoeff(k);
-  end
-  Xo = Xo + Xstore(:,:,k)*o.rhsCoeff(k);
+
+Xm = Xm + Xstore;
+sigmaM = sigmaM + sigStore;
+if o.confined
+  etaM = etaM + etaStore;
+  RSm = RSm + RSstore;
 end
+Xo = Xo + Xstore;
 % Form linear combinations of previous time steps needed for Ascher,
-% Ruuth, and Wetton IMEX methods
-
-
-if o.order ~= 1
-  vesicle = capsules(Xm,sigmaM,uM,kappa,viscCont);
-end
-
-% build an object vesicle that contains tangent vector, jacobian, etc.
+% Ruuth, and Wetton first-order IMEX methods
 
 op = o.op;
 if ~o.SDCcorrect
@@ -1074,11 +847,7 @@ else
       rhs1(:,k) = z(2*(k-1)*N+1:2*k*N)/alpha(k);
     end
   end
-  if strcmp(o.solver,'method1')
-    rhs2 = ones(N,nv);
-  else
-    rhs2 = -vesicle.surfaceDiv(vesVel);
-  end
+  rhs2 = ones(N,nv);
   if o.confined
     rhs3 = -wallVel + walls.u;
   else
@@ -1090,69 +859,18 @@ end
 % solution.
 
 % START TO COMPUTE RIGHT-HAND SIDE DUE TO VESICLE TRACTION JUMP
-if strcmp(o.vesves,'explicit')
-  if o.profile
-    tic
-  end
-  if ~o.SDCcorrect
-    f = vesicle.tracJump(Xm,sigmaM);
-  else
-    f = vesicle.tracJump(deltaX,deltaSig);
-  end
-  if ~o.fmm
-    kernel = @op.exactStokesSL;
-    kernelDirect = @op.exactStokesSL;
-  else
-    kernel = @op.exactStokesSLfmm;
-    kernelDirect = @op.exactStokesSL;
-  end
-
-  if ~o.near
-    Fslp = kernel(vesicle,f,[]);
-    % Evaulate single-layer potential on all vesicles but itself without
-    % near-singular integration
-    if o.confined
-      [~,FSLPwall] = kernel(vesicle,f,[],walls.X,(1:nv));
-      % Evaluate single-layer potential on solid walls due to all
-      % vesicles
-    else
-      FSLPwall = [];
-    end
-
-  else
-    SLP = @(X) op.exactStokesSLdiag(vesicle,o.Galpert,X);
-    Fslp = op.nearSingInt(vesicle,f,SLP,...
-        o.NearV2V,kernel,kernelDirect,vesicle,true,false);
-    % Use near-singular integration to compute single-layer potential
-    % due to all other vesicles.  Need to pass function
-    % op.exactStokesSL so that the layer potential can be computed at
-    % far points and Lagrange interpolation points
-
-    if o.confined
-      FSLPwall = op.nearSingInt(vesicle,f,SLP,...
-          o.NearV2W,kernel,kernelDirect,walls,false,false);
-      % Evaluate the velocity on the walls due to the vesicles
-    else
-      FSLPwall = [];
-    end
-
-  end
-  if o.profile
-    fprintf('Build right-hand side V2V and V2W   %5.1e\n',toc);
-  end
-else
-  Fslp = zeros(2*N,nv);
-  FSLPwall = zeros(2*Nbd,nvbd);
-  % vesicle-vesicle and vesicle-wall interactions are handled
-  % implicitly in TimeMatVec
-end
-
-for k = 1:nv
-  rhs1(:,k) = rhs1(:,k) + o.dt/alpha(k)*Fslp(:,k);
-      
-end
-
-rhs3 = rhs3 - FSLPwall;
+%Fslp = zeros(2*N,nv);
+%FSLPwall = zeros(2*Nbd,nvbd);
+%% vesicle-vesicle and vesicle-wall interactions are handled implicitly
+%% in TimeMatVec
+%
+%for k = 1:nv
+%  rhs1(:,k) = rhs1(:,k) + o.dt/alpha(k)*Fslp(:,k);
+%end
+%
+%rhs3 = rhs3 - FSLPwall;
+% APRIL 20, 2020: SINCE I'VE REMOVED EXPLICIT INTERACTIONS, THIS
+% COMMENTED BLOCK OF CODE DOES NOTHING
 % END TO COMPUTE RIGHT-HAND SIDE DUE TO VESICLE TRACTION JUMP
 
 % START TO COMPUTE RIGHT-HAND SIDE DUE TO VISCOSITY CONTRAST
@@ -1172,61 +890,30 @@ if any(vesicle.viscCont ~= 1)
     kernel = @op.exactStokesDLnewfmm;
     kernelDirect = @op.exactStokesDL;
   end
-  if strcmp(o.vesves,'implicit')
-    if ~o.SDCcorrect
-      density = Xo;
-    else
-      density = deltaX;
-    end
 
-    if ~o.near
-      Fdlp = kernel(vesicle,density);
-      if o.confined
-        [~,FDLPwall] = kernel(vesicle,density,walls.X,(1:nv));
-      else
-        FDLPwall = [];
-      end
-    else
-      Fdlp = op.nearSingInt(vesicle,density,DLP,...
-          o.NearV2V,kernel,kernelDirect,vesicle,true,false);
-      % Use near-singular integration to compute double-layer
-      % potential from previous solution
-      if o.confined
-        FDLPwall = op.nearSingInt(vesicle,density,DLP,...
-          o.NearV2W,kernel,kernelDirect,walls,false,false);
-      else
-        FDLPwall = [];
-      end
-    end
-  elseif strcmp(o.vesves,'explicit')
-    if ~o.near
-      Fdlp = -o.dt * kernel(vesicle,uM);
-      % Evaulate the velocity due to the viscosity contrast
-      % on all vesicles but itself WITHOUT near-singular
-      % integration
-      if o.confined
-        [~,FDLPwall] = kernel(vesicle,uM,walls.X,(1:nv));
-        FDLPwall = -o.dt*FDLPwall;
-        % Evaulate the velocity due to the viscosity contrast on the
-        % walls WITHOUT near-singulation integration
-      else
-        FDLPwall = [];
-      end
-    else
-      kernelDirect = @op.exactStokesDL;
-      Fdlp = -o.dt * op.nearSingInt(vesicle,uM,DLP,...
-          o.NearV2V,kernel,kernelDirect,vesicle,true,false);
-      % Evaulate the velocity due to the viscosity contrast on all
-      % vesicles but itself WITH near-singular integration
+  if ~o.SDCcorrect
+    density = Xo;
+  else
+    density = deltaX;
+  end
 
-      if o.confined
-        FDLPwall = -o.dt * op.nearSingInt(vesicle,uM,DLP,...
-            o.NearV2W,kernel,kernelDirect,walls,false,false);
-        % Evaulate the velocity due to the viscosity contrast on the
-        % walls WITH near-singulation integration
-      else
-        FDLPwall = [];
-      end
+  if ~o.near
+    Fdlp = kernel(vesicle,density);
+    if o.confined
+      [~,FDLPwall] = kernel(vesicle,density,walls.X,(1:nv));
+    else
+      FDLPwall = [];
+    end
+  else
+    Fdlp = op.nearSingInt(vesicle,density,DLP,...
+        o.NearV2V,kernel,kernelDirect,vesicle,true,false);
+    % Use near-singular integration to compute double-layer
+    % potential from previous solution
+    if o.confined
+      FDLPwall = op.nearSingInt(vesicle,density,DLP,...
+        o.NearV2W,kernel,kernelDirect,walls,false,false);
+    else
+      FDLPwall = [];
     end
   end
 else
@@ -1278,14 +965,505 @@ if o.adhesion
   end
 
   rhs1 = rhs1 + o.dt*Fadhesion*diag(1./alpha);
+end
+% Compute velocity due to adhesion
+
+if o.expForce
+  d = 2.0;
+  expForce = vesicle.expForce(d);
+  if ~o.fmm
+    kernel = @op.exactStokesSL;
+    kernelDirect = @op.exactStokesSL;
+  else
+    kernel = @op.exactStokesSLfmm;
+    kernelDirect = @op.exactStokesSL;
+  end
+
+%  expForce_vel = expForce;
+  expForce_vel = 5e1*op.exactStokesSLdiag(vesicle,o.Galpert,expForce);
+  % diagonal term of exponential force
+
+  rhs1 = rhs1 + o.dt*expForce_vel*diag(1./alpha);
+
 %  figure(2);clf; hold on
 %  plot(vesicle.X(1:end/2,:),vesicle.X(end/2+1:end,:),'r-o')
-%  quiver(vesicle.X(1:end/2,:),vesicle.X(end/2+1:end,:),...
-%      Fadhesion(1:end/2,:),Fadhesion(end/2+1:end,:),0);
+%  quiver(vesicle.X(1:end/2),vesicle.X(end/2+1:end),...
+%      expForce(1:end/2),expForce(end/2+1:end));
 %  axis equal;
-%  size(vesicle.X)
-%  size(Fadhesion)
+%  figure(3);clf; hold on
+%  plot(vesicle.X(1:end/2,:),vesicle.X(end/2+1:end,:),'r-o')
+%  quiver(vesicle.X(1:end/2),vesicle.X(end/2+1:end),...
+%      expForce_vel(1:end/2),expForce_vel(end/2+1:end));
+%  axis equal;
+%%  mean(expForce_vel(1:end/2))
+%%  mean(expForce_vel(end/2+1:end))
 %  pause
+end
+% Compute velocity due to exponential point force
+
+
+% START TO COMPUTE RIGHT-HAND SIDE DUE TO SOLID WALLS
+if o.confined
+  Fwall2Ves = zeros(2*N,nv);
+else
+  Fwall2Ves = zeros(2*N,nv);
+  if ~o.SDCcorrect
+    rhs1 = rhs1 + o.dt*o.farField(Xm)*diag(1./alpha);
+    % Add in far-field condition (extensional, shear, etc.)
+  end
+end
+rhs1 = rhs1 + o.dt*Fwall2Ves*diag(1./alpha);
+% right-hand side of the velocity evaluated on the solid walls
+% END TO COMPUTE RIGHT-HAND SIDE DUE TO SOLID WALLS
+
+
+% START TO COMPUTE THE RIGHT-HAND SIDE FOR THE INEXTENSIBILITY CONDITION
+if ~o.SDCcorrect
+  rhs2 = rhs2 + vesicle.surfaceDiv(Xo); 
+else
+  divf = zeros(N,nv);
+  for k = 1:nv
+    divf(:,k) = curve.arcDeriv(Xm(1:N,k),1,1./sa(:,k),...
+        IK(:,k)).^2 + ...
+                curve.arcDeriv(Xm(N+1:2*N,k),1,1./sa(:,k),...
+        IK(:,k)).^2;
+  end
+  rhs2 = 1/2*(rhs2 - divf);
+end
+% rhs2 is the right-hand side for the inextensibility condition
+% END TO COMPUTE THE RIGHT-HAND SIDE FOR THE INEXTENSIBILITY CONDITION
+
+if (any(vesicle.viscCont ~= 1) && o.confined)
+  rhs3 = rhs3 * o.dt;
+end
+% This makes sure that the rhs is all order one rather than have rhs3
+% being order 1/o.dt and other two parts (rhs1 and rhs2) being order 1.
+% This of course needs to be compensated in the TimeMatVec routine
+
+rhs = [rhs1; rhs2];
+rhs = rhs(:);
+rhs = [rhs; rhs3(:)];
+% Stack the right-hand sides in an alternating with respect to the
+% vesicle fashion
+% Add on the no-slip boundary conditions on the solid walls
+rhs = [rhs; zeros(3*(nvbd-1),1)];
+% Rotlet and Stokeslet equations
+
+usePreco = true;
+%usePreco = false;
+    
+% START BUILDING BLOCK-DIAGONAL PRECONDITIONER
+if usePreco   
+  if updatePreco 
+    % only build the preconditioner if updatePreco == true
+    if o.profile
+      tic
+    end
+    [Ben,Ten,Div] = vesicle.computeDerivs;
+
+    if vesicle.SP
+      P = vesicle.computeNormals;
+    else
+      P = zeros(2*N,2*N,nv);
+    end
+        
+    if o.profile
+      fprintf('Build differential operators        %5.1e\n',toc);
+    end
+    % Compute bending, tension, and surface divergence of current
+    % vesicle configuration
+
+    if o.profile
+      tic
+    end
+
+    bdiagVes.L = zeros(3*N,3*N,nv);
+    bdiagVes.U = zeros(3*N,3*N,nv);
+    
+    for k=1:nv
+      if any(vesicle.viscCont ~= 1)
+%        [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
+%          [eye(2*N) - o.D(:,:,k)/alpha(k) + ...
+%          o.dt/alpha(k)*vesicle.kappa(k)*o.fluxCoeff(k)*P(:,:,k)*Ben(:,:,k).*[o.fluxShape(:,k);o.fluxShape(:,k)]+...
+%          o.dt/alpha(k)*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k),...
+%          -o.dt/alpha(k)*P(:,:,k)*Ten(:,:,k)*o.fluxCoeff.*[o.fluxShape(:,k);o.fluxShape(:,k)] - ...
+%          o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
+%          Div(:,:,k),zeros(N)]);
+%        % TODO: THIS MOST LIKELY HAS A BUG
+      else           
+        [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
+          [eye(2*N) + o.dt * vesicle.kappa(k)*...
+            diag([vesicle.beta(:,k);vesicle.beta(:,k)]) * ...
+            P(:,:,k)*Ben(:,:,k) + ...
+            o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k),...
+          -o.dt/alpha(k)* ...
+            diag([vesicle.beta(:,k);vesicle.beta(:,k)]) * ...
+            P(:,:,k)*Ten(:,:,k) - ...
+          o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
+          Div(:,:,k), zeros(N)]);
+      end
+    end
+    o.bdiagVes = bdiagVes;
+    % Build block-diagonal preconditioner of self-vesicle intearctions
+    % in matrix form
+    if o.profile
+      fprintf('Build block-diagonal preconditioner %5.1e\n\n',toc);
+    end
+  end % updatePreco
+end % usePreco
+
+if o.profile
+  tGMRES = tic;
+end
+
+if 1
+  warning off
+  % any warning is printed to the terminal and the log file so
+  % don't need the native matlab version
+  initGMRES = [Xm;sigmaM];
+  initGMRES = initGMRES(:);
+  if o.confined
+    RS = RSm(:,2:end);
+    initGMRES = [initGMRES;etaM(:);RS(:)];
+  end
+
+  if 0
+    Z = zeros(3*N);
+    for k = 1:3*N
+      e = zeros(3*N,1);
+      e(k) = 1;
+      Z(:,k) = o.TimeMatVec(e,vesicle,walls);
+    end
+    Z2 = bdiagVes.L(:,:,1)*bdiagVes.U(:,:,1);
+
+    clf
+    surf(Z(1:2*N,1:2*N))
+    surf(flipud(log10(abs(Z - Z2))))
+    view(2);
+    shading interp;
+    axis equal;
+    axis([0 3*N 0 3*N])
+    colorbar
+    pause
+  end % DEBUG: Look at the TimeMatVec in matrix form
+  
+  if usePreco
+    % when doing corrections, expect that these guys will be small
+    % GMRES
+    [Xn,iflag,R,I,resvec] = gmres(@(X) o.TimeMatVec(X,vesicle,walls),...
+        rhs,[],o.gmresTol,o.gmresMaxIter,...
+        @o.preconditionerBD,[],initGMRES);
+    iter = I(2);
+  else
+    [Xn,iflag,R,I,resvec] = gmres(@(X) o.TimeMatVec(X,vesicle,walls),...
+        rhs,[],o.gmresTol,o.gmresMaxIter);
+    iter = I(2);
+  end
+  warning on
+end
+% Use GMRES to solve for new positions, tension, density
+% function defined on the solid walls, and rotlets/stokeslets
+
+if o.profile
+  fprintf('Time to do one time step is         %5.1e\n\n',toc(tGMRES))
+end
+
+% iter = I(2);
+% Number of GMRES iterations
+
+X = zeros(2*N,nv);
+sigma = zeros(N,nv);
+eta = zeros(2*Nbd,nvbd);
+RS = zeros(3,nvbd);
+
+for k=1:nv
+  X(:,k) = Xn((3*k-3)*N+1:(3*k-1)*N);
+  sigma(:,k) = Xn((3*k-1)*N+1:3*k*N);
+end
+% unstack the positions and tensions
+
+% Unstack the positions and tensions
+Xn = Xn(3*nv*N+1:end);
+for k = 1:nvbd
+  eta(:,k) = Xn((k-1)*2*Nbd+1:2*k*Nbd);
+end
+% unstack the density function
+otlets = Xn(2*nvbd*Nbd+1:end);
+for k = 2:nvbd
+  istart = (k-2)*3+1;
+  iend = 3*(k-1);
+  RS(:,k) = otlets(istart:iend);
+end
+% unstack the rotlets and stokeslets
+
+u = (X - Xo)/o.dt;
+% Compute the velocity using the differencing stencil
+
+end % timeStep
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [X,sigma,u,eta,RS,iter,iflag] = timeStepOld(o,...
+    Xstore,sigStore,uStore,etaStore,RSstore,...
+    deltaX,deltaSig,deltaEta,deltaRS,...
+    diffResidual,vesVel,wallVel,kappa,viscCont,walls,wallsCoarse,...
+    updatePreco,vesicle,sa,IK)
+% [X,sigma,u,eta,RS,iter,iflag] = timeStep(o,...
+%    Xstore,sigStore,uStore,etaStore,RSstore,...
+%    deltaX,deltaSig,deltaEta,deltaRS,...
+%    diffResidual,vesVel,wallVel,kappa,viscCont,walls,wallsCoarse,...
+%    updatePreco,sa,IK)
+% uses implicit vesicle-vesicle interactions and discretizes the
+% inextensibility condition using what used to be called method1.  Must
+% pass in the vesicle positions, tension, and velocity from enough
+% previous time steps (depends on o.order).  Returns a new positions,
+% tension, velocity, density function defined on the solid walls and the
+% number of required GMRES iterations if o.SDCcorrect=true, then it uses
+% deltaX, deltaSig, etc to compute the right-hand sides needed for sdc
+% updates updatePreco is a flog that decides if the block-diagonal
+% preconditioner should be updated or not
+
+N = size(Xstore,1)/2; % Number of points per vesicle
+nv = size(Xstore,2); % Number of vesicles
+if o.confined
+  Xwalls = walls.X; % discretization points of solid walls
+else
+  Xwalls = [];
+end
+Nbd = size(Xwalls,1)/2; % Number of points on the solid walls
+nvbd = size(Xwalls,2); % number of solid wall components
+alpha = (1 + viscCont)/2; 
+% constant that appears in front of time derivative for vesicle dynamics
+
+Xm = zeros(2*N,nv);
+sigmaM = zeros(N,nv);
+uM = zeros(2*N,nv);
+Xo = zeros(2*N,nv);
+etaM = zeros(2*Nbd,nvbd);
+RSm = zeros(3,nvbd);
+
+Xm = Xm + Xstore;
+sigmaM = sigmaM + sigStore;
+uM = uM + uStore;
+if o.confined
+  etaM = etaM + etaStore;
+  RSm = RSm + RSstore;
+end
+Xo = Xo + Xstore;
+% Form linear combinations of previous time steps needed for Ascher,
+% Ruuth, and Wetton first-order IMEX methods
+
+op = o.op;
+if ~o.SDCcorrect
+  o.Galpert = op.stokesSLmatrix(vesicle);
+end
+% Build single layer potential matrix and put it in current object
+% If we are doing an sdc update, this is already precomputed and 
+% stored from when we formed the provisional solution
+
+if ~o.SDCcorrect
+  if any(viscCont ~= 1)
+    o.D = op.stokesDLmatrix(vesicle);
+  else
+    o.D = [];
+  end
+end
+% Compute double-layer potential matrix due to each vesicle
+% independent of the others.  Matrix is zero if there is no
+% viscosity contrast
+
+if ~o.SDCcorrect
+  if o.near
+    if o.confined
+      [o.NearV2V,o.NearV2W] = vesicle.getZone(walls,3);
+
+      % Need vesicle to vesicle and vesicle to wall interactions
+      if nvbd == 1 
+        [o.NearW2W,o.NearW2V] = walls.getZone(vesicle,2);
+      else
+        [o.NearW2W,o.NearW2V] = walls.getZone(vesicle,3);
+      end
+      % Only need wall to vesicle interactions.  Wall to wall
+      % interactions should also use near-singular integration since
+      % they may be close to one another
+    else
+      o.NearV2V = vesicle.getZone([],1);
+      % no solid walls, so only need vesicle-vesicle intearactions
+      o.NearV2W = [];
+      o.NearW2V = [];
+      o.NearW2W = [];
+    end
+  else
+    o.NearV2V = [];
+    o.NearV2W = [];
+    o.NearW2V = [];
+    o.NearW2W = [];
+  end
+  % If using near-singular integration, need structures for deciding who
+  % is close, how close it is, who is closest, etc.
+end
+% Only form near-singular integration structure if not doing an SDC
+% update.  Otherwise this was formed and saved when forming the
+% provisional solution
+
+if o.collDete
+  o.lapDLP = op.laplaceDLmatrix(vesicle);
+  % build matrix that evaluates double-layer laplace potential for each
+  % vesicle
+
+  oc = curve;
+  [icollisionVes,icollisionWall] = ...
+    oc.collision(vesicle,walls,o.NearV2V,o.NearV2W,o.fmm,o.near);
+  % Check for collisions 
+  if icollisionVes
+    fprintf('VESICLES HAVE CROSSED\n')
+    pause
+  end
+  if icollisionWall
+    fprintf('VESICLES HAVE CROSSED SOLID WALL\n')
+    pause
+  end
+end
+% check for collisions
+
+if ~o.SDCcorrect
+  rhs1 = Xo;
+  rhs2 = zeros(N,nv);
+  if o.confined
+    rhs3 = walls.u;
+  else
+    rhs3 = [];
+  end
+else
+  rhs1 = deltaX + diffResidual;
+  if any(vesicle.viscCont ~= 1)
+    z = zeros(2*N*nv,1);
+    for k = 1:nv
+      z(2*(k-1)*N+1:2*k*N) = rhs1(:,k);
+    end
+    z = o.IminusD(z,vesicle);
+    for k = 1:nv
+      rhs1(:,k) = z(2*(k-1)*N+1:2*k*N)/alpha(k);
+    end
+  end
+  rhs2 = ones(N,nv);
+  if o.confined
+    rhs3 = -wallVel + walls.u;
+  else
+    rhs3 = [];
+  end
+end
+% Parts of rhs from previous solution.  The right-hand-side depends on
+% whether we are doing an SDC correction or forming the provisional
+% solution.
+
+% START TO COMPUTE RIGHT-HAND SIDE DUE TO VESICLE TRACTION JUMP
+%Fslp = zeros(2*N,nv);
+%FSLPwall = zeros(2*Nbd,nvbd);
+%% vesicle-vesicle and vesicle-wall interactions are handled implicitly
+%% in TimeMatVec
+%
+%for k = 1:nv
+%  rhs1(:,k) = rhs1(:,k) + o.dt/alpha(k)*Fslp(:,k);
+%end
+%
+%rhs3 = rhs3 - FSLPwall;
+% APRIL 20, 2020: SINCE I'VE REMOVED EXPLICIT INTERACTIONS, THIS
+% COMMENTED BLOCK OF CODE DOES NOTHING
+% END TO COMPUTE RIGHT-HAND SIDE DUE TO VESICLE TRACTION JUMP
+
+% START TO COMPUTE RIGHT-HAND SIDE DUE TO VISCOSITY CONTRAST
+if any(vesicle.viscCont ~= 1)
+  if o.near
+    jump = 1/2*(1-vesicle.viscCont);
+    DLP = @(X) X*diag(jump) + op.exactStokesDLdiag(vesicle,o.D,X);
+  end
+  % Need to add jump to double-layer potential if using near-singular
+  % integration so that we can compute boundary values for the
+  % near-singular integration algorithm
+
+  if ~o.fmmDLP
+    kernel = @op.exactStokesDL;
+    kernelDirect = @op.exactStokesDL;
+  else
+    kernel = @op.exactStokesDLnewfmm;
+    kernelDirect = @op.exactStokesDL;
+  end
+
+  if ~o.SDCcorrect
+    density = Xo;
+  else
+    density = deltaX;
+  end
+
+  if ~o.near
+    Fdlp = kernel(vesicle,density);
+    if o.confined
+      [~,FDLPwall] = kernel(vesicle,density,walls.X,(1:nv));
+    else
+      FDLPwall = [];
+    end
+  else
+    Fdlp = op.nearSingInt(vesicle,density,DLP,...
+        o.NearV2V,kernel,kernelDirect,vesicle,true,false);
+    % Use near-singular integration to compute double-layer
+    % potential from previous solution
+    if o.confined
+      FDLPwall = op.nearSingInt(vesicle,density,DLP,...
+        o.NearV2W,kernel,kernelDirect,walls,false,false);
+    else
+      FDLPwall = [];
+    end
+  end
+else
+  Fdlp = zeros(2*N,nv);
+  FDLPwall = zeros(2*Nbd,nvbd);
+  % If no viscosity contrast, there is no velocity induced due to a
+  % viscosity contrast
+end
+
+if (any(viscCont ~= 1) && ~o.SDCcorrect)
+  DXo = op.exactStokesDLdiag(vesicle,o.D,Xo);
+  rhs1 = rhs1 - (Fdlp + DXo) * diag(1./alpha);
+end
+% add in viscosity contrast term due to each vesicle independent of the
+% others (o.D * Xo) from the previous solution followed by the term due
+% to all other vesicles (Fdlp)
+
+rhs3 = rhs3 + FDLPwall/o.dt;
+% compute the double-layer potential due to all other vesicles from the
+% appropriate linear combination of previous time steps.  Depends on
+% time stepping order and vesicle-vesicle discretization
+
+if o.adhesion 
+  adhesion = vesicle.adhesionTerm(o.adStrength,o.adRange);
+  if ~o.fmm
+    kernel = @op.exactStokesSL;
+    kernelDirect = @op.exactStokesSL;
+  else
+    kernel = @op.exactStokesSLfmm;
+    kernelDirect = @op.exactStokesSL;
+  end
+
+  Fadhesion = op.exactStokesSLdiag(vesicle,o.Galpert,adhesion);
+  % diagonal term of adhesion
+
+  if ~o.near
+    Fadhesion = Fadhesion + kernel(vesicle,adhesion);
+    % Evaulate single-layer potential on all vesicles but itself without
+    % near-singular integration
+  else
+    SLP = @(X) op.exactStokesSLdiag(vesicle,o.Galpert,X);
+    Fadhesion = Fadhesion + ...
+        op.nearSingInt(vesicle,adhesion,SLP,...
+        o.NearV2V,kernel,kernelDirect,vesicle,true,false);
+    % Use near-singular integration to compute single-layer potential
+    % due to all other vesicles.  Need to pass function
+    % op.exactStokesSL so that the layer potential can be computed at
+    % far points and Lagrange interpolation points
+  end
+
+  rhs1 = rhs1 + o.dt*Fadhesion*diag(1./alpha);
 end
 % Compute velocity due to adhesion
 
@@ -1323,69 +1501,9 @@ if o.expForce
 end
 % Compute velocity due to exponential point force
 
-% if o.SP 
-%     f = vesicle.tracJump(vesicle.X,zeros(N,nv));
-%     Gf = op.exactStokesSLdiag(vesicle,o.Galpert,f);
-%     rhs1 = rhs1 + o.dt/alpha(k)*diag(o.fluxCoeff).*vesicle.normalProjection(f).*[o.fluxShape;o.fluxShape]+o.dt/alpha*Gf;
-% end
-
 % START TO COMPUTE RIGHT-HAND SIDE DUE TO SOLID WALLS
 if o.confined
-  if strcmp(o.vesves,'explicit')
-    if o.profile
-      tic
-    end
-    if o.near
-      jump = -1/2;
-      DLP = @(X) jump*X + op.exactStokesDLdiag(walls,o.wallDLP,X);
-    end
-    % compute the matrix for doing evaluating the double-layer potential
-    % on the solid walls required for near-singular integration
-
-    if ~o.fmmDLP
-      kernel = @op.exactStokesDL;
-      kernelDirect = @op.exactStokesDL;
-    else
-      kernel = @op.exactStokesDLnewfmm;
-      kernelDirect = @op.exactStokesDL;
-    end
-    if ~o.near
-      if ~o.SDCcorrect
-        charge = etaM;
-      else
-        charge = deltaEta;
-      end
-      [~,Fwall2Ves] = kernel(walls,charge,...
-          vesicle.X,1:nvbd);
-      % velocity field due to the walls evaluated on the vesicle
-    else
-      if ~o.SDCcorrect
-        charge = etaM;
-      else
-        charge = deltaEta;
-      end
-      Fwall2Ves = op.nearSingInt(walls,charge,DLP,...
-          o.NearW2V,kernel,kernelDirect,vesicle,false,false);
-    end
-
-    for k = 2:nvbd
-      if ~o.SDCcorrect
-        stokeslet = RSm(1:2,k);
-        rotlet = RSm(3,k);
-      else
-        stokeslet = deltaRS(1:2,k);
-        rotlet = deltaRS(3,k);
-      end
-      Fwall2Ves = Fwall2Ves + ...
-        o.RSlets(vesicle.X,walls.center(:,k),stokeslet,rotlet);
-    end
-    if o.profile
-      fprintf('Build right-hand side W2V           %5.1e\n',toc);
-    end
-
-  elseif strcmp(o.vesves,'implicit')
-    Fwall2Ves = zeros(2*N,nv);
-  end
+  Fwall2Ves = zeros(2*N,nv);
 else
   Fwall2Ves = zeros(2*N,nv);
   if ~o.SDCcorrect
@@ -1399,54 +1517,22 @@ rhs1 = rhs1 + o.dt*Fwall2Ves*diag(1./alpha);
 
 
 % START TO COMPUTE THE RIGHT-HAND SIDE FOR THE INEXTENSIBILITY CONDITION
-if (strcmp(o.solver,'method1'))
-  % If using method1, vesicle-vesicle interactions and the presence of a
-  % viscosity contrast is irrelevent
-  if ~o.SDCcorrect
-    rhs2 = rhs2 + vesicle.surfaceDiv(Xo); 
-  else
-    divf = zeros(N,nv);
-    for k = 1:nv
-      divf(:,k) = curve.arcDeriv(Xm(1:N,k),1,1./sa(:,k),...
-          IK(:,k)).^2 + ...
-                  curve.arcDeriv(Xm(N+1:2*N,k),1,1./sa(:,k),...
-          IK(:,k)).^2;
-    end
-    rhs2 = 1/2*(rhs2 - divf);
+if ~o.SDCcorrect
+  rhs2 = rhs2 + vesicle.surfaceDiv(Xo); 
+else
+  divf = zeros(N,nv);
+  for k = 1:nv
+    divf(:,k) = curve.arcDeriv(Xm(1:N,k),1,1./sa(:,k),...
+        IK(:,k)).^2 + ...
+                curve.arcDeriv(Xm(N+1:2*N,k),1,1./sa(:,k),...
+        IK(:,k)).^2;
   end
-else 
-  % If using method2, vesicle-vesicle interaction affects the right-hand
-  % side of the inextensibility condition
-
-  if ~o.confined && ~o.SDCcorrect
-    if any(viscCont ~= 1)
-      if o.profile
-        tic
-      end
-      rhs2 = rhs2 - vesicle.surfaceDiv(...
-          o.solveIminusD(o.farField(Xm),vesicle));
-      if o.profile
-        fprintf('Solve system alpha*I - DLP          %5.1e\n',toc);
-      end
-    else
-      rhs2 = rhs2 - vesicle.surfaceDiv(o.farField(Xm));
-    end
-  end
-  % add in term from farfield
-  
-  if (strcmp(o.vesves,'explicit'))
-    rhs2 = rhs2 - vesicle.surfaceDiv(Fslp); 
-    rhs2 = rhs2 - vesicle.surfaceDiv(Fwall2Ves);
-    if o.adhesion
-      rhs2 = rhs2 + vesicle.surfaceDiv(Fadhesion);
-    end
-  end
+  rhs2 = 1/2*(rhs2 - divf);
 end
 % rhs2 is the right-hand side for the inextensibility condition
 % END TO COMPUTE THE RIGHT-HAND SIDE FOR THE INEXTENSIBILITY CONDITION
 
-if (any(vesicle.viscCont ~= 1) && ...
-      strcmp(o.vesves,'implicit') && o.confined)
+if (any(vesicle.viscCont ~= 1) && o.confined)
   rhs3 = rhs3 * o.dt;
 end
 % This makes sure that the rhs is all order one rather than have rhs3
@@ -1494,50 +1580,30 @@ if usePreco
     bdiagVes.U = zeros(3*N,3*N,nv);
     
     for k=1:nv
-      if strcmp(o.solver,'method1')
-        if any(vesicle.viscCont ~= 1)
-          [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
-            [o.beta*(eye(2*N) - o.D(:,:,k)/alpha(k)) + ...
-            o.dt/alpha(k)*vesicle.kappa(k)*o.fluxCoeff(k)*P(:,:,k)*Ben(:,:,k).*[o.fluxShape(:,k);o.fluxShape(:,k)]+...
-            o.dt/alpha(k)*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k) ...
-            -o.dt/alpha(k)*P(:,:,k)*Ten(:,:,k)*o.fluxCoeff.*[o.fluxShape(:,k);o.fluxShape(:,k)] - ...
-            o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
-            o.beta*Div(:,:,k) zeros(N)]);
-          % TODO: THIS MOST LIKELY HAS A BUG
-        else           
-          [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
-            [o.beta*eye(2*N) + o.dt * o.fluxCoeff * ...
-              vesicle.kappa(k)*kron(eye(2),diag(o.fluxShape(:,k))) * ...
-              P(:,:,k)*Ben(:,:,k) + ...
-              o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k),...
-            -o.dt/alpha(k)*o.fluxCoeff * ...
-              kron(eye(2),diag(o.fluxShape(:,k)))*P(:,:,k)*Ten(:,:,k) - ...
-            o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
-            o.beta*Div(:,:,k), zeros(N)]);
-        end
-      elseif strcmp(o.solver,'method2')
-        if any(vesicle.viscCont ~= 1)
-          [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu( ...
-            [o.beta*(eye(2*N) - o.D(:,:,k)/alpha(k)) + ...
-                o.dt/alpha(k)*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k) ...
-            -o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
-            -vesicle.kappa(k)*Div(:,:,k)*(alpha(k)*eye(2*N) - o.D(:,:,k))\...
-                (o.Galpert(:,:,k)*Ben(:,:,k)) ...
-            Div(:,:,k)*(alpha(k)*eye(2*N) - o.D(:,:,k))\...
-                (o.Galpert(:,:,k)*Ten(:,:,k))]);
-        else
-          [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
-            [o.beta*eye(2*N) + ...
-                o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k) ...
-            -o.dt*o.Galpert(:,:,k)*Ten(:,:,k); ...
-            -vesicle.kappa(k)*Div(:,:,k)*o.Galpert(:,:,k)*Ben(:,:,k) ...
-            Div(:,:,k)*o.Galpert(:,:,k)*Ten(:,:,k)]);
-        end
+      if any(vesicle.viscCont ~= 1)
+%        [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
+%          [eye(2*N) - o.D(:,:,k)/alpha(k) + ...
+%          o.dt/alpha(k)*vesicle.kappa(k)*o.fluxCoeff(k)*P(:,:,k)*Ben(:,:,k).*[o.fluxShape(:,k);o.fluxShape(:,k)]+...
+%          o.dt/alpha(k)*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k),...
+%          -o.dt/alpha(k)*P(:,:,k)*Ten(:,:,k)*o.fluxCoeff.*[o.fluxShape(:,k);o.fluxShape(:,k)] - ...
+%          o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
+%          Div(:,:,k),zeros(N)]);
+%        % TODO: THIS MOST LIKELY HAS A BUG
+      else           
+        [bdiagVes.L(:,:,k),bdiagVes.U(:,:,k)] = lu(...
+          [eye(2*N) + o.dt * o.fluxCoeff * ...
+            vesicle.kappa(k)*kron(eye(2),diag(o.fluxShape(:,k))) * ...
+            P(:,:,k)*Ben(:,:,k) + ...
+            o.dt*vesicle.kappa(k)*o.Galpert(:,:,k)*Ben(:,:,k),...
+          -o.dt/alpha(k)*o.fluxCoeff * ...
+            kron(eye(2),diag(o.fluxShape(:,k)))*P(:,:,k)*Ten(:,:,k) - ...
+          o.dt/alpha(k)*o.Galpert(:,:,k)*Ten(:,:,k); ...
+          Div(:,:,k), zeros(N)]);
       end
     end
     o.bdiagVes = bdiagVes;
-    % Build block-diagonal preconditioner of self-vesicle 
-    % intearctions in matrix form
+    % Build block-diagonal preconditioner of self-vesicle intearctions
+    % in matrix form
     if o.profile
       fprintf('Build block-diagonal preconditioner %5.1e\n\n',toc);
     end
@@ -1547,17 +1613,6 @@ end % usePreco
 if o.profile
   tGMRES = tic;
 end
-
-% USE LU DECOMPOSITION
-if 0
-  Xn = o.preconditionerBD(rhs);
-  iflag = 0;
-  R = 0;
-  I = [1;1];
-  resvec = [0];
-  iter = I(2);
-end
- 
 
 if 1
   warning off
@@ -1640,7 +1695,7 @@ for k = 2:nvbd
 end
 % unstack the rotlets and stokeslets
 
-u = (o.beta*X - Xo)/o.dt;
+u = (X - Xo)/o.dt;
 % Compute the velocity using the differencing stencil
 
 end % timeStep
@@ -1715,7 +1770,7 @@ alpha = (1+vesicle.viscCont)/2;
 
 Gf = op.exactStokesSLdiag(vesicle,o.Galpert,f);
 % Gf is the single-layer potential applied to the traction jump. 
-if o.SP  
+if vesicle.SP  
   Pf = vesicle.normalProjection(f);
   %Calculate the normal projection for semipermeable membrane
 else
@@ -1730,52 +1785,46 @@ end
 % DXm is the double-layer potential applied to the position
 
 % START COMPUTING REQUIRED SINGLE-LAYER POTENTIALS
-if strcmp(o.vesves,'implicit')
-  if o.profile
-    tic
-  end
-  if ~o.fmm
-    kernel = @op.exactStokesSL;
-    kernelDirect = @op.exactStokesSL;
-  else
-    kernel = @op.exactStokesSLfmm;
-    kernelDirect = @op.exactStokesSL;
-  end
+if o.profile
+  tic
+end
+if ~o.fmm
+  kernel = @op.exactStokesSL;
+  kernelDirect = @op.exactStokesSL;
+else
+  kernel = @op.exactStokesSLfmm;
+  kernelDirect = @op.exactStokesSL;
+end
 
-  if ~o.near
-    Fslp = kernel(vesicle,f,[]);
-    % Evaulate single-layer potential due to all other vesicles
-    % WITHOUT near singular integration.  FMM is optional
-    if o.confined
-      [~,FSLPwall] = kernel(vesicle,f,[],walls.X,(1:nv));
-      % Evaluate single-layer potential due to all vesicles on
-      % the solid walls WITHOUT near-singular integration
-    else
-      FSLPwall = [];
-    end
+if ~o.near
+  Fslp = kernel(vesicle,f,[]);
+  % Evaulate single-layer potential due to all other vesicles
+  % WITHOUT near singular integration.  FMM is optional
+  if o.confined
+    [~,FSLPwall] = kernel(vesicle,f,[],walls.X,(1:nv));
+    % Evaluate single-layer potential due to all vesicles on
+    % the solid walls WITHOUT near-singular integration
   else
-    SLP = @(X) op.exactStokesSLdiag(vesicle,o.Galpert,X);
-    Fslp = op.nearSingInt(vesicle,f,SLP,...
-        o.NearV2V,kernel,kernelDirect,vesicle,true,false);
-    % Evaulate single-layer potential due to all other vesicles
-    % WITH near-singular integration.  FMM is optional
-    
-    if o.confined
-      FSLPwall = op.nearSingInt(vesicle,f,SLP,...
-        o.NearV2W,kernel,kernelDirect,walls,false,false);
-      % Evaluate single-layer potential due to all vesicles on
-      % the solid walls WITH near-singular integration
-    else
-      FSLPwall = [];
-    end
-  end
-  if o.profile
-    fprintf('Apply V2V and V2W interactions      %5.1e\n',toc) 
+    FSLPwall = [];
   end
 else
-  Fslp = zeros(2*N,nv);
-  FSLPwall = zeros(2*Nbd,nvbd); 
-  % These terms is handled explicitly if o.vesves is 'explicit'
+  SLP = @(X) op.exactStokesSLdiag(vesicle,o.Galpert,X);
+  Fslp = op.nearSingInt(vesicle,f,SLP,...
+      o.NearV2V,kernel,kernelDirect,vesicle,true,false);
+  % Evaulate single-layer potential due to all other vesicles
+  % WITH near-singular integration.  FMM is optional
+  
+  if o.confined
+    FSLPwall = op.nearSingInt(vesicle,f,SLP,...
+      o.NearV2W,kernel,kernelDirect,walls,false,false);
+    % Evaluate single-layer potential due to all vesicles on
+    % the solid walls WITH near-singular integration
+  else
+    FSLPwall = [];
+  end
+end
+if o.profile
+  fprintf('Apply V2V and V2W interactions      %5.1e\n',toc) 
 end
 % END COMPUTING REQUIRED SINGLE-LAYER POTENTIALS
 % Evaluate single-layer potential due to all vesicles except itself and
@@ -1792,36 +1841,31 @@ if any(vesicle.viscCont ~= 1)
     DLP = @(X) X*diag(jump) + op.exactStokesDLdiag(vesicle,o.D,X);
   end
 
-  if strcmp(o.vesves,'implicit')
-    if ~o.fmmDLP
-      kernel = @op.exactStokesDL;
-      kernelDirect = @op.exactStokesDL;
+  if ~o.fmmDLP
+    kernel = @op.exactStokesDL;
+    kernelDirect = @op.exactStokesDL;
+  else
+    kernel = @op.exactStokesDLnewfmm;
+    kernelDirect = @op.exactStokesDL;
+  end
+  if ~o.near
+    Fdlp = kernel(vesicle,Xm,[]);
+    if o.confined
+      [~,FDLPwall] = kernel(vesicle,Xm,walls.X,(1:nv));
     else
-      kernel = @op.exactStokesDLnewfmm;
-      kernelDirect = @op.exactStokesDL;
+      FDLPwall = [];
     end
-    if ~o.near
-      Fdlp = kernel(vesicle,Xm,[]);
-      if o.confined
-        [~,FDLPwall] = kernel(vesicle,Xm,walls.X,(1:nv));
-      else
-        FDLPwall = [];
-      end
+  else
+    Fdlp = op.nearSingInt(vesicle,Xm,DLP,...
+        o.NearV2V,kernel,kernelDirect,vesicle,true,false);
+    % Use near-singular integration to compute double-layer
+    % potential 
+    if o.confined
+      FDLPwall = op.nearSingInt(vesicle,Xm,DLP,...
+        o.NearV2W,kernel,kernelDirect,walls,false,false);
     else
-      Fdlp = op.nearSingInt(vesicle,Xm,DLP,...
-          o.NearV2V,kernel,kernelDirect,vesicle,true,false);
-      % Use near-singular integration to compute double-layer
-      % potential 
-      if o.confined
-        FDLPwall = op.nearSingInt(vesicle,Xm,DLP,...
-          o.NearV2W,kernel,kernelDirect,walls,false,false);
-      else
-        FDLPwall = [];
-      end
+      FDLPwall = [];
     end
-  elseif strcmp(o.vesves,'explicit')
-    Fdlp = zeros(2*N,nv);
-    FDLPwall = zeros(2*Nbd,nvbd);
   end
 else
   Fdlp = zeros(2*N,nv);
@@ -1832,32 +1876,27 @@ end
 
 % START OF EVALUATING DOUBLE-LAYER POTENTIALS DUE TO SOLID WALLS
 if o.confined
-  if strcmp(o.vesves,'implicit')
-    potWall = o.opWall;
-    if ~o.fmmDLP
-      kernel = @potWall.exactStokesDL;
-      kernelDirect = @potWall.exactStokesDL;
-    else
-      kernel = @potWall.exactStokesDLnewfmm;
-      kernelDirect = @potWall.exactStokesDL;
-    end
-    if ~o.near
-      [~,Fwall2Ves] = kernel(walls,etaM,[],vesicle.X,1:nvbd);
-    else
-      jump = -1/2;
-      DLP = @(X) jump*X + potWall.exactStokesDLdiag(walls,o.wallDLP,X);
-      Fwall2Ves = potWall.nearSingInt(walls,etaM,DLP,...
-          o.NearW2V,kernel,kernelDirect,vesicle,false,false);
-    end
-%     disp('FIX HERE')
-
-    if o.profile
-      fprintf('Apply W2V interaction               %5.1e\n',toc) 
-    end
-    % compute the velocity on the vesicles due to the solid walls
+  potWall = o.opWall;
+  if ~o.fmmDLP
+    kernel = @potWall.exactStokesDL;
+    kernelDirect = @potWall.exactStokesDL;
   else
-    Fwall2Ves = zeros(2*N,nv);
+    kernel = @potWall.exactStokesDLnewfmm;
+    kernelDirect = @potWall.exactStokesDL;
   end
+  if ~o.near
+    [~,Fwall2Ves] = kernel(walls,etaM,[],vesicle.X,1:nvbd);
+  else
+    jump = -1/2;
+    DLP = @(X) jump*X + potWall.exactStokesDLdiag(walls,o.wallDLP,X);
+    Fwall2Ves = potWall.nearSingInt(walls,etaM,DLP,...
+        o.NearW2V,kernel,kernelDirect,vesicle,false,false);
+  end
+
+  if o.profile
+    fprintf('Apply W2V interaction               %5.1e\n',toc) 
+  end
+  % compute the velocity on the vesicles due to the solid walls
 else
   Fwall2Ves = zeros(2*N,nv);
 end
@@ -1900,10 +1939,8 @@ if nvbd > 1
   for k = 2:nvbd
     stokeslet = otlets(3*(k-2)+1:3*(k-2)+2);
     rotlet = otlets(3*(k-1));
-    if strcmp(o.vesves,'implicit')
-      LetsVes = LetsVes + o.RSlets(vesicle.X,walls.center(:,k),...
-          stokeslet,rotlet);
-    end
+    LetsVes = LetsVes + o.RSlets(vesicle.X,walls.center(:,k),...
+        stokeslet,rotlet);
     % compute velocity due to rotlets and stokeslets on the vesicles
 
     LetsWalls = LetsWalls + o.RSlets(walls.X,walls.center(:,k),...
@@ -1923,18 +1960,17 @@ end
 % START OF EVALUATING VELOCITY ON VESICLES
 valPos = valPos - o.dt*Gf*diag(1./alpha);
 % self-bending and self-tension terms
-valPos = valPos - o.beta*DXm*diag(1./alpha);
+valPos = valPos - DXm*diag(1./alpha);
 % self-viscosity contrast term
 valPos = valPos - o.dt*Fslp*diag(1./alpha);
 % single-layer potential due to all other vesicles
-valPos = valPos - o.beta*Fdlp*diag(1./alpha);
+valPos = valPos - Fdlp*diag(1./alpha);
 % double-layer potential due to all other vesicles
 valPos = valPos - o.dt*Fwall2Ves*diag(1./alpha);
 % velocity due to solid walls evaluated on vesicles
 valPos = valPos - o.dt*LetsVes*diag(1./alpha);
 % velocity on vesicles due to the rotlets and stokeslets
-valPos = valPos - o.dt*[o.fluxShape;o.fluxShape] .* ...
-    Pf*diag(o.fluxCoeff);
+valPos = valPos - o.dt*[vesicle.beta;vesicle.beta] .* Pf;
 % END OF EVALUATING VELOCITY ON VESICLES
 
 % START OF EVALUATING VELOCITY ON WALLS
@@ -1950,7 +1986,7 @@ end
 
 valWalls = valWalls + FSLPwall;
 % velocity on walls due to the vesicle traction jump
-valWalls = valWalls + o.beta*FDLPwall/o.dt;
+valWalls = valWalls + FDLPwall/o.dt;
 % velocity on walls due to the vesicle viscosity jump
 valWalls = valWalls + FDLPwall2wall;
 % velocity on walls due to all other walls
@@ -1959,35 +1995,12 @@ valWalls = valWalls + LetsWalls;
 % END OF EVALUATING VELOCITY ON WALLS
 
 % START OF EVALUATING INEXTENSIBILITY CONDITION
-if (strcmp(o.solver,'method1'))
-  valTen = o.beta * vesicle.surfaceDiv(Xm);
-  
-  % compute surface divergence of the current GMRES iterate
-  % method1 sets this equal to the surface divergence of
-  % the previous time step
-else
-  if any(vesicle.viscCont ~= 1)
-    if o.profile
-      tic
-    end
-    valTen = vesicle.surfaceDiv(...
-        o.solveIminusD(Gf+Fslp+Fwall2Ves+LetsVes,vesicle));
-    if o.profile
-      fprintf('Solve system alpha*I - DLP          %5.1e\n',toc);
-    end
-  else
-    valTen = -1/o.dt*vesicle.surfaceDiv(valPos);
-  end
-  % method2 sets the surface divergence of the sum of single-layer
-  % potentials due to bending and tension plus the farField to zero.
-end
-% Two possible discretizations of the inextensibility condition
+valTen = vesicle.surfaceDiv(Xm);
+% compute surface divergence of the current GMRES iterate by setting
+% this equal to the surface divergence of the previous time step
 % END OF EVALUATING INEXTENSIBILITY CONDITION
 
-valPos = valPos + o.beta*Xm;
-% beta times solution coming from time derivative
-%semilogy(abs(fftshift(fft(valPos(1:end/2)))),'bo');
-%pause
+valPos = valPos + Xm;
 
 val = zeros(3*N*nv,1);
 % Initialize output from vesicle and inextensibility equations to zero
@@ -1997,8 +2010,7 @@ end
 % Stack val as [x-coordinate;ycoordinate;tension] repeated
 % nv times for each vesicle
 
-if (any(vesicle.viscCont ~= 1) && ...
-      strcmp(o.vesves,'implicit') && o.confined)
+if (any(vesicle.viscCont ~= 1) && o.confined)
   % This combination of options causes problems with
   % the scaling of the preconditioner.  Need to
   % get rid of the potentially small value o.dt
@@ -2047,14 +2059,6 @@ residual = zeros(2*N,nv,abs(o.orderGL));
 % residual of the Picard integral coming from the time
 % derivative term of the vesicle position
 
-vesves = o.vesves;
-o.vesves = 'implicit';
-% need to use implicit so that other vesicles are used to compute
-% the integrand z
-order = o.order;
-o.order = 1;
-[o.Xcoeff,o.rhsCoeff,o.beta] = o.getCoeff(o.order);
-% need to save the time stepping order
 dt = o.dt;
 % need to save current time step
 o.dt = 1;
@@ -2171,17 +2175,12 @@ for n = 1:abs(o.orderGL)
 end
 
 o.dt = dt;
-o.order = order;
-[o.Xcoeff,o.rhsCoeff,o.beta] = o.getCoeff(o.order);
-o.vesves = vesves;
-% change back to original time step and vesicle-vesicle interaction
+% change back to original time step size
 
 IvesVel = o.lobattoInt(vesVel);
-% integrate the vesicles velocity using quadrature rules 
-% that are exact for polynomials defined at the 
-% Gauss-Lobatto points
+% integrate the vesicles velocity using quadrature rules that are exact
+% for polynomials defined at the Gauss-Lobatto points
 for n = 1:abs(o.orderGL)
- 
   residual(:,:,n) = vesicle(1).X - vesicle(n).X + ...
       o.dt/2 * IvesVel(:,:,n);
 end
@@ -2198,19 +2197,14 @@ function zOut = solveIminusD(o,zIn,vesicle)
 % velocity when there is a viscosity contrast involved.  If there is no
 % viscosity contrast, alpha = 1 and DLP = 0 so that zOut = zIn
 
-
 warning off
 %tGMRES = tic;
 %[zIn,flag,relres,iter] = gmres(@(X) o.IminusD(X,vesicle),zIn(:),...
 %    [],1e-2*o.gmresTol,min(2*vesicle.N*vesicle.nv,o.gmresMaxIter));
-if 1
 [zIn,flag,relres,iter] = gmres(@(X) o.IminusD(X,vesicle),zIn(:),...
     [],1e-2*o.gmresTol,min(2*vesicle.N*vesicle.nv,o.gmresMaxIter),...
     @(z) o.precoIminusD(z,vesicle));
 warning on
-else
-zIn = o.precoIminusD(zIn(:),vesicle);
-end
 %fprintf('GMRES time is %4.2e\n',toc(tGMRES))
 % solve with block-diagonal preconditioned GMRES.  Integral equation is
 % of the form identity + compact.  Need a bit more accuracy in this
@@ -2247,13 +2241,6 @@ val = Xm*diag(alpha);
 % "jump" term since we are computing alpha * I - DLP
 
 val = val - op.exactStokesDLdiag(vesicle,o.D,Xm);
-
-% if vesicle.N > 32
-%   val = val - op.exactStokesDLdiag(vesicle,o.D,Xm);
-% else
-%   val = val - op.exactStokesDLdiag(vesicle,o.D,Xm);
-% end
-% self-interaction term
 
 if o.near
   jump = 0.5*(1-vesicle.viscCont);
@@ -2311,24 +2298,16 @@ for k = 1:nv
   u(:,k) = sigma(istart:iend);
 end
 
-vesves = o.vesves;
-o.vesves = 'implicit';
-% want interactions to be implicit so that the most accurate tension and
-% density functions are found
-inextens = o.solver;
-o.solver = 'method1';
 dt = o.dt;
 o.dt = 1;
+% change time step size to 1 for computing tension and density
 
 sigma = o.TimeMatVec(sigma,vesicle,walls);
-
 % Do a matvec but let the incoming postitions be zero since they are
 % handled by the initial condition
 % Can overwrite sigma as we don't need it from this point onwards
-o.vesves = vesves;
-o.solver = inextens;
 o.dt = dt;
-% change back to old vesicle-vesicle and vesicle-boundary interactions
+% change back to old vesicle-vesicle
 
 valVel = zeros(2*N,nv);
 valTen = zeros(N,nv);
@@ -2338,13 +2317,13 @@ for k = 1:nv
   valVel(:,k) = sigma((k-1)*3*N+1:(3*k-1)*N);
   valTen(:,k) = sigma((3*k-1)*N+1:3*k*N);
 end
-
 % part that corresponds to the velocity and tension
+
 for k = 1:nvbd
   valDen(:,k) = sigma(3*nv*N+(k-1)*2*Nbd+1:3*nv*N+k*2*Nbd);
 end
-
 % part that corresponds to the density function
+
 for k = 2:nvbd
   istart = 3*nv*N + 2*nvbd*Nbd + 3*(k-2) + 1;
   iend = istart + 2;  
@@ -2392,8 +2371,8 @@ alpha = (1+vesicle.viscCont)/2;
 valVel = valVel * diag(alpha);
 % multiply top row of matrix by alpha
 
-valVel = valVel + op.exactStokesSLdiag(vesicle,o.Galpert,f) + ...
-      [o.fluxShape;o.fluxShape].*vesicle.normalProjection(f)*diag(o.fluxCoeff) + Fslp;
+valVel = valVel + Fslp + op.exactStokesSLdiag(vesicle,o.Galpert,f) + ...
+    [vesicle.beta;vesicle.beta].*vesicle.normalProjection(f);
 valDen = valDen - FSLPwall;
 % subtract off terms that TimeMatVec introduces but we do not have in
 % this linear system
@@ -2513,8 +2492,9 @@ end % preconditionerBD
 function Mat = wallsPrecond(o,walls)
 % wallsPrecond(walls) computes the matrix which is the exact inverse of
 % the double-layer potential for stokes flow in a bounded domain.  Used
-% in the preconditioner for vesicle simulations and capsules.m/computeEta
-% which computes eta and RS when there is no vesicle.
+% in the preconditioner for vesicle simulations and
+% capsules.m/computeEta which computes eta and RS when there is no
+% vesicle.
 
 Nbd = walls.N;
 nvbd = walls.nv;
@@ -2667,108 +2647,6 @@ end
 end % precoIminusD
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function val = preconditionerTen(o,z)
-% val = preconditionerTen(z) applies the preconditioner to the tension
-% term for when we are solving for just the tension and density
-% function given a configuration.  Configuration is eliminated using
-% the Schur complelent
-
-nv = size(o.bdiagTen,3); % number of vesicles
-N = size(o.bdiagTen,1); 
-% number of points per vesicle
-
-nvbd = size(o.wallDLP,3); % number of solid walls
-Nbd = size(o.wallDLP,1)/2; 
-% number of points per solid wall
-
-zves = z(1:N*nv);
-% part of z correpsonding to the vesicles
-zwall = z(N*nv+1:end-3*(nvbd-1));
-% part of z corresponding to the solid walls
-zrot = z(end-3*(nvbd-1)+1:end);
-% part of z corresonding to rotlets and stokeslets
-
-valVes = zeros(N*nv,1);
-for k=1:nv
-  valVes((k-1)*N+1:k*N) = o.bdiagTen(:,:,k)*...
-    zves((k-1)*N+1:k*N);
-end
-
-valWall = o.bdiagWall*[zwall;zrot];
-
-val = [valVes;valWall];
-% stack the preconditioned values due to the tension term and
-% the solid wall term
-
-end % preconditionerTen
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function sig = invDST(o,vesicle,z)
-% sig = invDST(o,vesicle,z) solves the equation DST*sig = z using pGMRES
-
-N = vesicle.N; nv = vesicle.nv;
-
-[z,flag,relres,iter] = gmres(@(X) o.DSTMatVec(vesicle,X),...
-    z(:),[],1e-2*o.gmresTol,min(o.gmresMaxIter,N),...
-    @(X) o.precoDST(vesicle,X));
-% need a smaller tolerance here to hide that fact that this does not
-% make a liner preconditioner.  Krylov stuff breaks down in theory, but
-% this shouldn't come up until the error of the outer iteration is
-% smaller than the requested tolerance
-
-sig = zeros(N,nv);
-for k = 1:nv
-  sig(:,k) = z((k-1)*N+1:k*N);
-end
-
-end % invDST
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function sig = DSTMatVec(o,vesicle,sig)
-% sig = DSTMatVec(vesicle,sig) applies the operator Div*SLP*Tension to
-% sig
-
-N = vesicle.N; nv = vesicle.nv;
-sigCols = zeros(N,nv);
-for k = 1:nv
-  sigCols(:,k) = sig((k-1)*N+1:k*N); 
-end
-
-tension = vesicle.tensionTerm(sigCols);
-% compute Tension * sig
-for k = 1:nv
-  tension(:,k) = o.Galpert(:,:,k)*tension(:,k);
-end
-% apply the single-layer potential
-sig = vesicle.surfaceDiv(tension);
-% compute the surface divergence
-sig = sig(:);
-
-end % DSTMatVec
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function sig = precoDST(o,vesicle,sig)
-% sig = precoDST(vesicle,sig) inverts the operator Div*SLP*Tension where
-% the geometry is assumed to be a circle that has the same radius as the
-% vesicle
-
-N = vesicle.N; nv = vesicle.nv;
-rad = vesicle.length/2/pi;
-% radius of circle with same length as the vesicles
-
-imodes = 1./[(1:N/2-1)';(N/2:-1:1)'];
-for k = 1:nv
-  sig((k-1)*N+1:k*N) = fft(sig((k-1)*N+1:k*N));
-  sig((k-1)*N+2:k*N) = -4*rad*sig((k-1)*N+2:k*N).*imodes;
-  sig((k-1)*N+1:k*N) = ifft(sig((k-1)*N+1:k*N));
-end
-
-sig = real(sig);
-
-end % precoDST
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [vInf,T11,T12,T22] = bgFlow(o,X,varargin)
 % [vInf,T11,T12,T22] = bgFlow(X,varargin) computes the velocity field
 % and the stress tensor at the points X.  Default flow is shear with
@@ -2825,23 +2703,13 @@ elseif any(strcmp(varargin,'parabolic'))
   else
     R = varargin{R+1};
   end
-  UM = find(strcmp(varargin,'Umax'));
-  if isempty(UM)
-%    UM = 1e5; % default value for strength of flow
-    UM = 2;
-  else
-    UM = varargin{UM+1};
-  end
-  vInf = [UM*(1-(y/R).^2);zeros(N,nv)];
+  vInf = [(1-(y/R).^2);zeros(N,nv)];
+  T11 = zeros(N,nv);
+  T12 = y/R^2;
+  T22 = zeros(N,nv);
 
 elseif any(strcmp(varargin,'invParabolic'))
-  k = find(strcmp(varargin,'k'));
-  if isempty(k)
-    k = 1; % default value for strength of flow
-  else
-    k = varargin{k+1};
-  end
-  vInf = [k*y.^2;zeros(N,nv)];
+  vInf = [y.^2;zeros(N,nv)];
 
 elseif any(strcmp(varargin,'rotate'))
   vInf = [y;-x];
@@ -2853,16 +2721,9 @@ elseif any(strcmp(varargin,'taylorGreen'))
   vInf = [sin(x).*cos(y);-cos(x).*sin(y)];
 
 elseif any(strcmp(varargin,'shear'))
-  k = 1;
-%  k = find(strcmp(varargin,'k'));
-%  if isempty(k)
-%    k = 1; % default value for strength of flow
-%  else
-%    k = varargin{k+1};
-%  end
-  vInf = [k*y;zeros(N,nv)];
+  vInf = [y;zeros(N,nv)];
   T11 = zeros(N,nv);
-  T12 = k*ones(N,nv);
+  T12 = ones(N,nv);
   T22 = zeros(N,nv);
 
 elseif (any(strcmp(varargin,'choke')) || ...
@@ -2883,12 +2744,6 @@ elseif any(strcmp(varargin,'couette'));
   
 elseif any(strcmp(varargin,'couetteOuter'));
   vInf = [1*[-y(:,1)+mean(y(:,1));x(:,1)-mean(x(:,1))] zeros(2*N,1)];  
-
-elseif any(strcmp(varargin,'couette10'));
-  vInf = [zeros(2*N,1) 10*[-y(:,2)+mean(y(:,2));x(:,2)-mean(x(:,2))]];
-  
-elseif any(strcmp(varargin,'couette100'));
-  vInf = [zeros(2*N,1) 100*[-y(:,2)+mean(y(:,2));x(:,2)-mean(x(:,2))]];
   
 elseif (any(strcmp(varargin,'doubleCouette')) || ...
       any(strcmp(varargin,'doubleFlower')));
@@ -2903,63 +2758,21 @@ elseif (any(strcmp(varargin,'quadCouette')));
       +[y(:,5)-mean(y(:,5));-x(:,5)+mean(x(:,5))]];
 
 elseif any(strcmp(varargin,'cylinder'))
-%  theta = (0:N-1)'*2*pi/N;
-%  vInf = [cos(10*theta);sin(2*theta)];
-  vInf = 1*[-y+mean(y);x-mean(x)];
+  vInf = [-y+mean(y);x-mean(x)];
 
-elseif any(strcmp(varargin,'figureEight'))
-  oc = curve;
-  [~,vInf,~] = oc.diffProp([x;y]);
-%  vInf(1:end/2,:) = 3*vInf(1:end/2,:);
-
-  sup = find(abs(x)<=1 & y>0);
-  sdown = find(abs(x)<=1 & y<0);
-  omega = linspace(-1,1,numel(sup)+2)';
-  omega = omega(2:end-1);
-  mollifier = 4*exp(1./(omega.^2 - 1))+1;
-  vInf(sup,:) = vInf(sup,:) .* mollifier;
-  vInf(sdown,:) = vInf(sdown,:) .* mollifier;
-  % increase the velocity in a smooth fashion near the middle
-  % of the solid walls
-%
-%elseif any(strcmp(varargin,'shear'))
-%  vInf = [y;zeros(N,nv)];
-
-elseif any(strcmp(varargin,'diffuser'));
-  vInf = zeros(2*N,nv);
-  ind = abs(x(:,1))>9;
-  vx = exp(1./((y(ind,1)/max(y(ind,1))).^2-1))/exp(-1);
-  % typical mollifer so that velocity decays smoothly to 0
-  vx(vx==Inf) = 0;
-  vInf(ind,1) = vx;
-
-elseif any(strcmp(varargin,'microfluidic'));
-  oc = curve;
-  [~,tangent,~] = oc.diffProp(X); 
-  vInf = tangent;
-  vInf(:,1) = 0*vInf(:,1);
-  vInf(:,2) = +1*vInf(:,2);
-  vInf(:,3) = -1*vInf(:,3);
-  vInf(:,4) = -1*vInf(:,4);
-  vInf(:,5) = +1*vInf(:,5);
-  
-elseif any(strcmp(varargin,'DlateralD'))
-    
-  vInf = zeros(2*N,nv);
-  vOut = zeros(2*N,1);
-  ind = abs(x(:,1))>max(abs(x(:,1)))-max(abs(x(:,1)))*0.1;
-  vx = exp(1./((y(ind,1)/max(y(:,1))).^2-1))/exp(-1);
-  % typical mollifer so that velocity decays smoothly to 0
-  vx(vx==Inf) = 0;
-  vOut(ind,1) = vx;
-  vInf(:,1) = vOut;
 else 
   vInf = [y;zeros(N,nv)];
   % default flow is shear
 end
 
-speed = varargin{2};
+k = find(strcmp(varargin,'k'));
+if isempty(k)
+  speed = 1; % default value for strength of flow
+else
+  speed = varargin{k+1};
+end
 % speed of the background velocity
+
 vInf = vInf * speed;
 T11 = speed*T11;
 T12 = speed*T12;

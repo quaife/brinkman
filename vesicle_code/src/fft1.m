@@ -7,34 +7,7 @@ properties
 N; % Number of points in the incoming periodic functions
 end
 
-
 methods
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function fo = arbInterp(o,f,y)
-% fo = arbInterp(f)  interpolates the function f given at 
-% regular points, at arbitrary points y.  The points y are assumed 
-% to be the in the 0-2*pi range.  Matrix is built.  This routine is
-% only for testing and is never called in the vesicle code
-
-N = size(f,1);
-
-% build interpolation matrix
-A = zeros(length(y), N);
-for j = 1:N
-  g = zeros(N,1); g(j) =1;
-  fhat = fftshift(fft(g)/N);    
-  for k=1:N
-    A(:, j) = A(:, j) + fhat(k)*exp(1i*(-N/2+k-1)*y);
-  end
-end
-A = real(A);
-
-% interpolate
-fo = A*f;
-
-end % arbInterp
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function A = sinterpS(o,N,y)
@@ -56,7 +29,6 @@ for j=1:N
 end
 A = real(A);
 % Input is real, so interpolant should be real
-
 
 end % sinterpS
 

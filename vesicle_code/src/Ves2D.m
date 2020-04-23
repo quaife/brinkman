@@ -1,8 +1,8 @@
-function Xfinal  = Ves2D(X,Xwalls,prams,options,Xtra,pressTar)
+function Xfinal  = Ves2D(X,Xwalls,prams,options,pressTar)
 % Ves2D does time stepping on the intial configuration X
 % with parameters and options defined in prams and options.
-% Also can pass a set of initial tracer locations (Xtra) and 
-% target points where one wants the pressure and stress (pressTar)
+% Also can pass a set of initial target points where one wants 
+% the pressure and stress (pressTar)
 
 global matvecs ;  % number of matvecs
 global derivs  ;  % number of times we compute differential
@@ -10,10 +10,7 @@ global derivs  ;  % number of times we compute differential
 global fmms       % number of fmm calls
 
 if nargin == 4
-  Xtra = [];       % Xtra is positions of tracers for visualization
   pressTar = [];   % points to compute pressure for postprocessing
-elseif nargin == 5
-  pressTar = [];   
 end
 
 matvecs = 0; 
@@ -62,20 +59,19 @@ om.writeMessage(message,'%s\n')
 oc = curve;
 tt = tstep(options,prams);
 % build an object of class tstep with required options and parameters
-Xstore = zeros(2*N,nv,options.order);
-sigStore = zeros(N,nv,options.order);
-uStore = zeros(2*N,nv,options.order);
-etaStore = zeros(2*prams.Nbd,prams.nvbd,options.order);
-RSstore = zeros(3,prams.nvbd,options.order);
-% need to store options.order previous time steps to do
-% higher-order time stepping
+Xstore = zeros(2*N,nv);
+sigStore = zeros(N,nv);
+uStore = zeros(2*N,nv);
+etaStore = zeros(2*prams.Nbd,prams.nvbd);
+RSstore = zeros(3,prams.nvbd);
+% palce to store previous time step to do time stepping
 % RSstore is the rotlets and stokeslets stored as
 % [stokeslet1;stokeslet2;rotlet]
-Xstore(:,:,1) = X;
+Xstore = X;
 % initial configuration from user
 
 if ~options.confined
-  uStore(:,:,1) = tt.farField(X);
+  uStore = tt.farField(X);
   etaStore = [];
   RSstore = [];
   walls = [];
@@ -87,34 +83,21 @@ end
 % If flow is unbounded, there is no density function eta.  If bounded,
 % compute a structure for the solid walls 
 %
-[Xstore,sigStore,uStore,etaStore,RSstore,Xtra] = ...
-    tt.firstSteps(options,prams,...
-    Xstore(:,:,end),sigStore(:,:,end),uStore(:,:,end),...
-    walls,wallsCoarse,om,Xtra,pressTar);
-% For higher-order methods (only 2nd order for now), need to initially
-% take smaller time steps so that we have two initial conditions
+[Xstore,sigStore,uStore,etaStore,RSstore] = ...
+    tt.firstSteps(options,prams,Xstore,sigStore,uStore,...
+    walls,wallsCoarse,om,pressTar);
+% Was for higher-order multistep methods which have been fazed out.
 
-time = (options.order-1)*tt.dt;
-% initial time.  firstSteps took the first time steps so that there is
-% enough data to use the time stepping order that is desired
+time = 0;
+% initial time
 
 accept = true;
-
-th = (0:prams.N-1)'*2*pi/prams.N;
-masterShape = ones(prams.N,1);
-%masterShape = exp(-3*(th - 0).^2) + ...
-%              exp(-3*(th - pi).^2) + ...
-%              exp(-3*(th - 2*pi).^2);
-%masterShape = 1*masterShape;
-%masterShape = 100*ones(prams.N,1);
-sigma = ones(prams.N,1);
-
 % Main time stepping loop
 while time < prams.T - 1e-10
-%Hacking for time-varying periodic flow 02/21/2020
-  tt.farField = @(X) tt.bgFlow(X,options.farField,...
-	options.farFieldSpeed*(1+0*sin(time))/1);
-%Hacking for time-varying periodic flow 02/21/2020
+%%Hacking for time-varying periodic flow 02/21/2020
+%  tt.farField = @(X) tt.bgFlow(X,options.farField,...
+%	options.farFieldSpeed*(1+sin(time))/2);
+%%Hacking for time-varying periodic flow 02/21/2020
   if time+tt.dt > prams.T
     tt.dt = prams.T - time;
   end
@@ -128,39 +111,15 @@ while time < prams.T - 1e-10
 % find the protein locations in parameter space with respect to the
 % memebranes tracker points
 
-  if 0
-  vesicle = capsules(X,sigma,[],prams.kappa,prams.viscCont);
-  [shearStress,normalStress] = ...
-      vesicle.computeShearStress(options,prams);
-  [~,~,cur] = oc.diffProp(X);
-  ten = sigma + 1.5*cur.^2;
-
-  W0 = 0.2;
-  W = W0*((shearStress + sqrt(16*ten.^2 + shearStress.^2) ...
-      - 4*ten).^2)./...
-          (shearStress + sqrt(16*ten.^2 + shearStress.^2));
-
-  fluxShape = 1./(1+2*exp(-W))-1/3;
-
-  figure(10); clf;
-  plot(fluxShape)
-%   pause(0.001)
-
-%  tt.fluxShape = masterShape.*(ten > 50);
-%  figure(2); clf;
-%  plot(tt.fluxShape)
-  end
-
+  vesicle = capsules(Xstore,sigStore,uStore,...
+      prams.kappa,prams.viscCont,options.semipermeable,...
+      prams.fluxCoeff,options.fluxShape);
+    
   [X,sigma,u,eta,RS,iter,accept,dtScale,res,iflag] = ...
-      tt.timeStepGL(Xstore,sigStore,uStore,...
-          etaStore,RSstore,prams.kappa,...
-          prams.viscCont,walls,wallsCoarse,om,time,accept);
+      tt.timeStepGL(vesicle,etaStore,RSstore,...
+          walls,wallsCoarse,om,time,accept);
   countGMRES = countGMRES + iter;
   tTstep = toc(tTstep);
-
-% interpolate proteins on to the new membrane configuration
-
-% Update protein location with tangential pulling force.
 
   if options.profile
     fprintf('Time to correct area and length     %5.1e\n',toc);
@@ -177,6 +136,7 @@ while time < prams.T - 1e-10
   X(1:end/2) = X(1:end/2) - xmid;
   X(end/2+1:end) = X(end/2+1:end) - ymid;
   end
+  % Shift single vesicle as in a fluid trap
 
   if 0
   for k = 1:prams.nv
@@ -186,6 +146,7 @@ while time < prams.T - 1e-10
     z = ifft(ifftshift(zh));
     X(1:end/2,k) = real(z);
     X(end/2+1:end,k) = imag(z);
+  end
   end
   % remove Nyquist Fourier mode
 
@@ -207,16 +168,12 @@ while time < prams.T - 1e-10
   % vesicles midpoints
   % shift vertically so that the x axis is centered between the vesicles
   end
-  end
+  % Shift vesicle doublet as in a fluid trap
+
 
   if accept
-    vesicle = capsules(X,sigma,u,prams.kappa,prams.viscCont);
-    [shearStress,normalStress] = ...
-        vesicle.computeShearStress(options,prams);
-    % compute the shear and normal stress along the vesicles
-
     terminate = om.outputInfo(X,sigma,u,eta,RS,...
-        Xwalls,Xtra,time,iter,dtScale,res,iflag);
+        Xwalls,time,iter,dtScale,res,iflag);
     % check if we have violated the error in area or length also plot
     % and save the current solution to dat file.  Print information to
     % log file and console
@@ -251,23 +208,13 @@ while time < prams.T - 1e-10
   end % if accept
   % save data if solution was accepted, compute pressure and stress
 
-  for k = 1:options.order-1
-    Xstore(:,:,k) = Xstore(:,:,k+1);
-    sigStore(:,:,k) = sigStore(:,:,k+1);
-    uStore(:,:,k) = uStore(:,:,k+1);
-    etaStore(:,:,k) = etaStore(:,:,k+1);
-    RSstore(:,:,k) = RSstore(:,:,k+1);
-  end
-  % Save the time steps still required if using second
-  % order time stepping
-  Xstore(:,:,options.order) = X;
-  sigStore(:,:,options.order) = sigma;
-  uStore(:,:,options.order) = u;
-  etaStore(:,:,options.order) = eta;
-  RSstore(:,:,options.order) = RS;
-  % update the positions, tension, and velocity field of
-  % the vesicles, and the density function and rotlet and
-  % stokeslets
+  Xstore = X;
+  sigStore = sigma;
+  uStore = u;
+  etaStore = eta;
+  RSstore = RS;
+  % update the positions, tension, and velocity field of the vesicles,
+  % and the density function and rotlet and stokeslets
 end
 % end of main 
 

@@ -11,7 +11,6 @@ prams.kappa = 1e-1*ones(prams.nv,1); % bending coefficient
 prams.viscCont = ones(prams.nv,1);   % viscosity contrast
 options.farField = 'relaxation'; % background velocity
 options.farFieldSpeed = 1;
-options.order = 1;          % time stepping order
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
 % Either 'explicit' or 'implicit'
@@ -19,13 +18,11 @@ options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
 options.verbose = true;
-options.antiAlias = false;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-10;
 prams.errorTol = 1;
 
-% ADD-ONS
-options.correctShape = false;
+% ADHESION
 options.adhesion = false;
 prams.adRange = 2e-1;
 prams.adStrength = 2;
@@ -46,16 +43,11 @@ options.expectedOrder = 1;
 % Plot on-the-fly
 options.usePlot = false;
 options.axis = [-1 1 -1 1];
-options.track = false;
 % Save vesicle information and create a log file
 options.logFile = 'output/relaxation4Ves.log';
 % Name of log file for saving messages
 options.dataFile = 'output/relaxation4VesData.bin';
 % Name of binary data file for storing vesicle information
-
-options.saveError = true;
-options.errorFile = 'output/relaxation4VesError.bin';
-% Name of binary data file for storing truncation errors after each step
 
 [options,prams] = initVes2D(options,prams);
 % Set options and parameters that the user doesn't

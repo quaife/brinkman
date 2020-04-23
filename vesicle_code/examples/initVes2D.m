@@ -41,28 +41,22 @@ for k = 1:length(PramList)
   end
 end
 
-OptList = {'order','expectedOrder','inextens','farField',...
-    'farFieldSpeed','vesves','near',...
-    'fmm','fmmDLP','confined','usePlot','track',...
-    'quiver','axis','saveData','logFile','dataFile','verbose',...
+OptList = {'expectedOrder','farField',...
+    'farFieldSpeed','near',...
+    'fmm','fmmDLP','confined','usePlot',...
+    'axis','saveData','logFile','dataFile','verbose',...
     'profile','collision','timeAdap',...
     'pressure','SDCcorrect','orderGL','nsdc','adhesion','expForce',...
-    'correctShape','fmmPrecision','errorFile','saveError',...
-    'semipermeable'};
+    'fmmPrecision','semipermeable','fluxShape'};
 
-defaultOpt.order = 1;
 defaultOpt.expectedOrder = 2;
-defaultOpt.inextens = 'method1';
 defaultOpt.farField = 'shear';
 defaultOpt.farFieldSpeed = 1;
-defaultOpt.vesves = 'implicit';
 defaultOpt.near = true;
 defaultOpt.fmm = false;
 defaultOpt.fmmDLP = false;
 defaultOpt.confined = false;
 defaultOpt.usePlot = true;
-defaultOpt.track = false;
-defaultOpt.quiver = false;
 defaultOpt.axis = [-5 5 -5 5];
 defaultOpt.saveData = true;
 defaultOpt.logFile = 'output/example.log';
@@ -77,11 +71,9 @@ defaultOpt.orderGL = 2;
 defaultOpt.nsdc = 0;
 defaultOpt.adhesion = false;
 defaultOpt.expForce = false;
-defaultOpt.correctShape = false;
 defaultOpt.fmmPrecision = 4;
-defaultOpt.errorFile = 'output/exampleError.bin';
-defaultOpt.saveError = false;
 defaultOpt.semipermeable = false;
+defaultOpt.fluxShape = 1;
 
 for k = 1:length(OptList)
   if ~isfield(options,OptList{k})
@@ -105,30 +97,5 @@ end
 if numel(prams.viscCont) ~=prams.nv
   prams.viscCont = prams.viscCont*ones(1,prams.nv);
 end
-
-
-if options.nsdc > 0
-  if options.order > 1
-    fprintf('***************************************************\n')
-    fprintf('Can only do sdc updates with first-order\n');
-    fprintf('Setting sdc corrections to zero\n');
-    fprintf('PUSH ANY KEY TO CONTINUE\n');
-    pause
-    fprintf('***************************************************\n')
-    options.nsdc = 0;
-  end
-
-  if (any(prams.viscCont ~= 1) && strcmp(options.vesves,'explicit') && options.nsdc > 0)
-    fprintf('***************************************************\n')
-    fprintf('Not sure if this combination works\n');
-    fprintf('See how rhs1 is built at SDC corrections\n');
-    fprintf('PUSH ANY KEY TO CONTINUE\n');
-    pause
-    fprintf('***************************************************\n')
-%    options.nsdc = 0;
-  end
-end
-
-
 
 
