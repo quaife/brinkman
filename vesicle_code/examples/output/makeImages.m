@@ -2,7 +2,7 @@ addpath ../../src
 set(0,'DefaultAxesFontSize',22)
 options.savefig = false;
 
-irate = 1; % controls the speed of the visualization
+irate = 40; % controls the speed of the visualization
 
 if 0
   file = 'parabolic1VesData.bin';
@@ -35,12 +35,12 @@ end
 
 if 1
   file = 'relaxation1VesData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/relaxation1Ves/star_beta1p0e0/relaxation1VesData.bin';
-%    file = '~/projects/brinkman/vesicle_code/results/Apr142020/starBeta1em1/relaxation1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/Apr142020/starBeta1em3/relaxation1VesData.bin';
+%    file = '~/projects/brinkman/vesicle_code/results/Apr232020/ellipseBeta1em5/relaxation1VesData.bin';
 %  ax = [-3 3 -3.5 3.5];
-  ax = 4*[-1 1 -1 1];
+  ax = 3*[-1 1 -1 1];
   options.confined = false;
-  beta = 0.01;
+  beta = 1e-5;
 end
 
 if 0
@@ -111,19 +111,25 @@ end
 % number of vesicles
 istart = 1;
 iend = numel(time);
-ntime = numel(time);
+%iend = 1000;
+ntime = iend;
+%ntime = numel(time);
+time = time(istart:iend);
 
 oc = curve;
 [~,~,L] = oc.geomProp([posx(:,1,1);posy(:,1,1)]);
-area = zeros(size(time));
-length = zeros(size(time));
-ra = zeros(size(time));
-incAng = zeros(size(time));
+area = zeros(ntime,1);
+length = zeros(ntime,1);
+ra = zeros(ntime,1);
+incAng = zeros(ntime,1);
 trac = zeros(2*n,nv,ntime);
 normal = zeros(2*n,nv,ntime);
 flux = zeros(n,ntime);
 cur = zeros(n,nv,ntime);
+jac = zeros(n,nv,ntime);
 sa = zeros(n,nv,ntime);
+velBen = zeros(2*n,ntime);
+velTen = zeros(2*n,ntime);
 velSLP = zeros(2*n,ntime);
 velFlux = zeros(2*n,ntime);
 
@@ -137,16 +143,26 @@ for k = istart:1:iend
   normal(1:end/2,:,k) = +vesicle.xt(end/2+1:end,:);
   normal(end/2+1:end,:,k) = -vesicle.xt(1:end/2,:);
   trac(:,:,k) = vesicle.tracJump([posx(:,:,k);posy(:,:,k)],ten(:,:,k));
-  [~,~,cur(:,:,k)] = oc.diffProp([posx(:,1,k);posy(:,1,k)]);
+  [jac(:,:,k),~,cur(:,:,k)] = oc.diffProp([posx(:,1,k);posy(:,1,k)]);
   ten(:,:,k) = ten(:,:,k) + 1.5*cur(:,:,k).^2;
-
-  G = op.stokesSLmatrix(vesicle);
-  velSLP(:,k) = G*trac(:,:,k);
-
-  flux(:,k) = -beta*(trac(1:end/2,:,k).*normal(1:end/2,:,k) + ...
+%
+%  G = op.stokesSLmatrix(vesicle);
+%  velSLP(:,k) = G*trac(:,:,k);
+%
+  flux(:,k) = -(trac(1:end/2,:,k).*normal(1:end/2,:,k) + ...
           trac(end/2+1:end,:,k).*normal(end/2+1:end,:,k));
-  velFlux(:,k) = [flux(:,k).*normal(1:end/2,:,k); ...
-                  flux(:,k).*normal(end/2+1:end,:,k)];
+%  velFlux(:,k) = [flux(:,k).*normal(1:end/2,:,k); ...
+%                  flux(:,k).*normal(end/2+1:end,:,k)];
+end
+
+dArea = zeros(ntime,1);
+dArea2 = zeros(ntime,1);
+for k = istart:1:iend
+  dArea(k) = beta*2*pi/n*sum(-flux(:,k).*jac(:,k));
+  dArea2(k) = -beta*2*pi/n*sum((-cur(:,k).^3/2 + ...
+      cur(:,k).*ten(:,k)).*jac(:,k));
+  % not sure why the negative sign is necessary based on the writeup.
+  % Probably an IBP error
 end
 
 
@@ -267,6 +283,8 @@ for k = istart:irate:iend
   pause(0.01)
 %  pause
 end
+
+
 
 
 

@@ -191,10 +191,17 @@ if any(strcmp(options,'curly'))
   % radius of curly vesicle
 
 elseif any(strcmp(options,'star'))
-  radius = 1 + 0.4*cos(folds*t);
+  radius = 1 + 0.6*cos(folds*t);
   X = scale*[radius.*cos(t);radius.*sin(t)];
-  % a star that comes very close to intersecting itself
-  % at the origin
+  % a star that comes very close to intersecting itself at the origin
+
+  sa = o.diffProp(X);
+  t = o.arc(sa);
+  % Find discretization points to achieve equispaced in arclength
+  % discretization points
+  radius = 1 + 0.6*cos(folds*t);
+  X = scale*[radius.*cos(t);radius.*sin(t)];
+  % Reparameterize with points that are nearly equispaced in arclength
 
 elseif any(strcmp(options,'choke'))
   a = 10; b = 3; c = 0.6; order = 8;
@@ -528,6 +535,52 @@ cEx = [(a-a0)/a0 (l-l0)/l0];
 % want to keep the area and length the same
 
 end % nonlcon
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function alpha = arc(o,sa)
+% alpha = arc(sa) computes the parameter values of alpha that can be
+% used to distribute points evenly in arclength
+
+N = numel(sa);
+length = sum(sa)*2*pi/N; 
+% total length of vesicle. This is spectrally accurate since it is the
+% trapezoid rule applied to a periodic function
+tol = 1e-13; % tolerance
+
+IK = fft1.modes(N,1);
+intsa = fft1.intFT(sa,IK);
+
+f = (0:N-1)'*length/N - intsa;
+% we are interested in fiding the N roots of f. First one is at 0
+df = -sa;
+% derivative of f so that we can apply Newton's method
+fh = fft(f)/N;
+
+dfh = fft(df)/N;
+% Fourier coeffients of f and its derivative
+
+alpha = zeros(N,1);
+
+for j = 2:N
+  alpha(j) = alpha(j-1);
+  for k = 1:100 % apply Newton's method
+    falpha = real(sum(fh.*exp(IK*alpha(j)))) + ...
+        ((j-1)*length/N - alpha(j)/2/pi*length);
+    % f at alpha
+    dfalpha = real(sum(dfh.*exp(IK*alpha(j))));
+    % derivative of f at alpha
+    alpha(j) = alpha(j) - falpha/dfalpha;
+    % apply Newton iteration
+    if abs(abs(falpha) < tol)
+      break
+    end
+  end
+end
+
+
+end % arc
+
+
 
     
 end % methods

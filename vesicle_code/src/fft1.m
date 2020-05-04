@@ -71,6 +71,29 @@ end % end diffFT
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function intf = intFT(f,IK)
+% intf = intFT(f,IK) computes the integral of an array of periodic
+% functions f using fourier transform. The f(:,1) is the first function,
+% f(:,2) is the second function, etc.  IK is used to speed up the code.
+% It is the index of the fourier modes so that fft and ifft can be used
+% CODE IS CURRENTLY ONLY WRITTEN FOR A SINGLE PERIODIC ARRAY RATHER THAN
+% A MATRIX WHERE EACH COLUMN IS A PERIODIC ARRAY
+
+N = numel(f);
+fh = fft(f);
+
+zeroMode = -sum(fh(2:end)./IK(2:end));
+% zero mode of the integral of f
+intfh = [zeroMode;fh(2:end)./IK(2:end)];
+% non-zero modes of the integral of f
+
+intf = real(fh(1)/N * (0:N-1)'*2*pi/N + ifft(intfh));
+% sum of the linear term and the contribution from the periodic part
+
+end % intFT
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function IK = modes(N,nv)
 % IK = modes(N) builds the order of the fourier modes required for using
 % fft and ifft to do spectral differentiation

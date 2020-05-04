@@ -38,7 +38,7 @@
 \begin{document}
 
 \title{Semi-permeable vesicles: mathematical formulation, numerics and physics}
-\author{Ashley Gannon, Bryan Quaife, Shravan Veerapaneni, and Yuan-Nan Young}
+\author{Ashley Gannon, Bryan Quaife, and Yuan-Nan Young}
 
 \date{\today}
 
@@ -77,22 +77,24 @@ the jump across the interface, and $T$ denote the hydrodynamic stress
 tensor, the boundary conditions along the vesicle are
 \begin{align}
   \label{eqn:jump1}
-  \jump{T\cdot\nn} &= \ff_\text{mem}, \\
+  \jump{T\cdot\nn} &= \ff_\{mathrm{mem}, \\
   \label{eqn:jump2}
   \jump{\uu} &= 0,
 \end{align}
-where $\nn$ points outward to the vesicle, and $\ff_\text{mem}$ is the
-standard membrane force that includes a bending and a tension term. In
-particular, $\ff_\text{mem} = \ff_\text{ben} + \ff_\text{ten}$, where
+where $\nn$ points outward to the vesicle, and $\ff_\mathrm{mem}$ is the
+membrane force that includes a bending term that minimizes the Helfrich
+energy, and a tension term that acts as a Lagrange multiplier to satisfy
+the local inextensibility condition. The bending stiffness only sets the
+time scale, so we let $k_b = 1$ throughout the paper. For ease of
+implementation, we modify the bending tension and forces as
+$\ff_\mathrm{mem} = \ff_\mathrm{ben} + \ff_\mathrm{ten}$, where
 \begin{align}
   \label{eqn:membraneForces}
-  \ff_\text{ben} = -\xx_{ssss}, \qquad
-  \ff_\text{ten} = (\sigma \xx_s)_s.
+  \ff_\mathrm{ben} = -\xx_{ssss}, \qquad
+  \ff_\mathrm{ten} = (\sigma \xx_s)_s.
 \end{align}
-Since the bending stiffness only sets the time scale, we let $k_b = 1$
-throughout this paper. The Lagrange multiplier $\sigma$ is used to
-satisfy the inextensibility condition.  Finally, the tension of the
-vesicle is
+However, the physical tension $\Lambda$ can be computed as a
+post-processing step as
 \begin{align}
   \Lambda = \sigma + 1.5 \kappa^2,
 \end{align}
@@ -102,7 +104,7 @@ The kinematic condition is modified to account for the fact that the
 fluid can move through the membrane. A standard choice appears
 is~\cite{}
 \begin{align}
-  \uu - \dot{\xx} = - \beta (\ff_\text{mem} \cdot \nn) \nn, \qquad
+  \uu - \dot{\xx} = - \beta (\ff_\mathrm{mem} \cdot \nn) \nn, \qquad
   \xx \in \gamma,
 \end{align}
 where $\beta$ is a semi-permeability rate.  
@@ -114,7 +116,7 @@ conditions~\eqref{eqn:jump1} and~\eqref{eqn:jump2} required on the
 interface, the fluid velocity can be represented as the single-layer
 potential
 \begin{align}
-  \uu(\xx) = \uu_\infty(\xx) + \SS[\ff_\text{mem}](\xx), \quad
+  \uu(\xx) = \uu_\infty(\xx) + \SS[\ff_\mathrm{mem}](\xx), \quad
     \xx \in \Omega,
 \end{align}
 where
@@ -127,8 +129,8 @@ where $\rr = \xx - \yy$ and $\rho = \norm{\rr}$. Then, by the
 kinematic equation, the dynamics of the vesicle 
 \begin{align}
   \label{eqn:vesVelocity}
-  \frac{d\xx}{dt} = \uu_\infty(\xx) + \beta (\ff_\text{mem}\cdot\nn)\nn
-  + \SS [\ff_\text{mem}](\xx).
+  \frac{d\xx}{dt} = \uu_\infty(\xx) + \beta (\ff_\mathrm{mem}\cdot\nn)\nn
+  + \SS [\ff_\mathrm{mem}](\xx).
 \end{align}
 Finally, the inextensibility condition is given by
 \begin{align}
@@ -136,16 +138,59 @@ Finally, the inextensibility condition is given by
 \end{align}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Vesicle Area}
-Since the vesicle membrane is semi-permeable, the vesicle's area
-fluctuates.  Parameterizing the vesicle with $\xx$, its area is
+\subsection{Area Dynamics}
+Following the analysis of Veerapaneni et al.~\cite{vee-raj-bir-pur2009},
+we compute the steady-state shape of a semi-permeable vesicle in a
+quiescent flow. The steady-state shape is a stationary point of the
+Lagrangian
+\begin{align}
+  \mathcal{L} = \frac{1}{2}\int_{\gamma} \kappa^2 \, ds +
+    \Lambda \left(\int_{\gamma} ds  - L \right),
+\end{align}
+where $\Lambda$ is the constant tension that acts as a Lagrange
+multiplier to satisfy the length conservation. Note that there is no
+pressure Lagrange multiplier since the vesicle's area fluctuates. The
+force acing on the membrane is found by taking the variation of
+$\mathcal{L}$ with respect to $\gamma$, and by setting the total force
+to zero, the steady state shape satisfies
+\begin{align}
+  \kappa_{ss} + \frac{1}{2}\kappa^3 - \Lambda \kappa = 0.
+  \label{eqn:curvODE}
+\end{align}
+with initial conditions $\kappa(0) = \kappa_0$ and $\kappa_s(0) = 0$.
+Integrating the differential equation~\eqref{eqn:curvODE} with respect
+to arclength, we have
+\begin{align}
+  \frac{\kappa_s^2}{2} + \frac{\kappa^4}{8} - 
+    \frac{\Lambda}{2}\kappa^2 = \kappa_0^4 - \frac{\Lambda}{2}\kappa_0^2.
+  \label{eqn:curvODE2}
+\end{align}
+Assuming $\kappa_s \neq 0$, this differential equation is separable, and
+can be solved analytically using Mathematica. For impermeable vesicles,
+it is possible for the curvature to be
+periodic~\cite{vee-raj-bir-pur2009}. However, the solution
+of~\eqref{eqn:curvODE2} depends on the {\em EllipticF} function, and it
+can not be made periodic. Therefore, it the only solution
+of~\eqref{eqn:curvODE2} is $\kappa(s) = \kappa_0$, meaning that the
+steady state shape is a circle. By the inextensibility condition, the
+steady state vesicle has a radius of $L/2\pi$, so its curvature and
+tension are
+\begin{align}
+  \kappa = \frac{2\pi}{L}, \: \Lambda = \frac{2\pi^2}{L^2}.
+  \label{eqn:SSshape}
+\end{align}
+Note that in contrast to a impermeable vesicle, the final tension is
+positive rather than negative.
+
+In addition to computing the steady shape, we can compute the transient
+area of the vesicle. Parameterizing the vesicle with $\xx$, its area is
 \begin{align}
   A(t) = \frac{1}{2}\int_{\gamma} (\xx \cdot \nn)\, ds .
 \end{align}
-The time derivative of $A(t)$ includes terms due to the time derivative
-of $\xx \cdot \nn$, and a term due to interface
-stretching~\cite{lai-tse-hua2008}. However, this second term is zero
-because of the local inextensibility condition. Therefore, 
+The derivative of $A(t)$ includes terms due to the time derivative of
+$\xx \cdot \nn$, and a term due to interface
+stretching~\cite{lai-tse-hua2008}. However, the stretching term is zero
+because of the local inextensibility condition. Therefore,
 \begin{align}
   \dot{A}(t) &= \frac{1}{2} \int_{\gamma} \pderiv{}{t} 
     (\xx \cdot \nn) \, ds = 
@@ -155,6 +200,7 @@ because of the local inextensibility condition. Therefore,
 The second integrand can be computed as
 \begin{align}
   \int_\gamma (\xx \cdot \dot{\nn})\, ds 
+    = \int_\gamma \left(\xx \cdot \dot{\xx}_s^\perp \right)
     = -\int_\gamma \left(\xx^\perp \cdot \dot{\xx}_s\right)\, ds 
     = \int_\gamma \left(\xx_s^\perp \cdot \dot{\xx}\right)\, ds 
     = \int_\gamma (\dot{\xx} \cdot \nn)\, ds.
@@ -166,20 +212,20 @@ Therefore,
       \cdot \nn\, ds 
   = \beta \int_\gamma (\ff \cdot \nn)\, ds,
 \end{align}
-where the last equality comes follows from the divergence theorem.
-Finally, using integration by parts and the Frenet-Serret identities, we
-have
+where the last equality follows from the incompressibility of the
+single-layer potential and the divergence theorem.  Finally, using
+integration by parts and the Frenet-Serret identities, we have
 \begin{align}
   \dot{A}(t) &= \beta \int_\gamma \left( -\xx_{ssss} + 
     (\sigma \xx_s)_s \right) \cdot \nn \, ds \\
-  &= \beta \int_\gamma \left(-\xx_{sss} + \sigma \xx_s 
+  &= -\beta \int_\gamma \left(-\xx_{sss} + \sigma \xx_s 
     \right) \cdot \kappa \xx_s \, ds \\
-  &= \beta \int_\gamma \left(\xx_{ss} \cdot 
+  &= -\beta \int_\gamma \left(\xx_{ss} \cdot 
     (\kappa \xx_s)_s + \kappa \sigma \right) \, ds \\
-  &= \beta \int_\gamma \left(\kappa (\xx_{ss} \cdot \xx_{ss}) + 
+  &= -\beta \int_\gamma \left(\kappa (\xx_{ss} \cdot \xx_{ss}) + 
     \kappa_s (\xx_{ss} \cdot \xx_s) + \kappa \sigma \right) 
     \, ds \\
-  &= \beta \int_\gamma \left(\kappa^3 + \kappa \sigma \right) 
+  &= -\beta \int_\gamma \left(\kappa^3 + \kappa \sigma \right) 
     \, ds.
 \end{align}
 Finally, using the relationship between the Lagrange multiplier
@@ -187,10 +233,12 @@ $\sigma$, and the tension $\Lambda$, the area of a semi-permeable
 vesicle is governed by
 \begin{align}
   \dot{A}(t) = \beta \int_\gamma \left(
-    -\frac{\kappa^3}{2} + \kappa \Lambda \right) \, ds.
+    \frac{\kappa^3}{2} - \kappa \Lambda \right) \, ds.
   \label{eqn:areaROC}
 \end{align}
-
+Note that this is consistent with the steady state curvature and
+tension~\eqref{eqn:SSshape} since these constant values result in the
+integrand in equation~\eqref{eqn:areaROC} being zero.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Numerical Methods}
@@ -248,72 +296,124 @@ Finally, the inextensibility condition is applied by requiring that
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Examples}
 We consider a single semi-permeable vesicle in four different flow
-regimes.
+regimes. All vesicles have a length of $L=4\pi$, but the area is not
+conserved because of semi-permeability. However, the area is bounded
+above by the area of a circle with circumference $L=4\pi$. Therefore,
+$A(t) \leq 4\pi \approx 12.56$ for all simulations. For each simulation,
+we use an adaptive second-order time stepping method~\cite{qua-bir2016}. 
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Quiescent Flow}
-\begin{itemize}
-  \item Always goes to a circle
-  \item Area formula works
-\end{itemize}
+We start by considering a semi-permeable vesicle in a quiescent flow.
+For an impermeable vesicle, the vesicle relaxes to a steady-state shape
+with negative and constant tension~\cite{kra-win-sei-lip1996}. However,
+from equation~\eqref{eqn:SSshape}, we know that a semipermeable vesicle
+will relax to a circle with positive constant tension. The area of a
+semi-permeable vesicle is governed by~\eqref{eqn:areaROC}, so we expect
+that the time to reach steady state scales with $\beta$. In
+Figure~\ref{fig:ellipseArea}, we plot the area of a vesicle with
+different permeability rates. The area is computed directly from the
+vesicle shape (solid lines) and by integrating
+equation~\eqref{eqn:areaROC} (marks) with a first-order method. We also
+include black dashed lines indicating the times, $t_{\mathrm{SS}}$, that
+the area of the vesicle first exceeds 12.4, meaning that its area is
+within 1.3\% of the steady state area.  These times are reported in
+Table~\ref{tbl:ellipseRelaxTime}, and we see that the relaxation time
+does scale with $\beta$.
 
-We consider a single semi-permeable vesicle in a quiescent flow. For
-impermeable vesicles, the vesicle relaxes to a shape where the tension
-$\Lambda$ is constant and negative~\cite{kra-win-sei-lip1996}. In the
-semi-permeable case, the area of the vesicle is governed by
-equation~\eqref{eqn:areaROC}, where $\beta > 0$. Therefore, when the
-semi-permeable vesicle reaches a steady-state shape, we have
-\begin{align}
-  \int_{\gamma} \left(-\frac{\kappa^3}{2} + \kappa \Lambda \right) \, ds
-  = 0.
-\end{align}
-Based on numerical observations, the steady-state shape is a circular
-vesicle with constant tension. Since the tension and curvature are
-constant, we can solve for the curvature in terms of the tension $\kappa
-= \sqrt{2\Lambda}$. Therefore, the steady state shape is a circle of
-radius $r = 1/\sqrt{2\Lambda}$, and therefore the length is
-\begin{align}
-  L = \frac{\sqrt{2}\pi}{\sqrt{\Lambda}},
-\end{align}
-which is constant by the local inextensibility constraint. Finally, we
-can compute the final tension in terms of the length using the formula
-\begin{align}
-  \Lambda = \frac{2\pi^2}{L^2}.
-  \label{eqn:finalTension}
-\end{align}
-Therefore, in contrast to a impermeable vesicle, the final tension is
-positive rather than negative.
+\begin{table}[htp]
+  \centering
+  \begin{tabular}{|C{1cm}|*{6}{C{2cm}}|}
+    \hline
+    $\beta$ & $10^{0}$ & $10^{-1}$ & $10^{-2}$ & 
+             $10^{-3}$ & $10^{-4}$ & $10^{-5}$ \\
+    $t_\mathrm{SS}$ & $6.45 \times 10^{0}$ & $2.00 \times 10^{1}$ & 
+                      $9.61 \times 10^{1}$ & $8.36 \times 10^{2}$ & 
+                      $8.15 \times 10^{3}$ & $8.03 \times 10^{4}$ \\
+    ratio & --- & 3.10 & 4.81 & 8.71 & 9.74 & 9.85 \\
+    \hline
+  \end{tabular}
+  \caption{\label{tbl:ellipseRelaxTime} The time, $t_{\mathrm{SS}}$, for
+  a semi-permeable vesicle to reach steady state.}
+\end{table}
 
-We start by simulating a star-shaped vesicle in a quiescent flow with
-semi-permeability rate $\beta=1$ (Figure~\ref{fig:starShape}). To
-perform this simulation, we use an adaptive second-order time stepping
-method~\cite{qua-bir2016}. The times and reduced areas are in the
-titles, and note that the shapes are not eqiuspaced in time.
+
 \begin{figure}[htp]
-  \begin{minipage}{0.55\textwidth}
-    \input{figures/starRelaxation1.tikz}
-    \input{figures/starRelaxation2.tikz}
-    \input{figures/starRelaxation3.tikz}
-    \input{figures/starRelaxation4.tikz}
-    \input{figures/starRelaxation5.tikz}
-    \input{figures/starRelaxation6.tikz}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.4\textwidth}
-  \input{figures/starAreaDeriv.tikz}
-  \end{minipage}
-  \caption{\label{fig:starShape} A initially star-shaped semi-permeable
-  vesicle in a shear quiescent flow with $\beta=1$. Note that the time
-  steps are not equispaced. The area (red) and its derivative (blue) of
-  an initially star-shaped vesicle as a function of time. The dots
-  correspond to the time steps shown in six time steps
-  show on the left.}
+\centering
+%\ifTikz
+\input{figures/ellipseArea.tikz}
+%\fi
+  \caption{\label{fig:ellipseArea} The area of an elliptical
+  semi-permeable vesicle, with permeability rate $\beta$ in a quiescent
+  flow. The solid lines compute the area directly from the vesicle
+  shape, while the marks are computed by integrating
+  equation~\eqref{eqn:areaROC}. The dashed black lines are the times
+  when the vesicle's area is within 1\% of its maximum value of $4\pi$.}
 \end{figure}
+
+We further analyze the transient dynamics for small $\beta$ by
+considering the contribution of each term in~\eqref{eqn:vesVelocity} to
+the vesicle velocity. Initially, the semi-permeability term $\beta(\ff
+\cdot \nn)\nn$ is much smaller than the velocity due to the force
+balance $\SS[\ff]$. Therefore, the velocity resembles that of an
+impermeable vesicle.  However, as the vesicle approaches the impermeable
+limit, the velocity contribution from the force balance decays below the
+contribution from semi-permeability, and we expect the vesicle to begin
+inflating due to permeability. In Figure~\ref{fig:vesVelocity}, we plot
+the velocities at three times due to force balance (blue) and
+semi-permeability (red), where $\beta = 10^{-3}$. We also plot the
+velocity of an identically initialized impermeable vesicle. At $t=0.5$,
+the velocity due to semi-permeability is small relative to the velocity
+due to force balance, and the semi-permeable vesicle velocity matches
+with the impermeable vesicle velocity. At time $t=5$, the impermeable
+vesicle is near its steady state shape, and its velocity is comparable
+to the semi-permeable velocity, so the vesicle's area begins to
+increase. Then, at time $t=50$, the impermeable vesicle is at its steady
+state, while the semi-permeable vesicle still has contributions due to
+semi-permeability and force balance. In
+Figure~\ref{fig:vesVelocityNorm}, we plot the max norm of the different
+velocity contributions as a function of time. The black dashed lines
+correspond to the times reported in Figure~\ref{fig:vesVelocity}. Again,
+we see that the velocity of a semi-permeable vesicle is initially agrees
+with the velocity of an impermeable vesicle. Then, as the velocity due
+to force balance approaches zero, the semi-permeable term becomes
+significant, causing the vesicle to inflate until it reaches a circular
+shape.
+
+\begin{figure}[htp]
+  \centering
+%  \ifTikz
+  \input{figures/ellipseVelocity1.tikz}
+  \input{figures/ellipseVelocity2.tikz}
+  \input{figures/ellipseVelocity3.tikz}
+%  \fi
+  \caption{\label{fig:vesVelocity} The velocity contributions due to
+  semi-permeability (red) and force balance (blue). The green dashed
+  line is the velocity of an impermeable vesicle with an identical
+  initial shape.}
+\end{figure}
+
+\begin{figure}[htp]
+%  \ifTikz
+  \input{figures/ellipseVelocityNorms.tikz}
+%  \fi
+  \caption{\label{fig:vesVelocityNorm} The max norm of the velocity due
+  to the force balance (blue) and semi-permeability. Also included is
+  the velocity of an impermeable vesicle (green). The three black lines
+  correspond to the times reported in Figure~\ref{fig:vesVelocity}.}
+\end{figure}
+
+\todo[inline]{Finally, we tension and flux of a non-standard shape
+vesicle.}
 
 
 \begin{figure}[htp]
 \begin{minipage}{0.40\textwidth}
+\ifTikz
 \input{figures/starTension.tikz}
+\fi
 \end{minipage}
 \hfill
 \begin{minipage}{0.55\textwidth}
@@ -329,13 +429,15 @@ titles, and note that the shapes are not eqiuspaced in time.
   in Figure~\ref{fig:starShape}. The tension at the time horizon $T=1$
   is also included. At this point, the vesicle is nearly circular and
   the tension is constant and positive. The constant is given by
-  equation~\eqref{eqn:finalTension}, and this value corresponds to the
+  equation~\eqref{eqn:SSshape}, and this value corresponds to the
   dashed black line.}
 \end{figure}
 
 \begin{figure}[htp]
 \begin{minipage}{0.40\textwidth}
+\ifTikz
 \input{figures/starFlux.tikz}
+\fi
 \end{minipage}
 \hfill
 \begin{minipage}{0.55\textwidth}
@@ -389,9 +491,9 @@ considering permeable vesicles, we assume that there is no fluid
 viscosity. 
 
 
-%\ifTikz
+\ifTikz
 \input{figures/shearPhaseDiagram.tikz} 
-%\fi
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Extensional Flow}
@@ -697,5 +799,55 @@ let $\beta = k_w$.
  	\label{Shear0}
  \end{figure}
 
+When the semi-permeable vesicle reaches a steady-state shape, we have
+\begin{align}
+  \int_{\gamma} \left(-\frac{\kappa^3}{2} + \kappa \Lambda \right) \, ds
+  = 0.
+\end{align}
+Based on numerical observations, the steady-state shape is a circular
+vesicle with constant tension. Since the tension and curvature are
+constant, we can solve for the curvature in terms of the tension $\kappa
+= \sqrt{2\Lambda}$. Therefore, the steady state shape is a circle of
+radius $r = 1/\sqrt{2\Lambda}$, and therefore the length is
+\begin{align}
+  L = \frac{\sqrt{2}\pi}{\sqrt{\Lambda}},
+\end{align}
+which is constant by the local inextensibility constraint. Finally, we
+can compute the final tension in terms of the length using the formula
+\begin{align}
+  \Lambda = \frac{2\pi^2}{L^2}.
+\end{align}
+Therefore, in contrast to a impermeable vesicle, the final tension is
+positive rather than negative.
+
+We start by simulating a star-shaped vesicle in a quiescent flow with
+semi-permeability rate $\beta=1$ (Figure~\ref{fig:starShape}). To
+perform this simulation, we use an adaptive second-order time stepping
+method~\cite{qua-bir2016}. The times and reduced areas are in the
+titles, and note that the shapes are not eqiuspaced in time.
+\begin{figure}[htp]
+  \begin{minipage}{0.55\textwidth}
+%    \ifTikz
+    \input{figures/starRelaxation1.tikz}
+    \input{figures/starRelaxation2.tikz}
+    \input{figures/starRelaxation3.tikz}
+    \input{figures/starRelaxation4.tikz}
+    \input{figures/starRelaxation5.tikz}
+    \input{figures/starRelaxation6.tikz}
+%    \fi
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.4\textwidth}
+%  \ifTikz
+  \input{figures/starAreaDeriv.tikz}
+%  \fi
+  \end{minipage}
+  \caption{\label{fig:starShape} A initially star-shaped semi-permeable
+  vesicle in a shear quiescent flow with $\beta=1$. Note that the time
+  steps are not equispaced. The area (red) and its derivative (blue) of
+  an initially star-shaped vesicle as a function of time. The dots
+  correspond to the time steps shown in six time steps
+  show on the left.}
+\end{figure}
 
 \end{document}
