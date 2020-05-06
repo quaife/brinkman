@@ -16,7 +16,7 @@
     ylabel = {\large $\|\uu\|_\infty$},
     ylabel near ticks,
     legend entries = {Force Balance,
-    Semi-permeable Flux,Impermeable Velocity},
+    Semi-permeable Flux,Impermeable},
     legend cell align=left,
     legend style={draw=none,font=\scriptsize},
     legend style={at={(0.0,0.05)},anchor=south west}

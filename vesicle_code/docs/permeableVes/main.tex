@@ -1,8 +1,7 @@
 \documentclass[aps,prl,showpacs]{revtex4}
 
 \newif\ifTikz
-%\Tikztrue
-\Tikzfalse
+\Tikztrue
 
 %\usepackage{showkeys}
 \usepackage{amsmath,amsfonts,bm}
@@ -170,7 +169,7 @@ can be solved analytically using Mathematica. For impermeable vesicles,
 it is possible for the curvature to be
 periodic~\cite{vee-raj-bir-pur2009}. However, the solution
 of~\eqref{eqn:curvODE2} depends on the {\em EllipticF} function, and it
-can not be made periodic. Therefore, it the only solution
+can not be made periodic. Therefore, the only solution
 of~\eqref{eqn:curvODE2} is $\kappa(s) = \kappa_0$, meaning that the
 steady state shape is a circle. By the inextensibility condition, the
 steady state vesicle has a radius of $L/2\pi$, so its curvature and
@@ -213,8 +212,8 @@ Therefore,
   = \beta \int_\gamma (\ff \cdot \nn)\, ds,
 \end{align}
 where the last equality follows from the incompressibility of the
-single-layer potential and the divergence theorem.  Finally, using
-integration by parts and the Frenet-Serret identities, we have
+single-layer potential and the divergence theorem.  Using integration by
+parts and the Frenet-Serret identities, we have
 \begin{align}
   \dot{A}(t) &= \beta \int_\gamma \left( -\xx_{ssss} + 
     (\sigma \xx_s)_s \right) \cdot \nn \, ds \\
@@ -305,46 +304,58 @@ we use an adaptive second-order time stepping method~\cite{qua-bir2016}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Quiescent Flow}
+\subsection{Quiescent Flow} 
 We start by considering a semi-permeable vesicle in a quiescent flow.
 For an impermeable vesicle, the vesicle relaxes to a steady-state shape
 with negative and constant tension~\cite{kra-win-sei-lip1996}. However,
 from equation~\eqref{eqn:SSshape}, we know that a semipermeable vesicle
-will relax to a circle with positive constant tension. The area of a
-semi-permeable vesicle is governed by~\eqref{eqn:areaROC}, so we expect
-that the time to reach steady state scales with $\beta$. In
-Figure~\ref{fig:ellipseArea}, we plot the area of a vesicle with
-different permeability rates. The area is computed directly from the
-vesicle shape (solid lines) and by integrating
+will relax to a circle with positive constant tension. Since the area of
+a semi-permeable vesicle is governed by~\eqref{eqn:areaROC}, we expect
+that the time to reach steady state, and the time required for a small
+amount of inflation, both scale with $\beta^{-1}$. We simulate a vesicle
+with initial reduced area $0.65$ with several values of $\beta$.  In
+Table~\ref{tbl:ellipseRelaxTimes}, we report the time, $t_\mathrm{SS}$,
+required for the vesicle's area to be within 1.3\% of its maximum area,
+and the time, $t_\mathrm{SP}$, required for the vesicle's area to exceed
+1.3\% of its initial area. We see that both these time scales do scale
+with $\beta^{-1}$. In Figure~\ref{fig:ellipseArea}, we plot the area of
+a vesicle with different permeability rates. The area is computed
+directly from the vesicle shape (solid lines) and by integrating
 equation~\eqref{eqn:areaROC} (marks) with a first-order method. We also
 include black dashed lines indicating the times, $t_{\mathrm{SS}}$, that
-the area of the vesicle first exceeds 12.4, meaning that its area is
-within 1.3\% of the steady state area.  These times are reported in
-Table~\ref{tbl:ellipseRelaxTime}, and we see that the relaxation time
-does scale with $\beta$.
+the vesicle is near its steady state circular shape.
 
 \begin{table}[htp]
   \centering
-  \begin{tabular}{|C{1cm}|*{6}{C{2cm}}|}
+  \begin{tabular}{|C{2cm}C{3cm}C{3cm}C{3cm}C{3cm}|}
     \hline
-    $\beta$ & $10^{0}$ & $10^{-1}$ & $10^{-2}$ & 
-             $10^{-3}$ & $10^{-4}$ & $10^{-5}$ \\
-    $t_\mathrm{SS}$ & $6.45 \times 10^{0}$ & $2.00 \times 10^{1}$ & 
-                      $9.61 \times 10^{1}$ & $8.36 \times 10^{2}$ & 
-                      $8.15 \times 10^{3}$ & $8.03 \times 10^{4}$ \\
-    ratio & --- & 3.10 & 4.81 & 8.71 & 9.74 & 9.85 \\
+    $\beta$ & $t_\mathrm{SS}$ & ratio & $t_\mathrm{SP}$ & ratio \\
+    \hline
+    $10^{0}$  & $6.45 \times 10^{0}$ & ---  
+              & $2.17 \times 10^{-2}$ & --- \\ 
+    $10^{-1}$ & $2.00 \times 10^{1}$ & 3.10 & 
+                $1.25 \times 10^{-1}$ & 5.76 \\
+    $10^{-2}$ & $9.61 \times 10^{1}$ & 4.81 & 
+                $1.59 \times 10^{0}$ & 12.72 \\
+    $10^{-3}$ & $8.36 \times 10^{2}$ & 8.71 & 
+                $2.19 \times 10^{1}$ & 13.77 \\
+    $10^{-4}$ & $8.15 \times 10^{3}$ & 9.74 & 
+                $2.14 \times 10^{2}$ & 9.77 \\
+    $10^{-5}$ & $8.03 \times 10^{4}$ & 9.85 & 
+                $2.20 \times 10^{3}$ & 10.14 \\
     \hline
   \end{tabular}
-  \caption{\label{tbl:ellipseRelaxTime} The time, $t_{\mathrm{SS}}$, for
-  a semi-permeable vesicle to reach steady state.}
+  \caption{\label{tbl:ellipseRelaxTimes} The time for a semi-permeable
+  vesicle to reach relaxation time ($t_\mathrm{SS}$) and to begin
+  inflating ($t_\mathrm{SP}$).}
 \end{table}
 
 
 \begin{figure}[htp]
 \centering
-%\ifTikz
+\ifTikz
 \input{figures/ellipseArea.tikz}
-%\fi
+\fi
   \caption{\label{fig:ellipseArea} The area of an elliptical
   semi-permeable vesicle, with permeability rate $\beta$ in a quiescent
   flow. The solid lines compute the area directly from the vesicle
@@ -358,7 +369,7 @@ considering the contribution of each term in~\eqref{eqn:vesVelocity} to
 the vesicle velocity. Initially, the semi-permeability term $\beta(\ff
 \cdot \nn)\nn$ is much smaller than the velocity due to the force
 balance $\SS[\ff]$. Therefore, the velocity resembles that of an
-impermeable vesicle.  However, as the vesicle approaches the impermeable
+impermeable vesicle. However, as the vesicle approaches the impermeable
 limit, the velocity contribution from the force balance decays below the
 contribution from semi-permeability, and we expect the vesicle to begin
 inflating due to permeability. In Figure~\ref{fig:vesVelocity}, we plot
@@ -384,11 +395,11 @@ shape.
 
 \begin{figure}[htp]
   \centering
-%  \ifTikz
+  \ifTikz
   \input{figures/ellipseVelocity1.tikz}
   \input{figures/ellipseVelocity2.tikz}
   \input{figures/ellipseVelocity3.tikz}
-%  \fi
+  \fi
   \caption{\label{fig:vesVelocity} The velocity contributions due to
   semi-permeability (red) and force balance (blue). The green dashed
   line is the velocity of an impermeable vesicle with an identical
@@ -396,71 +407,77 @@ shape.
 \end{figure}
 
 \begin{figure}[htp]
-%  \ifTikz
+  \ifTikz
   \input{figures/ellipseVelocityNorms.tikz}
-%  \fi
+  \fi
   \caption{\label{fig:vesVelocityNorm} The max norm of the velocity due
   to the force balance (blue) and semi-permeability. Also included is
   the velocity of an impermeable vesicle (green). The three black lines
   correspond to the times reported in Figure~\ref{fig:vesVelocity}.}
 \end{figure}
 
-\todo[inline]{Finally, we tension and flux of a non-standard shape
-vesicle.}
+Finally, we consider a semi-permeable vesicle with initial regions of
+positive and negative curvature. The permeability rate is $\beta=1$, and
+several time steps are illustrated in Figure~\ref{fig:starShape}. As
+expected, the steady state shape is circular. The vesicle undergoes
+three general behaviors: (i) for $t \in (0,1.6 \times 10^{-2})$, the
+vesicle has a net negative flux resulting in a loss of area; (ii) for $t
+\in (1.6 \times 10^{-2},1.0 \times 10^{0})$, the vesicle has a net
+positive flux and the tension most of the membrane is undergoing
+negative tension; (iii) for $t \in (1.0 \times 10^{0},2.0 \times
+10^{0})$, the vesicle is near its steady state and transitions to a
+positive constant tension.
 
+We compute the tension $\Lambda$ and the flux $(-\xx_{ssss} + (\sigma
+\xx_s)_s) \cdot \nn$ and plot the results in
+Figure~\ref{fig:starTensionFlux}.  In the first time interval, the
+vesicle deflates. Near the points of largest negative curvature, there
+is a large negative tension and large inflow (positive flux).
+Correspondingly, near the points with largest positive curvature, there
+is a small tension and outflow (negative flux). In the second time
+interval, the tension is negative and the flux is positive nearly
+everywhere. The regions of large negative curvature correspond to
+regions with the largest negative tension and the most inflow. Finally,
+in the last time interval, the tension transitions to a positive
+constant function, the flux transitions to zero, and the result is a
+steady state circular vesicle with positive constant tension.
 
 \begin{figure}[htp]
-\begin{minipage}{0.40\textwidth}
-\ifTikz
-\input{figures/starTension.tikz}
-\fi
-\end{minipage}
-\hfill
-\begin{minipage}{0.55\textwidth}
+    \ifTikz
+    \input{figures/starRelaxation1.tikz}
+    \quad
+    \input{figures/starRelaxation2.tikz}
+    \quad
+    \input{figures/starRelaxation3.tikz}
+    \quad
+    \input{figures/starRelaxation4.tikz}
+    \quad
+    \input{figures/starRelaxation5.tikz}
+    \fi
+  \caption{\label{fig:starShape} An initially star-shaped semi-permeable
+  vesicle in a shear quiescent flow with $\beta=1$. Note that the time
+  steps are not equispaced.}
+\end{figure}
+
+\begin{figure}[htp]
   \centering
-\includegraphics[width=0.32\textwidth]{figures/StarTensionTime1.pdf}
-\includegraphics[width=0.32\textwidth]{figures/StarTensionTime2.pdf}
-\includegraphics[width=0.32\textwidth]{figures/StarTensionTime3.pdf} \\
-\includegraphics[width=0.32\textwidth]{figures/StarTensionTime4.pdf}
-\includegraphics[width=0.32\textwidth]{figures/StarTensionTime5.pdf}
-\includegraphics[width=0.32\textwidth]{figures/StarTensionTime6.pdf}
-\end{minipage}
-  \caption{\label{fig:starTension} The tension of the time steps shown
-  in Figure~\ref{fig:starShape}. The tension at the time horizon $T=1$
-  is also included. At this point, the vesicle is nearly circular and
-  the tension is constant and positive. The constant is given by
-  equation~\eqref{eqn:SSshape}, and this value corresponds to the
-  dashed black line.}
+  \includegraphics[width=0.19\textwidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime1.pdf}
+  \includegraphics[width=0.19\textwidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime2.pdf}
+  \includegraphics[width=0.19\textwidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime3.pdf}
+  \includegraphics[width=0.19\textwidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime4.pdf}
+  \includegraphics[width=0.19\textwidth,trim =2cm 5cm 0cm 5cm,clip=true]{figures/StarTensionTime5.pdf}
+
+  \includegraphics[width=0.19\textwidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime1.pdf}
+  \includegraphics[width=0.19\textwidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime2.pdf}
+  \includegraphics[width=0.19\textwidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime3.pdf}
+  \includegraphics[width=0.19\textwidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime4.pdf}
+  \includegraphics[width=0.19\textwidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime5.pdf}
+  \caption{\label{fig:starTensionFlux} The vesicle tension (top) and
+  flux (bottom) of the semi-permeable vesicle in quiescent
+  flow with $\beta=1$.}
 \end{figure}
 
-\begin{figure}[htp]
-\begin{minipage}{0.40\textwidth}
-\ifTikz
-\input{figures/starFlux.tikz}
-\fi
-\end{minipage}
-\hfill
-\begin{minipage}{0.55\textwidth}
-\includegraphics[width=0.32\textwidth]{figures/StarFluxTime1.pdf}
-\includegraphics[width=0.32\textwidth]{figures/StarFluxTime2.pdf}
-\includegraphics[width=0.32\textwidth]{figures/StarFluxTime3.pdf} \\
-\includegraphics[width=0.32\textwidth]{figures/StarFluxTime4.pdf}
-\includegraphics[width=0.32\textwidth]{figures/StarFluxTime5.pdf}
-\includegraphics[width=0.32\textwidth]{figures/StarFluxTime6.pdf}
-\end{minipage}
-  \caption{\label{fig:starFlux} The flux of the time steps shown in
-  Figure~\ref{fig:starShape}. The tension at the time horizon $T=1$ is
-  also included. At this point, the vesicle is nearly circular and there
-  is no flux.}
-\end{figure}
 
-%\begin{figure}[htp]
-%  \input{figures/starFlux.tikz}
-%  \caption{\label{fig:starFlux} The flux of the time steps shown in
-%  Figure~\ref{fig:starShape}. The tension at the time horizon $T=1$ is
-%  also included. At this point, the vesicle is nearly circular and their
-%  is no flux.}
-%\end{figure}
 
 
 
@@ -491,9 +508,9 @@ considering permeable vesicles, we assume that there is no fluid
 viscosity. 
 
 
-\ifTikz
-\input{figures/shearPhaseDiagram.tikz} 
-\fi
+%\ifTikz
+%\input{figures/shearPhaseDiagram.tikz} 
+%\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Extensional Flow}
@@ -501,9 +518,9 @@ viscosity.
   \item ???
 \end{itemize}
 
-\ifTikz
-\input{figures/extensionalPhaseDiagram.tikz}
-\fi
+%\ifTikz
+%\input{figures/extensionalPhaseDiagram.tikz}
+%\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Poiseuille Flow}
@@ -519,335 +536,412 @@ viscosity.
 
 
 
- \newpage
- \paragraph{\bf \Huge OLD STUFF}
-
-%%%%%%%%%%%%%%
-\section{{$\Theta-L$} formulation}
-Here, we attempt to apply the formulation described by Sohn et
-al.~\cite{soh-tse-li-voi-low2010} to a semi-permeable vesicle.  In the
-semi-permeable formulation, the vesicle velocity is
-\begin{align}
-  \pderiv{\XX}{t} = \uu(\XX(t)) + \beta (\ff \cdot \nn) \nn.
-\end{align}
-In the {$\Theta-L$} variables, we require a normal velocity $V$, and a
-tangential velocity $T$. Since the inextensibility condition is $T_s +
-\kappa V = 0$, a condition for the vesicle velocity is
-\begin{align}
-  (\uu \cdot \ss)_s = -\kappa(\beta (\ff \cdot \nn) + 
-      \uu \cdot \nn).
-\end{align}
-This equation can be solved following equations (32)--(39)
-in~\cite{soh-tse-li-voi-low2010}, with the only difference being that
-$\tilde{\uu}$ satisfies
-\begin{align}
-  (\tilde{\uu} \cdot \ss)_s + \kappa(\tilde{\uu} \cdot \nn) =
-    -(\vv \cdot \ss)_s - \kappa(\vv \cdot \nn) 
-    - \beta\kappa(\ff \cdot \nn).
-\end{align}
-Compared to equation (40), only the last term is new.
-
-
-%%%%%%%%%%%%%%
-Finally, we write the time stepping method in matrix form as
-\begin{align}
-  A \left(
-    \begin{array}{c}
-      \xx^{N+1} \\ \sigma^{N+1}
-    \end{array}
-  \right) = 
-  \left(
-    \begin{array}{c}
-      \xx^{N} + \Delta t \uu_\infty(\xx^N) \\ \mathbf{1}
-    \end{array}
-  \right),
-\end{align}
-where
-\begin{align}
- A = \left(
-  \begin{array}{cc}
-    I + \Delta t \beta P^N B^N + \Delta t \SS^N B^N & 
-    -\Delta t P^N T^N - \Delta t \SS^N T^N \\
-    D^N & 0
-  \end{array}
-  \right).
-\end{align}
-
-\section{Area of a Vesicle}
-The area inside a single vesicle $\gamma$ parameterized with $\xx$ is
-\begin{align}
-  A(t) = \int_{\gamma} (\xx \cdot \nn)\, ds = 
-    \int_{0}^{2\pi} \left(\xx \cdot \pderiv{\xx}{\theta}^\perp\right)
-    \, d\theta.
-\end{align}
-Taking the time derivative of $A(t)$,
-\begin{align}
-  \dot{A}(t) &= \int_{0}^{2\pi} \left(
-    \dot{\xx} \cdot \pderiv{\xx}{\theta}^{\perp} + 
-    \xx \cdot \pderiv{\dot{\xx}}{\theta}^{\perp}\right) \\
-    \, d\theta.
-  &= \int_{0}^{2\pi} \left(
-    (\dot{\xx} \cdot \nn)\|\xx'(\theta)\| \right) d\theta +
-     \int_{0}^{2\pi}
-    \xx \cdot \frac{d}{dt}\left(\nn |\frac{d\xx}{d\theta}| \right)
-\end{align}
-
-
-
-\begin{align}
-  A(t) = \frac{1}{2}\int_{\gamma} (\xx \cdot \nn)\, ds = 
-    \frac{1}{2}\int_{0}^{2\pi} \left(\xx \cdot \pderiv{\xx}{\theta}^\perp\right)
-    \, d\theta.
-\end{align}
-Taking the time derivative of $A(t)$,
-\begin{align}
-  \dot{A}(t) &= \frac{1}{2}\int_{0}^{2\pi} \left(\dot{\xx} \cdot
-  \pderiv{\xx}{\theta}^{\perp} + 
-    \xx \cdot \pderiv{\dot{\xx}}{\theta}^{\perp}\right) d\theta, \\
-  &= \frac{1}{2}
-  \int_{0}^{2\pi}(\dot{\xx}\cdot\nn)\left\|\pderiv{\xx}{\theta}\right\|d\theta +
-     \frac{1}{2}\int_{0}^{2\pi}
-    \left(\xx \cdot \pderiv{\dot{\xx}}{\theta}^{\perp}\right)d\theta, \\
-  &= \frac{\beta}{2} \int_{\gamma}\left(\ff\cdot\nn\right)ds +
-  \frac{1}{2}\int_{0}^{2\pi}\left(\xx \cdot \pderiv{}{t}\left(\nn
-  \left\|\pderiv{\xx}{\theta}\right\|\right)\right)d\theta, \\
-  &= \frac{\beta}{2} \int_{\gamma}\left(\ff\cdot\nn\right)ds + \frac{1}{2}
-  \int_{\gamma}\left(\xx\cdot\dot{\nn}\right)ds + \frac{1}{2}\int_{0}^{2\pi}
-  \frac{\xx\cdot\nn}{\left\|\pderiv{\xx}{\theta}\right\|}
-  \left(\pderiv{\xx}{\theta}\cdot
-  \pderiv{\dot{\xx}}{\theta}\right)d\theta \\
-  &= \frac{\beta}{2} \int_{\gamma}\left(\ff\cdot\nn\right)ds + \frac{1}{2}
-  \int_{\gamma}\left(\xx\cdot\dot{\nn}\right)ds + \frac{1}{2}\int_{\gamma}
-  (\xx\cdot\nn) (\xx_s \cdot \dot{\xx}_s)\, ds.
-\end{align}
-To satisfy the inextensibilty condition, $\xx_s \cdot \dot{\xx}_s = 0$.
-Therefore the time derivative of $A(t)$ is
-\begin{align}
-     \dot{A}(t) &= \frac{\beta}{2} \int_{\gamma}\left(\ff\cdot\nn\right)ds
-     + \frac{1}{2} \int_{\gamma}\left(\xx\cdot\dot{\nn}\right)ds.
-\end{align}
-which we re-write as
-\begin{align}
-    \dot{A}(t) &= \frac{\beta}{2}
-    \int_{\gamma}\left(\ff\cdot\nn\right)ds-\frac{1}{2}\int_{\gamma}\left(\xx^{\perp}\cdot\dot{\xx}_s\right) ds.
-\end{align}
-Applying integration by parts,
-\begin{align}
-    \dot{A}(t) &= \frac{\beta}{2}
-    \int_{\gamma}\left(\ff\cdot\nn\right)ds+\frac{1}{2}\int_{\gamma}\left(\xx^{\perp}_s\cdot\dot{\xx}\right) ds,
-\end{align}
-which we re-write as
-\begin{align}
-    \dot{A}(t) &= \frac{\beta}{2}
-    \int_{\gamma}\left(\ff\cdot\nn\right)ds+\frac{1}{2}\int_{\gamma}\left(\dot{\xx}\cdot\nn\right),\\
-    \dot{A}(t) &= \beta \int_{\gamma}\left(\ff\cdot\nn\right)ds.
-\end{align}
-
-
-At steady state,
-\begin{align}
-    \dot{A}(t) &= \beta \int_{\gamma}\left(\ff\cdot\nn\right)ds =0.
-\end{align}
-We now replace $\ff$ with its definition and apply integration by parts
-\begin{align}
-   0=\beta\int_{\gamma} 
-    (-k_b\xx_{ssss}+(\sigma\xx_s)_s)\cdot\nn\, ds =
-   \beta\int_{\gamma}\left(k_b\xx_{sss}-\sigma\xx_s\right)\cdot
-     \nn_s\, ds
-\end{align}
-From the Frenet-Serret formulas, we have 
-\begin{align}
-     -\beta\int_{\gamma}
-     \left(k_b\xx_{sss}-\sigma\xx_s\right)\cdot\kappa\xx_s ds &=0.
-\end{align}
-
-Applying integration by parts and Frenet-Serret again
-\begin{align}
-     \beta\int_{\gamma}
-     k_b\kappa\left(\xx_{ss}\cdot\xx_{ss}\right)ds + \beta
-     \int_{\gamma} k_b \kappa_s(\xx_{ss} \cdot \xx_s)ds +\beta\int_{\gamma}\kappa\sigma ds  &= 0,\\
-    \beta\int_{\gamma} k_b\kappa(\kappa\nn \cdot
-     \kappa\nn)+ \beta \int_{\gamma} k_b \kappa_s(\xx_{ss} \cdot
-     \xx_s)ds +\beta\int_{\gamma}\kappa\sigma ds &= 0,
-\end{align}
-which we re-write as
-\begin{align}
-   \beta\int_{\gamma}k_b\kappa^3 ds + \beta \int_{\gamma} k_b
-   \kappa_s(\xx_{ss} \cdot \xx_s)ds +\beta\int_{\gamma} \kappa\sigma ds = 0.
-\end{align}
-Applying Frenet-serret again,
-\begin{align}
-    \beta\int_{\gamma}k_b\kappa^3 ds + \beta \int_{\gamma} k_b
-    \kappa_s(\kappa\nn \cdot \TT)ds +\beta\int_{\gamma} \kappa\sigma ds = 0, \\
-    \beta\int_{\gamma}k_b\kappa^3 ds +\beta\int_{\gamma} \kappa\sigma ds  = 0.
-\end{align}
-
-
-\section{Including a concentration field}
-Based on the work of Yao and Mori~\cite{yao-mor2017}, we introduce a
-chemical concentration field $c$.  The concentration field is governed
-by the advection-diffusion equation
-\begin{align}
-  \pderiv{c}{t} + \nabla \cdot (\uu c) = D\Delta c.
-\end{align}
-If the concentration is diffusion dominated (zero Peclet number), then
-the concentration satisfies
-\begin{align}
-  \Delta c = 0, \quad \xx \in \RR^2.
-\end{align}
-The boundary conditions of the concentration field on the vesicle
-$\gamma$ are
-\begin{align}
-  (\uu c - D\nabla c) \cdot \nn = c \pderiv{\xx}{t} \cdot \nn + 
-    j_c + j_p,
-\end{align}
-where $j_c$ and $j_p$ are the transmembrane chemical flux due to passive
-transport and active transport (pumps), respectively.  In the zero
-Peclet number limit, the absence of an active transport mechanism, and
-the choice for the passive flux, the boundary condition of the
-concentration field is
-\begin{align}
-  -D\pderiv{c}{\nn} = c \pderiv{\xx}{t} + 
-    k_c \jump{c}, \quad \xx \in \gamma.
-\end{align}
-To couple the vesicle dynamics to the concentration, there is a
-difference between the fluid velocity and vesicle velocity
-\begin{align}
-  \uu - \pderiv{\xx}{t} = j_w \nn,
-\end{align}
-where $j_w$ is the water flux through the vesicle.  This is the
-osmophoretic flow.  In~\cite{yao-mor2017}, this flux is
-\begin{align}
-  j_w = -k_w(RT\jump{c} + \ff_\text{mem} \cdot \nn).
-\end{align}
-In our current implementation, we drop the $RT\jump{c}$ term, and
-let $\beta = k_w$.
-
-\section{Preliminary results}
-
-
-\begin{figure}
-	\centering
-	\includegraphics[width=.9\textwidth]{figures/1.jpg}
-	\includegraphics[width=.9\textwidth]{figures/2.jpg}
-	\includegraphics[width=.9\textwidth]{figures/3.jpg}
-	\caption{Reduced area as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 0$.}
-%	\label{Shear0}
-\end{figure}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=.9\textwidth]{figures/4.jpg}
-	\includegraphics[width=.9\textwidth]{figures/5.jpg}
-	\includegraphics[width=.9\textwidth]{figures/6.jpg}
-	\caption{Reduced area as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 0.5$.}
-%	\label{Shear0}
-\end{figure}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=.9\textwidth]{figures/7.jpg}
-	\includegraphics[width=.9\textwidth]{figures/8.jpg}
-	\includegraphics[width=.9\textwidth]{figures/9.jpg}
-	\caption{Reduced area as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 1$.}
-%	\label{Shear0}
-\end{figure}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=.9\textwidth]{figures/10.jpg}
-	\includegraphics[width=.9\textwidth]{figures/11.jpg}
-	\includegraphics[width=.9\textwidth]{figures/12.jpg}
-	\caption{Reduced area as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 2$.}
-%	\label{Shear0}
-\end{figure}
- 
- 
- \begin{figure}
- 	\centering
- 	\includegraphics[width=.9\textwidth]{figures/BE1.jpg}
- 	\includegraphics[width=.9\textwidth]{figures/BE2.jpg}
- 	\includegraphics[width=.9\textwidth]{figures/BE3.jpg}
- 	\caption{Bending energy as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 0$.}
+% \newpage
+% \paragraph{\bf \Huge OLD STUFF}
+%
+%%%%%%%%%%%%%%%
+%\section{{$\Theta-L$} formulation}
+%Here, we attempt to apply the formulation described by Sohn et
+%al.~\cite{soh-tse-li-voi-low2010} to a semi-permeable vesicle.  In the
+%semi-permeable formulation, the vesicle velocity is
+%\begin{align}
+%  \pderiv{\XX}{t} = \uu(\XX(t)) + \beta (\ff \cdot \nn) \nn.
+%\end{align}
+%In the {$\Theta-L$} variables, we require a normal velocity $V$, and a
+%tangential velocity $T$. Since the inextensibility condition is $T_s +
+%\kappa V = 0$, a condition for the vesicle velocity is
+%\begin{align}
+%  (\uu \cdot \ss)_s = -\kappa(\beta (\ff \cdot \nn) + 
+%      \uu \cdot \nn).
+%\end{align}
+%This equation can be solved following equations (32)--(39)
+%in~\cite{soh-tse-li-voi-low2010}, with the only difference being that
+%$\tilde{\uu}$ satisfies
+%\begin{align}
+%  (\tilde{\uu} \cdot \ss)_s + \kappa(\tilde{\uu} \cdot \nn) =
+%    -(\vv \cdot \ss)_s - \kappa(\vv \cdot \nn) 
+%    - \beta\kappa(\ff \cdot \nn).
+%\end{align}
+%Compared to equation (40), only the last term is new.
+%
+%
+%%%%%%%%%%%%%%%
+%Finally, we write the time stepping method in matrix form as
+%\begin{align}
+%  A \left(
+%    \begin{array}{c}
+%      \xx^{N+1} \\ \sigma^{N+1}
+%    \end{array}
+%  \right) = 
+%  \left(
+%    \begin{array}{c}
+%      \xx^{N} + \Delta t \uu_\infty(\xx^N) \\ \mathbf{1}
+%    \end{array}
+%  \right),
+%\end{align}
+%where
+%\begin{align}
+% A = \left(
+%  \begin{array}{cc}
+%    I + \Delta t \beta P^N B^N + \Delta t \SS^N B^N & 
+%    -\Delta t P^N T^N - \Delta t \SS^N T^N \\
+%    D^N & 0
+%  \end{array}
+%  \right).
+%\end{align}
+%
+%\section{Area of a Vesicle}
+%The area inside a single vesicle $\gamma$ parameterized with $\xx$ is
+%\begin{align}
+%  A(t) = \int_{\gamma} (\xx \cdot \nn)\, ds = 
+%    \int_{0}^{2\pi} \left(\xx \cdot \pderiv{\xx}{\theta}^\perp\right)
+%    \, d\theta.
+%\end{align}
+%Taking the time derivative of $A(t)$,
+%\begin{align}
+%  \dot{A}(t) &= \int_{0}^{2\pi} \left(
+%    \dot{\xx} \cdot \pderiv{\xx}{\theta}^{\perp} + 
+%    \xx \cdot \pderiv{\dot{\xx}}{\theta}^{\perp}\right) \\
+%    \, d\theta.
+%  &= \int_{0}^{2\pi} \left(
+%    (\dot{\xx} \cdot \nn)\|\xx'(\theta)\| \right) d\theta +
+%     \int_{0}^{2\pi}
+%    \xx \cdot \frac{d}{dt}\left(\nn |\frac{d\xx}{d\theta}| \right)
+%\end{align}
+%
+%
+%
+%\begin{align}
+%  A(t) = \frac{1}{2}\int_{\gamma} (\xx \cdot \nn)\, ds = 
+%    \frac{1}{2}\int_{0}^{2\pi} \left(\xx \cdot \pderiv{\xx}{\theta}^\perp\right)
+%    \, d\theta.
+%\end{align}
+%Taking the time derivative of $A(t)$,
+%\begin{align}
+%  \dot{A}(t) &= \frac{1}{2}\int_{0}^{2\pi} \left(\dot{\xx} \cdot
+%  \pderiv{\xx}{\theta}^{\perp} + 
+%    \xx \cdot \pderiv{\dot{\xx}}{\theta}^{\perp}\right) d\theta, \\
+%  &= \frac{1}{2}
+%  \int_{0}^{2\pi}(\dot{\xx}\cdot\nn)\left\|\pderiv{\xx}{\theta}\right\|d\theta +
+%     \frac{1}{2}\int_{0}^{2\pi}
+%    \left(\xx \cdot \pderiv{\dot{\xx}}{\theta}^{\perp}\right)d\theta, \\
+%  &= \frac{\beta}{2} \int_{\gamma}\left(\ff\cdot\nn\right)ds +
+%  \frac{1}{2}\int_{0}^{2\pi}\left(\xx \cdot \pderiv{}{t}\left(\nn
+%  \left\|\pderiv{\xx}{\theta}\right\|\right)\right)d\theta, \\
+%  &= \frac{\beta}{2} \int_{\gamma}\left(\ff\cdot\nn\right)ds + \frac{1}{2}
+%  \int_{\gamma}\left(\xx\cdot\dot{\nn}\right)ds + \frac{1}{2}\int_{0}^{2\pi}
+%  \frac{\xx\cdot\nn}{\left\|\pderiv{\xx}{\theta}\right\|}
+%  \left(\pderiv{\xx}{\theta}\cdot
+%  \pderiv{\dot{\xx}}{\theta}\right)d\theta \\
+%  &= \frac{\beta}{2} \int_{\gamma}\left(\ff\cdot\nn\right)ds + \frac{1}{2}
+%  \int_{\gamma}\left(\xx\cdot\dot{\nn}\right)ds + \frac{1}{2}\int_{\gamma}
+%  (\xx\cdot\nn) (\xx_s \cdot \dot{\xx}_s)\, ds.
+%\end{align}
+%To satisfy the inextensibilty condition, $\xx_s \cdot \dot{\xx}_s = 0$.
+%Therefore the time derivative of $A(t)$ is
+%\begin{align}
+%     \dot{A}(t) &= \frac{\beta}{2} \int_{\gamma}\left(\ff\cdot\nn\right)ds
+%     + \frac{1}{2} \int_{\gamma}\left(\xx\cdot\dot{\nn}\right)ds.
+%\end{align}
+%which we re-write as
+%\begin{align}
+%    \dot{A}(t) &= \frac{\beta}{2}
+%    \int_{\gamma}\left(\ff\cdot\nn\right)ds-\frac{1}{2}\int_{\gamma}\left(\xx^{\perp}\cdot\dot{\xx}_s\right) ds.
+%\end{align}
+%Applying integration by parts,
+%\begin{align}
+%    \dot{A}(t) &= \frac{\beta}{2}
+%    \int_{\gamma}\left(\ff\cdot\nn\right)ds+\frac{1}{2}\int_{\gamma}\left(\xx^{\perp}_s\cdot\dot{\xx}\right) ds,
+%\end{align}
+%which we re-write as
+%\begin{align}
+%    \dot{A}(t) &= \frac{\beta}{2}
+%    \int_{\gamma}\left(\ff\cdot\nn\right)ds+\frac{1}{2}\int_{\gamma}\left(\dot{\xx}\cdot\nn\right),\\
+%    \dot{A}(t) &= \beta \int_{\gamma}\left(\ff\cdot\nn\right)ds.
+%\end{align}
+%
+%
+%At steady state,
+%\begin{align}
+%    \dot{A}(t) &= \beta \int_{\gamma}\left(\ff\cdot\nn\right)ds =0.
+%\end{align}
+%We now replace $\ff$ with its definition and apply integration by parts
+%\begin{align}
+%   0=\beta\int_{\gamma} 
+%    (-k_b\xx_{ssss}+(\sigma\xx_s)_s)\cdot\nn\, ds =
+%   \beta\int_{\gamma}\left(k_b\xx_{sss}-\sigma\xx_s\right)\cdot
+%     \nn_s\, ds
+%\end{align}
+%From the Frenet-Serret formulas, we have 
+%\begin{align}
+%     -\beta\int_{\gamma}
+%     \left(k_b\xx_{sss}-\sigma\xx_s\right)\cdot\kappa\xx_s ds &=0.
+%\end{align}
+%
+%Applying integration by parts and Frenet-Serret again
+%\begin{align}
+%     \beta\int_{\gamma}
+%     k_b\kappa\left(\xx_{ss}\cdot\xx_{ss}\right)ds + \beta
+%     \int_{\gamma} k_b \kappa_s(\xx_{ss} \cdot \xx_s)ds +\beta\int_{\gamma}\kappa\sigma ds  &= 0,\\
+%    \beta\int_{\gamma} k_b\kappa(\kappa\nn \cdot
+%     \kappa\nn)+ \beta \int_{\gamma} k_b \kappa_s(\xx_{ss} \cdot
+%     \xx_s)ds +\beta\int_{\gamma}\kappa\sigma ds &= 0,
+%\end{align}
+%which we re-write as
+%\begin{align}
+%   \beta\int_{\gamma}k_b\kappa^3 ds + \beta \int_{\gamma} k_b
+%   \kappa_s(\xx_{ss} \cdot \xx_s)ds +\beta\int_{\gamma} \kappa\sigma ds = 0.
+%\end{align}
+%Applying Frenet-serret again,
+%\begin{align}
+%    \beta\int_{\gamma}k_b\kappa^3 ds + \beta \int_{\gamma} k_b
+%    \kappa_s(\kappa\nn \cdot \TT)ds +\beta\int_{\gamma} \kappa\sigma ds = 0, \\
+%    \beta\int_{\gamma}k_b\kappa^3 ds +\beta\int_{\gamma} \kappa\sigma ds  = 0.
+%\end{align}
+%
+%
+%\section{Including a concentration field}
+%Based on the work of Yao and Mori~\cite{yao-mor2017}, we introduce a
+%chemical concentration field $c$.  The concentration field is governed
+%by the advection-diffusion equation
+%\begin{align}
+%  \pderiv{c}{t} + \nabla \cdot (\uu c) = D\Delta c.
+%\end{align}
+%If the concentration is diffusion dominated (zero Peclet number), then
+%the concentration satisfies
+%\begin{align}
+%  \Delta c = 0, \quad \xx \in \RR^2.
+%\end{align}
+%The boundary conditions of the concentration field on the vesicle
+%$\gamma$ are
+%\begin{align}
+%  (\uu c - D\nabla c) \cdot \nn = c \pderiv{\xx}{t} \cdot \nn + 
+%    j_c + j_p,
+%\end{align}
+%where $j_c$ and $j_p$ are the transmembrane chemical flux due to passive
+%transport and active transport (pumps), respectively.  In the zero
+%Peclet number limit, the absence of an active transport mechanism, and
+%the choice for the passive flux, the boundary condition of the
+%concentration field is
+%\begin{align}
+%  -D\pderiv{c}{\nn} = c \pderiv{\xx}{t} + 
+%    k_c \jump{c}, \quad \xx \in \gamma.
+%\end{align}
+%To couple the vesicle dynamics to the concentration, there is a
+%difference between the fluid velocity and vesicle velocity
+%\begin{align}
+%  \uu - \pderiv{\xx}{t} = j_w \nn,
+%\end{align}
+%where $j_w$ is the water flux through the vesicle.  This is the
+%osmophoretic flow.  In~\cite{yao-mor2017}, this flux is
+%\begin{align}
+%  j_w = -k_w(RT\jump{c} + \ff_\text{mem} \cdot \nn).
+%\end{align}
+%In our current implementation, we drop the $RT\jump{c}$ term, and
+%let $\beta = k_w$.
+%
+%\section{Preliminary results}
+%
+%
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=.9\textwidth]{figures/1.jpg}
+%	\includegraphics[width=.9\textwidth]{figures/2.jpg}
+%	\includegraphics[width=.9\textwidth]{figures/3.jpg}
+%	\caption{Reduced area as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 0$.}
+%%	\label{Shear0}
+%\end{figure}
+%
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=.9\textwidth]{figures/4.jpg}
+%	\includegraphics[width=.9\textwidth]{figures/5.jpg}
+%	\includegraphics[width=.9\textwidth]{figures/6.jpg}
+%	\caption{Reduced area as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 0.5$.}
+%%	\label{Shear0}
+%\end{figure}
+%
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=.9\textwidth]{figures/7.jpg}
+%	\includegraphics[width=.9\textwidth]{figures/8.jpg}
+%	\includegraphics[width=.9\textwidth]{figures/9.jpg}
+%	\caption{Reduced area as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 1$.}
+%%	\label{Shear0}
+%\end{figure}
+%
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=.9\textwidth]{figures/10.jpg}
+%	\includegraphics[width=.9\textwidth]{figures/11.jpg}
+%	\includegraphics[width=.9\textwidth]{figures/12.jpg}
+%	\caption{Reduced area as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 2$.}
+%%	\label{Shear0}
+%\end{figure}
+% 
+% 
+% \begin{figure}
+% 	\centering
+% 	\includegraphics[width=.9\textwidth]{figures/BE1.jpg}
+% 	\includegraphics[width=.9\textwidth]{figures/BE2.jpg}
+% 	\includegraphics[width=.9\textwidth]{figures/BE3.jpg}
+% 	\caption{Bending energy as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 0$.}
+%% 	\label{Shear0}
+% \end{figure}
+% 
+% \begin{figure}
+% 	\centering
+% 	\includegraphics[width=.9\textwidth]{figures/BE4.jpg}
+% 	\includegraphics[width=.9\textwidth]{figures/BE5.jpg}
+% 	\includegraphics[width=.9\textwidth]{figures/BE6.jpg}
+% 	\caption{Bending energy as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 0.5$.}
+%% 	\label{Shear0}
+% \end{figure}
+% 
+% \begin{figure}
+% 	\centering
+% 	\includegraphics[width=.9\textwidth]{figures/BE7.jpg}
+% 	\includegraphics[width=.9\textwidth]{figures/BE8.jpg}
+% 	\includegraphics[width=.9\textwidth]{figures/BE9.jpg}
+% 	\caption{Bending energy as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 1$.}
+%% 	\label{Shear0}
+% \end{figure}
+% 
+% \begin{figure}
+% 	\centering
+% 	\includegraphics[width=.9\textwidth]{figures/BE10.jpg}
+% 	\includegraphics[width=.9\textwidth]{figures/BE11.jpg}
+% 	\includegraphics[width=.9\textwidth]{figures/BE12.jpg}
+% 	\caption{Bending energy as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 2$.}
 % 	\label{Shear0}
- \end{figure}
- 
- \begin{figure}
- 	\centering
- 	\includegraphics[width=.9\textwidth]{figures/BE4.jpg}
- 	\includegraphics[width=.9\textwidth]{figures/BE5.jpg}
- 	\includegraphics[width=.9\textwidth]{figures/BE6.jpg}
- 	\caption{Bending energy as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 0.5$.}
-% 	\label{Shear0}
- \end{figure}
- 
- \begin{figure}
- 	\centering
- 	\includegraphics[width=.9\textwidth]{figures/BE7.jpg}
- 	\includegraphics[width=.9\textwidth]{figures/BE8.jpg}
- 	\includegraphics[width=.9\textwidth]{figures/BE9.jpg}
- 	\caption{Bending energy as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 1$.}
-% 	\label{Shear0}
- \end{figure}
- 
- \begin{figure}
- 	\centering
- 	\includegraphics[width=.9\textwidth]{figures/BE10.jpg}
- 	\includegraphics[width=.9\textwidth]{figures/BE11.jpg}
- 	\includegraphics[width=.9\textwidth]{figures/BE12.jpg}
- 	\caption{Bending energy as a function of time for $\beta = [0, 10^{-2},10^{-1}, 1]$ with a shear flow rate $\chi = 2$.}
- 	\label{Shear0}
- \end{figure}
-
-When the semi-permeable vesicle reaches a steady-state shape, we have
-\begin{align}
-  \int_{\gamma} \left(-\frac{\kappa^3}{2} + \kappa \Lambda \right) \, ds
-  = 0.
-\end{align}
-Based on numerical observations, the steady-state shape is a circular
-vesicle with constant tension. Since the tension and curvature are
-constant, we can solve for the curvature in terms of the tension $\kappa
-= \sqrt{2\Lambda}$. Therefore, the steady state shape is a circle of
-radius $r = 1/\sqrt{2\Lambda}$, and therefore the length is
-\begin{align}
-  L = \frac{\sqrt{2}\pi}{\sqrt{\Lambda}},
-\end{align}
-which is constant by the local inextensibility constraint. Finally, we
-can compute the final tension in terms of the length using the formula
-\begin{align}
-  \Lambda = \frac{2\pi^2}{L^2}.
-\end{align}
-Therefore, in contrast to a impermeable vesicle, the final tension is
-positive rather than negative.
-
-We start by simulating a star-shaped vesicle in a quiescent flow with
-semi-permeability rate $\beta=1$ (Figure~\ref{fig:starShape}). To
-perform this simulation, we use an adaptive second-order time stepping
-method~\cite{qua-bir2016}. The times and reduced areas are in the
-titles, and note that the shapes are not eqiuspaced in time.
-\begin{figure}[htp]
-  \begin{minipage}{0.55\textwidth}
-%    \ifTikz
-    \input{figures/starRelaxation1.tikz}
-    \input{figures/starRelaxation2.tikz}
-    \input{figures/starRelaxation3.tikz}
-    \input{figures/starRelaxation4.tikz}
-    \input{figures/starRelaxation5.tikz}
-    \input{figures/starRelaxation6.tikz}
-%    \fi
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.4\textwidth}
-%  \ifTikz
-  \input{figures/starAreaDeriv.tikz}
-%  \fi
-  \end{minipage}
-  \caption{\label{fig:starShape} A initially star-shaped semi-permeable
-  vesicle in a shear quiescent flow with $\beta=1$. Note that the time
-  steps are not equispaced. The area (red) and its derivative (blue) of
-  an initially star-shaped vesicle as a function of time. The dots
-  correspond to the time steps shown in six time steps
-  show on the left.}
-\end{figure}
+% \end{figure}
+%
+%When the semi-permeable vesicle reaches a steady-state shape, we have
+%\begin{align}
+%  \int_{\gamma} \left(-\frac{\kappa^3}{2} + \kappa \Lambda \right) \, ds
+%  = 0.
+%\end{align}
+%Based on numerical observations, the steady-state shape is a circular
+%vesicle with constant tension. Since the tension and curvature are
+%constant, we can solve for the curvature in terms of the tension $\kappa
+%= \sqrt{2\Lambda}$. Therefore, the steady state shape is a circle of
+%radius $r = 1/\sqrt{2\Lambda}$, and therefore the length is
+%\begin{align}
+%  L = \frac{\sqrt{2}\pi}{\sqrt{\Lambda}},
+%\end{align}
+%which is constant by the local inextensibility constraint. Finally, we
+%can compute the final tension in terms of the length using the formula
+%\begin{align}
+%  \Lambda = \frac{2\pi^2}{L^2}.
+%\end{align}
+%Therefore, in contrast to a impermeable vesicle, the final tension is
+%positive rather than negative.
+%
+%We start by simulating a star-shaped vesicle in a quiescent flow with
+%semi-permeability rate $\beta=1$ (Figure~\ref{fig:starShape}). To
+%perform this simulation, we use an adaptive second-order time stepping
+%method~\cite{qua-bir2016}. The times and reduced areas are in the
+%titles, and note that the shapes are not eqiuspaced in time.
+%\begin{figure}[htp]
+%  \begin{minipage}{0.55\textwidth}
+%%    \ifTikz
+%    \input{figures/starRelaxation1.tikz}
+%    \input{figures/starRelaxation2.tikz}
+%    \input{figures/starRelaxation3.tikz}
+%    \input{figures/starRelaxation4.tikz}
+%    \input{figures/starRelaxation5.tikz}
+%    \input{figures/starRelaxation6.tikz}
+%%    \fi
+%  \end{minipage}
+%  \hfill
+%  \begin{minipage}{0.4\textwidth}
+%%  \ifTikz
+%  \input{figures/starAreaDeriv.tikz}
+%%  \fi
+%  \end{minipage}
+%%  \caption{\label{fig:starShape} A initially star-shaped semi-permeable
+%%  vesicle in a shear quiescent flow with $\beta=1$. Note that the time
+%%  steps are not equispaced. The area (red) and its derivative (blue) of
+%%  an initially star-shaped vesicle as a function of time. The dots
+%%  correspond to the time steps shown in six time steps
+%%  show on the left.}
+%\end{figure}
+%
+%\begin{table}[htp]
+%  \centering
+%  \begin{tabular}{|C{1cm}|*{6}{C{2cm}}|}
+%    \hline
+%    $\beta$ & $10^{0}$ & $10^{-1}$ & $10^{-2}$ & 
+%             $10^{-3}$ & $10^{-4}$ & $10^{-5}$ \\
+%    $t_\mathrm{SS}$ & $6.45 \times 10^{0}$ & $2.00 \times 10^{1}$ & 
+%                      $9.61 \times 10^{1}$ & $8.36 \times 10^{2}$ & 
+%                      $8.15 \times 10^{3}$ & $8.03 \times 10^{4}$ \\
+%    ratio & --- & 3.10 & 4.81 & 8.71 & 9.74 & 9.85 \\
+%    \hline
+%  \end{tabular}
+%  \caption{\label{tbl:ellipseRelaxTime} The time, $t_{\mathrm{SS}}$, for
+%  a semi-permeable vesicle to reach steady state.}
+%\end{table}
+%
+%\begin{table}[htp]
+%  \centering
+%  \begin{tabular}{|C{1cm}|*{6}{C{2cm}}|}
+%    \hline
+%    $\beta$ & $10^{0}$ & $10^{-1}$ & $10^{-2}$ & 
+%             $10^{-3}$ & $10^{-4}$ & $10^{-5}$ \\
+%    $t_\mathrm{SP}$ & $2.17 \times 10^{-2}$ & $1.25 \times 10^{-1}$ & 
+%                      $1.59 \times 10^{0}$ & $2.19 \times 10^{1}$ & 
+%                      $2.14 \times 10^{2}$ & $2.20 \times 10^{3}$ \\
+%    ratio & --- & 5.76 & 12.72 & 13.77 & 9.77 & 10.14 \\
+%    \hline
+%  \end{tabular}
+%  \caption{\label{tbl:ellipseBLTime} The time, $t_\mathrm{SP}$, for a
+%  semi-permeable vesicle to begin inflating.}
+%\end{table}
+%
+%%\begin{figure}[htp]
+%%\begin{minipage}{0.40\textwidth}
+%%\ifTikz
+%%\input{figures/starTension.tikz}
+%%\fi
+%%\end{minipage}
+%%\hfill
+%%\begin{minipage}{0.55\textwidth}
+%%  \centering
+%%\includegraphics[width=0.32\textwidth]{figures/StarTensionTime1.pdf}
+%%\includegraphics[width=0.32\textwidth]{figures/StarTensionTime2.pdf}
+%%\includegraphics[width=0.32\textwidth]{figures/StarTensionTime3.pdf} \\
+%%\includegraphics[width=0.32\textwidth]{figures/StarTensionTime4.pdf}
+%%\includegraphics[width=0.32\textwidth]{figures/StarTensionTime5.pdf}
+%%\includegraphics[width=0.32\textwidth]{figures/StarTensionTime6.pdf}
+%%\end{minipage}
+%%  \caption{\label{fig:starTension} The tension of the time steps shown
+%%  in Figure~\ref{fig:starShape}. The tension at the time horizon $T=1$
+%%  is also included. At this point, the vesicle is nearly circular and
+%%  the tension is constant and positive. The constant is given by
+%%  equation~\eqref{eqn:SSshape}, and this value corresponds to the
+%%  dashed black line.}
+%%\end{figure}
+%
+%%\begin{figure}[htp]
+%%\begin{minipage}{0.40\textwidth}
+%%%\ifTikz
+%%\input{figures/starFlux.tikz}
+%%%\fi
+%%\end{minipage}
+%%\hfill
+%%\begin{minipage}{0.55\textwidth}
+%%\includegraphics[width=0.32\textwidth]{figures/StarFluxTime1.pdf}
+%%\includegraphics[width=0.32\textwidth]{figures/StarFluxTime2.pdf}
+%%\includegraphics[width=0.32\textwidth]{figures/StarFluxTime3.pdf} \\
+%%\includegraphics[width=0.32\textwidth]{figures/StarFluxTime4.pdf}
+%%\includegraphics[width=0.32\textwidth]{figures/StarFluxTime5.pdf}
+%%\includegraphics[width=0.32\textwidth]{figures/StarFluxTime6.pdf}
+%%\end{minipage}
+%%  \caption{\label{fig:starFlux} The flux of the time steps shown in
+%%  Figure~\ref{fig:starShape}. The tension at the time horizon $T=1$ is
+%%  also included. At this point, the vesicle is nearly circular and there
+%%  is no flux.}
+%%\end{figure}
 
 \end{document}

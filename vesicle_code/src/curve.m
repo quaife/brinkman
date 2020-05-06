@@ -191,17 +191,17 @@ if any(strcmp(options,'curly'))
   % radius of curly vesicle
 
 elseif any(strcmp(options,'star'))
-  radius = 1 + 0.6*cos(folds*t);
+  radius = 1 + 0.4*cos(folds*t);
   X = scale*[radius.*cos(t);radius.*sin(t)];
   % a star that comes very close to intersecting itself at the origin
 
-  sa = o.diffProp(X);
-  t = o.arc(sa);
-  % Find discretization points to achieve equispaced in arclength
-  % discretization points
-  radius = 1 + 0.6*cos(folds*t);
-  X = scale*[radius.*cos(t);radius.*sin(t)];
-  % Reparameterize with points that are nearly equispaced in arclength
+%  sa = o.diffProp(X);
+%  t = o.arc(sa);
+%  % Find discretization points to achieve equispaced in arclength
+%  % discretization points
+%  radius = 1 + 0.4*cos(folds*t);
+%  X = scale*[radius.*cos(t);radius.*sin(t)];
+%  % Reparameterize with points that are nearly equispaced in arclength
 
 elseif any(strcmp(options,'choke'))
   a = 10; b = 3; c = 0.6; order = 8;

@@ -2,7 +2,7 @@ addpath ../../src
 set(0,'DefaultAxesFontSize',22)
 options.savefig = false;
 
-irate = 40; % controls the speed of the visualization
+irate = 20; % controls the speed of the visualization
 
 if 0
   file = 'parabolic1VesData.bin';
@@ -38,9 +38,11 @@ if 1
 %  file = '~/projects/brinkman/vesicle_code/results/Apr142020/starBeta1em3/relaxation1VesData.bin';
 %    file = '~/projects/brinkman/vesicle_code/results/Apr232020/ellipseBeta1em5/relaxation1VesData.bin';
 %  ax = [-3 3 -3.5 3.5];
-  ax = 3*[-1 1 -1 1];
+  ax = 2*[-1 1 -1 1];
   options.confined = false;
+  options.savefig = false;
   beta = 1e-5;
+  count = 1;
 end
 
 if 0
@@ -111,9 +113,8 @@ end
 % number of vesicles
 istart = 1;
 iend = numel(time);
-%iend = 1000;
 ntime = iend;
-%ntime = numel(time);
+ntime = numel(time);
 time = time(istart:iend);
 
 oc = curve;
