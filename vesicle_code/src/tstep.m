@@ -2747,8 +2747,7 @@ elseif any(strcmp(varargin,'shear'))
 
 elseif (any(strcmp(varargin,'choke')) || ...
       any(strcmp(varargin,'doublechoke')) || ...
-      any(strcmp(varargin,'choke2')) || ...
-      any(strcmp(varargin,'chokeLong')))
+      any(strcmp(varargin,'choke2')))
   vInf = zeros(2*N,nv);
   ind = abs(x)>7;
   vx = exp(1./((y(ind)/max(y)).^2-1))/exp(-1);
@@ -2758,11 +2757,22 @@ elseif (any(strcmp(varargin,'choke')) || ...
   T11 = zeros(N,nv);
   T12 = zeros(N,nv);
   T22 = zeros(N,nv);
+
+elseif any(strcmp(varargin,'chokeLong'))
+  vInf = zeros(2*N,nv);
+  ind = abs(x)>17;
+  ymax = max(y(ind));
+  vx = (ymax^2-y(ind).^2)/ymax^2;
+  % parabolic flow
+  vInf(ind,:) = vx;
+  T11 = zeros(N,nv);
+  T12 = zeros(N,nv);
+  T22 = zeros(N,nv);
   
-elseif any(strcmp(varargin,'couette'));
+elseif any(strcmp(varargin,'couette'))
   vInf = [zeros(2*N,1) 1*[-y(:,2)+mean(y(:,2));x(:,2)-mean(x(:,2))]];
   
-elseif any(strcmp(varargin,'couetteOuter'));
+elseif any(strcmp(varargin,'couetteOuter'))
   vInf = [1*[-y(:,1)+mean(y(:,1));x(:,1)-mean(x(:,1))] zeros(2*N,1)];  
   
 elseif (any(strcmp(varargin,'doubleCouette')) || ...

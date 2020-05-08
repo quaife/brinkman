@@ -6,7 +6,7 @@ fprintf('Implicit vesicle-vesicle interactions.\n');
 fprintf('Implicit vesicle-boundary interactions.\n');
 
 %format long
-prams.N = 256;                 % points per vesicle
+prams.N = 64;                 % points per vesicle
 prams.nv = 1;                  % number of vesicles
 prams.T = 50;                  %time horizon
 prams.m = 1200;                % number of time steps
@@ -19,19 +19,19 @@ prams.errorTol = 8e-1;
 % Maximum relative error in area and length before the simulation
 % is stopped
 prams.dtMin = 1e-4;
+prams.dtMax = 1e-1;
+
+options.semipermeable = true;
+prams.fluxCoeff = 1e-2;
+options.fluxShape = 1; % constant value
 
 options.farField = 'chokeLong';      % Constricted domain
 % background velocity or solid walls (which comes with a default
 % boundary condition)
-options.inextens = 'method1'; 
-% Inextensibility condition can be treated as either
-% method1 - div x^{N+1} = div x^{N}
-% method2 - div(SLP*tractionjump) = 0;
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle and vesicle-boundary 
 % intearctions.  Either 'explicit' or 'implicit'
 options.near = true;        % near-singular integration
-% options.nearStrat = 'interp';
 options.fmm = ~true;
 options.fmmDLP = ~true;
 % use FMM to compute single-layer potential
@@ -55,8 +55,8 @@ options.nsdc = 1;
 options.orderGL = 2;
 
 options.timeAdap = true;
-prams.rtolArea = 1e-1;
-prams.rtolLength = 1e-1;
+prams.rtolArea = 1e10;
+prams.rtolLength = 1e-2;
 prams.betaUp = 1.5;
 prams.betaDown = 0.5;
 prams.alpha = 0.9;
@@ -67,7 +67,7 @@ prams.alpha = 0.9;
 
 oc = curve;
 X = oc.initConfig(prams.N,'nv',prams.nv,'angle',pi/2,...
-   'scale',0.25,...
+   'scale',0.4,...
    'center',[[-15;0]],'reducedArea',0.65);
 
 % load chokeIC
