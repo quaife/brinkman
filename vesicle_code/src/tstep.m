@@ -687,7 +687,7 @@ elseif (err > 1 && o.dt <= o.dtMin)
   message = ['New time step size is         ' ...
       num2str(o.dt,'%4.2e')];
   om.writeMessage(message,'%s\n')
-elseif (err <= 1 && o.dt <= o.dtMin
+elseif (err <= 1 && o.dt <= o.dtMin)
   o.dt = o.dtMin;
   dtScale = 1;
   % set new time step size to mimium allowable value. Even though a time
