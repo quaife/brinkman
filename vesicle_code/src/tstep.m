@@ -675,6 +675,7 @@ elseif (err > 1 && o.dt <= o.dtMin)
   % accept the time step because the time step is too small, eventhough
   % the error is too large
   o.dt = o.dtMin;
+  dtScale = 1;
   % set new time step size to mimium allowable value
   accept = true;
   message = ['Time Step ACCEPTED with error ' ...
@@ -682,6 +683,23 @@ elseif (err > 1 && o.dt <= o.dtMin)
   om.writeMessage(message,'%s\n')
   message = ['Time step scaled by           ' ... 
       num2str(1,'%4.2e')];
+  om.writeMessage(message,'%s\n')
+  message = ['New time step size is         ' ...
+      num2str(o.dt,'%4.2e')];
+  om.writeMessage(message,'%s\n')
+elseif (err <= 1 && o.dt <= o.dtMin
+  o.dt = o.dtMin;
+  dtScale = 1;
+  % set new time step size to mimium allowable value. Even though a time
+  % step is accepted, it is possible for the time step size to be
+  % reduced because of the safety parameter
+  accept = true;
+  % accept the solution because the error is small
+  message = ['Time Step ACCEPTED with error ' ...
+      num2str(err,'%4.2e')];
+  om.writeMessage(message,'%s\n')
+  message = ['Time step scaled by           ' ... 
+      num2str(dtScale,'%4.2e')];
   om.writeMessage(message,'%s\n')
   message = ['New time step size is         ' ...
       num2str(o.dt,'%4.2e')];
@@ -2664,6 +2682,7 @@ function [vInf,T11,T12,T22] = bgFlow(o,X,varargin)
 %     shear:          (ky,0)
 %     choke:          poeusille-like flow at intake and outtake
 %     doublechoke:    same as choke
+%     chokeLong:      same as choke
 %     couette:        rotating boundary
 %     doubleCouette   two rotating boundaries
 %     quadCouette     four rotation boundaries
@@ -2728,7 +2747,8 @@ elseif any(strcmp(varargin,'shear'))
 
 elseif (any(strcmp(varargin,'choke')) || ...
       any(strcmp(varargin,'doublechoke')) || ...
-      any(strcmp(varargin,'choke2')))
+      any(strcmp(varargin,'choke2')) || ...
+      any(strcmp(varargin,'chokeLong')))
   vInf = zeros(2*N,nv);
   ind = abs(x)>7;
   vx = exp(1./((y(ind)/max(y)).^2-1))/exp(-1);

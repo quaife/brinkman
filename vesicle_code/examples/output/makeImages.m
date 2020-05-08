@@ -2,7 +2,7 @@ addpath ../../src
 set(0,'DefaultAxesFontSize',22)
 options.savefig = false;
 
-irate = 20; % controls the speed of the visualization
+irate = 1; % controls the speed of the visualization
 
 if 0
   file = 'parabolic1VesData.bin';
@@ -33,7 +33,7 @@ if 0
   options.confined = false;
 end
 
-if 1
+if 0
   file = 'relaxation1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/Apr142020/starBeta1em3/relaxation1VesData.bin';
 %    file = '~/projects/brinkman/vesicle_code/results/Apr232020/ellipseBeta1em5/relaxation1VesData.bin';
@@ -84,9 +84,9 @@ if 0
   ax = [-3 3 -3 3];
   options.confined = false;
 end
-if 0
+if 1
   file = 'choke1VesData.bin';
-  ax = [-10.5 10.5 -3.5 3.5];
+  ax = [-20.5 20.5 -3.5 3.5];
   options.confined = true;
 end
 
@@ -150,12 +150,13 @@ for k = istart:1:iend
 %  G = op.stokesSLmatrix(vesicle);
 %  velSLP(:,k) = G*trac(:,:,k);
 %
-  flux(:,k) = -(trac(1:end/2,:,k).*normal(1:end/2,:,k) + ...
-          trac(end/2+1:end,:,k).*normal(end/2+1:end,:,k));
+%  flux(:,k) = -(trac(1:end/2,:,k).*normal(1:end/2,:,k) + ...
+%          trac(end/2+1:end,:,k).*normal(end/2+1:end,:,k));
 %  velFlux(:,k) = [flux(:,k).*normal(1:end/2,:,k); ...
 %                  flux(:,k).*normal(end/2+1:end,:,k)];
 end
 
+if 0
 dArea = zeros(ntime,1);
 dArea2 = zeros(ntime,1);
 for k = istart:1:iend
@@ -164,6 +165,7 @@ for k = istart:1:iend
       cur(:,k).*ten(:,k)).*jac(:,k));
   % not sure why the negative sign is necessary based on the writeup.
   % Probably an IBP error
+end
 end
 
 
@@ -204,11 +206,11 @@ for k = istart:irate:iend
 %    end
 %    colorbar
 %    caxis([min_flux max_flux])
-%    if options.confined
-%      vec1 = [wallx(:,:);wallx(1,:)];
-%      vec2 = [wally(:,:);wally(1,:)];
-%      plot(vec1,vec2,'k','linewidth',3)
-%    end
+    if options.confined
+      vec1 = [wallx(:,:);wallx(1,:)];
+      vec2 = [wally(:,:);wally(1,:)];
+      plot(vec1,vec2,'k','linewidth',3)
+    end
     hold off
     axis equal
     axis(ax)

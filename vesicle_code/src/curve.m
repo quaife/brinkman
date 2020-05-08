@@ -226,6 +226,21 @@ elseif any(strcmp(options,'choke'))
   % controls the width of the gap, and order controls the
   % regularity
 
+elseif any(strcmp(options,'chokeLong'))
+  a = 20; b = 3; c = 0.6; order = 8;
+  % parameters for the boundary
+  t = (0:N-1)'*2*pi/N;
+  r = (cos(t).^order + sin(t).^order).^(-1/order);
+  x = a*r.*cos(t); y = b*r.*sin(t);
+  ind = abs(x) < 10;
+  scalRat = 2*c/(1+c)*(0.5-0.5*cos(pi*x(ind(1:end/2))/10)).^10 + ...   
+      (1-c)/(1+c);
+  y(ind) = y(ind).*[scalRat;scalRat];
+  X0 = [x;y];
+  % choked domain.  a and b control the length and height.  c
+  % controls the width of the gap, and order controls the
+  % regularity
+
 elseif any(strcmp(options,'doublechoke'))
   a = 10; b = 3; c = 0.6; order = 8;
   shift = pi/2 + 0.1;
