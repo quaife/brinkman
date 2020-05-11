@@ -1,8 +1,8 @@
 \documentclass[aps,prl,showpacs]{revtex4}
 
 \newif\ifTikz
-\Tikztrue
-%\Tikzfalse
+%\Tikztrue
+\Tikzfalse
 
 %\usepackage{showkeys}
 \usepackage{amsmath,amsfonts,bm}
@@ -528,16 +528,19 @@ reduced area. However, for small $\beta$, the permeability rate also has
 a large effect on the final reduced area. In particular, the smallest
 final reduced areas are the result of large shear rates and small
 permeability rates.
+\todo[inline]{Also reporting inclination angle as well}
 
 \begin{figure}[htp]
-\ifTikz
-\input{figures/shearPhaseDiagram.tikz} 
-\fi
+%\ifTikz
+\input{figures/shearPhaseDiagramRA.tikz} 
+\input{figures/shearPhaseDiagramIA.tikz} 
+%\fi
   \caption{\label{fig:shearPhase} The steady state shape of a
   semi-permeable vesicle with several different permeability rates
   $\beta$ and shear rates $\dot{\gamma}$. The black lines represent
-  contour lines of the final reduced areas, and the reduced area are
-  reported on the right.}
+  contour lines of the final reduced areas (left) and the inclination
+  angle (right). The reduced area and inclination angle of each
+  contour line are reported.}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
