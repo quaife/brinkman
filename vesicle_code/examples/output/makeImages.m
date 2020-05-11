@@ -85,7 +85,8 @@ if 0
   options.confined = false;
 end
 if 1
-  file = 'choke1VesData.bin';
+%  file = 'choke1VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/choke1Ves/beta1em5Scale5em1/choke1VesData.bin';
   ax = [-20.5 20.5 -3.5 3.5];
   options.confined = true;
 end

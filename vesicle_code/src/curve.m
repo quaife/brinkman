@@ -359,6 +359,7 @@ if isempty(X)
   % Rotate vesicles as requested 
 end
 
+
 end % initConfig
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

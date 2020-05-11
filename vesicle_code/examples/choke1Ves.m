@@ -22,7 +22,7 @@ prams.dtMin = 1e-4;
 prams.dtMax = 1e-1;
 
 options.semipermeable = true;
-prams.fluxCoeff = 1e-2;
+prams.fluxCoeff = 1e-3;
 options.fluxShape = 1; % constant value
 
 options.farField = 'chokeLong';      % Constricted domain
@@ -66,9 +66,9 @@ prams.alpha = 0.9;
 % Also add src to path
 
 oc = curve;
-X = oc.initConfig(prams.N,'nv',prams.nv,'angle',pi/2,...
+X = oc.initConfig(prams.N,'nv',prams.nv,'angle',pi/3,...
    'scale',0.4,...
-   'center',[[-15;0]],'reducedArea',0.65);
+   'center',[[-15;1]],'reducedArea',0.65);
 
 % load chokeIC
 Xwalls = oc.initConfig(prams.Nbd,options.farField);

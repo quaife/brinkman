@@ -2,6 +2,7 @@
 
 \newif\ifTikz
 \Tikztrue
+%\Tikzfalse
 
 %\usepackage{showkeys}
 \usepackage{amsmath,amsfonts,bm}
@@ -108,6 +109,9 @@ is~\cite{}
 \end{align}
 where $\beta$ is a semi-permeability rate.  
 
+Reduced area is $\nu = 4\pi A/L^2$.
+
+
 \subsection{Integral equation formulation}
 Since the flow is governed by the linear Stokes equations, it can be
 represented in terms of layer potentials. Given the boundary
@@ -185,6 +189,7 @@ In addition to computing the steady shape, we can compute the transient
 area of the vesicle. Parameterizing the vesicle with $\xx$, its area is
 \begin{align}
   A(t) = \frac{1}{2}\int_{\gamma} (\xx \cdot \nn)\, ds .
+  \label{eqn:area}
 \end{align}
 The derivative of $A(t)$ includes terms due to the time derivative of
 $\xx \cdot \nn$, and a term due to interface
@@ -296,40 +301,42 @@ Finally, the inextensibility condition is applied by requiring that
 \section{Examples}
 We consider a single semi-permeable vesicle in four different flow
 regimes. All vesicles have a length of $L=4\pi$, but the area is not
-conserved because of semi-permeability. However, the area is bounded
-above by the area of a circle with circumference $L=4\pi$. Therefore,
-$A(t) \leq 4\pi \approx 12.56$ for all simulations. For each simulation,
-we use an adaptive second-order time stepping method~\cite{qua-bir2016}. 
+conserved because of semi-permeability. However, the area is bounded by
+$4\pi$ which is the area of a circle with length $L=4\pi$. For each
+simulation, we apply an SDC second-order adaptive time stepping
+method~\cite{qua-bir2016}. 
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Quiescent Flow} 
-We start by considering a semi-permeable vesicle in a quiescent flow.
-For an impermeable vesicle, the vesicle relaxes to a steady-state shape
-with negative and constant tension~\cite{kra-win-sei-lip1996}. However,
-from equation~\eqref{eqn:SSshape}, we know that a semipermeable vesicle
-will relax to a circle with positive constant tension. Since the area of
-a semi-permeable vesicle is governed by~\eqref{eqn:areaROC}, we expect
-that the time to reach steady state, and the time required for a small
-amount of inflation, both scale with $\beta^{-1}$. We simulate a vesicle
-with initial reduced area $0.65$ with several values of $\beta$.  In
-Table~\ref{tbl:ellipseRelaxTimes}, we report the time, $t_\mathrm{SS}$,
-required for the vesicle's area to be within 1.3\% of its maximum area,
-and the time, $t_\mathrm{SP}$, required for the vesicle's area to exceed
-1.3\% of its initial area. We see that both these time scales do scale
-with $\beta^{-1}$. In Figure~\ref{fig:ellipseArea}, we plot the area of
-a vesicle with different permeability rates. The area is computed
-directly from the vesicle shape (solid lines) and by integrating
+We consider a semi-permeable vesicle with initial reduced area $0.65$
+and several different permeability rates $\beta$ in a quiescent flow. If
+the vesicle is impermeable, meaning that $\beta = 0$, it will relax to a
+steady-state shape with negative and constant
+tension~\cite{kra-win-sei-lip1996}. However, from
+equation~\eqref{eqn:SSshape}, a semipermeable vesicle relaxes to a
+circle with positive constant tension. Since the area of a
+semi-permeable vesicle is governed by~\eqref{eqn:areaROC}, we expect
+that the time for the vesicle to deviate from its initial area, and the
+time to reach the steady state will both scale with $\beta^{-1}$. In
+Figure~\ref{fig:ellipseArea}, we plot the area of a vesicle with
+different permeability rates. The area is computed directly from the
+vesicle shape (solid lines) and by integrating
 equation~\eqref{eqn:areaROC} (marks) with a first-order method. We also
-include black dashed lines indicating the times, $t_{\mathrm{SS}}$, that
-the vesicle is near its steady state circular shape.
+include black dashed lines indicating the times, $t_{\mathrm{steady}}$,
+that the vesicle is near its steady state circular shape. In
+Table~\ref{tbl:ellipseRelaxTimes}, we report the time,
+$t_\mathrm{steady}$, required for the vesicle's area to be within 1.3\%
+of its maximum area, and the time, $t_\mathrm{inflate}$, required for
+the vesicle's area to exceed 1.3\% of its initial area. We see that both
+times scale with $\beta^{-1}$. 
 
 \begin{table}[htp]
   \centering
   \begin{tabular}{|C{2cm}C{3cm}C{3cm}C{3cm}C{3cm}|}
     \hline
-    $\beta$ & $t_\mathrm{SS}$ & ratio & $t_\mathrm{SP}$ & ratio \\
+    $\beta$ & $t_\mathrm{steady}$ & ratio & $t_\mathrm{inflate}$ & ratio \\
     \hline
     $10^{0}$  & $6.45 \times 10^{0}$ & ---  
               & $2.17 \times 10^{-2}$ & --- \\ 
@@ -346,8 +353,8 @@ the vesicle is near its steady state circular shape.
     \hline
   \end{tabular}
   \caption{\label{tbl:ellipseRelaxTimes} The time for a semi-permeable
-  vesicle to reach relaxation time ($t_\mathrm{SS}$) and to begin
-  inflating ($t_\mathrm{SP}$).}
+  vesicle to its steady state ($t_\mathrm{steady}$) and to begin
+  inflating ($t_\mathrm{inflate}$).}
 \end{table}
 
 
@@ -358,40 +365,43 @@ the vesicle is near its steady state circular shape.
 \fi
   \caption{\label{fig:ellipseArea} The area of an elliptical
   semi-permeable vesicle, with permeability rate $\beta$ in a quiescent
-  flow. The solid lines compute the area directly from the vesicle
-  shape, while the marks are computed by integrating
+  flow. The solid lines compute the area using
+  equation~\eqref{eqn:area}, while the marks are computed by integrating
   equation~\eqref{eqn:areaROC}. The dashed black lines are the times
-  when the vesicle's area is within 1\% of its maximum value of $4\pi$.}
+  when the vesicle's area is within 1.3\% of its maximum value of
+  $4\pi$.}
 \end{figure}
 
 We further analyze the transient dynamics for small $\beta$ by
-considering the contribution of each term in~\eqref{eqn:vesVelocity} to
-the vesicle velocity. Initially, the semi-permeability term $\beta(\ff
-\cdot \nn)\nn$ is much smaller than the velocity due to the force
-balance $\SS[\ff]$. Therefore, the velocity resembles that of an
-impermeable vesicle. However, as the vesicle approaches the impermeable
-limit, the velocity contribution from the force balance decays below the
-contribution from semi-permeability, and we expect the vesicle to begin
-inflating due to permeability. In Figure~\ref{fig:vesVelocity}, we plot
-the velocities at three times due to force balance (blue) and
-semi-permeability (red), where $\beta = 10^{-3}$. We also plot the
-velocity of an identically initialized impermeable vesicle. At $t=0.5$,
-the velocity due to semi-permeability is small relative to the velocity
-due to force balance, and the semi-permeable vesicle velocity matches
-with the impermeable vesicle velocity. At time $t=5$, the impermeable
-vesicle is near its steady state shape, and its velocity is comparable
-to the semi-permeable velocity, so the vesicle's area begins to
-increase. Then, at time $t=50$, the impermeable vesicle is at its steady
-state, while the semi-permeable vesicle still has contributions due to
-semi-permeability and force balance. In
-Figure~\ref{fig:vesVelocityNorm}, we plot the max norm of the different
-velocity contributions as a function of time. The black dashed lines
-correspond to the times reported in Figure~\ref{fig:vesVelocity}. Again,
-we see that the velocity of a semi-permeable vesicle is initially agrees
-with the velocity of an impermeable vesicle. Then, as the velocity due
-to force balance approaches zero, the semi-permeable term becomes
-significant, causing the vesicle to inflate until it reaches a circular
-shape.
+considering the vesicle velocity~\eqref{eqn:vesVelocity} due to
+semi-permeability, $\beta(\ff \cdot \nn)\nn$, and force balance,
+$\SS[\ff]$. Initially, since $\beta$ is small, the semi-permeability velocity is much
+smaller than the balance velocity. Therefore,
+the velocity resembles that of an impermeable vesicle. However, as the
+vesicle approaches the steady state shape of an impermeable vesicle, the
+force balance velocity decreases below the semi-permeability velocity,
+at which point the semi-permeable vesicle begins to inflate.  Finally,
+the vesicle semi-permeable inflates until it is circular with zero
+membrane force, and therefore zero velocity.  Letting $\beta = 10^{-3}$,
+in Figure~\ref{fig:vesVelocity} we plot the force balance velocity
+(blue) and the semi-permeability velocity (red) at three times. We also
+plot the velocity of an identically initialized impermeable vesicle
+(green). At $t=0.5$, semi-permeability velocity is small relative to the
+force balance velocity, and the semi-permeable velocity matches with the
+impermeable vesicle velocity. At time $t=5$, the velocity of the
+impermeable vesicle, and also the force balance velocity, are comparable
+in size to the semi-permeability velocity, and the semi-permeable
+vesicle begins to inflate. Then, at time $t=50$, the impermeable vesicle
+is at its steady state, while the semi-permeable vesicle still has
+contributions due to semi-permeability and force balance. In
+Figure~\ref{fig:vesVelocityNorm}, we plot the maximum norm of the
+different velocity contributions as a function of time. The black
+vertical lines correspond to the times reported in
+Figure~\ref{fig:vesVelocity}. Again, we see that the velocity of a
+semi-permeable vesicle initially agrees with the velocity of an
+impermeable vesicle. Then, as the force balance velocity approaches
+zero, the semi-permeable velocity becomes significant, causing the
+vesicle to inflate until it reaches a steady state circular shape.
 
 \begin{figure}[htp]
   \centering
@@ -402,8 +412,8 @@ shape.
   \fi
   \caption{\label{fig:vesVelocity} The velocity contributions due to
   semi-permeability (red) and force balance (blue). The green dashed
-  line is the velocity of an impermeable vesicle with an identical
-  initial shape.}
+  line is the velocity of an impermeable vesicle with the same initial
+  shape as the semi-permeable vesicle.}
 \end{figure}
 
 \begin{figure}[htp]
@@ -416,30 +426,28 @@ shape.
   correspond to the times reported in Figure~\ref{fig:vesVelocity}.}
 \end{figure}
 
-Finally, we consider a semi-permeable vesicle with initial regions of
-positive and negative curvature. The permeability rate is $\beta=1$, and
-several time steps are illustrated in Figure~\ref{fig:starShape}. As
-expected, the steady state shape is circular. The vesicle undergoes
-three general behaviors: (i) for $t \in (0,1.6 \times 10^{-2})$, the
-vesicle has a net negative flux resulting in a loss of area; (ii) for $t
-\in (1.6 \times 10^{-2},1.0 \times 10^{0})$, the vesicle has a net
-positive flux and the tension most of the membrane is undergoing
-negative tension; (iii) for $t \in (1.0 \times 10^{0},2.0 \times
-10^{0})$, the vesicle is near its steady state and transitions to a
-positive constant tension.
-
-We compute the tension $\Lambda$ and the flux $(-\xx_{ssss} + (\sigma
-\xx_s)_s) \cdot \nn$ and plot the results in
-Figure~\ref{fig:starTensionFlux}.  In the first time interval, the
-vesicle deflates. Near the points of largest negative curvature, there
-is a large negative tension and large inflow (positive flux).
+Finally, we consider a semi-permeable vesicle, with $\beta=1$, that
+initially has regions with positive curvature and others with negative
+curvature. The vesicle shape at several time steps is in
+Figure~\ref{fig:starShape}, and, as we have shown, the steady state
+shape is circular.  We also compute the tension, $\Lambda$, and the
+flux, $\ff \cdot \nn$, and plot the results in
+Figure~\ref{fig:starTensionFlux}. The vesicle undergoes three general
+behaviors: (i) For $t \in (0,1.6 \times 10^{-2})$, the vesicle has a net
+negative flux resulting in a loss of area; (ii) For $t \in (1.6 \times
+10^{-2},1.0)$, the vesicle has a net positive flux and the tension most
+of the membrane is undergoing negative tension; (iii) For $t \in
+(1.0,2.0)$, the vesicle is near its steady state and transitions to a
+positive constant tension. In the first time interval, the vesicle
+deflates. Near the points of largest negative curvature, there is a
+large negative tension and large inflow (positive flux).
 Correspondingly, near the points with largest positive curvature, there
 is a small tension and outflow (negative flux). In the second time
 interval, the tension is negative and the flux is positive nearly
-everywhere. The regions of large negative curvature correspond to
-regions with the largest negative tension and the most inflow. Finally,
-in the last time interval, the tension transitions to a positive
-constant function, the flux transitions to zero, and the result is a
+everywhere. The regions with largest negative curvature correspond to
+regions with largest negative tension and the most inflow. Finally, in
+the last time interval, the tension transitions to a positive constant
+function, the membrane force and flux transition to zero, resulting in a
 steady state circular vesicle with positive constant tension.
 
 \begin{figure}[htp]
@@ -455,8 +463,8 @@ steady state circular vesicle with positive constant tension.
     \input{figures/starRelaxation5.tikz}
     \fi
   \caption{\label{fig:starShape} An initially star-shaped semi-permeable
-  vesicle in a shear quiescent flow with $\beta=1$. Note that the time
-  steps are not equispaced.}
+  vesicle in a quiescent flow with $\beta=1$. Note that the time steps
+  are not equispaced.}
 \end{figure}
 
 \begin{figure}[htp]
@@ -473,7 +481,7 @@ steady state circular vesicle with positive constant tension.
   \includegraphics[width=0.19\textwidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime4.pdf}
   \includegraphics[width=0.19\textwidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime5.pdf}
   \caption{\label{fig:starTensionFlux} The vesicle tension (top) and
-  flux (bottom) of the semi-permeable vesicle in quiescent
+  flux (bottom) of the semi-permeable vesicle in a quiescent
   flow with $\beta=1$.}
 \end{figure}
 
@@ -484,14 +492,11 @@ steady state circular vesicle with positive constant tension.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Shear Flow}
 \begin{itemize}
-  \item Never goes to a circle
-  \item Area formula works
   \item Mild dependence on initial shape
-  \item Most slender tank treading shapes seen for small $\beta$ and
-    large $\chi$
 
   \item Look at tank-treading angle, tank-trading speed, reduced area,
     absolute value of the permeable flux
+
   \item Max flux at the steady state as a function of beta and
     $\dot{\gamma}$
 
@@ -501,16 +506,39 @@ steady state circular vesicle with positive constant tension.
 \end{itemize}
 
 We consider a semi-permeable vesicle in the shear flow
-$\uu_{\infty}(\xx) = \dot{\gamma} (y,0)$. For impermeable vesicles,
-depending on the reduced area and viscosity contrast, the vesicle will
-either tumble or tank-tread~\cite{fin-lam-sei-gom2008}. Since we are
-considering permeable vesicles, we assume that there is no fluid
-viscosity. 
+$\uu_{\infty}(\xx) = \dot{\gamma} (y,0)$ with different permeability
+rates $\beta$ and shear rates $\dot{\gamma}$.  For a two-dimensional
+impermeable vesicle, depending on the reduced area and viscosity
+contrast, vesicles in a shear flow either tank tread or
+tumble~\cite{fin-lam-sei-gom2008,kra-win-sei-lip1996}, but tumbling is
+not possible with viscosity contrast of one. Since we are considering
+semi-permeable vesicles, we assume that there is no viscosity contrast,
+and we do not expect to observe tumbling dynamics.
 
+We initialize an elliptical vesicle with reduced area $\nu = 0.65$, and
+with its long axis oriented in the $y$-direction. For all permeability
+rates and shear rates, the semi-permeable vesicle tilts to an
+inclination angle and undergoes tank-treading behavior. However, because
+of the semi-permeability, the final reduced area does not agree with the
+initial reduced area. In Figure~\ref{fig:shearPhase}, we plot the final
+shape of the vesicle for various permeability rates, $\beta$, and shear
+rates $\dot{\gamma}$. We also includes lines of constant final reduced
+area. We see that the shear rate has the largest effect on the final
+reduced area. However, for small $\beta$, the permeability rate also has
+a large effect on the final reduced area. In particular, the smallest
+final reduced areas are the result of large shear rates and small
+permeability rates.
 
-%\ifTikz
-%\input{figures/shearPhaseDiagram.tikz} 
-%\fi
+\begin{figure}[htp]
+\ifTikz
+\input{figures/shearPhaseDiagram.tikz} 
+\fi
+  \caption{\label{fig:shearPhase} The steady state shape of a
+  semi-permeable vesicle with several different permeability rates
+  $\beta$ and shear rates $\dot{\gamma}$. The black lines represent
+  contour lines of the final reduced areas, and the reduced area are
+  reported on the right.}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Extensional Flow}
