@@ -7,12 +7,12 @@ fprintf('First-order semi-implicit time stepping.\n');
 % Physics parameters
 prams.N = 128;               % points per vesicle
 prams.nv = 1;               % number of vesicles
-prams.T = 40;               % time horizon (two tumbling)
+prams.T = 1e4;               % time horizon (two tumbling)
 prams.m = 500;              % number of time steps
 prams.kappa = ones(prams.nv,1);   % bending coefficient
 prams.viscCont = ones(prams.nv,1);         % viscosity contrast
 options.farField = 'shear'; % background velocity
-options.farFieldSpeed = 1;
+options.farFieldSpeed = 1e-1;
 %options.farFieldSpeed = farFieldSpeed;
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -20,12 +20,12 @@ options.vesves = 'implicit';
 options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
-options.verbose = true;
+options.verbose = false;
 options.semipermeable = true;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-8;
 prams.errorTol = 1000;
-prams.fluxCoeff = 1.0e1;
+prams.fluxCoeff = 1e-3;
 %prams.fluxCoeff = fluxCoeff;
 options.fluxShape = 1;
 
@@ -37,8 +37,8 @@ prams.adStrength = 100;
 options.timeAdap = true;
 
 prams.rtolArea = 1e10;
-prams.rtolLength = 1e-2;
-prams.dtMax = 2;
+prams.rtolLength = 1e-1;
+prams.dtMax = 1e1;
 prams.dtMin = 1e-4;
 prams.betaUp = 1.2;
 prams.betaDown = 0.5;

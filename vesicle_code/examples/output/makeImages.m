@@ -2,7 +2,7 @@ addpath ../../src
 set(0,'DefaultAxesFontSize',22)
 options.savefig = false;
 
-irate = 1; % controls the speed of the visualization
+irate = 4000; % controls the speed of the visualization
 
 if 0
   file = 'parabolic1VesData.bin';
@@ -69,8 +69,8 @@ if 0
   ax = [-2 2 -2 2];
   options.confined = false;
 end
-if 0
-%  file = 'shear1VesData.bin';
+if 1
+  file = 'shear1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi4p0em1_ra065_beta2p0em1/shear1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/shearvBApr07/shearvBApr01E1B1Data.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/shearvBApr09/shearvBApr01E1B1Data.bin';
@@ -84,11 +84,13 @@ if 0
   ax = [-3 3 -3 3];
   options.confined = false;
 end
-if 1
-%  file = 'choke1VesData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/choke1Ves/beta1em5Scale5em1/choke1VesData.bin';
+if 0
+  file = 'choke1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/choke1Ves/beta1em3Scale4em1OffCenter/choke1VesData.bin';
   ax = [-20.5 20.5 -3.5 3.5];
   options.confined = true;
+  options.savefig = false;
+  count = 1;
 end
 
 if 0
@@ -215,6 +217,10 @@ for k = istart:irate:iend
     hold off
     axis equal
     axis(ax)
+    set(gca,'xtick',[])
+    set(gca,'ytick',[])
+    set(gca,'xcolor','white')
+    set(gca,'ycolor','white')
     titleStr = ['t = ' num2str(time(k),'%4.2e') ...
       ' eA = ' num2str(ea(k),'%4.2e') ...
       ' eL = ' num2str(el(k),'%4.2e')];
@@ -282,6 +288,17 @@ for k = istart:irate:iend
     filename = ['./frames/image', sprintf('%04d',count),'.pdf'];
     count = count+1;
     figure(1);
+    ti = get(gca,'TightInset');
+    set(gca,'Position',[ti(1) ti(2) 1-ti(3)-ti(1) 1-ti(4)-ti(2)]);
+    set(gca,'units','centimeters')
+    pos = get(gca,'Position');
+    ti = get(gca,'TightInset');
+    set(gcf, 'PaperUnits','centimeters');
+    set(gcf, 'PaperSize', [pos(3)+ti(1)+ti(3) pos(4)+ti(2)+ti(4)]);
+    set(gcf, 'PaperPositionMode', 'manual');
+    set(gcf, 'PaperPosition',[0 0 pos(3)+ti(1)+ti(3) pos(4)+ti(2)+ti(4)]);
+
+
     print(gcf,'-dpdf','-r300',filename);
   end
   pause(0.01)
