@@ -8,7 +8,7 @@ fprintf('Implicit vesicle-boundary interactions.\n');
 %format long
 prams.N = 64;                 % points per vesicle
 prams.nv = 1;                  % number of vesicles
-prams.T = 50;                  %time horizon
+prams.T = 20;                  %time horizon
 prams.m = 1200;                % number of time steps
 prams.Nbd = 512;               % number of points on solid wall
 prams.nvbd = 1;                % number of components to solid walls
@@ -19,7 +19,7 @@ prams.errorTol = 8e-1;
 % Maximum relative error in area and length before the simulation
 % is stopped
 prams.dtMin = 1e-4;
-prams.dtMax = 1e-1;
+prams.dtMax = 1e0;
 
 options.semipermeable = true;
 prams.fluxCoeff = 1e-3;
@@ -66,14 +66,16 @@ prams.alpha = 0.9;
 % Also add src to path
 
 oc = curve;
-X = oc.initConfig(prams.N,'nv',prams.nv,'angle',pi/3,...
+X = oc.initConfig(prams.N,'nv',prams.nv,'angle',pi/2,...
    'scale',0.5,...
-   'center',[[-15;1]],'reducedArea',0.65);
+   'center',[[-15;0]],'reducedArea',0.65);
 
 % load chokeIC
 Xwalls = oc.initConfig(prams.Nbd,options.farField);
 
-Xfinal = Ves2D(X,Xwalls,prams,options);
+pressTar = [-18;18;0;0];
+
+Xfinal = Ves2D(X,Xwalls,prams,options,pressTar);
 % Run vesicle code
 
 

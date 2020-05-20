@@ -2299,7 +2299,6 @@ oc = curve;
 nx = vesicle.xt(vesicle.N+1:2*vesicle.N,:);
 ny = -vesicle.xt(1:vesicle.N,:);
 
-
 if nargin == 6
   Ntar = size(Xtar,1)/2;
   ncol = size(Xtar,2);

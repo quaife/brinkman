@@ -1,8 +1,9 @@
 addpath ../../src
 set(0,'DefaultAxesFontSize',22)
 options.savefig = false;
+options.pressure = false;
 
-irate = 4000; % controls the speed of the visualization
+irate = 2; % controls the speed of the visualization
 
 if 0
   file = 'parabolic1VesData.bin';
@@ -69,11 +70,9 @@ if 0
   ax = [-2 2 -2 2];
   options.confined = false;
 end
-if 1
-  file = 'shear1VesData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi4p0em1_ra065_beta2p0em1/shear1VesData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/shearvBApr07/shearvBApr01E1B1Data.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/shearvBApr09/shearvBApr01E1B1Data.bin';
+if 0
+%  file = 'shear1VesUData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e2_ra065_beta1p0em3p5/shear1VesData.bin';
   ax = [-5 5 -5 5];
   options.confined = false;
   beta = 0.2;
@@ -84,11 +83,12 @@ if 0
   ax = [-3 3 -3 3];
   options.confined = false;
 end
-if 0
+if 1
   file = 'choke1VesData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/choke1Ves/beta1em3Scale4em1OffCenter/choke1VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/choke1Ves/beta1em3Scale5em1/choke1VesData.bin';
   ax = [-20.5 20.5 -3.5 3.5];
   options.confined = true;
+  options.pressure = true;
   options.savefig = false;
   count = 1;
 end
@@ -111,9 +111,14 @@ end
 
 
 [posx,posy,ten,wallx,wally,ea,el,time,n,nv] = loadFile(file);
-%[posx,posy,ten,~,~,wallx,wally,ea,el,time,n,nv] = loadFileOld(file);
-% load positions, tension, stresses, errors, time, number of points, and
+% load positions, tension, errors, time, number of points, and
 % number of vesicles
+if options.pressure
+  fileName = [file(1:end-8) 'Pressure.bin'];
+  [pressx,pressy,press] = loadPressure(fileName);
+  dpress = diff(press);
+end
+
 istart = 1;
 iend = numel(time);
 ntime = iend;
@@ -143,12 +148,14 @@ for k = istart:1:iend
   [ra(k),area(k),length(k)] = oc.geomProp([posx(:,1,k);posy(:,1,k)]);
 %  incAng(k) = InclinationAngle(posx(:,1,k),posy(:,1,k));
 
+  if 0
   vesicle = capsules([posx(:,:,k);posy(:,:,k)],[],[],1,1);
   normal(1:end/2,:,k) = +vesicle.xt(end/2+1:end,:);
   normal(end/2+1:end,:,k) = -vesicle.xt(1:end/2,:);
   trac(:,:,k) = vesicle.tracJump([posx(:,:,k);posy(:,:,k)],ten(:,:,k));
   [jac(:,:,k),~,cur(:,:,k)] = oc.diffProp([posx(:,1,k);posy(:,1,k)]);
   ten(:,:,k) = ten(:,:,k) + 1.5*cur(:,:,k).^2;
+  end
 %
 %  G = op.stokesSLmatrix(vesicle);
 %  velSLP(:,k) = G*trac(:,:,k);

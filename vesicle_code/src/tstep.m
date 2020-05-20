@@ -161,17 +161,17 @@ end % initialConfined
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [Xstore,sigStore,uStore,etaStore,RSstore] = ...
   firstSteps(o,options,prams,Xinit,sigInit,uInit,...
-  walls,wallsCoarse,om,pressTar)
+  walls,wallsCoarse,om)
 % [Xstore,sigStore,uStore,etaStore,RSstore] = ...
 %   firstSteps(options,prams,Xinit,sigInit,uInit,...
-%   walls,wallsCoarse,om,pressTar)
+%   walls,wallsCoarse,om)
 % refines the first time step [0,dt] and uses a first-order, then
 % second-order, then third-order, etc time stepping to find the vesicle
 % position, tension, velocity, and density function eta defined on the
-% solid walls and the rotlets and stokeslets at t = dt.  Returns
-% Xstore, sigStore, uStore etaStore, so that they are immediatly ready
-% to use for higher-order time stepping.  This routine also computes
-% the tension and density functions of the initial condition.  This is
+% solid walls and the rotlets and stokeslets at t = dt.  Returns Xstore,
+% sigStore, uStore etaStore, so that they are immediatly ready to use
+% for higher-order time stepping.  This routine also computes the
+% tension and density functions of the initial condition.  This is
 % needed in SDC since we require these functions at all Gauss-Lobatto
 % points in order to compute the residual
 
@@ -202,7 +202,7 @@ vesicle.sig = sigStore;
 % need intial tension, density function, rotlets, and stokeslets so that
 % we can do SDC updates
 
-om.initializeFiles(Xinit,sigStore,etaStore,RSstore,Xwalls,pressTar);
+om.initializeFiles(Xinit,sigStore,etaStore,RSstore,Xwalls);
 % delete previous versions of files and write some initial
 % options/parameters to files and the console
 
