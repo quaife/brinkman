@@ -124,8 +124,8 @@ function [X,nv] = initConfig(o,N,varargin)
 %   'couette'     - the vesicles inside the default geometry of 
 %                   couette flow (confined). 
 %   'scale'       - multiplies the size of the output boundary
-%   'choke'       - returns a choked domain.  Usually a solid boundary
-%
+%   'choke'       - returns a choked domain.
+%   'slit'        - returns a slitted geometry
 %   'couette'     - returns a domain for a couette apparatus.
 %   'tube'        - returns a domain that is an ellongated ellipse
 
@@ -237,6 +237,36 @@ elseif any(strcmp(options,'chokeLong'))
       (1-c)/(1+c);
   y(ind) = y(ind).*[scalRat;scalRat];
   X0 = [x;y];
+  % choked domain.  a and b control the length and height.  c
+  % controls the width of the gap, and order controls the
+  % regularity
+
+elseif any(strcmp(options,'slit'))
+  a = 10; b = 3; c = 0.7; order = 8;
+  % parameters for the boundary
+  t = (0:N-1)'*2*pi/N;
+  r = (cos(t).^order + sin(t).^order).^(-1/order);
+  x = a*r.*cos(t); y = b*r.*sin(t);
+  thresh = 0.5;
+  ind = abs(x) < thresh;
+  scalRat = 2*c/(1+c)*...
+      (0.5-0.5*cos(pi*x(ind(1:end/2))/thresh)).^10 + ...   
+      (1-c)/(1+c);
+  y(ind) = y(ind).*[scalRat;scalRat];
+  X0 = [x;y];
+
+  sa = o.diffProp(X0);
+  t = o.arc(sa);
+  r = (cos(t).^order + sin(t).^order).^(-1/order);
+  x = a*r.*cos(t); y = b*r.*sin(t);
+  ind = abs(x) < thresh;
+  scalRat = 2*c/(1+c)*...
+      (0.5-0.5*cos(pi*x(ind(1:end/2))/thresh)).^10 + ...   
+      (1-c)/(1+c);
+  y(ind) = y(ind).*[scalRat;scalRat];
+  X0 = [x;y];
+
+
   % choked domain.  a and b control the length and height.  c
   % controls the width of the gap, and order controls the
   % regularity

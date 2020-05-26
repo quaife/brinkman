@@ -21,8 +21,8 @@ prams.errorTol = 8e-1;
 prams.dtMin = 1e-4;
 prams.dtMax = 1e0;
 
-options.semipermeable = true;
-prams.fluxCoeff = 1e-3;
+options.semipermeable = false;
+prams.fluxCoeff = 0e-3;
 options.fluxShape = 1; % constant value
 
 options.farField = 'chokeLong';      % Constricted domain

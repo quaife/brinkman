@@ -3,7 +3,7 @@ set(0,'DefaultAxesFontSize',22)
 options.savefig = false;
 options.pressure = false;
 
-irate = 2; % controls the speed of the visualization
+irate = 1; % controls the speed of the visualization
 
 if 0
   file = 'parabolic1VesData.bin';
@@ -70,9 +70,9 @@ if 0
   ax = [-2 2 -2 2];
   options.confined = false;
 end
-if 1
-  file = 'shear1VesHData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e2_ra065_beta1p0em4/shear1VesData.bin';
+if 0
+%  file = 'shear1VesIData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em0p5_ra065_beta1p0em4p5/shear1VesData.bin';
   ax = [-5 5 -5 5];
   options.confined = false;
   beta = 0.2;
@@ -92,7 +92,13 @@ if 0
   options.savefig = false;
   count = 1;
 end
-
+if 1
+  file = 'slit1VesData.bin';
+  ax = [-6.5 6.5 -3.5 3.5];
+  options.confined = true;
+  options.savefig = true;
+  count = 1;
+end
 if 0
   file = 'shear1VesData_ASP_FC0FS1_RApt6_H3_Rpt6.bin';
   options.confined = false;

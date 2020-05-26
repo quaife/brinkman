@@ -2758,6 +2758,17 @@ elseif (any(strcmp(varargin,'choke')) || ...
   T12 = zeros(N,nv);
   T22 = zeros(N,nv);
 
+elseif any(strcmp(varargin,'slit'))
+  vInf = zeros(2*N,nv);
+  ind = abs(x)>7;
+  ymax = max(y(ind));
+  vx = (ymax^2-y(ind).^2)/ymax^2;
+  % parabolic flow
+  vInf(ind,:) = vx;
+  T11 = zeros(N,nv);
+  T12 = zeros(N,nv);
+  T22 = zeros(N,nv);
+
 elseif any(strcmp(varargin,'chokeLong'))
   vInf = zeros(2*N,nv);
   ind = abs(x)>17;
