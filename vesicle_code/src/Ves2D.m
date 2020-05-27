@@ -93,6 +93,7 @@ time = 0;
 
 accept = true;
 % Main time stepping loop
+nstep = 0;
 while time < prams.T - 1e-10
 %%Hacking for time-varying periodic flow 02/21/2020
 %  tt.farField = @(X) tt.bgFlow(X,options.farField,...
@@ -172,6 +173,12 @@ while time < prams.T - 1e-10
 
 
   if accept
+    nstep = nstep + 1;
+    if mod(nstep,1000) == 1
+      om.saveData = true;
+    else
+      om.saveData = false;
+    end
     terminate = om.outputInfo(X,sigma,u,eta,RS,...
         Xwalls,time,iter,dtScale,res,iflag);
     % check if we have violated the error in area or length also plot
