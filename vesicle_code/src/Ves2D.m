@@ -1,4 +1,4 @@
-function Xfinal  = Ves2D(X,Xwalls,prams,options,pressTar)
+function Xfinal = Ves2D(X,Xwalls,prams,options,pressTar)
 % Ves2D does time stepping on the intial configuration X
 % with parameters and options defined in prams and options.
 % Also can pass a set of initial target points where one wants 
@@ -9,8 +9,13 @@ global derivs  ;  % number of times we compute differential
                   % operators for preconditioning
 global fmms       % number of fmm calls
 
+om = monitor(X,Xwalls,options,prams);
+% Create class for doing input/output
+
 if nargin == 4
   pressTar = [];   % points to compute pressure for postprocessing
+else
+  om.initializePressure(pressTar); 
 end
 
 matvecs = 0; 
@@ -29,9 +34,6 @@ N = prams.N; % Number of points per vesicle
 nv = prams.nv; % Number of vesicles
 Nbd = prams.Nbd; % number of points per solid wall
 nvbd = prams.nvbd; % number of solid wall components
-
-om = monitor(X,Xwalls,options,prams);
-% Create class for doing input/output
 
 if options.profile
   profile off; profile on -timer real;
@@ -85,8 +87,30 @@ end
 %
 [Xstore,sigStore,uStore,etaStore,RSstore] = ...
     tt.firstSteps(options,prams,Xstore,sigStore,uStore,...
-    walls,wallsCoarse,om,pressTar);
+    walls,wallsCoarse,om);
 % Was for higher-order multistep methods which have been fazed out.
+
+% compute pressure and stress
+if nargin == 5
+  op = poten(walls.N);
+  [~,pressDLPtar] = op.exactPressDL(walls,etaStore,[],pressTar,1);
+  pressDLPtar = pressDLPtar(1:end/2);
+
+  vesicle = capsules(Xstore,sigStore,uStore,...
+    prams.kappa,prams.viscCont,options.semipermeable,...
+    prams.fluxCoeff,options.fluxShape);
+  tracJump = vesicle.tracJump(Xstore,sigStore);
+  % compute traction
+
+  op = poten(vesicle.N);
+  [~,pressSLPtar] = op.exactPressSL(vesicle,tracJump,[],pressTar,1);
+  pressSLPtar = pressSLPtar(1:end/2);
+
+  om.writePressure(pressDLPtar + pressSLPtar);
+  % write the pressure contributions to file
+end
+
+
 
 time = 0;
 % initial time
@@ -213,7 +237,7 @@ while time < prams.T - 1e-10
   else
     nreject = nreject + 1;
   end % if accept
-  % save data if solution was accepted, compute pressure and stress
+  % save data if solution was accepted
 
   Xstore = X;
   sigStore = sigma;
@@ -222,6 +246,26 @@ while time < prams.T - 1e-10
   RSstore = RS;
   % update the positions, tension, and velocity field of the vesicles,
   % and the density function and rotlet and stokeslets
+
+  % compute pressure and stress
+  if (accept && nargin == 5)
+    op = poten(walls.N);
+    [~,pressDLPtar] = op.exactPressDL(walls,etaStore,[],pressTar,1);
+    pressDLPtar = pressDLPtar(1:end/2);
+
+    vesicle = capsules(Xstore,sigStore,uStore,...
+      prams.kappa,prams.viscCont,options.semipermeable,...
+      prams.fluxCoeff,options.fluxShape);
+    tracJump = vesicle.tracJump(Xstore,sigStore);
+    % compute traction
+
+    op = poten(vesicle.N);
+    [~,pressSLPtar] = op.exactPressSL(vesicle,tracJump,[],pressTar,1);
+    pressSLPtar = pressSLPtar(1:end/2);
+
+    om.writePressure(pressDLPtar + pressSLPtar);
+    % write the pressure contributions to file
+  end
 end
 % end of main 
 

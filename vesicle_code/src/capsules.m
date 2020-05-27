@@ -432,6 +432,10 @@ for k = 1:nv
 end
 % build vesicle part of the block-diagonal preconditioner GMRES
 
+%clf
+%plot(tt.sigDenMatVec(tt.preconditionerBD(rhs),vesicle,walls) - rhs)
+%pause
+
 [sigDen,F,R,I] = gmres(@(X) tt.sigDenMatVec(X,vesicle,walls),rhs,...
     [],tt.gmresTol,min(tt.gmresMaxIter,N*nv+2*Nbd*nvbd + 3*(nvbd-1)),...
     @tt.preconditionerBD);

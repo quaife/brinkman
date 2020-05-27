@@ -79,13 +79,11 @@ oc = curve;
 end % constructor: monitor
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function initializeFiles(o,X,sig,eta,RS,Xwalls,pressTar)
-% initializeFiles(X,sig,eta,RS,Xwalls,pressTar) does the initial writing
-% of data to files and the console.  It first deletes any previous data
-% and then writes the number of points, tracer initial conditions,
-% pressure targets X and Xwalls are the vesicles and solid walls, and
-% pressTar are initial conditions for the tracers and pressure/stress
-% target locations
+function initializeFiles(o,X,sig,eta,RS,Xwalls)
+% initializeFiles(X,sig,eta,RS,Xwalls) does the initial writing of data
+% to files and the console.  It first deletes any previous data and then
+% writes the number of points, tracer initial conditions, pressure
+% targets X and Xwalls are the vesicles and solid walls.
 
 N = o.N; % points per vesicle
 nv = o.nv; % number of vesicles
@@ -197,6 +195,43 @@ o.writeMessage(' ','%s\n')
 end % initializeFiles
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function initializePressure(o,pressTar)
+% initializePressure(pressTar) does the initial writing of data to
+% pressure file 
+
+oc = curve;
+[xx,yy] = oc.getXY(pressTar);
+% seperate x and y coordinates of target points
+N = numel(xx);
+
+fileName = [o.dataFile(1:end-8) 'Pressure.bin'];
+if o.saveData
+  fid = fopen(fileName,'w');
+  fwrite(fid,N,'double');
+  % write number of target points to the pressure data file
+  fwrite(fid,[xx(:),yy(:)],'double');
+  % write the pressure target points to file
+  fclose(fid);
+end
+
+end % initializePressure
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function writePressure(o,pressTar)
+% writePressure(press) writes the current pressure to a file
+
+fileName = [o.dataFile(1:end-8) 'Pressure.bin'];
+if o.saveData
+  fid = fopen(fileName,'a');
+  fwrite(fid,pressTar,'double');
+  % write the pressure target points to file
+  fclose(fid);
+end
+
+
+end % writePressure
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function terminate = outputInfo(o,X,sigma,u,eta,RS,...
     Xwalls,time,iter,dtScale,res,iflag)
 % computes the error in area and length and write messages to the data
@@ -232,9 +267,9 @@ end
 
 % Begin saving data
 if o.saveData
-  % don't want to save initial small time steps, but still
-  % want to check the error in area and length so that the
-  % simulation is killed early on if need be
+  % don't want to save initial small time steps, but still want to check
+  % the error in area and length so that the simulation is killed early
+  % on if need be
   o.writeData(X,sigma,ea,el,time,res);
 end
 % End saving data

@@ -8,7 +8,13 @@ nv = val(2);
 nbd = val(3);
 nvbd = val(4);
 walls = val(5:5+2*nbd*nvbd-1);
-val = val(5+2*nbd*nvbd:end);
+%if numel(val) > 1e7
+%  val = val(end-100*(3*n+3)+1:end);
+%  % If file is huge, only look at last 20 time steps or will run out of
+%  % RAM
+%else
+  val = val(5+2*nbd*nvbd:end);
+%end
 
 ntime = numel(val)/(3*n*nv+3);
 % 2 positions, tension, two stresses
@@ -16,6 +22,7 @@ ntime = numel(val)/(3*n*nv+3);
 if ntime ~= ceil(ntime);
   disp('PROBLEM WITH VALUES FOR n AND nv');
 end
+ntime = floor(ntime);
 
 wallx = zeros(nbd,nvbd);
 wally = zeros(nbd,nvbd);

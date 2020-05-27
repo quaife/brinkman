@@ -6,13 +6,13 @@ fprintf('Implicit vesicle-vesicle interactions.\n');
 fprintf('Implicit vesicle-boundary interactions.\n');
 
 %format long
-prams.N = 64;                 % points per vesicle
+prams.N = 128;                 % points per vesicle
 prams.nv = 1;                  % number of vesicles
-prams.T = 20;                  %time horizon
-prams.m = 1200;                % number of time steps
-prams.Nbd = 512;               % number of points on solid wall
+prams.T = 10;                  %time horizon
+prams.m = 12000;                % number of time steps
+prams.Nbd = 1024;               % number of points on solid wall
 prams.nvbd = 1;                % number of components to solid walls
-prams.kappa = 1e-1;            % bending coefficient
+prams.kappa = 1;            % bending coefficient
 prams.viscCont = 1*ones(prams.nv,1);            % viscosity contrast
 prams.gmresTol = 1e-10;        % GMRES tolerance
 prams.errorTol = 8e-1;
@@ -21,11 +21,11 @@ prams.errorTol = 8e-1;
 prams.dtMin = 1e-4;
 prams.dtMax = 1e0;
 
-options.semipermeable = false;
-prams.fluxCoeff = 0e-3;
+options.semipermeable = true;
+prams.fluxCoeff = 1e-3;
 options.fluxShape = 1; % constant value
 
-options.farField = 'chokeLong';      % Constricted domain
+options.farField = 'slit';      % Slit domain
 % background velocity or solid walls (which comes with a default
 % boundary condition)
 options.vesves = 'implicit';
@@ -42,9 +42,9 @@ options.axis = [-20.5 20.5 -3.5 3.5];
 % Axis for plots if usePlot = true
 options.saveData = true;    
 % Save vesicle information and create a log file
-options.logFile = 'output/choke1Ves.log';
+options.logFile = 'output/slit1Ves.log';
 % Name of log file
-options.dataFile = 'output/choke1VesData.bin';
+options.dataFile = 'output/slit1VesData.bin';
 % Name of binary data file for storing vesicle information
 options.verbose = true;
 % Decides how much info is written to console
@@ -67,15 +67,14 @@ prams.alpha = 0.9;
 
 oc = curve;
 X = oc.initConfig(prams.N,'nv',prams.nv,'angle',pi/2,...
-   'scale',0.5,...
-   'center',[[-15;0]],'reducedArea',0.65);
+   'scale',0.65,...
+   'center',[[-5;0]],'reducedArea',0.65);
 
-% load chokeIC
+
+% load slit boundary
 Xwalls = oc.initConfig(prams.Nbd,options.farField);
 
-pressTar = [-18;18;0;0];
-
+pressTar = [-8;8;0;0];
 Xfinal = Ves2D(X,Xwalls,prams,options,pressTar);
 % Run vesicle code
-
 

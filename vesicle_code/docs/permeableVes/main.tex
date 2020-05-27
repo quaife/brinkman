@@ -1,8 +1,8 @@
 \documentclass[aps,prl,showpacs]{revtex4}
 
 \newif\ifTikz
-\Tikztrue
-%\Tikzfalse
+%\Tikztrue
+\Tikzfalse
 
 %\usepackage{showkeys}
 \usepackage{amsmath,amsfonts,bm}
@@ -531,10 +531,10 @@ permeability rates.
 \todo[inline]{Also reporting inclination angle as well}
 
 \begin{figure}[htp]
-%\ifTikz
+\ifTikz
 \input{figures/shearPhaseDiagramRA.tikz} 
 \input{figures/shearPhaseDiagramIA.tikz} 
-%\fi
+\fi
   \caption{\label{fig:shearPhase} The steady state shape of a
   semi-permeable vesicle with several different permeability rates
   $\beta$ and shear rates $\dot{\gamma}$. The black lines represent
@@ -542,6 +542,10 @@ permeability rates.
   angle (right). The reduced area and inclination angle of each
   contour line are reported.}
 \end{figure}
+
+%\ifTikz
+\input{figures/shearPhaseDiagramRA2.tikz}
+%\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Extensional Flow}
@@ -559,6 +563,7 @@ permeability rates.
   \item Does permeability affect the rate of migration
 \end{itemize}
 
+\input{figures/parabolicPhaseDiagram.tikz}
 
 
  \bibliographystyle{plain}
