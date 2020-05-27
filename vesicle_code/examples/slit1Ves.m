@@ -42,6 +42,8 @@ options.axis = [-20.5 20.5 -3.5 3.5];
 % Axis for plots if usePlot = true
 options.saveData = true;    
 % Save vesicle information and create a log file
+prams.saveRate = 1;
+% How often to save
 options.logFile = 'output/slit1Ves.log';
 % Name of log file
 options.dataFile = 'output/slit1VesData.bin';

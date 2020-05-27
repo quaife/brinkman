@@ -198,7 +198,7 @@ while time < prams.T - 1e-10
 
   if accept
     nstep = nstep + 1;
-    if mod(nstep,1000) == 1
+    if mod(nstep,prams.saveRate) == 1
       om.saveData = true;
     else
       om.saveData = false;
