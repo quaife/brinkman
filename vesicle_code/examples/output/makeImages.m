@@ -71,8 +71,8 @@ if 0
   options.confined = false;
 end
 if 0
-%  file = 'shear1VesIData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em0p5_ra065_beta1p0em4p5/shear1VesData.bin';
+  file = 'shear1VesKData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em0p5_ra065_beta1p0em4p5/shear1VesData.bin';
   ax = [-5 5 -5 5];
   options.confined = false;
   beta = 0.2;
@@ -94,9 +94,11 @@ if 0
 end
 if 1
   file = 'slit1VesData.bin';
-  ax = [-6.5 6.5 -3.5 3.5];
+%  file = '~/projects/brinkman/vesicle_code/results/slit/Scale0p55_Beta1em4/slit1VesData.bin';
+  ax = [-5 5 -2.5 2.5];
   options.confined = true;
-  options.savefig = true;
+  options.pressure = true;
+  options.savefig = false;
   count = 1;
 end
 if 0
@@ -310,7 +312,6 @@ for k = istart:irate:iend
     set(gcf, 'PaperSize', [pos(3)+ti(1)+ti(3) pos(4)+ti(2)+ti(4)]);
     set(gcf, 'PaperPositionMode', 'manual');
     set(gcf, 'PaperPosition',[0 0 pos(3)+ti(1)+ti(3) pos(4)+ti(2)+ti(4)]);
-
 
     print(gcf,'-dpdf','-r300',filename);
   end
