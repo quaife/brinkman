@@ -6,7 +6,9 @@ options.pressure = false;
 irate = 1; % controls the speed of the visualization
 
 if 0
-  file = 'parabolic1VesData.bin';
+%  file = 'parabolic1VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u10B1em4Data.bin';
+  options.confined = false;
 end
 if 0
 %  file = 'extensional1VesCleanData.bin'; irate = 2;
@@ -70,9 +72,9 @@ if 0
   ax = [-2 2 -2 2];
   options.confined = false;
 end
-if 0
-  file = 'shear1VesKData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em0p5_ra065_beta1p0em4p5/shear1VesData.bin';
+if 1
+  file = 'shear1VesNData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e2_ra065_beta1p0em4p5/shear1VesData.bin';
   ax = [-5 5 -5 5];
   options.confined = false;
   beta = 0.2;
@@ -92,9 +94,12 @@ if 0
   options.savefig = false;
   count = 1;
 end
-if 1
-  file = 'slit1VesData.bin';
+if 0
+%  file = 'slit1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/slit/Scale0p55_Beta0/slit1VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/slit/Scale0p55_Beta1em3/slit1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/slit/Scale0p55_Beta1em4/slit1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/slit/Scale0p55_Beta1em5/slit1VesData.bin';
   ax = [-5 5 -2.5 2.5];
   options.confined = true;
   options.pressure = true;
