@@ -4,11 +4,16 @@
 \begin{axis}[
     xmin = 0,
     xmax = 6.2832,
-    xtick = \empty,
+    xtick = {0,1.5708,3.1416,4.7124,6.2832},
+    xticklabels = {$0$, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+    xlabel = {\large $s$},
     ymin = -0.001,
     ymax = +0.001,
     ytick = {-0.001,0,0.001},
     yticklabels = {$-10^{-3}$,$0$,$10^{-3}$},
+    ylabel = {\large $\uu \cdot \nn$},
+    ylabel near ticks,
+    ylabel shift = {-18pt},
     scaled y ticks = false,
     title = {\Large $t = 50$},
   ]

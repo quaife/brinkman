@@ -241,6 +241,18 @@ elseif any(strcmp(options,'chokeLong'))
   % controls the width of the gap, and order controls the
   % regularity
 
+  sa = o.diffProp(X0);
+  t = o.arc(sa);
+  r = (cos(t).^order + sin(t).^order).^(-1/order);
+  x = a*r.*cos(t); y = b*r.*sin(t);
+  ind = abs(x) < 10;
+  scalRat = 2*c/(1+c)*(0.5-0.5*cos(pi*x(ind(1:end/2))/10)).^10 + ...   
+      (1-c)/(1+c);
+  y(ind) = y(ind).*[scalRat;scalRat];
+  X0 = [x;y];
+  % redistribute points so that it is equispaced in arclength
+
+
 elseif any(strcmp(options,'slit'))
   a = 10; b = 3; c = 0.7; order = 8;
   % parameters for the boundary
@@ -265,8 +277,6 @@ elseif any(strcmp(options,'slit'))
       (1-c)/(1+c);
   y(ind) = y(ind).*[scalRat;scalRat];
   X0 = [x;y];
-
-
   % choked domain.  a and b control the length and height.  c
   % controls the width of the gap, and order controls the
   % regularity

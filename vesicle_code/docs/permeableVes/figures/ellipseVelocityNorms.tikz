@@ -13,7 +13,7 @@
     xtick = {1e-3,1e-2,1e-1,1e0,1e1,1e2,1e3,1e4},
     xticklabels = {,$10^{-2}$,,$10^0$,,$10^2$,,$10^4$},
     xlabel = {\large $t$},
-    ylabel = {\large $\|\uu\|_\infty$},
+    ylabel = {\large $\|\uu \cdot \nn\|_\infty$},
     ylabel near ticks,
     legend entries = {Force Balance,
     Semi-permeable Flux,Impermeable},

@@ -1,13 +1,18 @@
 \begin{tikzpicture}[scale=0.7]
 
 \begin{axis}[
-    xtick = \empty,
     xmin = 0,
     xmax = 6.2832,
+    xtick = {0,1.5708,3.1416,4.7124,6.2832},
+    xticklabels = {$0$, $\pi$, $2\pi$, $3\pi$, $4\pi$},
+    xlabel = {\large $s$},
     ymin = -0.1,
     ymax = +0.1,
     ytick = {-0.1,0,0.1},
     yticklabels = {$-10^{-1}$,$0$,$10^{-1}$},
+    ylabel = {\large $\uu \cdot \nn$},
+    ylabel near ticks,
+    ylabel shift = {-18pt},
     scaled y ticks = false,
     scaled y ticks = false,
     title = {\Large $t = 0.5$},

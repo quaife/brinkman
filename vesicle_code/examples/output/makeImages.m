@@ -73,8 +73,8 @@ if 0
   options.confined = false;
 end
 if 1
-  file = 'shear1VesNData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e2_ra065_beta1p0em4p5/shear1VesData.bin';
+  file = 'shear1VesBData_Part2.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em0p5_ra065_beta1p0em5/shear1VesData.bin';
   ax = [-5 5 -5 5];
   options.confined = false;
   beta = 0.2;
