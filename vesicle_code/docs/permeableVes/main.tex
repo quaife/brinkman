@@ -527,7 +527,7 @@ resolves the vesicle-wall interaction.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Poiseuille Flow}
-We consider a semi-permeable vesicle in the poiseuille flow $\uu =
+We consider a semi-permeable vesicle in the Poiseuille flow $\uu =
 U(1-(y/R)^2,0)$, where $R=10$ determines the flow width, and $U$ is the
 maximum flow rate. The length of the vesicle is $L = 4\pi$ and its
 initial reduced area is $\nu = 0.65$. In
@@ -606,6 +606,18 @@ see that both times scale with $\beta^{-1}$.
     \bottomrule
   \end{tabular}
 \end{table}
+
+Finally, we examine the effect of the non-linear Poiseuille flow in the
+migration of semi-permeable vesicle. Similar to experiments performed by
+Kaoui et al.~\cite{kao-bir-mis2009}, we initialize the vesicle's
+center of mass above the $y$-axis and examine the y position of its
+center of mass, denoted by $Y_G$.
+
+\begin{itemize}
+  \item If the flow rate is too small, the vesicle only migrates part
+    way before it turns into a circle. Once it's a circle, it acts like
+    a rigid body, so it no longer migrates towards the center line
+\end{itemize}
 
 
 
@@ -1062,5 +1074,7 @@ see that both times scale with $\beta^{-1}$.
 %  the velocity of an impermeable vesicle (green). The three black lines
 %  correspond to the times reported in Figure~\ref{fig:vesVelocity}.}
 %\end{figure}
+
+\input{figures/shearPhaseDiagramRA2.tikz}
 
 \end{document}
