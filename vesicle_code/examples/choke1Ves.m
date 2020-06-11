@@ -37,7 +37,7 @@ options.fmmDLP = ~true;
 % use FMM to compute single-layer potential
 options.confined = true;   % confined or unbounded geometry
 % Used for geometry and boundary conditins of solid walls
-options.usePlot = false;     % View vesicles during run
+options.usePlot = true;     % View vesicles during run
 options.axis = [-20.5 20.5 -3.5 3.5]; 
 % Axis for plots if usePlot = true
 options.saveData = true;    
@@ -67,7 +67,7 @@ prams.alpha = 0.9;
 
 oc = curve;
 X = oc.initConfig(prams.N,'nv',prams.nv,'angle',pi/2,...
-   'scale',0.5,...
+   'scale',0.1,...
    'center',[[-15;0]],'reducedArea',0.65);
 
 % load chokeIC

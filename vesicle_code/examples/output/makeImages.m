@@ -6,8 +6,8 @@ options.pressure = false;
 irate = 1; % controls the speed of the visualization
 
 if 0
-%  file = 'parabolic1VesData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u10B1em4Data.bin';
+  file = 'parabolic1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1e2B1em4Data.bin';
   options.confined = false;
 end
 if 0
@@ -73,21 +73,21 @@ if 0
   options.confined = false;
 end
 if 1
-  file = 'shear1VesBData_Part2.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em0p5_ra065_beta1p0em5/shear1VesData.bin';
+  file = 'shear1VesUData_Part3.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e2_ra065_beta1p0em4p5/shear1VesData.bin';
   ax = [-5 5 -5 5];
   options.confined = false;
   beta = 0.2;
 end
 if 0
 %  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR1em1adS1e0Chi5em1_ra090/shear2VesData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR1em1adS3em1Chi2p5em1_ra090/shear2VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR1em1adS3em1Chi2p5em1_ra090/shear2VesData_Part2.bin';
   ax = [-3 3 -3 3];
   options.confined = false;
 end
 if 0
   file = 'choke1VesData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/choke1Ves/beta1em3Scale5em1/choke1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/choke1Ves/beta0Scale0p55/choke1VesData.bin';
   ax = [-20.5 20.5 -3.5 3.5];
   options.confined = true;
   options.pressure = true;
@@ -154,20 +154,25 @@ velBen = zeros(2*n,ntime);
 velTen = zeros(2*n,ntime);
 velSLP = zeros(2*n,ntime);
 velFlux = zeros(2*n,ntime);
+cx = zeros(ntime,1); % x coordinate of center of mass
+cy = zeros(ntime,1); % y coordinate of center of mass
 
 op = poten(n);
 for k = istart:1:iend
-%for k = numel(time)-11:numel(time)
   [ra(k),area(k),length(k)] = oc.geomProp([posx(:,1,k);posy(:,1,k)]);
 %  incAng(k) = InclinationAngle(posx(:,1,k),posy(:,1,k));
 
-  if 0
-  vesicle = capsules([posx(:,:,k);posy(:,:,k)],[],[],1,1);
-  normal(1:end/2,:,k) = +vesicle.xt(end/2+1:end,:);
-  normal(end/2+1:end,:,k) = -vesicle.xt(1:end/2,:);
-  trac(:,:,k) = vesicle.tracJump([posx(:,:,k);posy(:,:,k)],ten(:,:,k));
-  [jac(:,:,k),~,cur(:,:,k)] = oc.diffProp([posx(:,1,k);posy(:,1,k)]);
-  ten(:,:,k) = ten(:,:,k) + 1.5*cur(:,:,k).^2;
+  if 1
+    vesicle = capsules([posx(:,:,k);posy(:,:,k)],[],[],1,1);
+    normal(1:end/2,:,k) = +vesicle.xt(end/2+1:end,:);
+    normal(end/2+1:end,:,k) = -vesicle.xt(1:end/2,:);
+%    trac(:,:,k) = vesicle.tracJump([posx(:,:,k);posy(:,:,k)],ten(:,:,k));
+    [jac(:,:,k),~,cur(:,:,k)] = oc.diffProp([posx(:,1,k);posy(:,1,k)]);
+%    ten(:,:,k) = ten(:,:,k) + 1.5*cur(:,:,k).^2;
+    cx(k) = 1/(2*area(k))*sum(...
+        posx(:,:,k).^2.*normal(1:end/2,:,k).*jac(:,:,k))*2*pi/n;
+    cy(k) = 1/(2*area(k))*sum(...
+        posy(:,:,k).^2.*normal(end/2+1:end,:,k).*jac(:,:,k))*2*pi/n;
   end
 %
 %  G = op.stokesSLmatrix(vesicle);
@@ -202,7 +207,7 @@ max_flux = +2;
 figure(1); clf
 for k = istart:irate:iend
 %  xx = interpft(posx(:,:,k),256); yy = interpft(posy(:,:,k),256);  
-  xx = posx(:,:,k);
+  xx = posx(:,:,k) - 0*cx(k);
   yy = posy(:,:,k);
   tt = ten(:,:,k);
   vec1 = [xx(:,:);xx(1,:)];

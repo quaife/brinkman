@@ -7,15 +7,17 @@ file{2} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u1em0p5B1e
 file{3} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u1B1em5Data.bin';
 file{4} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u1e0p5B1em5Data.bin';
 file{5} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u10B1em5Data.bin';
-file{6} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u1e1p5B1em5Data.bin';
-file{7} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u100B1em5Data.bin';
+file{6} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u1e1p5B1em5bData.bin';
+%file{7} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u100B1em5Data.bin';
+file{7} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u100B1em5aData.bin';
 
 file{8} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u0p1B1em4Data.bin';
 file{9} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u1em0p5B1em4Data.bin';
 file{10} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u1B1em4Data.bin';
 file{11} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u1e0p5B1em4Data.bin';
 file{12} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u10B1em4Data.bin';
-file{13} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u1e1p5B1em4Data.bin';
+%file{13} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u1e1p5B1em4Data.bin';
+file{13} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u1e1p5B1em4bData.bin';
 file{14} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u100B1em4Data.bin';
 
 file{15} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u0p1B1em3Data.bin';
@@ -24,7 +26,8 @@ file{17} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u1B1em3Da
 file{18} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u1e0p5B1em3Data.bin';
 file{19} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u10B1em3Data.bin';
 file{20} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u1e1p5B1em3Data.bin';
-file{21} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR100u10B1em3Data.bin';
+file{21} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u100B1em3Data.bin';
+file{21} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u100B1em3aData.bin';
 
 file{22} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u0p1B1em2Data.bin';
 file{23} = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u1em0p5B1em2Data.bin';
@@ -61,8 +64,8 @@ chis = {'1e-1','1e-0.5','1e0','1e0.5','1e1','1e1.5','1e2'};
 
 fid = fopen('data.dat','w');
 %for j = 1:numel(file)
-for j = 1:42
-  if (j ~= 14 && j~=21 && j ~= 35 && j ~= 42)
+for j = 7:7
+%  if (j ~= 14 && j~=21 && j ~= 35 && j ~= 42)
     disp(j)
     [posx,posy,~,~,~,~,~,~,n,~] = loadFile(file{j});
     x = [posx(:,:,end);posx(1,:,end)];
@@ -86,7 +89,7 @@ for j = 1:42
     clf;
     plot(x,y,'r')
     pause(.01)
-  end
+%  end
 end
 fclose(fid); 
 
