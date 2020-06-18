@@ -11,7 +11,8 @@ x0; % single tracker point
 y0; % single tracker point
 bendsti; % max bending stiffness
 bendratio; % bending ratio
-
+viscIn;
+viscOut;
 
 end % properties
 
@@ -31,6 +32,8 @@ o.x0 = X(1);
 o.y0 = X(o.N + 1);
 o.bendsti = params.bendsti;
 o.bendratio = params.bendratio;
+o.viscIn = params.viscosityInside;
+o.viscOut = params.viscosityOutside;
 
 end % vesicle
 
@@ -126,9 +129,16 @@ Drbn_cur = oc.diffFT(rbn.*cur,IK)/(ves.L/2/pi);
 DDrbn_cur = oc.diffFT(Drbn_cur,IK)/(ves.L/2/pi);
 
 Esigma = -DDrbn_cur - 0.5*rbn.*cur.^3;
+%Esigma is equation (14) with spotaneous curvature set to zero.
+
 Eu = -Drbn.*cur.^2;
-% SHUWANG QUESTION: THIS IS A PLUS SIGN IN THE PAPER (EQUATION (13)),
-% BUT IS A MINUS SIGN IN SHUWANG'S CODE
+%Eu is the second term in equation (13) (differs by a negative
+%sign - possibly from the negative sign in eq(23) which has a negative on 
+%the variation for u). The last term drops since spontaneous curvature is 
+%0. The first term is not in this routine since we are only calculating 
+%variations due to changes in the vesicle shape and not the lipid species.
+%** SHUWANG QUESTION: THIS IS A PLUS SIGN IN THE PAPER (EQUATION (13)),
+% BUT IS A MINUS SIGN IN SHUWANG'S CODE **OLD COMMENT???
 
 %clf
 %plot(Drbn)
