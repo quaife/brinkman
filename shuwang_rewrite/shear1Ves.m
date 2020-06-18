@@ -19,7 +19,7 @@ params.nloop = 20;
 % the hydrodynamics
 params.epsch = 5e-2; % small parameter  in the double-well potential 
 params.gmresTol = 1e-10; %GMRES tolerance
-params.gmresMaxIter = 10; %maximum number of GMRES iterations
+params.gmresMaxIter = params.N; %maximum number of GMRES iterations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 time = 0; %current time
 nstep = round(params.T/params.dt); %total number of time steps

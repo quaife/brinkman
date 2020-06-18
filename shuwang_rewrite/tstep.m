@@ -92,8 +92,15 @@ rhs = -dvdotsds/L + vdotn.*ves.cur;
 %Solve the linear system for LambdaTilde in (39) using GMRES.
 %Each iteration of GMRES requires a solution of Stokes equation
 %LambdaTilde is the lambda with a tilde in eq (39)
-lambTil = gmres(@(x)o.matvec40(rhs,StokesMat),rhs,N/2,o.gmresTol,...
-              o.gmresMaxIter,@(x)o.preconditioner(rhs));
+[lambTil,flag,relres,iter,resvec] = ...
+      gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
+              o.gmresMaxIter,@(x) x);
+%      gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
+%              o.gmresMaxIter,@(x)o.preconditioner(x));
+%      flag
+%      relres
+%      iter
+%      pause
 %calculate the Fourier derivative of lambdaTilde
 dlamTilds = oc.diffFT(lambTil,IK);
 % We can now calculate the traction jump in first part of equation (39).
