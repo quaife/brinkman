@@ -252,6 +252,15 @@ while time < prams.T - 1e-10
     op = poten(walls.N);
     [~,pressDLPtar] = op.exactPressDL(walls,etaStore,[],pressTar,1);
     pressDLPtar = pressDLPtar(1:end/2);
+%    figure(1); clf
+%%    plot(pressTar(1:end/2),pressDLPtar)
+%    plot(pressTar(2:end/2),diff(pressDLPtar)./diff(pressTar(1:end/2)))
+%%    pressDLPtar(end) - pressDLPtar(1)
+%
+%    [~,stokesDLPtar] = op.exactStokesDL(walls,etaStore,pressTar,1);
+%    figure(2); clf;
+%    plot(pressTar(1:end/2),stokesDLPtar(1:end/2))
+%    pause
 
     vesicle = capsules(Xstore,sigStore,uStore,...
       prams.kappa,prams.viscCont,options.semipermeable,...

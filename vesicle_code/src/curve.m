@@ -233,6 +233,7 @@ elseif any(strcmp(options,'chokeLong'))
   r = (cos(t).^order + sin(t).^order).^(-1/order);
   x = a*r.*cos(t); y = b*r.*sin(t);
   ind = abs(x) < 10;
+%  ind = abs(x) < 0;
   scalRat = 2*c/(1+c)*(0.5-0.5*cos(pi*x(ind(1:end/2))/10)).^10 + ...   
       (1-c)/(1+c);
   y(ind) = y(ind).*[scalRat;scalRat];
@@ -246,12 +247,46 @@ elseif any(strcmp(options,'chokeLong'))
   r = (cos(t).^order + sin(t).^order).^(-1/order);
   x = a*r.*cos(t); y = b*r.*sin(t);
   ind = abs(x) < 10;
+%  ind = abs(x) < 0;
   scalRat = 2*c/(1+c)*(0.5-0.5*cos(pi*x(ind(1:end/2))/10)).^10 + ...   
       (1-c)/(1+c);
   y(ind) = y(ind).*[scalRat;scalRat];
+
+%  t = (0:N-1)'*2*pi/N;
+%  x = 10*cos(t); y = 10*sin(t);
   X0 = [x;y];
   % redistribute points so that it is equispaced in arclength
 
+elseif any(strcmp(options,'chokeLonger'))
+  a = 100; b = 25/2; c = 0.67; order = 8;
+  % parameters for the boundary
+  t = (0:N-1)'*2*pi/N;
+  r = (cos(t).^order + sin(t).^order).^(-1/order);
+  x = a*r.*cos(t); y = b*r.*sin(t);
+  ind = abs(x) < 35;
+  scalRat = 2*c/(1+c)*(0.5-0.5*cos(pi*x(ind(1:end/2))/35)).^10 + ...   
+      (1-c)/(1+c);
+  y(ind) = y(ind).*[scalRat;scalRat];
+  X0 = [x;y];
+  % choked domain.  a and b control the length and height.  c
+  % controls the width of the gap, and order controls the
+  % regularity
+
+  sa = o.diffProp(X0);
+  t = o.arc(sa);
+  r = (cos(t).^order + sin(t).^order).^(-1/order);
+  x = a*r.*cos(t); y = b*r.*sin(t);
+  ind = abs(x) < 35;
+  scalRat = 2*c/(1+c)*(0.5-0.5*cos(pi*x(ind(1:end/2))/35)).^10 + ...   
+      (1-c)/(1+c);
+  y(ind) = y(ind).*[scalRat;scalRat];
+
+  X0 = [x;y];
+  % redistribute points so that it is equispaced in arclength
+%  clf
+%  plot(x,y,'k-')
+%  axis equal;
+%  pause
 
 elseif any(strcmp(options,'slit'))
   a = 10; b = 3; c = 0.7; order = 8;

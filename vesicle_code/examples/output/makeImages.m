@@ -72,9 +72,9 @@ if 0
   ax = [-2 2 -2 2];
   options.confined = false;
 end
-if 1
-  file = 'shear1VesUData_Part3.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e2_ra065_beta1p0em4p5/shear1VesData.bin';
+if 0
+%  file = 'shear1VesFData_Part3.bin';
+  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1p5_ra065_beta1p0em4p5/shear1VesData_Part3.bin';
   ax = [-5 5 -5 5];
   options.confined = false;
   beta = 0.2;
@@ -85,14 +85,15 @@ if 0
   ax = [-3 3 -3 3];
   options.confined = false;
 end
-if 0
+if 1
   file = 'choke1VesData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/choke1Ves/beta0Scale0p55/choke1VesData.bin';
-  ax = [-20.5 20.5 -3.5 3.5];
+%  file = '~/projects/brinkman/vesicle_code/results/choke1Ves/beta0Scale0p40/choke1VesData.bin';
+  ax = [-50 50 -12.5 12.5];
   options.confined = true;
   options.pressure = true;
   options.savefig = false;
   count = 1;
+  irate = 1;
 end
 if 0
 %  file = 'slit1VesData.bin';

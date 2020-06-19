@@ -2772,6 +2772,7 @@ elseif any(strcmp(varargin,'slit'))
 elseif any(strcmp(varargin,'chokeLong'))
   vInf = zeros(2*N,nv);
   ind = abs(x)>17;
+%  ind = abs(x)>0;
   ymax = max(y(ind));
   vx = (ymax^2-y(ind).^2)/ymax^2;
   % parabolic flow
@@ -2779,6 +2780,23 @@ elseif any(strcmp(varargin,'chokeLong'))
   T11 = zeros(N,nv);
   T12 = zeros(N,nv);
   T22 = zeros(N,nv);
+%  figure(3); clf;
+%  quiver(x,y,vInf(1:end/2),vInf(end/2+1:end))
+
+elseif any(strcmp(varargin,'chokeLonger'))
+  vInf = zeros(2*N,nv);
+  ind = abs(x)>60;
+%  ymax = max(y(ind));
+  ymax = 12.5;
+  vx = (ymax^2-y(ind).^2)/ymax^2;
+  % parabolic flow
+  vInf(ind,:) = vx;
+  T11 = zeros(N,nv);
+  T12 = zeros(N,nv);
+  T22 = zeros(N,nv);
+%  figure(3); clf;
+%  quiver(x,y,vInf(1:end/2),vInf(end/2+1:end))
+%  pause
   
 elseif any(strcmp(varargin,'couette'))
   vInf = [zeros(2*N,1) 1*[-y(:,2)+mean(y(:,2));x(:,2)-mean(x(:,2))]];
