@@ -28,6 +28,7 @@ prams.errorTol = 1000;
 prams.fluxCoeff = 1e-3;
 %prams.fluxCoeff = fluxCoeff;
 options.fluxShape = 1;
+prams.saveRate = 1000
 
 options.adhesion = false;
 prams.adRange = 0.4;

@@ -5,9 +5,9 @@ scale = 2;
 file{1} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em1_ra065_beta1p0em5/shear1VesData.bin';
 file{2} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em0p5_ra065_beta1p0em5/shear1VesData_Part2.bin';
 file{3} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e0_ra065_beta1p0em5/shear1VesData_Part3.bin';
-file{4} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e0p5_ra065_beta1p0em5/shear1VesData_Part3.bin';
-file{5} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1_ra065_beta1p0em5/shear1VesData_Part3.bin';
-file{6} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1p5_ra065_beta1p0em5/shear1VesData_Part3.bin';
+file{4} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e0p5_ra065_beta1p0em5/shear1VesData_Part4.bin';
+file{5} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1_ra065_beta1p0em5/shear1VesData_Part4.bin';
+file{6} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1p5_ra065_beta1p0em5/shear1VesData_Part4.bin';
 file{7} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e2_ra065_beta1p0em5/shear1VesData.bin';
 
 file{8} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em1_ra065_beta1p0em4p5/shear1VesData.bin';

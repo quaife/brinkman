@@ -6,8 +6,17 @@ options.pressure = false;
 irate = 1; % controls the speed of the visualization
 
 if 0
-  file = 'parabolic1VesData.bin';
+%  file = 'parabolic1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1e2B1em4Data.bin';
+%  file = '~/Dropbox/Adhesion/PermeableV/pflow_offcenter_Jun21/pflowR10u1e0p5B1em4bData.bin';
+%  file = '~/Dropbox/Adhesion/PermeableV/pflow_offcenter_Jun21/pflowR10u1em0p0B1em4bData.bin';
+%  file = '~/Dropbox/Adhesion/PermeableV/pflow_offcenter_Jun21/pflowR10u1em0p5B1em4bData.bin';
+%  file = '~/Dropbox/Adhesion/PermeableV/pflow_offcenter_Jun21/pflowR10u1em1p0B1em4bData.bin';
+%  file = '~/Dropbox/Adhesion/PermeableV/pflow_offcenter_Jun21/pflowR10u1ep0B1em4bData.bin';
+  file = '~/Dropbox/Adhesion/PermeableV/pflow_offcenter_Jun21/pflowR10u1ep1p0B1em4dData.bin';
+%  file = '~/Dropbox/Adhesion/PermeableV/pflow_offcenter_Jun21/pflowR10u1ep1p0B0em4dData.bin';
+  ax = 5*[-1 1 -1 1];
+  irate = 10;
   options.confined = false;
 end
 if 0
@@ -73,8 +82,8 @@ if 0
   options.confined = false;
 end
 if 0
-%  file = 'shear1VesFData_Part3.bin';
-  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1p5_ra065_beta1p0em4p5/shear1VesData_Part3.bin';
+%  file = 'shear1VesDData_Part4.bin';
+  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e2_ra065_beta1p0em5/shear1VesData.bin';
   ax = [-5 5 -5 5];
   options.confined = false;
   beta = 0.2;
@@ -87,13 +96,16 @@ if 0
 end
 if 1
   file = 'choke1VesData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/choke1Ves/beta0Scale0p40/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield1e0/choke1VesData.bin'
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e1_farfield1e0/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e2_farfield1e0/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield1e2/choke1VesData.bin';
   ax = [-50 50 -12.5 12.5];
   options.confined = true;
   options.pressure = true;
   options.savefig = false;
   count = 1;
-  irate = 1;
+  irate = 4;
 end
 if 0
 %  file = 'slit1VesData.bin';
@@ -137,7 +149,7 @@ istart = 1;
 iend = numel(time);
 ntime = iend;
 ntime = numel(time);
-time = time(istart:iend);
+%time = time(istart:iend);
 
 oc = curve;
 [~,~,L] = oc.geomProp([posx(:,1,1);posy(:,1,1)]);
@@ -217,7 +229,7 @@ for k = istart:irate:iend
   vec4 = [flux(:,k);flux(1,k)];
   if 1
     clf; hold on;
-    plot(vec1,vec2,'r','linewidth',3)
+    plot(vec1,vec2,'r-','linewidth',3)
 %    plot(vec1(1,:),vec2(1,:),'b.','markersize',20)
 %    for j = 1:1
 %      subplot(1,2,1)

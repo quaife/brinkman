@@ -530,19 +530,31 @@ resolves the vesicle-wall interaction.
 We consider a semi-permeable vesicle in the Poiseuille flow $\uu =
 U(1-(y/R)^2,0)$, where $R=10$ determines the flow width, and $U$ is the
 maximum flow rate. The length of the vesicle is $L = 4\pi$ and its
-initial reduced area is $\nu = 0.65$. In
-Figure~\ref{fig:parabolicPhaseDiagram}, plot the steady state
-configuration for a variety of flow rates $U$ and permeability rates
-$\beta$. Similar to the shear example, we see that the flow rate has the
-biggest effect on the final shape, and the effect of the permeability
-rate is much weaker. Instead, the permeability rate determines the time
-required for the vesicle to reach a steady state. In
-Tables~\ref{tbl:parabolicRelaxTimes1}
+initial reduced area is $\nu = 0.65$. We first investigate the the
+effect of the flow rate $U$ and the permability rate $\beta$ on the
+steady state shape of the vesicle when it is initially placed on the
+center line $y=0$. Figure~\ref{fig:parabolicPhaseDiagram} shows the
+steady state configuration for a variety of flow rates $U$ and
+permeability rates $\beta$. Similar to the shear example, we see that
+the flow rate has the biggest effect on the final shape while the
+permeability rate has a much weaker effect. Instead, the permeability
+rate determines the time required for the vesicle to reach a steady
+state. In Tables~\ref{tbl:parabolicRelaxTimes1}
 and~\ref{tbl:parabolicRelaxTimes2}, we consider two flow rates and
 report the time, $t_\mathrm{steady}$, required for the vesicle's area to
 be within 1.3\% of its maximum area, and the time, $t_\mathrm{inflate}$,
 required for the vesicle's area to exceed 1.3\% of its initial area. We
 see that both times scale with $\beta^{-1}$. 
+
+As a second experiment, we investigate the effect of $U$ and $\beta$
+when the vesicle is initialized above line $y=0$. Kaoui et
+al.~\cite{kao-bir-mis2009} analyzed the migration of the same
+experiment, but with an impermeable vesicle. They showed that for
+above a critical reduced area, the vesicle migrates to the center line
+$y=0$ as a symmetric shape. However, for smaller reduced areas, the
+limiting shape is a tank-treading slipper with a center of mass above
+the center line $y=0$. We repeat this experiment but with a
+semi-permeable vesicle.
 
 
 \begin{figure}[htp]
@@ -620,7 +632,34 @@ center of mass, denoted by $Y_G$.
     a rigid body, so it no longer migrates towards the center line
 \end{itemize}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Semi-Permeable Vesicle in Stenosis}
+Inspired by an experiment that measured the effects of cells on the
+dynamical pressure-drop variations along a micrometer-sized
+channel~\cite{abk-fai-sto2006}, we consider a numerical experiment where
+a semi-permeable vesicle passes through a constriction. We also measure
+the pressure-drop variation by measuring the pressure at the inlet and
+outlet of the constriction. 
 
+In each experiment, we initialize an elliptical vesicle with longest
+diameter of 9$\mu$m. We use a length scale of $R_0 = 10^{-6}$m, a
+bending stiffness of $k_b = 10^{-19}$J, and fluid viscosity of $\mu=5
+\times 10^{-2}$kg/ms. Using the relaxation time scale $\tau = \mu
+R_0^3/k_b = 5 \times 10^{-1}$s, the velocity scale is $U = 2 \times
+10^{-6}$m/s, and the pressure scale is $P = k_b/R_0^3 = 10^{-1}$Pa.  The
+geometry is similar to the experiment~\cite{abk-fai-sto2006} where the
+membrane starts in a channel with diameter $25\mu$m and passes into a
+channel with length $45\mu$m and diameter $5\mu$m. Our numerical methods
+are unable to achieve the high-speed flow rate in the experiments, so we
+consider a much smaller flow rate.
+
+\begin{figure}[htp]
+%  \ifTikz
+  \input{figures/stenosisGeom.tikz}
+%  \fi
+%  \includegraphics[width=0.8\linewidth]{figures/parabolicPhaseDiagram.pdf}
+  \caption{\label{fig:stenosisGeom} A caption.}
+\end{figure}
 
 
 
@@ -1076,6 +1115,7 @@ center of mass, denoted by $Y_G$.
 %  correspond to the times reported in Figure~\ref{fig:vesVelocity}.}
 %\end{figure}
 
+ \newpage
 \input{figures/shearPhaseDiagramRA2.tikz}
 %\input{figures/parabolicPhaseDiagram.tikz}
 
