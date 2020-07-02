@@ -136,6 +136,8 @@ IK = oc.modes(N);
 %The the derivative of the rhs of eq(40)
 drhsds = oc.diffFT(rhs,IK);
 %Compute the forces
+dkap = oc.acurv(ves);
+norm(dkap-
 tau1 = rhs.*ves.cur.*sin(theta) - drhsds.*cos(theta)/L;
 tau2 = -rhs.*ves.cur.*cos(theta) -drhsds.*sin(theta)/L;
 %form the velocity on the interface

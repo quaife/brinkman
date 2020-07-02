@@ -5,8 +5,12 @@ rhscolume=rhs';
 
 % based on the variable name, it seems that this is solving for a
 % velocity
-vell = gmres(@afun,rhscolume,m/2,tol,maxit,@mfun);
+[vell,flag,relres,iter,resvec] = gmres(@afun,rhscolume,m/2,tol,maxit,@mfun);
 vel = vell';
+flag
+relres
+iter
+resvec
 
 % matvec corresponding to equation (40)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

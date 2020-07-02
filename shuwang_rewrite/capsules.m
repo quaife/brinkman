@@ -34,7 +34,6 @@ o.bendsti = params.bendsti;
 o.bendratio = params.bendratio;
 o.viscIn = params.viscosityInside;
 o.viscOut = params.viscosityOutside;
-
 end % vesicle
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

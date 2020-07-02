@@ -49,7 +49,7 @@ denom43 = abs(sin(rt));
 % denominator of equation (43)
 
 irr = 1./(conj(r).*r);    % 1/r^2
-d1 = real(r); % x-coordinate of r
+d1 = real(r); % x-coordinate of rxxx
 d2 = imag(r); % y-coordinate of r
 Ilogr = -log(abs(r)./denom43);  % log(1/r) diag block
 % Putting ones in the diagonal of r and denom results in taking log of

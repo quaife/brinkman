@@ -38,7 +38,7 @@ rcon = oc.initialConcentration(params.N,alpha,...
 ves = capsules(X,rcon,params);
 plot([ves.X(1:end/2);ves.X(1)],[ves.X(end/2 +1:end);ves.X(end/2 +1)])
 axis equal
-pause(1)
+pause
 
 %smooth the geometry by requiring that the opening tangent angle theta
 %is band limited. Note that it will still have some small coefficients
