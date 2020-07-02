@@ -305,16 +305,16 @@ if symmetry == -1
   rcon = concentration + smallper*10*(rand(N,1) - 0.5);
   % uniform concentration with a little random noise
 elseif symmetry == 0
-  rcon = concentration + 3*smallper*cos(alpha) + ...
-    0.5*smallper*cos(3*alpha) + ...
-    0.5*smallper*cos(4*alpha);
+  rcon = concentration + 3*smallper*cos(2*pi*alpha) + ...
+    0.5*smallper*cos(3*2*pi*alpha) + ...
+    0.5*smallper*cos(4*2*pi*alpha);
   % uniform concentration with a little noise at specific even Fourier
   % modes
 elseif symmetry==1
-  rcon = concentration + 5*smallper*cos(2*alpha);
+  rcon = concentration + 5*smallper*cos(2*2*pi*alpha);
   % uniform concentration with one small even Fourier mode
 elseif symmetry==2
-  rcon = concentration+ 5*smallper*sin(alpha);
+  rcon = concentration+ 5*smallper*sin(2*pi*alpha);
   % uniform concentration with one small odd Fourier mode
 end
 
@@ -428,7 +428,11 @@ N = ves.N;
 theta = ves.theta;
 IK = o.modes(N);
 
-dx = o.diffFT([theta - 2*pi],IK) + 2*pi;
+% function with the same increase over a period of 2*pi as the angle
+% theta
+linearPart = (0:N-1)'*2*pi/N; 
+
+dx = o.diffFT([theta - linearPart],IK) + 2*pi;
 
 end %rmLinearPart
 

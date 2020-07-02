@@ -85,17 +85,25 @@ IK = oc.modes(N);
 dvdotsds = oc.diffFT(vdots,IK);
 % compute the initial curvature using the tangent angle
 ves.cur = oc.acurv(ves);
+% NOTE: make sure this is the actual curvature. Compare with the
+% analytic expression for the ellipse that can easily be computed.
 %Calculate the right hand side of equation (40)
 rhs = -dvdotsds/L + vdotn.*ves.cur;
 %The velocity components in eq (40) are nonlocal linear functions of 
 %lambdaTilde. 
+%semilogy(abs(fftshift(fft(rhs)))/numel(rhs))
+plot(rhs)
+pause
 
 %Solve the linear system for LambdaTilde in (39) using GMRES.
 %Each iteration of GMRES requires a solution of Stokes equation
 %LambdaTilde is the lambda with a tilde in eq (39)
 [lambTil,flag,relres,iter,resvec] = ...
       gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
-              o.gmresMaxIter,@(x) o.preconditioner(x));
+          o.gmresMaxIter);
+%[lambTil,flag,relres,iter,resvec] = ...
+%      gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
+%              o.gmresMaxIter,@(x) o.preconditioner(x));
 %      gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
 %              o.gmresMaxIter,@(x)o.preconditioner(x));
 %      flag
