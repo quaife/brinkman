@@ -36,6 +36,7 @@ rcon = oc.initialConcentration(params.N,alpha,...
       params.concentra,params.oddeven);
 %build object for the vesicle but without a band-limited opening angle
 ves = capsules(X,rcon,params);
+
 plot([ves.X(1:end/2);ves.X(1)],[ves.X(end/2 +1:end);ves.X(end/2 +1)])
 axis equal
 pause(1)
@@ -44,7 +45,9 @@ pause(1)
 %is band limited. Note that it will still have some small coefficients
 %in the tails of the Fourier spectrum, but they will be much smaller
 %than the original theta
-ves.smoothGeom;
+%ves.smoothGeom;
+%plot(ves.theta)
+%pause
 %Initialize time-stepping class
 tt = tstep(params,ves);
 %compute the x velocity, y velocity using the initialized concentration
@@ -74,7 +77,7 @@ fntheta = oc.fthetaim(ves,unt,utn);
 %next evolve the shape and the phase distribution in Fourier space.
 %Fourier series of the derivative of the tangent angle. i.e. Fourier
 %series of N_1
-fsN1 = fft(theta);
+fsN1 = fft(fntheta);
 %Fourier derivative of the tangent angle adjusted by a linear function
 %so that we are taking the fft of a periodic function
 fsTA = fft(theta - [2*pi*(0:ves.N-1)/ves.N]');
@@ -97,7 +100,6 @@ d1 = exp(-(params.dt*(rsl + rsln)/2));
 %step of Euler with the stiffest term treated implicitly and integrated
 %with an integrating factor
 thetan = real(ifft(d1.*(fsTA + params.dt*fsN1)))+2*pi*(0:ves.N-1)'/ves.N;
-ves.theta = thetan;
 %lipid species model for u
 rk = 2*pi*[0 1:ves.N/2 ves.N/2-1:-1:1]'; 
 %Fourier modes, but scaled by 2*pi. Note that these two vectors will be
@@ -148,6 +150,7 @@ for ktime = 1:nstep
   un1 = unloop(1);
   ut1 = utloop(1);
   %put the x-y velocity into the normal and tangential velocity.
+  ves.theta = thetan;
   theta = ves.theta;
   unt  = unloop.*sin(theta) - utloop.*cos(theta); %Tangential Velocity
   utn = unloop.*cos(theta) + utloop.*sin(theta); %Normal Velocity
@@ -185,7 +188,7 @@ for ktime = 1:nstep
   %thetann is now the tangent angle of the new shape after taking a single
   %step of Euler with the stiffest term treated implicitly and integrated
   %with an integrating factor
-  ves.theta = real(ifft(d1.*fcthetan + 0.5*params.dt*(3*d1.*fcfnthetan- ...
+  thetann = real(ifft(d1.*fcthetan + 0.5*params.dt*(3*d1.*fcfnthetan- ...
             d2.*fcfntheta)))+2*pi*(0:ves.N-1)'/ves.N;
   %Do we need to keep this? there's no change between sl, sln, slnn
   
@@ -215,6 +218,7 @@ for ktime = 1:nstep
   end
   %update variables for loop
   dcur0 = dcur1;
+  thetan = thetann;
   fntheta = fnthetan;    
   %update the single tracker point
   ves.x0 = ves.x0 + 0.5*params.dt*(3*un1 - un0);

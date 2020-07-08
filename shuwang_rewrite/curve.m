@@ -430,9 +430,10 @@ IK = o.modes(N);
 
 % function with the same increase over a period of 2*pi as the angle
 % theta
-linearPart = (0:N-1)'*2*pi/N; 
+%linearPart = (0:1:N-1)'-2*pi*(0:1:N-1)'/N; 
 
-dx = o.diffFT([theta - linearPart],IK) + 2*pi;
+%dx = o.diffFT([theta - linearPart],IK) + 2*pi;
+dx = o.diffFT([theta - 2*pi*(0:1:N-1)'/N],IK) + 2*pi;
 
 end %rmLinearPart
 
