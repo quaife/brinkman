@@ -92,9 +92,13 @@ rhs = -dvdotsds/L + vdotn.*ves.cur;
 %The velocity components in eq (40) are nonlocal linear functions of 
 %lambdaTilde. 
 %semilogy(abs(fftshift(fft(rhs)))/numel(rhs))
+figure(1)
 disp('plotting crv')
-% plot(ves.cur)
-% pause
+ plot(ves.cur)
+disp('plotting theta')
+figure(2)
+ plot(ves.theta)
+ pause(1)
 
 %Solve the linear system for LambdaTilde in (39) using GMRES.
 %Each iteration of GMRES requires a solution of Stokes equation

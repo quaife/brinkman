@@ -37,9 +37,9 @@ rcon = oc.initialConcentration(params.N,alpha,...
 %build object for the vesicle but without a band-limited opening angle
 ves = capsules(X,rcon,params);
 
-plot([ves.X(1:end/2);ves.X(1)],[ves.X(end/2 +1:end);ves.X(end/2 +1)])
-axis equal
-pause(1)
+%plot([ves.X(1:end/2);ves.X(1)],[ves.X(end/2 +1:end);ves.X(end/2 +1)])
+%axis equal
+%pause(1)
 
 %smooth the geometry by requiring that the opening tangent angle theta
 %is band limited. Note that it will still have some small coefficients
@@ -225,6 +225,6 @@ for ktime = 1:nstep
   ves.y0 = ves.y0 + 0.5*params.dt*(3*ut1 - ut0);
   %Update X
   X = oc.recon(ves.N,ves.x0,ves.y0,ves.L,ves.theta);
-  plot(real(X(1:end/2)),real(X(end/2 +1:end)))
-  pause(1)
+  %plot(real(X(1:end/2)),real(X(end/2 +1:end)))
+  %pause(1)
 end
