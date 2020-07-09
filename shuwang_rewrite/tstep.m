@@ -106,6 +106,17 @@ figure(2)
 [lambTil,flag,relres,iter,resvec] = ...
       gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
           o.gmresMaxIter);
+%flag
+%relres
+%figure(1); clf;
+%%plot(rhs)
+figure(2); clf
+%plot(StokesMat*[rhs;rhs])
+surf(StokesMat)
+shading interp
+%%plot(o.matvec40(lambTil,StokesMat) - rhs)
+%%plot(lambTil)
+pause
 %[lambTil,flag,relres,iter,resvec] = ...
 %      gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
 %              o.gmresMaxIter,@(x) o.preconditioner(x));
@@ -132,8 +143,10 @@ force = op.IntegrateLogKernel(tau);
 %non-singular and weakly singular integral operators
 un = k(1:N)*c1 - tau(1:N)*c2 + ves.X(N+1:end)*o.shearRate;
 ut = k(N+1:end)*c1 - tau(N+1:end)*c2;
+
 end % usetself
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function x = matvec40(o,rhs,StokesMat)   
 %This function cooresponds to the matvec in equation 40 and returns
 %%(u \cdot s)_s + kappa * (u \cdot n)  as x

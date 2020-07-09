@@ -99,14 +99,16 @@ if 1
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield1e0/choke1VesData.bin'
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e1_farfield1e0/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e2_farfield1e0/choke1VesData.bin';
-file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield5e2/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield5e2/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield1e2/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
   ax = [-50 50 -12.5 12.5];
   options.confined = true;
   options.pressure = true;
   options.savefig = false;
   count = 1;
-  irate = 4;
+  irate = 10;
 end
 if 0
 %  file = 'slit1VesData.bin';

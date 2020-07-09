@@ -1,13 +1,13 @@
 
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
-params.N = 64; % points on vesicle
+params.N = 2*64; % points on vesicle
 params.dt = 1e-3; % time step size
 params.T = 0.5; % time horizon
 params.outpt = 1e-3; % ouptut frequency
-params.concentra = 0.5; % constant, initial concentration of lipid species
+params.concentra = 0; % constant, initial concentration of lipid species
 params.oddeven = 0; % flag for initial lipid species profile?
-params.shortax = 0.5; % short axis length
+params.shortax = 0.9; % short axis length
 params.shearRate = 30; % shear rate
 params.viscosityInside = 1.0;
 params.viscosityOutside = 1.0;
@@ -37,15 +37,21 @@ rcon = oc.initialConcentration(params.N,alpha,...
 %build object for the vesicle but without a band-limited opening angle
 ves = capsules(X,rcon,params);
 
-%plot([ves.X(1:end/2);ves.X(1)],[ves.X(end/2 +1:end);ves.X(end/2 +1)])
+%clf;
+%plot([ves.X(1:end/2);ves.X(1)],[ves.X(end/2 +1:end);ves.X(end/2+1)],'b-o')
 %axis equal
-%pause(1)
+%semilogy(abs(fftshift(fft(ves.theta - 2*pi*alpha))))
+%hold on
 
 %smooth the geometry by requiring that the opening tangent angle theta
 %is band limited. Note that it will still have some small coefficients
 %in the tails of the Fourier spectrum, but they will be much smaller
 %than the original theta
 %ves.smoothGeom;
+%plot([ves.X(1:end/2);ves.X(1)],[ves.X(end/2 +1:end);ves.X(end/2+1)],'r--')
+%axis equal
+%semilogy(abs(fftshift(fft(ves.theta - 2*pi*alpha))),'ro')
+%pause()
 %plot(ves.theta)
 %pause
 %Initialize time-stepping class
@@ -56,9 +62,16 @@ tt = tstep(params,ves);
 %incorporated into the forces. Also missing the u_s term in equation
 %(33)
 [un, ut] = tt.usetself;
+%un
+%ut
+%pause
+%clf; hold on;
+%plot(ves.X(1:end/2),ves.X(end/2+1:end),'r')
+%quiver(ves.X(1:end/2),ves.X(end/2+1:end),un,ut)
+%pause
 %put the x-y velocity into the normal and tangential velocity.
 theta = ves.theta;
-unt  = un.*sin(theta) - ut.*cos(theta); %Tangential Velocity
+unt = un.*sin(theta) - ut.*cos(theta); %Tangential Velocity
 utn = un.*cos(theta) + ut.*sin(theta); %Normal Velocity
 %Update length change over time using a first-order Euler method.
 %For subsequent time steps, will use a multistep method as described in
@@ -143,16 +156,22 @@ for ktime = 1:nstep
   un0 = un(1);
   ut0 = ut(1);
   
-  %compute the normal and tangential velocity. This is the routine that 
-  %calls GMRES which is used to solve equation (30) in the Sohn et al JCP
-  %paper (2010)
+  %compute the x- and y-components of the velocity. This is the routine
+  %that calls GMRES which is used to solve equation (30) in the Sohn et
+  %al JCP paper (2010)
   [unloop, utloop] = tt.usetself;
+  % BQ: VALUES IN THESE VELOCITIES SEEM WAY TOO BIG. NEED TO KNOW WHY,
+  % OR MORE LIKELY, FIND THE BUG
+%  clf
+%  quiver(ves.X(1:end/2),ves.X(end/2+1:end),unloop,utloop)
+%  pause
+
   un1 = unloop(1);
   ut1 = utloop(1);
   %put the x-y velocity into the normal and tangential velocity.
   ves.theta = thetan;
   theta = ves.theta;
-  unt  = unloop.*sin(theta) - utloop.*cos(theta); %Tangential Velocity
+  unt = unloop.*sin(theta) - utloop.*cos(theta); %Tangential Velocity
   utn = unloop.*cos(theta) + utloop.*sin(theta); %Normal Velocity
   %Update length change over time using a first-order Euler method.
   %For subsequent time steps, will use a multistep method as described in
@@ -161,8 +180,12 @@ for ktime = 1:nstep
   %   so this is just checking for discretization and round-off errors i.e.
   %   Ln = ves.L if params.dt*dcur(1) = 0.
   dcur1 = oc.fdcur(ves,unt);
-  Ln1 = Ln0 + params.dt*(3*dcur1(1)-dcur0(1))/2;
-  ves.L = Ln1;
+%  Ln1 = Ln0 + params.dt*(3*dcur1(1)-dcur0(1))/2;
+%  Multistep
+
+  Ln1 = Ln0 + params.dt*dcur1(1);
+  % Forward Euler
+%  ves.L = Ln1;
   %Get the velocity of the vesicle by its velocity of the tangential
   %angle, but without the stiff term. 
   fnthetan = oc.fthetaim(ves,unt,utn);
@@ -188,8 +211,13 @@ for ktime = 1:nstep
   %thetann is now the tangent angle of the new shape after taking a single
   %step of Euler with the stiffest term treated implicitly and integrated
   %with an integrating factor
-  thetann = real(ifft(d1.*fcthetan + 0.5*params.dt*(3*d1.*fcfnthetan- ...
-            d2.*fcfntheta)))+2*pi*(0:ves.N-1)'/ves.N;
+%  thetann = real(ifft(d1.*fcthetan + 0.5*params.dt*(3*d1.*fcfnthetan- ...
+%            d2.*fcfntheta)))+2*pi*(0:ves.N-1)'/ves.N;
+%  % Multistep
+
+  thetann = real(ifft(d1.*fcthetan + params.dt*d1.*fcfnthetan)) + ...
+        2*pi*(0:ves.N-1)'/ves.N;
+  % Euler
   %Do we need to keep this? there's no change between sl, sln, slnn
   
   rsl = params.epsch*(rk/ves.L).^4*params.consta;
@@ -221,8 +249,12 @@ for ktime = 1:nstep
   thetan = thetann;
   fntheta = fnthetan;    
   %update the single tracker point
-  ves.x0 = ves.x0 + 0.5*params.dt*(3*un1 - un0);
-  ves.y0 = ves.y0 + 0.5*params.dt*(3*ut1 - ut0);
+%  ves.x0 = ves.x0 + 0.5*params.dt*(3*un1 - un0);
+%  ves.y0 = ves.y0 + 0.5*params.dt*(3*ut1 - ut0);
+%  % multistep
+  ves.x0 = ves.x0 + params.dt*un1;
+  ves.y0 = ves.y0 + params.dt*ut1;
+  % Euler
   %Update X
   X = oc.recon(ves.N,ves.x0,ves.y0,ves.L,ves.theta);
   %plot(real(X(1:end/2)),real(X(end/2 +1:end)))
