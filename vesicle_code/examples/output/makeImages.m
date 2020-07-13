@@ -5,17 +5,17 @@ options.pressure = false;
 
 irate = 1; % controls the speed of the visualization
 
-if 0
-%  file = 'parabolic1VesData.bin';
+if 1
+  file = 'parabolic1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1e2B1em4Data.bin';
-%  file = '~/Dropbox/Adhesion/PermeableV/pflow_offcenter_Jun21/pflowR10u1e0p5B1em4bData.bin';
-%  file = '~/Dropbox/Adhesion/PermeableV/pflow_offcenter_Jun21/pflowR10u1em0p0B1em4bData.bin';
-%  file = '~/Dropbox/Adhesion/PermeableV/pflow_offcenter_Jun21/pflowR10u1em0p5B1em4bData.bin';
-%  file = '~/Dropbox/Adhesion/PermeableV/pflow_offcenter_Jun21/pflowR10u1em1p0B1em4bData.bin';
-%  file = '~/Dropbox/Adhesion/PermeableV/pflow_offcenter_Jun21/pflowR10u1ep0B1em4bData.bin';
-  file = '~/Dropbox/Adhesion/PermeableV/pflow_offcenter_Jun21/pflowR10u1ep1p0B1em4dData.bin';
-%  file = '~/Dropbox/Adhesion/PermeableV/pflow_offcenter_Jun21/pflowR10u1ep1p0B0em4dData.bin';
-  ax = 5*[-1 1 -1 1];
+%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1e0p5B1em4bData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1em0p0B1em4bData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1em0p5B1em4bData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1em1p0B1em4bData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1ep0B1em4bData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1ep1p0B1em4dData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1ep1p0B0em4dData.bin';
+  ax = [-3 3 -3 3];
   irate = 10;
   options.confined = false;
 end
@@ -83,7 +83,7 @@ if 0
 end
 if 0
 %  file = 'shear1VesDData_Part4.bin';
-  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e2_ra065_beta1p0em5/shear1VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1_ra065_beta1p0em5/shear1VesData_Part5.bin';
   ax = [-5 5 -5 5];
   options.confined = false;
   beta = 0.2;
@@ -94,15 +94,17 @@ if 0
   ax = [-3 3 -3 3];
   options.confined = false;
 end
-if 1
+if 0
   file = 'choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield1e0/choke1VesData.bin'
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e1_farfield1e0/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e2_farfield1e0/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield5e2/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield1e2/choke1VesData.bin';
-%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
+file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em4Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em5Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
   ax = [-50 50 -12.5 12.5];
   options.confined = true;
   options.pressure = true;
@@ -223,7 +225,7 @@ max_flux = +2;
 figure(1); clf
 for k = istart:irate:iend
 %  xx = interpft(posx(:,:,k),256); yy = interpft(posy(:,:,k),256);  
-  xx = posx(:,:,k) - 0*cx(k);
+  xx = posx(:,:,k) - 1*cx(k);
   yy = posy(:,:,k);
   tt = ten(:,:,k);
   vec1 = [xx(:,:);xx(1,:)];
@@ -233,6 +235,8 @@ for k = istart:irate:iend
   if 1
     clf; hold on;
     plot(vec1,vec2,'r-','linewidth',3)
+%    plot(0,cy(k),'k.','markersize',10);
+%    plot([-5 5],[0 0],'k--')
 %    plot(vec1(1,:),vec2(1,:),'b.','markersize',20)
 %    for j = 1:1
 %      subplot(1,2,1)

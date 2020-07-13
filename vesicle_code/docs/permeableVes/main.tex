@@ -509,7 +509,7 @@ small permeability rates.
   %\ifTikz
   %\input{figures/shearPhaseDiagramRA2.tikz}
   %\fi
-  \includegraphics[width=\linewidth]{figures/shearPhaseDiagramRA2.pdf}
+  \includegraphics[width=0.9\linewidth]{figures/shearPhaseDiagramRA2.pdf}
   \caption{\label{fig:shearPhaseDiagram} The steady state shape of a
   semi-permeable vesicle with several different permeability rates
   $\beta$ and shear rates $\dot{\gamma}$. The black lines represent
@@ -561,7 +561,7 @@ semi-permeable vesicle.
 %  \ifTikz
 %  \input{figures/parabolicPhaseDiagram.tikz}
 %  \fi
-  \includegraphics[width=0.8\linewidth]{figures/parabolicPhaseDiagram.pdf}
+  \includegraphics[width=0.9\linewidth]{figures/parabolicPhaseDiagram.pdf}
   \caption{\label{fig:parabolicPhaseDiagram} The steady state shape of a
   semi-permeable vesicle with several different permeability rates
   $\beta$ and flow rates $U$. At high flow rates, the vesicle
@@ -634,7 +634,7 @@ center of mass, denoted by $Y_G$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Semi-Permeable Vesicle in Stenosis}
-Inspired by an experiment that measured the effects of cells on the
+Inspired by an experiment that measures the effects of cells on 
 dynamical pressure-drop variations along a micrometer-sized
 channel~\cite{abk-fai-sto2006}, we consider a numerical experiment where
 a semi-permeable vesicle passes through a constriction. We also measure
@@ -645,13 +645,15 @@ In each experiment, we initialize an elliptical vesicle with longest
 diameter of 9$\mu$m. We use a length scale of $R_0 = 10^{-6}$m, a
 bending stiffness of $k_b = 10^{-19}$J, and fluid viscosity of $\mu=5
 \times 10^{-2}$kg/ms. Using the relaxation time scale $\tau = \mu
-R_0^3/k_b = 5 \times 10^{-1}$s, the velocity scale is $U = 2 \times
-10^{-6}$m/s, and the pressure scale is $P = k_b/R_0^3 = 10^{-1}$Pa.  The
-geometry is similar to the experiment~\cite{abk-fai-sto2006} where the
-membrane starts in a channel with diameter $25\mu$m and passes into a
-channel with length $45\mu$m and diameter $5\mu$m. Our numerical methods
-are unable to achieve the high-speed flow rate in the experiments, so we
-consider a much smaller flow rate.
+R_0^3/k_b = 5 \times 10^{-1}$s, the pressure scale is $P = k_b/R_0^3 =
+10^{-1}$Pa. The geometry is similar to an
+experiment~\cite{abk-fai-sto2006} where the membrane starts in a channel
+with diameter $25\mu$m and passes into a channel with length $45\mu$m
+and diameter $5\mu$m (Figure~\ref{fig:stenosisGeom}. We impose a
+Poiseuille flow at an inlet and outlet and a no-slip boundary condition
+on the upper and lower walls. The flow rate is chosen so that the
+residency time of the vesicle in the constriction agrees with the
+experimental results.
 
 \begin{figure}[htp]
 %  \ifTikz
@@ -659,6 +661,17 @@ consider a much smaller flow rate.
 %  \fi
 %  \includegraphics[width=0.8\linewidth]{figures/parabolicPhaseDiagram.pdf}
   \caption{\label{fig:stenosisGeom} A caption.}
+  \todo[inline]{Put snapshots of configuration in the geometry}
+\end{figure}
+
+\begin{figure}[htp]
+%  \ifTikz
+  \input{figures/stenosisPressureFluctuation.tikz}
+%  \fi
+  \caption{\label{fig:stenosisPressure} The excess pressure across the
+  constriction in Figure~\ref{fig:stenosisGeom}. The black dashed lines
+  denote the start and end of the constriction. The results are
+  qualitative agreement with~\cite{abk-fai-sto2006}.}
 \end{figure}
 
 
@@ -1115,8 +1128,8 @@ consider a much smaller flow rate.
 %  correspond to the times reported in Figure~\ref{fig:vesVelocity}.}
 %\end{figure}
 
- \newpage
-\input{figures/shearPhaseDiagramRA2.tikz}
+% \newpage
+%\input{figures/shearPhaseDiagramRA2.tikz}
 %\input{figures/parabolicPhaseDiagram.tikz}
 
 \end{document}
