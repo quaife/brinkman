@@ -5,8 +5,8 @@ options.pressure = false;
 
 irate = 1; % controls the speed of the visualization
 
-if 1
-  file = 'parabolic1VesData.bin';
+if 0
+  file = 'parabolic1Ves2Data.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1e2B1em4Data.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1e0p5B1em4bData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1em0p0B1em4bData.bin';
@@ -14,7 +14,8 @@ if 1
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1em1p0B1em4bData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1ep0B1em4bData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1ep1p0B1em4dData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1ep1p0B0em4dData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1ep1p0B0em4dData.bin';
+
   ax = [-3 3 -3 3];
   irate = 10;
   options.confined = false;
@@ -94,6 +95,17 @@ if 0
   ax = [-3 3 -3 3];
   options.confined = false;
 end
+
+if 1
+  file = 'chokeMulti1VesData.bin';
+  ax = [-1.3 11.3 -0.1 5.6];
+  options.confined = true;
+  options.pressure = false;
+  options.savefig = false;
+  count = 1;
+  irate = 1;
+end
+
 if 0
   file = 'choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield1e0/choke1VesData.bin'
@@ -225,7 +237,7 @@ max_flux = +2;
 figure(1); clf
 for k = istart:irate:iend
 %  xx = interpft(posx(:,:,k),256); yy = interpft(posy(:,:,k),256);  
-  xx = posx(:,:,k) - 1*cx(k);
+  xx = posx(:,:,k) - 0*cx(k);
   yy = posy(:,:,k);
   tt = ten(:,:,k);
   vec1 = [xx(:,:);xx(1,:)];

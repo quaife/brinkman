@@ -110,8 +110,6 @@ if nargin == 5
   % write the pressure contributions to file
 end
 
-
-
 time = 0;
 % initial time
 

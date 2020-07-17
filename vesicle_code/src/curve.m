@@ -283,8 +283,136 @@ elseif any(strcmp(options,'chokeLonger'))
 
   X0 = [x;y];
   % redistribute points so that it is equispaced in arclength
+
+elseif any(strcmp(options,'chokeMulti'))
+  width = 1;
+  Length = 10;
+  gap = 0.5;
+
+  NN = 32;
+  L1 = Length + width;
+  L2 = pi*(gap/2+width);
+  L3 = Length;
+  L4 = pi*gap/2;
+  L5 = Length;
+  L6 = pi*(gap/2+width);
+  L7 = Length + width;
+  L8 = width;
+  L9 = Length + width;
+  L10 = pi*gap/2;
+  L11 = Length;
+  L12 = pi*(gap/2+width);
+  L13 = Length;
+  L14 = pi*gap/2;
+  L15 = Length + width;
+  L16 = width;
+
+  N1 = round(NN*L1);
+  N2 = round(NN*L2);
+  N3 = round(NN*L3);
+  N4 = round(NN*L4);
+  N5 = round(NN*L5);
+  N6 = round(NN*L6);
+  N7 = round(NN*L7);
+  N8 = 5*round(NN*L8);
+  N9 = round(NN*L9);
+  N10 = round(NN*L10);
+  N11 = round(NN*L11);
+  N12 = round(NN*L12);
+  N13 = round(NN*L13);
+  N14 = round(NN*L14);
+  N15 = round(NN*L15);
+  N16 = 5*round(NN*L16);
+
+  x1 = linspace(-(gap/2+width),Length,N1)';
+  y1 = zeros(N1,1);
+
+  t = linspace(-pi/2,pi/2,N2)';
+  x2 = x1(end) + (gap/2+width)*(cos(t) - cos(t(1)));
+  x2 = x2(2:end);
+  y2 = y1(end) + (gap/2+width)*(sin(t) - sin(t(1)));
+  y2 = y2(2:end);
+
+  x3 = linspace(Length,0,N3)';
+  x3 = x3(2:end);
+  y3 = y2(end)*ones(N3,1);
+  y3 = y3(2:end);
+
+  t = linspace(-pi/2,-3*pi/2,N4)';
+  x4 = x3(end) + (gap/2)*(cos(t) - cos(t(1)));
+  x4 = x4(2:end);
+  y4 = y3(end) + (gap/2)*(sin(t) - sin(t(1)));
+  y4 = y4(2:end);
+
+  x5 = linspace(0,Length,N5)';
+  x5 = x5(2:end);
+  y5 = (2*width+2*gap)*ones(N5,1);
+  y5 = y5(2:end);
+
+  t = linspace(-pi/2,pi/2,N6)';
+  x6 = x5(end) + (gap/2+width)*(cos(t) - cos(t(1)));
+  x6 = x6(2:end);
+  y6 = y5(end) + (gap/2+width)*(sin(t) - sin(t(1)));
+  y6 = y6(2:end);
+
+  x7 = linspace(Length,-(gap/2+width),N7)';
+  x7 = x7(2:end);
+  y7 = y6(end)*ones(N7,1);
+  y7 = y7(2:end);
+
+  x8 = -(gap/2+width)*ones(N8,1);
+  x8 = x8(2:end-1);
+  y8 = linspace(4*width+3*gap,3*width+3*gap,N8)';
+  y8 = y8(2:end-1);
+
+  x9 = linspace(-(gap/2+width),Length,N9)';
+  y9 = (3*width+3*gap)*ones(N9,1);
+
+  t = linspace(+pi/2,-pi/2,N10)';
+  x10 = x9(end) + (gap/2)*(cos(t) - cos(t(1)));
+  x10 = x10(2:end);
+  y10 = y9(end) + (gap/2)*(sin(t) - sin(t(1)));
+  y10 = y10(2:end);
+
+  x11 = linspace(Length,0,N11)';
+  x11 = x11(2:end);
+  y11 = y10(end)*ones(N11,1);
+  y11 = y11(2:end);
+
+  t = linspace(pi/2,3*pi/2,N12)';
+  x12 = x11(end) + (gap/2+width)*(cos(t) - cos(t(1)));
+  x12 = x12(2:end);
+  y12 = y11(end) + (gap/2+width)*(sin(t) - sin(t(1)));
+  y12 = y12(2:end);
+
+  x13 = linspace(0,Length,N13)';
+  x13 = x13(2:end);
+  y13 = y12(end)*ones(N13,1);
+  y13 = y13(2:end);
+
+  t = linspace(+pi/2,-pi/2,N14)';
+  x14 = x13(end) + (gap/2)*(cos(t) - cos(t(1)));
+  x14 = x14(2:end);
+  y14 = y13(end) + (gap/2)*(sin(t) - sin(t(1)));
+  y14 = y14(2:end);
+
+  x15 = linspace(Length,-(gap/2+width),N15)';
+  x15 = x15(2:end);
+  y15 = width*ones(N15,1);
+  y15 = y15(2:end);
+
+  x16 = -(gap/2+width)*ones(N16,1);
+  x16 = x16(2:end-1);
+  y16 = linspace(width,0,N16)';
+  y16 = y16(2:end-1);
+
+  xx = [x1;x2;x3;x4;x5;x6;x7;x8;x9;x10;x11;x12;x13;x14;x15;x16];
+  yy = [y1;y2;y3;y4;y5;y6;y7;y8;y9;y10;y11;y12;y13;y14;y15;y16];
+  z = xx+1i*yy;
+  z = interpft(z,N);
+  X = [real(z);imag(z)];
 %  clf
-%  plot(x,y,'k-')
+%  plot(X0(1:end/2),X0(end/2+1:end),'k--')
 %  axis equal;
 %  pause
 
@@ -420,11 +548,13 @@ end
 % end of building reference vesicles.  Only need to rotate
 % and shift them as desired
 
+
 if isempty(X)
   % if X has not been defined, we only have X0 which is 
   % the reference vesicle which not needs to be
   % rotated and translated
   X = zeros(2*N,nv);
+
   for k=1:nv
     X(1:N,k) = scale*(cos(theta(k)) * X0(1:N) - ...
       sin(theta(k)) * X0(N+1:2*N)) + cen(1,k);

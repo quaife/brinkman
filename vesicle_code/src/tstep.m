@@ -156,6 +156,25 @@ o.bdiagWall = o.wallsPrecond(wallsCoarse);
 % potential and the matrix N0 that removes the rank one null space from
 % the double-layer potential for the solid walls
 
+eta = o.bdiagWall*uwalls;
+%clf
+%plot(eta(1:end/2),'b-o')
+
+%[xx1,yy1] = meshgrid((8:0.1:10),(1.8:0.1:2.2));
+%[xx2,yy2] = meshgrid((10:-0.1:8),(0.2:0.1:0.8));
+%[xx3,yy3] = meshgrid((10.4:0.1:11),(0.9:0.1:1.5));
+%xx = [xx1(:);xx2(:);xx3(:)]; yy = [yy1(:);yy2(:);yy3(:)];
+%Xtar = [xx;yy];
+%
+%[~,vel] = potWall.exactStokesDL(walls,eta,Xtar,1);
+%%vel
+%clf
+%plot(walls.X(1:end/2),walls.X(end/2+1:end),'k')
+%hold on;
+%quiver(xx,yy,vel(1:end/2),vel(end/2+1:end))
+%axis equal;
+%pause
+
 end % initialConfined
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2531,7 +2550,7 @@ M21 = zeros(3*(nvbd-1),2*Nbd*nvbd);
 % in (A4) and (A5) in Rahimian et al.
 
 M11(1:2*Nbd,1:2*Nbd) = M11(1:2*Nbd,1:2*Nbd) + o.wallN0(:,:,1);
-jump = - 1/2; 
+jump = -0.5; 
 for k = 1:nvbd
   istart = (k-1)*2*Nbd+1;
   iend = 2*k*Nbd;
@@ -2782,6 +2801,36 @@ elseif any(strcmp(varargin,'chokeLong'))
   T22 = zeros(N,nv);
 %  figure(3); clf;
 %  quiver(x,y,vInf(1:end/2),vInf(end/2+1:end))
+
+elseif any(strcmp(varargin,'chokeMulti'))
+  vInf = zeros(2*N,nv);
+  ind1 = (x < -0.5 & y < 1.01);
+  ymin = min(y(ind1));
+  ymax = max(y(ind1));
+  vx = (ymin - y(ind1)).*(ymax - y(ind1));
+  % parabolic flow
+  vx = vx/max(abs(vx));
+  % normalize
+  vInf(ind1,:) = vx;
+
+  ind2 = (x < -0.5 & y > 4.49);
+  ymin = min(y(ind2));
+  ymax = max(y(ind2));
+  vx = (ymin - y(ind2)).*(ymax - y(ind2));
+  % parabolic flow
+  vx = -vx/max(abs(vx));
+  % normalize
+  vInf(ind2,:) = vx;
+
+
+  T11 = zeros(N,nv);
+  T12 = zeros(N,nv);
+  T22 = zeros(N,nv);
+%  figure(1); clf; hold on;
+%  plot(x,y,'r-')
+%  quiver(x,y,vInf(1:end/2),vInf(end/2+1:end),'b')
+%  axis equal;
+%  pause
 
 elseif any(strcmp(varargin,'chokeLonger'))
   vInf = zeros(2*N,nv);
