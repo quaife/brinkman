@@ -1,13 +1,13 @@
 
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
-params.N = 2*64; % points on vesicle
+params.N = 64; % points on vesicle
 params.dt = 1e-3; % time step size
 params.T = 0.5; % time horizon
 params.outpt = 1e-3; % ouptut frequency
 params.concentra = 0; % constant, initial concentration of lipid species
 params.oddeven = 0; % flag for initial lipid species profile?
-params.shortax = 0.9; % short axis length
+params.shortax = 0.5; % short axis length
 params.shearRate = 30; % shear rate
 params.viscosityInside = 1.0;
 params.viscosityOutside = 1.0;
@@ -62,13 +62,11 @@ tt = tstep(params,ves);
 %incorporated into the forces. Also missing the u_s term in equation
 %(33)
 [un, ut] = tt.usetself;
-%un
-%ut
-%pause
-%clf; hold on;
-%plot(ves.X(1:end/2),ves.X(end/2+1:end),'r')
-%quiver(ves.X(1:end/2),ves.X(end/2+1:end),un,ut)
-%pause
+figure(1); clf; hold on;
+plot(ves.X(1:end/2),ves.X(end/2+1:end),'r')
+quiver(ves.X(1:end/2),ves.X(end/2+1:end),un,ut)
+hold off
+
 %put the x-y velocity into the normal and tangential velocity.
 theta = ves.theta;
 unt = un.*sin(theta) - ut.*cos(theta); %Tangential Velocity
@@ -146,9 +144,9 @@ area = sum(sin(ves.theta).*X(1:end/2) - cos(ves.theta).*X(end/2+1:end))*...
 ves.x0 = ves.x0 + params.dt*un(1);
 ves.y0 = ves.y0 + params.dt*ut(1);
 X = oc.recon(ves.N,ves.x0,ves.y0,ves.L,ves.theta);
-plot([ves.X(1:end/2);ves.X(1)],[ves.X(end/2 +1:end);ves.X(end/2 +1)])
-axis equal
-pause(1)
+%plot([ves.X(1:end/2);ves.X(1)],[ves.X(end/2 +1:end);ves.X(end/2 +1)])
+%axis equal
+%pause(1)
 
 % From the second step, use multistep the evolve the dynamics.
 for ktime = 1:nstep
@@ -159,13 +157,18 @@ for ktime = 1:nstep
   %compute the x- and y-components of the velocity. This is the routine
   %that calls GMRES which is used to solve equation (30) in the Sohn et
   %al JCP paper (2010)
-  [unloop, utloop] = tt.usetself;
+  [unloop, utloop] = tt.usetself
   % BQ: VALUES IN THESE VELOCITIES SEEM WAY TOO BIG. NEED TO KNOW WHY,
   % OR MORE LIKELY, FIND THE BUG
 %  clf
 %  quiver(ves.X(1:end/2),ves.X(end/2+1:end),unloop,utloop)
 %  pause
-
+  figure(2); clf; hold on;
+  plot(ves.X(1:end/2),ves.X(end/2+1:end),'r')
+  quiver(ves.X(1:end/2),ves.X(end/2+1:end),unloop,utloop)
+  hold off
+  pause
+  
   un1 = unloop(1);
   ut1 = utloop(1);
   %put the x-y velocity into the normal and tangential velocity.

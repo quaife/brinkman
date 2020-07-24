@@ -30,8 +30,8 @@ dkap = acurv(sl,theta,m);
 
 % Use the tangent angle, length, tracker point, and number of
 % discretization points to form x and y coordinates of the vesicle
-disp('here')
-[xo,yo] = recon(m,x0,y0,sl,theta);
+
+[xo,yo] = recon(m,x0,y0,sl,theta)
 
 % Green's identity on (1/2)Integral(x dot n) to find the area inside the
 % vesicle (Integral about the surface of dx)
@@ -55,7 +55,7 @@ ulam = uinside/uoutside;
 % species as in equations (13) and (14). This does not include
 % spontaneous curvature and the double-well potential terms with f(u).
 % These are needed for the force in equation (13)
-[forc,fforc] = uset_un(sl,theta,rcon,bendsti,bendratio,m)
+[forc,fforc] = uset_un(sl,theta,rcon,bendsti,bendratio,m);
 
 % For the force in equation (33). Note that the normal is n =
 % (sin(theta),-cos(theta)) and the tangent is s =

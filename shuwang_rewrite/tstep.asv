@@ -51,10 +51,9 @@ oc = curve;
 
 ves.X = oc.recon(N,x0,y0,L,theta);
 [Eu,Esigma] = ves.variationsNonStiff;
-
 %Compute the force in eq (33)
-tau = [[-Eu.*sin(theta) - Esigma.*cos(theta)]; ...
-       [Eu.*cos(theta) - Esigma.*sin(theta)]];
+tau = [[-Eu.*sin(theta) - Esigma.*cos(theta)];...
+      [Eu.*cos(theta) - Esigma.*sin(theta)]];
 %Construct Stokes matrix without the log singularity. ie. A3 only
 %contains the rightmost kernel in equation (43)
 StokesMat = op.StokesMatrixLogless(ves.X);
@@ -89,7 +88,7 @@ ves.cur = oc.acurv(ves);
 % NOTE: make sure this is the actual curvature. Compare with the
 % analytic expression for the ellipse that can easily be computed.
 %Calculate the right hand side of equation (40)
-rhs = -dvdotsds/L - vdotn.*ves.cur;
+rhs = -dvdotsds/L + vdotn.*ves.cur;
 %The velocity components in eq (40) are nonlocal linear functions of 
 %lambdaTilde. 
 %semilogy(abs(fftshift(fft(rhs)))/numel(rhs))
@@ -104,14 +103,14 @@ rhs = -dvdotsds/L - vdotn.*ves.cur;
 %Solve the linear system for LambdaTilde in (39) using GMRES.
 %Each iteration of GMRES requires a solution of Stokes equation
 %LambdaTilde is the lambda with a tilde in eq (39)
-% [lambTil,flag,relres,iter,resvec] = ...
-%       gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
-%           o.gmresMaxIter);
+[lambTil,flag,relres,iter,resvec] = ...
+      gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
+          o.gmresMaxIter);
 %flag
 %relres
 %figure(1); clf;
 %%plot(rhs)
-%figure(2); clf
+figure(2); clf
 %plot(StokesMat*[rhs;rhs])
 %surf(StokesMat)
 %shading interp
@@ -119,15 +118,15 @@ rhs = -dvdotsds/L - vdotn.*ves.cur;
 %plot(o.matvec40(rhs,StokesMat))
 %%plot(lambTil)
 %pause
-[lambTil,flag,relres,iter,resvec] = ...
-      gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
-              o.gmresMaxIter,@(x) o.preconditioner(x));
+%[lambTil,flag,relres,iter,resvec] = ...
+%      gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
+%              o.gmresMaxIter,@(x) o.preconditioner(x));
 %      gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
 %              o.gmresMaxIter,@(x)o.preconditioner(x));
 %      flag
 %      relres
       iter
-     % pause(1)
+      pause(1)
 %calculate the Fourier derivative of lambdaTilde
 dlamTilds = oc.diffFT(lambTil,IK);
 % We can now calculate the traction jump in first part of equation (39).
@@ -143,9 +142,9 @@ k = StokesMat*tau;
 force = op.IntegrateLogKernel(tau);
 %Calulating  u in eqatuion (31) by adding the results from the
 %non-singular and weakly singular integral operators
-un = k(1:N)*c1 - tau(1:N)*c2 + ves.X(N+1:end)*o.shearRate
-ut = k(N+1:end)*c1 - tau(N+1:end)*c2
-pause
+un = k(1:N)*c1 - tau(1:N)*c2 + ves.X(N+1:end)*o.shearRate;
+ut = k(N+1:end)*c1 - tau(N+1:end)*c2;
+
 end % usetself
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
