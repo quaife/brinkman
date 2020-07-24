@@ -46,7 +46,7 @@ if 0
   options.confined = false;
 end
 
-if 0
+if 1
   file = 'relaxation1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/Apr142020/starBeta1em3/relaxation1VesData.bin';
 %    file = '~/projects/brinkman/vesicle_code/results/Apr232020/ellipseBeta1em5/relaxation1VesData.bin';
@@ -96,7 +96,7 @@ if 0
   options.confined = false;
 end
 
-if 1
+if 0
   file = 'chokeMulti1VesData.bin';
   ax = [-1.3 11.3 -0.1 5.6];
   options.confined = true;

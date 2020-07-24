@@ -68,8 +68,8 @@ ulam = ves.viscIn/ves.viscOut;
 c1 = L/pi/N/(1+ulam)/ves.viscOut/2;
 c2 = L/(1+ulam)/ves.viscOut;
 %LogKernel1 and LogKernel2 are the log kernels in the left term in the
-%right hand side of equation (43) integrated against the density
-%functions Eu and Esigma.
+%right hand side of equation (43) integrated against the x and y
+%components of the density functions tau that involves Eu and Esigma
 LogKernel1 = op.IntegrateLogKernel(tau(1:N));
 LogKernel2 = op.IntegrateLogKernel(tau(N+1:end));
 %sigma1 and sigma2 are the solution of equation (33) (still unsure
@@ -143,9 +143,9 @@ k = StokesMat*tau;
 force = op.IntegrateLogKernel(tau);
 %Calulating  u in eqatuion (31) by adding the results from the
 %non-singular and weakly singular integral operators
-un = k(1:N)*c1 - tau(1:N)*c2 + ves.X(N+1:end)*o.shearRate
-ut = k(N+1:end)*c1 - tau(N+1:end)*c2
-pause
+un = k(1:N)*c1 - tau(1:N)*c2 + ves.X(N+1:end)*o.shearRate;
+ut = k(N+1:end)*c1 - tau(N+1:end)*c2;
+%pause
 end % usetself
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -2,7 +2,7 @@
 fprintf('Simple elliptical vesicle in a relaxation flow.\n');
 fprintf('First-order semi-implicit time stepping.\n');
 
-beta = 1;
+beta = 0;
 m = 100000;
 ms = m;
 betas = beta;
@@ -17,7 +17,7 @@ prams.viscCont = ones(prams.nv,1);         % viscosity contrast
 options.farField = 'relaxation'; % background velocity
 options.near = true;        % near-singular integration
 options.fmm = false;
-options.semipermeable = true;
+options.semipermeable = false;
 options.adhesion = false;
 defaultPram.adStrength = 1;
 defaultPram.adRange = 4e-1;
@@ -65,27 +65,27 @@ options.fluxShape = 1; % constant value
 
 oc = curve;
 
-%ra = 0.65;
-ra = 0.99;
+ra = 0.65;
+%ra = 0.99;
 scale = sqrt(ra)/2;
 
 centerx = 0;
 centery = 0;
 ang = pi/2;
 
-%X = oc.initConfig(prams.N,'nv',prams.nv,...
-%    'reducedArea',ra,...
-%    'center',[centerx;centery],...
-%    'angle',ang,...
-%    'scale',scale);
-
-X = oc.initConfig(prams.N,'star',...
-    'folds',5,...
-    'nv',prams.nv,...
+X = oc.initConfig(prams.N,'nv',prams.nv,...
     'reducedArea',ra,...
     'center',[centerx;centery],...
     'angle',ang,...
-    'scale',1.18);
+    'scale',scale);
+
+%X = oc.initConfig(prams.N,'star',...
+%    'folds',5,...
+%    'nv',prams.nv,...
+%    'reducedArea',ra,...
+%    'center',[centerx;centery],...
+%    'angle',ang,...
+%    'scale',1.18);
 
 
 Xfinal = Ves2D(X,[],prams,options);

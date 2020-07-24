@@ -1,14 +1,14 @@
 
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
-params.N = 64; % points on vesicle
+params.N = 4*64; % points on vesicle
 params.dt = 1e-3; % time step size
 params.T = 0.5; % time horizon
 params.outpt = 1e-3; % ouptut frequency
 params.concentra = 0; % constant, initial concentration of lipid species
 params.oddeven = 0; % flag for initial lipid species profile?
-params.shortax = 0.5; % short axis length
-params.shearRate = 30; % shear rate
+params.shortax = 2; % short axis length
+params.shearRate = 0; % shear rate
 params.viscosityInside = 1.0;
 params.viscosityOutside = 1.0;
 params.bendsti = 1; % maximum bending stiffness
@@ -65,7 +65,12 @@ tt = tstep(params,ves);
 figure(1); clf; hold on;
 plot(ves.X(1:end/2),ves.X(end/2+1:end),'r')
 quiver(ves.X(1:end/2),ves.X(end/2+1:end),un,ut)
+axis equal
+axis([-3 3 -3 3])
+pause(0.01)
 hold off
+pause
+% NOTE: THERE IS A BUG IN COMPUTING THE VELOCITY BEFORE THIS POINT
 
 %put the x-y velocity into the normal and tangential velocity.
 theta = ves.theta;
@@ -163,11 +168,13 @@ for ktime = 1:nstep
 %  clf
 %  quiver(ves.X(1:end/2),ves.X(end/2+1:end),unloop,utloop)
 %  pause
-  figure(2); clf; hold on;
+  figure(1); clf; hold on;
   plot(ves.X(1:end/2),ves.X(end/2+1:end),'r')
   quiver(ves.X(1:end/2),ves.X(end/2+1:end),unloop,utloop)
   hold off
-  pause
+  axis([-3 3 -3 3])
+  axis equal
+  pause(.01)
   
   un1 = unloop(1);
   ut1 = utloop(1);
@@ -257,6 +264,8 @@ for ktime = 1:nstep
 %  % multistep
   ves.x0 = ves.x0 + params.dt*un1;
   ves.y0 = ves.y0 + params.dt*ut1;
+  [un1 ut1]
+  pause
   % Euler
   %Update X
   X = oc.recon(ves.N,ves.x0,ves.y0,ves.L,ves.theta);

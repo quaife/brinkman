@@ -201,6 +201,7 @@ if ~equispaced
        'reducedArea',ra,'shortax',shortax,'scale',scale,...
        'folds',folds,'parameter',alpha);
 end
+%clf
 %figure(1); hold on;
 %plot(X(1:end/2),X(end/2+1:end),'ro')
 %axis equal;
