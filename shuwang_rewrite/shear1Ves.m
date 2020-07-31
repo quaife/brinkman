@@ -12,7 +12,7 @@ params.shearRate = 0; % shear rate
 params.viscosityInside = 1.0;
 params.viscosityOutside = 1.0;
 params.bendsti = 1; % maximum bending stiffness
-params.bendratio = 0.1; % ratio between max and min bending stiffness
+params.bendratio = 1; % ratio between max and min bending stiffness
 params.consta = 100; % parameter 'a' in the Cahn-Hilliard energy
 params.nloop = 20; 
 % number of time steps of Cahn-Hilliard to be taken at each time step of
@@ -36,7 +36,6 @@ rcon = oc.initialConcentration(params.N,alpha,...
       params.concentra,params.oddeven);
 %build object for the vesicle but without a band-limited opening angle
 ves = capsules(X,rcon,params);
-
 %clf;
 %plot([ves.X(1:end/2);ves.X(1)],[ves.X(end/2 +1:end);ves.X(end/2+1)],'b-o')
 %axis equal
@@ -48,6 +47,7 @@ ves = capsules(X,rcon,params);
 %in the tails of the Fourier spectrum, but they will be much smaller
 %than the original theta
 %ves.smoothGeom;
+
 %plot([ves.X(1:end/2);ves.X(1)],[ves.X(end/2 +1:end);ves.X(end/2+1)],'r--')
 %axis equal
 %semilogy(abs(fftshift(fft(ves.theta - 2*pi*alpha))),'ro')

@@ -24,7 +24,7 @@ function [un,ut,rlambdalnew,xo,yo,forc1,forc2,xcc,ycc,...
 % area - area inside the interface
 
 global kmatrix velocity bendsti bendratio uinside uoutside m
-                 
+
 % compute the initial curvature using the tangent angle
 dkap = acurv(sl,theta,m);
 
@@ -55,7 +55,7 @@ ulam = uinside/uoutside;
 % species as in equations (13) and (14). This does not include
 % spontaneous curvature and the double-well potential terms with f(u).
 % These are needed for the force in equation (13)
-[forc,fforc] = uset_un(sl,theta,rcon,bendsti,bendratio,m)
+[forc,fforc] = uset_un(sl,theta,rcon,bendsti,bendratio,m);
 
 % For the force in equation (33). Note that the normal is n =
 % (sin(theta),-cos(theta)) and the tangent is s =

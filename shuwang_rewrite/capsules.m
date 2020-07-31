@@ -116,23 +116,36 @@ oc = curve;
 N = ves.N;
 IK = oc.modes(N);
 rcon = ves.rcon;
-cur = ves.cur;
-
+cur = oc.acurv(ves);
+%plot(rcon)
+%pause
 b0 = ves.bendsti;
 b1 = ves.bendsti * ves.bendratio;
 %bending coefficient which depends on the lipid concentration that is
 %stored in rcon. This is the variable b(u) in equation (10)
 % rcon is the concentration u
+b0
+b1
 rbn = b0 * (ones(N,1) - rcon) + b1*rcon;
-Drbn = oc.diffFT(rbn,IK); %/(2/pi);
+plot(ves.cur)
+pause
 
+Drbn = oc.diffFT(rbn,IK); %/(2/pi);
+pause
 Drbn_cur = oc.diffFT(rbn.*cur,IK);%/(ves.L/2/pi);
 DDrbn_cur = oc.diffFT(Drbn_cur,IK);%/(ves.L/2/pi);
-
+%plot(DDrbn_cur)
+%pause
 Esigma = -DDrbn_cur/(ves.L^2) - 0.5*rbn.*cur.^3
+figure(1)
+plot(Esigma)
+
 %Esigma is equation (14) with spotaneous curvature set to zero.
 
-Eu = -Drbn.*cur.^2/ves.L/2
+Eu = -0.5*Drbn.*cur.^2/ves.L;
+figure(2)
+plot(Eu)
+pause
 %pause
 %Eu is the second term in equation (13) (differs by a negative
 %sign - possibly from the negative sign in eq(23) which has a negative on 

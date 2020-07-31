@@ -345,8 +345,8 @@ L = sum(sqrt(Dx.^2 + Dy.^2))*2*pi/N;
 % discretizations points that are equally spaced in arclength
 
 cur = (Dx.*DDy - Dy.*DDx)/(L/2/pi)^3;
-
 % compute curvature
+
 IK = o.modes(N);
 theta = L/2/pi*o.intFT(cur,IK);
 % integrate the curature to find the opening angle

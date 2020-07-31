@@ -1,12 +1,12 @@
 %setup the intial data for the coefficient
-shearate = 30;
-shape = 0.5;
-phi = 0.5;
+shearate = 0;
+shape = 2;
+phi = 0;
 scale = 2;
 
 global consta eps_ch kmatrix velocity bendsti bendratio uinside uoutside m
 
-initialdata = [64 1e-3 1/scale 1e-3 phi 0 shape  ...
+initialdata = [4*64 1e-3 1/scale 1e-3 phi 0 shape  ...
     shearate 1 0.1 1 100 1.0 1.0];
 
 ngrid = initialdata(1);
@@ -59,7 +59,6 @@ outpt = round(outpt/dt);
 
 % set the initial condition.
 [x,y,theta,rcon] = initialsetup(shortax,ngrid,concentra,oddeven);
-
 % here we keep the total arclength unchanged.
 x0 = x(1);
 y0 = y(1);
@@ -84,7 +83,14 @@ kmatrix = formkmatrix(ngrid);
 % (33)
 [ux0,uy0,rlambdalnew,x,y,forc1,forc2,xcc,ycc] = ...
     usetself(x0,y0,sl,theta,rcon);
-
+figure(1); clf; hold on;
+plot(x,y,'r')
+quiver(x(1:end-1),y(1:end-1),ux0,uy0)
+axis equal
+axis([-3 3 -3 3])
+pause(0.01)
+hold off
+pause
 u1x = ux0(1);
 u1y = uy0(1);
 % put the x-y velocity into the normal and tangential velocity.
