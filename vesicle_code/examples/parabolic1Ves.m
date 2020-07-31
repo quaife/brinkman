@@ -13,7 +13,7 @@ prams.kappa = ones(prams.nv,1);   % bending coefficient
 prams.viscCont = ones(prams.nv,1);         % viscosity contrast
 prams.saveRate = 100;
 options.farField = 'parabolic'; % background velocity
-options.farFieldSpeed = 0.1;
+options.farFieldSpeed = 10;
 %options.farFieldSpeed = farFieldSpeed;
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -52,7 +52,7 @@ options.expectedOrder = 2;
 options.expForce = false;
 
 % Plot on-the-fly
-options.usePlot = true;
+options.usePlot = false;
 options.axis = [-5 5 -5 5];
 % Save vesicle information and create a log file
 options.logFile = 'output/parabolic1Ves.log';
@@ -68,7 +68,7 @@ oc = curve;
 ra = 0.65;
 centerx = 0;
 centery = 1.5;
-ang = 0;
+ang = -pi/4;
 scale = sqrt(ra);
 X = oc.initConfig(prams.N,...
     'nv', prams.nv, ...

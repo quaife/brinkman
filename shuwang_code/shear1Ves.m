@@ -1,6 +1,6 @@
 %setup the intial data for the coefficient
 shearate = 0;
-shape = 2;
+shape = 1.01;
 phi = 0;
 scale = 2;
 
@@ -58,18 +58,19 @@ outpt = round(outpt/dt);
 % steps for saving to output
 
 % set the initial condition.
-[x,y,theta,rcon] = initialsetup(shortax,ngrid,concentra,oddeven);
+[x,y,theta,rcon,sl] = initialsetup(shortax,ngrid,concentra,oddeven);
 % here we keep the total arclength unchanged.
 x0 = x(1);
 y0 = y(1);
-%sl = 2.6442;
-%sl = 2*pi;
-sl = 4.844224110050042;
+%%sl = 2.6442;
+%%sl = 2*pi;
+%sl = 4.844224110050042;
 % For Shuwang: Why is sl defined here? It is actually an output
 % of the call to initialsetup. It is just currently not asked
-% for in the call above
-x0 = x0/2;
-y0 = y0/2;
+% for in the call above. NOTE: We requested sl to be an output in
+% initialsetup
+%x0 = x0/2;
+%y0 = y0/2;
 kmatrix = formkmatrix(ngrid);
 % kmatrix is checkerboard pattern of 0s and 1s which is dot multiplied y
 % the layer potential matricies so that the quadrature is odd/even

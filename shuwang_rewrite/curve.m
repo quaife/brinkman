@@ -340,15 +340,15 @@ end
 [DDx,DDy] = o.getDXY([Dx;Dy]);
 % second derivative of the shape
 
-L = sum(sqrt(Dx.^2 + Dy.^2))*2*pi/N;
+L = sum(sqrt(Dx.^2 + Dy.^2))/N;
 % arclength which should be nearly constant since we constructed
 % discretizations points that are equally spaced in arclength
 
-cur = (Dx.*DDy - Dy.*DDx)/(L/2/pi)^3;
+cur = (Dx.*DDy - Dy.*DDx)/L^3;
 % compute curvature
 
 IK = o.modes(N);
-theta = L/2/pi*o.intFT(cur,IK);
+theta = L*o.intFT(cur,IK);
 % integrate the curature to find the opening angle
 
 theta = theta + t0;

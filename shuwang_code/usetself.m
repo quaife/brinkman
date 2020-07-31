@@ -27,10 +27,13 @@ global kmatrix velocity bendsti bendratio uinside uoutside m
 
 % compute the initial curvature using the tangent angle
 dkap = acurv(sl,theta,m);
+clf
+disp('her')
+plot(dkap)
+pause
 
 % Use the tangent angle, length, tracker point, and number of
 % discretization points to form x and y coordinates of the vesicle
-disp('here')
 [xo,yo] = recon(m,x0,y0,sl,theta);
 
 % Green's identity on (1/2)Integral(x dot n) to find the area inside the

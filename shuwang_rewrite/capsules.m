@@ -34,6 +34,16 @@ o.bendsti = params.bendsti;
 o.bendratio = params.bendratio;
 o.viscIn = params.viscosityInside;
 o.viscOut = params.viscosityOutside;
+
+%disp('here')
+%curv = oc.acurv(o);
+%clf; hold on
+%plot(o.cur)
+%plot(curv,'r--')
+%norm(curv - o.cur,inf)
+%pause
+% BQ: DEBUGGING THAT CURVATURE IS COMPUTED CORRECTLY IN TWO FORMULAE
+
 end % vesicle
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

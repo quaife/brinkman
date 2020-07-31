@@ -33,7 +33,8 @@ rcon = rcon(1:4:4*ngrid+1);
 % Find a vesicle shape with a similar area (within 1e-10), but with a
 % theta that is band-limited to only frequencies between -4 and 4.
 
-[x,y] = recon(ngrid,x0,y0,sl,theta);
+%[x,y] = recon(ngrid,x0,y0,sl,theta);
+% TODO: COMMENTING OUT SMOOTHING OPERATOR
 % find x and y coordinates of the band-limited theta. Note that theta
 % has already been downsampled, so x and y have ngrid discretization
 % points
