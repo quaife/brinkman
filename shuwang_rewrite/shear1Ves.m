@@ -1,13 +1,13 @@
 
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
-params.N = 4*64; % points on vesicle
-params.dt = 1e-3; % time step size
-params.T = 0.5; % time horizon
+params.N = 96; % points on vesicle
+params.dt = 1e-3*10; % time step size
+params.T = 10; % time horizon
 params.outpt = 1e-3; % ouptut frequency
 params.concentra = 0; % constant, initial concentration of lipid species
 params.oddeven = 0; % flag for initial lipid species profile?
-params.shortax = 1.01; % short axis length
+params.shortax = 3.0; % short axis length
 params.shearRate = 0; % shear rate
 params.viscosityInside = 1.0;
 params.viscosityOutside = 1.0;
@@ -196,6 +196,7 @@ for ktime = 1:nstep
   figure(1); clf; hold on;
   plot(ves.X(1:end/2),ves.X(end/2+1:end),'r')
   quiver(ves.X(1:end/2),ves.X(end/2+1:end),unloop,utloop)
+  disp(norm([unloop;utloop]))
   axis equal
   axis([-3 3 -3 3])
   pause(0.1)

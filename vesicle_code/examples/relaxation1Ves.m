@@ -8,10 +8,10 @@ ms = m;
 betas = beta;
 
 % Physics parameters
-prams.N = 256;               % points per vesicle
+prams.N = 96;               % points per vesicle
 prams.nv = 1;               % number of vesicles
-prams.T = 2e5;               % time horizon (two tumbling)
-prams.m = m;              % number of time steps
+prams.T = 10;               % time horizon (two tumbling)
+prams.m = 100*10;              % number of time steps
 prams.kappa = ones(prams.nv,1); % bending coefficient
 prams.viscCont = ones(prams.nv,1);         % viscosity contrast
 options.farField = 'relaxation'; % background velocity
@@ -30,7 +30,7 @@ end
 prams.fluxCoeff = beta*ones(prams.nv,1);
 
 % TIME ADAPTIVITY (parameters for new implementation)
-options.timeAdap = true;
+options.timeAdap = false;
 prams.rtolArea = 1e10;
 prams.rtolLength = 1e-2;
 prams.betaUp = 1.2;
@@ -40,7 +40,7 @@ prams.dtMax = 1e2;
 prams.dtMin = 1e-5;
 
 options.orderGL = 2;
-options.nsdc = 1;
+options.nsdc = 0;
 options.expectedOrder = 1;
 
 options.expForce = false;
@@ -78,6 +78,9 @@ X = oc.initConfig(prams.N,'nv',prams.nv,...
     'center',[centerx;centery],...
     'angle',ang,...
     'scale',scale);
+
+th = (0:prams.N-1)'*2*pi/prams.N;
+X = [cos(th);3*sin(th)];
 
 %X = oc.initConfig(prams.N,'star',...
 %    'folds',5,...

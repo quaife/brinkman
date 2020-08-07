@@ -1,6 +1,6 @@
 %setup the intial data for the coefficient
 shearate = 0;
-shape = 1.01;
+shape = 3.0;
 phi = 0;
 scale = 2;
 
@@ -11,9 +11,9 @@ initialdata = [4*64 1e-3 1/scale 1e-3 phi 0 shape  ...
 
 ngrid = initialdata(1);
 % the number of the grid points
-dt = initialdata(2);
+dt = initialdata(2)*100;
 % time steps size
-T = initialdata(3);
+T = initialdata(3)*100;
 % time horizon
 outpt = initialdata(4);
 % output data groups
@@ -229,8 +229,8 @@ for ktime = 1:nstep
   % concentration of lipid species rconn. This is the routine that calls
   % GMRES which is used to solve equation (30) in the Sohn et al JCP
   % paper (2010)
-  % ux0 = normal velocity
-  % uy0 = tangential velocity
+  % ux0 = x-velocity
+  % uy0 = y-velocity
   % (x,y) = tracker point
   [ux0,uy0,rlambdalnew,x,y,forc1,forc2,xcc,ycc,area] = ...
       usetself(x0,y0,sl,thetan,rconn);
@@ -239,6 +239,7 @@ for ktime = 1:nstep
   figure(1); clf; hold on;
   plot(x,y,'r')
   quiver(x(1:end-1),y(1:end-1),ux0,uy0)
+  norm([ux0;uy0])
   axis equal
   axis([-3 3 -3 3])
   pause(0.1)

@@ -5,7 +5,7 @@ options.pressure = false;
 
 irate = 1; % controls the speed of the visualization
 
-if 1
+if 0
   file = 'parabolic1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/July302020/parabolic1VesData_dtMax1em1_Speed10_beta0.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1e2B1em4Data.bin';
@@ -55,12 +55,12 @@ if 0
   options.confined = false;
 end
 
-if 0
+if 1
   file = 'relaxation1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/Apr142020/starBeta1em3/relaxation1VesData.bin';
 %    file = '~/projects/brinkman/vesicle_code/results/Apr232020/ellipseBeta1em5/relaxation1VesData.bin';
 %  ax = [-3 3 -3.5 3.5];
-  ax = 2*[-1 1 -1 1];
+  ax = 2*[-1 1 -2 2];
   options.confined = false;
   options.savefig = false;
   beta = 1e-5;
@@ -246,9 +246,13 @@ max_flux = +2;
 figure(1); clf
 for k = istart:irate:iend
 %  xx = interpft(posx(:,:,k),256); yy = interpft(posy(:,:,k),256);  
-  xx = posx(:,:,k) - 1*cx(k);
+  xx = posx(:,:,k) - 0*cx(k);
   yy = posy(:,:,k);
   tt = ten(:,:,k);
+  if k > 1
+    uu = (xx - posx(:,:,k-1))/(time(2)-time(1));
+    vv = (yy - posy(:,:,k-1))/(time(2) - time(1));
+  end
   vec1 = [xx(:,:);xx(1,:)];
   vec2 = [yy(:,:);yy(1,:)];
   vec3 = [tt(:,:);tt(1,:)];
@@ -256,6 +260,9 @@ for k = istart:irate:iend
   if 1
     clf; hold on;
     plot(vec1,vec2,'r-','linewidth',3)
+    if k > 1
+      quiver(xx,yy,uu,vv)
+    end
 %    plot(0,cy(k),'k.','markersize',10);
 %    plot([-5 5],[0 0],'k--')
 %    plot(vec1(1,:),vec2(1,:),'b.','markersize',20)
@@ -372,16 +379,16 @@ end
 
 
 
-opts = odeset('Reltol',1e-13,'AbsTol',1e-13,'MaxStep',1e2,'Stats','on');
-nuc = cy(end)^2 + ra(1);
-y0  = cy(1);
-tspan = [0 2000];
-[t,y] = ode45(@(t,y) VesicleCenter(t,y,nuc,ra,time),tspan,y0,opts);
-
-figure(2); clf; 
-semilogx(t*100,y)
-hold on
-semilogx(time,cy)
+%opts = odeset('Reltol',1e-13,'AbsTol',1e-13,'MaxStep',1e2,'Stats','on');
+%nuc = cy(end)^2 + ra(1);
+%y0  = cy(1);
+%tspan = [0 2000];
+%[t,y] = ode45(@(t,y) VesicleCenter(t,y,nuc,ra,time),tspan,y0,opts);
+%
+%figure(2); clf; 
+%semilogx(t*100,y)
+%hold on
+%semilogx(time,cy)
 
 
 

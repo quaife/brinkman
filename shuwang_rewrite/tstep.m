@@ -200,8 +200,9 @@ IK = oc.modes(N);
 %The the derivative of the rhs of eq(40)
 drhsds = oc.diffFT(rhs,IK);
 %Compute the forces
+% POTENTIAL BUG: WHY IS IT A MINUS SIGN BEFORE drhsds????
 tau1 = rhs.*ves.cur.*sin(theta) - drhsds.*cos(theta)/L;
-tau2 = -rhs.*ves.cur.*cos(theta) -drhsds.*sin(theta)/L;
+tau2 = -rhs.*ves.cur.*cos(theta) - drhsds.*sin(theta)/L;
 %form the velocity on the interface
 krhs = StokesMat*[tau1;tau2];
 %LogKerneltau1 and LogKerneltau2 are the log kernels integrated against the 
@@ -212,7 +213,7 @@ LogKerneltau2 = op.IntegrateLogKernel(tau2);
 %the integral operators
 c1 = L/pi/N/(1+ulam)/ves.viscOut/2;
 c2 = L/(1+ulam)/ves.viscOut;
-%
+% (sigma1,sigma2) is \tilde{u} in equation (40)
 sigma1 = krhs(1:N)*c1 - LogKerneltau1*c2;
 sigma2 = krhs(N+1:end)*c1 - LogKerneltau2*c2;
 % 
