@@ -7,11 +7,11 @@ rhscolume=rhs';
 % velocity
 [vell,flag,relres,iter,resvec] = gmres(@afun,rhscolume,m/2,tol,maxit,@mfun);
 vel = vell';
-flag
-relres
-iter
-resvec
-
+%  flag
+%  relres
+%  iter
+%  %resvec
+%  pause
 % matvec corresponding to equation (40)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function vell = afun(pss)
@@ -37,7 +37,6 @@ uun(1,1:m) = sigma1(1,1:m).*sin(theta(1,1:m)) - ...
              sigma2(1,1:m).*cos(theta(1,1:m));
 utn(1,1:m) = sigma1(1,1:m).*cos(theta(1,1:m)) + ...
              sigma2(1,1:m).*sin(theta(1,1:m));
-
 utn(m+1) = utn(1);
 utns = fd1(utn,m);
 
@@ -61,7 +60,6 @@ ssigma = fft(ssigma,m);
 coe = [1 1:1:m/2 m/2-1:-1:1];
 ssigma(1,1:m) = ssigma(1,1:m)./coe;
 ssigma(1,1:m) = real(ifft(ssigma(1,1:m),m));
-
 z(1,1:m) = ssigma(1,1:m);
 zz = z';
 end

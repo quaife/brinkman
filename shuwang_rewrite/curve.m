@@ -450,12 +450,16 @@ ftheta = o.forceTheta(ves,unt,utn);
 %now we must subtract off the stiffest part in Fourier space.
 %To the power of 3 term comes from the third-derivative of the function
 %that L is being applied to in equation (53)
-rlen = ves.bendsti*(N/L).^3/4;
+rlen = ves.bendsti*(2*pi*[0 1:N/2 N/2-1:-1:1]'/L).^3/4;
 %fntheta - ???
-fntheta = real(ifft(fft(ftheta,N)+rlen.*fft([theta-[2*pi*(0:N-1)/N]'],N)));
+var1 = fft(ftheta,N);
+var2 = fft(theta-[2*pi*(0:N-1)]'/N,N);
+fntheta = real(ifft(var1+rlen.*var2));
+
 %Krasney filter applied to smooth out spurious high frequency terms
 fntheta = o.kfilter(fntheta,N);
-
+% plot(fntheta)
+% pause
 end %fthetaim
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -484,8 +488,8 @@ b = fft(ftheta,N);
 b(abs(b)/N < tol) = 0;
 b(N/2:N/2+2) = 0;
 
-c = real(b.*exp(-10*([0:2:N N-2:-2:2]'/N).^0.25));
-d = imag(b.*exp(-10*([1:2:N-1 0 N-1:-2:3]'/N).^0.25));
+c = real(b.*exp(-10*([0:2:N N-2:-2:2]'/N).^25));
+d = imag(b.*exp(-10*([1:2:N-1 0 N-1:-2:3]'/N).^25));
 d(N/2-1) = 0; d(N/2+3) = 0;
 
 filtered = real(ifft(c+1i*d,N));
@@ -505,7 +509,7 @@ IK = o.modes(N);
 %respect to the lipid concentration
 termd = o.fluxj(ves,epsch,consta);
 %now taking derivative of the variational derivative twice
-rcons = o.diffFT(rcon,IK);
+rcons = o.diffFT(termd,IK);
 rconss = o.diffFT(rcons,IK);
 %invPe is the 1/Pe term in eq (67)
 invPe = 1;

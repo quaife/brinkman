@@ -1,13 +1,13 @@
 function  A = selfmatrix(s,kmatrix)
 
 N = numel(s.x);
-disp('hello')
+% disp('hello')
 r = repmat(s.x,[1 N]) - repmat(s.x.',[N 1]) + diag(ones(1,N));
 % target minus source for the single-layer potential, but putting ones
 % on the main diagonal. x-coordinate is in the real part and
 % y-coordinate is in the imaginary part
-size(r)
-pause
+% size(r)
+% pause
 rt = repmat([1:N]'*pi/N , [1 N]) - ...
      repmat([1:N]*pi/N, [N 1]) + diag(ones(1,N));
 % only going from 0 to pi to account for the divided by 2 in the

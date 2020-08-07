@@ -49,12 +49,14 @@ theta = ves.theta;
 op = poten(N);
 oc = curve;
 
-ves.X = oc.recon(N,x0,y0,L,theta);
+%ves.X = oc.recon(N,x0,y0,L,theta);
 [Eu,Esigma] = ves.variationsNonStiff;
 
 %Compute the force in eq (33)
-tau = [[-Eu.*sin(theta) - Esigma.*cos(theta)]; ...
-       [Eu.*cos(theta) - Esigma.*sin(theta)]];
+tau = [[-Esigma.*sin(theta) - Eu.*cos(theta)]; ...
+       [Esigma.*cos(theta) - Eu.*sin(theta)]];
+%  plot(tau)
+%  pause
 %Construct Stokes matrix without the log singularity. ie. A3 only
 %contains the rightmost kernel in equation (43)
 StokesMat = op.StokesMatrixLogless(ves.X);
@@ -67,29 +69,42 @@ ulam = ves.viscIn/ves.viscOut;
 %the integral operators
 c1 = L/pi/N/(1+ulam)/ves.viscOut/2;
 c2 = L/(1+ulam)/ves.viscOut;
+
 %LogKernel1 and LogKernel2 are the log kernels in the left term in the
 %right hand side of equation (43) integrated against the x and y
 %components of the density functions tau that involves Eu and Esigma
 LogKernel1 = op.IntegrateLogKernel(tau(1:N));
 LogKernel2 = op.IntegrateLogKernel(tau(N+1:end));
+
 %sigma1 and sigma2 are the solution of equation (33) (still unsure
 %about the u_s term). Also, it includes the background shear flow which
 %is not stated in equation (33), but instead in equations (6) and (7)
 sigma1 = k(1:N)*c1 - LogKernel1*c2 + ves.X(N+1:end)*o.shearRate;
 sigma2 = k(N+1:end)*c1 - LogKernel2*c2;
+
 % Calculate v dot n in eq (40)
 vdotn = sigma1.*sin(theta) - sigma2.*cos(theta);
 % Calculate v dot s in eq (40)
 vdots = sigma1.*cos(theta) + sigma2.*sin(theta);
+
 %Calculate d/ds(v dot s) in eq (40)
 IK = oc.modes(N);
 dvdotsds = oc.diffFT(vdots,IK);
+%pause
 % compute the initial curvature using the tangent angle
-ves.cur = oc.acurv(ves);
+%ves.cur = oc.acurv(ves);
 % NOTE: make sure this is the actual curvature. Compare with the
 % analytic expression for the ellipse that can easily be computed.
 %Calculate the right hand side of equation (40)
-rhs = -dvdotsds/L - vdotn.*ves.cur;
+% plot(dvdotsds/L)
+% hold on
+% plot(vdotn.*ves.cur)
+% pause
+% [dvdotsds/L vdotn.*ves.cur]
+rhs = -(dvdotsds/L + vdotn.*ves.cur);
+% disp('plotting rhs')
+% plot(rhs)
+% pause
 %The velocity components in eq (40) are nonlocal linear functions of 
 %lambdaTilde. 
 %semilogy(abs(fftshift(fft(rhs)))/numel(rhs))
@@ -124,28 +139,49 @@ rhs = -dvdotsds/L - vdotn.*ves.cur;
               o.gmresMaxIter,@(x) o.preconditioner(x));
 %      gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
 %              o.gmresMaxIter,@(x)o.preconditioner(x));
-%      flag
-%      relres
-      iter
-     % pause(1)
+%       flag
+%       relres
+%       iter
+%       pause
 %calculate the Fourier derivative of lambdaTilde
 dlamTilds = oc.diffFT(lambTil,IK);
+% plot(dlamTilds)
+% pause
 % We can now calculate the traction jump in first part of equation (39).
 % This comes from applying the product rule and using Frenet-Seret.
 tracJump = [[lambTil.*ves.cur.*sin(theta)-dlamTilds.*cos(theta)/L];...
             [-lambTil.*ves.cur.*cos(theta)-dlamTilds.*sin(theta)/L]];
 %Adding the jump conditions in eq (39) and (33)
-tau = tau + tracJump;        
+tau = tau + tracJump;  
+%   disp('HERE2')
+%   plot(tau)
+%   pause
 %Calculating u tilde in equations (38) through (40) without the weakly
 %singular log kernel
 k = StokesMat*tau;
+
 %compute the weakly singluar log kernel part
-force = op.IntegrateLogKernel(tau);
+force1 = op.IntegrateLogKernel(tau(1:N));
+force2 = op.IntegrateLogKernel(tau(N+1:end));
+%  disp('HERE')
+%  plot(force1)
+%  hold on
+%  plot(force2)
+%  pause
+% % plot([force1 force2])
+% pause
 %Calulating  u in eqatuion (31) by adding the results from the
 %non-singular and weakly singular integral operators
-un = k(1:N)*c1 - tau(1:N)*c2 + ves.X(N+1:end)*o.shearRate;
-ut = k(N+1:end)*c1 - tau(N+1:end)*c2;
-%pause
+% un = k(1:N)*c1 - tau(1:N)*c2 + ves.X(N+1:end)*o.shearRate;
+% ut = k(N+1:end)*c1 - tau(N+1:end)*c2;
+un = k(1:N)*c1 - force1*c2 + ves.X(N+1:end)*o.shearRate;
+ut = k(N+1:end)*c1 - force2*c2;
+%  disp('Un Ut')
+%  plot(un)
+%  hold on
+%  plot(ut)
+%  pause
+
 end % usetself
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -181,12 +217,11 @@ sigma1 = krhs(1:N)*c1 - LogKerneltau1*c2;
 sigma2 = krhs(N+1:end)*c1 - LogKerneltau2*c2;
 % 
 vdotn = sigma1.*sin(theta) - sigma2.*cos(theta);
-%
 vdots = sigma1.*cos(theta) + sigma2.*sin(theta);
 dvdotsds = oc.diffFT(vdots,IK);
+
 %x is (u \cdot s)_s + kappa * (u \cdot n) in eq ()
 x = dvdotsds/L + vdotn.*cur;
-
 end %matvec40
 
 function x = preconditioner(o,rhs)
@@ -197,7 +232,6 @@ ves = o.ves;
 N = ves.N;
 x = fft(rhs,N)./[1 1:1:N/2 N/2-1:-1:1]';
 x = real(ifft(x,N));
-
 end %preconditioner
 
 end % methods
