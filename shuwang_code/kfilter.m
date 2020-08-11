@@ -3,6 +3,8 @@
 
 function u = kfilter(u,m)
 
+%  figure(1); clf;
+%  plot(u); hold on;
 b(1,1:m) = u(1,1:m);
 b(1,m+1) = b(1,1);
 % filter fourier coeffs
@@ -26,5 +28,7 @@ d(1,m/2+3) = 0;
 b = real(ifft(c+1i*d,m));
 u(1,1:m) = b(1,1:m);
 %u(1,m+1) = b(1,1);
+%plot(u,'r--')
+%pause
 
 end

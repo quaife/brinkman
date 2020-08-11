@@ -69,7 +69,14 @@ theta0 = theta(1);
 theta_periodicPart = theta - theta0 - (0:N-1)'*2*pi/N;
 %  Compute the periodic part of the opening angle
 thetah = fft(theta_periodicPart);
-thetah(6:N-4) = 0;
+%clf;
+%semilogy(abs(thetah)); hold on
+maxFreq = 10;
+thetah(maxFreq:N-maxFreq) = 0;
+%thetah(maxFreq:N-(maxFreq-2)) = 0;
+%thetah(6:N-4) = 0;
+%semilogy(abs(thetah),'r--')
+%pause
 % QUESTION: IN SHUWANG'S ORIGINAL CODE, THIS WAS NOT SET UP
 % SYMETRICALLY AROUND THE ZERO MODE. CHECKED AND THE IMAG PART OF thetah
 % IS NON-ZERO UNLESS THE COEFFICIENTS ARE ADJUSTED AS IN ABOVE
@@ -78,9 +85,15 @@ thetah(6:N-4) = 0;
 % coefficients to the same level. Therefore, the imaginary part after
 % taking an ifft was not 0.
 theta_periodicPart = real(ifft(thetah));
-theta = theta_periodicPart + theta0 + (0:N-1)'*2*pi/N;
+theta = theta_periodicPart + theta0 + 2*pi*(0:N-1)'/N;
 
-X = oc.recon(N,x0,y0,L,theta);
+%X = oc.recon(N,x0,y0,L,theta);
+%clf; hold on
+%plot(ves.X(1:end/2),ves.X(end/2+1:end))
+%plot(X(1:end/2),X(end/2+1:end),'r--')
+%axis equal
+%pause
+
 % new shape with filtered opening angle
 
 area = sum(sin(theta).*X(1:end/2) - cos(theta).*X(end/2+1:end))*...
@@ -88,12 +101,19 @@ area = sum(sin(theta).*X(1:end/2) - cos(theta).*X(end/2+1:end))*...
 
 iter = 1;
 while abs(area - areaRef)/areaRef > 1e-10
+%  abs(area - areaRef)/areaRef
+%  pause
   theta_periodicPart = theta_periodicPart * ...
-        (1 + (area - areaRef)/3);
-  theta = theta_periodicPart + theta0 + (0:N-1)'*2*pi/N;
+        (1 + (area - areaRef)/30);
+  theta = theta_periodicPart + theta0 + 2*pi*(0:N-1)'/N;
 
   X = oc.recon(N,x0,y0,L,theta);
   % new shape with scaled periodic part of theta
+%  clf; hold on
+%  plot(ves.X(1:end/2),ves.X(end/2+1:end))
+%  plot(X(1:end/2),X(end/2+1:end),'r--')
+%  axis equal
+%  pause
 
   area = sum(sin(theta).*X(1:end/2) - cos(theta).*X(end/2+1:end))*...
         0.5*L/N;
@@ -105,6 +125,7 @@ while abs(area - areaRef)/areaRef > 1e-10
   end
   % break if it is taking too long
 end
+
 
 ves.X = X;
 [ves.L,ves.theta,ves.cur] = oc.computeOpeningAngle(N,X);
@@ -145,6 +166,9 @@ DDrbn_cur = oc.diffFT(Drbn_cur,IK);%/(ves.L/2/pi);
 % plot(DDrbn_cur)
 %  pause
 Esigma = -DDrbn_cur/(ves.L^2) - 0.5*rbn.*cur.^3;
+%clf
+%plot(DDrbn_cur)
+%pause
 % figure(1)
 % plot(Esigma)
 

@@ -2,18 +2,18 @@
 shearate = 0;
 shape = 3.0;
 phi = 0;
-scale = 2;
+scale = 1;
 
 global consta eps_ch kmatrix velocity bendsti bendratio uinside uoutside m
 
-initialdata = [4*64 1e-3 1/scale 1e-3 phi 0 shape  ...
+initialdata = [96 1e-3 1/scale 1e-3 phi 0 shape  ...
     shearate 1 1 1 100 1.0 1.0];
 
 ngrid = initialdata(1);
 % the number of the grid points
-dt = initialdata(2)*100;
+dt = initialdata(2)*10;
 % time steps size
-T = initialdata(3)*100;
+T = initialdata(3)*10;
 % time horizon
 outpt = initialdata(4);
 % output data groups
@@ -38,7 +38,7 @@ end
 lambd = initialdata(11);
 % viscosity ratio
 consta = initialdata(12);
-% the speed constant for phase decomposion
+% the speed constant for phase decomposition
 uinside = initialdata(13);
 % viscosity inside
 uoutside = initialdata(14);
@@ -59,8 +59,9 @@ outpt = round(outpt/dt);
 
 % set the initial condition.
 [x,y,theta,rcon,sl] = initialsetup(shortax,ngrid,concentra,oddeven);
-% plot(x,y,'r')
+% plot(x(1:4:end),y(1:4:end),'r-o')
 % axis equal
+% pause
 % pause(0.1)
 % here we keep the total arclength unchanged.
 x0 = x(1);
@@ -97,7 +98,6 @@ kmatrix = formkmatrix(ngrid);
 % pause
 disp('step1')
 figure(1); clf; hold on;
-plot(x,y,'r')
 quiver(x(1:end-1),y(1:end-1),ux0,uy0)
 axis equal
 axis([-3 3 -3 3])
@@ -217,6 +217,7 @@ ss(1) = sl;
 vx = ux0';
 vy = uy0';
 
+nn = [];
 % From the second step, use multistep the evolve the dynamics.
 for ktime = 1:nstep
   tic
@@ -239,6 +240,7 @@ for ktime = 1:nstep
   figure(1); clf; hold on;
   plot(x,y,'r')
   quiver(x(1:end-1),y(1:end-1),ux0,uy0)
+  nn = [nn;norm([ux0;uy0])];
   norm([ux0;uy0])
   axis equal
   axis([-3 3 -3 3])

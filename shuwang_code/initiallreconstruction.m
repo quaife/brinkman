@@ -18,6 +18,7 @@ y0=0;
 % construct the x and y coordinates of the shape with length sl and
 % length theta. (x0,y0) is the first point on the curve and m is the
 % number of points
+xRef = x-mean(x); yRef = y-mean(y);
 
 a = theta(1);
 
@@ -56,6 +57,11 @@ while abs(area-areasum)/areasum>1e-10
   x = x - mean(x(1,1:m));
   y = y - mean(y(1,1:m));
   % compute new x and y coordinates
+%  clf; hold on
+%  plot(xRef,yRef);
+%  plot(x,y,'r--')
+%  axis equal
+%  pause
 
   area = sum(sin(theta2(1,1:m)).*x(1,1:m)-...
              cos(theta2(1,1:m)).*y(1,1:m))/2*sl/m;

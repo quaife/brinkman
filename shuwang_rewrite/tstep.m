@@ -37,6 +37,8 @@ end % tstep: constructor
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [un, ut] = usetself(o)
+% Compute x and y component of the velocity. Naming convention needs
+% fixed
 
 ves = o.ves;
 x0 = ves.x0;

@@ -197,7 +197,7 @@ if ~equispaced
   alpha = o.arc(sa);
   % find parameter values that give discretization points that are
   % nearly equispaced in arclength
-  [alpha,X] = o.initConfig(N,'true',options{1},'angle',theta,...
+  [alpha,X] = o.initConfig(N,true,options{1},'angle',theta,...
        'reducedArea',ra,'shortax',shortax,'scale',scale,...
        'folds',folds,'parameter',alpha);
 end
@@ -396,10 +396,13 @@ intfh = [zeroMode;fh(2:end)./IK(2:end)];
 
 intf = real(fh(1)/N * (0:N-1)'/N + ifft(intfh,N));
 % sum of the linear term and the contribution from the periodic part
+%figure(1); clf
+%disp('Here')
+%plot(intf)
+%figure(2); clf
+%semilogy(fftshift(abs(fh)))
+%pause
 
-% disp('Here')
-% plot(intf)
-% pause
 end % intFT
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -450,10 +453,13 @@ ftheta = o.forceTheta(ves,unt,utn);
 %now we must subtract off the stiffest part in Fourier space.
 %To the power of 3 term comes from the third-derivative of the function
 %that L is being applied to in equation (53)
-rlen = ves.bendsti*(2*pi*[0 1:N/2 N/2-1:-1:1]'/L).^3/4;
+rlen = ves.bendsti*(abs(IK)/L).^3/4;
 %fntheta - ???
-var1 = fft(ftheta,N);
-var2 = fft(theta-[2*pi*(0:N-1)]'/N,N);
+var1 = fft(ftheta);
+var2 = fft(theta-[2*pi*(0:N-1)]'/N);
+%clf;
+%plot(utn)
+%pause
 fntheta = real(ifft(var1+rlen.*var2));
 
 %Krasney filter applied to smooth out spurious high frequency terms
@@ -479,7 +485,6 @@ ftheta = -dunds/L + dthetads.*utn/L;
     
 end %forceTheta
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 function filtered = kfilter(o,ftheta,N)
 %fourier filter with krasny filtering with 1 input vector 
 %USING FAST FOURIER TRANSFORM
@@ -493,6 +498,13 @@ d = imag(b.*exp(-10*([1:2:N-1 0 N-1:-2:3]'/N).^25));
 d(N/2-1) = 0; d(N/2+3) = 0;
 
 filtered = real(ifft(c+1i*d,N));
+
+%size(ftheta)
+%figure(1); clf;
+%plot(ftheta); hold on;
+%plot(filtered,'r--')
+%semilogy(fftshift(abs(b)))
+%pause
 
 end %kfilter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

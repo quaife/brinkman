@@ -65,6 +65,7 @@ if 1
   options.savefig = false;
   beta = 1e-5;
   count = 1;
+  irate = 10;
 end
 
 if 0
