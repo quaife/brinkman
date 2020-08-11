@@ -364,8 +364,8 @@ function X = recon(o,N,x0,y0,L,theta)
 % (x0,y0)
 
 IK = o.modes(N);
-x = x0 + o.intFT(L*cos(theta),IK)/2/pi;
-y = y0 + o.intFT(L*sin(theta),IK)/2/pi;
+x = x0 + o.intFT(L*cos(theta),IK);%/2/pi;
+y = y0 + o.intFT(L*sin(theta),IK);%/2/pi;
 X = o.setXY(x,y);
 
 end % recon
@@ -387,16 +387,19 @@ function intf = intFT(o,f,IK)
 % function f using fourier transform
 
 N = numel(f);
-fh = fft(f);
+fh = fft(f,N);
 
 zeroMode = -sum(fh(2:end)./IK(2:end));
 % zero mode of the integral of f
 intfh = [zeroMode;fh(2:end)./IK(2:end)];
 % non-zero modes of the integral of f
 
-intf = real(fh(1)/N * (0:N-1)'/N + ifft(intfh));
+intf = real(fh(1)/N * (0:N-1)'/N + ifft(intfh,N));
 % sum of the linear term and the contribution from the periodic part
 
+% disp('Here')
+% plot(intf)
+% pause
 end % intFT
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -431,9 +434,6 @@ IK = o.modes(N);
 
 % function with the same increase over a period of 2*pi as the angle
 % theta
-%linearPart = (0:1:N-1)'-2*pi*(0:1:N-1)'/N; 
-
-%dx = o.diffFT([theta - linearPart],IK) + 2*pi;
 dx = o.diffFT([theta - 2*pi*(0:1:N-1)'/N],IK) + 2*pi;
 
 end %rmLinearPart

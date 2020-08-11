@@ -5,13 +5,13 @@ params.N = 96; % points on vesicle
 params.dt = 1e-3*10; % time step size
 params.T = 10; % time horizon
 params.outpt = 1e-3; % ouptut frequency
-params.concentra = 0; % constant, initial concentration of lipid species
+params.concentra = 0.01; % constant, initial concentration of lipid species
 params.oddeven = 0; % flag for initial lipid species profile?
 params.shortax = 3.0; % short axis length
 params.shearRate = 0; % shear rate
 params.viscosityInside = 1.0;
 params.viscosityOutside = 1.0;
-params.bendsti = 1; % maximum bending stiffness
+params.bendsti = .1; % maximum bending stiffness
 params.bendratio = 1; % ratio between max and min bending stiffness
 params.consta = 100; % parameter 'a' in the Cahn-Hilliard energy
 params.nloop = 20; 
@@ -164,24 +164,23 @@ end
 %  plot(ves.rcon)
 %  pause%(0.1)
 %New area
-area = sum(sin(ves.theta).*X(1:end/2) - cos(ves.theta).*X(end/2+1:end))*...
-       0.5*ves.L/ves.N;
+area = sum(sin(ves.theta).*ves.X(1:end/2) - ...
+    cos(ves.theta).*ves.X(end/2+1:end))*0.5*ves.L/ves.N;
 %update the position with Forward Euler. At future time steps,
 %second-order Adams-Bashforth will be used
 ves.x0 = ves.x0 + params.dt*un(1);
 ves.y0 = ves.y0 + params.dt*ut(1);
 %============================================================
-X = oc.recon(ves.N,ves.x0,ves.y0,ves.L,ves.theta);
+ves.X = oc.recon(ves.N,ves.x0,ves.y0,ves.L,ves.theta);
 % plot([ves.X(1:end/2);ves.X(1)],[ves.X(end/2 +1:end);ves.X(end/2 +1)])
 % axis equal
 % pause
 
 % From the second step, use multistep the evolve the dynamics.
+un_old = un(1);
+ut_old = ut(1);
 for ktime = 1:nstep
-  tcomp = ktime*params.dt;
-  un0 = un(1);
-  ut0 = ut(1);
-  
+  tcomp = ktime*params.dt;  
   %compute the x- and y-components of the velocity. This is the routine
   %that calls GMRES which is used to solve equation (30) in the Sohn et
   %al JCP paper (2010)
@@ -198,29 +197,26 @@ for ktime = 1:nstep
   quiver(ves.X(1:end/2),ves.X(end/2+1:end),unloop,utloop)
   disp(norm([unloop;utloop]))
   axis equal
-  axis([-3 3 -3 3])
+  %axis([-3 3 -3 3])
   pause(0.1)
   hold off
   
-  un1 = unloop(1);
-  ut1 = utloop(1);
+  un_new = unloop(1);
+  ut_new = utloop(1);
   %put the x-y velocity into the normal and tangential velocity.
   ves.theta = thetan;
   theta = ves.theta;
   unt = unloop.*sin(theta) - utloop.*cos(theta); %Tangential Velocity
   utn = unloop.*cos(theta) + utloop.*sin(theta); %Normal Velocity
-  %Update length change over time using a first-order Euler method.
-  %For subsequent time steps, will use a multistep method as described in
-  %equation (60)
-  %   Forward Euler for the length. The first element of dcur should be zero, 
+  %Update length change over time using a 2nd-order Adams Bashforth method.
+  %described in equation (60)
+  %   2nd-order Adams Bashforth for the length. The first element of dcur should be zero, 
   %   so this is just checking for discretization and round-off errors i.e.
   %   Ln = ves.L if params.dt*dcur(1) = 0.
   dcur1 = oc.fdcur(ves,unt);
   Ln1 = Ln0 + params.dt*(3*dcur1(end)-dcur0(end))/2;
 %  Multistep
-%  Ln1 = Ln0 + params.dt*dcur1(1)
-  % Forward Euler
-%  ves.L = Ln1;
+  ves.L = Ln1;
   %Get the velocity of the vesicle by its velocity of the tangential
   %angle, but without the stiff term. 
   fnthetan = oc.fthetaim(ves,unt,utn);
@@ -244,14 +240,14 @@ for ktime = 1:nstep
   %add back the linear function that makes thetan a function that grows
   %by 2*pi everytime you go completely around the shape (ex. vesicle).
   %thetann is now the tangent angle of the new shape after taking a single
-  %step of Euler with the stiffest term treated implicitly and integrated
-  %with an integrating factor
-%  thetann = real(ifft(d1.*fcthetan + 0.5*params.dt*(3*d1.*fcfnthetan- ...
-%            d2.*fcfntheta)))+2*pi*(0:ves.N-1)'/ves.N;
-%  % Multistep
+  %step of a 2nd order multistep method with the stiffest term treated
+  %implicitly and integratedwith an integrating factor
+  thetann = real(ifft(d1.*fcthetan + 0.5*params.dt*(3*d1.*fcfnthetan- ...
+            d2.*fcfntheta)))+2*pi*(0:ves.N-1)'/ves.N;
+  % Multistep
 
-  thetann = real(ifft(d1.*fcthetan + params.dt*d1.*fcfnthetan)) + ...
-        2*pi*(0:ves.N-1)'/ves.N;
+  %thetann = real(ifft(d1.*fcthetan + params.dt*d1.*fcfnthetan)) + ...
+  %      2*pi*(0:ves.N-1)'/ves.N;
   
   rsl = params.epsch*(rk/ves.L).^4*params.consta;
   rsln = params.epsch*(rk/Ln0).^4*params.consta;
@@ -261,7 +257,6 @@ for ktime = 1:nstep
   d2 = exp(-(params.dt/params.nloop*((rsl+rslnn)/2+rsln)));
 
   if params.concentra > 0
-    disp('in here')
     for i =1:params.nloop
       %evolve the phase field on the surface            
       N2Hatn = oc.frconim(ves,params.epsch,params.consta);
@@ -284,14 +279,16 @@ for ktime = 1:nstep
   thetan = thetann;
   fntheta = fnthetan;    
   %update the single tracker point
-%  ves.x0 = ves.x0 + 0.5*params.dt*(3*un1 - un0);
-%  ves.y0 = ves.y0 + 0.5*params.dt*(3*ut1 - ut0);
-%  % multistep
-  ves.x0 = ves.x0 + params.dt*un1;
-  ves.y0 = ves.y0 + params.dt*ut1;
+  ves.x0 = ves.x0 + 0.5*params.dt*(3*un_new - un_old);
+  ves.y0 = ves.y0 + 0.5*params.dt*(3*ut_new - ut_old);
+  % multistep
+%  ves.x0 = ves.x0 + params.dt*un1;
+%  ves.y0 = ves.y0 + params.dt*ut1;
   % Euler
   %Update X
-  X = oc.recon(ves.N,ves.x0,ves.y0,ves.L,ves.theta);
+  ves.X = oc.recon(ves.N,ves.x0,ves.y0,ves.L,ves.theta);
   %plot(real(X(1:end/2)),real(X(end/2 +1:end)))
   %pause(1)
+  un_old = un_new;
+  ut_old = ut_new;
 end
