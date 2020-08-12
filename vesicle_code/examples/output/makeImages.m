@@ -5,7 +5,7 @@ options.pressure = false;
 
 irate = 1; % controls the speed of the visualization
 
-if 0
+if 1
   file = 'parabolic1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/July302020/parabolic1VesData_dtMax1em1_Speed10_beta0.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1e2B1em4Data.bin';
@@ -55,7 +55,7 @@ if 0
   options.confined = false;
 end
 
-if 1
+if 0
   file = 'relaxation1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/Apr142020/starBeta1em3/relaxation1VesData.bin';
 %    file = '~/projects/brinkman/vesicle_code/results/Apr232020/ellipseBeta1em5/relaxation1VesData.bin';
@@ -261,10 +261,10 @@ for k = istart:irate:iend
   if 1
     clf; hold on;
     plot(vec1,vec2,'r-','linewidth',3)
-    if k > 1
-      quiver(xx,yy,uu,vv)
-      pause
-    end
+%    if k > 1
+%      quiver(xx,yy,uu,vv)
+%      pause
+%    end
 %    plot(0,cy(k),'k.','markersize',10);
 %    plot([-5 5],[0 0],'k--')
 %    plot(vec1(1,:),vec2(1,:),'b.','markersize',20)
@@ -381,16 +381,16 @@ end
 
 
 
-opts = odeset('Reltol',1e-13,'AbsTol',1e-13,'MaxStep',1e2,'Stats','on');
-nuc = cy(end)^2 + ra(1);
-y0  = cy(1);
-tspan = [0 2000];
-[t,y] = ode45(@(t,y) VesicleCenter(t,y,nuc,ra,time),tspan,y0,opts);
-
-figure(2); clf; 
-plot(t*100,y)
-hold on
-plot(time,cy)
+%opts = odeset('Reltol',1e-13,'AbsTol',1e-13,'MaxStep',1e2,'Stats','on');
+%nuc = cy(end)^2 + ra(1);
+%y0  = cy(1);
+%tspan = [0 2000];
+%[t,y] = ode45(@(t,y) VesicleCenter(t,y,nuc,ra,time),tspan,y0,opts);
+%
+%figure(2); clf; 
+%plot(t*100,y)
+%hold on
+%plot(time,cy)
 
 
 

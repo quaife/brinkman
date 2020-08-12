@@ -22,11 +22,11 @@ options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
 options.verbose = true;
-options.semipermeable = false;
+options.semipermeable = true;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-8;
 prams.errorTol = 1000;
-prams.fluxCoeff = 0e-3;
+prams.fluxCoeff = 1e-3;
 %prams.fluxCoeff = fluxCoeff;
 options.fluxShape = 1;
 
