@@ -159,13 +159,12 @@ rbn = b0 * (ones(N,1) - rcon) + b1*rcon;
 % plot(ves.cur)
 % pause
 
-Drbn = oc.diffFT(rbn,IK); %/(2/pi);
-Drbn_cur = oc.diffFT(rbn.*cur,IK);%/(ves.L/2/pi);
-DDrbn_cur = oc.diffFT(Drbn_cur,IK);%/(ves.L/2/pi);
-% disp('here') 
+Drbn = oc.diffFT(rbn,IK)/ves.L; 
+Drbn_cur = oc.diffFT(rbn.*cur,IK)/ves.L;
+DDrbn_cur = oc.diffFT(Drbn_cur,IK)/ves.L;
 % plot(DDrbn_cur)
 %  pause
-Esigma = -DDrbn_cur/(ves.L^2) - 0.5*rbn.*cur.^3;
+Esigma = -DDrbn_cur - 0.5*rbn.*cur.^3;
 %clf
 %plot(DDrbn_cur)
 %pause
@@ -174,7 +173,7 @@ Esigma = -DDrbn_cur/(ves.L^2) - 0.5*rbn.*cur.^3;
 
 %Esigma is equation (14) with spotaneous curvature set to zero.
 
-Eu = -0.5*Drbn.*cur.^2/ves.L;
+Eu = 0.5*Drbn.*cur.^2;
 % figure(2)
 % plot(Eu)
 % pause

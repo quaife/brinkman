@@ -247,7 +247,7 @@ max_flux = +2;
 figure(1); clf
 for k = istart:irate:iend
 %  xx = interpft(posx(:,:,k),256); yy = interpft(posy(:,:,k),256);  
-  xx = posx(:,:,k) - 0*cx(k);
+  xx = posx(:,:,k) - 1*cx(k);
   yy = posy(:,:,k);
   tt = ten(:,:,k);
   if k > 1
@@ -263,6 +263,7 @@ for k = istart:irate:iend
     plot(vec1,vec2,'r-','linewidth',3)
     if k > 1
       quiver(xx,yy,uu,vv)
+      pause
     end
 %    plot(0,cy(k),'k.','markersize',10);
 %    plot([-5 5],[0 0],'k--')
@@ -380,16 +381,16 @@ end
 
 
 
-%opts = odeset('Reltol',1e-13,'AbsTol',1e-13,'MaxStep',1e2,'Stats','on');
-%nuc = cy(end)^2 + ra(1);
-%y0  = cy(1);
-%tspan = [0 2000];
-%[t,y] = ode45(@(t,y) VesicleCenter(t,y,nuc,ra,time),tspan,y0,opts);
-%
-%figure(2); clf; 
-%semilogx(t*100,y)
-%hold on
-%semilogx(time,cy)
+opts = odeset('Reltol',1e-13,'AbsTol',1e-13,'MaxStep',1e2,'Stats','on');
+nuc = cy(end)^2 + ra(1);
+y0  = cy(1);
+tspan = [0 2000];
+[t,y] = ode45(@(t,y) VesicleCenter(t,y,nuc,ra,time),tspan,y0,opts);
+
+figure(2); clf; 
+plot(t*100,y)
+hold on
+plot(time,cy)
 
 
 

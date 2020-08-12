@@ -1,14 +1,14 @@
 
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
-params.N = 2*96; % points on vesicle
+params.N = 96; % points on vesicle
 params.dt = 1e-3*10; % time step size
 params.T = 10; % time horizon
 params.outpt = 1e-3; % ouptut frequency
 params.concentra = 0.0; % constant, initial concentration of lipid species
 params.oddeven = 0; % flag for initial lipid species profile?
 params.shortax = 2.0; % short axis length
-params.shearRate = 1; % shear rate
+params.shearRate = 0; % shear rate
 params.viscosityInside = 1.0;
 params.viscosityOutside = 1.0;
 params.bendsti = 1; % maximum bending stiffness
@@ -88,7 +88,7 @@ axis equal
 axis([-3 3 -3 3])
 pause(0.1)
 hold off
-% pause
+pause
 % NOTE: THERE IS A BUG IN COMPUTING THE VELOCITY BEFORE THIS POINT
 
 %put the x-y velocity into the normal and tangential velocity.
