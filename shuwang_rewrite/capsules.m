@@ -87,7 +87,7 @@ thetah(maxFreq:N-maxFreq) = 0;
 theta_periodicPart = real(ifft(thetah));
 theta = theta_periodicPart + theta0 + 2*pi*(0:N-1)'/N;
 
-%X = oc.recon(N,x0,y0,L,theta);
+X = oc.recon(N,x0,y0,L,theta);
 %clf; hold on
 %plot(ves.X(1:end/2),ves.X(end/2+1:end))
 %plot(X(1:end/2),X(end/2+1:end),'r--')

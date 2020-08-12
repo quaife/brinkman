@@ -216,7 +216,10 @@ LogKerneltau2 = op.IntegrateLogKernel(tau2);
 c1 = L/pi/N/(1+ulam)/ves.viscOut/2;
 c2 = L/(1+ulam)/ves.viscOut;
 % (sigma1,sigma2) is \tilde{u} in equation (40)
-sigma1 = krhs(1:N)*c1 - LogKerneltau1*c2;
+
+o.shearRate
+pause
+sigma1 = krhs(1:N)*c1 - LogKerneltau1*c2 + ves.X(N+1:end)*o.shearRate;;
 sigma2 = krhs(N+1:end)*c1 - LogKerneltau2*c2;
 % 
 vdotn = sigma1.*sin(theta) - sigma2.*cos(theta);
