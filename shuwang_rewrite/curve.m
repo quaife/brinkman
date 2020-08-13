@@ -48,7 +48,7 @@ end % getDXY
 function [jacobian,tangent,curvature] = diffProp(o,X)
 % [jacobian,tangent,curvature] = diffProp(X) returns differential
 % properties of the curve each column of the matrix X. Each column of 
-% X should be a closed curve defined in plane. The tangent is the 
+% X uld be a closed curve defined in plane. The tangent is the 
 % normalized tangent.
 %
 % EXAMPLE:

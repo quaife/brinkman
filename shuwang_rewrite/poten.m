@@ -81,7 +81,7 @@ N = o.N;
 sigmah = fft(sigma);
 coeff = [(0:N/2-1)';(-N/2:-1)'];
 
-Symm_sigmah = -0.5*sigmah./abs(coeff);
+Symm_sigmah = 0.5*sigmah./abs(coeff);
 Symm_sigmah(1) = 0;
 
 Symm_sigma = real(ifft(Symm_sigmah));

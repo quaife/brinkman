@@ -84,8 +84,8 @@ LogKernel2 = op.IntegrateLogKernel(tau(N+1:end));
 %sigma1 and sigma2 are the solution of equation (33) (still unsure
 %about the u_s term). Also, it includes the background shear flow which
 %is not stated in equation (33), but instead in equations (6) and (7)
-sigma1 = k(1:N)*c1 - LogKernel1*c2;
-sigma2 = k(N+1:end)*c1 - LogKernel2*c2;
+sigma1 = -k(1:N)*c1 - LogKernel1*c2;
+sigma2 = -k(N+1:end)*c1 - LogKernel2*c2;
 
 % Calculate v dot n in eq (40)
 vdotn = sigma1.*sin(theta) - sigma2.*cos(theta);
@@ -182,8 +182,8 @@ force2 = op.IntegrateLogKernel(tau(N+1:end));
 %non-singular and weakly singular integral operators
 % un = k(1:N)*c1 - tau(1:N)*c2 + ves.X(N+1:end)*o.shearRate;
 % ut = k(N+1:end)*c1 - tau(N+1:end)*c2;
-un = k(1:N)*c1 - force1*c2 + ves.X(N+1:end)*o.shearRate;
-ut = k(N+1:end)*c1 - force2*c2;
+un = k(1:N)*c1 + force1*c2 + ves.X(N+1:end)*o.shearRate;
+ut = k(N+1:end)*c1 + force2*c2;
 
 %  disp('Un Ut')
 %  plot(un)
