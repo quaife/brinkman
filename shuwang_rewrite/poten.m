@@ -51,8 +51,8 @@ denom43 = 2*abs(sin(rt)) + diag(ones(1,o.N));
 % denominator of equation (43)
 
 irr = 1./(conj(r).*r);    % 1/r^2
-d1 = 0*real(r); % x-coordinate of rxxx
-d2 = 0*imag(r); % y-coordinate of r
+d1 = real(r); % x-coordinate of rxxx
+d2 = imag(r); % y-coordinate of r
 Ilogr = -log(abs(r)./denom43);  % log(1/r) diag block
 %Ilogr = log(denom43);
 % Putting ones in the diagonal of r and denom results in taking log of
@@ -81,7 +81,7 @@ N = o.N;
 sigmah = fft(sigma);
 coeff = [(0:N/2-1)';(-N/2:-1)'];
 
-Symm_sigmah = 0.5*sigmah./abs(coeff);
+Symm_sigmah = -sigmah./abs(coeff);
 Symm_sigmah(1) = 0;
 
 Symm_sigma = real(ifft(Symm_sigmah));

@@ -2739,7 +2739,8 @@ elseif any(strcmp(varargin,'parabolic'))
 %    R = 100;
 %      R = 20;
 %      R = 10;
-      R = 5;
+      R = 6.129;
+%      R = 5;
   else
     R = varargin{R+1};
   end

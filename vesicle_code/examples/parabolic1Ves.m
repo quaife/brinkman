@@ -22,11 +22,11 @@ options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
 options.verbose = true;
-options.semipermeable = true;
+options.semipermeable = false;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-8;
 prams.errorTol = 1000;
-prams.fluxCoeff = 1e-3;
+prams.fluxCoeff = 1e-3*0;
 %prams.fluxCoeff = fluxCoeff;
 options.fluxShape = 1;
 
@@ -67,9 +67,9 @@ options.dataFile = 'output/parabolic1VesData.bin';
 oc = curve;
 ra = 0.65;
 centerx = 0;
-centery = 1.5;
-ang = -pi/4;
-scale = sqrt(ra);
+centery = 1.0;
+ang = -pi/18;
+scale = 0.535*sqrt(ra);
 X = oc.initConfig(prams.N,...
     'nv', prams.nv, ...
     'reducedArea',ra,...
@@ -77,8 +77,14 @@ X = oc.initConfig(prams.N,...
     'center',[centerx;centery],...
     'scale',scale);
 
-[~,~,L] = oc.geomProp(X);
+[ra,A,L] = oc.geomProp(X);
 
+%clf
+%plot(X(1:end/2),X(end/2+1:end),'r');
+%axis equal
+%axis([-3 3 -2 2])
+%[ra,A,L]
+%pause
 %X = oc.initConfig(prams.N,...
 %    'reducedArea',ra,...
 %    'angle',pi/2,...

@@ -73,7 +73,7 @@ ulam = ves.viscIn/ves.viscOut;
 %c1 = L/pi/N/(1+ulam)/ves.viscOut/2;
 %c2 = L/(1+ulam)/ves.viscOut;
 c1 = 1/(4*pi)*L/N;
-c2 = L/(4*pi);
+c2 = -L/(8*pi);
 
 %LogKernel1 and LogKernel2 are the log kernels in the left term in the
 %right hand side of equation (43) integrated against the x and y
@@ -84,8 +84,8 @@ LogKernel2 = op.IntegrateLogKernel(tau(N+1:end));
 %sigma1 and sigma2 are the solution of equation (33) (still unsure
 %about the u_s term). Also, it includes the background shear flow which
 %is not stated in equation (33), but instead in equations (6) and (7)
-sigma1 = -k(1:N)*c1 - LogKernel1*c2;
-sigma2 = -k(N+1:end)*c1 - LogKernel2*c2;
+sigma1 = k(1:N)*c1 + LogKernel1*c2 + ves.X(N+1:end)*o.shearRate;
+sigma2 = k(N+1:end)*c1 + LogKernel2*c2;
 
 % Calculate v dot n in eq (40)
 vdotn = sigma1.*sin(theta) - sigma2.*cos(theta);
@@ -139,12 +139,12 @@ rhs = -(dvdotsds + ves.cur.*vdotn);
 %plot(o.matvec40(rhs,StokesMat))
 %%plot(lambTil)
 %pause
-[lambTil,flag,relres,iter,resvec] = ...
-      gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
-              o.gmresMaxIter,@(x) o.preconditioner(x));
 %[lambTil,flag,relres,iter,resvec] = ...
 %      gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
-%              o.gmresMaxIter);
+%              o.gmresMaxIter,@(x) o.preconditioner(x));
+[lambTil,flag,relres,iter,resvec] = ...
+      gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
+              o.gmresMaxIter);
 %       flag
 %       relres
 %       iter
@@ -160,7 +160,7 @@ tracJump = [[-lambTil.*ves.cur.*sin(theta) + dlamTilds.*cos(theta)];...
 
 % Adding the jump conditions in eq (39) to (33) which is in the variable
 % tau
-tau = tau + tracJump;  
+tau = -tau - tracJump;
 %   disp('HERE2')
 %   plot(tau)
 %   pause
@@ -197,6 +197,7 @@ end % usetself
 function x = matvec40(o,rhs,StokesMat)   
 %This function cooresponds to the matvec in equation 40 and returns
 %%(u \cdot s)_s + kappa * (u \cdot n)  as x
+
 ves = o.ves;
 theta = ves.theta;
 cur = ves.cur;
@@ -209,7 +210,6 @@ IK = oc.modes(N);
 %The the derivative of the rhs of eq(40)
 drhsds = oc.diffFT(rhs,IK)/L;
 %Compute the forces
-% POTENTIAL BUG: WHY IS IT A MINUS SIGN BEFORE drhsds????
 tau1 = -rhs.*cur.*sin(theta) + drhsds.*cos(theta);
 tau2 = +rhs.*cur.*cos(theta) + drhsds.*sin(theta);
 %form the velocity on the interface
@@ -223,11 +223,11 @@ LogKerneltau2 = op.IntegrateLogKernel(tau2);
 %c1 = L/pi/N/(1+ulam)/ves.viscOut/2;
 %c2 = L/(1+ulam)/ves.viscOut;
 c1 = 1/(4*pi)*L/N;
-c2 = L/(4*pi);
+c2 = -L/(8*pi);
 
 % (sigma1,sigma2) is \tilde{u} in equation (39) and (40)
-sigma1 = krhs(1:N)*c1 - LogKerneltau1*c2;
-sigma2 = krhs(N+1:end)*c1 - LogKerneltau2*c2;
+sigma1 = krhs(1:N)*c1 + LogKerneltau1*c2;
+sigma2 = krhs(N+1:end)*c1 + LogKerneltau2*c2;
 
 % Build left hand side of equation (40)
 vdotn = sigma1.*sin(theta) - sigma2.*cos(theta);
@@ -235,7 +235,7 @@ vdots = sigma1.*cos(theta) + sigma2.*sin(theta);
 dvdotsds = oc.diffFT(vdots,IK)/L;
 
 %x is (u \cdot s)_s + kappa * (u \cdot n) in eq ()
-x = dvdotsds + cur.*vdotn;
+x = (dvdotsds + cur.*vdotn);
 
 end %matvec40
 

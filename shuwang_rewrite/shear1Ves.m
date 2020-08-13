@@ -1,14 +1,14 @@
 
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
-params.N = 96; % points on vesicle
+params.N = 64; % points on vesicle
 params.dt = 1e-3*10; % time step size
 params.T = 10; % time horizon
 params.outpt = 1e-3; % ouptut frequency
 params.concentra = 0.0; % constant, initial concentration of lipid species
 params.oddeven = 0; % flag for initial lipid species profile?
 params.shortax = 2.0; % short axis length
-params.shearRate = 0; % shear rate
+params.shearRate = 1; % shear rate
 params.viscosityInside = 1.0;
 params.viscosityOutside = 1.0;
 params.bendsti = 1; % maximum bending stiffness
@@ -89,7 +89,6 @@ axis([-3 3 -3 3])
 pause(0.1)
 hold off
 pause
-% NOTE: THERE IS A BUG IN COMPUTING THE VELOCITY BEFORE THIS POINT
 
 %put the x-y velocity into the normal and tangential velocity.
 theta = ves.theta;
@@ -297,6 +296,12 @@ for ktime = 1:nstep
   ves.X = oc.recon(ves.N,ves.x0,ves.y0,ves.L,ves.theta);
   %plot(real(X(1:end/2)),real(X(end/2 +1:end)))
   %pause(1)
+
+  ves.X(1:end/2) = ves.X(1:end/2) - mean(ves.X(1:end/2));
+  ves.X(end/2+1:end) = ves.X(end/2+1:end) - mean(ves.X(end/2+1:end));
+%  fprintf('ves.L is %16.12e\n',ves.L);
+%  pause
+
   ux_old = ux_new;
   uy_old = uy_new;
 end

@@ -126,6 +126,8 @@ while abs(area - areaRef)/areaRef > 1e-10
   % break if it is taking too long
 end
 
+X(1:end/2) = X(1:end/2) - mean(X(1:end/2));
+X(end/2+1:end) = X(end/2+1:end) - mean(X(end/2+1:end));
 
 ves.X = X;
 [ves.L,ves.theta,ves.cur] = oc.computeOpeningAngle(N,X);
