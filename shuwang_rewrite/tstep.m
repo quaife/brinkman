@@ -192,7 +192,7 @@ x = real(ifft(x,N));
 end %preconditioner
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [ves,ux_old,uy_old,L,Ln,dcur0,fntheta,N2Hat] = FirstSteps(o,ves,params,options,om)
+function [ves,ux_old,uy_old,L,Ln,dcur0,N1,N2Hat] = FirstSteps(o,ves,params,options,om)
 %refines the first time step [0,dt] and uses a first-order Euler method to 
 %find the vesicle position, curv, velocity, and density function.  
 %Returns ves, L, Ln and dcur0 to use for higher-order time stepping.     
@@ -242,15 +242,15 @@ dcur0 = oc.fdcur(ves,un);
 Ln = L + params.dt*dcur0(end);
 
 %Get the velocity of the vesicle by its velocity of the tangential
-%angle, but without the stiff term. fntheta is the nonlinear term N_1
+%angle, but without the stiff term. The nonlinear term N_1
 %defined in equation (54) but without the alpha derivative multiplied
 %by the integral operator \mathcal{L}
-fntheta = oc.fthetaim(ves,un,ut);
+N1 = oc.fthetaim(ves,un,ut);
 
 %next evolve the shape and the phase distribution in Fourier space.
 %Fourier series of the derivative of the tangent angle. i.e. Fourier
 %series of N_1
-fsN1 = fft(fntheta);
+fsN1 = fft(N1);
 
 %Fourier derivative of the tangent angle adjusted by a linear function
 %so that we are taking the fft of a periodic function
@@ -270,13 +270,13 @@ rsln = ves.bendsti*(Nk/Ln).^3/4;
 %line is exactly equation (58) for the quadrature
 %d1 is now exactly as in equation (57). Each Fourier mode has its own
 %integating factor. This is the Forward Euler method that is analagous 
-%to equation(56) and add back the linear function that makes theta a 
-%function that grows by 2*pi everytime you go completely around the shape.
+%to equation(56)
 d1 = exp(-(params.dt*(rsl + rsln)/2));
 
 %thetan is now the tangent angle of the new shape after taking a single
 %step of Euler with the stiffest term treated implicitly and integrated
-%with an integrating factor
+%with an integrating factor. Add back the linear function that makes theta a 
+%function that grows by 2*pi everytime you go completely around the shape.
 thetan = real(ifft(d1.*(fsTA + params.dt*fsN1)))+2*pi*(0:ves.N-1)'/ves.N;
 
 %        -----  define the lipid species model for u  -----
@@ -314,10 +314,6 @@ ves.L = Ln;
 
 %update ves.theta
 ves.theta = thetan;
-
-%Calculate the new area
-area = sum(sin(ves.theta).*ves.X(1:end/2) - ...
-    cos(ves.theta).*ves.X(end/2+1:end))*0.5*ves.L/ves.N;
 
 %update the position with Forward Euler. At future time steps,
 %second-order Adams-Bashforth will be used
@@ -359,17 +355,6 @@ for ktime = 1:nstep
   %that calls GMRES which is used to solve equation (30) 
   [uxvel_loop, uyvel_loop] = o.usetself;
 
-  %Plot the position of the vesicle with the velocity vectors at the first 
-  %time step
-%   disp('step')
-%   disp(ktime+1)
-%   figure(1); clf; hold on;
-%   plot(ves.X(1:end/2),ves.X(end/2+1:end),'r')
-%   quiver(ves.X(1:end/2),ves.X(end/2+1:end),uxvel_loop,uyvel_loop)
-%   axis equal
-%   pause(0.1)
-%   hold off
-  
   %Save the norm of x and y velocities
   nn = [nn;norm([uxvel_loop;uyvel_loop],inf)];
   
@@ -381,6 +366,9 @@ for ktime = 1:nstep
   theta = ves.theta; %shorthand for theta
   un = uxvel_loop.*sin(theta) - uyvel_loop.*cos(theta);%Normal Velocity
   ut = uxvel_loop.*cos(theta) + uyvel_loop.*sin(theta);%Tangential Velocity
+%   
+%   sum(un)
+%   pause
   
   %Update length change over time using a 2nd-order Adams Bashforth method.
   %described in equation (60)
