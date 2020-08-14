@@ -167,8 +167,8 @@ thetan = temp4 + 2*pi*(0:m-1)/m;
 
 % lipid species model for u
 rk = 2*pi*[0 1:m/2 m/2-1:-1:1]; 
-% Fourier modes, but scaled by 2*pi. Note that these two vectors will be
-% nearly identical since sl \approx sln by inextensibility
+% Fourier modes scaled by 2*pi. Note that these two vectors will be
+% nearly identical since sl is approximately sln by inextensibility.
 rsl = eps_ch*(rk/sl).^4*consta;
 rsln = eps_ch*(rk/sln).^4*consta;
 % form stiffest term that is treated implicitly, but is also linear (and
