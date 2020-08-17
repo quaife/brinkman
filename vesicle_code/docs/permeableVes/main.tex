@@ -149,15 +149,15 @@ vesicle velocity satisfies
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Dimensionless equations}
 The inextensibility condition guarantees that the vesicle's length, $L$,
-is conserved, but its area, $A$, is no longer conserved because of
-semi-permeability. Therefore, the reduced area $\nu = 4\pi A/L^2 \in
-(0,1]$ is not conserved. We non-dimensionalize~\eqref{eqn:vesVelocity}
-by introducing the length scale $R_0 = L/2\pi$ and defining the time
-scale $\tau = \mu R_0^3/k_b$, the tension scale $Q = k_b/R_0^2$, and the
-permeability scale $W = R_0/\mu$. Since the bending stiffness $k_b$ only
-sets the time scale, we let $k_b=1$.
-
-
+is conserved, but its area, $A$, is not because of semi-permeability.
+Therefore, the reduced area $\nu = 4\pi A/L^2 \in (0,1]$ is not
+conserved. We non-dimensionalize~\eqref{eqn:vesVelocity} by introducing
+the length scale $R_0 = L/2\pi$ and defining the time scale $\tau = \mu
+R_0^3/k_b$, the tension scale $Q = k_b/R_0^2$, and the permeability
+scale $W = R_0/\mu$. The background velocity $\uu_\infty$ is
+non-dimensionalized with $R_0/\tau$. For all simulations, the bending
+modulus is $10^{-19}J$. Using these scales, all equations are written in
+dimensionless form.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Area dynamics}
@@ -169,16 +169,16 @@ Lagrangian
   \mathcal{L} = \frac{1}{2}\int_{\gamma} \kappa^2 \, ds +
     \Lambda \left(\int_{\gamma} ds  - L \right),
 \end{align}
-where the Lagrange multiplier $\Lambda$ the constant tension. Note that
-there is no pressure Lagrange multiplier since the vesicle's area
-fluctuates. Taking the variation of $\mathcal{L}$ with respect to
-$\gamma$, and setting this vesicle force to zero, the steady state shape
-satisfies $\kappa_{ss} + \frac{1}{2}\kappa^3 - \Lambda \kappa = 0$,
-with initial conditions $\kappa(0) = \kappa_0$ and $\kappa_s(0) = 0$.
-Integrating once, we have
+where the Lagrange multiplier $\Lambda$ is the tension. Note that there
+is no pressure Lagrange multiplier since the vesicle's area fluctuates.
+Taking the variation of $\mathcal{L}$ with respect to $\gamma$ and
+setting it to zero, the steady state shape satisfies $\kappa_{ss} +
+\frac{1}{2}\kappa^3 - \Lambda \kappa = 0$, with initial conditions
+$\kappa(0) = \kappa_0$ and $\kappa_s(0) = 0$.  Integrating once, we have
 \begin{align}
   \frac{\kappa_s^2}{2} + \frac{\kappa^4}{8} - 
-    \frac{\Lambda}{2}\kappa^2 = \kappa_0^4 - \frac{\Lambda}{2}\kappa_0^2.
+    \frac{\Lambda}{2}\kappa^2 = \frac{\kappa_0^4}{8} - 
+    \frac{\Lambda}{2}\kappa_0^2.
   \label{eqn:curvODE}
 \end{align}
 Assuming $\kappa_s \neq 0$, this differential equation is separable, and
@@ -196,16 +196,16 @@ radius of $L/2\pi$, so its curvature and tension are
 Note that in contrast to a impermeable vesicle, the final tension is
 positive rather than negative.
 
-In addition to computing the steady shape, we can compute the transient
-area of the vesicle. The area of the vesicle is
+In addition to computing the steady shape, we also compute the transient
+area of the vesicle. Since the area of the vesicle is
 \begin{align}
   A(t) = \frac{1}{2}\int_{\gamma} (\xx \cdot \nn)\, ds,
   \label{eqn:area}
 \end{align}
-so the derivative of $A(t)$ includes terms due to the time derivative of
-$\xx \cdot \nn$, and a term due to interface
-stretching~\cite{lai-tse-hua2008}, but the stretching term is zero
-because of the local inextensibility condition. Therefore,
+its derivative includes terms due to the time derivative of $\xx \cdot
+\nn$ and a term due to interface stretching~\cite{lai-tse-hua2008}, but
+the stretching term is zero because of the local inextensibility
+condition. Therefore,
 \begin{align}
   \dot{A}(t) =
   \frac{1}{2} \int_{\gamma} (\dot{\xx} \cdot \nn)\, ds  + 
@@ -240,12 +240,11 @@ Frenet-Serret identities, we have
     \kappa_s (\xx_{ss} \cdot \xx_s) + \kappa \sigma \right) 
     \, ds \\
   &= -\beta \int_\gamma \left(\kappa^3 + \kappa \sigma \right) 
-    \, ds \\
-  &= \beta \int_\gamma \left(
+    \, ds = \beta \int_\gamma \left(
     \frac{\kappa^3}{2} - \kappa \Lambda \right) \, ds.
   \label{eqn:areaROC}
 \end{align}
-Note that this is consistent with the steady state curvature and tension
+This is consistent with the steady state curvature and tension
 in~\eqref{eqn:SSshape} since these constant values result in the
 integrand in~\eqref{eqn:areaROC} being zero.
 
@@ -254,26 +253,25 @@ integrand in~\eqref{eqn:areaROC} being zero.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Discretization in Space}
-By using an integral equation formulation, the unknowns are the vesicle
-position and tension which we track at a set of $N$ discretization
-points. All arclength derivatives are computed with Fourier
-differentiation, and eighth-order quadrature is applied to the weakly
-singular single-layer potential~\cite{alp1999}.
+Using an integral equation formulation, the unknowns are the vesicle's
+position and tension that we track at a set of $N$ discretization
+points. All derivatives are computed with Fourier differentiation, and
+the single-layer potential operator is discretized with eighth-order
+quadrature~\cite{alp1999}. For constricted flows, nearly-singular
+integrals are accurately computed with an interpolation-based quadrature
+rule~\cite{qua-bir2014}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Discretization in Time}
-The high-order derivatives in the bending and tension
-forces~\eqref{eqn:membraneForces} result in stiffness if an explicit
-time stepping method is applied to equation~\eqref{eqn:vesVelocity}.
-Therefore, we use a modification of a time stepping method that
-discretizes high-order derivatives
-semi-implicitly~\cite{vee-gue-zor-bir2009}. Introducing notation for
-all the required differential and projection operators
+To eliminate stringent time step restrictions, we modify a time stepping
+method that discretizes high-order derivatives
+semi-implicitly~\cite{vee-gue-zor-bir2009}. Introducing notation for the
+differential and projection operators
 \begin{alignat}{3}
   &B[\xx]\ff = -\frac{d^4}{ds^4} \ff,  \qquad
   &&T[\xx]\sigma = (\sigma \xx_s)_s, \\
   &D[\xx]\ff = \xx_s \cdot \ff_s, 
-  &&P[\xx]\ff = (\ff \cdot \nn) \nn. 
+  &&P[\xx]\ff = (\ff \cdot \nn) \nn,
 \end{alignat}
 the dynamics of the vesicle are governed by
 \begin{align}
@@ -281,9 +279,9 @@ the dynamics of the vesicle are governed by
   \beta P(B\xx + T\sigma) + \SS(B\xx + T\sigma), \quad
   D \dot{\xx} = 0.
 \end{align}
-Letting $B^N$ be the bending operator due to the vesicle
-configuration at time $t^N$, and similar notation for the other
-operators, we use the semi-implicit time stepping method
+Letting $B^N$ be the bending operator due to the vesicle configuration
+at time $t^N$, and similar notation for the other operators, we use the
+first-order semi-implicit time stepping method
 \begin{alignat}{3}  
   \frac{\xx^{N+1} - \xx^N}{\Delta t} &= \uu_\infty(\xx^N) 
   &&+ \beta P^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right) \nonumber \\
@@ -291,12 +289,12 @@ operators, we use the semi-implicit time stepping method
   D^N\xx^{N+1} &= 1.
 \end{alignat}
 
-To achieve high-order accuracy over long time horizons, we modify the
-adaptive spectral deferred correction time stepping method introduced
-in~\cite{qua-bir2016}. Since the area of the vesicle is no longer
-conserved, we only use the length of the vesicle to estimate the
-local truncation error which then determines if a time step is accepted
-or rejected and the subsequent time step size.
+To achieve high-order accuracy over long time horizons, we modify an
+adaptive spectral deferred correction time stepping
+method~\cite{qua-bir2016}. Since the area of the vesicle is not
+conserved, we only use the length of the vesicle to estimate the local
+truncation error that determines if a time step is accepted or not and
+the subsequent time step size.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Examples}
@@ -327,7 +325,7 @@ the vesicle's area to exceed 1.3\% of its initial area. We see that both
 times scale with $\beta^{-1}$. We also plot the area of a vesicle with
 six different permeability rates in Figure~\ref{fig:ellipseArea}. The
 area is computed directly from the vesicle shape (solid lines) and by
-integrating equation~\eqref{eqn:areaROC} (marks) with a first-order
+integrating~\eqref{eqn:areaROC} (marks) with a first-order
 method. We also include black dashed lines indicating the times,
 $t_{\mathrm{steady}}$, that the vesicle is near its steady state
 circular shape.
@@ -364,11 +362,10 @@ circular shape.
   \includegraphics[width=0.8\linewidth]{figures/ellipseArea}
   \caption{\label{fig:ellipseArea} The area of an elliptical
   semi-permeable vesicle, with permeability rate $\beta$ in a quiescent
-  flow. The solid lines compute the area using
-  equation~\eqref{eqn:area}, while the marks are computed by integrating
-  equation~\eqref{eqn:areaROC}. The dashed black lines are the times
-  when the vesicle's area is within 1.3\% of its maximum value of
-  $4\pi$.}
+  flow. The solid lines compute the area using~\eqref{eqn:area}, while
+  the marks are computed by integrating~\eqref{eqn:areaROC}. The dashed
+  black lines are the times when the vesicle's area is within 1.3\% of
+  its maximum value of $4\pi$.}
 \end{figure}
 
 We further analyze the transient dynamics for small $\beta$ by
@@ -465,97 +462,55 @@ steady state circular vesicle with positive constant tension.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Shear Flow}
-\begin{itemize}
-  \item Mild dependence on initial shape
-
-  \item Look at tank-treading angle, tank-trading speed, reduced area,
-    absolute value of the permeable flux
-
-  \item Max flux at the steady state as a function of beta and
-    $\dot{\gamma}$
-
-  \item reduced area/inclination angle for a particular $(\beta,\gamma)$
-    and different flux rates using the gating functions (Apr 7 and 9) as
-    well as constant $\beta$
-\end{itemize}
-
 We consider a semi-permeable vesicle in the shear flow
 $\uu_{\infty}(\xx) = \dot{\gamma} (y,0)$ with different permeability
-rates $\beta$ and shear rates $\dot{\gamma}$.  For a two-dimensional
-impermeable vesicle, depending on the reduced area and viscosity
-contrast, vesicles in a shear flow either tank tread or
-tumble~\cite{fin-lam-sei-gom2008,kra-win-sei-lip1996}, but tumbling is
-not possible with viscosity contrast of one. Since we are considering
-semi-permeable vesicles, we assume that there is no viscosity contrast,
-and we do not expect to observe tumbling dynamics.
+rates $\beta$ and shear rates $\dot{\gamma}$. Depending on its reduced
+area and viscosity contrast, two-dimensional vesicles either tank tread
+or tumble~\cite{fin-lam-sei-gom2008,kra-win-sei-lip1996}. Since we are
+considering semi-permeable vesicles, we assume there is no viscosity
+contrast, and tumbling is not possible.
 
 We initialize an elliptical vesicle with reduced area $\nu = 0.65$, and
 with its long axis oriented in the $y$-direction. For all permeability
 rates and shear rates, the semi-permeable vesicle tilts to an
-inclination angle and undergoes tank-treading behavior. However, because
-of the semi-permeability, the final reduced area does not agree with the
-initial reduced area. In Figure~\ref{fig:shearPhaseDiagram}, we plot the
-final shape of the vesicle for various permeability rates, $\beta$, and
-shear rates $\dot{\gamma}$. We also includes lines of constant final
-reduced area. We see that the shear rate has the largest effect on the
-final reduced area. However, for small $\beta$, the permeability rate
-also has a large effect on the final reduced area. In particular, the
-smallest final reduced areas are the result of large shear rates and
-small permeability rates.
-\todo[inline]{Also reporting inclination angle as well}
+inclination angle and undergoes tank treading behavior. However, because
+of the semi-permeability, the initial and final reduced areas differ. In
+Figure~\ref{fig:shearPhaseDiagram}, we plot the final shape of the
+vesicle for various permeability rates, $\beta$, and shear rates
+$\dot{\gamma}$. The shear rate has the largest effect on the final
+reduced area.
 
 \begin{figure}[htp]
   \centering
   %\ifTikz
   %\input{figures/shearPhaseDiagramRA2.tikz}
   %\fi
-  \includegraphics[width=0.9\linewidth]{figures/shearPhaseDiagramRA2.pdf}
+  \includegraphics[width=\linewidth]{figures/shearPhaseDiagramRA2.pdf}
   \caption{\label{fig:shearPhaseDiagram} The steady state shape of a
   semi-permeable vesicle with several different permeability rates
-  $\beta$ and shear rates $\dot{\gamma}$. The black lines represent
-  contour lines of the final reduced areas (left) and the inclination
-  angle (right). The reduced area and inclination angle of each contour
-  line are reported.}
+  $\beta$ and shear rates $\dot{\gamma}$.}
 \end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Stenosis}
-We consider a semi-permeable vesicle in a constricted geometry. A
-double-layer potential is used to impose a boundary condition on the
-outer wall, and near-singular integration~\cite{qua-bir2014} quadrature
-resolves the vesicle-wall interaction.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Poiseuille Flow}
 We consider a semi-permeable vesicle in the Poiseuille flow $\uu =
-U(1-(y/R)^2,0)$, where $R=10$ determines the flow width, and $U$ is the
-maximum flow rate. The length of the vesicle is $L = 4\pi$ and its
-initial reduced area is $\nu = 0.65$. We first investigate the the
-effect of the flow rate $U$ and the permability rate $\beta$ on the
-steady state shape of the vesicle when it is initially placed on the
-center line $y=0$. Figure~\ref{fig:parabolicPhaseDiagram} shows the
-steady state configuration for a variety of flow rates $U$ and
-permeability rates $\beta$. Similar to the shear example, we see that
-the flow rate has the biggest effect on the final shape while the
-permeability rate has a much weaker effect. Instead, the permeability
-rate determines the time required for the vesicle to reach a steady
-state. In Tables~\ref{tbl:parabolicRelaxTimes1}
-and~\ref{tbl:parabolicRelaxTimes2}, we consider two flow rates and
-report the time, $t_\mathrm{steady}$, required for the vesicle's area to
-be within 1.3\% of its maximum area, and the time, $t_\mathrm{inflate}$,
-required for the vesicle's area to exceed 1.3\% of its initial area. We
-see that both times scale with $\beta^{-1}$. 
-
-As a second experiment, we investigate the effect of $U$ and $\beta$
-when the vesicle is initialized above line $y=0$. Kaoui et
-al.~\cite{kao-bir-mis2009} analyzed the migration of the same
-experiment, but with an impermeable vesicle. They showed that for
-above a critical reduced area, the vesicle migrates to the center line
-$y=0$ as a symmetric shape. However, for smaller reduced areas, the
-limiting shape is a tank-treading slipper with a center of mass above
-the center line $y=0$. We repeat this experiment but with a
-semi-permeable vesicle.
-
+U(1-(y/W)^2,0)$, where $U$ is the maximum imposed velocity. The length
+of the vesicle is $L = 4\pi$ and its initial reduced area is $\nu =
+0.65$. The width $W$ is chosen so that $W/R = 10$, where $R$ is the
+radius of the vesicle. We investigate the effect of the maximum velocity
+$U$ and the permeability rate $\beta$ on the steady state shape of a
+vesicle initially placed on the center line $y=0$.
+Figure~\ref{fig:parabolicPhaseDiagram} shows the steady state
+configuration for a variety of maximum velocities and permeability
+rates. Similar to the shear example, the maximum velocity strongly
+affects the final shape while the permeability rate's effect is much
+weaker. Instead, the permeability rate determines the time required for
+the vesicle to reach a steady state. In
+Table~\ref{tbl:parabolicRelaxTimes1}, we consider two maximum velocities
+and report the time, $t_\mathrm{steady}$, required for the vesicle's
+area to be within 1.3\% of its maximum area, and the time,
+$t_\mathrm{inflate}$, required for the vesicle's area to exceed 1.3\% of
+its initial area. We see that both times scale with $\beta^{-1}$. 
 
 \begin{figure}[htp]
 %  \ifTikz
@@ -564,8 +519,9 @@ semi-permeable vesicle.
   \includegraphics[width=0.9\linewidth]{figures/parabolicPhaseDiagram.pdf}
   \caption{\label{fig:parabolicPhaseDiagram} The steady state shape of a
   semi-permeable vesicle with several different permeability rates
-  $\beta$ and flow rates $U$. At high flow rates, the vesicle
-  self-intersects before reaching a steady state configuration.}
+  $\beta$ and flow rates $U$. The numbers reported above each vesicle is
+  its reduced area. At high flow rates, the vesicle self-intersects
+  before reaching a steady state configuration.}
 \end{figure}
 
 
@@ -574,8 +530,10 @@ semi-permeable vesicle.
   \caption{\label{tbl:parabolicRelaxTimes1} The time for a
   semi-permeable vesicle in a Poiseuille flow to reach its steady state
   ($t_\mathrm{steady}$) and to begin inflating ($t_\mathrm{inflate}$).
-  The flow rate is $U = 10^{-1}$.}
+  The times are reported for the maximum velocities $0.1 \mu m/s$ and
+  $10 \mu m/s$.}
   \begin{tabular}{C{0.8cm}C{2cm}C{0.8cm}C{2cm}C{0.8cm}}
+    \multicolumn{5}{c}{$U = 0.1 \mu m/s$} \\
     $\beta$ & $t_\mathrm{steady}$ & ratio & $t_\mathrm{inflate}$ & ratio \\
     \midrule
     $10^{0}$  & $3.33 \times 10^{0}$ & ---  
@@ -592,18 +550,11 @@ semi-permeable vesicle.
                 $1.66 \times 10^{3}$ & 9.58 \\
     \bottomrule
   \end{tabular}
-\end{table}
 
-
-\begin{table}[htp]
-  \centering
-  \caption{\label{tbl:parabolicRelaxTimes2} The time for a
-  semi-permeable vesicle in a Poiseuille flow to reach its steady state
-  ($t_\mathrm{steady}$) and to begin inflating ($t_\mathrm{inflate}$).
-  The flow rate is $U = 10^{1}$.}
   \begin{tabular}{C{0.8cm}C{2cm}C{0.8cm}C{2cm}C{0.8cm}}
-    \midrule
+    \multicolumn{5}{c}{$U = 10 \mu m/s$} \\
     $\beta$ & $t_\mathrm{steady}$ & ratio & $t_\mathrm{inflate}$ & ratio \\
+    \midrule
     $10^{0}$  & $3.55 \times 10^{0}$ & ---  
               & $1.67 \times 10^{-2}$ & --- \\ 
     $10^{-1}$ & $1.87 \times 10^{1}$ & 5.27 & 
@@ -620,19 +571,33 @@ semi-permeable vesicle.
   \end{tabular}
 \end{table}
 
-Finally, we examine the effect of the non-linear Poiseuille flow in the
-migration of semi-permeable vesicle. Similar to experiments performed by
-Kaoui et al.~\cite{kao-bir-mis2009}, we initialize the vesicle's
-center of mass above the $y$-axis and examine the y position of its
-center of mass, denoted by $Y_G$.
+We next examine the effect of the non-linear Poiseuille flow on the
+migration of semi-permeable vesicle. In this experiment, the vesicle is
+initialized above the center line $y=0$. At sufficiently large reduced
+areas and maximum velocities, the steady state vesicle configuration is
+axisymmetric along the center line (parachute or bullet). In contrast,
+for small reduced areas and maximum velocities, the steady-state shape
+is axisymmetric, above the center line, and undergoes a tank treading
+motion (slipper). These dynamics are investigated by Danker et
+al.~\cite{dan-vla-mis2009} and Kaoui et al.~\cite{kao-bir-mis2009}. To
+validate our methods, in Figure~\ref{fig:parabolicOffCenterPhaseDiagram}
+we reconstruct the phase diagram for an impermeable
+vesicle~\cite{kao-bir-mis2009} (see Figure 2). While the vesicle shapes
+qualitatively agree, Kaoui et al.~report that the vesicles with
+$\nu=0.7$ and flow rates $U = 1200 \mu m/s$ and $U = 1600 \mu m/s$ are
+axisymmetric. In our simulations these vesicles are slightly asymmetric,
+are undergoing a tank treading motion, and we therefore report them as
+asymmetric slippers.
 
 \begin{figure}[htp]
+  \ifTikz
   \input{figures/parabolicOffCenterPhaseImpermeable.tikz}
+  \fi
   \caption{\label{fig:parabolicOffCenterPhaseDiagram} Phase diagram of
   an impermeable vesicle with several different flow rates $U$ and
   reduced areas $\nu$. As shown by Kaoui et al.~\cite{kao-bir-mis2009},
-  the final vesicle shape is either an asymmetric parachute or bullet
-  (pink region) or a axisymmetric slipper (yellow region).}
+  the final vesicle shape is either an axisymmetric parachute or bullet
+  (pink region) or an asymmetric slipper (yellow region).}
 \end{figure}
 
 
@@ -667,18 +632,20 @@ residency time of the vesicle in the constriction agrees with the
 experimental results.
 
 \begin{figure}[htp]
-%  \ifTikz
+  \ifTikz
   \input{figures/stenosisGeom.tikz}
-%  \fi
+  \fi
 %  \includegraphics[width=0.8\linewidth]{figures/parabolicPhaseDiagram.pdf}
-  \caption{\label{fig:stenosisGeom} A caption.}
-  \todo[inline]{Put snapshots of configuration in the geometry}
+  \caption{\label{fig:stenosisGeom} A single semi-permeable vesicle
+  passing through a constriction. The geometry and parameters are chosen
+  to replicate the experiments of Abkarian et
+  al.~\cite{abk-fai-sto2006}.}
 \end{figure}
 
 \begin{figure}[htp]
-%  \ifTikz
+  \ifTikz
   \input{figures/stenosisPressureFluctuation.tikz}
-%  \fi
+  \fi
   \caption{\label{fig:stenosisPressure} The excess pressure across the
   constriction in Figure~\ref{fig:stenosisGeom}. The black dashed lines
   denote the start and end of the constriction. The results are

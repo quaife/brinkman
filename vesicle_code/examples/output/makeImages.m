@@ -7,7 +7,7 @@ irate = 1; % controls the speed of the visualization
 
 if 1
 %  file = 'parabolic1VesData.bin';
-  file = 'parabolic1Ves_speed4.00e02_RA6.00em01Data.bin';  
+  file = 'parabolic1Ves_speed6.00e02_RA6.00em01Data.bin';  
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/July302020/parabolic1VesData_dtMax1em1_Speed10_beta0.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1e2B1em4Data.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1e0p5B1em4bData.bin';
@@ -17,14 +17,7 @@ if 1
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1ep0B1em4bData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1ep1p0B1em4dData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1ep1p0B0em4dData.bin';
-%  file = '~/Dropbox/Adhesion/PermeableV/pflowB0/pflowMay14B0Data.bin';
-%  file = '~/Dropbox/Adhesion/PermeableV/pflowB0/pflowMay14R10u100B0Data.bin';
-%  file = '~/Dropbox/Adhesion/PermeableV/pflowB0/pflowMay14R10u10B0Data.bin';
-%  file = '~/Dropbox/Adhesion/PermeableV/pflowB0/pflowR10u1ep1p0B0em4dData.bin';
-%  file = '~/Dropbox/Adhesion/PermeableV/pflowB0/pflowR10u1ep1p0B0em4eData.bin';
-%  file = '~/Dropbox/Adhesion/PermeableV/pflowB0/pflowR10u1ep1p0B0em4fData.bin';
-%  file = '~/Dropbox/Adhesion/PermeableV/pflowB0/pflowR10u2e0B0em4dData.bin';
-%  file = '~/Dropbox/Adhesion/PermeableV/pflowB0/pflowR10u2e0B0em4eData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u0p1B1em5Data.bin';
 
   ax = [-3 3 -3 3];
   irate = 1;
