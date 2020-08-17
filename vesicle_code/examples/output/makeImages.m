@@ -6,8 +6,8 @@ options.pressure = false;
 irate = 1; % controls the speed of the visualization
 
 if 1
-  file = 'parabolic1VesData.bin';
-%  file = 'parabolic1Ves_beta1em3_U1e0Data.bin';
+%  file = 'parabolic1VesData.bin';
+  file = 'parabolic1Ves_speed4.00e02_RA6.00em01Data.bin';  
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/July302020/parabolic1VesData_dtMax1em1_Speed10_beta0.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1e2B1em4Data.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1e0p5B1em4bData.bin';
