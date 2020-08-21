@@ -262,6 +262,7 @@ Nk = 2*pi*[0 1:ves.N/2 ves.N/2-1:-1:1]';
 %rsl is the stiff term in equation (55) that will be integrated implicitly 
 %using an integrating factor
 rsl = ves.bendsti*(Nk/ves.L).^3/4;
+
 %rsln is the next step of rsl 
 %'n' is for 'new' since we'll be using multistep
 rsln = ves.bendsti*(Nk/Ln).^3/4;
@@ -271,13 +272,13 @@ rsln = ves.bendsti*(Nk/Ln).^3/4;
 %d1 is now exactly as in equation (57). Each Fourier mode has its own
 %integating factor. This is the Forward Euler method that is analagous 
 %to equation(56)
-d1 = exp(-(params.dt*(rsl + rsln)/2));
+ek = exp(-(params.dt*(rsl + rsln)/2));
 
 %thetan is now the tangent angle of the new shape after taking a single
 %step of Euler with the stiffest term treated implicitly and integrated
 %with an integrating factor. Add back the linear function that makes theta a 
 %function that grows by 2*pi everytime you go completely around the shape.
-thetan = real(ifft(d1.*(fsTA + params.dt*fsN1)))+2*pi*(0:ves.N-1)'/ves.N;
+thetan = real(ifft(ek.*(fsTA + params.dt*fsN1)))+2*pi*(0:ves.N-1)'/ves.N;
 
 %        -----  define the lipid species model for u  -----
 %Define the Fourier modes, but scaled by 2*pi. Note that these two vectors 
@@ -292,7 +293,7 @@ rsln = params.epsch*(rk/Ln).^4*params.consta;
 
 %compute the integrating factor for each Fourier mode using the
 %trapezoid rule. d1 is the integrating factor in equation (70)
-d1 = exp(-(params.dt/params.nloop*(rsl + rsln)/2));
+ek = exp(-(params.dt/params.nloop*(rsl + rsln)/2));
 
 %Take small time steps to move the lipid species from time 0 to time dt
 for i=1:params.nloop
@@ -305,7 +306,7 @@ for i=1:params.nloop
   fcLS = fft(ves.rcon);
   %Compute vesicle concentration using first-order Euler method that is 
   %analagous to equation (69)
-  ves.rcon = real(ifft(d1.*(fcLS+params.dt/params.nloop*fcN2)));
+  ves.rcon = real(ifft(ek.*(fcLS+params.dt/params.nloop*fcN2)));
 end
 
 %              -----  update ves and area -----
@@ -376,8 +377,8 @@ for ktime = 1:nstep
   %   should be zero, so this is just checking for discretization and 
   %   round-off errors.
   dcur1 = oc.fdcur(ves,un);
-  Lnn = Ln + params.dt*(3*dcur1(end)-dcur0(end))/2;
-  
+  %Lnn = Ln + params.dt*(3*dcur1(end)-dcur0(end))/2;
+  Lnn = Ln + params.dt*dcur1(end);
   %update ves.L  
   ves.L = Lnn;
   
@@ -412,9 +413,9 @@ for ktime = 1:nstep
   %tangent angle of the new shape after taking a single step of a 2nd order
   %multistep method with the stiffest term treated implicitly and 
   %integrated with the integrating factors d1 and d2 defined above.
-  thetann = real(ifft(d1.*fcthetan + 0.5*params.dt*(3*d1.*fcfnthetan- ...
-            d2.*fcfntheta)))+2*pi*(0:ves.N-1)'/ves.N;
-  
+  %thetann = real(ifft(d1.*fcthetan + 0.5*params.dt*(3*d1.*fcfnthetan- ...
+  %          d2.*fcfntheta)))+2*pi*(0:ves.N-1)'/ves.N;
+  thetann = real(ifft(d1.*(fcthetan + params.dt*fcfnthetan)))+2*pi*(0:ves.N-1)'/ves.N;
   %compute integrating factor components      
   rsl = params.epsch*(rk/ves.L).^4*params.consta;
   rsln = params.epsch*(rk/Ln).^4*params.consta;
@@ -453,8 +454,10 @@ for ktime = 1:nstep
   fntheta = fnthetan;   
   
   %update the single tracker point using Adams Bashforth
-  ves.x0 = ves.x0 + 0.5*params.dt*(3*uxvel_new - ux_old);
-  ves.y0 = ves.y0 + 0.5*params.dt*(3*uyvel_new - uy_old);
+ %  ves.x0 = ves.x0 + 0.5*params.dt*(3*uxvel_new - ux_old);
+ %  ves.y0 = ves.y0 + 0.5*params.dt*(3*uyvel_new - uy_old);
+    ves.x0 = ves.x0 + params.dt*uxvel_new;
+    ves.y0 = ves.y0 + params.dt*uyvel_new;
 
   %Update X
   ves.X = oc.recon(ves.N,ves.x0,ves.y0,ves.L,ves.theta);

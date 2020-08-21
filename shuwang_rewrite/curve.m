@@ -453,14 +453,14 @@ ftheta = o.forceTheta(ves,unt,utn);
 %now we must subtract off the stiffest part in Fourier space.
 %To the power of 3 term comes from the third-derivative of the function
 %that L is being applied to in equation (53)
-rlen = ves.bendsti*(abs(IK)/L).^3/4;
+rlen = -ves.bendsti*(abs(IK)/L).^3/4; %last term in eq(54)
 %fntheta - ???
-var1 = fft(ftheta);
+var1 = fft(ftheta);%fft of first 2 terms in 54 
 var2 = fft(theta-[2*pi*(0:N-1)]'/N);
 %clf;
 %plot(utn)
 %pause
-fntheta = real(ifft(var1+rlen.*var2));
+fntheta = real(ifft(var1-rlen.*var2));
 
 %Krasney filter applied to smooth out spurious high frequency terms
 fntheta = o.kfilter(fntheta,N);
@@ -470,7 +470,7 @@ end %fthetaim
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function ftheta = forceTheta(o,ves,unt,utn)
-
+%forcing term for the ODE for theta 
 N = ves.N;
 L = ves.L;
 IK = o.modes(N);
