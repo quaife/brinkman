@@ -6,11 +6,11 @@ fprintf('Implicit vesicle-vesicle interactions.\n');
 fprintf('Implicit vesicle-boundary interactions.\n');
 
 %format long
-prams.N = 128;                 % points per vesicle
+prams.N = 192;                 % points per vesicle
 prams.nv = 1;                  % number of vesicles
 prams.T = 10;                  %time horizon
 prams.m = 12000;                % number of time steps
-prams.Nbd = 512;               % number of points on solid wall
+prams.Nbd = 1024;               % number of points on solid wall
 prams.nvbd = 1;                % number of components to solid walls
 prams.kappa = 1e0;            % bending coefficient
 prams.viscCont = 1*ones(prams.nv,1);            % viscosity contrast
@@ -25,7 +25,7 @@ options.semipermeable = true;
 prams.fluxCoeff = 1e-3;
 options.fluxShape = 1; % constant value
 
-options.farField = 'chokeLonger';      % Constricted domain
+options.farField = 'chokeLongest';      % Constricted domain
 %options.farFieldSpeed = 4200;
 options.farFieldSpeed = 4.2;
 % background velocity or solid walls (which comes with a default
@@ -40,7 +40,7 @@ options.fmmDLP = ~true;
 options.confined = true;   % confined or unbounded geometry
 % Used for geometry and boundary conditins of solid walls
 options.usePlot = true;     % View vesicles during run
-options.axis = [-50.5 50.5 -12.5 12.5]; 
+options.axis = [-110.5 110.5 -12.5 12.5]; 
 % Axis for plots if usePlot = true
 options.saveData = true;    
 % Save vesicle information and create a log file
@@ -70,7 +70,7 @@ prams.alpha = 0.9;
 oc = curve;
 X = oc.initConfig(prams.N,'nv',prams.nv,'angle',pi/2,...
    'scale',1.44,...
-   'center',[[-45;0]],'reducedArea',0.65);
+   'center',[[-105;0]],'reducedArea',0.65);
 %X = oc.initConfig(prams.N,'nv',prams.nv,'angle',pi/2,...
 %   'scale',1,...
 %   'center',[[-45;0]],'reducedArea',0.65);

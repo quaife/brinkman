@@ -491,8 +491,8 @@ contrast, and tumbling is not possible.
 We initialize an elliptical vesicle with reduced area $\nu = 0.65$, and
 with its long axis oriented in the $y$-direction. For all permeability
 rates and shear rates, the semi-permeable vesicle tilts to an
-inclination angle and undergoes tank treading behavior. However, because
-of the semi-permeability, the initial and final reduced areas differ. In
+inclination angle and undergoes tank treading dynamics. Because of the
+semi-permeability, the initial and final reduced areas differ. In
 Figure~\ref{fig:shearPhaseDiagram}, we plot the final shape of the
 vesicle for various permeability rates, $\beta$, and shear rates
 $\dot{\gamma}$. The shear rate has the largest effect on the final
@@ -501,12 +501,15 @@ reduced area.
 \begin{figure}[htp]
   \centering
   %\ifTikz
-  %\input{figures/shearPhaseDiagramRA2.tikz}
+%  \input{figures/shearPhaseDiagramRA2.tikz}
   %\fi
   \includegraphics[width=\linewidth]{figures/shearPhaseDiagramRA2.pdf}
   \caption{\label{fig:shearPhaseDiagram} The steady state shape of a
   semi-permeable vesicle with several different permeability rates
-  $\beta$ and shear rates $\dot{\gamma}$.}
+  $\beta$ and shear rates $\dot{\gamma}$. The final reduced areas are
+  reported for the largest and smallest parameter values. The final
+  reduced area decreases with the flow rate, while the permeability rate
+  has a very small effect on the steady state shape.}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -598,8 +601,9 @@ for small reduced areas and maximum velocities, the steady-state shape
 is axisymmetric, above the center line, and undergoes a tank treading
 motion (slipper). These dynamics are investigated by Danker et
 al.~\cite{dan-vla-mis2009} and Kaoui et al.~\cite{kao-bir-mis2009}. To
-validate our methods, in Figure~\ref{fig:parabolicOffCenterPhaseDiagram}
-we reconstruct the phase diagram for an impermeable
+validate our methods, in
+Figure~\ref{fig:parabolicOffCenterImpermeablePhaseDiagram} we
+reconstruct the phase diagram for an impermeable
 vesicle~\cite{kao-bir-mis2009} (see Figure 2). While the vesicle shapes
 qualitatively agree, Kaoui et al.~report that the vesicles with
 $\nu=0.7$ and flow rates $U = 1200 \mu m/s$ and $U = 1600 \mu m/s$ are
@@ -611,22 +615,27 @@ asymmetric slippers.
   \ifTikz
   \input{figures/parabolicOffCenterPhaseImpermeable.tikz}
   \fi
-  \caption{\label{fig:parabolicOffCenterPhaseDiagram} Phase diagram of
-  an impermeable vesicle with several different flow rates $U$ and
-  reduced areas $\nu$. As shown by Kaoui et al.~\cite{kao-bir-mis2009},
-  the final vesicle shape is either an axisymmetric parachute or bullet
-  (pink region) or an asymmetric slipper (yellow region).}
+  \caption{\label{fig:parabolicOffCenterImpermeablePhaseDiagram} Phase
+  diagram of an impermeable vesicle with several different flow rates
+  $U$ and reduced areas $\nu$. As shown by Kaoui et
+  al.~\cite{kao-bir-mis2009}, the final vesicle shape is either an
+  axisymmetric parachute or bullet (pink region) or an asymmetric
+  slipper (yellow region).}
 \end{figure}
 
 \begin{figure}[htp]
   \ifTikz
   \input{figures/parabolicOffCenterPhaseSemipermeable.tikz}
   \fi
-%  \caption{\label{fig:parabolicOffCenterPhaseDiagram} Phase diagram of
-%  an impermeable vesicle with several different flow rates $U$ and
-%  reduced areas $\nu$. As shown by Kaoui et al.~\cite{kao-bir-mis2009},
-%  the final vesicle shape is either an axisymmetric parachute or bullet
-%  (pink region) or an asymmetric slipper (yellow region).}
+  \caption{\label{fig:parabolicOffCenterSemipermeablePhaseDiagram} Phase
+  diagram of an semi-permeable vesicle, with $\beta = 10^{-3}$, with
+  several different flow rates $U$ and reduced areas $\nu$. The
+  steady-state reduced area for each flow rate, which is reported along
+  the top of the vesicles, is nearly independent of the initial reduced
+  area. Low flow rates result in axisymmetric vesicles with large
+  reduced area, and high flow rates result in asymmetric vesicles with
+  low reduced area. Results at higher flow rates are not eporeted since
+  the vesicle self-intersects.}
 \end{figure}
 
 
@@ -1139,5 +1148,6 @@ experimental results.
 % \newpage
 %\input{figures/shearPhaseDiagramRA2.tikz}
 %\input{figures/parabolicPhaseDiagram.tikz}
+
 
 \end{document}

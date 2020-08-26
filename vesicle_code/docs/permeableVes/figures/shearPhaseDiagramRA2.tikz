@@ -1,4 +1,4 @@
-\begin{tikzpicture}[scale=2.0]
+\begin{tikzpicture}[scale=1.0]
 
 \pgfmathsetlengthmacro\MajorTickLength{
       \pgfkeysvalueof{/pgfplots/major tick length} * 0.5
@@ -10273,6 +10273,46 @@
 
 
 \end{axis}
+
+
+% bottom row
+\node at (0.22,0.47) {\tiny $0.94$};
+\node at (1.02,0.47) {\tiny $0.93$};
+\node at (1.82,0.47) {\tiny $0.93$};
+\node at (2.62,0.47) {\tiny $0.93$};
+\node at (3.42,0.47) {\tiny $0.93$};
+\node at (4.22,0.47) {\tiny $0.94$};
+\node at (5.02,0.47) {\tiny $0.94$};
+\node at (5.82,0.47) {\tiny $0.96$};
+\node at (6.62,0.47) {\tiny $0.97$};
+
+% left column
+\node at (0.22,0.98) {\tiny $0.78$};
+\node at (0.22,1.49) {\tiny $0.56$};
+\node at (0.22,2.00) {\tiny $0.40$};
+\node at (0.22,2.51) {\tiny $0.29$};
+\node at (0.22,3.02) {\tiny $0.21$};
+
+% right column
+\node at (6.62,0.99) {\tiny $0.85$};
+\node at (6.62,1.51) {\tiny $0.67$};
+\node at (6.62,2.02) {\tiny $0.50$};
+\node at (6.62,2.53) {\tiny $0.36$};
+\node at (6.62,3.04) {\tiny $0.25$};
+
+
+
+% top row
+\node at (0.22,3.55) {\tiny $0.18$};
+\node at (1.02,3.55) {\tiny $0.16$};
+\node at (1.82,3.55) {\tiny $0.16$};
+\node at (2.62,3.55) {\tiny $0.16$};
+\node at (3.42,3.55) {\tiny $0.16$};
+\node at (4.22,3.55) {\tiny $0.16$};
+\node at (5.02,3.55) {\tiny $0.17$};
+\node at (5.82,3.55) {\tiny $0.18$};
+\node at (6.62,3.55) {\tiny $0.18$};
+
 
 
 \end{tikzpicture}

@@ -284,6 +284,40 @@ elseif any(strcmp(options,'chokeLonger'))
   X0 = [x;y];
   % redistribute points so that it is equispaced in arclength
 
+elseif any(strcmp(options,'chokeLongest'))
+%  a = 100; b = 25/2; c = 0.67; order = 8;
+  a = 200; b = 25/2; c = 0.67; order = 8;
+  % parameters for the boundary
+  len = 100;
+  % length of the constriction
+  t = (0:N-1)'*2*pi/N;
+  r = (cos(t).^order + sin(t).^order).^(-1/order);
+  x = a*r.*cos(t); y = b*r.*sin(t);
+
+  ind = abs(x) < len;
+  scalRat = 2*c/(1+c)*(0.5-0.5*cos(pi*x(ind(1:end/2))/len)).^10 + ...   
+      (1-c)/(1+c);
+  y(ind) = y(ind).*[scalRat;scalRat];
+  X0 = [x;y];
+  % choked domain.  a and b control the length and height.  c
+  % controls the width of the gap, and order controls the
+  % regularity
+
+  sa = o.diffProp(X0);
+  t = o.arc(sa);
+  r = (cos(t).^order + sin(t).^order).^(-1/order);
+  x = a*r.*cos(t); y = b*r.*sin(t);
+  ind = abs(x) < len;
+  scalRat = 2*c/(1+c)*(0.5-0.5*cos(pi*x(ind(1:end/2))/len)).^10 + ...   
+      (1-c)/(1+c);
+  y(ind) = y(ind).*[scalRat;scalRat];
+
+  X0 = [x;y];
+  % redistribute points so that it is equispaced in arclength
+%  plot(x,y,'b-o')
+%  axis equal;
+%  pause
+
 elseif any(strcmp(options,'chokeMulti'))
   width = 1;
   Length = 10;
