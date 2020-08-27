@@ -38,14 +38,14 @@ options.fmmDLP = ~true;
 % use FMM to compute single-layer potential
 options.confined = true;   % confined or unbounded geometry
 % Used for geometry and boundary conditins of solid walls
-options.usePlot = true;     % View vesicles during run
+options.usePlot = false;     % View vesicles during run
 options.axis = [-1.3 11.3 -0.1 5.6]; 
 % Axis for plots if usePlot = true
 options.saveData = true;    
 % Save vesicle information and create a log file
-options.logFile = 'output/chokeMulti1Ves.log';
+options.logFile = 'output/chokeMulti1Ves2.log';
 % Name of log file
-options.dataFile = 'output/chokeMulti1VesData.bin';
+options.dataFile = 'output/chokeMulti1Ves2Data.bin';
 % Name of binary data file for storing vesicle information
 options.verbose = true;
 % Decides how much info is written to console
@@ -70,7 +70,7 @@ oc = curve;
 X = oc.initConfig(prams.N,'nv',prams.nv,...
    'angle',0,...
    'scale',0.05,...
-   'center',[[9;2]],...
+   'center',[[0;5]],...
    'reducedArea',0.65);
 
 % load chokeIC

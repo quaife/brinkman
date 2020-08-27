@@ -6,11 +6,11 @@ fprintf('Implicit vesicle-vesicle interactions.\n');
 fprintf('Implicit vesicle-boundary interactions.\n');
 
 %format long
-prams.N = 192;                 % points per vesicle
+prams.N = 256;                 % points per vesicle
 prams.nv = 1;                  % number of vesicles
 prams.T = 10;                  %time horizon
 prams.m = 12000;                % number of time steps
-prams.Nbd = 1024;               % number of points on solid wall
+prams.Nbd = 2*1024;               % number of points on solid wall
 prams.nvbd = 1;                % number of components to solid walls
 prams.kappa = 1e0;            % bending coefficient
 prams.viscCont = 1*ones(prams.nv,1);            % viscosity contrast
@@ -39,7 +39,7 @@ options.fmmDLP = ~true;
 % use FMM to compute single-layer potential
 options.confined = true;   % confined or unbounded geometry
 % Used for geometry and boundary conditins of solid walls
-options.usePlot = true;     % View vesicles during run
+options.usePlot = false;     % View vesicles during run
 options.axis = [-110.5 110.5 -12.5 12.5]; 
 % Axis for plots if usePlot = true
 options.saveData = true;    

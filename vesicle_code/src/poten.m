@@ -1614,8 +1614,6 @@ global fmms
 fmms = fmms + 1;
 % count the total number of calls to fmm
 
-size(vesicle.X)
-pause
 oc = curve;
 [x,y] = oc.getXY(vesicle.X); % seperate x and y coordinates
 
@@ -1690,7 +1688,7 @@ function [stokesDLP,stokesDLPtar] = ...
 % the double-layer potential due to all vesicles in index set K needs
 % to be evaulated
 global fmms
-disp('OLD FMM is ON')
+%disp('OLD FMM is ON')
 fmms = fmms + 1;
 % count the total number of calls to fmm
 
