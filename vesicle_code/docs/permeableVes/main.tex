@@ -350,30 +350,29 @@ its solution with dots on Figure~\ref{fig:ellipseArea}.
   sets a relaxation time scale.}
 \end{figure}
 
-We further analyze the transient dynamics by consider the vesicle
-velocity~\eqref{eqn:vesVelocity} for small $\beta$. The vesicle velocity
-depends on two terms: (i) the permeability velocity, $\beta(\ff \cdot
+We further analyze the transient dynamics by considering the vesicle
+velocity~\eqref{eqn:vesVelocity} for small $\beta$. Two terms contribute
+to the vesicle velocity: (i) the permeability velocity, $\beta(\ff \cdot
 \nn)\nn$, and (ii) the force balance velocity, $\SS[\ff]$. At early
 times, since $\beta \ll 1$, the permeability velocity is much smaller
 than the force balance velocity and the vesicle dynamics resembles that
 of a relaxing impermeable vesicle. As the force balance velocity
 decreases, the permeability velocity becomes significant, and the
 vesicle begins to inflate to a circle. This results in the membrane
-force converging to zero \todo[inline]{Is this right?}, as does the
-velocity due to permeability and force balance. Letting $\beta =
-10^{-3}$, the force balance velocity (blue) and the permeability
-velocity (red) are plotted at three times in
-Figure~\ref{fig:vesVelocity}. We also plot the velocity of an
-identically initialized impermeable vesicle (green). At $t=0.5$, the
-permeability velocity is small relative to the force balance velocity,
-and the force balance velocity matches with the impermeable vesicle
-velocity. At time $t=5$, all three velocities are comparable in size,
-and the semi-permeable vesicle begins to inflate. Then, at time $t=50$,
-the impermeable vesicle is at its steady state, while the semi-permeable
-vesicle is still inflating. The bottom right plot of
-Figure~\ref{fig:vesVelocity} is the maximum norm of the different
-velocity contributions as a function of time, and the black vertical
-lines correspond to the times reported in the other three subplots.
+force and velocity both converging to zero. Letting $\beta = 10^{-3}$,
+the force balance velocity (blue) and the permeability velocity (red)
+are plotted at three times in Figure~\ref{fig:vesVelocity}. We also plot
+the velocity of an identically initialized impermeable vesicle (green).
+At the early time $t=0.5$, the permeability velocity is small relative
+to the force balance velocity, and the force balance velocity matches
+with the impermeable vesicle velocity. At time intermediate time $t=5$,
+all three velocities are comparable in size, and the semi-permeable
+vesicle begins to inflate. Finally, at time $t=50$, the impermeable
+vesicle is at its steady state, while the semi-permeable vesicle is
+still inflating. The bottom right plot of Figure~\ref{fig:vesVelocity}
+is the maximum norm of the different velocity contributions as a
+function of time, and the black vertical lines correspond to the times
+reported in the other three subplots.
 
 %  \input{figures/ellipseVelocity1.tikz}
 %  \input{figures/ellipseVelocity2.tikz}
@@ -397,67 +396,66 @@ lines correspond to the times reported in the other three subplots.
   correspond to the times reported in the other three plots.}
 \end{figure}
 
-\todo[inline]{left off here}
-We next investigate the interplay between the tension, flux, and
-curvature of a semi-permeable vesicle. We let $\beta = 1$ and initialize
-the vesicle with regions of both positive and negative curvature. The
-vesicle tension, $\Lambda$, and the flux, $\ff \cdot \nn$, are plotted
-in Figure~\ref{fig:starTensionFlux}. The vesicle undergoes three general
-behaviors: (i) For $t \in (0,1.6 \times 10^{-2})$, the vesicle has a net
-negative flux resulting in a loss of area; (ii) For $t \in (1.6 \times
-10^{-2},1.0)$, the vesicle has a net positive flux and the tension along
-most of the membrane is negative; (iii) For $t \in (1.0,2.0)$, the
-vesicle is near its steady state and transitions to a positive constant
-tension. In the first time interval, the vesicle deflates. Near the
-points of largest negative curvature, there is a large negative tension
-and large inflow (positive flux).  Correspondingly, near the points with
-largest positive curvature, there is a small tension and outflow
-(negative flux). In the second time interval, the tension is negative
-and the flux is positive nearly everywhere. The regions with largest
-negative curvature correspond to regions with largest negative tension
-and the most inflow. Finally, in the last time interval, the tension
-transitions to a positive constant function, the membrane force and flux
-transition to zero, resulting in a steady state circular vesicle with
-positive constant tension.
+We next investigate the interplay between the tension, transmembrane
+flux, and curvature of a semi-permeable vesicle. We let $\beta = 1$ and
+initialize the vesicle with regions of both positive and negative
+curvature. The vesicle tension, $\Lambda$, and the flux, $\ff \cdot
+\nn$, are plotted in Figure~\ref{fig:starTensionFlux}. At early times,
+regions of large negative curvature have negative tension and regions
+with large positive curvature have positive tension. In addition,
+regions with large curvature have a large inflow of fluid (positive
+flux), while the flatter regions have an outflow of fluid. At these
+early times, the net effect is vesicle deflation. As the vesicle starts
+to smooth out, the same general tension and flux profiles persist, but
+the net flux is positive and the vesicle inflates. At later times, the
+tension starts to become positive and the vesicle continues to inflate
+towards a circle. Finally, the tension transitions to a positive
+constant function, the membrane force and flux approach zero, and the
+vesicle shape becomes positive.
 
-\begin{figure}[htp]
-  \centering
-  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime1.pdf}
-  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime1.pdf}
-
-  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime2.pdf}
-  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime2.pdf}
-
-  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime3.pdf}
-  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime3.pdf}
-
-  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime4.pdf}
-  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime4.pdf}
-
-  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime5.pdf}
-  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime5.pdf}
-  \caption{\label{fig:starTensionFlux} The vesicle tension (left) and
-  flux (right) of the semi-permeable vesicle in a quiescent flow with
-  $\beta=1$.}
-\end{figure}
-
-%\begin{figure}[htp]
+%\begin{figure*}[htp]
 %  \centering
-%  \includegraphics[width=0.18\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime1.pdf}
-%  \includegraphics[width=0.18\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime2.pdf}
-%  \includegraphics[width=0.18\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime3.pdf}
-%  \includegraphics[width=0.18\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime4.pdf}
-%  \includegraphics[width=0.18\linewidth,trim =2cm 5cm 0cm 5cm,clip=true]{figures/StarTensionTime5.pdf}
+%  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime1.pdf}
+%  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime1.pdf}
 %
-%  \includegraphics[width=0.18\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime1.pdf}
-%  \includegraphics[width=0.18\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime2.pdf}
-%  \includegraphics[width=0.18\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime3.pdf}
-%  \includegraphics[width=0.18\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime4.pdf}
-%  \includegraphics[width=0.18\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime5.pdf}
-%  \caption{\label{fig:starTensionFlux} The vesicle tension (top) and
-%  flux (bottom) of the semi-permeable vesicle in a quiescent
-%  flow with $\beta=1$.}
-%\end{figure}
+%  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime2.pdf}
+%  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime2.pdf}
+%
+%  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime3.pdf}
+%  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime3.pdf}
+%
+%  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime4.pdf}
+%  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime4.pdf}
+%
+%  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime5.pdf}
+%  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime5.pdf}
+%
+%  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime6.pdf}
+%  \includegraphics[width=0.48\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime6.pdf}
+%  \caption{\label{fig:starTensionFlux} The vesicle tension (left) and
+%  flux (right) of the semi-permeable vesicle in a quiescent flow with
+%  $\beta=1$.}
+%\end{figure*}
+
+\begin{figure*}[htp]
+  \centering
+  \includegraphics[width=0.16\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime1.pdf}
+  \includegraphics[width=0.16\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime2.pdf}
+  \includegraphics[width=0.16\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime3.pdf}
+  \includegraphics[width=0.16\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarTensionTime4.pdf}
+  \includegraphics[width=0.16\linewidth,trim =2cm 5cm 0cm 5cm,clip=true]{figures/StarTensionTime5.pdf}
+  \includegraphics[width=0.16\linewidth,trim =2cm 5cm 0cm 5cm,clip=true]{figures/StarTensionTime6.pdf}
+
+  \includegraphics[width=0.16\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime1.pdf}
+  \includegraphics[width=0.16\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime2.pdf}
+  \includegraphics[width=0.16\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime3.pdf}
+  \includegraphics[width=0.16\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime4.pdf}
+  \includegraphics[width=0.16\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime5.pdf}
+  \includegraphics[width=0.16\linewidth,trim =2cm 5cm 0cm 5cm, clip=true]{figures/StarFluxTime6.pdf}
+  \caption{\label{fig:starTensionFlux} The vesicle tension (top) and
+  flux (bottom) of the semi-permeable vesicle in a quiescent
+  flow with $\beta=1$.}
+\end{figure*}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

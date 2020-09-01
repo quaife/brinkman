@@ -2737,9 +2737,8 @@ elseif any(strcmp(varargin,'parabolic'))
   R = find(strcmp(varargin,'R'));
   if isempty(R)
 %    R = 100;
-%      R = 20;
-      R = 10;
-%      R = 5;
+%      R = 10;
+      R = 12.5;
   else
     R = varargin{R+1};
   end

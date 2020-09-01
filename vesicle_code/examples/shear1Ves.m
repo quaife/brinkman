@@ -12,7 +12,7 @@ prams.m = 500;              % number of time steps
 prams.kappa = ones(prams.nv,1);   % bending coefficient
 prams.viscCont = ones(prams.nv,1);         % viscosity contrast
 options.farField = 'shear'; % background velocity
-options.farFieldSpeed = 1e-1;
+options.farFieldSpeed = 1e0;
 %options.farFieldSpeed = farFieldSpeed;
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -28,7 +28,7 @@ prams.errorTol = 1000;
 prams.fluxCoeff = 1e-3;
 %prams.fluxCoeff = fluxCoeff;
 options.fluxShape = 1;
-prams.saveRate = 1000
+prams.saveRate = 1
 
 options.adhesion = false;
 prams.adRange = 0.4;
@@ -38,7 +38,7 @@ prams.adStrength = 100;
 options.timeAdap = true;
 
 prams.rtolArea = 1e10;
-prams.rtolLength = 1e-1;
+prams.rtolLength = 1e-2;
 prams.dtMax = 1e1;
 prams.dtMin = 1e-4;
 prams.betaUp = 1.2;

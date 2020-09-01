@@ -7,13 +7,13 @@ fprintf('First-order semi-implicit time stepping.\n');
 % Physics parameters
 prams.N = 128;               % points per vesicle
 prams.nv = 1;               % number of vesicles
-prams.T = 1e3;               % time horizon (two tumbling)
+prams.T = 1e4;               % time horizon (two tumbling)
 prams.m = 500;              % number of time steps
 prams.kappa = ones(prams.nv,1);   % bending coefficient
 prams.viscCont = ones(prams.nv,1);         % viscosity contrast
 prams.saveRate = 100;
 options.farField = 'parabolic'; % background velocity
-options.farFieldSpeed = 400;
+options.farFieldSpeed = 4.2;
 %options.farFieldSpeed = farFieldSpeed;
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -22,11 +22,11 @@ options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
 options.verbose = true;
-options.semipermeable = false;
+options.semipermeable = true;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-8;
 prams.errorTol = 1000;
-prams.fluxCoeff = 1e-3*0;
+prams.fluxCoeff = 1e-3;
 %prams.fluxCoeff = fluxCoeff;
 options.fluxShape = 1;
 
@@ -65,11 +65,13 @@ options.dataFile = 'output/parabolic1VesData.bin';
 % Also add src to path
 
 oc = curve;
-ra = 0.9;
+ra = 0.65;
 centerx = 0;
-centery = 1.0;
+%centery = 1.0;
+centery = 0.0;
 ang = -pi/18;
-scale = 0.5*sqrt(ra);
+ang = pi/2;
+scale = 0.5*sqrt(ra)*3.5662;
 X = oc.initConfig(prams.N,...
     'nv', prams.nv, ...
     'reducedArea',ra,...
