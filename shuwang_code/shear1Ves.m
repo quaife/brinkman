@@ -1,17 +1,17 @@
 %setup the intial data for the coefficient
-shearate = 0;
+shearate = 1;
 shape = 3.0;
 phi = 0;
 scale = 1;
 
 global consta eps_ch kmatrix velocity bendsti bendratio uinside uoutside m
 
-initialdata = [96 1e-3 1/scale 1e-3 phi 0 shape  ...
+initialdata = [96 1e-2 1/scale 1e-3 phi 0 shape  ...
     shearate 1 1 1 100 1.0 1.0];
 
 ngrid = initialdata(1);
 % the number of the grid points
-dt = initialdata(2)*10;
+dt = initialdata(2);
 % time steps size
 T = initialdata(3)*10;
 % time horizon
@@ -59,10 +59,6 @@ outpt = round(outpt/dt);
 
 % set the initial condition.
 [x,y,theta,rcon,sl] = initialsetup(shortax,ngrid,concentra,oddeven);
-% plot(x(1:4:end),y(1:4:end),'r-o')
-% axis equal
-% pause
-% pause(0.1)
 % here we keep the total arclength unchanged.
 x0 = x(1);
 y0 = y(1);
@@ -98,7 +94,7 @@ kmatrix = formkmatrix(ngrid);
 % pause
 disp('step1')
 figure(1); clf; hold on;
-quiver(x(1:end-1),y(1:end-1),ux0,uy0)
+quiver(x(1:end-1),y(1:end-1),ux0 - 0*y(1:end-1),uy0)
 axis equal
 axis([-3 3 -3 3])
 pause(0.01)

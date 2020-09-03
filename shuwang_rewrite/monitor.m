@@ -209,10 +209,11 @@ titleStr = ['t = ' num2str(time,'%4.2e') ...
   ' eL = ' num2str(el,'%4.2e')];
 title(titleStr)
 axis equal
-set(gca,'xtick',[])
-set(gca,'ytick',[])
-set(gca,'ycolor','w')
-set(gca,'ycolor','w')
+axis([-3 3 -3 3])
+%set(gca,'xtick',[])
+%set(gca,'ytick',[])
+%set(gca,'ycolor','w')
+%set(gca,'ycolor','w')
 
 end % plotData
 

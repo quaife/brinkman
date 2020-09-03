@@ -1,20 +1,27 @@
 function  vel=stokes(dkap,m,sl,theta,rhs,A,c,c1)
-    
-tol = 1e-10;  maxit = 10; 
+ 
+tol = 1e-10;  maxit = numel(rhs); 
 rhscolume=rhs';
+%clf
+%plot(rhs)
+%pause
 
 % based on the variable name, it seems that this is solving for a
 % velocity
-[vell,flag,relres,iter,resvec] = gmres(@afun,rhscolume,m/2,tol,maxit,@mfun);
+[vell,flag,relres,iter,resvec] = gmres(@afun,rhscolume,m/2,tol,maxit);
+%,@mfun);
 vel = vell';
+%clf
+%plot(vel)
+%pause
 %  flag
 %  relres
 %  iter
 %  %resvec
 %  pause
-% matvec corresponding to equation (40)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function vell = afun(pss)
+% matvec corresponding to equation (40)
 
 slam = pss';
 

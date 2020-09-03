@@ -40,15 +40,14 @@ theta2 = dtheta + a + (0:m-1)*2*pi/m;
 [x,y] = recon(m,x0,y0,sl,theta2);
 % compute the new geometry with the filtered theta
 
-
-area = sum(sin(theta(1:m)).*x(1:m)-...
-           cos(theta(1:m)).*y(1:m))/2*sl/m;
+area = sum(sin(theta2(1:m)).*x(1:m)-...
+           cos(theta2(1:m)).*y(1:m))/2*sl/m;
 % compute the area of the modified vesicle shape)
 
 k=1;
 while abs(area-areasum)/areasum>1e-10
   coefficient = area - areasum;
-  dtheta = dtheta*(1 + coefficient/3);
+  dtheta = dtheta*(1 + coefficient/30);
   theta2 = dtheta + a + (0:m-1)*2*pi/m;
   % scale the angle theta by an amount proportional to the difference
   % between the desired and true area

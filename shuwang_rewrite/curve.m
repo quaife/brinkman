@@ -91,8 +91,8 @@ function [reducedArea,area,length] = geomProp(o,X)
 [x,y] = o.getXY(X);
 N = size(x,1);
 [Dx,Dy] = o.getDXY(X);
-length = sum(sqrt(Dx.^2 + Dy.^2))*2*pi/N;
-area = sum(x.*Dy - y.*Dx)*pi/N;
+length = sum(sqrt(Dx.^2 + Dy.^2))/N;
+area = 0.5*sum(x.*Dy - y.*Dx)/N;
 
 reducedArea = 4*pi*area./length.^2;
 
@@ -331,7 +331,7 @@ function [L,theta,cur] = computeOpeningAngle(o,N,X)
 
 [Dx,Dy] = o.getDXY(X);
 % first derivative of the shape
-if abs(Dx(1)) > 1e-12
+if abs(Dx(1)) > 1e-8
   t0 = atan(Dy(1)/Dx(1));
 else
   t0 = pi/2;
@@ -368,6 +368,12 @@ x = x0 + o.intFT(L*cos(theta),IK);%/2/pi;
 y = y0 + o.intFT(L*sin(theta),IK);%/2/pi;
 X = o.setXY(x,y);
 
+%clf;
+%semilogy(abs(fftshift(fft(theta - (0:N-1)'*2*pi/N))))
+%hold on
+%semilogy(abs(fftshift(fft(x))),'r')
+%pause
+
 end % recon
 
 
@@ -387,7 +393,7 @@ function intf = intFT(o,f,IK)
 % function f using fourier transform
 
 N = numel(f);
-fh = fft(f,N);
+fh = fft(f);
 
 zeroMode = -sum(fh(2:end)./IK(2:end));
 % zero mode of the integral of f
@@ -417,10 +423,11 @@ end % modes
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function dcur = fdcur(o,ves,unt)
-%compute fourier derivative of opening tangent angle using "trick" by
-%subtracting a function that goes from 0 to 2*pi over the range of
-%alpha values
+% compute fourier derivative of opening tangent angle using "trick" by
+% subtracting a function that goes from 0 to 2*pi over the range of
+% alpha values
 % This routine is equation (61) in the Sohn et al 2010 JCP paper
+
 N = ves.N;
 IK = o.modes(N);
 

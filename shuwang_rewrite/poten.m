@@ -35,28 +35,29 @@ end % oddEvenMatrix
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function selfmatrix = StokesMatrixLogless(o,X)
-%selfmatrix = StokesMatrixLogless builds the Stokes matrix without the log 
-%singularity. Contains the rightmost kernel in equation (43).
+% selfmatrix = StokesMatrixLogless builds the Stokes matrix without the
+% log singularity. Contains the rightmost kernel in equation (43).
 
-%define points
+% define points
 pts = X(1:o.N) + 1i*X(o.N+1:end);
 
 %r is the target minus source for the single-layer potential with ones on
 %the main diagonal. The x-coordinate is in the real part and the y-
 %coordinate is in the imaginary part
-r = repmat(pts,[1 o.N]) - repmat(transpose(pts),[o.N 1]) + diag(ones(1,o.N));
+r = repmat(pts,[1 o.N]) - repmat(transpose(pts),[o.N 1]) + eye(o.N);
 
 %rt is (alpha - alpha')/2 in equation (43) where alpha and alpha' go from 0 
 %to 2*pi. We are only going from 0 to pi to account for the divided by 2 in 
 %the argument of sin in equation (43). We put ones on the diagonal, the 
 %limit which is something smooth (see equation (44))
 rt = repmat((1:o.N)'*pi/o.N , [1 o.N]) - ...
-     repmat((1:o.N)*pi/o.N, [o.N 1]);
+     repmat((1:o.N)*pi/o.N, [o.N 1]) + eye(o.N);
 
 %Compute the denominator of equation (43). Putting ones in the diagonal of 
 %r and denom results in taking log of something non-zero.
-denom43 = 2*abs(sin(rt)) + diag(ones(1,o.N));
-
+% BQ: SHUWANG'S ORIGINAL CODE DOES NOT MULTIPLY BY 2
+denom43 = 1*abs(sin(rt));
+%denom43 = 2*abs(sin(rt));
 
 irr = 1./(conj(r).*r);    % 1/r^2
 d1 = real(r); % x-coordinate of r
@@ -71,11 +72,11 @@ selfmatrix = [(Ilogr + d1.^2.*irr), A12;...
 % d1.*d2.*irr is the r1*r2/r^2 in equations (6) and (7)
 
 kmatrix = o.oddEvenMatrix;
+% selfmatrix.*kmatrix picks up a factor of 2 is because we are only
+% using every other grid point, so the arclength spacing has doubled.
 selfmatrix = 2*selfmatrix.*kmatrix;
-%selfmatrix.*kmatrix picks up a factor of 2 is because we are only using 
-%every other grid point, so the arclength spacing has doubled.
 
-end %StokesMatrixLogless
+end % StokesMatrixLogless
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function Symm_sigma = IntegrateLogKernel(o,sigma)

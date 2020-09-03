@@ -6,8 +6,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
-params.N = 64; % points on vesicle
-params.dt = 1e-3*10; % time step size
+params.N = 96; % points on vesicle
+params.dt = 1e-2; % time step size
 params.T = 10; % time horizon
 params.outpt = 1e-3; % ouptut frequency
 params.concentra = 0; % constant, initial concentration of lipid species
@@ -33,19 +33,5 @@ options.dataFile = true; % data file name
 options.logFile = true;  % log file name
 options.logFile = 'output/relaxation1VesTest.log';
 options.dataFile = 'output/relaxation1VesDataTest.bin';
-
-%Form initial shape that has points equally spaced in arclength. alpha
-%has the parameter values that give this parameterization
-oc = curve;
-alpha = (0:params.N-1)'/params.N;
-[alpha,X] = oc.initConfig(params.N,false,'ellipse',...
-            'shortax',params.shortax,'parameter',alpha);
-        
-%Define the initial concentration field
-rcon = oc.initialConcentration(params.N,alpha,...
-      params.concentra,params.oddeven);
-  
-%build object for the vesicle but without a band-limited opening angle
-ves = capsules(X,rcon,params);
-        
-ves = Ves2D(ves,alpha,params,options);        
+ 
+ves = Ves2D(params,options);        

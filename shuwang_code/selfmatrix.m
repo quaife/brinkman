@@ -1,7 +1,6 @@
 function  A = selfmatrix(s,kmatrix)
 
 N = numel(s.x);
-% disp('hello')
 r = repmat(s.x,[1 N]) - repmat(s.x.',[N 1]) + diag(ones(1,N));
 % target minus source for the single-layer potential, but putting ones
 % on the main diagonal. x-coordinate is in the real part and

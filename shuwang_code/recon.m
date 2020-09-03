@@ -14,5 +14,10 @@ y(1,2:m+1) = y(1,2:m+1) - (1:m)*avy/m + y0;
 
 x(1,1) = x0;
 y(1,1) = y0;
-
-end
+%if numel(theta) == 96
+%  clf
+%  semilogy(abs(fftshift(fft(theta - (0:95)*2*pi/96))))
+%  hold on
+%  semilogy(abs(fftshift(fft(x(1:end-1)))),'r')
+%  pause
+%end

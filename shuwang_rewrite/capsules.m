@@ -70,12 +70,12 @@ theta_periodicPart = theta - theta0 - (0:N-1)'*2*pi/N;
 %  Compute the periodic part of the opening angle
 thetah = fft(theta_periodicPart);
 %clf;
-%semilogy(abs(thetah)); hold on
-maxFreq = 10;
+%semilogy(fftshift(abs(thetah))); hold on
+maxFreq = 4;
 thetah(maxFreq:N-maxFreq) = 0;
 %thetah(maxFreq:N-(maxFreq-2)) = 0;
 %thetah(6:N-4) = 0;
-%semilogy(abs(thetah),'r--')
+%semilogy(fftshift(abs(thetah)),'r--')
 %pause
 % QUESTION: IN SHUWANG'S ORIGINAL CODE, THIS WAS NOT SET UP
 % SYMETRICALLY AROUND THE ZERO MODE. CHECKED AND THE IMAG PART OF thetah
@@ -94,15 +94,14 @@ X = oc.recon(N,x0,y0,L,theta);
 %axis equal
 %pause
 
-% new shape with filtered opening angle
+% new area with filtered opening angle
 
 area = sum(sin(theta).*X(1:end/2) - cos(theta).*X(end/2+1:end))*...
       0.5*L/N;
 
+
 iter = 1;
 while abs(area - areaRef)/areaRef > 1e-10
-%  abs(area - areaRef)/areaRef
-%  pause
   theta_periodicPart = theta_periodicPart * ...
         (1 + (area - areaRef)/30);
   theta = theta_periodicPart + theta0 + 2*pi*(0:N-1)'/N;
@@ -150,8 +149,6 @@ N = ves.N;
 IK = oc.modes(N);
 rcon = ves.rcon;
 cur = oc.acurv(ves);
-%plot(rcon)
-%pause
 b0 = ves.bendsti;
 b1 = ves.bendsti * ves.bendratio;
 %bending coefficient which depends on the lipid concentration that is

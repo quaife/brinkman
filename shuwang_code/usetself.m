@@ -69,9 +69,6 @@ forc2(1,1:m) = -(-forc(1,1:m).*cos(theta(1,1:m)) + ...
                 fforc(1,1:m).*sin(theta(1,1:m)));
 % Put forc1 and forc2 into a single array
 tau = [forc1 forc2]';
-% disp('here')
-%  plot(tau)
-%  pause
 % Define new variable so s.t. so'so^T = (x')^2+(y')^2 = ||r'||^2
 so.x = xo(1,1:m)' + 1i*yo(1,1:m)'; 
 % Construct Stokes matrix without the log singularity. ie. A3 only
@@ -79,6 +76,7 @@ so.x = xo(1,1:m)' + 1i*yo(1,1:m)';
 A3 = selfmatrix(so,kmatrix); 
 % Where does this 2 come from??
 A = 2*A3;
+
 % k is the velocity on the interface corresponding to v^u in eq (33)
 k = A*tau; %[[P^u n]]_sigma = tau, then k = stokesMatrix*tau
 % For now, unsure where the u_s term in equation (33) is in the traction
@@ -116,12 +114,11 @@ utns = fd1(utn,m);
 % [[utns(1,1:m)/sl]' [utns(1,1:m)/sl]']
 % plot(utns(1,1:m)/sl)
 % hold on
-% plot( uun(1,1:m).*dkap(1,1:m))
-% pause
 %Calculate the right hand side of equation (40)
 rhs(1,1:m) = -(utns(1,1:m)/sl + uun(1,1:m).*dkap(1,1:m));
 % rhs';
 %  disp('plotting rhs')
+%clf
 %  plot(rhs)
 %  pause
 % The velocity components in eq (40) are nonlocal linear functions of 
@@ -148,9 +145,6 @@ forc1(1,1:m) = forc1(1,1:m) + forcs1(1,1:m);
 forc2(1,1:m) = forc2(1,1:m) + forcs2(1,1:m);  
 
 tau = [forc1 forc2]' ;
-%   disp('HERE2')
-%   plot(tau)
-%   pause
 % Calculating u tilde in equations (38) through (40) without the weakly
 % singular log kernel
 k = A*tau;
@@ -158,21 +152,11 @@ k = A*tau;
 % compute the weakly singluar log kernel part
  forc001_l = integral3(forc1,m);
  forc002_l = integral3(forc2,m);
-%  plot(forc001_l)
-%  hold on
-%  plot(forc002_l)
-%  pause
-% plot([forc001_l forc002_l])
-% pause
+
 % Calulating  u in eqatuion (31) by adding the results from the
 % non-singular and weakly singular integral operators
 un(1,1:m) = k(1:m)'*c - forc001_l(1:m)*c1 + yo(1,1:m)*velocity;
 ut(1,1:m) = k(m+1:2*m)'*c - forc002_l(1:m)*c1;
-%  disp('Un Ut') 
-% plot(un)
-%  hold on
-%  plot(ut)
-%  pause
 rlambdalnew = slam;
 
 end
