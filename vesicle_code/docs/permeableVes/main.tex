@@ -353,48 +353,45 @@ its solution with dots on Figure~\ref{fig:ellipseArea}.
 We further analyze the transient dynamics by considering the vesicle
 velocity~\eqref{eqn:vesVelocity} for small $\beta$. Two terms contribute
 to the vesicle velocity: (i) the permeability velocity, $\beta(\ff \cdot
-\nn)\nn$, and (ii) the force balance velocity, $\SS[\ff]$. At early
-times, since $\beta \ll 1$, the permeability velocity is much smaller
-than the force balance velocity and the vesicle dynamics resembles that
-of a relaxing impermeable vesicle. As the force balance velocity
+\nn)\nn$, and (ii) the force balance velocity, $\SS[\ff]$. Since $\beta
+\ll 1$, the permeability velocity is much smaller than the force balance
+velocity at early times, and the semi-permeable vesicle dynamics
+resembles those of an impermeable vesicle. As the force balance velocity
 decreases, the permeability velocity becomes significant, and the
 vesicle begins to inflate to a circle. This results in the membrane
 force and velocity both converging to zero. Letting $\beta = 10^{-3}$,
-the force balance velocity (blue) and the permeability velocity (red)
-are plotted at three times in Figure~\ref{fig:vesVelocity}. We also plot
-the velocity of an identically initialized impermeable vesicle (green).
-At the early time $t=0.5$, the permeability velocity is small relative
-to the force balance velocity, and the force balance velocity matches
-with the impermeable vesicle velocity. At time intermediate time $t=5$,
-all three velocities are comparable in size, and the semi-permeable
-vesicle begins to inflate. Finally, at time $t=50$, the impermeable
-vesicle is at its steady state, while the semi-permeable vesicle is
-still inflating. The bottom right plot of Figure~\ref{fig:vesVelocity}
-is the maximum norm of the different velocity contributions as a
-function of time, and the black vertical lines correspond to the times
-reported in the other three subplots.
+the normal component of the force balance velocity (blue) and the
+permeability velocity (red) are plotted at three times in
+Figure~\ref{fig:vesVelocity}. We also plot the velocity (green) of an
+identically initialized impermeable vesicle. At the early time $t=0.5$,
+the permeability velocity is negligible relative to the force balance
+velocity, and the force balance velocity matches with the impermeable
+vesicle velocity. At intermediate time $t=5$, all three velocities are
+comparable in size, and the semi-permeable vesicle begins to inflate.
+Finally, at time $t=50$, the impermeable vesicle is near steady state,
+while the semi-permeable vesicle is still inflating. The right-most
+plot of Figure~\ref{fig:vesVelocity} is the maximum norm of the
+different velocity contributions as a function of time, and the black
+vertical lines correspond to the times reported in the other three
+subplots.
 
-%  \input{figures/ellipseVelocity1.tikz}
-%  \input{figures/ellipseVelocity2.tikz}
-%  \input{figures/ellipseVelocity3.tikz}
-%  \input{figures/ellipseVelocityNorms.tikz}
-\begin{figure}[htp]
+\begin{figure*}[htp]
   \centering
 %  \input{figures/ellipseVelocity1.tikz}
 %  \input{figures/ellipseVelocity2.tikz}
 %  \input{figures/ellipseVelocity3.tikz}
 %  \input{figures/ellipseVelocityNorms.tikz}
-  \includegraphics[width=0.48\linewidth]{figures/ellipseVelocity1.pdf}
-  \includegraphics[width=0.48\linewidth]{figures/ellipseVelocity2.pdf}
-  \includegraphics[width=0.48\linewidth]{figures/ellipseVelocity3.pdf}
-  \includegraphics[width=0.48\linewidth]{figures/ellipseVelocityNorms.pdf}
+  \includegraphics[width=0.24\linewidth]{figures/ellipseVelocity1.pdf}
+  \includegraphics[width=0.24\linewidth]{figures/ellipseVelocity2.pdf}
+  \includegraphics[width=0.24\linewidth]{figures/ellipseVelocity3.pdf}
+  \includegraphics[width=0.24\linewidth]{figures/ellipseVelocityNorms.pdf}
   \caption{\label{fig:vesVelocity} The velocity contributions due to
-  force balance (blue) and permeability (red). The green dashed line is
-  the velocity of an impermeable vesicle with the same initial shape as
-  the semi-permeable vesicle. The bottom right plot is the max norm of
-  each contributor to the vesicle velocities. The three black lines
-  correspond to the times reported in the other three plots.}
-\end{figure}
+  force balance (blue) and permeability (red). The green line is the
+  velocity of an impermeable vesicle with the same initial shape as the
+  semi-permeable vesicle. The right-most plot is the maximum norm of
+  each velocity contribution. The black lines correspond to the times
+  reported in the other three plots.}
+\end{figure*}
 
 We next investigate the interplay between the tension, transmembrane
 flux, and curvature of a semi-permeable vesicle. We let $\beta = 1$ and
@@ -402,16 +399,17 @@ initialize the vesicle with regions of both positive and negative
 curvature. The vesicle tension, $\Lambda$, and the flux, $\ff \cdot
 \nn$, are plotted in Figure~\ref{fig:starTensionFlux}. At early times,
 regions of large negative curvature have negative tension and regions
-with large positive curvature have positive tension. In addition,
-regions with large curvature have a large inflow of fluid (positive
-flux), while the flatter regions have an outflow of fluid. At these
-early times, the net effect is vesicle deflation. As the vesicle starts
-to smooth out, the same general tension and flux profiles persist, but
-the net flux is positive and the vesicle inflates. At later times, the
-tension starts to become positive and the vesicle continues to inflate
-towards a circle. Finally, the tension transitions to a positive
-constant function, the membrane force and flux approach zero, and the
-vesicle shape becomes positive.
+with large positive curvature have positive tension, and the same result
+holds for an impermeable vesicle. In addition, regions with large
+curvature have a large inflow of fluid (positive flux), while the
+flatter regions have an outflow of fluid. At these early times, the net
+effect is vesicle deflation. As the vesicle shape relaxes, the same
+general tension and flux trends persist, but the net flux is positive
+and the vesicle inflates. At later times, the tension becomes positive
+and the vesicle continues to inflate towards a circle. Finally, the
+tension transitions to a positive constant function, the membrane force
+and flux approach zero, and the vesicle shape reaches its steady
+circular shape.
 
 %\begin{figure*}[htp]
 %  \centering

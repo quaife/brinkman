@@ -51,7 +51,7 @@ if 0
   options.confined = false;
 end
 
-if 1
+if 0
 %  file = 'relaxation1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/Apr142020/starBeta1em3/relaxation1VesData.bin';
     file = '~/projects/brinkman/vesicle_code/results/Apr232020/ellipseBeta1em3/relaxation1VesData.bin';
@@ -112,8 +112,8 @@ if 0
   irate = 1;
 end
 
-if 0
-  file = 'choke1VesAData.bin';
+if 1
+  file = 'choke1VesBData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield1e0/choke1VesData.bin'
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e1_farfield1e0/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e2_farfield1e0/choke1VesData.bin';
@@ -128,7 +128,7 @@ if 0
   options.pressure = true;
   options.savefig = false;
   count = 1;
-  irate = 1;
+  irate = 5;
 end
 if 0
 %  file = 'slit1VesData.bin';
@@ -243,7 +243,7 @@ max_flux = +2;
 figure(1); clf
 for k = istart:irate:iend
 %  xx = interpft(posx(:,:,k),256); yy = interpft(posy(:,:,k),256);  
-  xx = posx(:,:,k) - 1*cx(k);
+  xx = posx(:,:,k) - 0*cx(k);
   yy = posy(:,:,k);
   tt = ten(:,:,k);
   if k > 1
@@ -263,7 +263,7 @@ for k = istart:irate:iend
 %    end
 %    plot(0,cy(k),'k.','markersize',10);
 %    plot([-5 5],[0 0],'k--')
-    plot(vec1(1,:),vec2(1,:),'b.','markersize',20)
+%    plot(vec1(1,:),vec2(1,:),'b.','markersize',20)
 %    for j = 1:1
 %      subplot(1,2,1)
 %      h = cline(vec1(:,j),vec2(:,j),vec3(:,j));
@@ -287,9 +287,9 @@ for k = istart:irate:iend
     end
     hold off
     axis equal
-    axis(ax)
-%    axis([min(posx(:,:,k))-1 max(posx(:,:,k))+1 ...
-%          min(posy(:,:,k))-1 max(posy(:,:,k))+1])
+%    axis(ax)
+    axis([min(posx(:,:,k))-1 max(posx(:,:,k))+1 ...
+          min(posy(:,:,k))-1 max(posy(:,:,k))+1])
     set(gca,'xtick',[])
     set(gca,'ytick',[])
     set(gca,'xcolor','white')
