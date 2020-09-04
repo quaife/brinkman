@@ -139,7 +139,6 @@ forcs1(1,1:m) = slam(1,1:m).*dkap(1,1:m).*sin(theta(1,1:m)) - ...
                 slams(1,1:m).*cos(theta(1,1:m))/sl;
 forcs2(1,1:m) = -slam(1,1:m).*dkap(1,1:m).*cos(theta(1,1:m)) - ...
                 slams(1,1:m).*sin(theta(1,1:m))/sl;
-
 % Adding the jump conditions in eq (39) and (33)
 forc1(1,1:m) = forc1(1,1:m) + forcs1(1,1:m);  
 forc2(1,1:m) = forc2(1,1:m) + forcs2(1,1:m);  
@@ -158,5 +157,10 @@ k = A*tau;
 un(1,1:m) = k(1:m)'*c - forc001_l(1:m)*c1 + yo(1,1:m)*velocity;
 ut(1,1:m) = k(m+1:2*m)'*c - forc002_l(1:m)*c1;
 rlambdalnew = slam;
+
+%clf; hold on;
+%plot(un(1:m))
+%plot(ut(1:m),'r')
+%pause
 
 end

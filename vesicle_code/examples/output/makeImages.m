@@ -2,29 +2,43 @@ addpath ../../src
 set(0,'DefaultAxesFontSize',22)
 options.savefig = false;
 options.pressure = false;
+options.center = false;
+options.marker = false;
 
 irate = 1; % controls the speed of the visualization
 
 if 0
-  file = 'parabolic1VesData.bin';
-%  file = 'parabolic1Ves_speed8.00e02_RA6.00em01Data.bin';  
-%  file = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u10B1em3Data.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/semipermeable/parabolic1Ves_speed2.00e02_RA6.00em01Data.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/July302020/parabolic1VesData_dtMax1em1_Speed10_beta0.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1e2B1em4Data.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1e0p5B1em4bData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1em0p0B1em4bData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1em0p5B1em4bData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1em1p0B1em4bData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1ep0B1em4bData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1ep1p0B1em4dData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/pflowR10u1ep1p0B0em4dData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/parabolic/pflowR10u0p1B1em5Data.bin';
+%  file = 'parabolic1VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/semipermeable/parabolic1Ves_speed8.00e02_RA6.00em01Data.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/impermeable/parabolic1Ves_speed1.20e03_RA6.00em01Data.bin';
 
-  ax = 2*[-3 3 -3 3];
+  ax = 1*[-2 2 -2 2];
   irate = 1;
   options.confined = false;
+  options.center = true;
+  options.marker = true;
 end
+if 1
+  file = 'choke1VesEData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield1e0/choke1VesData.bin'
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e1_farfield1e0/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e2_farfield1e0/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield5e2/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield1e2/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em4Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em5Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
+  ax = [-120 120 -12.5 12.5];
+  options.confined = true;
+  options.pressure = true;
+  options.savefig = false;
+  count = 1;
+  irate = 5;
+end
+
+
+
 if 0
 %  file = 'extensional1VesCleanData.bin'; irate = 2;
   file = 'extensional1VesSemiData.bin'; irate = 2;
@@ -112,24 +126,6 @@ if 0
   irate = 1;
 end
 
-if 1
-  file = 'choke1VesBData.bin';
-%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield1e0/choke1VesData.bin'
-%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e1_farfield1e0/choke1VesData.bin';
-%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e2_farfield1e0/choke1VesData.bin';
-%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield5e2/choke1VesData.bin';
-%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield1e2/choke1VesData.bin';
-%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
-%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
-%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em4Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
-%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em5Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
-  ax = [-200 200 -12.5 12.5];
-  options.confined = true;
-  options.pressure = true;
-  options.savefig = false;
-  count = 1;
-  irate = 5;
-end
 if 0
 %  file = 'slit1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/slit/Scale0p55_Beta0/slit1VesData.bin';
@@ -241,9 +237,14 @@ min_flux = -15;
 max_flux = +2;
 
 figure(1); clf
+if options.marker
+  lambda = 1;
+else 
+  lambda = 0;
+end
 for k = istart:irate:iend
 %  xx = interpft(posx(:,:,k),256); yy = interpft(posy(:,:,k),256);  
-  xx = posx(:,:,k) - 0*cx(k);
+  xx = posx(:,:,k) - lambda*cx(k);
   yy = posy(:,:,k);
   tt = ten(:,:,k);
   if k > 1
@@ -263,7 +264,9 @@ for k = istart:irate:iend
 %    end
 %    plot(0,cy(k),'k.','markersize',10);
 %    plot([-5 5],[0 0],'k--')
-%    plot(vec1(1,:),vec2(1,:),'b.','markersize',20)
+    if options.marker
+      plot(vec1(1,:),vec2(1,:),'b.','markersize',20)
+    end
 %    for j = 1:1
 %      subplot(1,2,1)
 %      h = cline(vec1(:,j),vec2(:,j),vec3(:,j));
@@ -287,9 +290,9 @@ for k = istart:irate:iend
     end
     hold off
     axis equal
-%    axis(ax)
-    axis([min(posx(:,:,k))-1 max(posx(:,:,k))+1 ...
-          min(posy(:,:,k))-1 max(posy(:,:,k))+1])
+    axis(ax)
+%    axis([min(posx(:,:,k))-1 max(posx(:,:,k))+1 ...
+%          min(posy(:,:,k))-1 max(posy(:,:,k))+1])
     set(gca,'xtick',[])
     set(gca,'ytick',[])
     set(gca,'xcolor','white')

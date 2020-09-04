@@ -364,8 +364,8 @@ function X = recon(o,N,x0,y0,L,theta)
 % (x0,y0)
 
 IK = o.modes(N);
-x = x0 + o.intFT(L*cos(theta),IK);%/2/pi;
-y = y0 + o.intFT(L*sin(theta),IK);%/2/pi;
+x = x0 + L*o.intFT(cos(theta),IK);%/2/pi;
+y = y0 + L*o.intFT(sin(theta),IK);%/2/pi;
 X = o.setXY(x,y);
 
 %clf;

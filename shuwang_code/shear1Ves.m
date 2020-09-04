@@ -328,6 +328,10 @@ for ktime = 1:nstep
 %  write results if the time is right
   [x,y] = recon(m,x0,y0,sl,theta);
 
+%  clf;
+%  plot(theta)
+%  pause
+
   if mod(ktime,outpt)==0
     np = np+1;
     concen(1:m,np) = rconn';

@@ -159,8 +159,9 @@ rbn = b0 * (ones(N,1) - rcon) + b1*rcon;
 % pause
 
 Drbn = oc.diffFT(rbn,IK)/ves.L; 
-Drbn_cur = oc.diffFT(rbn.*cur,IK)/ves.L;
-DDrbn_cur = oc.diffFT(Drbn_cur,IK)/ves.L;
+Drbn_cur = oc.diffFT(rbn.*cur,IK)/ves.L; % derivative of the curvature
+% second derivative of the curvature
+DDrbn_cur = oc.diffFT(Drbn_cur,IK)/ves.L; 
 % plot(DDrbn_cur)
 %  pause
 Esigma = -DDrbn_cur - 0.5*rbn.*cur.^3;

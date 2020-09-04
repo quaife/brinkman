@@ -2,18 +2,12 @@ function  vel=stokes(dkap,m,sl,theta,rhs,A,c,c1)
  
 tol = 1e-10;  maxit = numel(rhs); 
 rhscolume=rhs';
-%clf
-%plot(rhs)
-%pause
-
+afun(rhscolume);
 % based on the variable name, it seems that this is solving for a
 % velocity
 [vell,flag,relres,iter,resvec] = gmres(@afun,rhscolume,m/2,tol,maxit);
 %,@mfun);
 vel = vell';
-%clf
-%plot(vel)
-%pause
 %  flag
 %  relres
 %  iter

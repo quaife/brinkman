@@ -53,12 +53,14 @@ oc = curve; %shorthand for curve class
 [Eu,Esigma] = ves.variationsNonStiff;
 
 %Compute the force in eq (33)
-tau = [-[+Esigma.*sin(theta) - Eu.*cos(theta)]; ...
-       -[-Esigma.*cos(theta) - Eu.*sin(theta)]];
-%NOTE: missing us term??
+%tau = [-[+Esigma.*sin(theta) - Eu.*cos(theta)]; ...
+%       -[-Esigma.*cos(theta) - Eu.*sin(theta)]];
+tau = [[-Esigma.*sin(theta) - Eu.*cos(theta)]; ...
+       [Esigma.*cos(theta) - Eu.*sin(theta)]];
+% BQ: MISSING u_s TERM??
 
-%Construct Stokes matrix without the log singularity. ie. A3 only contains
-%the rightmost kernel in equation (43)
+%Construct Stokes matrix without the log singularity. ie. A3 only
+%contains the rightmost kernel in equation (43)
 StokesMat = op.StokesMatrixLogless(ves.X);
 
 %form the velocity, k, on the interface corresponding to v^u in eq (33)
@@ -74,14 +76,14 @@ ulam = ves.viscIn/ves.viscOut;
 LogKernel1 = op.IntegrateLogKernel(tau(1:N));
 LogKernel2 = op.IntegrateLogKernel(tau(N+1:end));
 
-%calculate constants that multiply the weakly singular and regular parts of 
-%the integral operators LogKernel1 and LogKernel2
+% calculate constants that multiply the weakly singular and regular
+% parts of the integral operators LogKernel1 and LogKernel2
 c1 = 1/(4*pi)*L/N;
 c2 = -L/(8*pi);
 
-%sigma1 and sigma2 are the solution of equation (33) (still unsure
-%about the u_s term). Also, it includes the background shear flow which
-%is not stated in equation (33), but instead in equations (6) and (7)
+% sigma1 and sigma2 are the solution of equation (33) (still unsure
+% about the u_s term). Also, it includes the background shear flow which
+% is not stated in equation (33), but instead in equations (6) and (7)
 sigma1 = k(1:N)*c1 + LogKernel1*c2 + ves.X(N+1:end)*o.shearRate;
 sigma2 = k(N+1:end)*c1 + LogKernel2*c2;
 
@@ -90,37 +92,34 @@ vdotn = sigma1.*sin(theta) - sigma2.*cos(theta);
 % Calculate v dot s in eq (40)
 vdots = sigma1.*cos(theta) + sigma2.*sin(theta);
 
-%Calculate d/ds(v dot s) in eq (40)
+% Calculate d/ds(v dot s) in eq (40)
 IK = oc.modes(N);
 dvdotsds = oc.diffFT(vdots,IK)/L;
 
-%Compute the right hand side of equation (40)
+% Compute the right hand side of equation (40)
 rhs = -(dvdotsds + ves.cur.*vdotn);
 
-%The velocity components in eq (40) are nonlocal linear functions of 
-%lambdaTilde. Solve the linear system for LambdaTilde in (39) using GMRES.
-%Each iteration of GMRES requires a solution of Stokes equation
-%LambdaTilde is the lambda with a tilde in eq (39)
+% The velocity components in eq (40) are nonlocal linear functions of
+% lambdaTilde. Solve the linear system for LambdaTilde in (39) using
+% GMRES.
+% Each iteration of GMRES requires a solution of Stokes equation
+% LambdaTilde is the lambda with a tilde in eq (39)
 [lambTil,flag,relres,iter,resvec] = ...
       gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
               o.gmresMaxIter); %,@(x) o.preconditioner(x));
-
-% BQ: HACK FOR NOW THAT NEEDS TO BE REMOVED AFTER TRACKING DOWN A
-% MISTAKE IN SIGN
-lambTil = -lambTil;
 
 %calculate the Fourier derivative of lambdaTilde
 dlamTilds = oc.diffFT(lambTil,IK)/L;
 
 %We can now compute the traction jump in first part of equation (39).
 %This comes from applying the product rule and using Frenet-Seret.
-tracJump = [(-lambTil.*ves.cur.*sin(theta) + dlamTilds.*cos(theta));...
-            (+lambTil.*ves.cur.*cos(theta) + dlamTilds.*sin(theta))];
+% BQ: Ashley proposes changing this variable name
+tracJump = [(+lambTil.*ves.cur.*sin(theta) - dlamTilds.*cos(theta));...
+            (-lambTil.*ves.cur.*cos(theta) - dlamTilds.*sin(theta))];
 
-%Adding the jump conditions in eq (39) to (33) which is in the variable tau
-% BQ: HACK FOR NOW THAT NEEDS TO BE REMOVED AFTER TRACKING DOWN A
-% MISTAKE IN SIGN
-tau = +tau - tracJump;
+% Adding the jump conditions in eq (39) to (33) which is in the variable
+% tau
+tau = tau + tracJump;
 
 %Compute u tilde in equations (38) through (40) without the weakly singular
 %log kernel
@@ -134,6 +133,10 @@ force2 = op.IntegrateLogKernel(tau(N+1:end));
 %non-singular and weakly singular integral operators
 uxvel = k(1:N)*c1 + force1*c2 + ves.X(N+1:end)*o.shearRate;
 uyvel = k(N+1:end)*c1 + force2*c2;
+%clf; hold on
+%plot(uxvel)
+%plot(uyvel,'r')
+%pause
 
 end % usetself
 
@@ -156,8 +159,8 @@ IK = oc.modes(N); %define the Fourier modes for differentiation
 drhsds = oc.diffFT(rhs,IK)/L;
 
 % Compute the forces in equation (39)
-tau1 = -rhs.*cur.*sin(theta) + drhsds.*cos(theta);
-tau2 = +rhs.*cur.*cos(theta) + drhsds.*sin(theta);
+tau1 = +rhs.*cur.*sin(theta) - drhsds.*cos(theta);
+tau2 = -rhs.*cur.*cos(theta) - drhsds.*sin(theta);
 
 % form the velocity on the interface that solves (38) and (39), but
 % without the log terms in the kernel
@@ -241,7 +244,7 @@ ut = ux.*cos(theta) + uy.*sin(theta); % Tangential Velocity
 %   so this is just checking for discretization and round-off errors i.e.
 %   Ln = ves.L if params.dt*dcur(1) = 0.
 dcur0 = oc.fdcur(ves,un);
-Ln = L + params.dt*dcur0(end);
+Ln = L + params.dt*dcur0(1);
 
 % Get the velocity of the vesicle by its velocity of the tangential
 % angle, but without the stiff term. The nonlinear term N_1 defined in
@@ -375,18 +378,19 @@ for ktime = 1:nstep
   
   % put the x-y velocity into the normal and tangential velocity.
   theta = ves.theta; % shorthand for theta
-  un = uxvel_loop.*sin(theta) - uyvel_loop.*cos(theta); % Normal Velocity
-  ut = uxvel_loop.*cos(theta) + uyvel_loop.*sin(theta); % Tangential Velocity
+  un = uxvel_loop.*sin(theta) - uyvel_loop.*cos(theta); 
+  % Normal Velocity
+  ut = uxvel_loop.*cos(theta) + uyvel_loop.*sin(theta); 
+  % Tangential Velocity
   
-  % Update length change over time using a 2nd-order Adams Bashforth method.
-  % described in equation (60)
-  %   2nd-order Adams Bashforth for the length. The first element of dcur 
-  %   should be zero, so this is just checking for discretization and 
-  %   round-off errors.
+  % Update length change over time using a 2nd-order Adams Bashforth
+  % method.  described in equation (60) 2nd-order Adams Bashforth for
+  % the length. The first element of dcur should be zero, so this is
+  % just checking for discretization and round-off errors.
   dcur1 = oc.fdcur(ves,un);
-  %Lnn = Ln + params.dt*(3*dcur1(end)-dcur0(end))/2;
-  Lnn = Ln + params.dt*dcur1(end);
-  %update ves.L  
+  Lnn = Ln + params.dt*(3*dcur1(1)-dcur0(1))/2;
+%  Lnn = Ln + params.dt*dcur1(1);
+  % update ves.L  
   ves.L = Lnn;
   % BQ: I DON'T UNDERSTAND WHAT THE LAST VALUE OF THE VECTOR dcur1 HAS
   % TO DO WITH THE RIGHT HAND SIDE FOR THE LENGTH ODE
@@ -422,9 +426,10 @@ for ktime = 1:nstep
   % the tangent angle of the new shape after taking a single step of a
   % 2nd order multistep method with the stiffest term treated implicitly
   % and integrated with the integrating factors d1 and d2 defined above.
-  %thetann = real(ifft(d1.*fcthetan + 0.5*params.dt*(3*d1.*fcfnthetan- ...
-  %          d2.*fcfntheta)))+2*pi*(0:ves.N-1)'/ves.N;
-  thetann = real(ifft(d1.*(fcthetan + params.dt*fcfnthetan)))+2*pi*(0:ves.N-1)'/ves.N;
+  thetann = real(ifft(d1.*fcthetan + ...
+        0.5*params.dt*(3*d1.*fcfnthetan - d2.*fcfntheta))) ...
+        + 2*pi*(0:ves.N-1)'/ves.N;
+%  thetann = real(ifft(d1.*(fcthetan + params.dt*fcfnthetan)))+2*pi*(0:ves.N-1)'/ves.N;
   % Compute integrating factor components      
   rsl = params.epsch*(rk/ves.L).^4*params.consta;
   rsln = params.epsch*(rk/Ln).^4*params.consta;
@@ -460,20 +465,23 @@ for ktime = 1:nstep
   % update variables for time stepping loop
   dcur0 = dcur1;
   ves.theta = thetann;
+%  clf
+%  plot(ves.theta)
+%  pause
   fntheta = fnthetan;   
   
   % update the single tracker point using Adams Bashforth
- %  ves.x0 = ves.x0 + 0.5*params.dt*(3*uxvel_new - ux_old);
- %  ves.y0 = ves.y0 + 0.5*params.dt*(3*uyvel_new - uy_old);
-    ves.x0 = ves.x0 + params.dt*uxvel_new;
-    ves.y0 = ves.y0 + params.dt*uyvel_new;
+   ves.x0 = ves.x0 + 0.5*params.dt*(3*uxvel_new - ux_old);
+   ves.y0 = ves.y0 + 0.5*params.dt*(3*uyvel_new - uy_old);
+%    ves.x0 = ves.x0 + params.dt*uxvel_new;
+%    ves.y0 = ves.y0 + params.dt*uyvel_new;
 
   % Update X
   ves.X = oc.recon(ves.N,ves.x0,ves.y0,ves.L,ves.theta);
 
   % HACK: keep the vesicle centered at (0,0)
-  ves.X(1:end/2) = ves.X(1:end/2) - mean(ves.X(1:end/2));
-  ves.X(end/2+1:end) = ves.X(end/2+1:end) - mean(ves.X(end/2+1:end));
+%  ves.X(1:end/2) = ves.X(1:end/2) - mean(ves.X(1:end/2));
+%  ves.X(end/2+1:end) = ves.X(end/2+1:end) - mean(ves.X(end/2+1:end));
   
   % Compute the errors in length and area
   [~,a_new,l_new] = oc.geomProp(ves.X);
