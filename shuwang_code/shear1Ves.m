@@ -1,5 +1,5 @@
 %setup the intial data for the coefficient
-shearate = 1;
+shearate = 0;
 shape = 3.0;
 phi = 0;
 scale = 1;
@@ -13,7 +13,7 @@ ngrid = initialdata(1);
 % the number of the grid points
 dt = initialdata(2);
 % time steps size
-T = initialdata(3)*10;
+T = initialdata(3)*1;
 % time horizon
 outpt = initialdata(4);
 % output data groups
@@ -231,6 +231,9 @@ for ktime = 1:nstep
   % (x,y) = tracker point
   [ux0,uy0,rlambdalnew,x,y,forc1,forc2,xcc,ycc,area] = ...
       usetself(x0,y0,sl,thetan,rconn);
+%   disp('here1')
+%   norm(uy0)
+%   pause
   disp('step')
   disp(ktime+1)
   figure(1); clf; hold on;
@@ -274,7 +277,9 @@ for ktime = 1:nstep
   temp4 = d1.*temp2 + 1/2*dt*(3*d1.*temp1-d2.*temp3);
   temp4 = real(ifft(temp4));
   thetann = temp4 + 2*pi*(0:1:m-1)/m;
-
+%   disp('here')
+%   norm(fnthetan)
+%   pause
   % this is what might need to change to do semi-permeability???
 
   rsl = eps_ch*(rk/sl).^4*consta;

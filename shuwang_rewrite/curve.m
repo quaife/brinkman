@@ -71,7 +71,7 @@ end
 
 if nargout>2  % if user requires curvature
   IK = o.modes(N);
-  [DDx,DDy] = oc.getDXY([Dx,Dy])
+  [DDx,DDy] = oc.getDXY([Dx,Dy]);
   curvature = (Dx.*DDy - Dy.*DDx)./(jacobian.^3);
 end
 % curvature of the curve
@@ -382,7 +382,6 @@ function df = diffFT(o,f,IK)
 % df = diffFT(f,IK) Computes the first derivative of a periodic function
 % f using fourier transform. IK is used to speed up the code.  It is the
 % index of the fourier modes so that fft and ifft can be used
-
 df = real(ifft(IK.*fft(f)));
 
 end % diffFT
@@ -415,7 +414,6 @@ end % intFT
 function IK = modes(o,N)
 % IK = modes(N) builds the order of the fourier modes required for using
 % fft and ifft to do spectral differentiation
-
 IK = 2*pi*1i*[(0:N/2-1) -N/2 (-N/2+1:-1)]';
 % diagonal term for Fourier differentiation
 
@@ -483,7 +481,11 @@ L = ves.L;
 IK = o.modes(N);
 %compute first derivative of the opening angle using Fourier
 %differentiation. This is actually the curvature
+
 dthetads = o.rmLinearPart(ves);
+% disp('here!')
+% norm(dthetads)
+% pause
 %compute the derivative of the normal velocity
 dunds = o.diffFT(unt,IK);    
 %Check T_s = -V * curvature (local inextensibility condition) (see

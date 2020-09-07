@@ -59,7 +59,6 @@ ulam = uinside/uoutside;
 % spontaneous curvature and the double-well potential terms with f(u).
 % These are needed for the force in equation (13)
 [forc,fforc] = uset_un(sl,theta,rcon,bendsti,bendratio,m);
-
 % For the force in equation (33). Note that the normal is n =
 % (sin(theta),-cos(theta)) and the tangent is s =
 % (cos(theta),sin(theta))
@@ -128,6 +127,9 @@ rhs(1,1:m) = -(utns(1,1:m)/sl + uun(1,1:m).*dkap(1,1:m));
 % equation 
 % slam is LambdaTilde in eq (39)
 slam = stokes(dkap,m,sl,theta,rhs,A,c,c1); 
+% disp("oy with the poodles already")
+% norm(slam)
+% pause
 % calculate the Fourier derivative
 slams = fd1(slam,m);
 % [xo' yo']

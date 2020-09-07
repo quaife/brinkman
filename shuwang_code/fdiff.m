@@ -1,6 +1,5 @@
 function x = fdiff(a,n)
 % fourier differentiation
-
 y = a;
 y(1,n+1) = y(1,1);
 z = fft(y(1,1:n+1),n);

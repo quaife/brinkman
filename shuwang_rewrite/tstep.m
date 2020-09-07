@@ -95,10 +95,10 @@ vdots = sigma1.*cos(theta) + sigma2.*sin(theta);
 % Calculate d/ds(v dot s) in eq (40)
 IK = oc.modes(N);
 dvdotsds = oc.diffFT(vdots,IK)/L;
-
+%disp('forever debugging')
 % Compute the right hand side of equation (40)
-rhs = -(dvdotsds + ves.cur.*vdotn);
-
+rhs = -(dvdotsds + cur.*vdotn);
+%rhs = -(dvdotsds + oc.acurv(ves).*vdotn);
 % The velocity components in eq (40) are nonlocal linear functions of
 % lambdaTilde. Solve the linear system for LambdaTilde in (39) using
 % GMRES.
@@ -107,15 +107,19 @@ rhs = -(dvdotsds + ves.cur.*vdotn);
 [lambTil,flag,relres,iter,resvec] = ...
       gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
               o.gmresMaxIter); %,@(x) o.preconditioner(x));
-
+% disp("oy with the poodles already")
+% norm(lambTil)
+% pause
 %calculate the Fourier derivative of lambdaTilde
 dlamTilds = oc.diffFT(lambTil,IK)/L;
 
 %We can now compute the traction jump in first part of equation (39).
 %This comes from applying the product rule and using Frenet-Seret.
 % BQ: Ashley proposes changing this variable name
-tracJump = [(+lambTil.*ves.cur.*sin(theta) - dlamTilds.*cos(theta));...
-            (-lambTil.*ves.cur.*cos(theta) - dlamTilds.*sin(theta))];
+% tracJump = [(+lambTil.*oc.acurv(ves).*sin(theta) - dlamTilds.*cos(theta));...
+%             (-lambTil.*oc.acurv(ves).*cos(theta) - dlamTilds.*sin(theta))];
+tracJump = [(+lambTil.*cur.*sin(theta) - dlamTilds.*cos(theta));...
+            (-lambTil.*cur.*cos(theta) - dlamTilds.*sin(theta))];
 
 % Adding the jump conditions in eq (39) to (33) which is in the variable
 % tau
@@ -137,7 +141,6 @@ uyvel = k(N+1:end)*c1 + force2*c2;
 %plot(uxvel)
 %plot(uyvel,'r')
 %pause
-
 end % usetself
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -159,6 +162,8 @@ IK = oc.modes(N); %define the Fourier modes for differentiation
 drhsds = oc.diffFT(rhs,IK)/L;
 
 % Compute the forces in equation (39)
+% tau1 = +rhs.*oc.acurv(ves).*sin(theta) - drhsds.*cos(theta);
+% tau2 = -rhs.*oc.acurv(ves).*cos(theta) - drhsds.*sin(theta);
 tau1 = +rhs.*cur.*sin(theta) - drhsds.*cos(theta);
 tau2 = -rhs.*cur.*cos(theta) - drhsds.*sin(theta);
 
@@ -186,8 +191,8 @@ udots = utilde1.*cos(theta) + utilde2.*sin(theta);
 dudotsds = oc.diffFT(udots,IK)/L;
 
 %LHS is (u \cdot s)_s + kappa * (u \cdot n) in eq (40)
+%LHS = (dudotsds + oc.acurv(ves).*udotn);
 LHS = (dudotsds + cur.*udotn);
-
 end %matvec40
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -328,7 +333,7 @@ ves.y0 = ves.y0 + params.dt*uy(1);
 
 % Reconstruct ves.X with updated tracking point 
 ves.X = oc.recon(ves.N,ves.x0,ves.y0,ves.L,ves.theta);    
-
+ves.cur = oc.acurv(ves);
 % set up variables for timestepping loop
 ux_old = ux(1);
 uy_old = uy(1);
@@ -363,6 +368,9 @@ for ktime = 1:nstep
   % compute the x- and y-components of the velocity. This is the routine
   % that calls GMRES which is used to solve equation (30) 
   [uxvel_loop,uyvel_loop] = o.usetself;
+%   disp('here1')
+%   norm(uyvel_loop)
+%   pause
 %  [norm(uxvel_loop) norm(uyvel_loop)]
 %  clf; hold on
 %  plot(uxvel_loop,'b')
@@ -429,6 +437,9 @@ for ktime = 1:nstep
   thetann = real(ifft(d1.*fcthetan + ...
         0.5*params.dt*(3*d1.*fcfnthetan - d2.*fcfntheta))) ...
         + 2*pi*(0:ves.N-1)'/ves.N;
+%   disp('here')
+%   norm(fnthetan)
+%   pause
 %  thetann = real(ifft(d1.*(fcthetan + params.dt*fcfnthetan)))+2*pi*(0:ves.N-1)'/ves.N;
   % Compute integrating factor components      
   rsl = params.epsch*(rk/ves.L).^4*params.consta;
@@ -478,7 +489,7 @@ for ktime = 1:nstep
 
   % Update X
   ves.X = oc.recon(ves.N,ves.x0,ves.y0,ves.L,ves.theta);
-
+  ves.cur = oc.acurv(ves);
   % HACK: keep the vesicle centered at (0,0)
 %  ves.X(1:end/2) = ves.X(1:end/2) - mean(ves.X(1:end/2));
 %  ves.X(end/2+1:end) = ves.X(end/2+1:end) - mean(ves.X(end/2+1:end));
@@ -491,11 +502,12 @@ for ktime = 1:nstep
   % Print outputs
   om.outputInfo(ves.X,ves.cur,time,[uxvel_loop;uyvel_loop],ea,el)
 
+  % Update ux_old, and uy_old for timestepping loop
+  ux_old = uxvel_new;
+  uy_old = uyvel_new;
 end
 
-% Update ux_old, and uy_old for timestepping loop
-ux_old = uxvel_new;
-uy_old = uyvel_new; 
+ 
 
 end % TimeStepLoop    
 

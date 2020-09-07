@@ -42,7 +42,9 @@ function ftheta = forctheta(m,sl,theta,un,utt)
 % differentiation. This is actually the curvature
 stheta = fd1x(theta,m);
 % the `s' prefix corresponds to arclenght
-
+% disp('here1')
+% norm(stheta)
+% pause
 % compute the derivative of the normal velocity
 sun = fd1(un,m);
 
