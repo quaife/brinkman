@@ -18,8 +18,9 @@ if 0
   options.center = true;
   options.marker = true;
 end
-if 1
-  file = 'choke1VesEData.bin';
+if 0
+  file = 'choke1Ves0EData.bin';
+  options.marker = true;
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield1e0/choke1VesData.bin'
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e1_farfield1e0/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e2_farfield1e0/choke1VesData.bin';
@@ -31,7 +32,7 @@ if 1
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em5Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
   ax = [-120 120 -12.5 12.5];
   options.confined = true;
-  options.pressure = true;
+  options.pressure = false;
   options.savefig = false;
   count = 1;
   irate = 5;
@@ -102,9 +103,9 @@ if 0
   ax = [-2 2 -2 2];
   options.confined = false;
 end
-if 0
-%  file = 'shear1VesCData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e0_ra065_beta1p0em2/shear1VesData.bin';
+if 1
+  file = 'shear1VesCData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e0_ra065_beta1p0em3/shear1VesData.bin';
   ax = [-5 5 -5 5];
   options.confined = false;
   beta = 0.2;
@@ -210,8 +211,8 @@ for k = istart:1:iend
 %  G = op.stokesSLmatrix(vesicle);
 %  velSLP(:,k) = G*trac(:,:,k);
 %
-%  flux(:,k) = -(trac(1:end/2,:,k).*normal(1:end/2,:,k) + ...
-%          trac(end/2+1:end,:,k).*normal(end/2+1:end,:,k));
+  flux(:,k) = -(trac(1:end/2,:,k).*normal(1:end/2,:,k) + ...
+          trac(end/2+1:end,:,k).*normal(end/2+1:end,:,k));
 %  velFlux(:,k) = [flux(:,k).*normal(1:end/2,:,k); ...
 %                  flux(:,k).*normal(end/2+1:end,:,k)];
 end
@@ -237,7 +238,7 @@ min_flux = -15;
 max_flux = +2;
 
 figure(1); clf
-if options.marker
+if options.center
   lambda = 1;
 else 
   lambda = 0;
@@ -269,7 +270,7 @@ for k = istart:irate:iend
     end
 %    for j = 1:1
 %      subplot(1,2,1)
-%      h = cline(vec1(:,j),vec2(:,j),vec3(:,j));
+%      h = cline(vec1(:,j),vec2(:,j),vec4(:,j));
 %      set(h,'linewidth',3)
 %    end
 %    colorbar
@@ -290,9 +291,9 @@ for k = istart:irate:iend
     end
     hold off
     axis equal
-    axis(ax)
-%    axis([min(posx(:,:,k))-1 max(posx(:,:,k))+1 ...
-%          min(posy(:,:,k))-1 max(posy(:,:,k))+1])
+%    axis(ax)
+    axis([min(posx(:,:,k))-1 max(posx(:,:,k))+1 ...
+          min(posy(:,:,k))-1 max(posy(:,:,k))+1])
     set(gca,'xtick',[])
     set(gca,'ytick',[])
     set(gca,'xcolor','white')

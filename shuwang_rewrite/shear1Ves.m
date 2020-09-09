@@ -7,7 +7,7 @@
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
 params.N = 96; % points on vesicle
-params.dt = 1.0e-2; % time step size
+params.dt = 1.25e-3; % time step size
 params.T = 4; % time horizon
 params.outpt = 1e-3; % ouptut frequency
 params.concentra = 0; % constant, initial concentration of lipid species

@@ -465,12 +465,24 @@ area and viscosity contrast, two-dimensional vesicles either tank tread
 or tumble~\cite{fin-lam-sei-gom2008,kra-win-sei-lip1996}. Since we are
 considering semi-permeable vesicles, we assume there is no viscosity
 contrast, and tumbling is not possible.
+\begin{figure}[htp]
+  \centering
+  \input{figures/shearSS.tikz}
+  \caption{\label{fig:shearSS} The reduced area of a semi-permeable
+  vesicle in a shear flow. The final reduced area is nearly independent
+  of the initial reduced area.}
+\end{figure}
 
-We initialize an elliptical vesicle with reduced area $\nu = 0.65$, and
-with its long axis oriented in the $y$-direction. For all permeability
-rates and shear rates, the semi-permeable vesicle tilts to an
-inclination angle and undergoes tank treading dynamics. Because of the
-semi-permeability, the initial and final reduced areas differ. In
+In the quiescent flow, the steady state vesicle shape is independent of
+the initial vesicle shape. Here we test if a similar results holds with
+an imposed flow. In Figure~\ref{fig:shearSS}, we plot the reduced area
+of four vesicles with different initial reduced areas. The final shape
+depends on the initial vesicle length, but not on its initial reduced
+area. Therefore, for this example we only consider vesicles with the
+initial reduced area $\nu = 0.65$. For all permeability rates and shear
+rates, the semi-permeable vesicle tilts to an inclination angle and
+undergoes tank treading dynamics. Because of the semi-permeability, the
+initial and final reduced areas differ. In
 Figure~\ref{fig:shearPhaseDiagram}, we plot the final shape of the
 vesicle for various permeability rates, $\beta$, and shear rates
 $\dot{\gamma}$. The shear rate has the largest effect on the final
