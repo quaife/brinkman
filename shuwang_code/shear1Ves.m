@@ -1,13 +1,13 @@
 %setup the intial data for the coefficient
-shearate = 0;
-shape = 3.0;
-phi = 0;
-scale = 1;
+shearate = 30;
+shape = .5;
+phi = 0.5;
+scale = 2;
 
 global consta eps_ch kmatrix velocity bendsti bendratio uinside uoutside m
 
-initialdata = [96 1e-2 1/scale 1e-3 phi 0 shape  ...
-    shearate 1 1 1 100 1.0 1.0];
+initialdata = [64 1e-3 1/scale 1e-3 phi 0 shape  ...
+    shearate 1 .1 1 100 1.0 1.0];
 
 ngrid = initialdata(1);
 % the number of the grid points
@@ -17,6 +17,7 @@ T = initialdata(3)*1;
 % time horizon
 outpt = initialdata(4);
 % output data groups
+
 concentra = initialdata(5);
 % concentration of the phase
 oddeven = initialdata(6);
@@ -92,7 +93,6 @@ kmatrix = formkmatrix(ngrid);
 % clf
 % plot(x,y)
 % pause
-disp('step1')
 figure(1); clf; hold on;
 quiver(x(1:end-1),y(1:end-1),ux0 - 0*y(1:end-1),uy0)
 axis equal
@@ -189,9 +189,7 @@ for i=1:nloop
   rconn = real(ifft(temp4));
   rcon = rconn;
 end
-%  disp('plotting rcon')
-%  plot(rcon)
-%  pause
+
 % For Shuwang: Why do we have to take a time step size that is 1/20 the
 % size of the time step size used for the hydrodynamics?
 
@@ -234,12 +232,11 @@ for ktime = 1:nstep
 %   disp('here1')
 %   norm(uy0)
 %   pause
-  disp('step')
-  disp(ktime+1)
   figure(1); clf; hold on;
   plot(x,y,'r')
   quiver(x(1:end-1),y(1:end-1),ux0,uy0)
   nn = [nn;norm([ux0;uy0])];
+  disp('here 1')
   norm([ux0;uy0])
   axis equal
   axis([-3 3 -3 3])
@@ -292,7 +289,6 @@ for ktime = 1:nstep
   d2 = exp(-d2);
   
   if concentra>0
-    disp('in here')
     for innerstep=1:nloop
       % evolve the phase field on the surface            
       fnncon=frconim(m,sl,rconn,thetan,bendsti,bendratio,...
@@ -312,6 +308,10 @@ for ktime = 1:nstep
       fncon = fnncon;
     end
   end
+  clf
+  disp('plotting rcon')
+  plot(rcon)
+  pause
   %pause
   sl = sln;
   sln = slnn;

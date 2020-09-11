@@ -368,8 +368,8 @@ for ktime = 1:nstep
   % compute the x- and y-components of the velocity. This is the routine
   % that calls GMRES which is used to solve equation (30) 
   [uxvel_loop,uyvel_loop] = o.usetself;
-%   disp('here1')
-%   norm(uyvel_loop)
+   disp('here1')
+   norm(uyvel_loop)
 %   pause
 %  [norm(uxvel_loop) norm(uyvel_loop)]
 %  clf; hold on
@@ -449,7 +449,7 @@ for ktime = 1:nstep
   % trapezoid rule. These are dependent on the number of steps taken to
   % evolve the phase field surface.
   d1 = exp(-(params.dt/params.nloop*(rsln+rslnn)/2));
-  d2 = exp(-(params.dt/params.nloop*((rsl+rslnn)/2+rsln)));
+  d2 = exp(-(params.dt/params.nloop*((rsl+rslnn)/2.*rsln)));
   
 %                 === Evolve phase field on surface ===
   if params.concentra > 0
@@ -469,9 +469,13 @@ for ktime = 1:nstep
       %update ves.rcon
       ves.rcon = rconn;
       %update fcN2 for nloop
-      fcN2 = fcN2n;
+      N2Hat = N2Hatn;
     end    
   end
+  clf
+  disp('plotting rcon')
+  plot(ves.rcon)
+  pause
 %                             ====================
   % update variables for time stepping loop
   dcur0 = dcur1;

@@ -6,18 +6,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
-params.N = 96; % points on vesicle
-params.dt = 1.25e-3; % time step size
-params.T = 4; % time horizon
+params.N = 64; % points on vesicle
+params.dt = 1e-3; % time step size
+params.T = 0.5; % time horizon
 params.outpt = 1e-3; % ouptut frequency
-params.concentra = 0; % constant, initial concentration of lipid species
+params.concentra = 0.5; % constant, initial concentration of lipid species
 params.oddeven = 0; % flag for initial lipid species profile?
-params.shortax = 3.0; % short axis length
-params.shearRate = 1; % shear rate
+params.shortax =.5; % short axis length
+params.shearRate = 30; % shear rate
 params.viscosityInside = 1.0;
 params.viscosityOutside = 1.0;
-params.bendsti = 1; % maximum bending stiffness
-params.bendratio = 1; % ratio between max and min bending stiffness
+params.bendsti = .1; % maximum bending stiffness
+params.bendratio = .1; % ratio between max and min bending stiffness
 params.consta = 100; % parameter 'a' in the Cahn-Hilliard energy
 params.nloop = 20; % number of time steps of Cahn-Hilliard to be taken at 
                    %each time step of the hydrodynamics
