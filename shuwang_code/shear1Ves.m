@@ -1,12 +1,12 @@
 %setup the intial data for the coefficient
 shearate = 30;
-shape = .5;
-phi = 0.5;
-scale = 2;
+shape = .1;
+phi = 0.3;
+scale = 1/6;
 
 global consta eps_ch kmatrix velocity bendsti bendratio uinside uoutside m
 
-initialdata = [64 1e-3 1/scale 1e-3 phi 0 shape  ...
+initialdata = [512 1e-5 1/scale 1e-3 phi 0 shape  ...
     shearate 1 .1 1 100 1.0 1.0];
 
 ngrid = initialdata(1);
@@ -60,6 +60,7 @@ outpt = round(outpt/dt);
 
 % set the initial condition.
 [x,y,theta,rcon,sl] = initialsetup(shortax,ngrid,concentra,oddeven);
+
 % here we keep the total arclength unchanged.
 x0 = x(1);
 y0 = y(1);
@@ -188,8 +189,8 @@ for i=1:nloop
   temp4 = d1.*(temp2c + dt/nloop*temp1c);
   rconn = real(ifft(temp4));
   rcon = rconn;
+  
 end
-
 % For Shuwang: Why do we have to take a time step size that is 1/20 the
 % size of the time step size used for the hydrodynamics?
 
@@ -236,8 +237,8 @@ for ktime = 1:nstep
   plot(x,y,'r')
   quiver(x(1:end-1),y(1:end-1),ux0,uy0)
   nn = [nn;norm([ux0;uy0])];
-  disp('here 1')
-  norm([ux0;uy0])
+  %disp('here 1')
+  %norm([ux0;uy0])
   axis equal
   axis([-3 3 -3 3])
   pause(0.1)
@@ -293,10 +294,9 @@ for ktime = 1:nstep
       % evolve the phase field on the surface            
       fnncon=frconim(m,sl,rconn,thetan,bendsti,bendratio,...
           eps_ch,consta);        
-
       temp1c = fft(fnncon);
       temp2c = fft(rconn);
-      temp3c = fft(fncon);       
+      temp3c = fft(fncon); 
 
       temp5 = d1.*temp2c + 0.5*(dt/nloop)*...
           (3*d1.*temp1c-d2.*temp3c);        
@@ -308,10 +308,9 @@ for ktime = 1:nstep
       fncon = fnncon;
     end
   end
-  clf
-  disp('plotting rcon')
-  plot(rcon)
-  pause
+  %clf
+  %disp('plotting rcon')
+  %plot(rcon)
   %pause
   sl = sln;
   sln = slnn;

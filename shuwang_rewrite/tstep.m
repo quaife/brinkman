@@ -147,7 +147,6 @@ end % usetself
 function LHS = matvec40(o,rhs,StokesMat)   
 % This function cooresponds to the matvec in equation 40 and returns the
 % LHS of eq(40), (u \cdot s)_s + kappa * (u \cdot n) as LHS
-
 ves = o.ves; %shorthand for ves object
 theta = ves.theta; %shorthand for opening angle
 cur = ves.cur; %shorthand for vesicle curvature
@@ -157,30 +156,32 @@ ulam = ves.viscIn/ves.viscOut; %define viscosity ratio
 oc = curve; %shorthand for curve class
 op = poten(N); %shorthand for poten class
 IK = oc.modes(N); %define the Fourier modes for differentiation
-
 % The the derivative of the rhs of eq(40)
 drhsds = oc.diffFT(rhs,IK)/L;
-
 % Compute the forces in equation (39)
+
 % tau1 = +rhs.*oc.acurv(ves).*sin(theta) - drhsds.*cos(theta);
 % tau2 = -rhs.*oc.acurv(ves).*cos(theta) - drhsds.*sin(theta);
-tau1 = +rhs.*cur.*sin(theta) - drhsds.*cos(theta);
-tau2 = -rhs.*cur.*cos(theta) - drhsds.*sin(theta);
+%tau1 = +rhs.*cur.*sin(theta) - drhsds.*cos(theta);
+%tau2 = -rhs.*cur.*cos(theta) - drhsds.*sin(theta);
+
+tau = [+rhs.*cur.*sin(theta) - drhsds.*cos(theta); -rhs.*cur.*cos(theta) - drhsds.*sin(theta)];
 
 % form the velocity on the interface that solves (38) and (39), but
 % without the log terms in the kernel
-krhs = StokesMat*[tau1;tau2];
-
+%krhs = StokesMat*[tau1;tau2];
+ krhs = StokesMat*tau;
+% size(krhs1)
+%krhs = [tau'*StokesMat]';
+%krhs = StokesMat*tau;
 % LogKerneltau1 and LogKerneltau2 are the log kernels integrated against
 % the density functions tau1 and tau2.
-LogKerneltau1 = op.IntegrateLogKernel(tau1);
-LogKerneltau2 = op.IntegrateLogKernel(tau2);
-
+LogKerneltau1 = op.IntegrateLogKernel(tau(1:N));
+LogKerneltau2 = op.IntegrateLogKernel(tau(N+1:end));
 % calculate constants that multiply the weakly singular and regular
 % parts of the integral operators
 c1 = 1/(4*pi)*L/N;
 c2 = -L/(8*pi);
-
 % [utilde1 utilde2] is utilde in equations (39) and (40)
 utilde1 = krhs(1:N)*c1 + LogKerneltau1*c2;
 utilde2 = krhs(N+1:end)*c1 + LogKerneltau2*c2;
@@ -189,7 +190,6 @@ utilde2 = krhs(N+1:end)*c1 + LogKerneltau2*c2;
 udotn = utilde1.*sin(theta) - utilde2.*cos(theta);
 udots = utilde1.*cos(theta) + utilde2.*sin(theta);
 dudotsds = oc.diffFT(udots,IK)/L;
-
 %LHS is (u \cdot s)_s + kappa * (u \cdot n) in eq (40)
 %LHS = (dudotsds + oc.acurv(ves).*udotn);
 LHS = (dudotsds + cur.*udotn);
@@ -318,7 +318,6 @@ for i=1:params.nloop
   % analagous to equation (69)
   ves.rcon = real(ifft(ek.*(fcLS+params.dt/params.nloop*fcN2)));
 end
-
 %              -----  update ves and area -----
 % update ves.L
 ves.L = Ln;
@@ -363,13 +362,14 @@ outpt = round(params.outpt/params.dt); % integer values for when output is
 
 % Entering time stepping loop
 for ktime = 1:nstep
+  tic
   time = ktime*params.dt;
   
   % compute the x- and y-components of the velocity. This is the routine
   % that calls GMRES which is used to solve equation (30) 
   [uxvel_loop,uyvel_loop] = o.usetself;
-   disp('here1')
-   norm(uyvel_loop)
+   %disp('here1')
+   %norm(uyvel_loop)
 %   pause
 %  [norm(uxvel_loop) norm(uyvel_loop)]
 %  clf; hold on
@@ -449,8 +449,7 @@ for ktime = 1:nstep
   % trapezoid rule. These are dependent on the number of steps taken to
   % evolve the phase field surface.
   d1 = exp(-(params.dt/params.nloop*(rsln+rslnn)/2));
-  d2 = exp(-(params.dt/params.nloop*((rsl+rslnn)/2.*rsln)));
-  
+  d2 = exp(-(params.dt/params.nloop*((rsl+rslnn)/2+rsln)));
 %                 === Evolve phase field on surface ===
   if params.concentra > 0
     for i = 1:params.nloop
@@ -472,10 +471,13 @@ for ktime = 1:nstep
       N2Hat = N2Hatn;
     end    
   end
-  clf
-  disp('plotting rcon')
-  plot(ves.rcon)
-  pause
+  
+%   clf
+%   disp('plotting rcon')
+%   plot(ves.rcon)
+%   norm(ves.rcon)
+%   pause
+
 %                             ====================
   % update variables for time stepping loop
   dcur0 = dcur1;
@@ -509,6 +511,7 @@ for ktime = 1:nstep
   % Update ux_old, and uy_old for timestepping loop
   ux_old = uxvel_new;
   uy_old = uyvel_new;
+  toc
 end
 
  

@@ -86,7 +86,11 @@ function Symm_sigma = IntegrateLogKernel(o,sigma)
 %take the fft of sigma
 sigmah = fft(sigma); 
 %define the Fourier coefficients
-coeff = [(0:o.N/2-1)';(-o.N/2:-1)'];
+%if length(sigma) == 2*o.N
+%    coeff = [[(0:o.N/2-1)';(-o.N/2:-1)'];[(0:o.N/2-1)';(-o.N/2:-1)']];
+%else
+    coeff = [(0:o.N/2-1)';(-o.N/2:-1)'];
+%end
 %
 Symm_sigmah = -sigmah./abs(coeff);
 Symm_sigmah(1) = 0;

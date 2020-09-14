@@ -49,7 +49,6 @@ end
 theta = thetsolve(sxn,syn,sl,t0,ngrid);
 % compute the opening angle between the tangent vector and the
 % horizontal axis
-
 if symmetry == -1
   rcon = concentration + smallper*10*(rand(1,ngrid+1) - 0.5);
   % uniform concentration with a little random noise

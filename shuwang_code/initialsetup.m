@@ -19,6 +19,7 @@ end
     
 [x,y,theta,rcon,sl] = initiall(shortax,ngrid*4,concentra,...
     oddeven,smallperturbation);
+
 % initialize the vesicle shape, opening angle, length, and concentration
 % of lipid species
 
@@ -26,6 +27,9 @@ theta = theta(1:4:length(theta));
 % upsampled by a factor of 4 when calling initiall. Now need to
 % downsample back to ngrid
 rcon = rcon(1:4:4*ngrid+1);
+% size(rcon)
+% norm(rcon(1:end-1))
+% pause
 % downsample the concentration to the correct number of discretization
 % points
 

@@ -71,7 +71,7 @@ theta_periodicPart = theta - theta0 - (0:N-1)'*2*pi/N;
 thetah = fft(theta_periodicPart);
 %clf;
 %semilogy(fftshift(abs(thetah))); hold on
-maxFreq = 4;
+maxFreq = 20;
 thetah(maxFreq:N-maxFreq) = 0;
 %thetah(maxFreq:N-(maxFreq-2)) = 0;
 %thetah(6:N-4) = 0;

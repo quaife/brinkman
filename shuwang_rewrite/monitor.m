@@ -198,10 +198,10 @@ oc = curve;
 [x,y] = oc.getXY(X);
 % seperate x and y coordinates
 [xvel,yvel] = oc.getXY(vel);
-
 figure(1); clf; hold on
 plot([x;x(1,:)],[y;y(1,:)],'r','linewidth',2)
-quiver(x,y,xvel,yvel)
+
+%quiver(x,y,xvel,yvel)
 % Plot all vesicles
 
 titleStr = ['t = ' num2str(time,'%4.2e') ...
@@ -209,7 +209,7 @@ titleStr = ['t = ' num2str(time,'%4.2e') ...
   ' eL = ' num2str(el,'%4.2e')];
 title(titleStr)
 axis equal
-axis([-3 3 -3 3])
+%axis([-3 3 -3 3])
 %set(gca,'xtick',[])
 %set(gca,'ytick',[])
 %set(gca,'ycolor','w')

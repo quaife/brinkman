@@ -174,7 +174,7 @@ elseif any(strcmp(options,'star'))
   % a star that comes very close to intersecting itself at the origin
 
 elseif any(strcmp(options,'ellipse'))
-  X0 = [cos(2*pi*alpha);shortax*sin(2*pi*alpha)];
+  X0 = [shortax*cos(2*pi*alpha);sin(2*pi*alpha)];
 else
   X0 = o.ellipse(N,ra);
   % build a vesicle of reduced area ra with N points
@@ -201,11 +201,11 @@ if ~equispaced
        'reducedArea',ra,'shortax',shortax,'scale',scale,...
        'folds',folds,'parameter',alpha);
 end
-%clf
-%figure(1); hold on;
-%plot(X(1:end/2),X(end/2+1:end),'ro')
-%axis equal;
-%pause
+% clf
+% figure(1); hold on;
+% plot(X(1:end/2),X(end/2+1:end),'ro')
+% axis equal;
+% pause
 
 end % initConfig
 
@@ -301,7 +301,6 @@ if concentration == 0
 else
   smallper = 5e-2;
 end
-
 if symmetry == -1
   rcon = concentration + smallper*10*(rand(N,1) - 0.5);
   % uniform concentration with a little random noise
@@ -570,6 +569,7 @@ rcons = o.diffFT(rcon,IK);
 rconss = o.diffFT(rcons,IK);
 %term2 is eps^2 * u_ss as defined in equation (13)
 term2 = -epsch^2*rconss/L^2;
+
 %computing the b'(u)/2 * kappa^2 term in eq (13)
 b0 = ves.bendsti;
 b1 = ves.bendsti*ves.bendratio;
