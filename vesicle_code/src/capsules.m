@@ -436,6 +436,9 @@ end
 %plot(tt.sigDenMatVec(tt.preconditionerBD(rhs),vesicle,walls) - rhs)
 %pause
 
+z = tt.sigDenMatVec(rhs,vesicle,walls);
+% DEBUG
+
 [sigDen,F,R,I] = gmres(@(X) tt.sigDenMatVec(X,vesicle,walls),rhs,...
     [],tt.gmresTol,min(tt.gmresMaxIter,N*nv+2*Nbd*nvbd + 3*(nvbd-1)),...
     @tt.preconditionerBD);

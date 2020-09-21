@@ -1869,7 +1869,6 @@ end
 % walls.  Sets the layer-potential to zero if using explicit
 % interactions
 
-
 % START COMPUTING REQUIRED DOUBLE-LAYER POTENTIALS FOR VISCOSITY
 % CONTRAST
 if any(vesicle.viscCont ~= 1)

@@ -53,8 +53,8 @@ Please provide an abstract of no more than 250 words in a single paragraph. Abst
 \input my_macros2.tex	
 
 \newif\ifTikz
-\Tikztrue
-%\Tikzfalse
+%\Tikztrue
+\Tikzfalse
 
 %\usepgfplotslibrary{external}
 %\tikzexternalize
@@ -339,9 +339,9 @@ its solution with dots on Figure~\ref{fig:ellipseArea}.
 
 \begin{figure}[htp]
   \centering
-%  \ifTikz
+  \ifTikz
   \input{figures/ellipseArea.tikz}
-%  \fi
+  \fi
 %  \includegraphics[width=0.8\linewidth]{figures/ellipseArea}
   \caption{\label{fig:ellipseArea} The area of an elliptical
   semi-permeable vesicle, with permeability rate $\beta$ in a quiescent
@@ -467,7 +467,9 @@ considering semi-permeable vesicles, we assume there is no viscosity
 contrast, and tumbling is not possible.
 \begin{figure}[htp]
   \centering
+  \ifTikz
   \input{figures/shearSS.tikz}
+  \fi
   \caption{\label{fig:shearSS} The reduced area of a semi-permeable
   vesicle in a shear flow. The final reduced area is nearly independent
   of the initial reduced area.}
@@ -575,6 +577,88 @@ result is an asymmetric tank-treading slipper.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Semi-Permeable Vesicle in Stenosis}
+We consider the effect of stenosis on a semi-permeable vesicle. To allow
+for large amounts of fluid flux through the membrane, we consider
+geometry with a long constricted region. We start by considering a
+vesicle initialized with reduced area $\nu = 0.65$, and we compare the
+vesicle shape when $\beta = 0$ (impermeable) and $\beta = 10^{-3}$
+(permeable). Figure~\ref{fig:stenosisShape} shows the vesicles' shape at
+several locations along the constriction, and the corresponding tensions
+are in Figure~\ref{fig:stenosisTension}.
+\begin{figure}[htp]
+  \scalebox{0.4}{\input{figures/stenosisShape1.tikz}}
+  \scalebox{0.4}{\input{figures/stenosisShape2.tikz}}
+  \scalebox{0.4}{\input{figures/stenosisShape3.tikz}}
+  \scalebox{0.4}{\input{figures/stenosisShape4.tikz}}
+  \scalebox{0.4}{\input{figures/stenosisShape5.tikz}}
+  \scalebox{0.4}{\input{figures/stenosisShape6.tikz}}
+  \scalebox{0.4}{\input{figures/stenosisShape7.tikz}}
+  \scalebox{0.4}{\input{figures/stenosisShape8.tikz}}
+  \scalebox{0.4}{\input{figures/stenosisShape9.tikz}}
+  \scalebox{0.4}{\input{figures/stenosisShape10.tikz}}
+  \scalebox{0.4}{\input{figures/stenosisShape11.tikz}}
+  \scalebox{0.4}{\input{figures/stenosisShape12.tikz}}
+%%  \scalebox{0.5}{\input{figures/stenosisShape13.tikz}}
+  \caption{\label{fig:stenosisShape} An impermeable (red) and
+  semi-permeable (dashed blue) vesicle in a stenosed geometry (black).
+  The vesicles' initial configuration are identical with reduced area
+  $\nu = 0.65$. The semi-permeable vesicle deflates throughout the
+  constriction (see Figure~\ref{fig:stenosisArea}) and develops higher
+  curvature regions than its impermeable counterpart.}
+\end{figure}
+
+\begin{figure}[htp]
+  \centering
+  \begin{tabular}{ccc}
+    \scalebox{0.31}{\input{figures/stenosisTension1.tikz}} &
+    \scalebox{0.31}{\input{figures/stenosisTension3.tikz}} &
+    \scalebox{0.31}{\input{figures/stenosisTension5.tikz}} \\
+    \scalebox{0.31}{\input{figures/stenosisTension7.tikz}} &
+    \scalebox{0.31}{\input{figures/stenosisTension9.tikz}} &
+    \scalebox{0.31}{\input{figures/stenosisTension11.tikz}} 
+  \end{tabular}
+  \caption{\label{fig:stenosisTension} The tension of the impermeable
+  (red) and semi-permeable (dashed blue) vesicles in
+  Figure~\ref{fig:stenosisShape}. The point $\theta=0$ corresponds to
+  the right-most point of the vesicle.}
+\end{figure}
+
+\begin{figure}[htp]
+  \centering
+  \begin{tabular}{ccc}
+    \scalebox{0.31}{\input{figures/stenosisFlux1.tikz}} &
+    \scalebox{0.31}{\input{figures/stenosisFlux3.tikz}} &
+    \scalebox{0.31}{\input{figures/stenosisFlux5.tikz}} \\
+    \scalebox{0.31}{\input{figures/stenosisFlux7.tikz}} &
+    \scalebox{0.31}{\input{figures/stenosisFlux9.tikz}} &
+    \scalebox{0.31}{\input{figures/stenosisFlux11.tikz}} 
+  \end{tabular}
+  \caption{\label{fig:stenosisFlux} The flux (equivalent to pressure
+  jump) of the impermeable (red) and semi-permeable (dashed blue)
+  vesicles in Figure~\ref{fig:stenosisShape}. The point $\theta=0$
+  corresponds to the right-most point of the vesicle.}
+\end{figure}
+
+
+
+
+\begin{figure}[htp]
+  \centering
+%  \ifTikz
+  \input{figures/stenosisArea.tikz}
+%  \fi
+%  \includegraphics[width=0.8\linewidth]{figures/ellipseArea}
+  \caption{\label{fig:stenosisArea} The area of a stenosed
+  semi-permeable vesicle, with permeability rate $\beta=10^{-3}$. The
+  $x$-axis is the $x$-coordinate of the center of mass of the vesicle.
+  The vesicle loses fluid at a constant rate throughout the constriction
+  that is between $\pm 60$. The semi-permeable vesicle loses 12.8\% of
+  its fluid.}
+\end{figure}
+
+
+
+
 Inspired by an experiment that measures the effects of cells on 
 dynamical pressure-drop variations along a micrometer-sized
 channel~\cite{abk-fai-sto2006}, we consider a numerical experiment where
@@ -590,7 +674,7 @@ R_0^3/k_b = 5 \times 10^{-1}$s, the pressure scale is $P = k_b/R_0^3 =
 10^{-1}$Pa. The geometry is similar to an
 experiment~\cite{abk-fai-sto2006} where the membrane starts in a channel
 with diameter $25\mu$m and passes into a channel with length $45\mu$m
-and diameter $5\mu$m (Figure~\ref{fig:stenosisGeom}. We impose a
+and diameter $5\mu$m (Figure~\_ref{fig:stenosisGeom}. We impose a
 Poiseuille flow at an inlet and outlet and a no-slip boundary condition
 on the upper and lower walls. The flow rate is chosen so that the
 residency time of the vesicle in the constriction agrees with the

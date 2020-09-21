@@ -6,11 +6,11 @@ fprintf('Implicit vesicle-vesicle interactions.\n');
 fprintf('Implicit vesicle-boundary interactions.\n');
 
 %format long
-prams.N = 256;                 % points per vesicle
+prams.N = 256/4;                 % points per vesicle
 prams.nv = 1;                  % number of vesicles
 prams.T = 10;                  %time horizon
 prams.m = 12000;                % number of time steps
-prams.Nbd = 2*1024;               % number of points on solid wall
+prams.Nbd = 2*1024/4;               % number of points on solid wall
 prams.nvbd = 1;                % number of components to solid walls
 prams.kappa = 1e0;            % bending coefficient
 prams.viscCont = 1*ones(prams.nv,1);            % viscosity contrast
@@ -53,7 +53,7 @@ options.verbose = true;
 options.profile = false;    % Profile code
 options.collision = false;   % Collision detection
 
-options.nsdc = 1;
+options.nsdc = 0;
 options.orderGL = 2;
 
 options.timeAdap = true;
