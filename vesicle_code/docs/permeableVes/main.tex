@@ -53,8 +53,8 @@ Please provide an abstract of no more than 250 words in a single paragraph. Abst
 \input my_macros2.tex	
 
 \newif\ifTikz
-%\Tikztrue
-\Tikzfalse
+\Tikztrue
+%\Tikzfalse
 
 %\usepgfplotslibrary{external}
 %\tikzexternalize
@@ -586,6 +586,7 @@ vesicle shape when $\beta = 0$ (impermeable) and $\beta = 10^{-3}$
 several locations along the constriction, and the corresponding tensions
 are in Figure~\ref{fig:stenosisTension}.
 \begin{figure}[htp]
+  \ifTikz
   \scalebox{0.4}{\input{figures/stenosisShape1.tikz}}
   \scalebox{0.4}{\input{figures/stenosisShape2.tikz}}
   \scalebox{0.4}{\input{figures/stenosisShape3.tikz}}
@@ -598,7 +599,7 @@ are in Figure~\ref{fig:stenosisTension}.
   \scalebox{0.4}{\input{figures/stenosisShape10.tikz}}
   \scalebox{0.4}{\input{figures/stenosisShape11.tikz}}
   \scalebox{0.4}{\input{figures/stenosisShape12.tikz}}
-%%  \scalebox{0.5}{\input{figures/stenosisShape13.tikz}}
+  \fi
   \caption{\label{fig:stenosisShape} An impermeable (red) and
   semi-permeable (dashed blue) vesicle in a stenosed geometry (black).
   The vesicles' initial configuration are identical with reduced area
@@ -610,12 +611,14 @@ are in Figure~\ref{fig:stenosisTension}.
 \begin{figure}[htp]
   \centering
   \begin{tabular}{ccc}
+    \ifTikz
     \scalebox{0.31}{\input{figures/stenosisTension1.tikz}} &
     \scalebox{0.31}{\input{figures/stenosisTension3.tikz}} &
     \scalebox{0.31}{\input{figures/stenosisTension5.tikz}} \\
     \scalebox{0.31}{\input{figures/stenosisTension7.tikz}} &
     \scalebox{0.31}{\input{figures/stenosisTension9.tikz}} &
     \scalebox{0.31}{\input{figures/stenosisTension11.tikz}} 
+    \fi
   \end{tabular}
   \caption{\label{fig:stenosisTension} The tension of the impermeable
   (red) and semi-permeable (dashed blue) vesicles in
@@ -626,12 +629,14 @@ are in Figure~\ref{fig:stenosisTension}.
 \begin{figure}[htp]
   \centering
   \begin{tabular}{ccc}
+    \ifTikz
     \scalebox{0.31}{\input{figures/stenosisFlux1.tikz}} &
     \scalebox{0.31}{\input{figures/stenosisFlux3.tikz}} &
     \scalebox{0.31}{\input{figures/stenosisFlux5.tikz}} \\
     \scalebox{0.31}{\input{figures/stenosisFlux7.tikz}} &
     \scalebox{0.31}{\input{figures/stenosisFlux9.tikz}} &
     \scalebox{0.31}{\input{figures/stenosisFlux11.tikz}} 
+    \fi
   \end{tabular}
   \caption{\label{fig:stenosisFlux} The flux (equivalent to pressure
   jump) of the impermeable (red) and semi-permeable (dashed blue)
@@ -644,9 +649,9 @@ are in Figure~\ref{fig:stenosisTension}.
 
 \begin{figure}[htp]
   \centering
-%  \ifTikz
+  \ifTikz
   \input{figures/stenosisArea.tikz}
-%  \fi
+  \fi
 %  \includegraphics[width=0.8\linewidth]{figures/ellipseArea}
   \caption{\label{fig:stenosisArea} The area of a stenosed
   semi-permeable vesicle, with permeability rate $\beta=10^{-3}$. The
@@ -657,7 +662,15 @@ are in Figure~\ref{fig:stenosisTension}.
 \end{figure}
 
 
-
+\begin{figure}[htp]
+  \ifTikz
+  \input{figures/stenosisBL.tikz}
+  \fi
+  \caption{\label{fig:stenosisBL} A stenosed semi-impermeable vesicle
+  with reduced area 0.17. The initial reduced area is $0.20$. The bottom
+  plot shows the velocity relative to the vesicle inside the square.
+  The vesicle velocity in the square is nearly constant.}
+\end{figure}
 
 Inspired by an experiment that measures the effects of cells on 
 dynamical pressure-drop variations along a micrometer-sized
