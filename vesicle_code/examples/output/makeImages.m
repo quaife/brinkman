@@ -19,9 +19,10 @@ if 0
   options.marker = true;
 end
 if 1
-  file = 'choke1VesLData.bin';
+%  file = 'choke1VesLData.bin';
   options.marker = false;
-%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0RA0p65/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3RA0p20/choke1VesData.bin';
+file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0RA0p20/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3RA0p65Centered/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield1e0/choke1VesData.bin'
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e1_farfield1e0/choke1VesData.bin';

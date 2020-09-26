@@ -583,65 +583,47 @@ geometry with a long constricted region. We start by considering a
 vesicle initialized with reduced area $\nu = 0.65$, and we compare the
 vesicle shape when $\beta = 0$ (impermeable) and $\beta = 10^{-3}$
 (permeable). Figure~\ref{fig:stenosisShape} shows the vesicles' shape at
-several locations along the constriction, and the corresponding tensions
-are in Figure~\ref{fig:stenosisTension}.
+several locations along the constriction. The colors along the left
+channel represent the tension and those along the right represent the
+flux. In Figure~\ref{fig:stenosisTensionAndFux}, the tension at location
+$x=20$ and the flux at location $x=30$ are plotted with respect to
+arclength. The value of $\theta=0$ corresponds to the nose of the
+vesicle.
 \begin{figure}[htp]
   \ifTikz
-  \scalebox{0.4}{\input{figures/stenosisShape1.tikz}}
-  \scalebox{0.4}{\input{figures/stenosisShape2.tikz}}
-  \scalebox{0.4}{\input{figures/stenosisShape3.tikz}}
-  \scalebox{0.4}{\input{figures/stenosisShape4.tikz}}
-  \scalebox{0.4}{\input{figures/stenosisShape5.tikz}}
-  \scalebox{0.4}{\input{figures/stenosisShape6.tikz}}
-  \scalebox{0.4}{\input{figures/stenosisShape7.tikz}}
-  \scalebox{0.4}{\input{figures/stenosisShape8.tikz}}
-  \scalebox{0.4}{\input{figures/stenosisShape9.tikz}}
-  \scalebox{0.4}{\input{figures/stenosisShape10.tikz}}
-  \scalebox{0.4}{\input{figures/stenosisShape11.tikz}}
-  \scalebox{0.4}{\input{figures/stenosisShape12.tikz}}
+%  \scalebox{0.5}{\input{figures/stenosisShapeTension01.tikz}}
+%  \scalebox{0.5}{\input{figures/stenosisShapeFlux02.tikz}}
+  \scalebox{0.5}{\input{figures/stenosisShapeTension03.tikz}}
+  \scalebox{0.5}{\input{figures/stenosisShapeFlux04.tikz}}
+  \scalebox{0.5}{\input{figures/stenosisShapeTension05.tikz}}
+  \scalebox{0.5}{\input{figures/stenosisShapeFlux06.tikz}}
+  \scalebox{0.5}{\input{figures/stenosisShapeTension07.tikz}}
+  \scalebox{0.5}{\input{figures/stenosisShapeFlux08.tikz}}
+  \scalebox{0.5}{\input{figures/stenosisShapeTension09.tikz}}
+  \scalebox{0.5}{\input{figures/stenosisShapeFlux10.tikz}}
+%  \scalebox{0.5}{\input{figures/stenosisShapeTension11.tikz}}
+%  \scalebox{0.5}{\input{figures/stenosisShapeFlux12.tikz}}
   \fi
-  \caption{\label{fig:stenosisShape} An impermeable (red) and
-  semi-permeable (dashed blue) vesicle in a stenosed geometry (black).
+  \caption{\label{fig:stenosisShape} An impermeable (dashed) and
+  semi-permeable (solid) vesicle in a stenosed geometry (black).
   The vesicles' initial configuration are identical with reduced area
-  $\nu = 0.65$. The semi-permeable vesicle deflates throughout the
+  $\nu = 0.65$. The color denotes the vesicles' tension (left) and flux
+  (right). The semi-permeable vesicle deflates throughout the
   constriction (see Figure~\ref{fig:stenosisArea}) and develops higher
   curvature regions than its impermeable counterpart.}
 \end{figure}
 
 \begin{figure}[htp]
   \centering
-  \begin{tabular}{ccc}
-    \ifTikz
-    \scalebox{0.31}{\input{figures/stenosisTension1.tikz}} &
-    \scalebox{0.31}{\input{figures/stenosisTension3.tikz}} &
-    \scalebox{0.31}{\input{figures/stenosisTension5.tikz}} \\
-    \scalebox{0.31}{\input{figures/stenosisTension7.tikz}} &
-    \scalebox{0.31}{\input{figures/stenosisTension9.tikz}} &
-    \scalebox{0.31}{\input{figures/stenosisTension11.tikz}} 
-    \fi
-  \end{tabular}
-  \caption{\label{fig:stenosisTension} The tension of the impermeable
-  (red) and semi-permeable (dashed blue) vesicles in
-  Figure~\ref{fig:stenosisShape}. The point $\theta=0$ corresponds to
-  the right-most point of the vesicle.}
-\end{figure}
-
-\begin{figure}[htp]
-  \centering
-  \begin{tabular}{ccc}
-    \ifTikz
-    \scalebox{0.31}{\input{figures/stenosisFlux1.tikz}} &
-    \scalebox{0.31}{\input{figures/stenosisFlux3.tikz}} &
-    \scalebox{0.31}{\input{figures/stenosisFlux5.tikz}} \\
-    \scalebox{0.31}{\input{figures/stenosisFlux7.tikz}} &
-    \scalebox{0.31}{\input{figures/stenosisFlux9.tikz}} &
-    \scalebox{0.31}{\input{figures/stenosisFlux11.tikz}} 
-    \fi
-  \end{tabular}
-  \caption{\label{fig:stenosisFlux} The flux (equivalent to pressure
-  jump) of the impermeable (red) and semi-permeable (dashed blue)
-  vesicles in Figure~\ref{fig:stenosisShape}. The point $\theta=0$
-  corresponds to the right-most point of the vesicle.}
+  \ifTikz
+  \scalebox{0.5}{\input{figures/stenosisTension09.tikz}}
+  \scalebox{0.5}{\input{figures/stenosisFlux10.tikz}}
+  \fi
+  \caption{\label{fig:stenosisTensionAndFlux} The tension (left) and
+  flux (right) of the semi-permeable (red) and impermeable (dashed blue)
+  vesicles in Figure~\ref{fig:stenosisShape} at locations $x=20$ and
+  $x=30$. The point $\theta=0$ corresponds to the right-most point of
+  the vesicle.}
 \end{figure}
 
 
@@ -687,7 +669,7 @@ R_0^3/k_b = 5 \times 10^{-1}$s, the pressure scale is $P = k_b/R_0^3 =
 10^{-1}$Pa. The geometry is similar to an
 experiment~\cite{abk-fai-sto2006} where the membrane starts in a channel
 with diameter $25\mu$m and passes into a channel with length $45\mu$m
-and diameter $5\mu$m (Figure~\_ref{fig:stenosisGeom}. We impose a
+and diameter $5\mu$m (Figure~\ref{fig:stenosisGeom}. We impose a
 Poiseuille flow at an inlet and outlet and a no-slip boundary condition
 on the upper and lower walls. The flow rate is chosen so that the
 residency time of the vesicle in the constriction agrees with the
@@ -1246,6 +1228,41 @@ experimental results.
 %$t_\mathrm{inflate}$, required for the vesicle's area to exceed 1.3\% of
 %its initial area. We see that both times scale with $\beta^{-1}$. 
 
+%\begin{figure}[htp]
+%  \centering
+%  \begin{tabular}{ccc}
+%    \ifTikz
+%    \scalebox{0.31}{\input{figures/stenosisTension1.tikz}} &
+%    \scalebox{0.31}{\input{figures/stenosisTension3.tikz}} &
+%    \scalebox{0.31}{\input{figures/stenosisTension5.tikz}} \\
+%    \scalebox{0.31}{\input{figures/stenosisTension7.tikz}} &
+%    \scalebox{0.31}{\input{figures/stenosisTension9.tikz}} &
+%    \scalebox{0.31}{\input{figures/stenosisTension11.tikz}} 
+%    \fi
+%  \end{tabular}
+%  \caption{\label{fig:stenosisTension} The tension of the impermeable
+%  (red) and semi-permeable (dashed blue) vesicles in
+%  Figure~\ref{fig:stenosisShape}. The point $\theta=0$ corresponds to
+%  the right-most point of the vesicle.}
+%\end{figure}
+%
+%\begin{figure}[htp]
+%  \centering
+%  \begin{tabular}{ccc}
+%    \iftikz
+%    \scalebox{0.31}{\input{figures/stenosisflux1.tikz}} &
+%    \scalebox{0.31}{\input{figures/stenosisflux3.tikz}} &
+%    \scalebox{0.31}{\input{figures/stenosisflux5.tikz}} \\
+%    \scalebox{0.31}{\input{figures/stenosisflux7.tikz}} &
+%    \scalebox{0.31}{\input{figures/stenosisflux9.tikz}} &
+%    \scalebox{0.31}{\input{figures/stenosisflux11.tikz}} 
+%    \fi
+%  \end{tabular}
+%  \caption{\label{fig:stenosisFlux} The flux (equivalent to pressure
+%  jump) of the impermeable (red) and semi-permeable (dashed blue)
+%  vesicles in Figure~\ref{fig:stenosisShape}. The point $\theta=0$
+%  corresponds to the right-most point of the vesicle.}
+%\end{figure}
 
 
 \end{document}
