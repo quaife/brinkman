@@ -8,8 +8,8 @@
     xlabel = {\large $\theta$},
     ylabel = {\large ${\Lambda}$},
     ylabel near ticks,
-    title style={at={(0.5,0.9)},anchor=north},
-    title = {\Huge $x = 50$},
+%    title style={at={(0.5,0.9)},anchor=north},
+%    title = {\Huge $x = 50$},
   ]
 \addplot[red,line width=1pt] coordinates{
 (0.0000e+00,1.1366e+02)

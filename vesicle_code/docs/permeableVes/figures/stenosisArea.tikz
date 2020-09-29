@@ -1,24 +1,14 @@
 \begin{tikzpicture}[scale=1]
 
   \begin{axis}[
-    xmin = -65,
-    xmax = 65,
-    xtick = {-60,-40,-20,0,20,40,60},
-%    xticklabels = {$10^{-3}$,$10^{-2}$,$10^{-1}$,$10^0$},
+    xmin = -75,
+    xmax = 75,
+%    xtick = {-70,-50,-30,-10,10,30,50,70},
     ymin = 0.57,
     ymax = 0.66,
     xlabel = {\large $x$},
     ylabel = {\large ${\nu}(t)$},
     ylabel near ticks,
-%    legend entries = {$\beta=10^{0}$,
-%    $\beta = 10^{-1}$,
-%    $\beta = 10^{-2}$,
-%    $\beta = 10^{-3}$,
-%    $\beta = 10^{-4}$,
-%    $\beta = 10^{-5}$},
-%    legend cell align=left,
-%    legend style={draw=none,font=\small},
-%    legend style={at={(0.05,0.95)},anchor=north west}
   ]
 
 \addplot[blue, line width=2pt] coordinates{
