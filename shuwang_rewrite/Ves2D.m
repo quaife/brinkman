@@ -16,7 +16,6 @@ rcon = oc.initialConcentration(upRate*params.N,alpha,...
 
 %build object for the vesicle but without a band-limited opening angle
 ves = capsules(X,rcon,params);
-
 % Downsample back to the desired resolution
 ves.N = ves.N/upRate;
 ves.X = ves.X(1:upRate:end);

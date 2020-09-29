@@ -6,9 +6,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
-params.N = 512; % points on vesicle
+params.N = 64*4; % points on vesicle
 params.dt = 1e-4; % time step size
-params.T = .001; % time horizon
+params.T = .1; % time horizon
 params.outpt = 1e-3; % ouptut frequency
 params.concentra = 0.3; % constant, initial concentration of lipid species
 params.oddeven = 0; % flag for initial lipid species profile?
@@ -24,6 +24,7 @@ params.nloop = 20; % number of time steps of Cahn-Hilliard to be taken at
 params.epsch = .1; % small parameter  in the double-well potential 
 params.gmresTol = 1e-10; %GMRES tolerance
 params.gmresMaxIter = params.N; %maximum number of GMRES iterations
+params.SPcoeff = 0; %semi-permeable coefficient
 
 options.saveData = true;
 options.verbose = true;  % write data to console
