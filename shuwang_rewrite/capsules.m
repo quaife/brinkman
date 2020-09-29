@@ -13,6 +13,7 @@ bendsti; % max bending stiffness
 bendratio; % bending ratio
 viscIn;
 viscOut;
+SPc;
 
 end % properties
 
@@ -34,7 +35,7 @@ o.bendsti = params.bendsti;
 o.bendratio = params.bendratio;
 o.viscIn = params.viscosityInside;
 o.viscOut = params.viscosityOutside;
-
+o.SPc = params.SPcoeff;
 %%% Curvature check:
     %disp('here')
     %curv = oc.acurv(o);

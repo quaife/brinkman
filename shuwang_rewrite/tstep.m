@@ -9,6 +9,7 @@ ves; % vesicle structure
 shearRate; % background shear rate
 bendsti; % maximum bending stiffness
 bendratio; % ratio between max and min bending stiffness
+SPc; %Semi permeability coefficient
 kmatrix; % matrix for doing odd-even integration
 viscIn;
 viscOut;
@@ -28,6 +29,7 @@ o.bendsti = params.bendsti;
 o.bendratio = params.bendratio;
 o.viscIn = params.viscosityInside;
 o.viscOut = params.viscosityOutside;
+o.SPc = params.SPcoeff;
 op = poten(params.N);
 o.kmatrix = op.oddEvenMatrix; %construct the odd/even matrix
 o.gmresTol = params.gmresTol; %GMRES tolerance
@@ -97,7 +99,7 @@ IK = oc.modes(N);
 dvdotsds = oc.diffFT(vdots,IK)/L;
 %disp('forever debugging')
 % Compute the right hand side of equation (40)
-rhs = -(dvdotsds + cur.*vdotn);
+rhs = -(dvdotsds + cur.*vdotn - cur.*ves.SPc.*Esigma);
 %rhs = -(dvdotsds + oc.acurv(ves).*vdotn);
 % The velocity components in eq (40) are nonlocal linear functions of
 % lambdaTilde. Solve the linear system for LambdaTilde in (39) using
@@ -106,8 +108,7 @@ rhs = -(dvdotsds + cur.*vdotn);
 % LambdaTilde is the lambda with a tilde in eq (39)
 [lambTil,flag,relres,iter,resvec] = ...
       gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
-              o.gmresMaxIter); %,@(x) o.preconditioner(x));
-% disp("oy with the poodles already")
+              o.gmresMaxIter,@(x) o.preconditioner(x));
 % norm(lambTil)
 % pause
 %calculate the Fourier derivative of lambdaTilde
@@ -159,30 +160,24 @@ IK = oc.modes(N); %define the Fourier modes for differentiation
 % The the derivative of the rhs of eq(40)
 drhsds = oc.diffFT(rhs,IK)/L;
 % Compute the forces in equation (39)
-
-% tau1 = +rhs.*oc.acurv(ves).*sin(theta) - drhsds.*cos(theta);
-% tau2 = -rhs.*oc.acurv(ves).*cos(theta) - drhsds.*sin(theta);
-%tau1 = +rhs.*cur.*sin(theta) - drhsds.*cos(theta);
-%tau2 = -rhs.*cur.*cos(theta) - drhsds.*sin(theta);
-
-tau = [+rhs.*cur.*sin(theta) - drhsds.*cos(theta); -rhs.*cur.*cos(theta) - drhsds.*sin(theta)];
+tau = [+rhs.*cur.*sin(theta) - drhsds.*cos(theta); ...
+       -rhs.*cur.*cos(theta) - drhsds.*sin(theta)];
 
 % form the velocity on the interface that solves (38) and (39), but
 % without the log terms in the kernel
-%krhs = StokesMat*[tau1;tau2];
  krhs = StokesMat*tau;
-% size(krhs1)
-%krhs = [tau'*StokesMat]';
-%krhs = StokesMat*tau;
+
 % LogKerneltau1 and LogKerneltau2 are the log kernels integrated against
 % the density functions tau1 and tau2.
 LogKerneltau1 = op.IntegrateLogKernel(tau(1:N));
 LogKerneltau2 = op.IntegrateLogKernel(tau(N+1:end));
+
 % calculate constants that multiply the weakly singular and regular
 % parts of the integral operators
 c1 = 1/(4*pi)*L/N;
 c2 = -L/(8*pi);
-% [utilde1 utilde2] is utilde in equations (39) and (40)
+
+%[utilde1 utilde2] is utilde in equations (39) and (40)
 utilde1 = krhs(1:N)*c1 + LogKerneltau1*c2;
 utilde2 = krhs(N+1:end)*c1 + LogKerneltau2*c2;
 
@@ -190,9 +185,10 @@ utilde2 = krhs(N+1:end)*c1 + LogKerneltau2*c2;
 udotn = utilde1.*sin(theta) - utilde2.*cos(theta);
 udots = utilde1.*cos(theta) + utilde2.*sin(theta);
 dudotsds = oc.diffFT(udots,IK)/L;
+
 %LHS is (u \cdot s)_s + kappa * (u \cdot n) in eq (40)
-%LHS = (dudotsds + oc.acurv(ves).*udotn);
 LHS = (dudotsds + cur.*udotn);
+
 end %matvec40
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -224,18 +220,6 @@ L = ves.L; % shorthand vesicle length
 % incorporated into the forces. Also missing the u_s term in equation
 % (33)
 [ux,uy] = o.usetself;
-
-% Plot the position of the vesicle with the velocity vectors at the
-% first time step
-% disp('step1')
-% figure(1); clf; hold on;
-% plot(ves.X(1:end/2),ves.X(end/2+1:end),'r')
-% quiver(ves.X(1:end/2),ves.X(end/2+1:end),ux,uy)
-% axis equal
-% axis([-3 3 -3 3])
-% pause(0.1)
-% hold off
-% pause
 
 % put the x-y velocity into the normal and tangential velocity.
 theta = ves.theta; %shorthand theta so we don't type ves. a million times
@@ -271,11 +255,13 @@ Nk = 2*pi*[0 1:ves.N/2 ves.N/2-1:-1:1]';
 
 % rsl is the stiff term in equation (55) that will be integrated
 % implicitly using an integrating factor
-rsl = ves.bendsti*(Nk/ves.L).^3/4;
 
+rsl = 0.25*ves.bendsti*(Nk/ves.L).^3 + ...
+      0.25*ves.SPc*ves.bendsti*(Nk/ves.L).^4;
 % rsln is the next step of rsl 'n' is for 'new' since we'll be using
 % multistep
-rsln = ves.bendsti*(Nk/Ln).^3/4;
+rsln = 0.25*ves.bendsti*(Nk/Ln).^3+ ...
+       0.25*ves.SPc*ves.bendsti*(Nk/ves.L).^4;;
 
 % use trapezoid rule to approximate integral in equation (57). This next
 % line is exactly equation (58) for the quadrature d1 is now exactly as
@@ -414,9 +400,12 @@ for ktime = 1:nstep
   % is also linear (and diagonal) in Fourier space
   rk = 2*pi*[0 1:ves.N/2 ves.N/2-1:-1:1]'; 
   % compute the nonlocal model for theta
-  rsl = ves.bendsti*(rk/L).^3/4;
-  rsln = ves.bendsti*(rk/Ln).^3/4; 
-  rslnn = ves.bendsti*(rk/Lnn).^3/4;
+  rsl = ves.bendsti*(rk/L).^3/4 + ...
+        0.25*ves.SPc*ves.bendsti*(rk/ves.L).^4;
+  rsln = ves.bendsti*(rk/Ln).^3/4 + ...
+         0.25*ves.SPc*ves.bendsti*(rk/ves.L).^4;
+  rslnn = ves.bendsti*(rk/Lnn).^3/4 + ...
+          0.25*ves.SPc*ves.bendsti*(rk/ves.L).^4;
   % compute the local model for theta using some kind of exponential
   % time integrators described in equations (56) and (57)	 
   d1 = exp(-(params.dt*(rsln+rslnn)/2));
