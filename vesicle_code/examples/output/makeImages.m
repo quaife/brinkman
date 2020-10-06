@@ -18,9 +18,10 @@ if 0
   options.center = true;
   options.marker = true;
 end
-if 1
-file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3RA0p20/choke1VesData.bin';
-file = 'choke1VesMData.bin';
+
+if 0
+file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3RA0p25/choke1VesData.bin';
+%file = 'choke1VesKEp015Data.bin';
 
   options.marker = false;
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3RA0p20/choke1VesData.bin';
@@ -42,6 +43,16 @@ file = 'choke1VesMData.bin';
   irate = 5;
 end
 
+if 1
+  file = 'contracting1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/contracting/beta0w1e0/contracting1VesData.bin';
+  ax = [-1 19 -5 5];
+  options.confined = true;
+  options.pressure = false;
+  options.savefig = false;
+  count = 1;
+  irate = 1;
+end
 
 
 if 0
@@ -295,9 +306,9 @@ for k = istart:irate:iend
     end
     hold off
     axis equal
-%    axis(ax)
-    axis([min(posx(:,:,k))-1 max(posx(:,:,k))+1 ...
-          min(posy(:,:,k))-1 max(posy(:,:,k))+1])
+    axis(ax)
+%    axis([min(posx(:,:,k))-1 max(posx(:,:,k))+1 ...
+%          min(posy(:,:,k))-1 max(posy(:,:,k))+1])
     set(gca,'xtick',[])
     set(gca,'ytick',[])
     set(gca,'xcolor','white')
