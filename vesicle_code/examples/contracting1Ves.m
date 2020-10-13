@@ -17,8 +17,8 @@ prams.errorTol = 8e-1;
 prams.dtMin = 1e-5;
 prams.dtMax = 1e0;
 
-options.semipermeable = true;
-prams.fluxCoeff = 1e-3;
+options.semipermeable = false;
+prams.fluxCoeff = 0e3;
 options.fluxShape = 1; % constant value
 
 options.farField = 'contracting';      % Constricted domain

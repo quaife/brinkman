@@ -53,8 +53,8 @@ Please provide an abstract of no more than 250 words in a single paragraph. Abst
 \input my_macros2.tex	
 
 \newif\ifTikz
-\Tikztrue
-%\Tikzfalse
+%\Tikztrue
+\Tikzfalse
 
 %\usepgfplotslibrary{external}
 %\tikzexternalize
@@ -345,10 +345,10 @@ its solution with dots on Figure~\ref{fig:ellipseArea}.
 
 \begin{figure}[htp]
   \centering
-  \ifTikz
-  \input{figures/ellipseArea.tikz}
-  \fi
-%  \includegraphics[width=0.8\linewidth]{figures/ellipseArea}
+%  \ifTikz
+%  \input{figures/ellipseArea.tikz}
+%  \fi
+  \includegraphics[width=0.9\linewidth]{figures/ellipseArea}
   \caption{\label{fig:ellipseArea} The area of an elliptical
   semi-permeable vesicle, with permeability rate $\beta$ in a quiescent
   flow. The time axis is scaled by the permeability rate $\beta$. Since
@@ -473,9 +473,10 @@ considering semi-permeable vesicles, we assume there is no viscosity
 contrast, and tumbling is not possible.
 \begin{figure}[htp]
   \centering
-  \ifTikz
-  \input{figures/shearSS.tikz}
-  \fi
+%  \ifTikz
+%  \input{figures/shearSS.tikz}
+%  \fi
+  \includegraphics[width=0.9\linewidth]{figures/shearSS.pdf}
   \caption{\label{fig:shearSS} The reduced area of a semi-permeable
   vesicle in a shear flow. The final reduced area is nearly independent
   of the initial reduced area.}
@@ -532,9 +533,10 @@ are undergoing a tank treading motion, and we therefore report them as
 asymmetric slippers.
 
 \begin{figure}[htp]
-  \ifTikz
-  \input{figures/parabolicOffCenterPhaseImpermeable.tikz}
-  \fi
+%  \ifTikz
+%  \input{figures/parabolicOffCenterPhaseImpermeable.tikz}
+%  \fi
+  \includegraphics[width=0.9\linewidth]{figures/parabolicOffCenterPhaseImpermeable.pdf}
   \caption{\label{fig:parabolicOffCenterImpermeablePhaseDiagram} Phase
   diagram of an impermeable vesicle with several different flow rates
   $U$ and reduced areas $\nu$. As shown by Kaoui et
@@ -559,11 +561,12 @@ larger flow rates, the steady state reduced area is smaller, and the
 result is an asymmetric tank-treading slipper.
 
 \begin{figure}[htp]
-  \ifTikz
-  \input{figures/parabolicOffCenterPhaseSemipermeable.tikz}
-  \fi
+%  \ifTikz
+%  \input{figures/parabolicOffCenterPhaseSemipermeable.tikz}
+%  \fi
+  \includegraphics[width=0.9\linewidth]{figures/parabolicOffCenterPhaseSemipermeable.pdf}
   \caption{\label{fig:parabolicOffCenterSemipermeablePhaseDiagram} Phase
-  diagram of an semi-permeable vesicle, with $\beta = 10^{-3}$, with
+  diagram of a semi-permeable vesicle, with $\beta = 10^{-3}$, with
   several different flow rates $U$ and reduced areas $\nu$. The
   steady state reduced area for each flow rate, which is reported along
   the top of the vesicles, is nearly independent of the initial reduced
@@ -573,13 +576,6 @@ result is an asymmetric tank-treading slipper.
   the vesicle self-intersects.}
 \end{figure}
 
-
-
-\begin{itemize}
-  \item If the flow rate is too small, the vesicle only migrates part
-    way before it turns into a circle. Once it's a circle, it acts like
-    a rigid body, so it no longer migrates towards the center line
-\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Semi-Permeable Vesicle in Stenosis}
@@ -596,7 +592,7 @@ location $x=20$ and the flux at location $x=30$ are plotted with respect
 to arclength. The value of $\theta=0$ corresponds to the nose of the
 vesicle.
 \begin{figure}[htp]
-  \ifTikz
+%  \ifTikz
 %  \scalebox{0.5}{\input{figures/stenosisShapeTension01.tikz}}
 %  \scalebox{0.5}{\input{figures/stenosisShapeFlux02.tikz}}
 %  \scalebox{0.5}{\input{figures/stenosisShapeTension03.tikz}}
@@ -609,13 +605,21 @@ vesicle.
 %  \scalebox{0.5}{\input{figures/stenosisShapeFlux10.tikz}}
 %  \scalebox{0.5}{\input{figures/stenosisShapeTension11.tikz}}
 %  \scalebox{0.5}{\input{figures/stenosisShapeFlux12.tikz}}
-  \scalebox{0.5}{\input{figures/stenosisShapeTension02.tikz}}
-  \scalebox{0.5}{\input{figures/stenosisShapeFlux04.tikz}}
-  \scalebox{0.5}{\input{figures/stenosisShapeTension06.tikz}}
-  \scalebox{0.5}{\input{figures/stenosisShapeFlux08.tikz}}
-  \scalebox{0.5}{\input{figures/stenosisShapeTension10.tikz}}
-  \scalebox{0.5}{\input{figures/stenosisShapeFlux12.tikz}}
-  \fi
+%  \scalebox{0.5}{\input{figures/stenosisShapeTension02.tikz}}
+%  \scalebox{0.5}{\input{figures/stenosisShapeFlux04.tikz}}
+%  \scalebox{0.5}{\input{figures/stenosisShapeTension06.tikz}}
+%  \scalebox{0.5}{\input{figures/stenosisShapeFlux08.tikz}}
+%  \scalebox{0.5}{\input{figures/stenosisShapeTension10.tikz}}
+%  \scalebox{0.5}{\input{figures/stenosisShapeFlux12.tikz}}
+%  \fi
+  \includegraphics[width=0.45\linewidth]{figures/stenosisShapeTension02.pdf}
+  \includegraphics[width=0.45\linewidth]{figures/stenosisShapeFlux04.pdf}
+  \\
+  \includegraphics[width=0.45\linewidth]{figures/stenosisShapeTension06.pdf}
+  \includegraphics[width=0.45\linewidth]{figures/stenosisShapeFlux08.pdf}
+  \\
+  \includegraphics[width=0.45\linewidth]{figures/stenosisShapeTension10.pdf}
+  \includegraphics[width=0.45\linewidth]{figures/stenosisShapeFlux12.pdf}
   \caption{\label{fig:stenosisShape} An impermeable (dashed) and
   semi-permeable (solid) vesicle in a stenosed geometry (black).
   The vesicles' initial configuration are identical with reduced area
@@ -627,12 +631,16 @@ vesicle.
 
 \begin{figure}[htp]
   \centering
-  \ifTikz
-  \scalebox{0.5}{\input{figures/stenosisTension12.tikz}}
-  \scalebox{0.5}{\input{figures/stenosisFlux12.tikz}}
-  \scalebox{0.5}{\input{figures/stenosisXvelocity12.tikz}}
-  \scalebox{0.5}{\input{figures/stenosisYvelocity12.tikz}}
-  \fi
+%  \ifTikz
+%  \scalebox{0.5}{\input{figures/stenosisTension12.tikz}}
+%  \scalebox{0.5}{\input{figures/stenosisFlux12.tikz}}
+%  \scalebox{0.5}{\input{figures/stenosisXvelocity12.tikz}}
+%  \scalebox{0.5}{\input{figures/stenosisYvelocity12.tikz}}
+%  \fi
+  \includegraphics[width=0.45\linewidth]{figures/stenosisTension12.pdf}
+  \includegraphics[width=0.45\linewidth]{figures/stenosisFlux12.pdf} \\
+  \includegraphics[width=0.45\linewidth]{figures/stenosisXvelocity12.pdf}
+  \includegraphics[width=0.45\linewidth]{figures/stenosisYvelocity12.pdf}
   \caption{\label{fig:stenosisTensionAndFlux} The tension (top left), 
   flux (top right), $x$-velocity (bottom left), and $y$-velocity (bottom
   right) of the semi-permeable (red) and impermeable (dashed blue)
@@ -642,10 +650,10 @@ vesicle.
 
 \begin{figure}[htp]
   \centering
-  \ifTikz
-  \input{figures/stenosisArea.tikz}
-  \fi
-%  \includegraphics[width=0.8\linewidth]{figures/ellipseArea}
+%  \ifTikz
+%  \input{figures/stenosisArea.tikz}
+%  \fi
+  \includegraphics[width=0.8\linewidth]{figures/stenosisArea}
   \caption{\label{fig:stenosisArea} The area of a stenosed
   semi-permeable vesicle, with permeability rate $\beta=10^{-3}$. The
   $x$-axis is the $x$-coordinate of the center of mass of the vesicle.
@@ -657,8 +665,9 @@ vesicle.
 
 \begin{figure}[htp]
 %  \ifTikz
-  \input{figures/stenosisBL.tikz}
+%  \input{figures/stenosisBL.tikz}
 %  \fi
+  \includegraphics[width=\linewidth]{figures/stenosisBL.pdf}
   \caption{\label{fig:stenosisBL} A stenosed semi-impermeable (red) and
   imperemable (blue) vesicle. The semi-permeable vesicle has 
   reduced area 0.17, and both vesicles were initialized with reduce area
@@ -670,10 +679,12 @@ vesicle.
 
 \begin{figure}[htp]
   \centering
-  \ifTikz
-  \scalebox{0.5}{\input{figures/stenosisXvelocityRA020.tikz}}
-  \scalebox{0.5}{\input{figures/stenosisYvelocityRA020.tikz}}
-  \fi
+%  \ifTikz
+%  \scalebox{0.5}{\input{figures/stenosisXvelocityRA020.tikz}}
+%  \scalebox{0.5}{\input{figures/stenosisYvelocityRA020.tikz}}
+%  \fi
+  \includegraphics[width=0.45\linewidth]{figures/stenosisXvelocityRA020.pdf}
+  \includegraphics[width=0.45\linewidth]{figures/stenosisYvelocityRA020.pdf}
   \caption{\label{fig:stenosisRA020Velocity} The $x$ (left) and $y$
   (right) velocities of the vesicle in Figure~\ref{fig:stenosisBL}. The
   red lines correspond to the semi-permeable vesicle and the blue dashed
@@ -703,10 +714,10 @@ residency time of the vesicle in the constriction agrees with the
 experimental results.
 
 \begin{figure}[htp]
-  \ifTikz
-  \input{figures/stenosisGeom.tikz}
-  \fi
-%  \includegraphics[width=0.8\linewidth]{figures/parabolicPhaseDiagram.pdf}
+%  \ifTikz
+%  \input{figures/stenosisGeom.tikz}
+%  \fi
+  \includegraphics[width=\linewidth]{figures/stenosisGeom.pdf}
   \caption{\label{fig:stenosisGeom} A single semi-permeable vesicle
   passing through a constriction. The geometry and parameters are chosen
   to replicate the experiments of Abkarian et
@@ -714,9 +725,10 @@ experimental results.
 \end{figure}
 
 \begin{figure}[htp]
-  \ifTikz
-  \input{figures/stenosisPressureFluctuation.tikz}
-  \fi
+%  \ifTikz
+%  \input{figures/stenosisPressureFluctuation.tikz}
+%  \fi
+  \includegraphics[width=\linewidth]{figures/stenosisPressureFluctuation.pdf}
   \caption{\label{fig:stenosisPressure} The excess pressure across the
   constriction in Figure~\ref{fig:stenosisGeom}. The black dashed lines
   denote the start and end of the constriction. The results are
