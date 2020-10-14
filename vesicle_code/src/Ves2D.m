@@ -237,6 +237,11 @@ while time < prams.T - 1e-10
   end % if accept
   % save data if solution was accepted
 
+  if options.xshift && max(X(1:end/2)) > options.xshiftLoc
+    X(1:end/2) = X(1:end/2) - options.xshiftVec;
+  end
+  % Shift vesicle back xshiftVec units
+
   Xstore = X;
   sigStore = sigma;
   uStore = u;
@@ -273,6 +278,7 @@ while time < prams.T - 1e-10
     om.writePressure(pressDLPtar + pressSLPtar);
     % write the pressure contributions to file
   end
+
 end
 % end of main 
 
