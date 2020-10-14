@@ -4,9 +4,9 @@ fprintf('One elliptical vesicles in a contracting geometry.\n');
 
 prams.N = 256/4;                 % points per vesicle
 prams.nv = 1;                  % number of vesicles
-prams.T = 20;                  %time horizon
-prams.m = 10000;                % number of time steps
-prams.Nbd = 1024;               % number of points on solid wall
+prams.T = 100;                  %time horizon
+prams.m = 100000;                % number of time steps
+prams.Nbd = 1024/4;               % number of points on solid wall
 prams.nvbd = 1;                % number of components to solid walls
 prams.kappa = 1e0;            % bending coefficient
 prams.viscCont = 1*ones(prams.nv,1);            % viscosity contrast
@@ -14,11 +14,11 @@ prams.gmresTol = 1e-10;        % GMRES tolerance
 prams.errorTol = 8e-1;
 % Maximum relative error in area and length before the simulation
 % is stopped
-prams.dtMin = 1e-5;
+prams.dtMin = 1e-2;
 prams.dtMax = 1e0;
 
-options.semipermeable = false;
-prams.fluxCoeff = 0e3;
+options.semipermeable = true;
+prams.fluxCoeff = 1e-3;
 options.fluxShape = 1; % constant value
 
 options.farField = 'contracting';      % Constricted domain
@@ -58,13 +58,18 @@ prams.betaUp = 1.5;
 prams.betaDown = 0.5;
 prams.alpha = 0.9;
 
+options.xshift = true; % whether to do shift
+options.xshiftLoc = 17; 
+% threshold that if vesicles passes it will be shifted
+options.xshiftVec = +5; % amount to shift to the left
+
 [options,prams] = initVes2D(options,prams);
 % Set options and parameters that the user doesn't
 % Also add src to path
 
 oc = curve;
 X = oc.initConfig(prams.N,'nv',prams.nv,'angle',pi/2,...
-   'scale',0.5,...
+   'scale',0.2,...
    'center',[2;0],'reducedArea',0.65);
 
 % load outer wall geometry
