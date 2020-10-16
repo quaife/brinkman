@@ -8,7 +8,7 @@ area            % area of initial vesicles
 length          % length of initial vesicles
 reducedArea     % reduced area
 verbose         % write data to console
-saveData        % save the vesicle positions, curv, etc
+saveData        % save the vesicle positions, conc, etc
 usePlot         % plot the vesicles
 dataFile        % name of the file to write the data
 logFile         % name of the file to write the log
@@ -47,7 +47,7 @@ oc = curve;
 end % constructor: monitor
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function initializeFiles(o,X,curv,time,vel)
+function initializeFiles(o,X,conc,time,vel)
 % initializeFiles(X,sig,eta,RS,Xwalls) does the initial writing of data
 % to files and the console.  It first deletes any previous data and then
 % writes the number of points, tracer initial conditions, pressure
@@ -86,8 +86,7 @@ o.writeMessage(message,'%s\n')
 [ea,el] = o.errors(X);
 
 if o.saveData
-  o.writeData(X,curv,ea,el,time,vel,N);
-  %o.writeData(X,curv,0,0,0,vel,N);
+  o.writeData(X,conc,ea,el,time,vel,N);
   % save initial configuartion
 
   message = ['Initial Area is:                ' ...
@@ -108,7 +107,7 @@ o.writeMessage(' ','%s\n')
 end % initializeFiles
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function terminate = outputInfo(o,X,curv,time,vel,ea,el)
+function terminate = outputInfo(o,X,conc,time,vel,ea,el)
 % computes the error in area and length and write messages to the data
 % file, the log file, and the console.
 
@@ -116,7 +115,7 @@ function terminate = outputInfo(o,X,curv,time,vel,ea,el)
 
 % Begin plotting
 if o.usePlot
-  o.plotData(X,time,ea,el,vel);
+  o.plotData(X,time,ea,el,vel,conc);
   pause(0.01)
 end
 % End plotting
@@ -126,7 +125,7 @@ if o.saveData
   % don't want to save initial small time steps, but still want to check
   % the error in area and length so that the simulation is killed early
   % on if need be
-  o.writeData(X,curv,ea,el,time,vel,o.N);
+  o.writeData(X,conc,ea,el,time,vel,o.N);
 end
 % End saving data
 
@@ -188,45 +187,52 @@ end
 end % writeMessage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function plotData(o,X,time,ea,el,vel)
+function plotData(o,X,time,ea,el,vel,conc)
 % plotData(X,Xwalls,time,ea,el) plots the current configuration with
 % title X is the vesicle position time is the current time, ea and el
 % are the errors in area and length
 
-N = size(X,1)/2; % Number of points per vesicle
 oc = curve;
-[x,y] = oc.getXY(X);
-% seperate x and y coordinates
-[xvel,yvel] = oc.getXY(vel);
-figure(1); clf; hold on
+[x,y] = oc.getXY(X); %seperate x and y coordinates
+figure(1); clf; %hold on
+
+%----------- General Position Plot ------------------------------------
 plot([x;x(1,:)],[y;y(1,:)],'r','linewidth',2)
 
+%----------- Velocity Quiver Plot -------------------------------------
+%[xvel,yvel] = oc.getXY(vel);
 %quiver(x,y,xvel,yvel)
-% Plot all vesicles
 
+%----------- Cline Concentration Plot ---------------------------------
+%h = cline([x;x(1,:)],[y;y(1,:)],[conc;conc(1,:)]);
+%set(h,'linewidth',3)
+%colorbar
+
+%z = x+1i*y;
+%zh = fftshift(fft(z))/numel(x);
+%semilogy(abs(zh),'bo')
+%zh(end/2+1)
+%pause
+%Title and axis settings for all plots
 titleStr = ['t = ' num2str(time,'%4.2e') ...
   ' eA = ' num2str(ea,'%4.2e') ...
   ' eL = ' num2str(el,'%4.2e')];
 title(titleStr)
 axis equal
-%axis([-3 3 -3 3])
-%set(gca,'xtick',[])
-%set(gca,'ytick',[])
-%set(gca,'ycolor','w')
-%set(gca,'ycolor','w')
+
 
 end % plotData
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function writeData(o,X,curv,ea,el,time,vel,N)
-% writeData(X,sigma,ea,el,time,res) writes the position, curv,
+function writeData(o,X,conc,ea,el,time,vel,N)
+% writeData(X,sigma,ea,el,time,res) writes the position, concentration,
 % errors, and time to a binary file.  Matlab can later read this file to
 % postprocess the data
  
 oc = curve;
 [x,y] = oc.getXY(X);
 [xvel,yvel] = oc.getXY(vel);
-output = [x(:);y(:);curv(:);ea;el;time;xvel(:);yvel(:)];
+output = [x(:);y(:);conc(:);ea;el;time;xvel(:);yvel(:)];
 % format that postProcess/loadfile.m reads the output
 fid = fopen(o.dataFile,'a');
 fwrite(fid,output,'double');

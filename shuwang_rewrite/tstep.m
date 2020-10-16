@@ -38,7 +38,7 @@ o.gmresMaxIter = params.gmresMaxIter; %maximum number of GMRES iterations
 end % tstep: constructor
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [uxvel,uyvel] = usetself(o)
+function [uxvel,uyvel,fdotn] = usetself(o)
 %Usetself returns the x and y component of the velocity.
 
 ves = o.ves; %shorthand for ves object
@@ -99,7 +99,7 @@ IK = oc.modes(N);
 dvdotsds = oc.diffFT(vdots,IK)/L;
 %disp('forever debugging')
 % Compute the right hand side of equation (40)
-rhs = -(dvdotsds + cur.*vdotn - cur.*ves.SPc.*Esigma);
+rhs = -(dvdotsds + cur.*vdotn - ves.SPc*cur.*Esigma);
 %rhs = -(dvdotsds + oc.acurv(ves).*vdotn);
 % The velocity components in eq (40) are nonlocal linear functions of
 % lambdaTilde. Solve the linear system for LambdaTilde in (39) using
@@ -108,7 +108,7 @@ rhs = -(dvdotsds + cur.*vdotn - cur.*ves.SPc.*Esigma);
 % LambdaTilde is the lambda with a tilde in eq (39)
 [lambTil,flag,relres,iter,resvec] = ...
       gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
-              o.gmresMaxIter,@(x) o.preconditioner(x));
+              o.gmresMaxIter,@(x) x);% o.preconditioner(x));
 % norm(lambTil)
 % pause
 %calculate the Fourier derivative of lambdaTilde
@@ -116,16 +116,13 @@ dlamTilds = oc.diffFT(lambTil,IK)/L;
 
 %We can now compute the traction jump in first part of equation (39).
 %This comes from applying the product rule and using Frenet-Seret.
-% BQ: Ashley proposes changing this variable name
-% tracJump = [(+lambTil.*oc.acurv(ves).*sin(theta) - dlamTilds.*cos(theta));...
-%             (-lambTil.*oc.acurv(ves).*cos(theta) - dlamTilds.*sin(theta))];
 tracJump = [(+lambTil.*cur.*sin(theta) - dlamTilds.*cos(theta));...
             (-lambTil.*cur.*cos(theta) - dlamTilds.*sin(theta))];
 
 % Adding the jump conditions in eq (39) to (33) which is in the variable
 % tau
 tau = tau + tracJump;
-
+fdotn = tau(1:end/2).*sin(theta)-tau(end/2+1:end).*cos(theta);
 %Compute u tilde in equations (38) through (40) without the weakly singular
 %log kernel
 k = StokesMat*tau;
@@ -145,7 +142,7 @@ uyvel = k(N+1:end)*c1 + force2*c2;
 end % usetself
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function LHS = matvec40(o,rhs,StokesMat)   
+function LHS = matvec40(o,Lambda,StokesMat)   
 % This function cooresponds to the matvec in equation 40 and returns the
 % LHS of eq(40), (u \cdot s)_s + kappa * (u \cdot n) as LHS
 ves = o.ves; %shorthand for ves object
@@ -158,10 +155,10 @@ oc = curve; %shorthand for curve class
 op = poten(N); %shorthand for poten class
 IK = oc.modes(N); %define the Fourier modes for differentiation
 % The the derivative of the rhs of eq(40)
-drhsds = oc.diffFT(rhs,IK)/L;
+drhsds = oc.diffFT(Lambda,IK)/L;
 % Compute the forces in equation (39)
-tau = [+rhs.*cur.*sin(theta) - drhsds.*cos(theta); ...
-       -rhs.*cur.*cos(theta) - drhsds.*sin(theta)];
+tau = [+Lambda.*cur.*sin(theta) - drhsds.*cos(theta); ...
+       -Lambda.*cur.*cos(theta) - drhsds.*sin(theta)];
 
 % form the velocity on the interface that solves (38) and (39), but
 % without the log terms in the kernel
@@ -187,7 +184,7 @@ udots = utilde1.*cos(theta) + utilde2.*sin(theta);
 dudotsds = oc.diffFT(udots,IK)/L;
 
 %LHS is (u \cdot s)_s + kappa * (u \cdot n) in eq (40)
-LHS = (dudotsds + cur.*udotn);
+LHS = (dudotsds + cur.*udotn + ves.SPc*cur.^2.*Lambda);
 
 end %matvec40
 
@@ -198,8 +195,8 @@ function x = preconditioner(o,rhs)
 % inextensibility
 ves = o.ves;
 N = ves.N;
-x = fft(rhs,N)./[1 1:1:N/2 N/2-1:-1:1]';
-x = real(ifft(x,N));
+x = fft(rhs)./[1 1:1:N/2 N/2-1:-1:1]';
+x = real(ifft(x));
 end % preconditioner
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -219,7 +216,9 @@ L = ves.L; % shorthand vesicle length
 % However, not sure how the terms in equations (13) and (14) have been
 % incorporated into the forces. Also missing the u_s term in equation
 % (33)
-[ux,uy] = o.usetself;
+[ux,uy,fdotn] = o.usetself;
+% sum(ux)
+% pause
 
 % put the x-y velocity into the normal and tangential velocity.
 theta = ves.theta; %shorthand theta so we don't type ves. a million times
@@ -239,7 +238,7 @@ Ln = L + params.dt*dcur0(1);
 % angle, but without the stiff term. The nonlinear term N_1 defined in
 % equation (54) but without the alpha derivative multiplied by the
 % integral operator \mathcal{L}
-N1 = oc.fthetaim(ves,un,ut);
+N1 = oc.fthetaim(ves,un,ut,fdotn);
 
 % next evolve the shape and the phase distribution in Fourier space.
 % Fourier series of the derivative of the tangent angle. i.e. Fourier
@@ -256,12 +255,12 @@ Nk = 2*pi*[0 1:ves.N/2 ves.N/2-1:-1:1]';
 % rsl is the stiff term in equation (55) that will be integrated
 % implicitly using an integrating factor
 
-rsl = 0.25*ves.bendsti*(Nk/ves.L).^3 + ...
-      0.25*ves.SPc*ves.bendsti*(Nk/ves.L).^4;
+rsl = 0.25*ves.bendsti*abs(Nk/ves.L).^3 + ...
+      ves.SPc*ves.bendsti*(Nk/ves.L).^4;
 % rsln is the next step of rsl 'n' is for 'new' since we'll be using
 % multistep
-rsln = 0.25*ves.bendsti*(Nk/Ln).^3+ ...
-       0.25*ves.SPc*ves.bendsti*(Nk/ves.L).^4;;
+rsln = 0.25*ves.bendsti*abs(Nk/Ln).^3+ ...
+       ves.SPc*ves.bendsti*(Nk/ves.L).^4;
 
 % use trapezoid rule to approximate integral in equation (57). This next
 % line is exactly equation (58) for the quadrature d1 is now exactly as
@@ -275,7 +274,6 @@ ek = exp(-(params.dt*(rsl + rsln)/2));
 % theta a function that grows by 2*pi everytime you go completely around
 % the shape.
 thetan = real(ifft(ek.*(fsTA + params.dt*fsN1)))+2*pi*(0:ves.N-1)'/ves.N;
-
 %        -----  define the lipid species model for u  -----
 % Define the Fourier modes, but scaled by 2*pi. Note that these two
 % vectors will be nearly identical since L \approx Ln by inextensibility
@@ -326,8 +324,8 @@ uy_old = uy(1);
 [~,a_new,l_new] = oc.geomProp(ves.X);
 ea = abs(a_new - a_old)./abs(a_old);
 el = abs(l_new - l_old)./abs(l_old);
-om.plotData(ves.X,time,ea,el,[ux;uy])
-om.initializeFiles(ves.X,ves.cur,time,[ux;uy])
+om.plotData(ves.X,time,ea,el,[ux;uy],ves.rcon)
+om.initializeFiles(ves.X,ves.rcon,time,[ux;uy])
 
 end % FirstSteps
 
@@ -348,34 +346,32 @@ outpt = round(params.outpt/params.dt); % integer values for when output is
 
 % Entering time stepping loop
 for ktime = 1:nstep
-  tic
   time = ktime*params.dt;
   
   % compute the x- and y-components of the velocity. This is the routine
   % that calls GMRES which is used to solve equation (30) 
-  [uxvel_loop,uyvel_loop] = o.usetself;
-   %disp('here1')
-   %norm(uyvel_loop)
-%   pause
-%  [norm(uxvel_loop) norm(uyvel_loop)]
-%  clf; hold on
-%  plot(uxvel_loop,'b')
-%  plot(uyvel_loop,'r')
-%  pause
-
-%  % Save the norm of x and y velocities
-%  nn = [nn;norm([uxvel_loop;uyvel_loop],inf)];
-  
+  [uxvel_loop,uyvel_loop,fdotn] = o.usetself;
+%   sum(uxvel_loop)
+%    figure(2)
+%    plot(uxvel_loop)
+%    sum(uxvel_loop)
+%    hold on
+%    plot(uyvel_loop, 'r')
+%    hold off
   % Velocity at the first discretization point
   uxvel_new = uxvel_loop(1);
   uyvel_new = uyvel_loop(1);
   
   % put the x-y velocity into the normal and tangential velocity.
   theta = ves.theta; % shorthand for theta
-  un = uxvel_loop.*sin(theta) - uyvel_loop.*cos(theta); 
   % Normal Velocity
-  ut = uxvel_loop.*cos(theta) + uyvel_loop.*sin(theta); 
+  un = uxvel_loop.*sin(theta) - uyvel_loop.*cos(theta); 
+%   figure(3)
+%   plot(un)
+%   figure(1)
+%   pause
   % Tangential Velocity
+  ut = uxvel_loop.*cos(theta) + uyvel_loop.*sin(theta); 
   
   % Update length change over time using a 2nd-order Adams Bashforth
   % method.  described in equation (60) 2nd-order Adams Bashforth for
@@ -383,15 +379,12 @@ for ktime = 1:nstep
   % just checking for discretization and round-off errors.
   dcur1 = oc.fdcur(ves,un);
   Lnn = Ln + params.dt*(3*dcur1(1)-dcur0(1))/2;
-%  Lnn = Ln + params.dt*dcur1(1);
   % update ves.L  
   ves.L = Lnn;
-  % BQ: I DON'T UNDERSTAND WHAT THE LAST VALUE OF THE VECTOR dcur1 HAS
-  % TO DO WITH THE RIGHT HAND SIDE FOR THE LENGTH ODE
   
   % Get the velocity of the vesicle by its velocity of the tangential
   % angle without the stiff term. 
-  fnthetan = oc.fthetaim(ves,un,ut);
+  fnthetan = oc.fthetaim(ves,un,ut,fdotn);
   
   %         -----  update the lipid species model for u  -----
   % Define the Fourier modes, but scaled by 2*pi. Note that these two
@@ -400,12 +393,12 @@ for ktime = 1:nstep
   % is also linear (and diagonal) in Fourier space
   rk = 2*pi*[0 1:ves.N/2 ves.N/2-1:-1:1]'; 
   % compute the nonlocal model for theta
-  rsl = ves.bendsti*(rk/L).^3/4 + ...
-        0.25*ves.SPc*ves.bendsti*(rk/ves.L).^4;
-  rsln = ves.bendsti*(rk/Ln).^3/4 + ...
-         0.25*ves.SPc*ves.bendsti*(rk/ves.L).^4;
-  rslnn = ves.bendsti*(rk/Lnn).^3/4 + ...
-          0.25*ves.SPc*ves.bendsti*(rk/ves.L).^4;
+  rsl = ves.bendsti*abs(rk/L).^3/4 + ...
+        ves.SPc*ves.bendsti*(rk/ves.L).^4;
+  rsln = ves.bendsti*abs(rk/Ln).^3/4 + ...
+         ves.SPc*ves.bendsti*(rk/ves.L).^4;
+  rslnn = ves.bendsti*abs(rk/Lnn).^3/4 + ...
+          ves.SPc*ves.bendsti*(rk/ves.L).^4;
   % compute the local model for theta using some kind of exponential
   % time integrators described in equations (56) and (57)	 
   d1 = exp(-(params.dt*(rsln+rslnn)/2));
@@ -418,6 +411,7 @@ for ktime = 1:nstep
   % Compute the Fourier series of theta adjusted by a linear function so
   % that we are taking the fft of a periodic function
   fcthetan = fft(theta - 2*pi*(0:ves.N-1)'/ves.N);
+  
   % Add back the linear function that makes theta a function that grows
   % by 2*pi everytime you go completely around the shape. thetann is now
   % the tangent angle of the new shape after taking a single step of a
@@ -479,6 +473,7 @@ for ktime = 1:nstep
   % update the single tracker point using Adams Bashforth
    ves.x0 = ves.x0 + 0.5*params.dt*(3*uxvel_new - ux_old);
    ves.y0 = ves.y0 + 0.5*params.dt*(3*uyvel_new - uy_old);
+
 %    ves.x0 = ves.x0 + params.dt*uxvel_new;
 %    ves.y0 = ves.y0 + params.dt*uyvel_new;
 
@@ -486,8 +481,8 @@ for ktime = 1:nstep
   ves.X = oc.recon(ves.N,ves.x0,ves.y0,ves.L,ves.theta);
   ves.cur = oc.acurv(ves);
   % HACK: keep the vesicle centered at (0,0)
-%  ves.X(1:end/2) = ves.X(1:end/2) - mean(ves.X(1:end/2));
-%  ves.X(end/2+1:end) = ves.X(end/2+1:end) - mean(ves.X(end/2+1:end));
+  %ves.X(1:end/2) = ves.X(1:end/2) - mean(ves.X(1:end/2));
+  %ves.X(end/2+1:end) = ves.X(end/2+1:end) - mean(ves.X(end/2+1:end));
   
   % Compute the errors in length and area
   [~,a_new,l_new] = oc.geomProp(ves.X);
@@ -495,12 +490,12 @@ for ktime = 1:nstep
   el = abs(l_new - l_old)./abs(l_old);
   
   % Print outputs
-  om.outputInfo(ves.X,ves.cur,time,[uxvel_loop;uyvel_loop],ea,el)
+  om.outputInfo(ves.X,ves.rcon,time,[uxvel_loop;uyvel_loop],ea,el)
 
   % Update ux_old, and uy_old for timestepping loop
   ux_old = uxvel_new;
   uy_old = uyvel_new;
-  toc
+
 end
 
  

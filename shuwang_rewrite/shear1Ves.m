@@ -7,13 +7,13 @@
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
 params.N = 64*4; % points on vesicle
-params.dt = 1e-4; % time step size
-params.T = .1; % time horizon
+params.dt = 1e-4/2; % time step size
+params.T = .01; % time horizon
 params.outpt = 1e-3; % ouptut frequency
-params.concentra = 0.3; % constant, initial concentration of lipid species
-params.oddeven = 0; % flag for initial lipid species profile?
-params.shortax = 0.1; % short axis length
-params.shearRate = 30; % shear rate
+params.concentra = 0; % constant, initial concentration of lipid species
+params.oddeven = -1; % flag for initial lipid species profile?
+params.shortax = .3; % short axis length
+params.shearRate = 0; % shear rate
 params.viscosityInside = 1.0;
 params.viscosityOutside = 1.0;
 params.bendsti = 1; % maximum bending stiffness
@@ -21,10 +21,10 @@ params.bendratio = .1; % ratio between max and min bending stiffness
 params.consta = 100; % parameter 'a' in the Cahn-Hilliard energy
 params.nloop = 20; % number of time steps of Cahn-Hilliard to be taken at 
                    %each time step of the hydrodynamics
-params.epsch = .1; % small parameter  in the double-well potential 
+params.epsch = 0.05; % small parameter  in the double-well potential 
 params.gmresTol = 1e-10; %GMRES tolerance
 params.gmresMaxIter = params.N; %maximum number of GMRES iterations
-params.SPcoeff = 0; %semi-permeable coefficient
+params.SPcoeff = 0.1; %semi-permeable coefficient
 
 options.saveData = true;
 options.verbose = true;  % write data to console
@@ -35,8 +35,4 @@ options.logFile = true;  % log file name
 options.logFile = 'output/relaxation1VesTest.log';
 options.dataFile = 'output/relaxation1VesDataTest.bin';
 
-profile on
 ves = Ves2D(params,options);      
-profile off
-
-profile viewer

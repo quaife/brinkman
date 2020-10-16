@@ -263,7 +263,7 @@ t = (0:N-1)'*2*pi/N;
 a = (1 - sqrt(1-ra^2))/ra;
 % initial guess using approximation length = sqrt(2)*pi*sqrt(a^2+1)
 
-X0 = [a*cos(t);sin(t)];
+X0 = [cos(t);a*sin(t)];
 
 [raNew,~,~] = o.geomProp(X0);
 
@@ -446,19 +446,19 @@ dx = o.diffFT([theta - 2*pi*(0:1:N-1)'/N],IK) + 2*pi;
 end %rmLinearPart
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function fntheta = fthetaim(o,ves,unt,utn)
+function fntheta = fthetaim(o,ves,unt,utn,fdotn)
 N = ves.N;
 L = ves.L;  
 theta = ves.theta;
 IK = o.modes(N);
 %compute right hand side of the ODE for \theta in equation (8) in Sohn
 %et al JCP 2010
-ftheta = o.forceTheta(ves,unt,utn);   
+ftheta = o.forceTheta(ves,unt,utn,fdotn);   
 %now we must subtract off the stiffest part in Fourier space.
 %To the power of 3 term comes from the third-derivative of the function
 %that L is being applied to in equation (53)
-rlen = -ves.bendsti*(abs(IK)/L).^3/4; %last term in eq(54)
-%fntheta - ???
+rlen = -ves.bendsti*(abs(IK)/L).^3/4 + ves.SPc*ves.bendsti*(IK/L).^4; %last term in eq(54)
+
 var1 = fft(ftheta);%fft of first 2 terms in 54 
 var2 = fft(theta-[2*pi*(0:N-1)]'/N);
 %clf;
@@ -473,23 +473,21 @@ fntheta = o.kfilter(fntheta,N);
 end %fthetaim
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function ftheta = forceTheta(o,ves,unt,utn)
+function ftheta = forceTheta(o,ves,unt,utn,fdotn)
 %forcing term for the ODE for theta 
 N = ves.N;
 L = ves.L;
 IK = o.modes(N);
 %compute first derivative of the opening angle using Fourier
 %differentiation. This is actually the curvature
+dthetads = o.rmLinearPart(ves)/L;
 
-dthetads = o.rmLinearPart(ves);
-% disp('here!')
-% norm(dthetads)
-% pause
 %compute the derivative of the normal velocity
-dunds = o.diffFT(unt,IK);    
+dunds = o.diffFT(unt+ves.SPc*fdotn,IK)/L;    
+
 %Check T_s = -V * curvature (local inextensibility condition) (see
 %equation (20) in Sohn et al JCP 2010)
-ftheta = -dunds/L + dthetads.*utn/L;    
+ftheta = -dunds + dthetads.*utn;    
     
 end %forceTheta
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
