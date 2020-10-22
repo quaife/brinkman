@@ -240,12 +240,12 @@ function [X,sigma,u,eta,RS,iter,accept,dtScale,normRes,iflag] = ...
 % [X,sigma,u,eta,RS,iter,dt,accept,dtScale,normRes,iflag] = ...
 %    timeStepGL(ves,...
 %    etaStore,RSstore,walls,wallsCoarse,a0,l0)
-% takes the desired number of time steps at Gauss-Lobatto points to
-% find solution at dt given solution at 0.  Calls o.timeStep which is
-% what we use for the constant sized time step integration.  Returns a
-% flag that says if the solution was accepted or not and the amount the
-% time step was scaled.  errors is the norm of the residual and iflag
-% is tells if any of the gmres runs failed
+% takes the desired number of time steps at Gauss-Lobatto points to find
+% solution at dt given solution at 0.  Calls o.timeStep which is what we
+% use for the constant sized time step integration.  Returns a flag that
+% says if the solution was accepted or not and the amount the time step
+% was scaled.  errors is the norm of the residual and iflag is tells if
+% any of the gmres runs failed
 
 Xstore = ves.X;
 sigStore = ves.sig;

@@ -45,14 +45,20 @@ end
 
 if 1
 %  file = 'contracting1VesData.bin';
-  file = '~/Dropbox/Adhesion/PermeableV/contracting1Ves/contracting1Ves1aData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1em0p5_HighRes/contracting1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1em1/contracting1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1em0p5/contracting1VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1e0/contracting1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/contracting/beta0Rate1e0/contracting1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1e0p5/contracting1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1e1/contracting1VesData.bin';
+%  file = '~/Dropbox/Adhesion/PermeableV/contracting1Ves/contracting1Ves5Data.bin';
+
   ax = [-1 19 -5 5];
   options.confined = true;
   options.pressure = false;
   options.savefig = false;
   count = 1;
-  irate = 10;
+  irate = 2;
 end
 
 
@@ -83,16 +89,17 @@ if 0
 end
 
 if 0
-%  file = 'relaxation1VesData.bin';
+  file = 'relaxation1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/Apr142020/starBeta1em3/relaxation1VesData.bin';
-    file = '~/projects/brinkman/vesicle_code/results/Apr232020/ellipseBeta1em3/relaxation1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/relaxation1Ves/star_beta1p0e0/relaxation1VesData.bin';
+%    file = '~/projects/brinkman/vesicle_code/results/Apr232020/ellipseBeta1em3/relaxation1VesData.bin';
 %  ax = [-3 3 -3.5 3.5];
   ax = 2*[-1 1 -2 2];
   options.confined = false;
   options.savefig = false;
   beta = 1e-3;
   count = 1;
-  irate = 1;
+  irate = 10;
 end
 
 if 0
@@ -399,16 +406,6 @@ end
 
 
 
-%opts = odeset('Reltol',1e-13,'AbsTol',1e-13,'MaxStep',1e2,'Stats','on');
-%nuc = cy(end)^2 + ra(1);
-%y0  = cy(1);
-%tspan = [0 2000];
-%[t,y] = ode45(@(t,y) VesicleCenter(t,y,nuc,ra,time),tspan,y0,opts);
-%
-%figure(2); clf; 
-%plot(t*100,y)
-%hold on
-%plot(time,cy)
 
 
 

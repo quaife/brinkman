@@ -479,7 +479,7 @@ elseif any(strcmp(options,'slit'))
   % regularity
 
 elseif any(strcmp(options,'contracting'))
-  w = 0.5; % width at width of the opening
+  w = 0.5; % width of the opening
   ell1 = 3.0; % length before contracting region
   ell2 = 12; % length (in x) of contracting region
   ell3 = 3.0; % length after contracting region

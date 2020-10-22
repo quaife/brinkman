@@ -9,6 +9,11 @@ global derivs  ;  % number of times we compute differential
                   % operators for preconditioning
 global fmms       % number of fmm calls
 
+
+% TODO: THIS SHOULDN'T GO HERE
+pressDrop = 200;
+
+
 om = monitor(X,Xwalls,options,prams);
 % Create class for doing input/output
 
@@ -17,6 +22,7 @@ if nargin == 4
 else
   om.initializePressure(pressTar); 
 end
+pressTar = [0.5;17.5;0;0]; 
 
 matvecs = 0; 
 % counter for the total number of time steps
@@ -58,9 +64,9 @@ om.writeMessage(message,'%s\n')
 message = ' ';
 om.writeMessage(message,'%s\n')
 
-oc = curve;
 tt = tstep(options,prams);
 % build an object of class tstep with required options and parameters
+
 Xstore = zeros(2*N,nv);
 sigStore = zeros(N,nv);
 uStore = zeros(2*N,nv);
@@ -88,7 +94,10 @@ end
 [Xstore,sigStore,uStore,etaStore,RSstore] = ...
     tt.firstSteps(options,prams,Xstore,sigStore,uStore,...
     walls,wallsCoarse,om);
-% Was for higher-order multistep methods which have been fazed out.
+% Was for higher-order multistep methods which have been fazed out. Now
+% it just computes the initial density function and tension that are
+% needed for SDC
+
 
 % compute pressure and stress
 if nargin == 5
@@ -137,6 +146,31 @@ while time < prams.T - 1e-10
   vesicle = capsules(Xstore,sigStore,uStore,...
       prams.kappa,prams.viscCont,options.semipermeable,...
       prams.fluxCoeff,options.fluxShape);
+
+  % TODO: THIS SHOULD BE A FUNCTION IN TSTEP
+  if 1
+    [~,pressDLPtar] = tt.opWall.exactPressDL(walls,etaStore,[],pressTar,1);
+
+    tracJump = vesicle.tracJump(Xstore,sigStore);
+    % compute traction
+
+    [~,pressSLPtar] = tt.op.exactPressSL(vesicle,tracJump,[],pressTar,1);
+
+    press = pressSLPtar(1:end/2) + pressDLPtar(1:end/2);
+    dpress = diff(press);
+    
+%    options.farFieldSpeed = options.farFieldSpeed * (-200)/dpress;
+    options.farFieldSpeed = pressDrop/dpress;
+    tt.farField = @(X) tt.bgFlow(X,...
+        options.farField,'k',options.farFieldSpeed);
+    [walls,wallsCoarse] = tt.initialConfined(prams,Xwalls); 
+%    [diff(pressSLPtar(1:end/2)) diff(pressDLPtar(1:end/2)) ...
+%        dpress max(walls.u)]
+%    pause
+    % change velocity field speed so that it maintains a constant
+    % pressure drop
+  end
+
     
   [X,sigma,u,eta,RS,iter,accept,dtScale,res,iflag] = ...
       tt.timeStepGL(vesicle,etaStore,RSstore,...
@@ -192,7 +226,6 @@ while time < prams.T - 1e-10
   % shift vertically so that the x axis is centered between the vesicles
   end
   % Shift vesicle doublet as in a fluid trap
-
 
   if accept
     nstep = nstep + 1;
@@ -255,15 +288,6 @@ while time < prams.T - 1e-10
     op = poten(walls.N);
     [~,pressDLPtar] = op.exactPressDL(walls,etaStore,[],pressTar,1);
     pressDLPtar = pressDLPtar(1:end/2);
-%    figure(1); clf
-%%    plot(pressTar(1:end/2),pressDLPtar)
-%    plot(pressTar(2:end/2),diff(pressDLPtar)./diff(pressTar(1:end/2)))
-%%    pressDLPtar(end) - pressDLPtar(1)
-%
-%    [~,stokesDLPtar] = op.exactStokesDL(walls,etaStore,pressTar,1);
-%    figure(2); clf;
-%    plot(pressTar(1:end/2),stokesDLPtar(1:end/2))
-%    pause
 
     vesicle = capsules(Xstore,sigStore,uStore,...
       prams.kappa,prams.viscCont,options.semipermeable,...

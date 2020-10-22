@@ -2,22 +2,22 @@
 fprintf('Simple elliptical vesicle in a relaxation flow.\n');
 fprintf('First-order semi-implicit time stepping.\n');
 
-beta = 0;
+beta = 1e-3;
 m = 100000;
 ms = m;
 betas = beta;
 
 % Physics parameters
-prams.N = 96;               % points per vesicle
+prams.N = 256;               % points per vesicle
 prams.nv = 1;               % number of vesicles
-prams.T = 10;               % time horizon (two tumbling)
+prams.T = 2000;               % time horizon (two tumbling)
 prams.m = 100*10;              % number of time steps
 prams.kappa = ones(prams.nv,1); % bending coefficient
 prams.viscCont = ones(prams.nv,1);         % viscosity contrast
 options.farField = 'relaxation'; % background velocity
 options.near = true;        % near-singular integration
 options.fmm = false;
-options.semipermeable = false;
+options.semipermeable = true;
 options.adhesion = false;
 defaultPram.adStrength = 1;
 defaultPram.adRange = 4e-1;
@@ -30,7 +30,7 @@ end
 prams.fluxCoeff = beta*ones(prams.nv,1);
 
 % TIME ADAPTIVITY (parameters for new implementation)
-options.timeAdap = false;
+options.timeAdap = true;
 prams.rtolArea = 1e10;
 prams.rtolLength = 1e-2;
 prams.betaUp = 1.2;
@@ -40,8 +40,8 @@ prams.dtMax = 1e2;
 prams.dtMin = 1e-5;
 
 options.orderGL = 2;
-options.nsdc = 0;
-options.expectedOrder = 1;
+options.nsdc = 1;
+options.expectedOrder = 2;
 
 options.expForce = false;
 
@@ -79,16 +79,16 @@ X = oc.initConfig(prams.N,'nv',prams.nv,...
     'angle',ang,...
     'scale',scale);
 
-th = (0:prams.N-1)'*2*pi/prams.N;
-X = [cos(th);3*sin(th)];
+%th = (0:prams.N-1)'*2*pi/prams.N;
+%X = [cos(th);3*sin(th)];
 
-%X = oc.initConfig(prams.N,'star',...
-%    'folds',5,...
-%    'nv',prams.nv,...
-%    'reducedArea',ra,...
-%    'center',[centerx;centery],...
-%    'angle',ang,...
-%    'scale',1.18);
+X = oc.initConfig(prams.N,'star',...
+    'folds',5,...
+    'nv',prams.nv,...
+    'reducedArea',ra,...
+    'center',[centerx;centery],...
+    'angle',ang,...
+    'scale',1.18);
 
 
 Xfinal = Ves2D(X,[],prams,options);

@@ -56,8 +56,8 @@ Please provide an abstract of no more than 250 words in a single paragraph. Abst
 %\Tikztrue
 \Tikzfalse
 
-%\usepgfplotslibrary{external}
-%\tikzexternalize
+\usepgfplotslibrary{external}
+\tikzexternalize
 
 \begin{document}
 
@@ -342,6 +342,21 @@ its solution with dots on Figure~\ref{fig:ellipseArea}.
   \end{tabular}
 \end{table}
 
+\begin{figure*}[htp]
+  \centering
+  \begin{minipage}{0.4\textwidth}
+  \includegraphics[width=\linewidth]{figures/ellipseArea}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.56\textwidth}
+  \includegraphics[width=0.31\linewidth]{figures/ellipseVelocity1.pdf}
+  \includegraphics[width=0.31\linewidth]{figures/ellipseVelocity2.pdf}
+  \includegraphics[width=0.31\linewidth]{figures/ellipseVelocity3.pdf}
+  \end{minipage}
+  \caption{A big caption for a composite figure}
+\end{figure*}
+
+
 
 \begin{figure}[htp]
   \centering
@@ -383,20 +398,19 @@ subplots.
 
 \begin{figure*}[htp]
   \centering
-%  \input{figures/ellipseVelocity1.tikz}
-%  \input{figures/ellipseVelocity2.tikz}
-%  \input{figures/ellipseVelocity3.tikz}
+%  \scalebox{0.6}{\input{figures/ellipseVelocity1.tikz}}
+%  \scalebox{0.6}{\input{figures/ellipseVelocity2.tikz}}
+%  \scalebox{0.6}{\input{figures/ellipseVelocity3.tikz}}
+%  \scalebox{0.6}{\input{figures/ellipseVelocity4.tikz}}
 %  \input{figures/ellipseVelocityNorms.tikz}
   \includegraphics[width=0.24\linewidth]{figures/ellipseVelocity1.pdf}
   \includegraphics[width=0.24\linewidth]{figures/ellipseVelocity2.pdf}
   \includegraphics[width=0.24\linewidth]{figures/ellipseVelocity3.pdf}
-  \includegraphics[width=0.24\linewidth]{figures/ellipseVelocityNorms.pdf}
-  \caption{\label{fig:vesVelocity} The velocity contributions due to
-  force balance (blue) and permeability (red). The green line is the
+  \includegraphics[width=0.24\linewidth]{figures/ellipseVelocity4.pdf}
+  \caption{\label{fig:vesVelocity} The normal velocity contributions due
+  to force balance (blue) and permeability (red). The green line is the
   velocity of an impermeable vesicle with the same initial shape as the
-  semi-permeable vesicle. The right-most plot is the maximum norm of
-  each velocity contribution. The black lines correspond to the times
-  reported in the other three plots.}
+  semi-permeable vesicle.}
 \end{figure*}
 
 We next investigate the interplay between the tension, transmembrane
