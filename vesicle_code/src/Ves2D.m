@@ -12,6 +12,7 @@ global fmms       % number of fmm calls
 
 % TODO: THIS SHOULDN'T GO HERE
 pressDrop = 200;
+%pressDrop = 5;
 
 
 om = monitor(X,Xwalls,options,prams);
@@ -22,7 +23,10 @@ if nargin == 4
 else
   om.initializePressure(pressTar); 
 end
-pressTar = [0.5;17.5;0;0]; 
+Ntar = 21;
+ytar = linspace(-3,3,Ntar)';
+dy = ytar(2) - ytar(1);
+pressTar = [[0.5*ones(Ntar,1);ytar] [17.5*ones(Ntar,1);ytar]]; 
 
 matvecs = 0; 
 % counter for the total number of time steps
@@ -156,16 +160,23 @@ while time < prams.T - 1e-10
 
     [~,pressSLPtar] = tt.op.exactPressSL(vesicle,tracJump,[],pressTar,1);
 
-    press = pressSLPtar(1:end/2) + pressDLPtar(1:end/2);
-    dpress = diff(press);
+    pressL = pressSLPtar(1:end/2,1) + pressDLPtar(1:end/2,1);
+    pressR = pressSLPtar(1:end/2,2) + pressDLPtar(1:end/2,2);
+    avePressL = dy/(ytar(end) - ytar(1))* ...
+        (0.5*pressL(1) + sum(pressL(2:end-1)) + 0.5*pressL(end));
+    avePressR = dy/(ytar(end) - ytar(1))* ...
+        (0.5*pressR(1) + sum(pressR(2:end-1)) + 0.5*pressR(end));
+
+    dpress = avePressR - avePressL;
     
-%    options.farFieldSpeed = options.farFieldSpeed * (-200)/dpress;
-    options.farFieldSpeed = pressDrop/dpress;
+    options.farFieldSpeed = -pressDrop/dpress;
     tt.farField = @(X) tt.bgFlow(X,...
         options.farField,'k',options.farFieldSpeed);
     [walls,wallsCoarse] = tt.initialConfined(prams,Xwalls); 
-%    [diff(pressSLPtar(1:end/2)) diff(pressDLPtar(1:end/2)) ...
-%        dpress max(walls.u)]
+    dpress
+%    [dpress pressDrop options.farFieldSpeed max(walls.u)]
+%    clf;
+%    plot(walls.u)
 %    pause
     % change velocity field speed so that it maintains a constant
     % pressure drop
