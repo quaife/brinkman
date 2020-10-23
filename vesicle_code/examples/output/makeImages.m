@@ -51,14 +51,14 @@ if 1
 %  file = '~/projects/brinkman/vesicle_code/results/contracting/beta0Rate1e0/contracting1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1e0p5/contracting1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1e1/contracting1VesData.bin';
-%  file = '~/Dropbox/Adhesion/PermeableV/contracting1Ves/contracting1Ves5Data.bin';
+  file = '~/Dropbox/Adhesion/PermeableV/contracting1Ves/contracting1VesP3Data.bin';
 
   ax = [-1 19 -5 5];
   options.confined = true;
   options.pressure = false;
   options.savefig = false;
   count = 1;
-  irate = 2;
+  irate = 10;
 end
 
 
