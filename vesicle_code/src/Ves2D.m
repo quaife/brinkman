@@ -153,10 +153,15 @@ while time < prams.T - 1e-10
 
   % TODO: THIS SHOULD BE A FUNCTION IN TSTEP
   if 1
-    [~,pressDLPtar] = tt.opWall.exactPressDL(walls,etaStore,[],pressTar,1);
+    [ssig,eeta] = vesicle.computeSigAndEta(tt,walls);
 
-    tracJump = vesicle.tracJump(Xstore,sigStore);
+    [~,pressDLPtar] = tt.opWall.exactPressDL(walls,eeta,[],pressTar,1);
+
+    tracJump = vesicle.tracJump(Xstore,ssig);
     % compute traction
+    figure(2); clf;
+    plot(ssig)
+    figure(1)
 
     [~,pressSLPtar] = tt.op.exactPressSL(vesicle,tracJump,[],pressTar,1);
 
@@ -173,7 +178,7 @@ while time < prams.T - 1e-10
     tt.farField = @(X) tt.bgFlow(X,...
         options.farField,'k',options.farFieldSpeed);
     [walls,wallsCoarse] = tt.initialConfined(prams,Xwalls); 
-    dpress
+%    dpress
 %    [dpress pressDrop options.farFieldSpeed max(walls.u)]
 %    clf;
 %    plot(walls.u)

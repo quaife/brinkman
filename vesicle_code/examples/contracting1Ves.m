@@ -2,11 +2,11 @@ clear all;
 %clc; clf;
 fprintf('One elliptical vesicles in a contracting geometry.\n');
 
-prams.N = 256/4;                 % points per vesicle
+prams.N = 256;                 % points per vesicle
 prams.nv = 1;                  % number of vesicles
 prams.T = 100;                  %time horizon
 prams.m = 100000;                % number of time steps
-prams.Nbd = 1024/4;               % number of points on solid wall
+prams.Nbd = 1024;               % number of points on solid wall
 prams.nvbd = 1;                % number of components to solid walls
 prams.kappa = 1e0;            % bending coefficient
 prams.viscCont = 1*ones(prams.nv,1);            % viscosity contrast
