@@ -130,6 +130,9 @@ X(1:end/2) = X(1:end/2) - mean(X(1:end/2));
 X(end/2+1:end) = X(end/2+1:end) - mean(X(end/2+1:end));
 
 ves.X = X;
+ves.x0 = X(1);
+ves.y0 = X(1 + ves.N);
+
 [ves.L,ves.theta,ves.cur] = oc.computeOpeningAngle(N,X);
 % replace the geometry with the new shape
 

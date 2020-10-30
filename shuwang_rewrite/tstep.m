@@ -237,7 +237,8 @@ Ln = L + params.dt*dcur0(1);
 % Get the velocity of the vesicle by its velocity of the tangential
 % angle, but without the stiff term. The nonlinear term N_1 defined in
 % equation (54) but without the alpha derivative multiplied by the
-% integral operator \mathcal{L}
+% integral operator \mathcal{L}. It does include the semi-permeability
+% terms using fdotn
 N1 = oc.fthetaim(ves,un,ut,fdotn);
 
 % next evolve the shape and the phase distribution in Fourier space.
@@ -259,8 +260,8 @@ rsl = 0.25*ves.bendsti*abs(Nk/ves.L).^3 + ...
       ves.SPc*ves.bendsti*(Nk/ves.L).^4;
 % rsln is the next step of rsl 'n' is for 'new' since we'll be using
 % multistep
-rsln = 0.25*ves.bendsti*abs(Nk/Ln).^3+ ...
-       ves.SPc*ves.bendsti*(Nk/ves.L).^4;
+rsln = 0.25*ves.bendsti*abs(Nk/Ln).^3 + ...
+       ves.SPc*ves.bendsti*(Nk/Ln).^4;
 
 % use trapezoid rule to approximate integral in equation (57). This next
 % line is exactly equation (58) for the quadrature d1 is now exactly as
@@ -273,35 +274,44 @@ ek = exp(-(params.dt*(rsl + rsln)/2));
 % with an integrating factor. Add back the linear function that makes
 % theta a function that grows by 2*pi everytime you go completely around
 % the shape.
-thetan = real(ifft(ek.*(fsTA + params.dt*fsN1)))+2*pi*(0:ves.N-1)'/ves.N;
-%        -----  define the lipid species model for u  -----
-% Define the Fourier modes, but scaled by 2*pi. Note that these two
-% vectors will be nearly identical since L \approx Ln by inextensibility
-% form stiffest term that is treated implicitly, but is also linear (and
-% diagonal) in Fourier space
-rk = 2*pi*[0 1:ves.N/2 ves.N/2-1:-1:1]'; 
+thetan = real(ifft(ek.*(fsTA + params.dt*fsN1))) + ...
+      2*pi*(0:ves.N-1)'/ves.N;
 
-% compute integrating factor components 
-rsl = params.epsch*(rk/ves.L).^4*params.consta;
-rsln = params.epsch*(rk/Ln).^4*params.consta;
+% -----  define the lipid species model for u  ----- 
+if params.concentra > 0
+  % Define the Fourier modes, but scaled by 2*pi. Note that these two
+  % vectors will be nearly identical since L \approx Ln by
+  % inextensibility form stiffest term that is treated implicitly, but
+  % is also linear (and diagonal) in Fourier space
 
-% compute the integrating factor for each Fourier mode using the
-% trapezoid rule. d1 is the integrating factor in equation (70)
-ek = exp(-(params.dt/params.nloop*(rsl + rsln)/2));
+  rk = 2*pi*[0 1:ves.N/2 ves.N/2-1:-1:1]'; 
 
-% Take small time steps to move the lipid species from time 0 to time dt
-for i=1:params.nloop
-  % fncon is the non-linear term N_2 in equation (67)
-  N2Hat = oc.frconim(ves,params.epsch,params.consta);
-  % fcN2 are the fourier coefficients of N_2 as in equation (68)
-  fcN2 = fft(N2Hat);
-  % fcLS is the fourier coefficients of the lipid species concentration
-  % as in equation (68)
-  fcLS = fft(ves.rcon);
-  % Compute vesicle concentration using first-order Euler method that is
-  % analagous to equation (69)
-  ves.rcon = real(ifft(ek.*(fcLS+params.dt/params.nloop*fcN2)));
+  % compute integrating factor components 
+  rsl = params.epsch*(rk/ves.L).^4*params.consta;
+  rsln = params.epsch*(rk/Ln).^4*params.consta;
+
+  % compute the integrating factor for each Fourier mode using the
+  % trapezoid rule. d1 is the integrating factor in equation (70)
+  ek = exp(-(params.dt/params.nloop*(rsl + rsln)/2));
+
+  % Take small time steps to move the lipid species from time 0 to time
+  % dt
+  for i=1:params.nloop
+    % fncon is the non-linear term N_2 in equation (67)
+    N2Hat = oc.frconim(ves,params.epsch,params.consta);
+    % fcN2 are the fourier coefficients of N_2 as in equation (68)
+    fcN2 = fft(N2Hat);
+    % fcLS is the fourier coefficients of the lipid species
+    % concentration as in equation (68)
+    fcLS = fft(ves.rcon);
+    % Compute vesicle concentration using first-order Euler method that
+    % is analagous to equation (69)
+    ves.rcon = real(ifft(ek.*(fcLS+params.dt/params.nloop*fcN2)));
+  end
+else
+  N2Hat = [];
 end
+
 %              -----  update ves and area -----
 % update ves.L
 ves.L = Ln;
@@ -314,12 +324,17 @@ ves.theta = thetan;
 ves.x0 = ves.x0 + params.dt*ux(1);
 ves.y0 = ves.y0 + params.dt*uy(1);
 
+mean(ves.X(1:end/2))
 % Reconstruct ves.X with updated tracking point 
 ves.X = oc.recon(ves.N,ves.x0,ves.y0,ves.L,ves.theta);    
 ves.cur = oc.acurv(ves);
 % set up variables for timestepping loop
 ux_old = ux(1);
 uy_old = uy(1);
+
+mean(ux)
+mean(ves.X(1:end/2))
+pause
 
 [~,a_new,l_new] = oc.geomProp(ves.X);
 ea = abs(a_new - a_old)./abs(a_old);
@@ -333,6 +348,7 @@ end % FirstSteps
 function ves = TimeStepLoop(o,ves,params,om,ux_old,uy_old,L,Ln,...
                             dcur0,fntheta,N2Hat)
 % Main time stepping routine which can be either Euler or multistep
+
 
 oc = curve;
 nstep = round(params.T/params.dt); % total number of time steps
@@ -351,9 +367,13 @@ for ktime = 1:nstep
   % compute the x- and y-components of the velocity. This is the routine
   % that calls GMRES which is used to solve equation (30) 
   [uxvel_loop,uyvel_loop,fdotn] = o.usetself;
-%   sum(uxvel_loop)
-%    figure(2)
-%    plot(uxvel_loop)
+%  [uxvel_loop(1) uxvel_loop(end/2+1)]
+%  uxvel_loop(1)+uxvel_loop(end/2+1)
+%  sum(uxvel_loop)
+%  pause
+%  figure(2)
+%  plot(uxvel_loop)
+%  pause
 %    sum(uxvel_loop)
 %    hold on
 %    plot(uyvel_loop, 'r')
@@ -400,7 +420,7 @@ for ktime = 1:nstep
   rslnn = ves.bendsti*abs(rk/Lnn).^3/4 + ...
           ves.SPc*ves.bendsti*(rk/ves.L).^4;
   % compute the local model for theta using some kind of exponential
-  % time integrators described in equations (56) and (57)	 
+  % time integrators described in equations (58) and (59)	 
   d1 = exp(-(params.dt*(rsln+rslnn)/2));
   d2 = exp(-(params.dt*(rsl+rslnn)/2 + params.dt*rsln));
   
@@ -418,23 +438,23 @@ for ktime = 1:nstep
   % 2nd order multistep method with the stiffest term treated implicitly
   % and integrated with the integrating factors d1 and d2 defined above.
   thetann = real(ifft(d1.*fcthetan + ...
-        0.5*params.dt*(3*d1.*fcfnthetan - d2.*fcfntheta))) ...
-        + 2*pi*(0:ves.N-1)'/ves.N;
+        0.5*params.dt*(3*d1.*fcfnthetan - d2.*fcfntheta))) + ...
+        2*pi*(0:ves.N-1)'/ves.N;
 %   disp('here')
 %   norm(fnthetan)
 %   pause
 %  thetann = real(ifft(d1.*(fcthetan + params.dt*fcfnthetan)))+2*pi*(0:ves.N-1)'/ves.N;
-  % Compute integrating factor components      
-  rsl = params.epsch*(rk/ves.L).^4*params.consta;
-  rsln = params.epsch*(rk/Ln).^4*params.consta;
-  rslnn = params.epsch*(rk/Lnn).^4*params.consta;
-  % Compute the integrating factors for each Fourier mode using the
-  % trapezoid rule. These are dependent on the number of steps taken to
-  % evolve the phase field surface.
-  d1 = exp(-(params.dt/params.nloop*(rsln+rslnn)/2));
-  d2 = exp(-(params.dt/params.nloop*((rsl+rslnn)/2+rsln)));
-%                 === Evolve phase field on surface ===
   if params.concentra > 0
+    % Compute integrating factor components      
+    rsl = params.epsch*(rk/ves.L).^4*params.consta;
+    rsln = params.epsch*(rk/Ln).^4*params.consta;
+    rslnn = params.epsch*(rk/Lnn).^4*params.consta;
+    % Compute the integrating factors for each Fourier mode using the
+    % trapezoid rule. These are dependent on the number of steps taken
+    % to evolve the phase field surface.
+    d1 = exp(-(params.dt/params.nloop*(rsln+rslnn)/2));
+    d2 = exp(-(params.dt/params.nloop*((rsl+rslnn)/2+rsln)));
+%                 === Evolve phase field on surface ===
     for i = 1:params.nloop
       %evolve the phase field on the surface            
       N2Hatn = oc.frconim(ves,params.epsch,params.consta);

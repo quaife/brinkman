@@ -446,34 +446,36 @@ dx = o.diffFT([theta - 2*pi*(0:1:N-1)'/N],IK) + 2*pi;
 end %rmLinearPart
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function fntheta = fthetaim(o,ves,unt,utn,fdotn)
+function fntheta = fthetaim(o,ves,un,ut,fdotn)
 N = ves.N;
 L = ves.L;  
 theta = ves.theta;
 IK = o.modes(N);
-%compute right hand side of the ODE for \theta in equation (8) in Sohn
-%et al JCP 2010
-ftheta = o.forceTheta(ves,unt,utn,fdotn);   
-%now we must subtract off the stiffest part in Fourier space.
-%To the power of 3 term comes from the third-derivative of the function
-%that L is being applied to in equation (53)
-rlen = -ves.bendsti*(abs(IK)/L).^3/4 + ves.SPc*ves.bendsti*(IK/L).^4; %last term in eq(54)
+% compute right hand side of the ODE for \theta in equation (8) in Sohn
+% et al JCP 2010
+ftheta = o.forceTheta(ves,un,ut,fdotn);
+% now we must subtract off the stiffest part in Fourier space.
+% To the power of 3 term comes from the third-derivative of the function
+% that L is being applied to in equation (53)
+rlen = -ves.bendsti*(abs(IK)/L).^3/4 + ves.SPc*ves.bendsti*(IK/L).^4; 
+% last term in eq(54)
 
-var1 = fft(ftheta);%fft of first 2 terms in 54 
+var1 = fft(ftheta); % fft of first 2 terms in (54)
 var2 = fft(theta-[2*pi*(0:N-1)]'/N);
 %clf;
-%plot(utn)
+%plot(ut)
 %pause
-fntheta = real(ifft(var1-rlen.*var2));
+fntheta = real(ifft(var1 - rlen.*var2));
 
 %Krasney filter applied to smooth out spurious high frequency terms
 fntheta = o.kfilter(fntheta,N);
 % plot(fntheta)
 % pause
+
 end %fthetaim
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function ftheta = forceTheta(o,ves,unt,utn,fdotn)
+function ftheta = forceTheta(o,ves,un,ut,fdotn)
 %forcing term for the ODE for theta 
 N = ves.N;
 L = ves.L;
@@ -483,13 +485,14 @@ IK = o.modes(N);
 dthetads = o.rmLinearPart(ves)/L;
 
 %compute the derivative of the normal velocity
-dunds = o.diffFT(unt+ves.SPc*fdotn,IK)/L;    
+dunds = o.diffFT(un + ves.SPc*fdotn,IK)/L;    
 
-%Check T_s = -V * curvature (local inextensibility condition) (see
-%equation (20) in Sohn et al JCP 2010)
-ftheta = -dunds + dthetads.*utn;    
+% Check T_s = -V * curvature (local inextensibility condition) (see
+% equation (20) in Sohn et al JCP 2010)
+ftheta = -dunds + dthetads.*ut;
     
-end %forceTheta
+end % forceTheta
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function filtered = kfilter(o,ftheta,N)
 %fourier filter with krasny filtering with 1 input vector 
