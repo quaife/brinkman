@@ -1,12 +1,12 @@
 %setup the intial data for the coefficient
-shearate = 30;
-shape = .1;
+shearate = 0;
+shape = .3;
 phi = 0.3;
-scale = 1/6;
+scale = 1;
 
 global consta eps_ch kmatrix velocity bendsti bendratio uinside uoutside m
 
-initialdata = [512 1e-5 1/scale 1e-3 phi 0 shape  ...
+initialdata = [256 1e-3 1/scale 1e-3 phi 0 shape  ...
     shearate 1 .1 1 100 1.0 1.0];
 
 ngrid = initialdata(1);
@@ -232,23 +232,27 @@ for ktime = 1:nstep
       usetself(x0,y0,sl,thetan,rconn);
 %   disp('here1')
 %   norm(uy0)
-%   pause
-  figure(1); clf; hold on;
-  plot(x,y,'r')
-  quiver(x(1:end-1),y(1:end-1),ux0,uy0)
+% %   pause
+%   figure(1); clf; hold on;
+%   plot(x,y,'r')
+%   quiver(x(1:end-1),y(1:end-1),ux0,uy0)
   nn = [nn;norm([ux0;uy0])];
   %disp('here 1')
   %norm([ux0;uy0])
-  axis equal
-  axis([-3 3 -3 3])
-  pause(0.1)
-  hold off
+%   axis equal
+%   axis([-3 3 -3 3])
+%   pause(0.1)
+%   hold off
   
   u1x=ux0(1);
   u1y=uy0(1);    
 
   un  = ux0.*sin(thetan) - uy0.*cos(thetan);
   utt = ux0.*cos(thetan) + uy0.*sin(thetan);
+  figure(3)
+  semilogy(abs(fftshift(fft(ux0))))
+  pause
+  
   
   fsln = forcsl(m,thetan,un);
   slnn = sln + dt*(3*fsln-fsl)/2;

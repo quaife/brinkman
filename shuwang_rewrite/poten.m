@@ -56,17 +56,17 @@ rt = repmat((1:o.N)'*pi/o.N , [1 o.N]) - ...
 %Compute the denominator of equation (43). Putting ones in the diagonal of 
 %r and denom results in taking log of something non-zero.
 % BQ: SHUWANG'S ORIGINAL CODE DOES NOT MULTIPLY BY 2
-denom43 = 1*abs(sin(rt));
-%denom43 = 2*abs(sin(rt));
+%denom43 = 1*abs(sin(rt));
+denom43 = 2*abs(sin(rt));
 
 irr = 1./(conj(r).*r);    % 1/r^2
 d1 = real(r); % x-coordinate of r
 d2 = imag(r); % y-coordinate of r
-Ilogr = -log(abs(r)./denom43);  % log(1/r) diag block
+Ilogr = log(abs(r)./denom43);  % log(1/r) diag block
 
 A12 = d1.*d2.*irr; % off diag vel block
-selfmatrix = [(Ilogr + d1.^2.*irr), A12;...
-     A12, (Ilogr + d2.^2.*irr)]; 
+selfmatrix = [(-Ilogr + d1.^2.*irr), A12;...
+     A12, (-Ilogr + d2.^2.*irr)]; 
 % d1^2.*irr is the r1^2/r^2 in equation (6)
 % d2^2.*irr is the r2^2/r^2 in equation (7)
 % d1.*d2.*irr is the r1*r2/r^2 in equations (6) and (7)
@@ -74,6 +74,7 @@ selfmatrix = [(Ilogr + d1.^2.*irr), A12;...
 kmatrix = o.oddEvenMatrix;
 % selfmatrix.*kmatrix picks up a factor of 2 is because we are only
 % using every other grid point, so the arclength spacing has doubled.
+
 selfmatrix = 2*selfmatrix.*kmatrix;
 
 end % StokesMatrixLogless

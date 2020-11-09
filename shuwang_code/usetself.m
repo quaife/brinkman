@@ -59,6 +59,13 @@ ulam = uinside/uoutside;
 % spontaneous curvature and the double-well potential terms with f(u).
 % These are needed for the force in equation (13)
 [forc,fforc] = uset_un(sl,theta,rcon,bendsti,bendratio,m);
+figure(5)
+clf;
+semilogy(abs(fftshift(fft(forc(1:m)))))
+hold on
+semilogy(abs(fftshift(fft(fforc(1:m)))))
+pause
+
 % For the force in equation (33). Note that the normal is n =
 % (sin(theta),-cos(theta)) and the tangent is s =
 % (cos(theta),sin(theta))

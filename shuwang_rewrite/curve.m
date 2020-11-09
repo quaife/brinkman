@@ -457,7 +457,7 @@ ftheta = o.forceTheta(ves,un,ut,fdotn);
 % now we must subtract off the stiffest part in Fourier space.
 % To the power of 3 term comes from the third-derivative of the function
 % that L is being applied to in equation (53)
-rlen = -ves.bendsti*(abs(IK)/L).^3/4 + ves.SPc*ves.bendsti*(IK/L).^4; 
+rlen = -ves.bendsti*(abs(IK)/L).^3/4 - ves.SPc*ves.bendsti*(IK/L).^4; 
 % last term in eq(54)
 
 var1 = fft(ftheta); % fft of first 2 terms in (54)
@@ -466,11 +466,15 @@ var2 = fft(theta-[2*pi*(0:N-1)]'/N);
 %plot(ut)
 %pause
 fntheta = real(ifft(var1 - rlen.*var2));
-
+figure(3)
+clf;
+semilogy(abs(fftshift(fft(un))))
+%hold on
 %Krasney filter applied to smooth out spurious high frequency terms
 fntheta = o.kfilter(fntheta,N);
+% semilogy(abs(fftshift(fft(fntheta))),'r--')
 % plot(fntheta)
-% pause
+pause
 
 end %fthetaim
 
@@ -498,7 +502,7 @@ function filtered = kfilter(o,ftheta,N)
 %fourier filter with krasny filtering with 1 input vector 
 %USING FAST FOURIER TRANSFORM
 tol = 1e-10;
-b = fft(ftheta,N);
+b = fft(ftheta);
 b(abs(b)/N < tol) = 0;
 b(N/2:N/2+2) = 0;
 
@@ -506,7 +510,7 @@ c = real(b.*exp(-10*([0:2:N N-2:-2:2]'/N).^25));
 d = imag(b.*exp(-10*([1:2:N-1 0 N-1:-2:3]'/N).^25));
 d(N/2-1) = 0; d(N/2+3) = 0;
 
-filtered = real(ifft(c+1i*d,N));
+filtered = real(ifft(c+1i*d));
 
 %size(ftheta)
 %figure(1); clf;
@@ -595,7 +599,14 @@ function dkap = acurv(o,ves)
 dkap = o.rmLinearPart(ves)/ves.L;
 
 end %acurv
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+function CoM = centerOfMass(o, X, xory, L, normal)
+  N = length(X)/2;  
+  [~,Area,~] = o.geomProp(X);
+  CoM = 0.5*L*sum(xory.^2.*normal)/(N*Area); 
+end %centerOfMass
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 end % methods
 
 end % classdef

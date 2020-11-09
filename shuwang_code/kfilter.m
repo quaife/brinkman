@@ -3,6 +3,10 @@
 
 function u = kfilter(u,m)
 
+figure(4)
+clf
+semilogy(abs(fftshift(fft(u(1:m)))))
+hold on
 %  figure(1); clf;
 %  plot(u); hold on;
 b(1,1:m) = u(1,1:m);
@@ -31,4 +35,6 @@ u(1,1:m) = b(1,1:m);
 %plot(u,'r--')
 %pause
 
+semilogy(abs(fftshift(fft(u(1:m)))),'r--')
+pause
 end
