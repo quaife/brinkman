@@ -66,19 +66,22 @@ tau = [[-Esigma.*sin(theta) - Eu.*cos(theta)]; ...
 
 %Construct Stokes matrix without the log singularity. ie. A3 only
 %contains the rightmost kernel in equation (43)
-StokesMat = op.StokesMatrixLogless(ves.X);
+StokesMat = op.StokesMatrixLogless(ves);
 
 %form the velocity, k, on the interface corresponding to v^u in eq (33)
 %If [[P^u n]]_sigma = tau, then k = stokesMatrix*tau
 k = StokesMat*tau;
-figure(5)
-clf
-semilogy(abs(fftshift(fft(k(1:end/2)))))
-hold on
-semilogy(abs(fftshift(fft(k(end/2+1:end)))))
-pause
 %ulam is the viscosity contrast
 ulam = ves.viscIn/ves.viscOut;
+figure(2)
+clf
+z1 = StokesMat(1:N,50);
+z2 = ves.X(1:end/2) + 1i*ves.X(end/2+1:end);
+semilogy(abs(fftshift(fft(z1))),'b')
+hold on
+semilogy(abs(fftshift(fft(z2))),'r')
+disp('her')
+pause
 
 %LogKernel1 and LogKernel2 are the log kernels in the left term in the
 %right hand side of equation (43) integrated against the x and y
@@ -96,6 +99,14 @@ c2 = -L/(8*pi);
 % is not stated in equation (33), but instead in equations (6) and (7)
 sigma1 = k(1:N)*c1 + LogKernel1*c2 + ves.X(N+1:end)*o.shearRate;
 sigma2 = k(N+1:end)*c1 + LogKernel2*c2;
+%figure(2)
+%clf
+%z1 = k(1:N);
+%z2 = LogKernel1;
+%semilogy(abs(fftshift(fft(z1))))
+%hold on
+%semilogy(abs(fftshift(fft(z2))))
+%pause
 
 % Calculate v dot n in eq (40)
 vdotn = sigma1.*sin(theta) - sigma2.*cos(theta);
@@ -421,10 +432,10 @@ for ktime = 1:nstep
   theta = ves.theta; % shorthand for theta
   % Normal Velocity
   un = uxvel_loop.*sin(theta) - uyvel_loop.*cos(theta); 
-  figure(2)
+%  figure(2)
   %plot(un)
-  semilogy(abs(fftshift(fft(uxvel_loop))))
-  pause(0.1)
+%  semilogy(abs(fftshift(fft(uxvel_loop))))
+%  pause(0.1)
 %   figure(3)
 %   plot(un)
 %   figure(1)

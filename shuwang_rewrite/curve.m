@@ -466,15 +466,15 @@ var2 = fft(theta-[2*pi*(0:N-1)]'/N);
 %plot(ut)
 %pause
 fntheta = real(ifft(var1 - rlen.*var2));
-figure(3)
-clf;
-semilogy(abs(fftshift(fft(un))))
+%figure(3)
+%clf;
+%semilogy(abs(fftshift(fft(un))))
 %hold on
 %Krasney filter applied to smooth out spurious high frequency terms
 fntheta = o.kfilter(fntheta,N);
 % semilogy(abs(fftshift(fft(fntheta))),'r--')
 % plot(fntheta)
-pause
+%pause
 
 end %fthetaim
 
