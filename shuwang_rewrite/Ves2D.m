@@ -15,7 +15,9 @@ X(end/2+1:end) = X(end/2+1:end) + 0.5;
 %Define the initial concentration field
 rcon = oc.initialConcentration(upRate*params.N,alpha,...
       params.concentra,params.oddeven);
-
+% figure(3)
+% plot(rcon)
+% pause
 %build object for the vesicle but without a band-limited opening angle
 ves = capsules(X,rcon,params);
 

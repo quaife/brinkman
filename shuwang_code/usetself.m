@@ -59,12 +59,12 @@ ulam = uinside/uoutside;
 % spontaneous curvature and the double-well potential terms with f(u).
 % These are needed for the force in equation (13)
 [forc,fforc] = uset_un(sl,theta,rcon,bendsti,bendratio,m);
-figure(5)
-clf;
-semilogy(abs(fftshift(fft(forc(1:m)))))
-hold on
-semilogy(abs(fftshift(fft(fforc(1:m)))))
-pause
+% figure(5)
+% clf;
+% semilogy(abs(fftshift(fft(forc(1:m)))))
+% hold on
+% semilogy(abs(fftshift(fft(fforc(1:m)))))
+% pause
 
 % For the force in equation (33). Note that the normal is n =
 % (sin(theta),-cos(theta)) and the tangent is s =
@@ -101,6 +101,15 @@ forc002_l = integral3(forc2,m);
 sigma1 = k(1:m)'*c - forc001_l(1:m)*c1 + ...
     yo(1,1:m)*velocity;
 sigma2 = k(m+1:2*m)'*c - forc002_l(1:m)*c1;
+  disp('HERE')
+  figure(2)
+  clf
+  z1 = forc;
+  z2 = fforc;
+  semilogy(abs(fftshift(fft(z1))))
+  hold on
+  semilogy(abs(fftshift(fft(z2))))
+  pause()
 
 % sigma1 and sigma2 are the solution of equation (33) (still unsure
 % about the u_s term). Also, it includes the background shear flow which

@@ -6,7 +6,7 @@ scale = 1;
 
 global consta eps_ch kmatrix velocity bendsti bendratio uinside uoutside m
 
-initialdata = [256 1e-3 1/scale 1e-3 phi 0 shape  ...
+initialdata = [256 1e-3 1/scale 1e-3 phi -1 shape  ...
     shearate 1 .1 1 100 1.0 1.0];
 
 ngrid = initialdata(1);
@@ -60,7 +60,8 @@ outpt = round(outpt/dt);
 
 % set the initial condition.
 [x,y,theta,rcon,sl] = initialsetup(shortax,ngrid,concentra,oddeven);
-
+% plot(rcon)
+% pause
 % here we keep the total arclength unchanged.
 x0 = x(1);
 y0 = y(1);
@@ -93,13 +94,13 @@ kmatrix = formkmatrix(ngrid);
 %  pause
 % clf
 % plot(x,y)
-% pause
-figure(1); clf; hold on;
-quiver(x(1:end-1),y(1:end-1),ux0 - 0*y(1:end-1),uy0)
-axis equal
-axis([-3 3 -3 3])
-pause(0.01)
-hold off
+% % pause
+% figure(1); clf; hold on;
+% quiver(x(1:end-1),y(1:end-1),ux0 - 0*y(1:end-1),uy0)
+% axis equal
+% axis([-3 3 -3 3])
+% pause(0.01)
+% hold off
 %pause
 u1x = ux0(1);
 u1y = uy0(1);
@@ -228,8 +229,10 @@ for ktime = 1:nstep
   % ux0 = x-velocity
   % uy0 = y-velocity
   % (x,y) = tracker point
+  disp('here1')
   [ux0,uy0,rlambdalnew,x,y,forc1,forc2,xcc,ycc,area] = ...
       usetself(x0,y0,sl,thetan,rconn);
+  
 %   disp('here1')
 %   norm(uy0)
 % %   pause
@@ -249,9 +252,9 @@ for ktime = 1:nstep
 
   un  = ux0.*sin(thetan) - uy0.*cos(thetan);
   utt = ux0.*cos(thetan) + uy0.*sin(thetan);
-  figure(3)
-  semilogy(abs(fftshift(fft(ux0))))
-  pause
+%   figure(3)
+%   semilogy(abs(fftshift(fft(ux0))))
+%   pause
   
   
   fsln = forcsl(m,thetan,un);
