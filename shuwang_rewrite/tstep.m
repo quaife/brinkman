@@ -73,15 +73,15 @@ StokesMat = op.StokesMatrixLogless(ves);
 k = StokesMat*tau;
 %ulam is the viscosity contrast
 ulam = ves.viscIn/ves.viscOut;
-figure(2)
-clf
-z1 = StokesMat(1:N,50);
-z2 = ves.X(1:end/2) + 1i*ves.X(end/2+1:end);
-semilogy(abs(fftshift(fft(z1))),'b')
-hold on
-semilogy(abs(fftshift(fft(z2))),'r')
-disp('her')
-pause
+%figure(2)
+%clf
+%z1 = StokesMat(1:N,50);
+%z2 = ves.X(1:end/2) + 1i*ves.X(end/2+1:end);
+% semilogy(abs(fftshift(fft(z1))),'b')
+% hold on
+% semilogy(abs(fftshift(fft(z2))),'r')
+% disp('her')
+% pause
 
 %LogKernel1 and LogKernel2 are the log kernels in the left term in the
 %right hand side of equation (43) integrated against the x and y
@@ -99,14 +99,14 @@ c2 = -L/(8*pi);
 % is not stated in equation (33), but instead in equations (6) and (7)
 sigma1 = k(1:N)*c1 + LogKernel1*c2 + ves.X(N+1:end)*o.shearRate;
 sigma2 = k(N+1:end)*c1 + LogKernel2*c2;
-%figure(2)
-%clf
-%z1 = k(1:N);
-%z2 = LogKernel1;
-%semilogy(abs(fftshift(fft(z1))))
-%hold on
-%semilogy(abs(fftshift(fft(z2))))
-%pause
+% figure(2)
+% clf
+% z1 = Eu;
+% z2 = Esigma;
+% semilogy(abs(fftshift(fft(z1))))
+% hold on
+% semilogy(abs(fftshift(fft(z2))))
+% pause()
 
 % Calculate v dot n in eq (40)
 vdotn = sigma1.*sin(theta) - sigma2.*cos(theta);
@@ -268,7 +268,11 @@ Ln = L + params.dt*dcur0(1);
 % equation (54) but without the alpha derivative multiplied by the
 % integral operator \mathcal{L}. It does include the semi-permeability
 % terms using fdotn
-N1 = oc.fthetaim(ves,un,ut,fdotn);
+ N1 = oc.fthetaim(ves,un,ut,fdotn);
+% hold off;clf;
+% semilogy(abs(fftshift(fft(N1))))
+% pause
+
 
 % next evolve the shape and the phase distribution in Fourier space.
 % Fourier series of the derivative of the tangent angle. i.e. Fourier
@@ -545,7 +549,12 @@ for ktime = 1:nstep
   
   avgux = sum(uxvel_loop)*ves.L/ves.N;
   avguy = sum(uyvel_loop)*ves.L/ves.N;
- % 
+%  % 
+%   figure(3)
+%   clf
+%   semilogy(abs(fftshift(fft(ves.theta))))
+%   pause()
+ 
   Xprov = oc.recon(ves.N,0,0,ves.L,ves.theta);    
  %
   xnormal =  sin(ves.theta);
