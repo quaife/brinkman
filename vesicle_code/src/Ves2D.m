@@ -152,16 +152,16 @@ while time < prams.T - 1e-10
       prams.fluxCoeff,options.fluxShape);
 
   % TODO: THIS SHOULD BE A FUNCTION IN TSTEP
-  if 1
+  if 0
     [ssig,eeta] = vesicle.computeSigAndEta(tt,walls);
 
     [~,pressDLPtar] = tt.opWall.exactPressDL(walls,eeta,[],pressTar,1);
 
     tracJump = vesicle.tracJump(Xstore,ssig);
     % compute traction
-    figure(2); clf;
-    plot(ssig)
-    figure(1)
+%    figure(2); clf;
+%    plot(ssig)
+%    figure(1)
 
     [~,pressSLPtar] = tt.op.exactPressSL(vesicle,tracJump,[],pressTar,1);
 

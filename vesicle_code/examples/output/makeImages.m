@@ -43,7 +43,7 @@ file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3RA0p25/ch
   irate = 5;
 end
 
-if 1
+if 0
   file = 'contracting1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1em1/contracting1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1em0p5/contracting1VesData.bin';
@@ -52,8 +52,8 @@ if 1
 %  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1e0p5/contracting1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1e1/contracting1VesData.bin';
 %  file = '~/Dropbox/Adhesion/PermeableV/contracting1Ves/contracting1VesP3Data.bin';
-  file = '~/Dropbox/Adhesion/PermeableV/contracting1Ves/Ncontracting1Ves3Data.bin';
-
+%  file = '~/Dropbox/Adhesion/PermeableV/contracting1Ves/Ncontracting1Ves3aData.bin';
+  file = '~/Dropbox/Adhesion/PermeableV/contracting1Ves/Ncontracting1Ves1aData.bin';
   ax = [-1 19 -5 5];
   options.confined = true;
   options.pressure = false;
@@ -90,17 +90,18 @@ if 0
 end
 
 if 0
-  file = 'relaxation1VesData.bin';
+%  file = 'relaxation1VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/relaxation/beta1em3_ra012_star11fold/relaxation1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/Apr142020/starBeta1em3/relaxation1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/relaxation1Ves/star_beta1p0e0/relaxation1VesData.bin';
 %    file = '~/projects/brinkman/vesicle_code/results/Apr232020/ellipseBeta1em3/relaxation1VesData.bin';
 %  ax = [-3 3 -3.5 3.5];
-  ax = 2*[-1 1 -2 2];
+  ax = 1*[-1 1 -1 1];
   options.confined = false;
   options.savefig = false;
   beta = 1e-3;
   count = 1;
-  irate = 10;
+  irate = 1;
 end
 
 if 0
@@ -127,12 +128,13 @@ if 0
   ax = [-2 2 -2 2];
   options.confined = false;
 end
-if 0
-  file = 'shear1VesCData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e0_ra065_beta1p0em3/shear1VesData.bin';
+if 1
+  file = 'shear1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1_ra065_beta1p0em3/shear1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/shear/Chi1p0e0_ra075_beta1p0em3/shear1VesData.bin';
   ax = [-5 5 -5 5];
   options.confined = false;
-  beta = 0.2;
+  beta = 1e-3;
 end
 if 0
 %  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR1em1adS1e0Chi5em1_ra090/shear2VesData.bin';
@@ -219,7 +221,7 @@ for k = istart:1:iend
   [ra(k),area(k),length(k)] = oc.geomProp([posx(:,1,k);posy(:,1,k)]);
 %  incAng(k) = InclinationAngle(posx(:,1,k),posy(:,1,k));
 
-  if 1
+  if 0
     vesicle = capsules([posx(:,:,k);posy(:,:,k)],[],[],1,1);
     normal(1:end/2,:,k) = +vesicle.xt(end/2+1:end,:);
     normal(end/2+1:end,:,k) = -vesicle.xt(1:end/2,:);
@@ -404,11 +406,4 @@ for k = istart:irate:iend
   pause(0.01)
 %  pause
 end
-
-
-
-
-
-
-
 
