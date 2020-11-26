@@ -104,7 +104,7 @@ chis = {'1e-1','1e-0.5','1e0','1e0.5','1e1','1e1.5','1e2'};
 
 fid = fopen('data.dat','w');
 %for j = 1:numel(file)
-for j = 1:1
+for j = 15:35
   disp(j)
   [posx,posy,~,~,~,~,~,~,n,~] = loadFile(file{j});
 % some files did not print correctly to file becuase they were either
