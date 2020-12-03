@@ -9,13 +9,18 @@ oc = curve;
 upRate = 4;
 [alpha,X] = oc.initConfig(upRate*params.N,false,'ellipse',...
             'shortax',params.shortax);
-        
+X(1:end/2) = X(1:end/2) + 0.07;
+X(end/2+1:end) = X(end/2+1:end) + 0.5;
+
 %Define the initial concentration field
 rcon = oc.initialConcentration(upRate*params.N,alpha,...
       params.concentra,params.oddeven);
-
+% figure(3)
+% plot(rcon)
+% pause
 %build object for the vesicle but without a band-limited opening angle
 ves = capsules(X,rcon,params);
+
 % Downsample back to the desired resolution
 ves.N = ves.N/upRate;
 ves.X = ves.X(1:upRate:end);
@@ -29,17 +34,17 @@ ves.rcon = ves.rcon(1:upRate:end);
 % in the tails of the Fourier spectrum, but they will be much smaller
 % than the original theta
 ves.smoothGeom;
-
 tt = tstep(params,ves); % set up tstep class
 om = monitor(ves.X,params,options); % set up monitor class
 
+
 % Take first step with first-order Euler
-[ves,ux_old,uy_old,L,Ln,dcur0,fntheta,N2Hat] = ...
+[ves,ux_old,uy_old,L,Ln,dcur0,fntheta,N2Hat,cx0,cy0] = ...
       tt.FirstSteps(ves,params,options,om);
 
 % Begin time step routine
 ves = tt.TimeStepLoop(ves,params,om,ux_old,uy_old,L,Ln,dcur0,...
-                      fntheta,N2Hat);
+                      fntheta,N2Hat,cx0,cy0);
 
 
 end % Ves2D

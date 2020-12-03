@@ -295,7 +295,6 @@ end % ellipse
 function rcon = initialConcentration(o,N,alpha,concentration,symmetry)
 % rcon = initialConcentration(N,alpha,concentration,symmetry) sets up
 % the initial lipid concentration defined on the vesicle.
-
 if concentration == 0
   smallper = 0;
 else
@@ -305,7 +304,7 @@ if symmetry == -1
   rcon = concentration + smallper*10*(rand(N,1) - 0.5);
   % uniform concentration with a little random noise
 elseif symmetry == 0
-  rcon = concentration + 3*smallper*cos(2*pi*alpha) + ...
+  rcon = concentration + 3*smallper*cos(2*2*pi*alpha) + ...
     0.5*smallper*cos(3*2*pi*alpha) + ...
     0.5*smallper*cos(4*2*pi*alpha);
   % uniform concentration with a little noise at specific even Fourier
@@ -314,10 +313,9 @@ elseif symmetry==1
   rcon = concentration + 5*smallper*cos(2*2*pi*alpha);
   % uniform concentration with one small even Fourier mode
 elseif symmetry==2
-  rcon = concentration+ 5*smallper*sin(2*pi*alpha);
+  rcon = concentration+ 5*smallper*sin(4*pi^2*alpha);
   % uniform concentration with one small odd Fourier mode
 end
-
 end % initialConcentration
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -446,34 +444,40 @@ dx = o.diffFT([theta - 2*pi*(0:1:N-1)'/N],IK) + 2*pi;
 end %rmLinearPart
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function fntheta = fthetaim(o,ves,unt,utn,fdotn)
+function fntheta = fthetaim(o,ves,un,ut,fdotn)
 N = ves.N;
 L = ves.L;  
 theta = ves.theta;
 IK = o.modes(N);
-%compute right hand side of the ODE for \theta in equation (8) in Sohn
-%et al JCP 2010
-ftheta = o.forceTheta(ves,unt,utn,fdotn);   
-%now we must subtract off the stiffest part in Fourier space.
-%To the power of 3 term comes from the third-derivative of the function
-%that L is being applied to in equation (53)
-rlen = -ves.bendsti*(abs(IK)/L).^3/4 + ves.SPc*ves.bendsti*(IK/L).^4; %last term in eq(54)
+% compute right hand side of the ODE for \theta in equation (8) in Sohn
+% et al JCP 2010
+ftheta = o.forceTheta(ves,un,ut,fdotn);
+% now we must subtract off the stiffest part in Fourier space.
+% To the power of 3 term comes from the third-derivative of the function
+% that L is being applied to in equation (53)
+rlen = -ves.bendsti*(abs(IK)/L).^3/4 - ves.SPc*ves.bendsti*(IK/L).^4; 
+% last term in eq(54)
 
-var1 = fft(ftheta);%fft of first 2 terms in 54 
+var1 = fft(ftheta); % fft of first 2 terms in (54)
 var2 = fft(theta-[2*pi*(0:N-1)]'/N);
 %clf;
-%plot(utn)
+%plot(ut)
 %pause
-fntheta = real(ifft(var1-rlen.*var2));
-
+fntheta = real(ifft(var1 - rlen.*var2));
+%figure(3)
+%clf;
+%semilogy(abs(fftshift(fft(un))))
+%hold on
 %Krasney filter applied to smooth out spurious high frequency terms
 fntheta = o.kfilter(fntheta,N);
+% semilogy(abs(fftshift(fft(fntheta))),'r--')
 % plot(fntheta)
-% pause
+%pause
+
 end %fthetaim
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function ftheta = forceTheta(o,ves,unt,utn,fdotn)
+function ftheta = forceTheta(o,ves,un,ut,fdotn)
 %forcing term for the ODE for theta 
 N = ves.N;
 L = ves.L;
@@ -483,19 +487,20 @@ IK = o.modes(N);
 dthetads = o.rmLinearPart(ves)/L;
 
 %compute the derivative of the normal velocity
-dunds = o.diffFT(unt+ves.SPc*fdotn,IK)/L;    
+dunds = o.diffFT(un + ves.SPc*fdotn,IK)/L;    
 
-%Check T_s = -V * curvature (local inextensibility condition) (see
-%equation (20) in Sohn et al JCP 2010)
-ftheta = -dunds + dthetads.*utn;    
+% Check T_s = -V * curvature (local inextensibility condition) (see
+% equation (20) in Sohn et al JCP 2010)
+ftheta = -dunds + dthetads.*ut;
     
-end %forceTheta
+end % forceTheta
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function filtered = kfilter(o,ftheta,N)
 %fourier filter with krasny filtering with 1 input vector 
 %USING FAST FOURIER TRANSFORM
 tol = 1e-10;
-b = fft(ftheta,N);
+b = fft(ftheta);
 b(abs(b)/N < tol) = 0;
 b(N/2:N/2+2) = 0;
 
@@ -503,7 +508,7 @@ c = real(b.*exp(-10*([0:2:N N-2:-2:2]'/N).^25));
 d = imag(b.*exp(-10*([1:2:N-1 0 N-1:-2:3]'/N).^25));
 d(N/2-1) = 0; d(N/2+3) = 0;
 
-filtered = real(ifft(c+1i*d,N));
+filtered = real(ifft(c+1i*d));
 
 %size(ftheta)
 %figure(1); clf;
@@ -515,7 +520,7 @@ filtered = real(ifft(c+1i*d,N));
 end %kfilter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function N2Hat = frconim(o,ves,epsch,consta)
+function N2 = frconim(o,ves,epsch,consta)
 %This routine is about solving equation (75) for N2Hat.
 N = ves.N;
 L = ves.L;
@@ -523,29 +528,37 @@ rcon = ves.rcon;
 IK = o.modes(N);
 %setting up RHS of eq (68) 
 %termd is the a/eps(f'(u)-eps^2u_ss) + b'(u)/2 * kappa^2 terms in eq (13) 
-%ie. termd is the variatiaonl derivative of the energy with
+%ie. termd is the variational derivative of the energy with
 %respect to the lipid concentration
 termd = o.fluxj(ves,epsch,consta);
+
 %now taking derivative of the variational derivative twice
-rcons = o.diffFT(termd,IK);
-rconss = o.diffFT(rcons,IK);
+rcons = o.diffFT(termd,IK)/L;
+rconss = o.diffFT(rcons,IK)/L;
 %invPe is the 1/Pe term in eq (67)
 invPe = 1;
 %fcon is the part of N_2 in eq (67) but is still missing the
-%a\eps/s_al^4 * u_alalalal term, (al is shorthand for alpha here)
-fcon = invPe*rconss/L^2;
+fcon = invPe*rconss;
 fconHat = fft(fcon);
-rconHat = fft(rcon,N);
-%FM are the fourier modes
-FM = 2*pi*[0 1:N/2 N/2-1:-1:1]';
+rconHat = fft(rcon);
 %rlen is the term that needs to multiply the fourier coefficients of
 %the lipid species to result in the fourth derivative scaled by the a
 %and \eps constants in equation (67)
-rlen = (FM/L).^4*consta*epsch;
-%N2Hat is the Fourier coefficeints of the right hand side of
-%equation (67) in the physical space.
-N2Hat = real(ifft(fconHat + rlen.*rconHat));
+rlen = invPe*(IK/L).^4*consta*epsch;
+%N2 is equation (67) in the physical space.
+N2Hat = fconHat + rlen.*rconHat;
+N2Hat(1) = 0;
+N2 = real(ifft(N2Hat));
 
+% N2 = real(ifft(fconHat + rlen.*rconHat));
+% figure(2)
+% clf
+% z1 = rcon;
+% z2 = N2Hat;
+% semilogy(abs(fftshift(fft(z1))),'b')
+% hold on
+% semilogy(abs(fftshift(fft(z2))),'r')
+% pause()
 end %frconim
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -562,11 +575,20 @@ IK = o.modes(N);
 %dfu is the derivative of the double-well potential
 dfu = 0.5*(rcon.*(ones(N,1)-rcon).^2 - rcon.^2.*(ones(N,1)-rcon));
 %derivative of the concentration 
-rcons = o.diffFT(rcon,IK);
+rcons = o.diffFT(rcon,IK)/L;
 %second derivative of the concentration
-rconss = o.diffFT(rcons,IK);
+rconss = o.diffFT(rcons,IK)/L;
 %term2 is eps^2 * u_ss as defined in equation (13)
-term2 = -epsch^2*rconss/L^2;
+term2 = -epsch^2*rconss;
+% 
+% figure(2)
+% clf
+% z1 = term2;
+% z2 = rcon;
+% semilogy(abs(fftshift(fft(z1))),'b')
+% hold on
+% semilogy(abs(fftshift(fft(z2))))
+% pause()
 
 %computing the b'(u)/2 * kappa^2 term in eq (13)
 b0 = ves.bendsti;
@@ -592,7 +614,14 @@ function dkap = acurv(o,ves)
 dkap = o.rmLinearPart(ves)/ves.L;
 
 end %acurv
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+function CoM = centerOfMass(o, X, xory, L, normal)
+  N = length(X)/2;  
+  [~,Area,~] = o.geomProp(X);
+  CoM = 0.5*L*sum(xory.^2.*normal)/(N*Area); 
+end %centerOfMass
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 end % methods
 
 end % classdef

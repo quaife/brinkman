@@ -192,27 +192,24 @@ function plotData(o,X,time,ea,el,vel,conc)
 % title X is the vesicle position time is the current time, ea and el
 % are the errors in area and length
 
-oc = curve;
-[x,y] = oc.getXY(X); %seperate x and y coordinates
-figure(1); clf; %hold on
+ oc = curve;
+ [x,y] = oc.getXY(X); %seperate x and y coordinates
+ figure(1); clf; %hold on
 
 %----------- General Position Plot ------------------------------------
-plot([x;x(1,:)],[y;y(1,:)],'r','linewidth',2)
+%plot([x;x(1,:)],[y;y(1,:)],'r','linewidth',2)
 
 %----------- Velocity Quiver Plot -------------------------------------
 %[xvel,yvel] = oc.getXY(vel);
 %quiver(x,y,xvel,yvel)
 
 %----------- Cline Concentration Plot ---------------------------------
-%h = cline([x;x(1,:)],[y;y(1,:)],[conc;conc(1,:)]);
-%set(h,'linewidth',3)
-%colorbar
+rbn = 1 * (ones(o.N,1) - conc) + 0.1*conc;
 
-%z = x+1i*y;
-%zh = fftshift(fft(z))/numel(x);
-%semilogy(abs(zh),'bo')
-%zh(end/2+1)
-%pause
+h = cline([x;x(1,:)],[y;y(1,:)],[rbn;rbn(1,:)]);
+set(h,'linewidth',3)
+colorbar
+
 %Title and axis settings for all plots
 titleStr = ['t = ' num2str(time,'%4.2e') ...
   ' eA = ' num2str(ea,'%4.2e') ...
