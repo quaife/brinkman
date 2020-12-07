@@ -53,8 +53,8 @@ Please provide an abstract of no more than 250 words in a single paragraph. Abst
 \input my_macros2.tex	
 
 \newif\ifTikz
-\Tikztrue
-%\Tikzfalse
+%\Tikztrue
+\Tikzfalse
 
 %\usepgfplotslibrary{external}
 %\tikzexternalize
@@ -437,9 +437,9 @@ proportional to $\beta^{-1}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Poiseuille Flow}
 \begin{figure}[htp]
-  \ifTikz
+%  \ifTikz
   \input{figures/parabolicComposite.tikz}
-  \fi
+%  \fi
   \caption{\label{fig:parabolicComposite} (a) The steady-state shape of
   an impermeable vesicle submerged in a Poiseuille flow with varying
   initial reduced areas and flow rates. The results agree with Kaoui et
