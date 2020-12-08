@@ -12,7 +12,7 @@ if 1
   file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/semipermeable/parabolic1Ves_speed8.00e02_RA9.00em01Data.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/impermeable/parabolic1Ves_speed1.20e03_RA6.00em01Data.bin';
 
-  ax = 1*[-2 2 -2 2];
+  ax = 1*[-2 2 -2 12.5];
   irate = 1;
   options.confined = false;
   options.center = true;
