@@ -1,4 +1,4 @@
-\begin{tikzpicture}[scale = 0.55]
+\begin{tikzpicture}[scale = 1.00]
 
 \pgfmathsetlengthmacro\MajorTickLength{
       \pgfkeysvalueof{/pgfplots/major tick length} * 0.5
@@ -4817,6 +4817,14 @@
 \node at (6.9,6.0) {\tiny (b)};
 \node at (9.5,5.4) {\tiny (c)};
 \node at (10.0,2.15) {\tiny (d)};
+
+\node at (7.9,5.45) {\tiny I};
+\node at (9.00,5.05) {\tiny II};
+\node at (9.70,4.25) {\tiny III};
+
+\node at (10.35,0.65) {\tiny I};
+\node at (12.00,0.65) {\tiny II};
+\node at (13.50,0.65) {\tiny III};
 
 \end{tikzpicture}
 

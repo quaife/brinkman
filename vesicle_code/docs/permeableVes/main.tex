@@ -53,8 +53,8 @@ Please provide an abstract of no more than 250 words in a single paragraph. Abst
 \input my_macros2.tex	
 
 \newif\ifTikz
-%\Tikztrue
-\Tikzfalse
+\Tikztrue
+%\Tikzfalse
 
 %\usepgfplotslibrary{external}
 %\tikzexternalize
@@ -313,19 +313,20 @@ rate. For all simulations, the bending modulus is $10^{-19}J$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Quiescent Flow} 
-Based on our analysis, a semi-permeable vesicle in a quiescent flow
+Our analysis indicates that a semi-permeable vesicle in a quiescent flow
 relaxes to a circle with constant tension $\Lambda = 2\pi^2/L^2$.
 Furthermore, equation~\eqref{eqn:areaROC} shows that the area change is
-proportional to $\beta$, so we expect the times for the vesicle to
-deviate from its initial reduced area and to reach its steady state to
-both be proportional to $\beta^{-1}$. This is verified by considering a
-vesicle with initial reduced area $\nu = 0.65$ and several different
-semi-permeability rates. In Table~\ref{tbl:ellipseRelaxTimes} we report
-the time, $t_\mathrm{steady}$, required for the vesicle's area to be
-within 1.3\% of its steady state reduced area, and the time,
-$t_\mathrm{inflate}$, required for the vesicle's reduced area to exceed
-1.3\% of its initial reduced area. Both times are proportional to
-$\beta^{-1}$. 
+proportional to $\beta$, and the times for the vesicle to deviate from
+its initial reduced area and to reach its steady state should both be
+proportional to $\beta^{-1}$. This is verified for a vesicle with
+initial reduced area $\nu = 0.65$ and with different semi-permeability
+rates. In Table~\ref{tbl:ellipseRelaxTimes} we report the required time,
+$t_\mathrm{steady}$, for the vesicle's reduced area to be within 1.3\%
+of its steady state reduced area, and the required time,
+$t_\mathrm{inflate}$, for the vesicle's reduced area to exceed 1.3\% of
+its initial reduced area. Both times are proportional to $\beta^{-1}$,
+and for this reason, our numerical results are reported in terms of the
+scaled time $\beta t$.
 \begin{table}[htp]
   \centering
   \caption{\label{tbl:ellipseRelaxTimes} The time for a semi-permeable
@@ -352,23 +353,23 @@ $\beta^{-1}$.
 \end{table}
 
 In Figure~\ref{fig:relaxationComposite}, we examine the transient
-dynamics of four vesicles $\beta = 10^{-3}$ and a variety of initial
-configurations.  First, in all cases the vesicle eventually reaches a
-circular shape of reduced area $\nu=1$. Second, we observe that even
-though the vesicle is inflating to a circle, meaning that there is a net
-flux into the vesicle, there are regions where the flux is out of the
-vesicle. These regions are denoted in blue and are only present at early
-times.  Finally, the vesicles area does not initially change by much,
-and intermediate shapes of semi-permeable vesicles resemble the shape of
-an impermeable vesicle. This can be explained by considering the two
-terms that contribute to the vesicle velocity: (i) the permeability
-velocity, $\beta(\ff \cdot \nn) \nn$, and (ii) the force balance
-velocity, $\SS[\ff]$. Since $\beta = 10^{-3}$, the permeability velocity
-is much smaller than the force balance velocity at early times, and the
-semi-permeable vesicle dynamics resembles those of an impermeable
-vesicle. As the force balance velocity decreases, the permeability
-velocity dominates, and the vesicle begins to inflate to a circle with
-no vanishing force and velocity. 
+dynamics of four vesicles with $\beta = 10^{-3}$ and a variety of
+initial configurations. As expected, each vesicle eventually
+reaches a circular shape with reduced area $\nu=1$. Next, we observe
+that even though the vesicle is inflating to a circle, meaning that
+there is a net flux into the vesicle, there are regions where the flux
+is out of the vesicle. These regions are denoted in blue and are only
+present at early times. Finally, the vesicles's reduced area do not 
+change by much at early times, and intermediate shapes of semi-permeable vesicles
+resemble the shape of an impermeable vesicle. This can be explained by
+considering the two terms that contribute to the vesicle velocity: (i)
+the permeability velocity, $\beta(\ff \cdot \nn) \nn$, and (ii) the
+force balance velocity, $\SS[\ff]$. Since $\beta = 10^{-3}$, the
+permeability velocity is much smaller than the force balance velocity at
+early times, and the semi-permeable vesicle dynamics resembles those of
+an impermeable vesicle. As the force balance velocity decreases, the
+permeability velocity dominates, and the vesicle begins to inflate to a
+circle with no vanishing force and velocity. 
 
 \begin{figure*}[htp]
   \centering
@@ -436,10 +437,10 @@ $\beta^{-1}$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Poiseuille Flow}
-\begin{figure}[htp]
-  \ifTikz
+\begin{figure*}[htp]
+%  \ifTikz
   \input{figures/parabolicComposite.tikz}
-  \fi
+%  \fi
   \caption{\label{fig:parabolicComposite} (a) The steady state shape of a
   semi-permeable vesicle submerged in a Poiseuille flow with varying
   initial reduced areas and flow rates. (b) The steady-state inclination
@@ -449,7 +450,9 @@ $\beta^{-1}$.
   background imposed flow. The channel width is 12.5 times larger than
   the vesicle radius. The corresponding reduced area for each shape is
   indicated by the marks in plot (c).}
-\end{figure}
+  \todo[inline]{shift right plot to the right and increase necessary
+  font sizes}
+\end{figure*}
 
 We consider a semi-permeable vesicle in the Poiseuille flow $\uu =
 U(1-(y/W)^2,0)$, where $U$ is the maximum imposed velocity. We examine
