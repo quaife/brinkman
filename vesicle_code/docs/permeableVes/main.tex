@@ -53,8 +53,8 @@ Please provide an abstract of no more than 250 words in a single paragraph. Abst
 \input my_macros2.tex	
 
 \newif\ifTikz
-\Tikztrue
-%\Tikzfalse
+%\Tikztrue
+\Tikzfalse
 
 %\usepgfplotslibrary{external}
 %\tikzexternalize
@@ -66,9 +66,11 @@ Please provide an abstract of no more than 250 words in a single paragraph. Abst
 \ifthenelse{\boolean{shortarticle}}{\ifthenelse{\boolean{singlecolumn}}{\abscontentformatted}{\abscontent}}{}
 
 
-\dropcap{W}ater balance is an essential process in the adaptation of a living cell to its environment \cite{AlbertsMolecularBiology}.  For example, erythrocytes participate in efficient body water homeostasis by regulating its exchange of water  \cite{SugieIntaglietta2018_AmJPhysiolHCP}.  Another example is the simultaneous regulation of cell volume and the cell membrane tension during cell migration through trafficking of aquaporin proteins \cite{SaadounPapadopoulosWatanabeEtAl2005_JCS}. 
+\dropcap{W}ater balance is an essential process in the adaptation of a living cell to its environment \cite{AlbertsMolecularBiology}.  Erythrocytes are known to  participate in efficient body water homeostasis by regulating its exchange of water  \cite{YangMaVerkman2001_JBC,SugieIntaglietta2018_AmJPhysiolHCP}.  Cells achieve motility by simultaneously regulating their cell volume and cell membrane tension through trafficking of aquaporin proteins \cite{SaadounPapadopoulosWatanabeEtAl2005_JCS,Verkman2008_JMM,BerthaudEtAl2016_SM} and flattening of caveolae \cite{Keren2011_EurBJ}. 
+Water transport in and out of cell is also found to be important to 
+active cell shape fluctuations leading to bleb formation \cite{TaloniKardashSalmanEtAl2015_PRL}.
 
-The cell membrane is permeable to water and water-soluble molecules \cite{Dick1964_JTB,FettiplaceHaydon1980_PhysRev,DeamerBramhall1986_ChemPhysLipids,Grafmueller2019_ABLS}. In the presence of an osmotic gradient across the membrane (such as a contrast in the concentration of an impermeable solute), water flows in or out of the membrane to adjust the interior cellular volume. In the red blood cell membrane, aquaporin-1 (AQP1) channels give rise to a much higher water permeability of $\sim 1.8\times 10^{-2}$ cm/s in erythrocytes \cite{YangMaVerkman2001_JBC} while the intrinsic water permeability of a lipid bilayer membrane is in the range of $10^{-4}-10^{-3}$ cm/s \cite{ThompsonHuang1966_ANYAS,FettiplaceHaydon1980_PhysRev,Grafmueller2019_ABLS,Dimova2020_GVB}.
+The cell membrane is permeable to water and water-soluble molecules \cite{Dick1964_JTB,FettiplaceHaydon1980_PhysRev,DeamerBramhall1986_ChemPhysLipids,Grafmueller2019_ABLS}. In the presence of an osmotic gradient across the membrane (such as a contrast in the concentration of an impermeable solute), water flows in or out of the membrane to neutralize the osmotic gradient. In the red blood cell membrane, aquaporin-1 (AQP1) channels give rise to a much higher water permeability of $\sim 1.8\times 10^{-2}$ cm/s in erythrocytes \cite{YangMaVerkman2001_JBC} while the intrinsic water permeability of a lipid bilayer membrane is in the range of $10^{-4}-10^{-3}$ cm/s \cite{ThompsonHuang1966_ANYAS,FettiplaceHaydon1980_PhysRev,Grafmueller2019_ABLS,Dimova2020_GVB}.
 
 Vesicles (self-enclosed lipid bilayer membranes) have been used as a model system to study reshaping, remodeling and scission of cell membranes due to osmotic stress \cite{OgleckaEtAl2014_eLife,CamposSaric2020_bioRxiv,Dimova2020_GVB}. Under an osmotic shock, a vesicle may undergo oscillatory variation in its enclosed volume \cite{ChabanonHoLiedberg2017_BJ}. In these situations, the osmotic stress is the dominant driving force for water transport across the membrane. Thus most modeling works ignore the mechanical effects (capillary pressure, bending force and membrane tension) on vesicles under an osmotic shock. However, the osmotic water flux is inevitably coupled with the mechanical pressure jump across the membrane\cite{yao-mor2017}, which could become comparable to osmotic stress when the membrane deformation is large \cite{LiMoriSun2015_PRL,yao-mor2017}.
 
@@ -79,7 +81,7 @@ Without aquaporins or other membrane channels that promotes water permeability, 
 happens in regions where proteins congregate and this can lead to
 semi-permeability?
 
-\section*{Governing equations} \label{sc:formulate}
+\section*{Governing equations \label{sc:formulate}}
 We consider a two-dimensional semi-permeable vesicle suspended in an
 unbounded viscous fluid driven by the imposed flow $\uu_\infty(\xx)$.
 Since fluid is transported across the semi-permeable vesicle membrane,
