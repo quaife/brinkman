@@ -10,9 +10,10 @@
 Physics}
 
 % Use letters for affiliations, numbers to show equal authorship (if applicable) and to indicate the corresponding author
+\author[a]{Bryan Quaife}
 \author[a]{Ashley Gannon}
-\author[b]{Yuan-Nan Young} 
-\author[a,1]{Bryan Quaife}
+\author[b,1]{Y.-N. Young} 
+
 
 \affil[a]{Department of Scientific Computing, Florida State University}
 \affil[b]{Department of Mathematical Sciences, New Jeresy Institute of
@@ -34,7 +35,9 @@ is required for all research papers.}
 \authorcontributions{All authors contributed equally.}
 %\authordeclaration{Please declare any competing interests here.}
 %\equalauthors{\textsuperscript{1}A.O.(Author One) contributed equally to this work with A.T. (Author Two) (remove if not applicable).}
-\correspondingauthor{\textsuperscript{1} E-mail: bquaife\@fsu.edu}
+%\correspondingauthor{\textsuperscript{1} E-mail: bquaife\@fsu.edu}
+\correspondingauthor{\textsuperscript{1} E-mail: yyoung@njit.edu}
+
 
 % At least three keywords are required at submission. Please provide three to five keywords, separated by the pipe symbol.
 \keywords{Keyword 1 $|$ Keyword 2 $|$ Keyword 3 $|$ ...} 
@@ -53,8 +56,8 @@ Please provide an abstract of no more than 250 words in a single paragraph. Abst
 \input my_macros2.tex	
 
 \newif\ifTikz
-%\Tikztrue
-\Tikzfalse
+\Tikztrue
+%\Tikzfalse
 
 %\usepgfplotslibrary{external}
 %\tikzexternalize
@@ -66,243 +69,29 @@ Please provide an abstract of no more than 250 words in a single paragraph. Abst
 \ifthenelse{\boolean{shortarticle}}{\ifthenelse{\boolean{singlecolumn}}{\abscontentformatted}{\abscontent}}{}
 
 
-\dropcap{W}ater balance is an essential process in the adaptation of a living cell to its environment \cite{AlbertsMolecularBiology}.  Erythrocytes are known to  participate in efficient body water homeostasis by regulating its exchange of water  \cite{YangMaVerkman2001_JBC,SugieIntaglietta2018_AmJPhysiolHCP}.  Cells achieve motility by simultaneously regulating their cell volume and cell membrane tension through trafficking of aquaporin proteins \cite{SaadounPapadopoulosWatanabeEtAl2005_JCS,Verkman2008_JMM,BerthaudEtAl2016_SM} and flattening of caveolae \cite{Keren2011_EurBJ}. 
-Water transport in and out of cell is also found to be important to 
-active cell shape fluctuations leading to bleb formation \cite{TaloniKardashSalmanEtAl2015_PRL}.
+\dropcap{W}ater balance is an essential process in the adaptation of a living cell to its environment \cite{AlbertsMolecularBiology}: Erythrocytes are known to  participate in efficient body water homeostasis by regulating its exchange of water  \cite{YangMaVerkman2001_JBC,SugieIntaglietta2018_AmJPhysiolHCP}.  Cells achieve motility by simultaneously regulating their cell volume and cell membrane tension through trafficking of aquaporin proteins \cite{SaadounPapadopoulosWatanabeEtAl2005_JCS,Verkman2008_JMM,BerthaudEtAl2016_SM} and flattening of caveolae \cite{Keren2011_EurBJ}. 
+Cells also need to control water transport across the cell membrane as they activate shape fluctuations prior to the bleb formation \cite{TaloniKardashSalmanEtAl2015_PRL}.
 
-The cell membrane is permeable to water and water-soluble molecules \cite{Dick1964_JTB,FettiplaceHaydon1980_PhysRev,DeamerBramhall1986_ChemPhysLipids,Grafmueller2019_ABLS}. In the presence of an osmotic gradient across the membrane (such as a contrast in the concentration of an impermeable solute), water flows in or out of the membrane to neutralize the osmotic gradient. In the red blood cell membrane, aquaporin-1 (AQP1) channels give rise to a much higher water permeability of $\sim 1.8\times 10^{-2}$ cm/s in erythrocytes \cite{YangMaVerkman2001_JBC} while the intrinsic water permeability of a lipid bilayer membrane is in the range of $10^{-4}-10^{-3}$ cm/s \cite{ThompsonHuang1966_ANYAS,FettiplaceHaydon1980_PhysRev,Grafmueller2019_ABLS,Dimova2020_GVB}.
+The cell membrane is permeable to water and water-soluble molecules \cite{Dick1964_JTB,FettiplaceHaydon1980_PhysRev,DeamerBramhall1986_ChemPhysLipids,Grafmueller2019_ABLS}. In the presence of an osmotic gradient across the membrane (such as a contrast in the concentration of an impermeable solute), water flows against the osmotic gradient  to neutralize the osmolarity. Without aquaporins or other membrane channels that promotes water permeability, the intrinsic water permeability is known to depend on the temperature \cite{OlbrichRawiczNeedhamEtAl2000_BJ}, lipid composition \cite{OlbrichRawiczNeedhamEtAl2000_BJ}, and the hydration  energy of the membrane \cite{MarrinkBerendsen1994_JPhysChem}. In the red blood cell membrane, aquaporin-1 channels give rise to a much higher water permeability of $\sim 1.8\times 10^{-2}$ cm/s in erythrocytes \cite{YangMaVerkman2001_JBC} while the intrinsic water permeability of a lipid bilayer membrane is in the range of $10^{-4}-10^{-3}$ cm/s \cite{ThompsonHuang1966_ANYAS,FettiplaceHaydon1980_PhysRev,Grafmueller2019_ABLS,Dimova2020_GVB,BhatiaRobinsonDimova2020_SoftMatt}. 
 
-Vesicles (self-enclosed lipid bilayer membranes) have been used as a model system to study reshaping, remodeling and scission of cell membranes due to osmotic stress \cite{OgleckaEtAl2014_eLife,CamposSaric2020_bioRxiv,Dimova2020_GVB}. Under an osmotic shock, a vesicle may undergo oscillatory variation in its enclosed volume \cite{ChabanonHoLiedberg2017_BJ}. In these situations, the osmotic stress is the dominant driving force for water transport across the membrane. Thus most modeling works ignore the mechanical effects (capillary pressure, bending force and membrane tension) on vesicles under an osmotic shock. However, the osmotic water flux is inevitably coupled with the mechanical pressure jump across the membrane\cite{yao-mor2017}, which could become comparable to osmotic stress when the membrane deformation is large \cite{LiMoriSun2015_PRL,yao-mor2017}.
 
-Without aquaporins or other membrane channels that promotes water permeability, the intrinsic water permeability is known to depend on the temperature \cite{}, solvent ph \cite{}, and the hydration  energy of the membrane \cite{}. In this work we focus on the intrinsic water permeability and study the hydrodynamics of a semipermeable membrane. Specifically we focus on the water permeability due to jump in normal membrane traction.
+The swelling/shrinking of a cell is inevitably coupled to changes in membrane tension and cell shape \cite{StrokaJiangChenEtAl2014_Cell,LiMoriSun2015_PRL}.  
+Most studies focus on the osmolarity-induced water flux, while mechanical pressure may also contribute to the permeable water flow \cite{yao-mor2017}.
+%The response of a cell to an osmotic gradient is inevitably both mechanical (tension redistribution and shape change) and chemical (water flux across the membrane).  
+In this work we focus on the intrinsic water permeability and study the subtle balance between hydrodynamics and elasticity of a semipermeable membrane under various flowing conditions and confinement. Specifically we focus on the effects of intrinsic water permeability in a vesicle under stress due to flows and/or confinement.
 
-\paragraph{Literature to maybe cite}
-\cite{ali-ovr-ran2020} show how beading can occur on nanotubes. This
-happens in regions where proteins congregate and this can lead to
-semi-permeability?
 
-\section*{Governing equations \label{sc:formulate}}
-We consider a two-dimensional semi-permeable vesicle suspended in an
-unbounded viscous fluid driven by the imposed flow $\uu_\infty(\xx)$.
-Since fluid is transported across the semi-permeable vesicle membrane,
-we only consider fluids with uniform viscosity. Letting $\gamma$ be the
-vesicle interface, the fluid velocity $\uu$ and pressure $p$ satisfy
+Vesicles (self-enclosed lipid bilayer membranes) have been used as a model system to study reshaping, remodeling and scission of cell membranes due to osmotic stress \cite{OgleckaEtAl2014_eLife,CamposSaric2020_bioRxiv,Dimova2020_GVB,BhatiaChrist2020_SoftMatt}. Under an osmotic shock, a vesicle may undergo oscillatory variation in its enclosed volume \cite{ChabanonHoLiedberg2017_BJ}. When trapped in a microfluidic channel, an osmotic shock induces 
+ vesicle shape changes, tank-treading and tumbling motions \cite{BhatiaRobinsonDimova2020_SoftMatt,BhatiaChrist2020_SoftMatt}, an illustration that the permeable water flow is inevitably coupled with the mechanical pressure jump across the membrane\cite{yao-mor2017}, which could become comparable to osmotic stress when the membrane deformation is large \cite{LiMoriSun2015_PRL,yao-mor2017}.  In this work we use numerical simulations to examine the hydrodynamics of a semipermeable vesicle in two dimensions. Focusing on the effects of water permeability on the hydrodynamics of a vesicle under mechanical stresses, we investigate how a semipermeable vesicle may behave differently from their impermeable counterpart in familiar situations such as shear flows, a stenosis channel, and a contracting channel.
+
 %
-\begin{alignat}{3}
-  \label{eqn:governing}
-  -\nabla p + \mu \triangle \uu &= 0, \quad
-  \nabla \cdot \uu = 0, \qquad &&\xx \in \RR^2 \setminus \gamma, \\
-%
-  \uu(\xx) &\rightarrow \uu_\infty(\xx),
-    &&\norm{\xx} \rightarrow \infty,
-\end{alignat}
-where $\mu$ is the fluid viscosity. Letting $\nn$ be the outward normal
-to $\gamma$, $\jump{\cdot}$ be the jump across the interface, and $T$ be
-the hydrodynamic stress tensor, the interfacial boundary conditions are
-\begin{align}
-  \label{eqn:jump}
-  \jump{T\cdot\nn} = \ff_\mathrm{mem}, \quad \jump{\uu} = 0,
-\end{align}
-where $\ff_\mathrm{mem}$ is the membrane force that results from the
-Helfrich energy with bending modulus $k_b$, and a tension term that acts
-as a Lagrange multiplier to satisfy the local inextensibility condition.
-Following~\cite{vee-gue-zor-bir2009}, we modify the bending tension and
-forces as
-$\ff_\mathrm{mem} = \ff_\mathrm{ben} +
-\ff_\mathrm{ten}$, where
-\begin{align}
-  \label{eqn:membraneForces}
-  \ff_\mathrm{ben} = -k_b \xx_{ssss}, \qquad
-  \ff_\mathrm{ten} = (\sigma \xx_s)_s.
-\end{align}
-The physical tension is $\Lambda = \sigma + 1.5 \kappa^2$, where
-$\kappa$ is the membrane curvature.
-
-Semi-permeability is introduced by modifying the vesicle velocity from
-the standard choice. Instead of using the no-slip boundary condition, we
-assume the fluid flux through the boundary is proportional to the
-mechanical force~\cite{yao-mor2017}. That is, 
-\begin{align}
-  \label{eqn:vesicleFlux}
-  \uu - \dot{\xx} = - \beta (\ff_\mathrm{mem} \cdot \nn) \nn, \qquad
-  \xx \in \gamma,
-\end{align}
-where $\beta$ is the semi-permeability rate.  
-
-
+%\paragraph{Literature to maybe cite}
+%\cite{ali-ovr-ran2020} show how beading can occur on nanotubes. This
+%happens in regions where proteins congregate and this can lead to
+%semi-permeability?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Integral equation formulation}
-Since the fluid satisfies the Stokes equations, it can be represented as
-layer potential. Given the interfacial boundary
-conditions~\eqref{eqn:jump}, the fluid velocity is
-\begin{align}
-  \uu(\xx) = \uu_\infty(\xx) + \SS[\ff_\mathrm{mem}](\xx), \quad
-    \xx \in \Omega,
-\end{align}
-where $\SS$ is the single-layer potential
-\begin{align}
-  \SS[\ff](\xx) = \frac{1}{4\pi\mu} \int_{\gamma} \left(
-    -\mathbf{I} \log\rho + \frac{\rr \otimes \rr}{\rho^2} \right)
-    \ff(\yy) ds_{\yy},
-\end{align}
-with $\rr = \xx - \yy$ and $\rho = \norm{\rr}$. Imposing the flux
-condition~\eqref{eqn:vesicleFlux} and the inextensibility condition, the
-vesicle velocity satisfies
-\begin{align}
-  \label{eqn:vesVelocity}
-  \dot{\xx} &= \uu_\infty(\xx) + \beta (\ff_\mathrm{mem}\cdot\nn)\nn
-  + \SS [\ff_\mathrm{mem}](\xx),  \quad
-  \xx_s \cdot \dot{\xx}_s = 0.
-\end{align}
+\section*{Formulation}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Dimensionless equations}
-The inextensibility condition guarantees that the vesicle's length, $L$,
-is conserved, while its area, $A$, can change due to semi-permeability.
-Therefore, the reduced area $\nu = 4\pi A/L^2 \in (0,1]$ is not
-conserved. We non-dimensionalize~\eqref{eqn:vesVelocity} by introducing
-the length scale $R_0 = L/2\pi$ and defining the time scale $\tau = \mu
-R_0^3/k_b$, the tension scale $Q = k_b/R_0^2$, and the permeability
-scale $W = R_0/\mu$. The background velocity $\uu_\infty$ is
-non-dimensionalized with $R_0/\tau$.
-
-\todo[inline]{This is a dump of information regarding how we
-non-dimensionalize}
-In each experiment, we initialize an elliptical vesicle with longest
-diameter of 9$\mu$m. We use a length scale of $R_0 = 10^{-6}$m, a
-bending stiffness of $k_b = 10^{-19}$J, and fluid viscosity of $\mu=5
-\times 10^{-2}$kg/ms. Using the relaxation time scale $\tau = \mu
-R_0^3/k_b = 5 \times 10^{-1}$s, the pressure scale is $P = k_b/R_0^3 =
-10^{-1}$Pa. 
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Area dynamics}
-Following the analysis of Veerapaneni et al.~\cite{vee-raj-bir-pur2009},
-we compute the steady state shape of a semi-permeable vesicle in a
-quiescent flow. The steady state shape is a stationary point of the
-Lagrangian
-\begin{align}
-  \mathcal{L} = \frac{1}{2}\int_{\gamma} \kappa^2 \, ds +
-    \Lambda \left(\int_{\gamma} ds  - L \right),
-\end{align}
-where the Lagrange multiplier $\Lambda$ is the tension. Note the absence
-of the pressure Lagrange multiplier since the vesicle's area fluctuates.
-Taking the variation of $\mathcal{L}$ with respect to $\gamma$ and
-setting it to zero, the steady state shape satisfies $\kappa_{ss} +
-\frac{1}{2}\kappa^3 - \Lambda \kappa = 0$, with initial conditions
-$\kappa(0) = \kappa_0$ and $\kappa_s(0) = 0$.  Integrating once, we have
-\begin{align}
-  \frac{\kappa_s^2}{2} + \frac{\kappa^4}{8} - 
-    \frac{\Lambda}{2}\kappa^2 = \frac{\kappa_0^4}{8} - 
-    \frac{\Lambda}{2}\kappa_0^2.
-  \label{eqn:curveODE}
-\end{align}
-Assuming $\kappa_s \neq 0$,~\eqref{eqn:curveODE} is separable, and can
-be solved analytically in terms of the {\em EllipticF} function using
-Mathematica. Unlike in the impermeable case~\cite{vee-raj-bir-pur2009},
-the solution of~\eqref{eqn:curveODE} is not periodic unless $\kappa(s) =
-\kappa_0$. Therefore, the steady state shape of a semi-permeable vesicle
-in a quiescent flow is a circle with radius $L/2\pi$. Therefore, the
-steady state curvature and tension are
-\begin{align}
-  \kappa = \frac{2\pi}{L}, \: \Lambda = \frac{2\pi^2}{L^2}.
-  \label{eqn:SSshape}
-\end{align}
-Note that in contrast to a impermeable vesicle, the tension is positive
-rather than negative.
-
-We also compute the transient area of the vesicle. Since the area of the
-vesicle is
-\begin{align}
-  A(t) = \frac{1}{2}\int_{\gamma} (\xx \cdot \nn)\, ds,
-  \label{eqn:area}
-\end{align}
-its derivative includes terms due to the time derivative of $\xx \cdot
-\nn$ and a term due to interface stretching~\cite{lai-tse-hua2008}, but
-this latter term term is zero because of the local inextensibility
-condition. Therefore,
-\begin{align}
-  \dot{A}(t) =
-  \frac{1}{2} \int_{\gamma} (\dot{\xx} \cdot \nn)\, ds  + 
-  \frac{1}{2} \int_{\gamma} (\xx \cdot \dot{\nn})\, ds.
-\end{align}
-Applying integration by parts, the two integrals agree, and we have
-%\begin{align}
-%  \int_\gamma (\xx \cdot \dot{\nn})\, ds 
-%    = \int_\gamma \left(\xx \cdot \dot{\xx}_s^\perp \right)
-%    = -\int_\gamma \left(\xx^\perp \cdot \dot{\xx}_s\right)\, ds 
-%    = \int_\gamma \left(\xx_s^\perp \cdot \dot{\xx}\right)\, ds 
-%    = \int_\gamma (\dot{\xx} \cdot \nn)\, ds.
-%\end{align}
-\begin{align}
-  \dot{A}(t) = \int_\gamma \left(\beta (\ff \cdot \nn)\nn 
-    + \SS[\ff]\right) \cdot \nn\, ds 
-  = \beta \int_\gamma (\ff \cdot \nn)\, ds,
-\end{align}
-where we have used the incompressibility of the single-layer potential.
-Repeatedly applying integration by parts, we have
-\begin{align}
-  \dot{A}(t) &= \beta \int_\gamma \left( -\xx_{ssss} + 
-    (\sigma \xx_s)_s \right) \cdot \nn \, ds \\
-  &= -\beta \int_\gamma \left(-\xx_{sss} + \sigma \xx_s 
-    \right) \cdot \kappa \xx_s \, ds \\
-  &= -\beta \int_\gamma \left(\xx_{ss} \cdot 
-    (\kappa \xx_s)_s + \kappa \sigma \right) \, ds \\
-  &= -\beta \int_\gamma \left(\kappa (\xx_{ss} \cdot \xx_{ss}) + 
-    \kappa_s (\xx_{ss} \cdot \xx_s) + \kappa \sigma \right) 
-    \, ds \\
-  &= -\beta \int_\gamma \left(\kappa^3 + \kappa \sigma \right) 
-    \, ds = \beta \int_\gamma \left(
-    \frac{\kappa^3}{2} - \kappa \Lambda \right) \, ds.
-  \label{eqn:areaROC}
-\end{align}
-Note that~\eqref{eqn:SSshape} and are consistent since the constant
-curvature and tension values cause the integrand to vanish.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Numerical Methods}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Discretization in Space}
-By using a boundary integral equation formulation, the unknowns are the
-vesicle's position and tension that we track at $N$ discretization
-points. Derivatives are computed with Fourier differentiation, and the
-eighth-order quadrature~\cite{alp1999} is applied to the single-layer
-potential. For constricted flows, nearly-singular integrals are computed
-with an interpolation-based quadrature rule~\cite{qua-bir2014}.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Discretization in Time}
-To eliminate stringent time step restrictions, we modify a time stepping
-method that discretizes high-order derivatives
-semi-implicitly~\cite{vee-gue-zor-bir2009}. We introduce the notation
-\begin{alignat}{3}
-  &B[\xx]\ff = -\frac{d^4}{ds^4} \ff,  \qquad
-  &&T[\xx]\sigma = (\sigma \xx_s)_s, \\
-  &D[\xx]\ff = \xx_s \cdot \ff_s, 
-  &&P[\xx]\ff = (\ff \cdot \nn) \nn,
-\end{alignat}
-for the differential and projection operators. Letting $B^N$ be the
-bending operator due to the vesicle configuration at time $t^N$, and
-similar notation for the other operators, we use the first-order
-semi-implicit time stepping method
-\begin{alignat}{3}  
-  \frac{\xx^{N+1} - \xx^N}{\Delta t} &= \uu_\infty(\xx^N) 
-  &&+ \beta P^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right) \nonumber \\
-  & &&+ \SS^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right), 
-\end{alignat}
-and  the inextensibility condition is discretized as
-\begin{align}
-  D^N\xx^{N+1} &= 1.
-\end{align}
-To achieve second-order accuracy over long time horizons, we modify an
-adaptive spectral deferred correction time stepping
-method~\cite{qua-bir2016}. Since the area of the vesicle is not
-conserved, we only use the length of the vesicle to estimate the error
-which determines if a time step is accepted or not and determines the
-subsequent time step size.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Examples}
@@ -1128,6 +917,230 @@ decreases by 13.2\% (Figure~\ref{fig:stenosisComposite}(e)).
 %  vesicles in Figure~\ref{fig:stenosisShape}. The point $\theta=0$
 %  corresponds to the right-most point of the vesicle.}
 %\end{figure}
+
+\section*{Supplementary Material: Formulation \label{sc:formulate}}
+We consider a two-dimensional semi-permeable vesicle suspended in an
+unbounded viscous fluid driven by the imposed flow $\uu_\infty(\xx)$.
+Since fluid is transported across the semi-permeable vesicle membrane,
+we only consider fluids with uniform viscosity. Letting $\gamma$ be the
+vesicle interface, the fluid velocity $\uu$ and pressure $p$ satisfy
+%
+\begin{alignat}{3}
+  \label{eqn:governing}
+  -\nabla p + \mu \triangle \uu &= 0, \quad
+  \nabla \cdot \uu = 0, \qquad &&\xx \in \RR^2 \setminus \gamma, \\
+%
+  \uu(\xx) &\rightarrow \uu_\infty(\xx),
+    &&\norm{\xx} \rightarrow \infty,
+\end{alignat}
+where $\mu$ is the fluid viscosity. Letting $\nn$ be the outward normal
+to $\gamma$, $\jump{\cdot}$ be the jump across the interface, and $T$ be
+the hydrodynamic stress tensor, the interfacial boundary conditions are
+\begin{align}
+  \label{eqn:jump}
+  \jump{T\cdot\nn} = \ff_\mathrm{mem}, \quad \jump{\uu} = 0,
+\end{align}
+where $\ff_\mathrm{mem}$ is the membrane force that results from the
+Helfrich energy with bending modulus $k_b$, and a tension term that acts
+as a Lagrange multiplier to satisfy the local inextensibility condition.
+Following~\cite{vee-gue-zor-bir2009}, we modify the bending tension and
+forces as
+$\ff_\mathrm{mem} = \ff_\mathrm{ben} +
+\ff_\mathrm{ten}$, where
+\begin{align}
+  \label{eqn:membraneForces}
+  \ff_\mathrm{ben} = -k_b \xx_{ssss}, \qquad
+  \ff_\mathrm{ten} = (\sigma \xx_s)_s.
+\end{align}
+The physical tension is $\Lambda = \sigma + 1.5 \kappa^2$, where
+$\kappa$ is the membrane curvature.
+
+Semi-permeability is introduced by modifying the vesicle velocity from
+the standard choice. Instead of using the no-slip boundary condition, we
+assume the fluid flux through the boundary is proportional to the
+mechanical force~\cite{yao-mor2017}. That is, 
+\begin{align}
+  \label{eqn:vesicleFlux}
+  \uu - \dot{\xx} = - \beta (\ff_\mathrm{mem} \cdot \nn) \nn, \qquad
+  \xx \in \gamma,
+\end{align}
+where $\beta$ is the semi-permeability rate.  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Integral equation formulation}
+Since the fluid satisfies the Stokes equations, it can be represented as
+layer potential. Given the interfacial boundary
+conditions~\eqref{eqn:jump}, the fluid velocity is
+\begin{align}
+  \uu(\xx) = \uu_\infty(\xx) + \SS[\ff_\mathrm{mem}](\xx), \quad
+    \xx \in \Omega,
+\end{align}
+where $\SS$ is the single-layer potential
+\begin{align}
+  \SS[\ff](\xx) = \frac{1}{4\pi\mu} \int_{\gamma} \left(
+    -\mathbf{I} \log\rho + \frac{\rr \otimes \rr}{\rho^2} \right)
+    \ff(\yy) ds_{\yy},
+\end{align}
+with $\rr = \xx - \yy$ and $\rho = \norm{\rr}$. Imposing the flux
+condition~\eqref{eqn:vesicleFlux} and the inextensibility condition, the
+vesicle velocity satisfies
+\begin{align}
+  \label{eqn:vesVelocity}
+  \dot{\xx} &= \uu_\infty(\xx) + \beta (\ff_\mathrm{mem}\cdot\nn)\nn
+  + \SS [\ff_\mathrm{mem}](\xx),  \quad
+  \xx_s \cdot \dot{\xx}_s = 0.
+\end{align}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Dimensionless equations}
+The inextensibility condition guarantees that the vesicle's length, $L$,
+is conserved, while its area, $A$, can change due to semi-permeability.
+Therefore, the reduced area $\nu = 4\pi A/L^2 \in (0,1]$ is not
+conserved. We non-dimensionalize~\eqref{eqn:vesVelocity} by introducing
+the length scale $R_0 = L/2\pi$ and defining the time scale $\tau = \mu
+R_0^3/k_b$, the tension scale $Q = k_b/R_0^2$, and the permeability
+scale $W = R_0/\mu$. The background velocity $\uu_\infty$ is
+non-dimensionalized with $R_0/\tau$.
+
+\todo[inline]{This is a dump of information regarding how we
+non-dimensionalize}
+In each experiment, we initialize an elliptical vesicle with longest
+diameter of 9$\mu$m. We use a length scale of $R_0 = 10^{-6}$m, a
+bending stiffness of $k_b = 10^{-19}$J, and fluid viscosity of $\mu=5
+\times 10^{-2}$kg/ms. Using the relaxation time scale $\tau = \mu
+R_0^3/k_b = 5 \times 10^{-1}$s, the pressure scale is $P = k_b/R_0^3 =
+10^{-1}$Pa. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Area dynamics}
+Following the analysis of Veerapaneni et al.~\cite{vee-raj-bir-pur2009},
+we compute the steady state shape of a semi-permeable vesicle in a
+quiescent flow. The steady state shape is a stationary point of the
+Lagrangian
+\begin{align}
+  \mathcal{L} = \frac{1}{2}\int_{\gamma} \kappa^2 \, ds +
+    \Lambda \left(\int_{\gamma} ds  - L \right),
+\end{align}
+where the Lagrange multiplier $\Lambda$ is the tension. Note the absence
+of the pressure Lagrange multiplier since the vesicle's area fluctuates.
+Taking the variation of $\mathcal{L}$ with respect to $\gamma$ and
+setting it to zero, the steady state shape satisfies $\kappa_{ss} +
+\frac{1}{2}\kappa^3 - \Lambda \kappa = 0$, with initial conditions
+$\kappa(0) = \kappa_0$ and $\kappa_s(0) = 0$.  Integrating once, we have
+\begin{align}
+  \frac{\kappa_s^2}{2} + \frac{\kappa^4}{8} - 
+    \frac{\Lambda}{2}\kappa^2 = \frac{\kappa_0^4}{8} - 
+    \frac{\Lambda}{2}\kappa_0^2.
+  \label{eqn:curveODE}
+\end{align}
+Assuming $\kappa_s \neq 0$,~\eqref{eqn:curveODE} is separable, and can
+be solved analytically in terms of the {\em EllipticF} function using
+Mathematica. Unlike in the impermeable case~\cite{vee-raj-bir-pur2009},
+the solution of~\eqref{eqn:curveODE} is not periodic unless $\kappa(s) =
+\kappa_0$. Therefore, the steady state shape of a semi-permeable vesicle
+in a quiescent flow is a circle with radius $L/2\pi$. Therefore, the
+steady state curvature and tension are
+\begin{align}
+  \kappa = \frac{2\pi}{L}, \: \Lambda = \frac{2\pi^2}{L^2}.
+  \label{eqn:SSshape}
+\end{align}
+Note that in contrast to a impermeable vesicle, the tension is positive
+rather than negative.
+
+We also compute the transient area of the vesicle. Since the area of the
+vesicle is
+\begin{align}
+  A(t) = \frac{1}{2}\int_{\gamma} (\xx \cdot \nn)\, ds,
+  \label{eqn:area}
+\end{align}
+its derivative includes terms due to the time derivative of $\xx \cdot
+\nn$ and a term due to interface stretching~\cite{lai-tse-hua2008}, but
+this latter term term is zero because of the local inextensibility
+condition. Therefore,
+\begin{align}
+  \dot{A}(t) =
+  \frac{1}{2} \int_{\gamma} (\dot{\xx} \cdot \nn)\, ds  + 
+  \frac{1}{2} \int_{\gamma} (\xx \cdot \dot{\nn})\, ds.
+\end{align}
+Applying integration by parts, the two integrals agree, and we have
+%\begin{align}
+%  \int_\gamma (\xx \cdot \dot{\nn})\, ds 
+%    = \int_\gamma \left(\xx \cdot \dot{\xx}_s^\perp \right)
+%    = -\int_\gamma \left(\xx^\perp \cdot \dot{\xx}_s\right)\, ds 
+%    = \int_\gamma \left(\xx_s^\perp \cdot \dot{\xx}\right)\, ds 
+%    = \int_\gamma (\dot{\xx} \cdot \nn)\, ds.
+%\end{align}
+\begin{align}
+  \dot{A}(t) = \int_\gamma \left(\beta (\ff \cdot \nn)\nn 
+    + \SS[\ff]\right) \cdot \nn\, ds 
+  = \beta \int_\gamma (\ff \cdot \nn)\, ds,
+\end{align}
+where we have used the incompressibility of the single-layer potential.
+Repeatedly applying integration by parts, we have
+\begin{align}
+  \dot{A}(t) &= \beta \int_\gamma \left( -\xx_{ssss} + 
+    (\sigma \xx_s)_s \right) \cdot \nn \, ds \\
+  &= -\beta \int_\gamma \left(-\xx_{sss} + \sigma \xx_s 
+    \right) \cdot \kappa \xx_s \, ds \\
+  &= -\beta \int_\gamma \left(\xx_{ss} \cdot 
+    (\kappa \xx_s)_s + \kappa \sigma \right) \, ds \\
+  &= -\beta \int_\gamma \left(\kappa (\xx_{ss} \cdot \xx_{ss}) + 
+    \kappa_s (\xx_{ss} \cdot \xx_s) + \kappa \sigma \right) 
+    \, ds \\
+  &= -\beta \int_\gamma \left(\kappa^3 + \kappa \sigma \right) 
+    \, ds = \beta \int_\gamma \left(
+    \frac{\kappa^3}{2} - \kappa \Lambda \right) \, ds.
+  \label{eqn:areaROC}
+\end{align}
+Note that~\eqref{eqn:SSshape} and are consistent since the constant
+curvature and tension values cause the integrand to vanish.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Supplementary Material: Numerical Methods}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Discretization in Space}
+By using a boundary integral equation formulation, the unknowns are the
+vesicle's position and tension that we track at $N$ discretization
+points. Derivatives are computed with Fourier differentiation, and the
+eighth-order quadrature~\cite{alp1999} is applied to the single-layer
+potential. For constricted flows, nearly-singular integrals are computed
+with an interpolation-based quadrature rule~\cite{qua-bir2014}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Discretization in Time}
+To eliminate stringent time step restrictions, we modify a time stepping
+method that discretizes high-order derivatives
+semi-implicitly~\cite{vee-gue-zor-bir2009}. We introduce the notation
+\begin{alignat}{3}
+  &B[\xx]\ff = -\frac{d^4}{ds^4} \ff,  \qquad
+  &&T[\xx]\sigma = (\sigma \xx_s)_s, \\
+  &D[\xx]\ff = \xx_s \cdot \ff_s, 
+  &&P[\xx]\ff = (\ff \cdot \nn) \nn,
+\end{alignat}
+for the differential and projection operators. Letting $B^N$ be the
+bending operator due to the vesicle configuration at time $t^N$, and
+similar notation for the other operators, we use the first-order
+semi-implicit time stepping method
+\begin{alignat}{3}  
+  \frac{\xx^{N+1} - \xx^N}{\Delta t} &= \uu_\infty(\xx^N) 
+  &&+ \beta P^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right) \nonumber \\
+  & &&+ \SS^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right), 
+\end{alignat}
+and  the inextensibility condition is discretized as
+\begin{align}
+  D^N\xx^{N+1} &= 1.
+\end{align}
+To achieve second-order accuracy over long time horizons, we modify an
+adaptive spectral deferred correction time stepping
+method~\cite{qua-bir2016}. Since the area of the vesicle is not
+conserved, we only use the length of the vesicle to estimate the error
+which determines if a time step is accepted or not and determines the
+subsequent time step size.
+
 
 
 \end{document}
