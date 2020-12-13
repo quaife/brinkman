@@ -97,12 +97,15 @@ On the membrane the permeable water flux gives rise to a difference between the 
 and the membrane velocity $\dot{\bf x}$ \cite{yao-mor2017}:
 \begin{align}
   \label{eqn:vesicleFlux}
-  \uu - \dot{\xx} = - \beta (R T \triangle c + \ff_\mathrm{mem} \cdot \nn) \nn, \qquad
+  \uu - \dot{\xx} = - k_w (R T \triangle c + \ff_\mathrm{mem} \cdot \nn) \nn, \qquad
   \xx \in \gamma,
 \end{align}
-where $\beta$ is the water permeability, $R$ is the ideal gas constant, $T$ is the temperature ($^{\circ}$K), $\triangle c$ is contrast in a solute concentration (mol/volume),
+where $k_w$ is the water permeability, $R$ is the ideal gas constant, $T$ is the temperature ($^{\circ}$K), $\triangle c$ is contrast in a solute concentration (mol/volume),
 and $\ff_\mathrm{mem}$ is the membrane stress that consists of both bending $ \ff_\mathrm{ben}= -k_b \xx_{ssss}$ and tension $\ff_\mathrm{ten}=(\sigma \xx_s)_s$ ($s$
-is the arclength along the membrane, see figure~\ref{fig:schematics}.
+is the arclength along the membrane, see figure~\ref{fig:schematics}. Using $k_w\sim 10^{-12}$ m$^2$s/kg (typical of mammalian cell membranes \cite{LiMoriSun2015_PRL}) and an osmolarity $\triangle c = 1$ mol/L, the permeable water flow is of the order $v_\mathrm{o}=1 \mu$m/s. Assuming that the membrane bending stiffness $k_b = 10^{-19}$J, a membrane tension $10^{-3}$N/m (one tenth of the lysis tension) and a characteristic length scale of $10^{-6}$m, the tension contribution ($v_\mathrm{t}$) and elastic stress contribution 
+($v_\mathrm{e}$) to the permeable water flow can be scaled to $v_\mathrm{o}$ as $v_\mathrm{o}:v_\mathrm{t}:v_\mathrm{e}=1:10^{-3}:10^{-7}$. We note that this result shows that the osmotic stress contributes much more to the permeable water flow than then tension and bending stresses. Furthermore, we note that in the absence of an osmotic stress, the water permeable flow can be significant when the membrane tension is large due to the external stress such as the hydrodynamics stress due to an external flow and/or due to confinement.
+In the following we will explore both.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Examples}
