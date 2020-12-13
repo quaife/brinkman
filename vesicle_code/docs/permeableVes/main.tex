@@ -56,8 +56,8 @@ Please provide an abstract of no more than 250 words in a single paragraph. Abst
 \input my_macros2.tex	
 
 \newif\ifTikz
-\Tikztrue
-%\Tikzfalse
+%\Tikztrue
+\Tikzfalse
 
 %\usepgfplotslibrary{external}
 %\tikzexternalize
@@ -91,7 +91,18 @@ Vesicles (self-enclosed lipid bilayer membranes) have been used as a model syste
 %semi-permeability?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Formulation}
-
+We consider a two-dimensional semi-permeable vesicle (permeable only to water) suspended in a viscous fluid, see figure~\ref{fig:schematics}.
+To focus on the effect of water flow on vesicle hydrodynamics in various conditions, we assume the fluid is the same inside and outside the vesicle membrane ($\gamma$).
+On the membrane the permeable water flux gives rise to a difference between the fluid velocity ${\bf u}({\bf x}\in \gamma)$
+and the membrane velocity $\dot{\bf x}$ \cite{yao-mor2017}:
+\begin{align}
+  \label{eqn:vesicleFlux}
+  \uu - \dot{\xx} = - \beta (R T \triangle c + \ff_\mathrm{mem} \cdot \nn) \nn, \qquad
+  \xx \in \gamma,
+\end{align}
+where $\beta$ is the water permeability, $R$ is the ideal gas constant, $T$ is the temperature ($^{\circ}$K), $\triangle c$ is contrast in a solute concentration (mol/volume),
+and $\ff_\mathrm{mem}$ is the membrane stress that consists of both bending $ \ff_\mathrm{ben}= -k_b \xx_{ssss}$ and tension $\ff_\mathrm{ten}=(\sigma \xx_s)_s$ ($s$
+is the arclength along the membrane, see figure~\ref{fig:schematics}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Examples}
