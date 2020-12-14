@@ -7,7 +7,7 @@ options.marker = false;
 
 irate = 1; % controls the speed of the visualization
 
-if 1
+if 0
 %  file = 'parabolic1VesData.bin';
   file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/semipermeable/parabolic1Ves_speed8.00e02_RA9.00em01Data.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/impermeable/parabolic1Ves_speed1.20e03_RA6.00em01Data.bin';
@@ -45,9 +45,9 @@ file = '~/Dropbox/Adhesion/PermeableV/choke1Ves/choke1VesBData.bin';
   irate = 5;
 end
 
-if 0
-  file = 'contracting1VesData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1em1/contracting1VesData.bin';
+if 1
+%  file = 'contracting1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1e1/contracting1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1em0p5/contracting1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1e0/contracting1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/contracting/beta0Rate1e0/contracting1VesData.bin';
@@ -55,13 +55,13 @@ if 0
 %  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1e1/contracting1VesData.bin';
 %  file = '~/Dropbox/Adhesion/PermeableV/contracting1Ves/contracting1VesP3Data.bin';
 %  file = '~/Dropbox/Adhesion/PermeableV/contracting1Ves/Ncontracting1Ves3aData.bin';
-  file = '~/Dropbox/Adhesion/PermeableV/contracting1Ves/Ncontracting1Ves1aData.bin';
+  file = '~/Dropbox/Adhesion/PermeableV/contracting1Ves/contracting1VesP4Data.bin';
   ax = [-1 19 -5 5];
   options.confined = true;
   options.pressure = false;
   options.savefig = false;
   count = 1;
-  irate = 1;
+  irate = 10;
 end
 
 

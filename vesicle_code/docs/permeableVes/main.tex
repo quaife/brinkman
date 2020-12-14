@@ -56,8 +56,8 @@ Please provide an abstract of no more than 250 words in a single paragraph. Abst
 \input my_macros2.tex	
 
 \newif\ifTikz
-%\Tikztrue
-\Tikzfalse
+\Tikztrue
+%\Tikzfalse
 
 %\usepgfplotslibrary{external}
 %\tikzexternalize
@@ -373,6 +373,18 @@ decreases by 13.2\% (Figure~\ref{fig:stenosisComposite}(e)).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Semi-Permeable Vesicle in a Contracting Geometry}
+
+
+\begin{figure*}[htp]
+  \centering
+%  \ifTikz
+  \input{figures/contractingComposite.tikz}
+%  \fi
+  \caption{\label{fig:contractingComposite} (a) A semi-permeable vesicle
+  passing through a contracting geometry similar to the experimental
+  device in~\cite{}. The narrowest part of the channel is $1.6\mu$m, and
+  the vesicle height is initially $10\mu$m.}
+\end{figure*}
 
 
 
