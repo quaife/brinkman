@@ -70,20 +70,26 @@ Please provide an abstract of no more than 250 words in a single paragraph. Abst
 
 
 \dropcap{W}ater balance is an essential process in the adaptation of a living cell to its environment \cite{AlbertsMolecularBiology}: Erythrocytes are known to  participate in efficient body water homeostasis by regulating its exchange of water  \cite{YangMaVerkman2001_JBC,SugieIntaglietta2018_AmJPhysiolHCP}.  Cells achieve motility by simultaneously regulating their cell volume and cell membrane tension through trafficking of aquaporin proteins \cite{SaadounPapadopoulosWatanabeEtAl2005_JCS,Verkman2008_JMM,BerthaudEtAl2016_SM} and flattening of caveolae \cite{Keren2011_EurBJ}. 
-Cells also need to control water transport across the cell membrane as they activate shape fluctuations prior to the bleb formation \cite{TaloniKardashSalmanEtAl2015_PRL}.
+Cells also control water transport  as they activate shape fluctuations in the membrane for the bleb formation \cite{TaloniKardashSalmanEtAl2015_PRL}.
 
 The cell membrane is permeable to water and water-soluble molecules \cite{Dick1964_JTB,FettiplaceHaydon1980_PhysRev,DeamerBramhall1986_ChemPhysLipids,Grafmueller2019_ABLS}. In the presence of an osmotic gradient across the membrane (such as a contrast in the concentration of an impermeable solute), water flows against the osmotic gradient  to neutralize the osmolarity. Without aquaporins or other membrane channels that promotes water permeability, the intrinsic water permeability is known to depend on the temperature \cite{OlbrichRawiczNeedhamEtAl2000_BJ}, lipid composition \cite{OlbrichRawiczNeedhamEtAl2000_BJ}, and the hydration  energy of the membrane \cite{MarrinkBerendsen1994_JPhysChem}. In the red blood cell membrane, aquaporin-1 channels give rise to a much higher water permeability of $\sim 1.8\times 10^{-2}$ cm/s in erythrocytes \cite{YangMaVerkman2001_JBC} while the intrinsic water permeability of a lipid bilayer membrane is in the range of $10^{-4}-10^{-3}$ cm/s \cite{ThompsonHuang1966_ANYAS,FettiplaceHaydon1980_PhysRev,Grafmueller2019_ABLS,Dimova2020_GVB,BhatiaRobinsonDimova2020_SoftMatt}. 
-
-
-The swelling/shrinking of a cell is inevitably coupled to changes in membrane tension and cell shape \cite{StrokaJiangChenEtAl2014_Cell,LiMoriSun2015_PRL}.  
-Most studies focus on the osmolarity-induced water flux, while mechanical pressure may also contribute to the permeable water flow \cite{yao-mor2017}.
+%
+The swelling/shrinking of a cell is inevitably coupled to changes in membrane tension and cell shape \cite{StrokaJiangChenEtAl2014_Cell,LiMoriSun2015_PRL,yao-mor2017}.  
+%The osmolarity-induced water flux has been well studied, while mechanical pressure may also contribute to the permeable water flow \cite{yao-mor2017}.
 %The response of a cell to an osmotic gradient is inevitably both mechanical (tension redistribution and shape change) and chemical (water flux across the membrane).  
-In this work we focus on the intrinsic water permeability and study the subtle balance between hydrodynamics and elasticity of a semipermeable membrane under various flowing conditions and confinement. Specifically we focus on the effects of intrinsic water permeability in a vesicle under stress due to flows and/or confinement.
+In this work we focus on the intrinsic water permeability and study the subtle balance between hydrodynamics, tension and elasticity of a semipermeable membrane under various flowing conditions and confinement. 
+
+
 
 
 Vesicles (self-enclosed lipid bilayer membranes) have been used as a model system to study reshaping, remodeling and scission of cell membranes due to osmotic stress \cite{OgleckaEtAl2014_eLife,CamposSaric2020_bioRxiv,Dimova2020_GVB,BhatiaChrist2020_SoftMatt}. Under an osmotic shock, a vesicle may undergo oscillatory variation in its enclosed volume \cite{ChabanonHoLiedberg2017_BJ}. When trapped in a microfluidic channel, an osmotic shock induces 
- vesicle shape changes, tank-treading and tumbling motions \cite{BhatiaRobinsonDimova2020_SoftMatt,BhatiaChrist2020_SoftMatt}, an illustration that the permeable water flow is inevitably coupled with the mechanical pressure jump across the membrane\cite{yao-mor2017}, which could become comparable to osmotic stress when the membrane deformation is large \cite{LiMoriSun2015_PRL,yao-mor2017}.  In this work we use numerical simulations to examine the hydrodynamics of a semipermeable vesicle in two dimensions. Focusing on the effects of water permeability on the hydrodynamics of a vesicle under mechanical stresses, we investigate how a semipermeable vesicle may behave differently from their impermeable counterpart in familiar situations such as shear flows, a stenosis channel, and a contracting channel.
-
+ vesicle shape changes, tank-treading and tumbling motions \cite{BhatiaRobinsonDimova2020_SoftMatt,BhatiaChrist2020_SoftMatt}, an illustration that the permeable water flow is inevitably coupled with the mechanical pressure jump across the membrane\cite{yao-mor2017}, which could become comparable to osmotic stress when the membrane deformation is large \cite{LiMoriSun2015_PRL,yao-mor2017}.  In this work we use numerical simulations to examine the hydrodynamics of a semipermeable vesicle in two dimensions. 
+ It is challenging to keep a freely suspended vesicle in a steady flow for more than a few days. It is also difficult to quantify the change in vesicle area/volume in the experiments.
+ Using numerical simulations we can quantify  the effects of water permeability on the hydrodynamics of a vesicle under mechanical stresses. 
+ In the absence of an osmotic gradient, we first show that a freely suspended semipermeable vesicle behaves differently from an impermeable vesicle over a long time. Next we show that, at normal physiological conditions, the permeable water flow can be amplified by extreme confinement and results in observable change in both vesicle hydrodynamics and reduced area. 
+ These results will shed light on the dynamic aging process of living cells that constantly go through flows and constrictions over a period of days.
+ 
+ 
 %
 %\paragraph{Literature to maybe cite}
 %\cite{ali-ovr-ran2020} show how beading can occur on nanotubes. This
@@ -108,13 +114,16 @@ In the following we will explore both.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Examples}
-We consider a single semi-permeable vesicle in quiescent, shear, and
-parabolic flows. We also consider a semi-permeable vesicle passing
-through a constriction. For each example, all vesicles have a length
-$L$, but the area is not conserved because of semi-permeability. We vary
-the initial vesicle reduced area, the permeability rate, and the flow
-rate. For all simulations, the bending modulus is $10^{-19}J$.
+\section*{Effects of membrane water permeability}
+We consider a single semi-permeable vesicle in familiar configurations to highlight the effects of membrane water permeability.
+In free space we put a semi-permeable vesicle in a quiescent flow, a planar shear flow and a Poiseuille flow.
+We also consider a semi-permeable vesicle in confinement: a long channel and a contracting channel.
+For each example, we fix the vesicle length and examine the enclosed area as a dynamical consequence of water flow, vesicle shape deformation and membrane tension distribution.
+%
+%all vesicles have a length
+%$L$, but the area is not conserved because of semi-permeability. We vary
+%the initial vesicle reduced area, the permeability rate, and the flow
+%rate. For all simulations, the bending modulus is $10^{-19}J$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Quiescent Flow} 
