@@ -2177,7 +2177,7 @@
 
 
 \begin{axis}[
-  at = {(7.0cm,0.0cm)},
+  at = {(7.0cm + 0.5cm,0.0cm)},
   major tick length=\MajorTickLength,
   compat=newest,
 %  axis equal image,
@@ -2209,7 +2209,7 @@
 % axis for vesicle with smallest reduced area
 \begin{axis}[
   scale = 0.15,
-  at = {(12.85cm,4.93cm)},
+  at = {(12.85cm+0.5cm,4.93cm)},
   compat=newest,
   axis equal image,
   xtick = \empty,
@@ -2354,7 +2354,7 @@
 % axis for vesicle with second smallest reduced area
 \begin{axis}[
   scale = 0.15,
-  at = {(11.3cm,3.65cm)},
+  at = {(11.3cm+0.5cm,3.65cm)},
   compat=newest,
   axis equal image,
   xtick = \empty,
@@ -2499,7 +2499,7 @@
 % axis for vesicle with third smallest reduced area
 \begin{axis}[
   scale = 0.15,
-  at = {(9.5cm,2.5cm)},
+  at = {(9.5cm+0.5cm,2.5cm)},
   compat=newest,
   axis equal image,
   xtick = \empty,
@@ -2644,7 +2644,7 @@
 % axis for vesicle with third smallest reduced area
 \begin{axis}[
   scale = 0.15,
-  at = {(7.1cm,0.15cm)},
+  at = {(7.1cm+0.5cm,0.15cm)},
   compat=newest,
   axis equal image,
   xtick = \empty,
@@ -2786,14 +2786,14 @@
 
 \end{axis}
 
-\draw[black,line width=1pt] (9.1,2.4)--(13.8,2.4);
-\draw[black,dashed,line width=0.2pt] (9.1,0.2)--(13.8,0.2);
-\draw[black,line width=0.5pt,->] (9.1,2.2)--(9.1+1*2.44e-1,2.2);
-\draw[black,line width=0.5pt,->] (9.1,1.8)--(9.1+1*5.16e-1,1.8);
-\draw[black,line width=0.5pt,->] (9.1,1.4)--(9.1+1*7.28e-1,1.4);
-\draw[black,line width=0.5pt,->] (9.1,1.0)--(9.1+1*8.79e-1,1.0);
-\draw[black,line width=0.5pt,->] (9.1,0.6)--(9.1+1*9.70e-1,0.6);
-\draw[black,line width=0.5pt,->] (9.1,0.2)--(9.1+1*1.00e+0,0.2);
+\draw[black,line width=1pt] (9.6,2.4)--(14.3,2.4);
+\draw[black,dashed,line width=0.2pt] (9.6,0.2)--(14.3,0.2);
+\draw[black,line width=0.5pt,->] (9.6,2.2)--(9.6+1*2.44e-1,2.2);
+\draw[black,line width=0.5pt,->] (9.6,1.8)--(9.6+1*5.16e-1,1.8);
+\draw[black,line width=0.5pt,->] (9.6,1.4)--(9.6+1*7.28e-1,1.4);
+\draw[black,line width=0.5pt,->] (9.6,1.0)--(9.6+1*8.79e-1,1.0);
+\draw[black,line width=0.5pt,->] (9.6,0.6)--(9.6+1*9.70e-1,0.6);
+\draw[black,line width=0.5pt,->] (9.6,0.2)--(9.6+1*1.00e+0,0.2);
 
 
 %\fill[green] (10.4,0.308 + 0.1) circle (1pt);
@@ -2801,7 +2801,7 @@
 %% max and min values of the vesicle shape
 \begin{axis}[
   scale = 0.08,
-  at = {(10.10cm,0.21cm)},
+  at = {(10.10cm+0.5cm,0.21cm)},
   compat=newest,
   axis equal image,
   xtick = \empty,
@@ -2946,7 +2946,7 @@
 %% max and min values of the initial vesicle shape
 \begin{axis}[
   scale = 0.08,
-  at = {(10.65cm,0.14cm)},
+  at = {(10.65cm+0.5cm,0.14cm)},
   compat=newest,
   axis equal image,
   xtick = \empty,
@@ -3092,7 +3092,7 @@
 %% max and min values of the initial vesicle shape
 \begin{axis}[
   scale = 0.08,
-  at = {(11.20cm,0.12cm)},
+  at = {(11.20cm+0.5cm,0.12cm)},
   compat=newest,
   axis equal image,
   xtick = \empty,
@@ -3237,7 +3237,7 @@
 %% max and min values of the initial vesicle shape
 \begin{axis}[
   scale = 0.08,
-  at = {(11.75cm,0.07cm)},
+  at = {(11.75cm+0.5cm,0.07cm)},
   compat=newest,
   axis equal image,
   xtick = \empty,
@@ -3382,7 +3382,7 @@
 %% max and min values of the initial vesicle shape
 \begin{axis}[
   scale = 0.08,
-  at = {(12.30cm,0.02cm)},
+  at = {(12.30cm+0.5cm,0.02cm)},
   compat=newest,
   axis equal image,
   xtick = \empty,
@@ -3527,7 +3527,7 @@
 %% max and min values of the initial vesicle shape
 \begin{axis}[
   scale = 0.08,
-  at = {(12.85cm,-0.01cm)},
+  at = {(12.85cm+0.5cm,-0.01cm)},
   compat=newest,
   axis equal image,
   xtick = \empty,
@@ -3672,7 +3672,7 @@
 %% max and min values of the initial vesicle shape
 \begin{axis}[
   scale = 0.08,
-  at = {(13.30cm,0.01cm)},
+  at = {(13.30cm+0.5cm,0.01cm)},
   compat=newest,
   axis equal image,
   xtick = \empty,
@@ -3814,7 +3814,7 @@
 
 \begin{axis}[
   scale = 0.3,
-  at = {(7.8cm,3.9cm)},
+  at = {(8.3cm,3.9cm)},
   xmode = log,
   xmin = 1e-2,
   xmax = 500,
@@ -4813,18 +4813,18 @@
 
 
 
-\node at (-0.2,6.0) {\tiny (a)};
-\node at (6.9,6.0) {\tiny (b)};
-\node at (9.5,5.4) {\tiny (c)};
-\node at (10.0,2.15) {\tiny (d)};
+\node at (-0.2+0.5,6.0) {(a)};
+\node at (6.9+0.5,6.0) {(b)};
+\node at (9.5+0.5,5.4) {(c)};
+\node at (10.0+0.5,2.15) {(d)};
 
-\node at (7.9,5.45) {\tiny I};
-\node at (9.00,5.05) {\tiny II};
-\node at (9.70,4.25) {\tiny III};
+\node at (7.90+0.5,5.45) {\tiny I};
+\node at (9.00+0.5,5.05) {\tiny II};
+\node at (9.70+0.5,4.25) {\tiny III};
 
-\node at (10.35,0.65) {\tiny I};
-\node at (12.00,0.65) {\tiny II};
-\node at (13.50,0.65) {\tiny III};
+\node at (10.35+0.5,0.65) {\tiny I};
+\node at (12.00+0.5,0.65) {\tiny II};
+\node at (13.50+0.5,0.65) {\tiny III};
 
 \end{tikzpicture}
 

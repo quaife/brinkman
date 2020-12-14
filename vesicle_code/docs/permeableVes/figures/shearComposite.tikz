@@ -1,4 +1,4 @@
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=0.65]
 
 \pgfmathsetlengthmacro\MajorTickLength{
       \pgfkeysvalueof{/pgfplots/major tick length} * 0.5
@@ -23852,7 +23852,7 @@ j
 
 
 \begin{axis}[
-  at = {(9.0cm,0.0cm)},
+  at = {(9.0cm-0.5cm,0.0cm)},
   major tick length=\MajorTickLength,
   compat=newest,
   axis equal image,
@@ -26668,45 +26668,45 @@ j
 \end{axis}
 
 % bottom row
-\node at (9.50,0.710) {\scriptsize $0.94$};
-\node at (10.70,0.710) {\scriptsize $0.93$};
-\node at (11.90,0.710) {\scriptsize $0.93$};
+\node at (9.50-0.5,0.710) {\tiny $0.94$};
+\node at (10.70-0.5,0.710) {\tiny $0.93$};
+\node at (11.90-0.5,0.710) {\tiny $0.93$};
 
 % next row
-\node at (9.50,1.515) {\scriptsize $0.78$};
-\node at (10.70,1.515) {\scriptsize $0.76$};
-\node at (11.90,1.515) {\scriptsize $0.76$};
+\node at (9.50-0.5,1.515) {\tiny $0.78$};
+\node at (10.70-0.5,1.515) {\tiny $0.76$};
+\node at (11.90-0.5,1.515) {\tiny $0.76$};
 
 % next row
-\node at (9.50,2.320) {\scriptsize $0.56$};
-\node at (10.70,2.320) {\scriptsize $0.54$};
-\node at (11.90,2.320) {\scriptsize $0.55$};
+\node at (9.50-0.5,2.320) {\tiny $0.56$};
+\node at (10.70-0.5,2.320) {\tiny $0.54$};
+\node at (11.90-0.5,2.320) {\tiny $0.55$};
 
 % next row
-\node at (9.50,3.125) {\scriptsize $0.40$};
-\node at (10.70,3.125) {\scriptsize $0.39$};
-\node at (11.90,3.125) {\scriptsize $0.39$};
+\node at (9.50-0.5,3.125) {\tiny $0.40$};
+\node at (10.70-0.5,3.125) {\tiny $0.39$};
+\node at (11.90-0.5,3.125) {\tiny $0.39$};
 
 % next row
-\node at (9.50,3.930) {\scriptsize $0.29$};
-\node at (10.70,3.930) {\scriptsize $0.28$};
-\node at (11.90,3.930) {\scriptsize $0.29$};
+\node at (9.50-0.5,3.930) {\tiny $0.29$};
+\node at (10.70-0.5,3.930) {\tiny $0.28$};
+\node at (11.90-0.5,3.930) {\tiny $0.29$};
 
 % next row
-\node at (9.50,4.735) {\scriptsize $0.21$};
-\node at (10.70,4.735) {\scriptsize $0.21$};
-\node at (11.90,4.735) {\scriptsize $0.21$};
+\node at (9.50-0.5,4.735) {\tiny $0.21$};
+\node at (10.70-0.5,4.735) {\tiny $0.21$};
+\node at (11.90-0.5,4.735) {\tiny $0.21$};
 
 % top row
-\node at (9.50,5.540) {\scriptsize $0.18$};
-\node at (10.70,5.540) {\scriptsize $0.16$};
-\node at (11.90,5.540) {\scriptsize $0.16$};
+\node at (9.50-0.5,5.540) {\tiny $0.18$};
+\node at (10.70-0.5,5.540) {\tiny $0.16$};
+\node at (11.90-0.5,5.540) {\tiny $0.16$};
 
 
-\draw[rounded corners,blue,line width=2.0pt] (11.45,1.70) rectangle +(0.8,0.8) {};
-\draw[rounded corners,blue,dashed,line width=2.0pt] (11.45,3.31) rectangle +(0.8,0.8) {};
+\draw[rounded corners,blue,line width=1.0pt] (11.45-0.5,1.70) rectangle +(0.85,0.85) {};
+\draw[rounded corners,blue,dashed,line width=1.0pt] (11.45-0.5,3.31) rectangle +(0.85,0.85) {};
 
-\node at (-0.4,6.0) {(a)};
-\node at (8.7,6.0) {(b)};
+\node at (-0.4,6.0) {\small(a)};
+\node at (8.7,6.0) {\small(b)};
 
 \end{tikzpicture}
