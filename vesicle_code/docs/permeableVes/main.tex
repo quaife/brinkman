@@ -147,7 +147,7 @@ relaxes to a circle at a rate that is proportional to $\beta$, and the
 steady state tension is $\Lambda = 2\pi^2/L^2$. Therefore, the times for
 the vesicle to deviate from its initial reduced area and to reach its
 steady state are proportional to $\beta^{-1}$. This is verified for a
-vesicle with initial reduced area $\nu = 0.65$ and with different
+vesicle with initial reduced area $\alpha = 0.65$ and with different
 semi-permeability rates. In Table~\ref{tbl:ellipseRelaxTimes} we report
 the required time, $t_\mathrm{steady}$, for the vesicle's reduced area
 to be within 1.3\% of its steady state reduced area, and the required
@@ -183,7 +183,7 @@ terms of the scaled time $\beta t$.
 In Figure~\ref{fig:relaxationComposite}, we examine the transient
 dynamics of four vesicles with $\beta = 10^{-3}$ and a variety of
 initial configurations. As expected, each vesicle eventually
-reaches a circular shape with reduced area $\nu=1$. Next, we observe
+reaches a circular shape with reduced area $\alpha=1$. Next, we observe
 that even though the vesicle is inflating to a circle, meaning that
 there is a net flux into the vesicle, there are regions where the flux
 is out of the vesicle. These regions are denoted in blue and are only
@@ -241,7 +241,7 @@ permeability velocity dominates and leads to a changing reduced area.
 We form the steady state shape for a variety of semi-permeability rates
 and flow rates. Since the final shape is independent of the initial
 reduce area, for all simulations we initialize the vesicle with reduced
-area $\nu = 0.65$. The steady state vesicle shape and its reduced
+area $\alpha = 0.65$. The steady state vesicle shape and its reduced
 area are in Figure~\ref{fig:shearComposite}(b). We see that the flow
 rate significantly affects the final vesicle shape, but the
 semi-permeability rate has a minor effect. Instead, as we saw in the
@@ -258,8 +258,10 @@ $\beta^{-1}$.
   \fi
   \caption{\label{fig:parabolicComposite} (a) The steady state shape of
   a semi-permeable vesicle submerged in a Poiseuille flow with varying
-  initial reduced areas and flow rates. (b) The steady state inclination
-  angle for four different flow velocities. The steady state shapes are
+  initial reduced areas and flow rates. The fluid flux along the red
+  regions is into the vesicle, and the fluid flux along the blue regions
+  is out of the vesicle.  (b) The steady state inclination angle for
+  four different flow velocities. The steady state shapes are
   superimposed. (c) The reduced area of the slipper formed with the flow
   rate of 800 $\mu m/s$. (d) The vesicle shape shown with the background
   imposed flow. The channel width is 12.5 times larger than the vesicle
@@ -280,7 +282,7 @@ in Figure~\ref{fig:parabolicComposite}(a), we construct a phase diagram
 for the steady state shape of an impermeable vesicle
 vesicle~\cite{kao-bir-mis2009} (see Figure 2). While the vesicle shapes
 qualitatively agree, Kaoui et al.~report that the vesicles with
-$\nu=0.7$ and flow rates $U = 1200 \mu m/s$ and $U = 1600 \mu m/s$ are
+$\alpha=0.7$ and flow rates $U = 1200 \mu m/s$ and $U = 1600 \mu m/s$ are
 axisymmetric. In our simulations these vesicles are slightly asymmetric,
 are undergoing a tank treading motion, and we therefore report them as
 asymmetric slippers.
@@ -318,7 +320,7 @@ experimental results. When the RBC enters the constriction, the result
 is an increase in the pressure drop required to maintain a constant flow
 rate, and the difference between these pressures is called the excess
 pressure. We consider both an impermeable and semi-permeable vesicle
-with initial reduced area $\nu = 0.65$ passing through a constricted
+with initial reduced area $\alpha = 0.65$ passing through a constricted
 geometry and compute the pressure drop between the inlet and outlet of
 the constriction. In Figure~\ref{fig:stenosisComposite}(c), we plot the
 excess pressures. The impermeable case agrees with experimental
@@ -350,42 +352,25 @@ decreases by 13.2\% (Figure~\ref{fig:stenosisComposite}(e)).
   center of mass.}
 \end{figure*}
 
-%
-%\begin{figure}[htp]
-%%  \ifTikz
-%%  \input{figures/stenosisGeom.tikz}
-%%  \fi
-%  \includegraphics[width=\linewidth]{figures/stenosisGeom.pdf}
-%  \caption{\label{fig:stenosisGeom} A single semi-permeable vesicle
-%  passing through a constriction. The geometry and parameters are chosen
-%  to replicate the experiments of Abkarian et
-%  al.~\cite{abk-fai-sto2006}.}
-%\end{figure}
-%
-%\begin{figure}[htp]
-%%  \ifTikz
-%%  \input{figures/stenosisPressureFluctuation.tikz}
-%%  \fi
-%  \includegraphics[width=\linewidth]{figures/stenosisPressureFluctuation.pdf}
-%  \caption{\label{fig:stenosisPressure} The excess pressure across the
-%  constriction in Figure~\ref{fig:stenosisGeom}. The black dashed lines
-%  denote the start and end of the constriction. The results are
-%  qualitative agreement with~\cite{abk-fai-sto2006}.}
-%\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Semi-Permeable Vesicle in a Contracting Geometry}
 
+Velocity scale is $100\mu$m/s.
+
 
 \begin{figure*}[htp]
   \centering
-%  \ifTikz
+  \ifTikz
   \input{figures/contractingComposite.tikz}
-%  \fi
+  \fi
   \caption{\label{fig:contractingComposite} (a) A semi-permeable vesicle
   passing through a contracting geometry similar to the experimental
-  device in~\cite{}. The narrowest part of the channel is $1.6\mu$m, and
-  the vesicle height is initially $10\mu$m.}
+  device in~\cite{}. The narrowest part of the channel is $1.6\mu$m, 
+  the vesicle height is initially $10\mu$m, and the maximum background
+  flow velocity is $316\mu$m/s. The fluid flux along the red regions is
+  into the vesicle, and the fluid flux along the blue regions is out of
+  the vesicle.}
 \end{figure*}
 
 
@@ -1033,7 +1018,7 @@ vesicle velocity satisfies
 \subsection*{Dimensionless equations}
 The inextensibility condition guarantees that the vesicle's length, $L$,
 is conserved, while its area, $A$, can change due to semi-permeability.
-Therefore, the reduced area $\nu = 4\pi A/L^2 \in (0,1]$ is not
+Therefore, the reduced area $\alpha = 4\pi A/L^2 \in (0,1]$ is not
 conserved. We non-dimensionalize~\eqref{eqn:vesVelocity} by introducing
 the length scale $R_0 = L/2\pi$ and defining the time scale $\tau = \mu
 R_0^3/k_b$, the tension scale $Q = k_b/R_0^2$, and the permeability
