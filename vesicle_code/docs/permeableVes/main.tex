@@ -58,8 +58,8 @@ Please provide an abstract of no more than 250 words in a single paragraph. Abst
 \input my_macros2.tex	
 
 \newif\ifTikz
-\Tikztrue
-%\Tikzfalse
+%\Tikztrue
+\Tikzfalse
 
 %\usepgfplotslibrary{external}
 %\tikzexternalize
@@ -354,16 +354,22 @@ decreases by 13.2\% (Figure~\ref{fig:stenosisComposite}(e)).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Semi-Permeable Vesicle in a Contracting Geometry}
-
-Velocity scale is $100\mu$m/s.
+\subsection*{Semi-Permeable Vesicle in a Contracting Geometry} 
+We expose a single semi-permeable vesicle to even larger deformations by
+simulating its hydrodynamics in a contracting microfluidic geometry.
+Similar to~\cite{wu2015critical}, we consider a geometry whose width
+gradually reduces from $16\mu$m to $1.6\mu$m and then immediately opens
+again to $16\mu$m. We initialize a semi-permeable vesicle with $\alpha =
+0.65$ that spans $10\mu$m of the total channel width. We start by
+investigating whether the vesicle passes through the constriction with
+different flow rates and permeability rates.
 
 
 \begin{figure*}[htp]
   \centering
-  \ifTikz
+%  \ifTikz
   \input{figures/contractingComposite.tikz}
-  \fi
+%  \fi
   \caption{\label{fig:contractingComposite} (a) A semi-permeable vesicle
   passing through a contracting geometry similar to the experimental
   device in~\cite{}. The narrowest part of the channel is $1.6\mu$m, 
