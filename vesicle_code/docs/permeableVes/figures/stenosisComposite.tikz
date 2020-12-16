@@ -13385,7 +13385,7 @@
   ymax = 0.66,
   ytick = {0.62,0.63,0.64,0.65,0.66},
   xlabel = {\normalsize $x$ [$\mu$m]},
-  ylabel = {\normalsize ${\nu}(t)$},
+  ylabel = {\normalsize ${\alpha}(t)$},
   ylabel near ticks,
 ]
 
@@ -14954,7 +14954,7 @@
   ymin = 0.57,
   ymax = 0.66,
   xlabel = {\normalsize $x$ [$\mu$m]},
-  ylabel = {\normalsize ${\nu}(t)$},
+  ylabel = {\normalsize ${\alpha}(t)$},
   ylabel near ticks,
 ]
 

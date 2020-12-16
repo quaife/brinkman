@@ -13,7 +13,7 @@
   ymax = 1.1,
   yticklabel pos = right,
   xlabel = {\large $\beta t$},
-  ylabel = {\large ${\nu}(t)$},
+  ylabel = {\large ${\alpha}(t)$},
   ylabel near ticks,
 ]
 
@@ -10298,10 +10298,10 @@
 \draw[->,line width=1pt] (8.45cm,3.64cm)--(8.95cm,3.64cm);
 \draw[->,line width=1pt] (8.45cm,5.25cm)--(8.95cm,5.25cm);
 
-\node at (9.8,5.50) {\small $\nu(0) = 0.95$};
-\node at (9.8,3.90) {\small $\nu(0) = 0.66$};
-\node at (9.8,2.36) {\small $\nu(0) = 0.38$};
-\node at (9.8,0.89) {\small $\nu(0) = 0.12$};
+\node at (9.8,5.50) {\small $\alpha(0) = 0.95$};
+\node at (9.8,3.90) {\small $\alpha(0) = 0.66$};
+\node at (9.8,2.36) {\small $\alpha(0) = 0.38$};
+\node at (9.8,0.89) {\small $\alpha(0) = 0.12$};
 
 \node at (0.2,6.5) {(a)};
 \node at (9.2,6.5) {(b)};
