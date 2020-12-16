@@ -5113,6 +5113,7 @@
   xtick = {0,6,12,18},
   xticklabels = {0,15,30,45},
   ytick = {0.45,0.55,0.65,0.75},
+  xlabel near ticks,
   ylabel near ticks,
   xlabel = {\normalsize $x$ [$\mu$m]},
   ylabel = {$\alpha$},
@@ -11707,6 +11708,7 @@
   xtick = {0,6,12,18},
   xticklabels = {0,15,30,45},
   ytick = {0.45,0.55,0.65,0.75,0.85,0.95},
+  xlabel near ticks,
   ylabel near ticks,
   xlabel = {\normalsize $x$ [$\mu$m]},
   ylabel = {$\alpha$},
@@ -12804,7 +12806,7 @@
 
 % START OF RIGHT PANEL OF COMPOSITE FIGURE
 \begin{axis}[
-  at = {(10.0cm,6.0cm)},
+  at = {(9.8cm,6.0cm)},
   width = 8.00cm,
   hide axis,
   axis equal image,
@@ -17270,7 +17272,7 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(10.0cm,0cm)},
+  at = {(9.8cm,0cm)},
   width = 8.00cm,
   xmin = 0,
   xmax = 90,
@@ -17279,6 +17281,7 @@
   xtick = {0,18,36,54,72,90},
   xticklabels = {0,45,90,135,180,225},
   ytick = {0.35,0.45,0.55,0.65},
+  xlabel near ticks,
   ylabel near ticks,
   xlabel = {\normalsize $x$ [$\mu$m]},
   ylabel = {$\alpha$},
@@ -23088,7 +23091,7 @@
 
 \begin{axis}[
   width = 5.0cm,
-  at = {(12.8cm,2.4cm)},
+  at = {(12.4cm,2.4cm)},
   xmin = 0,
   xmax = 90,
   ymin = 2,
@@ -23098,6 +23101,7 @@
   90,\footnotesize 135,\footnotesize 180,\footnotesize 225},
   ytick = {5,10,15},
   yticklabels = {\footnotesize 500,\footnotesize 1000,\footnotesize 1500},
+  xlabel near ticks,
   ylabel near ticks,
   xlabel = {\footnotesize $x$ [$\mu$m]},
   ylabel = {\footnotesize velocity [$\mu$m/s]},
@@ -28906,15 +28910,15 @@
 \end{axis}
 
 % length of channel
-\draw[black,|-] (10.40,7.75) -- (11.95-0.4,7.75);
-\draw[black,-|] (11.95+0.4,7.75) -- (13.50,7.75);
-\node at (11.95,7.75) {\scriptsize 45$\mu$m};
+\draw[black,|-] (10.20,7.75) -- (11.75-0.4,7.75);
+\draw[black,-|] (11.75+0.4,7.75) -- (13.30,7.75);
+\node at (11.75,7.75) {\scriptsize 45$\mu$m};
 
 % width of channel
 
-\draw[black,|-] (-0.10+10,0.15+6) -- (-0.10+10,0.815+6-0.3);
-\draw[black,-|] (-0.10+10,0.87+6+0.3) -- (-0.10+10,1.48+6);
-\node[rotate=90] at (-0.10+10,0.815+6) {\scriptsize 16$\mu$m};
+\draw[black,|-] (-0.10+9.8,0.15+6) -- (-0.10+9.8,0.815+6-0.3);
+\draw[black,-|] (-0.10+9.8,0.87+6+0.3) -- (-0.10+9.8,1.48+6);
+\node[rotate=90] at (-0.10+9.8,0.815+6) {\scriptsize 16$\mu$m};
 
 \node at (0.1,7.9) {(a)};
 \node at (0.1,5.4) {(b)};
@@ -28922,8 +28926,8 @@
 \node at (5.1,7.9) {(d)};
 \node at (5.1,5.4) {(e)};
 \node at (5.1,3.1) {(f)};
-\node at (10.1,7.7) {(g)};
-\node at (10.1,5.6) {(h)};
-\node at (13.1,4.9) {(i)};
+\node at (9.9,7.7) {(g)};
+\node at (9.9,5.6) {(h)};
+\node at (12.9,4.9) {(i)};
 
 \end{tikzpicture}
