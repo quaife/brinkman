@@ -10281,7 +10281,7 @@
 % length of the short constriction
 \draw[|-] (6.52,0.95) -- (10.16-0.4,0.95);
 \draw[-|] (10.16+0.4,0.95) -- (13.80,0.95);
-\node at (10.16,0.95) {\scriptsize 135$\mu$m};
+\node at (10.16,0.95) {\scriptsize 130$\mu$m};
 
 
 % diameter of the channel exit
@@ -15914,13 +15914,13 @@
 };
 
 \addplot[black,dashed,line width=0.5pt] coordinates{
-  (-67.5,0.57)
-  (-67.5,0.66)
+  (-65,0.57)
+  (-65,0.66)
 };
 
 \addplot[black,dashed,line width=0.5pt] coordinates{
-  (+67.5,0.57)
-  (+67.5,0.66)
+  (+65,0.57)
+  (+65,0.66)
 };
 
 
