@@ -13,6 +13,7 @@
   ytick = \empty,
 ]
 
+% Short stenosed geometry
 \addplot[black,line width=1pt] coordinates{
 (1.0000e+02,0.0000e+00)
 (1.0000e+02,4.3979e-01)
@@ -3000,6 +3001,7 @@
 (4.2990e+01,3.0430e-03)
 };
 
+
 \end{axis}
 
 
@@ -3016,6 +3018,7 @@
   ytick = \empty,
 ]
 
+% Long stenosed geometry
 \addplot[black,line width=1pt] coordinates{
 (2.0000e+02,0.0000e+00)
 (2.0000e+02,4.0948e-01)
@@ -10267,12 +10270,7 @@
 (1.0495e+02,-1.0497e+00)
 };
 
-
-
 \end{axis}
-
-
-
 
 % length of the short constriction
 \draw[|-] (0.10,0.95) -- (1.37-0.4,0.95);
@@ -10283,13 +10281,12 @@
 % length of the short constriction
 \draw[|-] (6.52,0.95) -- (10.16-0.4,0.95);
 \draw[-|] (10.16+0.4,0.95) -- (13.80,0.95);
-\node at (10.16,0.95) {\scriptsize 200$\mu$m};
+\node at (10.16,0.95) {\scriptsize 135$\mu$m};
 
 
 % diameter of the channel exit
 \draw[|-|,black] (4.3,0.03) -- (4.3,1.2);
 \node[rotate=90] at (4.44,0.6) {\scriptsize 25$\mu$m};
-
 
 
 \begin{axis}[
@@ -14943,6 +14940,16 @@
 (4.8219e+01,6.1798e-01)
 };
 
+\addplot[black,dashed,line width=0.5pt] coordinates{
+  (-22.5,0.60)
+  (-22.5,0.66)
+};
+
+\addplot[black,dashed,line width=0.5pt] coordinates{
+  (+22.5,0.60)
+  (+22.5,0.66)
+};
+
 \end{axis}
 
 \begin{axis}[
@@ -15905,6 +15912,17 @@
 (1.3355e+02,5.7160e-01)
 (1.3612e+02,5.7161e-01)
 };
+
+\addplot[black,dashed,line width=0.5pt] coordinates{
+  (-67.5,0.57)
+  (-67.5,0.66)
+};
+
+\addplot[black,dashed,line width=0.5pt] coordinates{
+  (+67.5,0.57)
+  (+67.5,0.66)
+};
+
 
 \end{axis}
 
