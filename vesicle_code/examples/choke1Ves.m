@@ -6,7 +6,7 @@ fprintf('Implicit vesicle-vesicle interactions.\n');
 fprintf('Implicit vesicle-boundary interactions.\n');
 
 %format long
-prams.N = 256;                 % points per vesicle
+prams.N = 192;                 % points per vesicle
 prams.nv = 1;                  % number of vesicles
 prams.T = 0.1;                  %time horizon
 prams.m = 12000;                % number of time steps
