@@ -6,11 +6,11 @@ fprintf('Implicit vesicle-vesicle interactions.\n');
 fprintf('Implicit vesicle-boundary interactions.\n');
 
 %format long
-prams.N = 192;                 % points per vesicle
+prams.N = 256;                 % points per vesicle
 prams.nv = 1;                  % number of vesicles
-prams.T = 0.1;                  %time horizon
+prams.T = 30;                  %time horizon
 prams.m = 12000;                % number of time steps
-prams.Nbd = 1024;               % number of points on solid wall
+prams.Nbd = 2048;               % number of points on solid wall
 prams.nvbd = 1;                % number of components to solid walls
 prams.kappa = 1e0;            % bending coefficient
 prams.viscCont = 1*ones(prams.nv,1);            % viscosity contrast
@@ -25,9 +25,9 @@ options.semipermeable = true;
 prams.fluxCoeff = 1e-3;
 options.fluxShape = 1; % constant value
 
-options.farField = 'chokeLonger';      % Constricted domain
-options.farFieldSpeed = 4200;
-%options.farFieldSpeed = 4.2;
+options.farField = 'chokeLongest';      % Constricted domain
+%options.farFieldSpeed = 500;
+options.farFieldSpeed = 4.2;
 % background velocity or solid walls (which comes with a default
 % boundary condition)
 options.vesves = 'implicit';
@@ -68,12 +68,12 @@ prams.alpha = 0.9;
 % Also add src to path
 
 oc = curve;
-X = oc.initConfig(prams.N,'nv',prams.nv,'angle',-pi/3,...
+%X = oc.initConfig(prams.N,'nv',prams.nv,'angle',-pi/3,...
+%   'scale',1.44,...
+%   'center',[[-45;5]],'reducedArea',0.65);
+X = oc.initConfig(prams.N,'nv',prams.nv,'angle',pi/2,...
    'scale',1.44,...
-   'center',[[-45;5]],'reducedArea',0.65);
-%X = oc.initConfig(prams.N,'nv',prams.nv,'angle',pi/2,...
-%   'scale',1,...
-%   'center',[[-45;0]],'reducedArea',0.65);
+   'center',[[-105;5]],'reducedArea',0.65);
 
 % load chokeIC
 Xwalls = oc.initConfig(prams.Nbd,options.farField);
