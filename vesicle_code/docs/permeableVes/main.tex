@@ -465,11 +465,11 @@ the instance where tension reaches its max value. Plot the tension as
 the colorbar along the vesicle shape.}
 
 \begin{figure*}[htp]
-  \ifTikz
+%  \ifTikz
   \input{figures/stenosisComposite.tikz}
-  \else
-  \includegraphics{figures/stenosisComposite.pdf}
-  \fi
+%  \else
+%  \includegraphics{figures/stenosisComposite.pdf}
+%  \fi
   \caption{\label{fig:stenosisComposite} (a) A semi-permeable vesicle
   passing through a constricted geometry similar to the experimental
   device in~\cite{abk-fai-sto2006}. (b) A semi-permeable vesicle passing
@@ -545,11 +545,11 @@ the colorbar along the vesicle shape.}
 
 \begin{figure*}[htp]
   \centering
-%  \ifTikz
+  \ifTikz
   \input{figures/contractingComposite.tikz}
 %  \else
 %  \includegraphics{figures/contractingComposite.pdf}
-%  \fi
+  \fi
   \caption{\label{fig:contractingComposite} A contracting geometry
   similar to the experimental device in~\cite{wu2015critical}. The
   channel width varies from $18\mu$m to $1.8\mu$m, and it repeats every
@@ -1353,6 +1353,7 @@ method~\cite{qua-bir2016}. Since the area of the vesicle is not
 conserved, we only use the length of the vesicle to estimate the error
 which determines if a time step is accepted or not and determines the
 subsequent time step size.
+
 
 
 
