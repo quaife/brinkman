@@ -69,7 +69,27 @@ Please provide an abstract of no more than 250 words in a single paragraph. Abst
 \thispagestyle{firststyle}
 \ifthenelse{\boolean{shortarticle}}{\ifthenelse{\boolean{singlecolumn}}{\abscontentformatted}{\abscontent}}{}
 
-\dropcap{W}ater balance is an essential process in the adaptation of a living cell to its environment \cite{AlbertsMolecularBiology,YangMaVerkman2001_JBC,SugieIntaglietta2018_AmJPhysiolHCP,SaadounPapadopoulosWatanabeEtAl2005_JCS,Verkman2008_JMM,BerthaudEtAl2016_SM,Keren2011_EurBJ,TaloniKardashSalmanEtAl2015_PRL}. In response to external stimuli, cells move, deform, and release signaling molecules, such as ATP in red blood cells \cite{ZhangShenHoganBarakatMisbah2018_BJ} and cyclooxygenase-2 in endothelial cells \cite{Russell-PuleriPazAdams2016_AJHCP}. Water permeation is often assumed to play a negligible role in such chemomechanical processes, and yet recent findings suggest that both osmotic and mechanical stresses can induce water permeation that is significant enough for tumor cells to migrate under strong confinement \cite{StrokaJiangChenEtAl2014_Cell,LiMoriSun2015_PRL,yao-mor2017}, leading to a dynamic surface-to-volume ratio over time. To elucidate the effects of mechanically induced water permeation (which is a great challenge to quantify in experiments), in this work we use accurate numerical simulations to study the dynamic surface-to-volume ratio in a semi-permeable vesicle induced by mechanical stress.
+\dropcap{W}ater exchange is essential as a living cell adapts to its environment \cite{AlbertsMolecularBiology,YangMaVerkman2001_JBC,SugieIntaglietta2018_AmJPhysiolHCP,SaadounPapadopoulosWatanabeEtAl2005_JCS,Verkman2008_JMM,BerthaudEtAl2016_SM,Keren2011_EurBJ,TaloniKardashSalmanEtAl2015_PRL}.  
+%
+%Water permeation across the cell membrane due to an osmotic shock has been well studied \cite{AlbertsMolecularBiology}. 
+Recent findings suggest that both osmotic and mechanical stresses can induce water permeation that is significant enough for cells to migrate under strong confinement \cite{StrokaJiangChenEtAl2014_Cell,LiMoriSun2015_PRL,yao-mor2017}, leading to a dynamic surface-to-volume ratio of the migrating cell. 
+While stress-induced release of messengers in cells has been well studied \cite{Wan2008_PNAS, ForsythWan2011_PNAS,Russell-PuleriPazAdams2016_AJHCP,ZhangShenHoganBarakatMisbah2018_BJ,GordonShimmelFrye2020_FP},
+%osmotic effects on cellular dynamics have been well studied \cite{AlbertsMolecularBiology}, 
+mechanically induced water permeation is often associated with membrane poration or rupture under extreme stresses \cite{RazizadehNikfarPaulLiu2020_BJ}. In this work we use modeling and state-of-the-art numerical simulations to show that the intrinsic membrane permeability to water can give rise to significantly distinct hydrodynamics of a semipermeable vesicle without poration or rupture in the membrane. 
+%
+%
+%One of the most direct ways to induce water permeation across cell membranes is to impose an osmotic shock }.
+%
+%A gradient in the osmotic stress across the cellular membrane is the most direct way to induce water permeation, yet 
+%%
+%%In response to external stimuli, cells move, deform, and release signaling molecules, such as ATP in red blood cells \cite{ZhangShenHoganBarakatMisbah2018_BJ} and cyclooxygenase-2 in endothelial cells \cite{Russell-PuleriPazAdams2016_AJHCP}. 
+%%
+%%Water permeation is often neglected in such release processes, yet 
+%%
+%recent findings suggest that both osmotic and mechanical stresses can induce water permeation that is significant enough for tumor cells to migrate under strong confinement \cite{StrokaJiangChenEtAl2014_Cell,LiMoriSun2015_PRL,yao-mor2017}, leading to a dynamic surface-to-volume ratio over time. 
+%
+%
+%To elucidate the effects of mechanically induced water permeation (which is a great challenge to quantify in experiments), in this work we use accurate numerical simulations to study the hydrodynamics of a semi-permeable vesicle in various configurations.
 
 %Cells also send out chemicals in response to 
 %
@@ -86,30 +106,32 @@ The cell membrane is permeable to water and water-soluble molecules \cite{Dick19
 %
 Without aquaporins or other membrane channels that promotes water permeability, the intrinsic water permeability is known to depend on the temperature \cite{OlbrichRawiczNeedhamEtAl2000_BJ}, lipid composition \cite{OlbrichRawiczNeedhamEtAl2000_BJ}, and the hydration  energy of the membrane \cite{MarrinkBerendsen1994_JPhysChem}. In the red blood cell membrane, aquaporin-1 channels give rise to a much higher water permeability of $\sim 1.8\times 10^{-2}$ cm/s in erythrocytes \cite{YangMaVerkman2001_JBC} while the intrinsic water permeability of a lipid bilayer membrane is in the range of $10^{-4}-10^{-3}$ cm/s \cite{ThompsonHuang1966_ANYAS,FettiplaceHaydon1980_PhysRev,Grafmueller2019_ABLS,Dimova2020_GVB,BhatiaRobinsonDimova2020_SoftMatt}. 
 %
-The swelling/shrinking of a cell is inevitably coupled to changes in membrane tension and deformation. Under a strong confinement (such as going through a microcapillary or submicron slit),  the transmembrane water flow may have comparable contributions from both osmotic and mechanical stresses \cite{StrokaJiangChenEtAl2014_Cell,LiMoriSun2015_PRL,yao-mor2017}.  Furthermore, molecular dynamic (MD) and coarse-grained (CG) MD simulations show that membrane poration is inevitable when membrane tension is of the order of $2-4$ mN/m (\cite{RazizadehNikfarPaulLiu2020_BJ} and references therein). 
-%The CGMD results further show that a stretched RBC membrane may have pores that might contribute to transmembrane transport of both water and ATP molecules \cite{RazizadehNikfarPaulLiu2020_BJ}. 
-Thus an important outstanding question in stress-induced ATP release of highly deformed RBCs is if there is any transmembrane flow when RBCs release ATP as they experience large
-mechanical load due to confinement or large shear stress?  To address such question, the first step we take is to focus on the permeable water flux induced by mechanical stress.
+%The swelling/shrinking of a cell is inevitably coupled to changes in membrane tension and deformation. Under a strong confinement (such as going through a microcapillary or submicron slit),  the transmembrane water flow may have comparable contributions from both osmotic and mechanical stresses \cite{StrokaJiangChenEtAl2014_Cell,LiMoriSun2015_PRL,yao-mor2017}.  
+Molecular dynamic (MD) 
+%and coarse-grained (CG) MD 
+simulations show that a stretched RBC membrane may porate when membrane tension reaches the order of $2-4$ mN/m (\cite{RazizadehNikfarPaulLiu2020_BJ} and references therein), giving rise to enhanced membrane permeability to both water and macromolecules. Consequently under conditions where membrane remains intact (no poration or rupture), RBCs and vesicles are assumed to be of the same volume throughout the experiments no longer than tens of minutes. 
 %
-%RBCs are known to release ATP under large deformation and microfluidic experiments have been used to study the correlation between RBC deformation and ATP release \cite{Wan2008_PNAS,ForsythWan2011_PNAS,ZhangShenHoganBarakatMisbah2018_BJ}.
-%
-%Why is it interesting to study the dynamics of a semi-permeable membrane induced by mechanical stress/confinement?
-%
-%The osmolarity-induced water flux has been well studied, while mechanical pressure may also contribute to the permeable water flow \cite{yao-mor2017}.
-%The response of a cell to an osmotic gradient is inevitably both mechanical (tension redistribution and shape change) and chemical (water flux across the membrane).  
-In this work we focus on the intrinsic water permeability and study the subtle balance between hydrodynamics, tension and elasticity of a semipermeable membrane under various flowing conditions and confinement. 
+%membrane poration is inevitable when membrane tension is of the order of $2-4$ mN/m (\cite{RazizadehNikfarPaulLiu2020_BJ} and references therein). 
+%%The CGMD results further show that a stretched RBC membrane may have pores that might contribute to transmembrane transport of both water and ATP molecules \cite{RazizadehNikfarPaulLiu2020_BJ}. 
+%Thus an important outstanding question in stress-induced ATP release of highly deformed RBCs is if there is any transmembrane flow when RBCs release ATP as they experience large
+%mechanical load due to confinement or large shear stress?  To address such question, the first step we take is to focus on the permeable water flux induced by mechanical stress.
+%%
+%%RBCs are known to release ATP under large deformation and microfluidic experiments have been used to study the correlation between RBC deformation and ATP release \cite{Wan2008_PNAS,ForsythWan2011_PNAS,ZhangShenHoganBarakatMisbah2018_BJ}.
+%%
+%%Why is it interesting to study the dynamics of a semi-permeable membrane induced by mechanical stress/confinement?
+%%
+%%The osmolarity-induced water flux has been well studied, while mechanical pressure may also contribute to the permeable water flow \cite{yao-mor2017}.
+%%The response of a cell to an osmotic gradient is inevitably both mechanical (tension redistribution and shape change) and chemical (water flux across the membrane).  
+Under what condition is this a good assumption? What is the dynamic consequence when permeable water flux affects the membrane hydrodynamics?
+To answer these questions, we investigate the balance between hydrodynamics, tension and elasticity of a semipermeable membrane under various flowing conditions and confinement. 
+%Specifically our numerical simulations yield the quantification of the time scale and length scale over which water permeation becomes important. 
 
 
 
-
+ In this work we use numerical simulations to examine the hydrodynamics of a semipermeable vesicle in two dimensions. 
 Vesicles (self-enclosed lipid bilayer membranes) have been used as a model system to study reshaping, remodeling and scission of cell membranes due to osmotic stress \cite{OgleckaEtAl2014_eLife,CamposSaric2020_bioRxiv,Dimova2020_GVB,BhatiaChrist2020_SoftMatt}. Under an osmotic shock, a vesicle may undergo oscillatory variation in its enclosed volume \cite{ChabanonHoLiedberg2017_BJ}. When trapped in a microfluidic channel, an osmotic shock induces 
  vesicle shape changes, tank-treading and tumbling motions \cite{BhatiaRobinsonDimova2020_SoftMatt,BhatiaChrist2020_SoftMatt}, an illustration that the permeable water flow is inevitably coupled with the mechanical pressure jump across the membrane\cite{yao-mor2017}, which could become comparable to osmotic stress when the membrane deformation is large \cite{LiMoriSun2015_PRL,yao-mor2017}.  
- 
- In this work we use numerical simulations to examine the hydrodynamics of a semipermeable vesicle in two dimensions. 
- It is challenging to keep a freely suspended vesicle in a steady flow for more than a few days. It is also difficult to quantify the change in vesicle area/volume in the experiments.
- Using numerical simulations we can quantify  the effects of water permeability on the hydrodynamics of a vesicle under mechanical stresses. 
- In the absence of an osmotic gradient, we first show that a freely suspended semipermeable vesicle behaves differently from an impermeable vesicle over a long time. Next we show that, at normal physiological conditions, the permeable water flow can be amplified by extreme confinement and results in observable change in both vesicle hydrodynamics and reduced area. 
- These results will shed light on the dynamic aging process of living cells that constantly go through flows and constrictions over a period of days.
+ In microfluidic experiments, it is challenging to keep a freely suspended vesicle in a steady flow for more than a few hours. It is also difficult to quantify the vesicle area/volume ratio accurately. Using numerical simulations we can quantify  the effects of water permeability on the hydrodynamics of a vesicle under mechanical stresses. In the absence of an osmotic gradient, we first show that a freely suspended semipermeable vesicle behaves differently from an impermeable vesicle over a long time. Next we show that, at normal physiological conditions, the permeable water flow can be amplified by extreme confinement and results in observable change in both vesicle hydrodynamics and reduced area.  These results will shed light on the dynamic aging process of living cells that constantly go through flows and constrictions over a period of days.
  
  
 %
@@ -130,8 +152,8 @@ and the membrane velocity $\dot{\bf x}$ \cite{yao-mor2017}:
 \end{align}
 where $k_w$ is the water permeability, $R$ is the ideal gas constant, $T$ is the temperature ($^{\circ}$K), $\triangle c$ is contrast in a solute concentration (mol/volume),
 and $\ff_\mathrm{mem}$ is the membrane stress that consists of both bending $ \ff_\mathrm{ben}= -k_b \xx_{ssss}$ and tension $\ff_\mathrm{ten}=(\sigma \xx_s)_s$ ($s$
-is the arclength along the membrane, see figure~\ref{fig:schematics}. Using $k_w\sim 10^{-12}$ m$^2$s/kg (typical of mammalian cell membranes \cite{LiMoriSun2015_PRL}) and an osmolarity $\triangle c = 1$ mol/L (consistent with the osmotic forces in vesicle aspiration experiments \cite{OlbrichRawiczNeedhamEtAl2000_BJ}), the corresponding water flow is of the order $v_\mathrm{o}=1 \mu$m/s. Assuming that the membrane bending stiffness $k_b = 10^{-19}$J, a membrane tension $10^{-3}$N/m (one tenth of the lysis tension) and a characteristic length scale of $10^{-6}$m, the tension contribution ($v_\mathrm{t}$) and elastic stress contribution 
-($v_\mathrm{e}$) to the permeable water flow can be scaled to $v_\mathrm{o}$ as $v_\mathrm{o}:v_\mathrm{t}:v_\mathrm{e}=1:10^{-3}:10^{-7}$.  Furthermore, we note that in the absence of an osmotic stress, the water permeable flow can be significant when the membrane tension is large due to the external stress such as the hydrodynamics stress due to an external flow and/or due to confinement.
+is the arclength along the membrane, see figure~\ref{fig:schematics}. Using $k_w\sim 10^{-12}$ m$^2$s/kg (typical of mammalian cell membranes \cite{LiMoriSun2015_PRL}) and an osmolarity $\triangle c = 0.1$ mol/L (consistent with the osmotic forces in vesicle aspiration experiments \cite{OlbrichRawiczNeedhamEtAl2000_BJ}), the corresponding water flow is of the order $v_\mathrm{o}=0.1 \mu$m/s. Assuming that the membrane bending stiffness $k_b = 10^{-19}$J, a membrane tension $10^{-3}$N/m (one tenth of the lysis tension) and a characteristic length scale of $10^{-6}$m, the tension contribution ($v_\mathrm{t}$) and elastic stress contribution 
+($v_\mathrm{e}$) to the permeable water flow can be scaled to $v_\mathrm{o}$ as $v_\mathrm{o}:v_\mathrm{t}:v_\mathrm{e}=1:10^{-2}:10^{-6}$.  Furthermore, we note that in the absence of an osmotic stress, the water permeable flow can be significant when the membrane tension is large due to the external stress such as the hydrodynamics stress due to an external flow and/or due to confinement.
 In the following we will explore both.
 
 
