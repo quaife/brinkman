@@ -2,16 +2,23 @@
 % beta = beta'; chi = chi';
 % beta = beta(:);
 % chi = chi(:);
-beta = 1;%[0.1,1,10];
-chi = 1;%[10,0.1,1];
 
-for k = 1:numel(beta)
-  str = ['Chi' num2str(chi(k),'%2.1e') '_ra065_beta' ...
-      num2str(beta(k),'%2.1e')];
+conc = [0,0.1,0.3,0.5,0.7];
+beta = [0,0.1,1,10];
+chi = [0,10,20];
 
-  str = strrep(str,'.','p');
-  str = strrep(str,'-0','m');
-  str = strrep(str,'+0','');
-  shear1Ves(beta(k),chi(k),str);
+for i=1:numel(chi)
+    for j = 1:numel(conc)
+        for k = 1:numel(beta)
+          str = ['Chi' num2str(chi(i),'%2.1e') '_ra065_beta' ...
+              num2str(beta(k),'%2.1e') '_conc' num2str(conc(j),'%2.1e')];
+
+          str = strrep(str,'.','p');
+          str = strrep(str,'-0','m');
+          str = strrep(str,'+0','');
+          shear1Ves(beta(k),chi(i),conc(j),str);
+        end
+    end
 end
+
 

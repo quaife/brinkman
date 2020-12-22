@@ -152,7 +152,7 @@ else
 end
 % number of folds for a star shape
 
-if(any(strcmp(options,'parameter')));
+if(any(strcmp(options,'parameter')))
   alpha = options{find(strcmp(options,'parameter'))+1};
 else
   alpha = (0:N-1)'/N;
@@ -201,6 +201,7 @@ if ~equispaced
        'reducedArea',ra,'shortax',shortax,'scale',scale,...
        'folds',folds,'parameter',alpha);
 end
+alpha = (0:N-1)'/N;
 % clf
 % figure(1); hold on;
 % plot(X(1:end/2),X(end/2+1:end),'ro')
@@ -304,9 +305,9 @@ if symmetry == -1
   rcon = concentration + smallper*10*(rand(N,1) - 0.5);
   % uniform concentration with a little random noise
 elseif symmetry == 0
-  rcon = concentration + 3*smallper*cos(2*2*pi*alpha) + ...
-    0.5*smallper*cos(3*2*pi*alpha) + ...
-    0.5*smallper*cos(4*2*pi*alpha);
+  rcon = concentration + 3*smallper*cos(2*pi*alpha) + ...
+    smallper*0.5*cos(3*2*pi*alpha) + ...
+    smallper*0.5*cos(4*2*pi*alpha);
   % uniform concentration with a little noise at specific even Fourier
   % modes
 elseif symmetry==1
@@ -363,6 +364,11 @@ function X = recon(o,N,x0,y0,L,theta)
 IK = o.modes(N);
 x = x0 + L*o.intFT(cos(theta),IK);%/2/pi;
 y = y0 + L*o.intFT(sin(theta),IK);%/2/pi;
+figure(1);clf;
+%semilogy(abs(fftshift(fft(theta-2*pi*(0:N-1)'/N))))
+semilogy(abs(fftshift(fft(y))))
+pause
+
 X = o.setXY(x,y);
 
 %clf;
@@ -396,14 +402,11 @@ zeroMode = -sum(fh(2:end)./IK(2:end));
 intfh = [zeroMode;fh(2:end)./IK(2:end)];
 % non-zero modes of the integral of f
 
-intf = real(fh(1)/N * (0:N-1)'/N + ifft(intfh,N));
+intf = real(fh(1)/N * (0:N-1)'/N + ifft(intfh));
 % sum of the linear term and the contribution from the periodic part
 %figure(1); clf
 %disp('Here')
 %plot(intf)
-%figure(2); clf
-%semilogy(fftshift(abs(fh)))
-%pause
 
 end % intFT
 
@@ -545,6 +548,7 @@ rconHat = fft(rcon);
 %the lipid species to result in the fourth derivative scaled by the a
 %and \eps constants in equation (67)
 rlen = invPe*(IK/L).^4*consta*epsch;
+
 %N2 is equation (67) in the physical space.
 N2Hat = fconHat + rlen.*rconHat;
 N2Hat(1) = 0;

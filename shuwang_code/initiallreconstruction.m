@@ -60,7 +60,7 @@ while abs(area-areasum)/areasum>1e-10
 %  plot(xRef,yRef);
 %  plot(x,y,'r--')
 %  axis equal
-%  pause
+%  %pause
 
   area = sum(sin(theta2(1,1:m)).*x(1,1:m)-...
              cos(theta2(1,1:m)).*y(1,1:m))/2*sl/m;

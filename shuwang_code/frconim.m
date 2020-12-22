@@ -39,6 +39,7 @@ rlen = (N/sl).^4*consta*eps_ch;
 % N2Hat is the Fourier coefficeints of the right hand side of
 % equation (67) 
 N2Hat = fconHat + rlen.*rconHat;
+
 % Move back to physical (real) space
 fncon = real(ifft(N2Hat));
 

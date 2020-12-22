@@ -29,7 +29,7 @@ theta = theta(1:4:length(theta));
 rcon = rcon(1:4:4*ngrid+1);
 % size(rcon)
 % norm(rcon(1:end-1))
-% pause
+% %pause
 % downsample the concentration to the correct number of discretization
 % points
 

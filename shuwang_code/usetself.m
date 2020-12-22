@@ -28,9 +28,9 @@ global kmatrix velocity bendsti bendratio uinside uoutside m
 % compute the initial curvature using the tangent angle
 dkap = acurv(sl,theta,m);
 % clf
-% disp('her')
+% %disp('her')
 % plot(dkap)
-% pause
+% %%pause
 
 % Use the tangent angle, length, tracker point, and number of
 % discretization points to form x and y coordinates of the vesicle
@@ -59,12 +59,12 @@ ulam = uinside/uoutside;
 % spontaneous curvature and the double-well potential terms with f(u).
 % These are needed for the force in equation (13)
 [forc,fforc] = uset_un(sl,theta,rcon,bendsti,bendratio,m);
-% figure(5)
+% %figure(5)
 % clf;
 % semilogy(abs(fftshift(fft(forc(1:m)))))
 % hold on
 % semilogy(abs(fftshift(fft(fforc(1:m)))))
-% pause
+% %%pause
 
 % For the force in equation (33). Note that the normal is n =
 % (sin(theta),-cos(theta)) and the tangent is s =
@@ -101,15 +101,15 @@ forc002_l = integral3(forc2,m);
 sigma1 = k(1:m)'*c - forc001_l(1:m)*c1 + ...
     yo(1,1:m)*velocity;
 sigma2 = k(m+1:2*m)'*c - forc002_l(1:m)*c1;
-  disp('HERE')
-  figure(2)
+  %disp('HERE')
+  %figure(2)
   clf
   z1 = forc;
   z2 = fforc;
   semilogy(abs(fftshift(fft(z1))))
   hold on
   semilogy(abs(fftshift(fft(z2))))
-  pause()
+  %%pause()
 
 % sigma1 and sigma2 are the solution of equation (33) (still unsure
 % about the u_s term). Also, it includes the background shear flow which
@@ -117,7 +117,7 @@ sigma2 = k(m+1:2*m)'*c - forc002_l(1:m)*c1;
 
 % Calculate v dot n in eq (40)
 uun = sigma1(1,1:m).*sin(theta(1,1:m)) - ...
-      sigma2(1,1:m).*cos(theta(1,1:m));
+      sigma2(1,1:m).*c5os(theta(1,1:m));
 % Calculate v dot s in eq (40)
 utn = sigma1(1,1:m).*cos(theta(1,1:m)) + ...
       sigma2(1,1:m).*sin(theta(1,1:m));
@@ -132,10 +132,10 @@ utns = fd1(utn,m);
 %Calculate the right hand side of equation (40)
 rhs(1,1:m) = -(utns(1,1:m)/sl + uun(1,1:m).*dkap(1,1:m));
 % rhs';
-%  disp('plotting rhs')
+%  %disp('plotting rhs')
 %clf
 %  plot(rhs)
-%  pause
+%  %%pause
 % The velocity components in eq (40) are nonlocal linear functions of 
 % lambdaTilde. 
 % Call stokes which solves the linear system for LambdaTilde in (39)
@@ -143,14 +143,14 @@ rhs(1,1:m) = -(utns(1,1:m)/sl + uun(1,1:m).*dkap(1,1:m));
 % equation 
 % slam is LambdaTilde in eq (39)
 slam = stokes(dkap,m,sl,theta,rhs,A,c,c1); 
-% disp("oy with the poodles already")
+% %disp("oy with the poodles already")
 % norm(slam)
-% pause
+% %%pause
 % calculate the Fourier derivative
 slams = fd1(slam,m);
 % [xo' yo']
 % plot(slams)
-% pause
+% %%pause
 % We can now calculate the traction jump in first part of equation (39).
 % This comes from applying the product rule and using Frenet-Seret.
 forcs1(1,1:m) = slam(1,1:m).*dkap(1,1:m).*sin(theta(1,1:m)) - ...
@@ -179,6 +179,6 @@ rlambdalnew = slam;
 %clf; hold on;
 %plot(un(1:m))
 %plot(ut(1:m),'r')
-%pause
+%%%pause
 
 end

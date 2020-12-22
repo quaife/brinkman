@@ -6,7 +6,7 @@ r = repmat(s.x,[1 N]) - repmat(s.x.',[N 1]) + diag(ones(1,N));
 % on the main diagonal. x-coordinate is in the real part and
 % y-coordinate is in the imaginary part
 % size(r)
-% pause
+% %pause
 rt = repmat([1:N]'*pi/N , [1 N]) - ...
      repmat([1:N]*pi/N, [N 1]) + diag(ones(1,N));
 % only going from 0 to pi to account for the divided by 2 in the

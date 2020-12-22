@@ -12,7 +12,7 @@ vel = vell';
 %  relres
 %  iter
 %  %resvec
-%  pause
+%  %pause
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function vell = afun(pss)
 % matvec corresponding to equation (40)
@@ -28,7 +28,7 @@ forc2 = -slam(1,1:m).*dkap(1,1:m).*cos(theta(1,1:m)) - ...
 
 k = A*[forc1 forc2]';
 % norm(k)
-% pause
+% %pause
 forc001_l = integral3(forc1,m);
 forc002_l = integral3(forc2,m);
 

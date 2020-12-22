@@ -178,6 +178,18 @@ Esigma = -DDrbn_cur - 0.5*rbn.*cur.^3;
 %Esigma is equation (14) with spotaneous curvature set to zero.
 
 Eu = 0.5*Drbn.*cur.^2;
+
+%figure(2);clf; %hold on
+%plot(StokesMat(1:N,10),'b-o')
+% StokesMat(1,10)
+% StokesMat(N,10)
+% StokesMat(10,10)
+%shading interp
+% plot(rcon,'b-o')
+%  semilogy(abs(fftshift(fft(Drbn))))
+%  disp('HERE')
+%  pause()
+
 % figure(2)
 % plot(Eu)
 % pause

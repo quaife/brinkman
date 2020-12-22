@@ -19,5 +19,5 @@ y(1,1) = y0;
 %  semilogy(abs(fftshift(fft(theta - (0:95)*2*pi/96))))
 %  hold on
 %  semilogy(abs(fftshift(fft(x(1:end-1)))),'r')
-%  pause
+%  %pause
 %end

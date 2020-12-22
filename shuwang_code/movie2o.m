@@ -5,7 +5,7 @@ n = length(x(:,1)); % number of spatial points
 if nargin<5,
   for i=1:k:m
     hold off;
-    figure(1);clf;hold on;
+    %figure(1);clf;hold on;
     plot(x(:,i),y(:,i),'.','Markersize',10);
     plot(x(1,i),y(1,i),'ro');
 
@@ -20,7 +20,7 @@ if nargin<5,
   end
 else 
   for i=1:k:m
-    figure(1); clf; hold on
+    %figure(1); clf; hold on
     for iplot=1:n
       if rconn(iplot,i)>1
         rconn(iplot,i)=1;

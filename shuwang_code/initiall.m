@@ -52,7 +52,7 @@ theta = thetsolve(sxn,syn,sl,t0,ngrid);
 if symmetry == -1
 %   ngrid
 %   concentration
-%   pause
+%   %pause
   rcon = concentration + smallper*10*(rand(1,ngrid+1) - 0.5);
   % uniform concentration with a little random noise
 elseif symmetry==0
@@ -67,7 +67,7 @@ elseif symmetry==2
   rcon = concentration+ 5*smallper*sin(alpha*pi*2); 
   % uniform concentration with one small odd Fourier mode
 end
-figure(3)
+%figure(3)
 plot(rcon)
-pause
+%pause
 end

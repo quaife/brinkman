@@ -61,7 +61,7 @@ outpt = round(outpt/dt);
 % set the initial condition.
 [x,y,theta,rcon,sl] = initialsetup(shortax,ngrid,concentra,oddeven);
 % plot(rcon)
-% pause
+% %%pause
 % here we keep the total arclength unchanged.
 x0 = x(1);
 y0 = y(1);
@@ -87,21 +87,21 @@ kmatrix = formkmatrix(ngrid);
 % (33)
 [ux0,uy0,rlambdalnew,x,y,forc1,forc2,xcc,ycc] = ...
     usetself(x0,y0,sl,theta,rcon);
-%  disp('plotting un and ut')
+%  %disp('plotting un and ut')
 %  plot(ux0)
 %  hold on
 %  plot(uy0)
-%  pause
+%  %%pause
 % clf
 % plot(x,y)
-% % pause
-% figure(1); clf; hold on;
+% % %%pause
+% %figure(1); clf; hold on;
 % quiver(x(1:end-1),y(1:end-1),ux0 - 0*y(1:end-1),uy0)
 % axis equal
 % axis([-3 3 -3 3])
-% pause(0.01)
+% %%pause(0.01)
 % hold off
-%pause
+%%%pause
 u1x = ux0(1);
 u1y = uy0(1);
 % put the x-y velocity into the normal and tangential velocity.
@@ -134,7 +134,7 @@ fncon = frconim(m,sl,rcon,theta,bendsti,bendratio,eps_ch,consta);
 temp1 = fft(fntheta); 
 % clf
 % plot(temp1)
-% pause
+% %%pause
 % Fourier derivative of the tangent angle adjusted by a linear function
 % so that we are taking the fft of a periodic function
 temp2 = fft(theta - 2*pi*(0:m-1)/m);
@@ -229,22 +229,22 @@ for ktime = 1:nstep
   % ux0 = x-velocity
   % uy0 = y-velocity
   % (x,y) = tracker point
-  disp('here1')
+  %disp('here1')
   [ux0,uy0,rlambdalnew,x,y,forc1,forc2,xcc,ycc,area] = ...
       usetself(x0,y0,sl,thetan,rconn);
   
-%   disp('here1')
+%   %disp('here1')
 %   norm(uy0)
-% %   pause
-%   figure(1); clf; hold on;
+% %   %%pause
+%   %figure(1); clf; hold on;
 %   plot(x,y,'r')
 %   quiver(x(1:end-1),y(1:end-1),ux0,uy0)
   nn = [nn;norm([ux0;uy0])];
-  %disp('here 1')
+  %%disp('here 1')
   %norm([ux0;uy0])
 %   axis equal
 %   axis([-3 3 -3 3])
-%   pause(0.1)
+%   %%pause(0.1)
 %   hold off
   
   u1x=ux0(1);
@@ -252,9 +252,9 @@ for ktime = 1:nstep
 
   un  = ux0.*sin(thetan) - uy0.*cos(thetan);
   utt = ux0.*cos(thetan) + uy0.*sin(thetan);
-%   figure(3)
+%   %figure(3)
 %   semilogy(abs(fftshift(fft(ux0))))
-%   pause
+%   %%pause
   
   
   fsln = forcsl(m,thetan,un);
@@ -282,9 +282,9 @@ for ktime = 1:nstep
   temp4 = d1.*temp2 + 1/2*dt*(3*d1.*temp1-d2.*temp3);
   temp4 = real(ifft(temp4));
   thetann = temp4 + 2*pi*(0:1:m-1)/m;
-%   disp('here')
+%   %disp('here')
 %   norm(fnthetan)
-%   pause
+%   %%pause
   % this is what might need to change to do semi-permeability???
 
   rsl = eps_ch*(rk/sl).^4*consta;
@@ -295,6 +295,9 @@ for ktime = 1:nstep
   d2 = dt/nloop*(rsl+rslnn)/2+dt/nloop*rsln;
   d1 = exp(-d1);
   d2 = exp(-d2);
+  clf;
+  plot(d2)
+  pause
   
   if concentra>0
     for innerstep=1:nloop
@@ -316,9 +319,9 @@ for ktime = 1:nstep
     end
   end
   %clf
-  %disp('plotting rcon')
+  %%disp('plotting rcon')
   %plot(rcon)
-  %pause
+  %%%pause
   sl = sln;
   sln = slnn;
   fsl = fsln;
@@ -341,7 +344,7 @@ for ktime = 1:nstep
 
 %  clf;
 %  plot(theta)
-%  pause
+%  %%pause
 
   if mod(ktime,outpt)==0
     np = np+1;

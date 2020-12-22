@@ -32,7 +32,7 @@ fntheta(1,1:m) = temp4(1,1:m);
 %fntheta(1,m+1) = fntheta(1,1);
 fntheta = kfilter(fntheta,m);
 % plot(fntheta)
-% pause
+% %pause
 % Krasney filter applied to smooth out spurious high frequency terms
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -42,9 +42,9 @@ function ftheta = forctheta(m,sl,theta,un,utt)
 % differentiation. This is actually the curvature
 stheta = fd1x(theta,m);
 % the `s' prefix corresponds to arclenght
-% disp('here1')
+% %disp('here1')
 % norm(stheta)
-% pause
+% %pause
 % compute the derivative of the normal velocity
 sun = fd1(un,m);
 
