@@ -190,8 +190,6 @@ For vesicles in a narrow micro-fluidic channel, the typical time scale is of $ms
   shape. (b): The reduced area of each of the simulations. The
   particular snapshots in (a) occur at the marks along the curve.}
 \end{figure*}
-\todo[inline]{put a vertical dashed line at the times when permeability
-starts to be important. Convert to physical time.}
 
 Our analysis shows that a semi-permeable vesicle in a quiescent flow
 relaxes to a circle at a rate that is proportional to $\beta$, and the
@@ -460,9 +458,6 @@ Figure~\ref{fig:stenosisComposite}(b), we consider a vesicle passing
 through a channel of double the length, and we observe that the reduced
 area decreases by 13.2\% (Figure~\ref{fig:stenosisComposite}(e)).
 \todo[inline]{This example also used a smaller flow rate of $8.4\mu$m/s}
-\todo[inline]{Membrane tension. Look at each of the five cases and find
-the instance where tension reaches its max value. Plot the tension as
-the colorbar along the vesicle shape.}
 
 \begin{figure*}[htp]
   \ifTikz
@@ -530,26 +525,24 @@ vesicle passes through the contraction, it accelerates followed by a
 rapid deacceleration once it has passed through the contraction.
 
 \begin{itemize}
-  \item Vesicle velocity in plot (a) varies from 5 to 24 microns/s
-  \item Vesicle velocity in plot (b) varies from 5 to 28 microns/s
-  \item Vesicle velocity in plot (c) varies from 0.2 to 2 microns/s
-  \item Vesicle velocity in plot (d) varies from 5 to 25 microns/s
+  \item Vesicle velocity in plot (a) varies from 5 to 24 microns/s.
+  \item Vesicle velocity in plot (b) varies from 5 to 28 microns/s. Time
+    that vesicle first completely passes through constriction is 4.75s
+  \item Vesicle velocity in plot (c) varies from 0.2 to 2 microns/s.
+  \item Vesicle velocity in plot (d) varies from 5 to 25 microns/s. Time
+    that vesicle first completely passes through constriction is 4.76s
   \item Vesicle velocity in plot (g) varies from 14 to 95 microns/s (see
-    plot (i))
+    plot (i)). Time that vesicle first completely passes through
+    constriction is 1.43s
 \end{itemize}
-\todo[inline]{Center of mass vs.~time}
-\todo[inline]{Membrane tension. Look at each of the five cases and find
-the instance where tension reaches its max value. Plot the tension as
-the colorbar along the vesicle shape.}
-
 
 \begin{figure*}[htp]
   \centering
-%  \ifTikz
+  \ifTikz
   \input{figures/contractingComposite.tikz}
-%  \else
-%  \includegraphics{figures/contractingComposite.pdf}
-%  \fi
+  \else
+  \includegraphics{figures/contractingComposite.pdf}
+  \fi
   \caption{\label{fig:contractingComposite} A contracting geometry
   similar to the experimental device in~\cite{wu2015critical}. The
   channel width varies from $18\mu$m to $1.8\mu$m, and it repeats every

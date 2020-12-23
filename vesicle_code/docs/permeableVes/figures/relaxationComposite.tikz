@@ -3872,8 +3872,21 @@
 (1.0049e-03,1.9712e-01)
 (1.9712e-02,4.1292e-01)
 };
+
+\addplot[dashed,black, line width=1.5pt] coordinates{
+(2.0e-3,0)
+(2e-3,1.1)
+};
+
+\addplot[dashed,black, line width=1.5pt] coordinates{
+(1.2e-1,0)
+(1.2e-1,1.1)
+};
+
 \end{axis}
 
+\node at (13.6,6.25) {\small 1 sec};
+\node at (15.9,6.25) {\small 1 min};
 
 % Start of the top row of images (ellipse1.dat)
 \begin{axis}[
