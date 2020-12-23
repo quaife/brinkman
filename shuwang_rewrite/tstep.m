@@ -88,6 +88,12 @@ ulam = ves.viscIn/ves.viscOut;
 %components of the density functions tau that involves Eu and Esigma
 LogKernel1 = op.IntegrateLogKernel(tau(1:N));
 LogKernel2 = op.IntegrateLogKernel(tau(N+1:end));
+% figure(2);clf; %hold on
+% %plot(tau(1:N))
+% semilogy(abs(fftshift(fft(LogKernel2))))
+% %size(LogKernel1)
+% disp('HERE')
+% pause()
 
 % calculate constants that multiply the weakly singular and regular
 % parts of the integral operators LogKernel1 and LogKernel2
@@ -99,14 +105,24 @@ c2 = -L/(8*pi);
 % is not stated in equation (33), but instead in equations (6) and (7)
 sigma1 = k(1:N)*c1 + LogKernel1*c2 + ves.X(N+1:end)*o.shearRate;
 sigma2 = k(N+1:end)*c1 + LogKernel2*c2;
-% figure(2)
-% clf
-% z1 = Eu;
-% z2 = Esigma;
-% semilogy(abs(fftshift(fft(z1))))
-% hold on
-% semilogy(abs(fftshift(fft(z2))))
-% pause()
+
+%  figure(2);clf; %hold on
+% % %plot(StokesMat(1:N,10),'b-o')
+% % % StokesMat(1,10)
+% % % StokesMat(N,10)
+% % % StokesMat(10,10)
+% % %shading interp
+% %  semilogy(abs(fftshift(fft(cos(theta)+1i*sin(theta)))))
+%   disp('HERE')
+% %  pause()
+% % figure(2)
+% % clf
+%  z1 = sigma1;
+%  z2 = sigma2;
+%  semilogy(abs(fftshift(fft(z1))))
+%  hold on
+%  semilogy(abs(fftshift(fft(z2))))
+%  pause()
 
 % Calculate v dot n in eq (40)
 vdotn = sigma1.*sin(theta) - sigma2.*cos(theta);
@@ -140,7 +156,9 @@ tracJump = [(+lambTil.*cur.*sin(theta) - dlamTilds.*cos(theta));...
 
 % Adding the jump conditions in eq (39) to (33) which is in the variable
 % tau
+
 tau = tau + tracJump;
+%adding in fdotn term for semipermeability model
 fdotn = tau(1:end/2).*sin(theta)-tau(end/2+1:end).*cos(theta);
 %Compute u tilde in equations (38) through (40) without the weakly singular
 %log kernel
@@ -154,11 +172,19 @@ force2 = op.IntegrateLogKernel(tau(N+1:end));
 %non-singular and weakly singular integral operators
 uxvel = k(1:N)*c1 + force1*c2 + ves.X(N+1:end)*o.shearRate;
 uyvel = k(N+1:end)*c1 + force2*c2;
+%dvdotsds + cur.*vdotn - ves.SPc*cur.*Esigma
 
-%clf; hold on
 %plot(uxvel)
 %plot(uyvel,'r')
 %pause
+
+% figure(2);clf; %hold on
+% %plot(tau(1:N))
+% semilogy(abs(fftshift(fft(k(1:N)))))
+% %size(LogKernel1)
+% disp('HERE')
+% pause()
+
 end % usetself
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -358,10 +384,18 @@ ves.theta = thetan;
 % cx = oc.centerOfMass(ves.X, ves.X(1:end/2),ves.L,xnormal);
 % cy = oc.centerOfMass(ves.X, ves.X(end/2+1:end),ves.L,ynormal);
 % compute the average velocity
+
+
 avgux = sum(ux)*ves.L/ves.N;
 avguy = sum(uy)*ves.L/ves.N;
 % 
+disp('HERE')
 Xprov = oc.recon(ves.N,0,0,ves.L,ves.theta);    
+
+clf
+%semilogy(abs(fftshift(fft(ves.theta-2*pi*(0:ves.N-1)'/ves.N))))
+semilogy(abs(fftshift(fft(Xprov(end/2+1:end)))))
+pause
 %
 cXprovx = oc.centerOfMass(Xprov, Xprov(1:end/2),ves.L,xnormal);
 cXprovy = oc.centerOfMass(Xprov, Xprov(end/2+1:end),ves.L,ynormal);
@@ -390,6 +424,7 @@ ea = abs(a_new - a_old)./abs(a_old);
 el = abs(l_new - l_old)./abs(l_old);
 om.plotData(ves.X,time,ea,el,[ux;uy],ves.rcon)
 om.initializeFiles(ves.X,ves.rcon,time,[ux;uy])
+
 
 end % FirstSteps
 
@@ -494,6 +529,11 @@ for ktime = 1:nstep
   thetann = real(ifft(d1.*fcthetan + ...
         0.5*params.dt*(3*d1.*fcfnthetan - d2.*fcfntheta))) + ...
         2*pi*(0:ves.N-1)'/ves.N;
+    
+  figure(3)
+  clf;
+  semilogy(abs(fftshift(fft(thetann - 2*pi*(0:ves.N-1)'/ves.N))))
+  pause(0.01)
 %   disp('here')
 %   norm(fnthetan)
 %   pause
@@ -508,6 +548,8 @@ for ktime = 1:nstep
     % to evolve the phase field surface.
     d1 = exp(-(params.dt/params.nloop*(rsln+rslnn)/2));
     d2 = exp(-(params.dt/params.nloop*((rsl+rslnn)/2+rsln)));
+    %plot(d2)
+    %pause
 %                 === Evolve phase field on surface ===
     for i = 1:params.nloop
       %evolve the phase field on the surface            
@@ -520,10 +562,10 @@ for ktime = 1:nstep
       %concentration as in equation (68)
       fcLSn = fft(ves.rcon);
       %Compute rcon at current timstep, rconn
-      rconn = real(ifft(d1.*fcLSn + 0.5*params.dt/params.nloop*(3*d1.*...
+      ves.rcon = real(ifft(d1.*fcLSn + 0.5*params.dt/params.nloop*(3*d1.*...
               fcN2n - d2.*fcN2)));
       %update ves.rcon
-      ves.rcon = rconn;
+     % ves.rcon = rconn;
       %update fcN2 for nloop
       N2Hat = N2Hatn;
     end    

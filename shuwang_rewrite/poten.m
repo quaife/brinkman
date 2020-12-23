@@ -41,7 +41,11 @@ function selfmatrix = StokesMatrixLogless(o,ves)
 X = ves.X;
 % define points
 pts = X(1:o.N) + 1i*X(o.N+1:end);
-
+% 
+% figure(2);clf;
+% semilogy(abs(fftshift(fft(pts))))
+% disp('HERE')
+% pause()
 % r is the target minus source for the single-layer potential with ones
 % on the main diagonal. The x-coordinate is in the real part and the y-
 % coordinate is in the imaginary part

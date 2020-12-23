@@ -7,11 +7,14 @@ oc = curve;
 % Form initial shape that has points equally spaced in arclength. alpha
 % has the parameter values that give this parameterization
 upRate = 4;
+h = (params.shortax - 1)^2/(params.shortax+1)^2;
+L = pi*(params.shortax + 1)*(1+h/4+h^2/64);
+scale = 0.6516;
 [alpha,X] = oc.initConfig(upRate*params.N,false,'ellipse',...
-            'shortax',params.shortax);
-X(1:end/2) = X(1:end/2) + 0.07;
-X(end/2+1:end) = X(end/2+1:end) + 0.5;
-
+            'shortax',params.shortax, 'scale', scale);
+% figure(3);clf;
+% plot(alpha)
+% pause
 %Define the initial concentration field
 rcon = oc.initialConcentration(upRate*params.N,alpha,...
       params.concentra,params.oddeven);
@@ -27,8 +30,8 @@ ves.X = ves.X(1:upRate:end);
 ves.cur = ves.cur(1:upRate:end);
 ves.theta = ves.theta(1:upRate:end);
 ves.rcon = ves.rcon(1:upRate:end);
-%semilogy(abs(fftshift(fft(ves.X(1:end/2)))))
-
+% semilogy(abs(fftshift(fft(ves.X(1:end/2)))))
+% pause
 % Smooth the geometry by requiring that the opening tangent angle theta
 % is band limited. Note that it will still have some small coefficients
 % in the tails of the Fourier spectrum, but they will be much smaller
