@@ -6,11 +6,11 @@ fprintf('Implicit vesicle-vesicle interactions.\n');
 fprintf('Implicit vesicle-boundary interactions.\n');
 
 %format long
-prams.N = 256/4;                 % points per vesicle
+prams.N = 256;                 % points per vesicle
 prams.nv = 1;                  % number of vesicles
-prams.T = 10;                  %time horizon
+prams.T = 30;                  %time horizon
 prams.m = 12000;                % number of time steps
-prams.Nbd = 2*1024/4;               % number of points on solid wall
+prams.Nbd = 2048;               % number of points on solid wall
 prams.nvbd = 1;                % number of components to solid walls
 prams.kappa = 1e0;            % bending coefficient
 prams.viscCont = 1*ones(prams.nv,1);            % viscosity contrast
@@ -26,7 +26,7 @@ prams.fluxCoeff = 1e-3;
 options.fluxShape = 1; % constant value
 
 options.farField = 'chokeLongest';      % Constricted domain
-%options.farFieldSpeed = 4200;
+%options.farFieldSpeed = 500;
 options.farFieldSpeed = 4.2;
 % background velocity or solid walls (which comes with a default
 % boundary condition)
@@ -39,7 +39,7 @@ options.fmmDLP = ~true;
 % use FMM to compute single-layer potential
 options.confined = true;   % confined or unbounded geometry
 % Used for geometry and boundary conditins of solid walls
-options.usePlot = false;     % View vesicles during run
+options.usePlot = true;     % View vesicles during run
 options.axis = [-110.5 110.5 -12.5 12.5]; 
 % Axis for plots if usePlot = true
 options.saveData = true;    
@@ -53,7 +53,7 @@ options.verbose = true;
 options.profile = false;    % Profile code
 options.collision = false;   % Collision detection
 
-options.nsdc = 0;
+options.nsdc = 1;
 options.orderGL = 2;
 
 options.timeAdap = true;
@@ -68,12 +68,12 @@ prams.alpha = 0.9;
 % Also add src to path
 
 oc = curve;
+%X = oc.initConfig(prams.N,'nv',prams.nv,'angle',-pi/3,...
+%   'scale',1.44,...
+%   'center',[[-45;5]],'reducedArea',0.65);
 X = oc.initConfig(prams.N,'nv',prams.nv,'angle',pi/2,...
    'scale',1.44,...
-   'center',[[-105;0]],'reducedArea',0.65);
-%X = oc.initConfig(prams.N,'nv',prams.nv,'angle',pi/2,...
-%   'scale',1,...
-%   'center',[[-45;0]],'reducedArea',0.65);
+   'center',[[-105;5]],'reducedArea',0.65);
 
 % load chokeIC
 Xwalls = oc.initConfig(prams.Nbd,options.farField);
@@ -84,7 +84,8 @@ pressx = [-60;60];
 pressy = [0;0];
 pressTar = [pressx;pressy];
 
-Xfinal = Ves2D(X,Xwalls,prams,options,pressTar);
+%Xfinal = Ves2D(X,Xwalls,prams,options,pressTar);
+Xfinal = Ves2D(X,Xwalls,prams,options);
 % Run vesicle code
 
 
