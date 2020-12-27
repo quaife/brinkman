@@ -26,7 +26,7 @@ params.nloop = 20; % number of time steps of Cahn-Hilliard to be taken at
 params.epsch = 0.04; % small parameter  in the double-well potential 
 params.gmresTol = 1e-10; %GMRES tolerance
 params.gmresMaxIter = params.N; %maximum number of GMRES iterations
-params.SPcoeff = 0.1; %fluxCoeff; %semi-permeable coefficient
+params.SPcoeff = 0.0; %fluxCoeff; %semi-permeable coefficient
 
 options.saveData = false;
 options.verbose = true;  % write data to console

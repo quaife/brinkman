@@ -366,8 +366,9 @@ x = x0 + L*o.intFT(cos(theta),IK);%/2/pi;
 y = y0 + L*o.intFT(sin(theta),IK);%/2/pi;
 figure(1);clf;
 %semilogy(abs(fftshift(fft(theta-2*pi*(0:N-1)'/N))))
-%semilogy(abs(fftshift(fft(y))))
-%pause
+semilogy(abs(fftshift(fft(sin(theta)))),'r')
+%semilogy(abs(fftshift(fft(y))),'r')
+pause
 
 X = o.setXY(x,y);
 
@@ -404,15 +405,6 @@ intfh = [zeroMode;fh(2:end)./IK(2:end)];
 
 intf = real(fh(1)/N * (0:N-1)'/N + ifft(intfh));
 % sum of the linear term and the contribution from the periodic part
-%figure(1); clf
-%disp('Here')
-%plot(intf)
-
-figure(1); clf;
-semilogy(abs(fftshift(fh)))
-disp(fh(1))
-%semilogy(abs(fftshift(fft(intf - 0*fh(1)/N * (0:N-1)'/N))))
-pause
 
 end % intFT
 
