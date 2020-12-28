@@ -57,8 +57,8 @@ Please provide an abstract of no more than 250 words in a single paragraph. Abst
 \input my_macros2.tex	
 
 \newif\ifTikz
-%\Tikztrue
-\Tikzfalse
+\Tikztrue
+%\Tikzfalse
 
 %\usepgfplotslibrary{external}
 %\tikzexternalize
@@ -391,10 +391,10 @@ We validated our numerical codes by comparing against results in Kaoui {\it et a
 %semi-permeable vesicle. 
 %
 
-At the beginning of the simulations a vesicle is initialized
+At the beginning of the simulations a semipermeable vesicle is initialized
 above the center line $y=0$, and it migrates towards the center
-line~\cite{dan-vla-mis2009}. For an impermeable vesicle, depending on
-the vesicles reduced area and the flow rate, the equilibrium vesicle shape
+line as in the impermeable case~\cite{dan-vla-mis2009}. However, for an impermeable vesicle, depending on
+the initial reduced area and the maximum flow velocity $U$, the equilibrium vesicle shape
 is either an axisymmetric parachute or bullet, or an asymmetric
 tank-treading slipper~\cite{kao-bir-mis2009}. 
 %
@@ -413,6 +413,7 @@ diagram for vesicles with a permeability rate of $\beta = 10^{-3}$. The equilibr
 Figure~\ref{fig:parabolicComposite}(a). An example of a semi-permeable vesicle with $\alpha(0) = 0.9$ and $U=800$ $\mu m/s$ is
 shown in Figure~\ref{fig:parabolicComposite}(c) and (d). 
 %
+
 As observed for the planar shear flow,
 the steady state reduced area is independent of the initial reduced
 area, and larger flow rates result in smaller steady state reduced
@@ -494,15 +495,14 @@ area decreases by 13.2\% (Figure~\ref{fig:stenosisComposite}(e)).
 \subsection*{Semi-Permeable Vesicle in a Contracting Geometry} 
 Squeezing a cell or an elastic vesicle through a slit in microfluidics has gained popularity for its application in stress-induced release of macromolecules
 \cite{ShareiEtAl2013_PNAS,Pak2015_PNAS,ZhangShenHoganBarakatMisbah2018_BJ,LuoBai2019_PoF}. RBCs go through submicron slits many times during their lifetime, and such process selects healthy, flexible RBCs to survive \cite{wu2015critical,LuPeng2019_PoF}.
-Here we investigate the role of membrane permeability to water when a cell is squeezed through a contracting microfluidic channel similar to~\cite{wu2015critical},
+Here we investigate the role of membrane permeability to water when a semi-permeable vesicle is squeezed through a contracting microfluidic channel similar to~\cite{wu2015critical},
 where the width of the channel gradually decreases from $16\mu$m to $1.6\mu$m. The channel then immediately opens
 again to $16\mu$m (Figure~\ref{fig:contractingComposite}). A
 Poiseuille flow is imposed at the inlet and outlet with a constant maximum flow
 rate of $U_{\max}$. We initialize a semi-permeable vesicle with $\alpha
 = 0.65$ that spans $10\mu$m of the total channel width and investigate
-the effects of the permeability rate and the maximum flow velocity. We
-color the vesicle according to the sign of its flux---fluid flows into
-the vesicle in red regions and out of the vesicle in blue regions.
+the effects of the membrane permeability to water and the maximum flow velocity on whether a vesicle can successfully pass through the slit. 
+We color the vesicle according to the sign of its flux---red for influx and blue for efflux.
 
 In Figures~\ref{fig:contractingComposite}a
 and~\ref{fig:contractingComposite}b, we plot snapshots of vesicles with
