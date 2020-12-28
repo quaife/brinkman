@@ -18,6 +18,8 @@
   ylabel = {$\nu$},
   ylabel near ticks,
   xmode = log,
+  xtick pos = left,
+  ytick pos = left,
 %    legend entries = {$\beta=10^{0}$,
 %    $\beta = 10^{-1}$,
 %    $\beta = 10^{-2}$,

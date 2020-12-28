@@ -142,8 +142,11 @@ Vesicles (self-enclosed lipid bilayer membranes) have been used as a model syste
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[htp]
   \centering
-   \includegraphics[width=0.475\textwidth]{figures/sketch_sample.png}
-  \caption{\label{fig:sketch} Schematics showing the effects of semipermeability on vesicle hydrodynamics in various configurations.}
+  \includegraphics[width=0.45\textwidth]{figures/schematic.pdf}
+  \caption{\label{fig:sketch} Schematics showing the effects of
+  semipermeability on vesicle hydrodynamics in various configurations.
+  The slipper in (a) is the steady-state shape of a semi-permeable
+  vesicle in a Poiseuille flow.}
 \end{figure}
 \section*{Formulation}
 We consider a two-dimensional semi-permeable vesicle (permeable only to water) suspended in a viscous fluid, see figure~\ref{fig:sketch}.
@@ -160,12 +163,6 @@ and $\ff_\mathrm{mem}$ is the membrane stress that consists of both bending $ \f
 is the arclength along the membrane, see figure~\ref{fig:sketch}. Using $k_w\sim 10^{-12}$ m$^2$s/kg (typical of mammalian cell membranes \cite{LiMoriSun2015_PRL}) and an osmolarity $\triangle c = 0.1$ mol/L (consistent with the osmotic forces in vesicle aspiration experiments \cite{OlbrichRawiczNeedhamEtAl2000_BJ}), the corresponding water flow is of the order $v_\mathrm{o}=0.1 \mu$m/s. Assuming that the membrane bending stiffness $k_b = 10^{-19}$J, a membrane tension $10^{-3}$N/m (one tenth of the lysis tension) and a characteristic length scale of $10^{-6}$m, the tension contribution ($v_\mathrm{t}$) and elastic stress contribution 
 ($v_\mathrm{e}$) to the permeable water flow can be scaled to $v_\mathrm{o}$ as $v_\mathrm{o}:v_\mathrm{t}:v_\mathrm{e}=1:10^{-2}:10^{-6}$.  Furthermore, we note that in the absence of an osmotic stress, the water permeable flow can be significant when the membrane tension is large due to the external stress such as the hydrodynamics stress due to an external flow and/or due to confinement.
 In the following we will explore both.
-
-\begin{figure}[htp]
-  \centering
-  \includegraphics[width=0.45\textwidth]{figures/schematic.pdf}
-  \caption{\label{fig:schematics} A caption}
-\end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -468,9 +465,14 @@ pressure, and the vesicle's reduced area reduces by about 6.1\%
 a constant rate we expect that a larger amounts of deflation is possible
 if the vesicle is stenosed for a longer period of time. Therefore, in
 Figure~\ref{fig:stenosisComposite}(b), we consider a vesicle passing
-through a channel of double the length, and we observe that the reduced
+through a channel of triple the length, and we observe that the reduced
 area decreases by 13.2\% (Figure~\ref{fig:stenosisComposite}(e)).
-\todo[inline]{This example also used a smaller flow rate of $8.4\mu$m/s}
+\begin{itemize}
+  \item In plot (a), flow rate is $1000 \mu m/s$ and residency time is
+    $t_R = 45.6 \times 10^{-2}$ s.
+  \item In plot (b), flow rate is $8.4 \mu m/s$ and residency time is
+    $t_R =  16.2$ s.
+\end{itemize}
 
 \begin{figure*}[htp]
   \ifTikz
@@ -484,10 +486,15 @@ area decreases by 13.2\% (Figure~\ref{fig:stenosisComposite}(e)).
   through a constricted geometry that is over five times longer. (c) The
   excess pressure of an impermeable and semi-permeable vesicle in the
   short geometry in (a). (d) The reduced area of the semi-permeable
-  vesicle in the short geometry in (a). (e) The reduced area of the
-  semi-permeable vesicle in the long geometry in (b). In parts (c), (d),
-  and (e), the horizontal axis is the x-coordinate of the vesicle's
-  center of mass.}
+  vesicles in the geometries in (a) and (b) as a function of the
+  vesicles' center of mass. The $x$-axis is scaled by $1/L$ where $L$ is
+  half the length of the constriction. (e) The reduced area of the
+  semi-permeable vesicles in the geometries in (a) and (b) as a function
+  of time. The time axis is scaled by $1/t_R$ where $t_R$ is the
+  residency time. In parts (c) and (d), the dashed lines correspond to
+  the locations of the inlet and outlet. In part (e), the dashed lines
+  correspond to the times that the vesicle enters and exits the
+  constriction.}
 \end{figure*}
 
 
@@ -569,6 +576,15 @@ rapid deacceleration once it has passed through the contraction.
   marks representing shapes in (g).}
 \end{figure*}
 
+\begin{figure}[htp]
+  \ifTikz
+  \input{figures/contractingComposite2.tikz}
+  \else
+  \includegraphics{figures/contractingComposite2.pdf}
+  \fi
+  \caption{\label{fig:contractingComposite2} Vesicle reduced area and
+  velocity vs.~time.}
+\end{figure}
 
 
 % \bibliographystyle{plain}
