@@ -148,6 +148,7 @@ Vesicles (self-enclosed lipid bilayer membranes) have been used as a model syste
   The slipper in (a) is the steady-state shape of a semi-permeable
   vesicle in a Poiseuille flow.}
 \end{figure}
+
 \section*{Formulation}
 We consider a two-dimensional semi-permeable vesicle (permeable only to water) suspended in a viscous fluid, see figure~\ref{fig:sketch}.
 To focus on the effect of water flow on vesicle hydrodynamics in various conditions, we assume the fluid is the same inside and outside the vesicle membrane ($\gamma$) with an outward normal $\nn$.
@@ -1152,42 +1153,38 @@ rapid deacceleration once it has passed through the contraction.
 %  corresponds to the right-most point of the vesicle.}
 %\end{figure}
 
-\section*{Supplementary Material: Formulation \label{sc:formulate}}
-We consider a two-dimensional semi-permeable vesicle suspended in an
-unbounded viscous fluid driven by the imposed flow $\uu_\infty(\xx)$.
-Since fluid is transported across the semi-permeable vesicle membrane,
-we only consider fluids with uniform viscosity. Letting $\gamma$ be the
-vesicle interface, the fluid velocity $\uu$ and pressure $p$ satisfy
-%
-\begin{alignat}{3}
+\section*{Supplementary Material}
+\subsection*{Formulation}
+We consider a two-dimensional inextensible semi-permeable vesicle,
+$\gamma$, suspended in unconfined and confined geometries. The
+suspending fluid is assumed to be viscous so that the fluid velocity
+$\uu$ and pressure $p$ are governed by the incompressible Stokes
+equations
+\begin{align}
   \label{eqn:governing}
-  -\nabla p + \mu \triangle \uu &= 0, \quad
-  \nabla \cdot \uu = 0, \qquad &&\xx \in \RR^2 \setminus \gamma, \\
-%
-  \uu(\xx) &\rightarrow \uu_\infty(\xx),
-    &&\norm{\xx} \rightarrow \infty,
-\end{alignat}
-where $\mu$ is the fluid viscosity. Letting $\nn$ be the outward normal
-to $\gamma$, $\jump{\cdot}$ be the jump across the interface, and $T$ be
-the hydrodynamic stress tensor, the interfacial boundary conditions are
+  -\nabla p + \mu \triangle \uu = 0, \quad
+  \nabla \cdot \uu = 0, \qquad \xx \in \RR^2 \setminus \gamma,
+\end{align}
+where $\mu$ is the fluid viscosity. In an unconfined geometry, the
+condition $\uu(\xx) \rightarrow \uu_\infty(\xx)$ is enforced as $\xx
+\rightarrow \infty$, and in a confined geometry with boundary $\Gamma$,
+the boundary condition $\uu(\xx) = \UU(\xx)$ is enforced on $\Gamma$,
+where $\UU(\xx)$ is prescribed. Along the vesicle $\gamma$, mass
+continuity and force balance are enforced by requiring
 \begin{align}
   \label{eqn:jump}
   \jump{T\cdot\nn} = \ff_\mathrm{mem}, \quad \jump{\uu} = 0,
 \end{align}
-where $\ff_\mathrm{mem}$ is the membrane force that results from the
-Helfrich energy with bending modulus $k_b$, and a tension term that acts
-as a Lagrange multiplier to satisfy the local inextensibility condition.
-Following~\cite{vee-gue-zor-bir2009}, we modify the bending tension and
-forces as
-$\ff_\mathrm{mem} = \ff_\mathrm{ben} +
-\ff_\mathrm{ten}$, where
-\begin{align}
-  \label{eqn:membraneForces}
-  \ff_\mathrm{ben} = -k_b \xx_{ssss}, \qquad
-  \ff_\mathrm{ten} = (\sigma \xx_s)_s.
-\end{align}
-The physical tension is $\Lambda = \sigma + 1.5 \kappa^2$, where
+where $\nn$ is the outward normal of $\gamma$, $\jump{\cdot}$ is the
+jump across the interface, and $T$ is the hydrodynamic stress tensor.
+The membrane force $\ff_\mathrm{mem}$ is the sum of a bending force
+with bending modulus $k_b$ and a force due to the tension $\Lambda$.
+Following~\cite{vee-gue-zor-bir2009}, we modify the bending and tension
+forces as $\ff_\mathrm{ben} = -k_b \xx_{ssss}$, and $\ff_\mathrm{ten} =
+(\sigma \xx_s)_s$, where $s$ is arclength. The physical tension can be
+recovered using the identity $\Lambda = \sigma + 1.5 \kappa^2$, where
 $\kappa$ is the membrane curvature.
+\todo[inline]{need inextensibility}
 
 Semi-permeability is introduced by modifying the vesicle velocity from
 the standard choice. Instead of using the no-slip boundary condition, we
