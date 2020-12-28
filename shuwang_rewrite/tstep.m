@@ -392,9 +392,10 @@ avguy = sum(uy)*ves.L/ves.N;
 disp('HERE')
 Xprov = oc.recon(ves.N,0,0,ves.L,ves.theta);    
 
+disp('HERE')
 clf
 %semilogy(abs(fftshift(fft(ves.theta-2*pi*(0:ves.N-1)'/ves.N))))
-semilogy(abs(fftshift(fft(Xprov(end/2+1:end)))))
+%semilogy(abs(fftshift(fft(Xprov(end/2+1:end)))))
 pause
 %
 cXprovx = oc.centerOfMass(Xprov, Xprov(1:end/2),ves.L,xnormal);
