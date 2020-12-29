@@ -57,8 +57,8 @@ Please provide an abstract of no more than 250 words in a single paragraph. Abst
 \input my_macros2.tex	
 
 \newif\ifTikz
-\Tikztrue
-%\Tikzfalse
+%\Tikztrue
+\Tikzfalse
 
 %\usepgfplotslibrary{external}
 %\tikzexternalize
@@ -150,6 +150,7 @@ Vesicles (self-enclosed lipid bilayer membranes) have been used as a model syste
   The slipper in (a) is the steady-state shape of a semi-permeable
   vesicle in a Poiseuille flow.}
 \end{figure}
+
 \section*{Formulation}
 We consider a two-dimensional semi-permeable vesicle (permeable only to water) suspended in a viscous fluid, see figure~\ref{fig:sketch}.
 To focus on the effect of water flow on vesicle hydrodynamics in various conditions, we assume the fluid is the same inside and outside the vesicle membrane.
@@ -1156,41 +1157,39 @@ to go through the contraction. Their corresponding variation with respect to tim
 %  corresponds to the right-most point of the vesicle.}
 %\end{figure}
 
-\section*{Supplementary Material: Formulation \label{sc:formulate}}
-We consider a two-dimensional semi-permeable vesicle suspended in an
-unbounded viscous fluid driven by the imposed flow $\uu_\infty(\xx)$.
-Since fluid is transported across the semi-permeable vesicle membrane,
-we only consider fluids with uniform viscosity. Letting $\gamma$ be the
-vesicle interface, the fluid velocity $\uu$ and pressure $p$ satisfy
-%
-\begin{alignat}{3}
+\section*{Supplementary Material}
+\subsection*{Formulation}
+We consider a two-dimensional inextensible semi-permeable vesicle,
+$\gamma$, suspended in unconfined and confined geometries. The
+suspending fluid is assumed to be viscous so that the fluid velocity
+$\uu$ and pressure $p$ are governed by the incompressible Stokes
+equations
+\begin{align}
   \label{eqn:governing}
-  -\nabla p + \mu \triangle \uu &= 0, \quad
-  \nabla \cdot \uu = 0, \qquad &&\xx \in \RR^2 \setminus \gamma, \\
-%
-  \uu(\xx) &\rightarrow \uu_\infty(\xx),
-    &&\norm{\xx} \rightarrow \infty,
-\end{alignat}
-where $\mu$ is the fluid viscosity. Letting $\nn$ be the outward normal
-to $\gamma$, $\jump{\cdot}$ be the jump across the interface, and $T$ be
-the hydrodynamic stress tensor, the interfacial boundary conditions are
+  -\nabla p + \mu \triangle \uu = 0, \quad
+  \nabla \cdot \uu = 0, \qquad \xx \in \RR^2 \setminus \gamma,
+\end{align}
+where $\mu$ is the fluid viscosity. In an unconfined geometry, the
+condition $\uu(\xx) \rightarrow \uu_\infty(\xx)$ is enforced as $\xx
+\rightarrow \infty$, and in a confined geometry with boundary $\Gamma$,
+the boundary condition $\uu(\xx) = \UU(\xx)$ is enforced on $\Gamma$,
+where $\UU(\xx)$ is prescribed. Along the vesicle $\gamma$, mass
+continuity, a force balance, and local inextensibility are enforced by
+requiring
 \begin{align}
   \label{eqn:jump}
-  \jump{T\cdot\nn} = \ff_\mathrm{mem}, \quad \jump{\uu} = 0,
+  \jump{\uu} = 0, \quad
+  \jump{T\cdot\nn} = \ff_\mathrm{mem}, \quad
+  \xx_s \cdot \uu_s = 0,
 \end{align}
-where $\ff_\mathrm{mem}$ is the membrane force that results from the
-Helfrich energy with bending modulus $k_b$, and a tension term that acts
-as a Lagrange multiplier to satisfy the local inextensibility condition.
-Following~\cite{vee-gue-zor-bir2009}, we modify the bending tension and
-forces as
-$\ff_\mathrm{mem} = \ff_\mathrm{ben} +
-\ff_\mathrm{ten}$, where
-\begin{align}
-  \label{eqn:membraneForces}
-  \ff_\mathrm{ben} = -k_b \xx_{ssss}, \qquad
-  \ff_\mathrm{ten} = (\sigma \xx_s)_s.
-\end{align}
-The physical tension is $\Lambda = \sigma + 1.5 \kappa^2$, where
+where $\nn$ is the outward normal of $\gamma$, $\jump{\cdot}$ is the
+jump across the interface, and $T$ is the hydrodynamic stress tensor.
+The membrane force $\ff_\mathrm{mem}$ is the sum of a bending force
+with bending modulus $k_b$ and a force due to the tension $\Lambda$.
+Following~\cite{vee-gue-zor-bir2009}, we modify the bending and tension
+forces as $\ff_\mathrm{ben} = -k_b \xx_{ssss}$, and $\ff_\mathrm{ten} =
+(\sigma \xx_s)_s$, where $s$ is arclength. The physical tension can be
+recovered using the identity $\Lambda = \sigma + 1.5 \kappa^2$, where
 $\kappa$ is the membrane curvature.
 
 Semi-permeability is introduced by modifying the vesicle velocity from
@@ -1199,10 +1198,22 @@ assume the fluid flux through the boundary is proportional to the
 mechanical force~\cite{yao-mor2017}. That is, 
 \begin{align}
   \label{eqn:vesicleFlux}
-  \uu - \dot{\xx} = - \beta (\ff_\mathrm{mem} \cdot \nn) \nn, \qquad
+  \uu - \dot{\xx} = - k_w (\ff_\mathrm{mem} \cdot \nn) \nn, \qquad
   \xx \in \gamma,
 \end{align}
-where $\beta$ is the semi-permeability rate.  
+where $k_w$ is the water permeability.
+
+The governing equations are non-dimensionalized by introducing a length
+scale that we take to be $R_0 = 10^{-6}$m. Using a bending stiffness of
+$k_b = 10^{-19}$J and fluid viscosity $5 \times 10^{-2}$kg/ms, we define
+the time scale $\tau = \mu R_0^3/k_b = 0.5s$, the velocity scale $U =
+R_0/\tau = 2\mu$m/s, the pressure scale $P = k_b/R_0^3 = 10^{-1}$Pa, the
+tension scale $Q = k_b/R_0 = 10^{-13}$N, and the permeability scale $W =
+R_0\mu = 2 \times 10^{-5}$m$^2$s/kg. The other standard dimensionless
+variable of a vesicle is its reduced area $\nu = 4\pi A/L^2 \in (0,1]$.
+The length $L$ is conserved by the local inextensibility condition.
+However, the area $A$ is not conserved because of semi-permeability, and
+therefore $\nu$ is also not conserved.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1230,25 +1241,23 @@ vesicle velocity satisfies
   \xx_s \cdot \dot{\xx}_s = 0.
 \end{align}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Dimensionless equations}
-The inextensibility condition guarantees that the vesicle's length, $L$,
-is conserved, while its area, $A$, can change due to semi-permeability.
-Therefore, the reduced area $\alpha = 4\pi A/L^2 \in (0,1]$ is not
-conserved. We non-dimensionalize~\eqref{eqn:vesVelocity} by introducing
-the length scale $R_0 = L/2\pi$ and defining the time scale $\tau = \mu
-R_0^3/k_b$, the tension scale $Q = k_b/R_0^2$, and the permeability
-scale $W = R_0/\mu$. The background velocity $\uu_\infty$ is
-non-dimensionalized with $R_0/\tau$.
-
-\todo[inline]{This is a dump of information regarding how we
-non-dimensionalize}
-In each experiment, we initialize an elliptical vesicle with longest
-diameter of 9$\mu$m. We use a length scale of $R_0 = 10^{-6}$m, a
-bending stiffness of $k_b = 10^{-19}$J, and fluid viscosity of $\mu=5
-\times 10^{-2}$kg/ms. Using the relaxation time scale $\tau = \mu
-R_0^3/k_b = 5 \times 10^{-1}$s, the pressure scale is $P = k_b/R_0^3 =
-10^{-1}$Pa. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection*{Dimensionless equations}
+%The inextensibility condition guarantees that the vesicle's length, $L$,
+%is conserved, while its area, $A$, can change due to semi-permeability.
+%Therefore, the reduced area $\alpha = 4\pi A/L^2 \in (0,1]$ is not
+%conserved. We non-dimensionalize~\eqref{eqn:vesVelocity} by introducing
+%the length scale $R_0 = L/2\pi$ and defining the time scale $\tau = \mu
+%R_0^3/k_b$, the tension scale $Q = k_b/R_0^2$, and the permeability
+%scale $W = R_0/\mu$. The background velocity $\uu_\infty$ is
+%non-dimensionalized with $R_0/\tau$.
+%
+%In each experiment, we initialize an elliptical vesicle with longest
+%diameter of 9$\mu$m. We use a length scale of $R_0 = 10^{-6}$m, a
+%bending stiffness of $k_b = 10^{-19}$J, and fluid viscosity of $\mu=5
+%\times 10^{-2}$kg/ms. Using the relaxation time scale $\tau = \mu
+%R_0^3/k_b = 5 \times 10^{-1}$s, the pressure scale is $P = k_b/R_0^3 =
+%10^{-1}$Pa. 
 
 
 
