@@ -44,11 +44,16 @@ is required for all research papers.}
 \keywords{Keyword 1 $|$ Keyword 2 $|$ Keyword 3 $|$ ...} 
 
 \begin{abstract}
-We describe a mathematical model for a semi-permeable vesicle and derive
-  a boundary integral equation formulation for simulating its
-  hydrodynamics.  
-
-Please provide an abstract of no more than 250 words in a single paragraph. Abstracts should explain to the general reader the major contributions of the article. References in the abstract must be cited in full within the abstract itself and cited in the text.
+In this work we use boundary integral simulations to investigate the effects of water permeability on the hydrodynamics of a vesicle under various flows and confinement configurations.
+Using the Helfrich free energy extended for the coupling of membrane permeability with the membrane elastic stress, tension and mechanical stress, we illustrate that, in the absence of an osmotic stress gradient, a typical liposome may be significantly affected by membrane permeability over a sufficiently long time or under strong confinement. 
+Lipid bilayer membranes are permeable to water molecules, and water influx/efflux  is often assumed to be negligible in the absence of osmolarity, even when the membrane undergoes large deformation. Our simulation results quantify the conditions for such assumption to be valid, and shed light on how confinement can be utilized to estimate membrane permeability.
+%
+%osmotic stress gradient 
+%We describe a mathematical model for a semi-permeable vesicle and derive
+%  a boundary integral equation formulation for simulating its
+%  hydrodynamics.  
+%
+%Please provide an abstract of no more than 250 words in a single paragraph. Abstracts should explain to the general reader the major contributions of the article. References in the abstract must be cited in full within the abstract itself and cited in the text.
 \end{abstract}
 
 \dates{This manuscript was compiled on \today}
@@ -57,8 +62,8 @@ Please provide an abstract of no more than 250 words in a single paragraph. Abst
 \input my_macros2.tex	
 
 \newif\ifTikz
-%\Tikztrue
-\Tikzfalse
+\Tikztrue
+%\Tikzfalse
 
 %\usepgfplotslibrary{external}
 %\tikzexternalize
@@ -144,7 +149,7 @@ Vesicles (self-enclosed lipid bilayer membranes) have been used as a model syste
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[htp]
   \centering
-  \includegraphics[width=0.45\textwidth]{figures/schematic.pdf}
+  \includegraphics[width=0.5\textwidth]{figures/schematic.pdf}
   \caption{\label{fig:sketch} Schematics showing the effects of
   semipermeability on vesicle hydrodynamics in various configurations.
   The slipper in (a) is the steady-state shape of a semi-permeable
@@ -152,7 +157,7 @@ Vesicles (self-enclosed lipid bilayer membranes) have been used as a model syste
 \end{figure}
 
 \section*{Formulation}
-We consider a two-dimensional semi-permeable vesicle (permeable only to water) suspended in a viscous fluid, see figure~\ref{fig:sketch}.
+We consider a two-dimensional semi-permeable vesicle (permeable only to water) suspended in a viscous fluid, see Figure~\ref{fig:sketch}.
 To focus on the effect of water flow on vesicle hydrodynamics in various conditions, we assume the fluid is the same inside and outside the vesicle membrane.
 %($\gamma$) with an outward normal $\nn$.
 On the membrane the permeable water flux gives rise to a difference between the fluid velocity ${\bf u}({\bf x}\in \gamma)$
@@ -162,9 +167,9 @@ and the membrane velocity $\dot{\bf x}$ \cite{yao-mor2017}:
   \uu - \dot{\xx} = - k_w (R T \triangle c + \ff_\mathrm{mem} \cdot \nn) \nn, \qquad
   \xx \in \gamma,
 \end{align}
-where $\gamma$ denotes the membrane boundary with an outward normal $\nn$, $k_w$ is the water permeability, $R$ is the ideal gas constant, $T$ is the temperature ($^{\circ}$K), $\triangle c$ is contrast in a solute concentration (mol/volume),
+where $\gamma$ denotes the membrane boundary with an outward normal $\nn$ (Figure~\ref{fig:sketch}), $k_w$ is the water permeability, $R$ is the ideal gas constant, $T$ is the temperature ($^{\circ}$K), $\triangle c$ is contrast in a solute concentration (mol/volume),
 and $\ff_\mathrm{mem}$ is the membrane stress that consists of both bending $ \ff_\mathrm{ben}= -k_b \xx_{ssss}$ and tension $\ff_\mathrm{ten}=(\sigma \xx_s)_s$ ($s$
-is the arclength along the membrane, see figure~\ref{fig:sketch}. Using $k_w\sim 10^{-12}$ m$^2$s/kg (typical of mammalian cell membranes \cite{LiMoriSun2015_PRL}) and an osmolarity $\triangle c = 0.1$ mol/L (consistent with the osmotic forces in vesicle aspiration experiments \cite{OlbrichRawiczNeedhamEtAl2000_BJ}), the corresponding water flow is of the order $v_\mathrm{o}=0.1 \mu$m/s. Assuming that the membrane bending stiffness $k_b = 10^{-19}$J, a membrane tension $10^{-3}$N/m (one tenth of the lysis tension) and a characteristic length scale of $10^{-6}$m, the tension contribution ($v_\mathrm{t}$) and elastic stress contribution 
+is the arclength along the membrane, see Supplementary Material). Using $k_w\sim 10^{-12}$ m$^2$s/kg (typical of mammalian cell membranes \cite{LiMoriSun2015_PRL}) and an osmolarity $\triangle c = 0.1$ mol/L (consistent with the osmotic forces in vesicle aspiration experiments \cite{OlbrichRawiczNeedhamEtAl2000_BJ}), the corresponding water flow is of the order $v_\mathrm{o}=0.1 \mu$m/s. Assuming that the membrane bending stiffness $k_b = 10^{-19}$J, a membrane tension $10^{-3}$N/m (one tenth of the lysis tension) and a characteristic length scale of $10^{-6}$m, the tension contribution ($v_\mathrm{t}$) and elastic stress contribution 
 ($v_\mathrm{e}$) to the permeable water flow can be scaled to $v_\mathrm{o}$ as $v_\mathrm{o}:v_\mathrm{t}:v_\mathrm{e}=1:10^{-2}:10^{-6}$.  Furthermore, we note that in the absence of an osmotic stress, the water permeable flow can be significant when the membrane tension is large due to the external stress such as the hydrodynamics stress due to an external flow and/or due to confinement.
 In the following we will explore both.
 
@@ -299,7 +304,9 @@ to inflate to a circle with no vanishing force and velocity.
   different reduced areas in a shear flow with two different flow rates.
   (b) The steady state shape of a semi-permeable vesicle with varying
   flow rates and semi-permeability rates. The circled vesicles
-  correspond to the simulations in part (a). {\bf YNY: should this be two-column wide?}}
+  correspond to the simulations in part (a). 
+  %{\bf YNY: should this be two-column wide?}
+  }
 \end{figure}
 
 We consider a semi-permeable vesicle in a planar shear flow
@@ -591,7 +598,20 @@ to go through the contraction. Their corresponding variation with respect to tim
 
 
 \section*{Discussion}
- 
+In this work we investigated the effects of membrane permeability to water on the vesicle hydrodynamics. Without any external flow or confinement, our analysis shows that a semi-permeable vesicle always inflates to maximize the water content inside the vesicle of a fixed length (area) in two (three) dimensions. Results from analysis and numerical simulation show that such relaxation of a semi-permeable vesicle is characterized by a rescaled time $\beta t$. We further illustrate that the relaxation process consists of at least two phases: The
+first phase is dominated by the balance between membrane traction and viscous stress at early times (up to a minute), when the vesicle behaves like an impermeable membrane.
+The second phase sets in after a few minutes, when water influx begins to dominate and inflate the vesicle. Over a timescale of a few hours a semipermeable vesicle is fully inflated, independent of its initial surface-to-volume ratio.  
+
+The two phases in the relaxation dynamics are also observed  in the hydrodynamics of a semipermeable vesicle under a shear flow (both the planar and Poiseuille flows) in free space. 
+As an impermeable vesicle in a shear flow, a semipermeable vesicle also reaches an equilibrium shape and position. Yet for a semi-permeable vesicle the equilibrium shape depends on the strength of the shear flow (shear rate $\dot\gamma$ for the planar shear flow, and $U_{max}$ for the Poiseuille flow). Our simulations also show that, in a Poiseuille flow, symmetric equilibrium vesicle shape is possible only at low flow velocity. In experiments it may take a few hours for the semipermeable vesicle to reach such  equilibria that could be used to quantify the flow strength.
+
+Under strong confinement we show that water permeation can be amplified on a timescale of a few seconds as a vesicle is squeezed through a closely fit channel and a contracting 
+channel. As a semi-permeable vesicle goes through a long closely-fit channel, we observe that the vesicle loses water at a constant rate, and the longer the channel the more the loss 
+of water. In the case of contracting channel, we find that both permeability and the pressure gradient across the slit must be sufficiently large for a successful passage. Throughout 
+these simulations the membrane tension is below the threshold for membrane poration. Thus we expect the continuum membrane theory to well-capture the vesicle hydrodynamics, 
+and our simulation results shed light on the configuration and timescales needed to observe the effects of permeability on vesicle hydrodynamics under confinement. 
+
+
 % \bibliographystyle{plain}
  \bibliography{refs}
 
