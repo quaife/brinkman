@@ -20,15 +20,10 @@
   xmode = log,
   xtick pos = left,
   ytick pos = left,
-%    legend entries = {$\beta=10^{0}$,
-%    $\beta = 10^{-1}$,
-%    $\beta = 10^{-2}$,
-%    $\beta = 10^{-3}$,
-%    $\beta = 10^{-4}$,
-%    $\beta = 10^{-5}$},
-%    legend cell align=left,
-%    legend style={draw=none,font=\small},
-%    legend style={at={(0.05,0.95)},anchor=north west}
+  legend entries={$\dot{\gamma} = 10^{1}$,,,,$\dot{\gamma} = 10^{0}$},
+  legend cell align=left,
+  legend style={draw=none,font=\large,fill=none},
+  legend style={at={(0.1,0.1)},anchor=south west} 
 ]
 
 \addplot[blue, line width=2pt] coordinates{
