@@ -8,7 +8,7 @@ fprintf('Implicit vesicle-boundary interactions.\n');
 %format long
 prams.N = 256;                 % points per vesicle
 prams.nv = 1;                  % number of vesicles
-prams.T = 30;                  %time horizon
+prams.T = 5e-1;                  %time horizon
 prams.m = 12000;                % number of time steps
 prams.Nbd = 2048;               % number of points on solid wall
 prams.nvbd = 1;                % number of components to solid walls
@@ -26,8 +26,8 @@ prams.fluxCoeff = 1e-3;
 options.fluxShape = 1; % constant value
 
 options.farField = 'chokeLongest';      % Constricted domain
-%options.farFieldSpeed = 500;
-options.farFieldSpeed = 4.2;
+options.farFieldSpeed = 500;
+%options.farFieldSpeed = 4.2;
 % background velocity or solid walls (which comes with a default
 % boundary condition)
 options.vesves = 'implicit';
