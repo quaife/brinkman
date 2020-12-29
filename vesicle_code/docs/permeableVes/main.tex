@@ -364,8 +364,10 @@ We consider a semi-permeable vesicle in the Poiseuille flow $\uu =
 U(1-(y/W)^2,0)$, where $U$ is the maximum velocity at $y=0$. The non-linear effects of the Poiseuille flow
 on the migration of an impermeable vesicle have been well-studied \cite{kao-bir-mis2009}: At a given value of the maximum velocity $U$,
 there exists a critical reduced volume above which the equilibrium vesicle shape is symmetric (parachute or bullet shapes) and the vesicle stays at $y=0$.
-Below this critical reduced volume the equilibrium vesicle moves off the center and is asymmetric (tank-treading slipper shape).
-We validated our numerical codes by comparing against results in Kaoui {\it et al.} \cite{kao-bir-mis2009}, see Supplementary Material.
+Below this critical reduced volume the equilibrium vesicle moves off the
+center and is asymmetric (tank-treading slipper shape).  We validated
+our numerical codes by comparing against results in Kaoui {\em et
+al.}~\cite{kao-bir-mis2009}, see Supplementary Material.
 
 %
 %
@@ -616,25 +618,23 @@ and our simulation results shed light on the configuration and timescales needed
  \bibliography{refs}
 
 
-
-
-
 \section*{Supplementary Material: Formulation}
 We consider a two-dimensional inextensible semi-permeable vesicle,
 $\gamma$, suspended in unconfined and confined geometries $\Omega$. The
-suspending fluid is assumed to be viscous so that the fluid velocity
-$\uu$ and pressure $p$ are governed by the incompressible Stokes
-equations
+vesicle is parameterized as $\xx(s,t)$ where $s$ is arclength and $t$ is
+time. The suspending fluid is assumed to be viscous so that the fluid
+velocity $\uu$ and pressure $p$ are governed by the incompressible
+Stokes equations
 \begin{align}
   \label{eqn:governing}
   -\nabla p + \mu \triangle \uu = 0, \quad
   \nabla \cdot \uu = 0, \qquad \xx \in \Omega \setminus \gamma,
 \end{align}
 where $\mu$ is the fluid viscosity. In an unconfined geometry, the
-condition $\uu(\xx) \rightarrow \uu_\infty(\xx)$ is enforced as $\xx
+condition $\uu(\xx) \rightarrow \uu_\infty(\xx)$ is enforced as $|\xx|
 \rightarrow \infty$, and in a confined geometry, the boundary condition
 $\uu(\xx) = \UU(\xx)$ is enforced on $\partial \Omega$, where $\UU(\xx)$
-is prescribed. Along the vesicle $\gamma$, mass continuity, a force
+is prescribed. Along the vesicle $\gamma$, mass continuity, force
 balance, and local inextensibility are enforced by requiring
 \begin{align}
   \label{eqn:jump}
@@ -646,18 +646,15 @@ where $\nn$ is the outward normal of $\gamma$, $\jump{\cdot}$ is the
 jump across the interface, and $T$ is the hydrodynamic stress tensor.
 The membrane force $\ff_\mathrm{mem}$ is the sum of a bending force
 with bending modulus $k_b$ and a force due to the tension $\Lambda$.
-Following~\cite{vee-gue-zor-bir2009}, we modify the bending and tension
-forces as $\ff_\mathrm{ben} = -k_b \xx_{ssss}$, and $\ff_\mathrm{ten} =
-(\sigma \xx_s)_s$, where $s$ is arclength. The physical tension can be
-recovered using the identity $\Lambda = \sigma + 1.5 \kappa^2$, where
-$\kappa$ is the membrane curvature.
+Following~\cite{vee-gue-zor-bir2009}, we introduce the variable $\sigma
+= \Lambda - 1.5\kappa^2$, where $\kappa$ is the vesicle curvature. Then,
+the bending and tension forces are $\ff_\mathrm{ben} = -k_b \xx_{ssss}$
+and $\ff_\mathrm{ten} = (\sigma \xx_s)_s$. 
 
 Semi-permeability is introduced by modifying the vesicle velocity from
-the standard no-slip condition $\cdot{\xx} = \uu(\xx)$, where $\xx(s,t)$
-parameterizes the vesicle shape $\gamma$ at time $t$ with respect to
-arclength. Instead, we consider the case where the flux through the
-vesicle is proportional to the mechanical force~\cite{yao-mor2017}. That
-is, 
+the standard no-slip condition $\dot{\xx} = \uu(\xx)$. Instead, we
+assume that the flux through the vesicle is proportional to the
+mechanical force~\cite{yao-mor2017}. That is, 
 \begin{align}
   \label{eqn:vesicleFlux}
   \uu - \dot{\xx} = - k_w (\ff_\mathrm{mem} \cdot \nn) \nn, \qquad
@@ -670,17 +667,17 @@ scale that we take to be $R_0 = 10^{-6}$m. Using a bending stiffness of
 $k_b = 10^{-19}$J and fluid viscosity $5 \times 10^{-2}$kg/ms, we define
 the time scale $\tau = \mu R_0^3/k_b = 0.5s$, the velocity scale $U =
 R_0/\tau = 2\mu$m/s, the pressure scale $P = k_b/R_0^3 = 10^{-1}$Pa, the
-tension scale $Q = k_b/R_0 = 10^{-13}$N, and the permeability scale $W =
-R_0\mu = 2 \times 10^{-5}$m$^2$s/kg. Another standard dimensionless
+tension scale $Q = k_b/R_0^2 = 10^{-7}$N/m, and the permeability scale
+$W = R_0\mu = 2 \times 10^{-5}$m$^2$s/kg. Another standard dimensionless
 variable in vesicle suspensions is the reduced area $\nu = 4\pi A/L^2
 \in (0,1]$, where $L$ is the vesicle length and $A$ is its area. The
 length is conserved by the local inextensibility condition, but the area
 is not because of semi-permeability. Therefore, the reduced area is
 dynamic.
 
-Since the fluid satisfies the Stokes equations, its velocity can be
-represented as a layer potential. Given the interfacial boundary
-conditions~\eqref{eqn:jump}, the fluid velocity is
+Since the fluid satisfies the Stokes equations, the velocity and
+pressure can be represented as layer potentials. Given the interfacial
+boundary conditions~\eqref{eqn:jump}, the fluid velocity is
 \begin{align}
   \uu(\xx) = \uu_\infty(\xx) + \SS[\ff_\mathrm{mem}](\xx), \quad
     \xx \in \Omega,
@@ -691,7 +688,7 @@ where $\SS$ is the single-layer potential
     -\mathbf{I} \log\rho + \frac{\rr \otimes \rr}{\rho^2} \right)
     \ff(\yy) ds_{\yy},
 \end{align}
-with $\rr = \xx - \yy$ and $\rho = \norm{\rr}$. Imposing the flux
+with $\rr = \xx - \yy$ and $\rho = |\rr|$. Imposing the flux
 condition~\eqref{eqn:vesicleFlux} and the inextensibility condition, the
 vesicle velocity satisfies the boundary integral equation
 \begin{align}
@@ -706,12 +703,94 @@ double-layer potential with a density defined on $\partial\Omega$. The
 unknown density function allows us to satisfy the Dirichlet boundary
 condition $\uu(\xx) = \UU(\xx)$ for $\xx \in \partial\Omega$.
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Supplementary Material: Numerical Methods}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Discretization in Space}
+By using a boundary integral equation formulation, the unknowns are the
+vesicle's position and tension and the unknown density function for
+confined flows. Both $\gamma$ and $\partial\Omega$ are discretized at
+$N$ and $N_\text{wall}$ points. Derivatives are computed with Fourier
+differentiation, and the eighth-order quadrature~\cite{alp1999} is
+applied to the weakly singular single-layer potential. For confined
+geometries, the trapezoid rule is used to approximate the double-layer
+potential since its kernel is smooth and periodic. Nearly-singular
+integrals are computed with an interpolation-based quadrature
+rule~\cite{qua-bir2014}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Discretization in Time}
+To eliminate stringent time step restrictions, we modify a time stepping
+method that discretizes high-order derivatives
+semi-implicitly~\cite{vee-gue-zor-bir2009}. We introduce the notation
+\begin{alignat}{3}
+  &B[\xx]\ff = -\frac{d^4}{ds^4} \ff,  \qquad
+  &&T[\xx]\sigma = (\sigma \xx_s)_s, \\
+  &D[\xx]\ff = \xx_s \cdot \ff_s, 
+  &&P[\xx]\ff = (\ff \cdot \nn) \nn,
+\end{alignat}
+for the differential and projection operators. Then, the
+governing equations~\eqref{eqn:vesVelocity} are
+\begin{align}
+  \dot{\xx} &= \uu_\infty(\xx) + \beta P(B\xx + T\sigma)
+  + \SS (B\xx + T\sigma), \quad
+  D \dot{\xx} = 0.
+\end{align}
+We note that the integral and differential operators, which all depend
+on the vesicle shape, are non-linear with respect to the vesicle
+shape. We construct a time stepping scheme by letting $B^N$ be the
+bending operator due to the vesicle configuration at time $t^N$, and use
+similar notation for the other operators. Then, a first-order
+semi-implicit time stepping method of~\eqref{eqn:vesVelocity} is
+\begin{alignat}{3}  
+  \frac{\xx^{N+1} - \xx^N}{\Delta t} &= \uu_\infty(\xx^N) 
+  &&+ \beta P^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right) \nonumber \\
+  & &&+ \SS^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right),  \\
+  D^N\xx^{N+1} &= 1,
+\end{alignat}
+and this is a linear system that we solve with matrix-free GMRES.
+
+To achieve second-order accuracy over long time horizons, we modify an
+adaptive spectral deferred correction time stepping
+method~\cite{qua-bir2016}. Since the area of the vesicle is not
+conserved, we only use the length of the vesicle to estimate the error
+which determines if a time step is accepted or not and determines the
+subsequent time step size.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Numerical Validation}
+To validate our methods, we construct a phase diagram of the steady
+state shape of an impermeable vesicle in a Poiseuille flow. Depending on
+the flow rate and the reduced area, the steady state vesicle becomes
+either a axisymmetric bullet, a axisymmetric parachute, or a tank
+treading asymmetric slipper~\cite{kao-bir-mis2009}. Comparing our
+results (Figure~\ref{fig:PoiseuillePhase}) with those
+in~\cite{kao-bir-mis2009} (see Figure 2), we see that the vesicle shapes
+qualitatively agree. We note that Kaoui {\em et al.}~report that the vesicles
+with $\alpha=0.7$ and flow rates $U = 1200 \mu m/s$ and $U = 1600 \mu
+m/s$ are axisymmetric.  In our simulations these vesicles are slightly
+asymmetric, are undergoing a tank treading motion, and we therefore
+report them as asymmetric slippers.
+\begin{figure}[htp]
+  \centering
+  \ifTikz
+  \input{figures/parabolicImpermeable.tikz}
+  \else
+  \includegraphics{figures/parabolicImpermeable.pdf}
+  \fi
+  \caption{\label{fig:PoiseuillePhase} Phase diagram of an impermeable
+  vesicle with various reduced areas submerged in a Poiseuille flow with
+  various flow rates. The shapes agree qualitatively with Kaoui {\em et
+  al.}~\cite{kao-bir-mis2009} (see Figure 2).}
+\end{figure}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Supplementary Material: Vesicle Area}
 In the absence of an imposed flow, the steady state vesicle shape and a
 differential equation for the area of the vesicle can be derived. We
-start by following the analysis of Veerapaneni et
-al.~\cite{vee-raj-bir-pur2009} by computing the steady state shape of a
+start by following the analysis of Veerapaneni {\em et
+al.}~\cite{vee-raj-bir-pur2009} by computing the steady state shape of a
 semi-permeable vesicle in a quiescent flow. The steady state shape is a
 stationary point of the Lagrangian
 \begin{align}
@@ -735,10 +814,9 @@ be solved analytically in terms of the {\em EllipticF} function using
 Mathematica. Unlike in the impermeable case, the solution
 of~\eqref{eqn:curveODE} is not periodic unless $\kappa(s) = \kappa_0$.
 Therefore, the steady state shape of a semi-permeable vesicle in a
-quiescent flow is a circle with radius $L/2\pi$. Therefore, the steady
-state curvature and tension are $\Lambda = 2\pi^2/L^2.$ Note that in
-contrast to a impermeable vesicle, the tension is positive rather than
-negative.
+quiescent flow is a circle with radius $L/2\pi$ and constant tension
+$\Lambda = 2\pi^2/L^2.$ Note that in contrast to a impermeable vesicle,
+the tension is positive rather than negative.
 
 We next compute the transient area of the vesicle. Since the area of the
 vesicle is
@@ -786,87 +864,7 @@ Repeatedly applying integration by parts, we have
   \label{eqn:areaROC}
 \end{align}
 Note that the integrand in~\eqref{eqn:areaROC} is zero when the vesicle
-reaches its steady state which guarantees that $\dot{A}(t) = 0$.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Supplementary Material: Numerical Methods}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Discretization in Space}
-By using a boundary integral equation formulation, the unknowns are the
-vesicle's position and tension that we track at $N$ collocation points.
-Derivatives are computed with Fourier differentiation, and the
-eighth-order quadrature~\cite{alp1999} is applied to the single-layer
-potential. For confined geometries, the trapezoid rule is used to
-approximate the double-layer potential since its kernel is smooth and
-periodic. Nearly-singular integrals are computed with an
-interpolation-based quadrature rule~\cite{qua-bir2014}.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Discretization in Time}
-To eliminate stringent time step restrictions, we modify a time stepping
-method that discretizes high-order derivatives
-semi-implicitly~\cite{vee-gue-zor-bir2009}. We introduce the notation
-\begin{alignat}{3}
-  &B[\xx]\ff = -\frac{d^4}{ds^4} \ff,  \qquad
-  &&T[\xx]\sigma = (\sigma \xx_s)_s, \\
-  &D[\xx]\ff = \xx_s \cdot \ff_s, 
-  &&P[\xx]\ff = (\ff \cdot \nn) \nn,
-\end{alignat}
-for the differential and projection operators. Then, the
-governing equations~\eqref{eqn:vesVelocity} are
-\begin{align}
-  \dot{\xx} &= \uu_\infty(\xx) + \beta P(B\xx + T\sigma)
-  + \SS (B\xx + T\sigma), \quad
-  D \dot{\xx} = 0, 
-\end{align}
-We note that the integral and differential operators, which all depend
-on the vesicle shape, are non-linear with respect to the vesicle
-shape. We construct a time stepping scheme by letting $B^N$ be the
-bending operator due to the vesicle configuration at time $t^N$, and use
-similar notation for the other operators. Then, a first-order
-semi-implicit time stepping method of~\eqref{eqn:vesVelocity} is
-\begin{alignat}{3}  
-  \frac{\xx^{N+1} - \xx^N}{\Delta t} &= \uu_\infty(\xx^N) 
-  &&+ \beta P^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right) \nonumber \\
-  & &&+ \SS^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right),  \\
-  D^N\xx^{N+1} &= 1.
-\end{alignat}
-This is a linear system that we solve with matrix-free GMRES.
-
-To achieve second-order accuracy over long time horizons, we modify an
-adaptive spectral deferred correction time stepping
-method~\cite{qua-bir2016}. Since the area of the vesicle is not
-conserved, we only use the length of the vesicle to estimate the error
-which determines if a time step is accepted or not and determines the
-subsequent time step size.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Numerical Validation}
-To validate our methods, we construct a phase diagram of the steady
-state shape of an impermeable vesicle in a Poiseuille flow. Depending on
-the flow rate and the reduced area, the steady state vesicle becomes
-either a symmetric bullet or parachute, or an asymmetric
-slipper~\cite{kao-bir-mis2009}. Comparing our results
-(Figure~\ref{fig:PoiseuillePhase}) with those in~\cite{kao-bir-mis2009}
-(see Figure 2), we see that the results qualitatively agree. We note
-that Kaoui et al.~report that the vesicles with $\alpha=0.7$ and flow
-rates $U = 1200 \mu m/s$ and $U = 1600 \mu m/s$ are axisymmetric. In our
-simulations these vesicles are slightly asymmetric, are undergoing a
-tank treading motion, and we therefore report them as asymmetric
-slippers.
-\begin{figure}[htp]
-  \centering
-  \ifTikz
-  \input{figures/parabolicImpermeable.tikz}
-  \else
-  \includegraphics{figures/parabolicImpermeable.pdf}
-  \fi
-  \caption{\label{fig:PoiseuillePhase} Phase diagram of an impermeable
-  vesicle with various flow rates and reduced areas. The shapes agree
-  qualitatively with Kaoui et al.~\cite{kao-bir-mis2009} (see Figure
-  2).}
-\end{figure}
-
+reaches its steady state which confirms that $\dot{A}(t) = 0$.
 
 
 \end{document}
