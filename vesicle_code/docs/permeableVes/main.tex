@@ -47,20 +47,18 @@ is required for all research papers.}
 \keywords{Keyword 1 $|$ Keyword 2 $|$ Keyword 3 $|$ ...} 
 
 \begin{abstract}
+Lipid bilayer membranes have a native (albeit small) permeability for water molecules. 
+As long as the bilayer structure stays intact without poration or rupture under load, 
+the water influx/efflux  is
+often assumed to be negligible in the absence of a gradient of osmotic stress. 
 In this work we use boundary integral simulations to investigate the
 effects of water permeability on the hydrodynamics of a vesicle under
-various flows and confinement configurations. Using the Helfrich free
-energy extended for the coupling of membrane permeability with the
-membrane elastic stress, tension and mechanical stress, we illustrate
-that, in the absence of an osmotic stress gradient, a typical liposome
-may be significantly affected by membrane permeability over a
-sufficiently long time or under strong confinement. Lipid bilayer
-membranes are permeable to water molecules, and water influx/efflux is
-often assumed to be negligible in the absence of osmolarity, even when
-the membrane undergoes large deformation. Our simulation results
-quantify the conditions for such assumption to be valid, and shed
-light on how confinement can be utilized to estimate membrane
-permeability.
+various flows and confinement configurations. Coupling the membrane permeability with membrane elastic stress, tension and mechanical stress 
+in the framework of Helfrich free energy, we illustrate
+that, in the absence of an osmotic stress gradient, a giant unilamellar vesicle may be significantly affected by water influx/efflux over a
+sufficiently long time or under a strong confinement. 
+Our simulation results quantify the conditions for water permeation to be negligible in terms of the timescales, flow strength of an external flow, and degree of confinement.
+These results shed light on how microfluidic confinement can be utilized to estimate membrane permeability.
 %
 %osmotic stress gradient 
 %We describe a mathematical model for a semipermeable vesicle and derive
@@ -76,8 +74,8 @@ permeability.
 \input my_macros2.tex	
 
 \newif\ifTikz
-%\Tikztrue
-\Tikzfalse
+\Tikztrue
+%\Tikzfalse
 
 %\usepgfplotslibrary{external}
 %\tikzexternalize
@@ -524,7 +522,7 @@ and initial reduced area is summarized in
 Figure~\ref{fig:parabolicComposite}(a), and the vertical displacement of
 the vesicle's center of mass is in
 Figure~\ref{fig:parabolicComposite}(b). The effect of semipermeability
-of a vesicle with $alpha(0) = 0.9$ and $U=800 \mu$m/s on its reduced
+of a vesicle with $\alpha(0) = 0.9$ and $U=800 \mu$m/s on its reduced
 area and migration pattern are shown in
 Figure~\ref{fig:parabolicComposite}(c) and (d). 
 %
@@ -728,7 +726,7 @@ first phase is dominated by the balance between membrane traction and viscous st
 The second phase sets in after a few minutes, when water influx begins to dominate and inflate the vesicle. Over a timescale of a few hours a semipermeable vesicle is fully inflated, independent of its initial surface-to-volume ratio.  
 
 The two phases in the relaxation dynamics are also observed  in the hydrodynamics of a semipermeable vesicle under a shear flow (both the planar and Poiseuille flows) in free space. 
-As an impermeable vesicle in a shear flow, a semipermeable vesicle also reaches an equilibrium shape and position. Yet for a semipermeable vesicle the equilibrium shape depends on the strength of the shear flow (shear rate $\dot\gamma$ for the planar shear flow, and $U_{max}$ for the Poiseuille flow). Our simulations also show that, in a Poiseuille flow, symmetric equilibrium vesicle shape is possible only at low flow velocity. In experiments it may take a few hours for the semipermeable vesicle to reach such  equilibria that could be used to quantify the flow strength.
+Similar to an impermeable vesicle in a shear flow, a semipermeable vesicle also reaches an equilibrium shape and position. Yet for a semipermeable vesicle the equilibrium shape depends on the strength of the shear flow (shear rate $\dot\gamma$ for the planar shear flow, and $U_{max}$ for the Poiseuille flow). Our simulations also show that, in a Poiseuille flow, symmetric equilibrium vesicle shape is possible only at low flow velocity. In experiments it may take a few hours for the semipermeable vesicle to reach such equilibria that could be used to quantify the flow strength.
 
 Under strong confinement we show that water permeation can be amplified on a timescale of a few seconds as a vesicle is squeezed through a closely fit channel and a contracting 
 channel. As a semipermeable vesicle goes through a long closely-fit channel, we observe that the vesicle loses water at a constant rate, and the longer the channel the more the loss 
