@@ -637,6 +637,28 @@ residence time $t_R=16.2$s and the reduced area decreases by 13.2\%
   in N/m of the circled vesicles. Throughout the entire simulation,
   these vesicle configurations have the largest tension.}
 \end{figure}
+
+\begin{figure}[htp]
+  \ifTikz
+  \input{figures/contractingComposite2.tikz}
+  \else
+  \includegraphics{figures/contractingComposite2.pdf}
+  \fi
+  \caption{\label{fig:contractingComposite2} Vesicle reduced area and
+  velocity vs.~time. Permeability rate is $\beta = 10^{-3}$ and maximum
+  velocity is $18\mu$m/s. (a): A semipermeable vesicle passing through
+  six periods of the contracting geometry. (b): The reduced area with
+  the marks representing shapes in (a). (c): The vesicle velocity with
+  the marks representing shapes in (a). In (b) and (c), the bottom
+  x-axis is the $x$-coordinate of the center of mass, and the upper
+  x-axis is time. The colored vesicles show the tension distribution in
+  N/m of the circled vesicles. Throughout the entire simulation, these
+  vesicle configurations have the largest tension.}
+\end{figure}
+
+
+
+
 Squeezing a cell or an elastic vesicle through a slit in microfluidics
 has gained popularity for its application in stress-induced release of
 macromolecules~\cite{ShareiEtAl2013_PNAS, Pak2015_PNAS,
@@ -703,25 +725,6 @@ shown in Figure~\ref{fig:contractingComposite2}.
 %    plot (i)). Time that vesicle first completely passes through
 %    constriction is 1.43s
 %\end{itemize}
-
-
-\begin{figure}[htp]
-  \ifTikz
-  \input{figures/contractingComposite2.tikz}
-  \else
-  \includegraphics{figures/contractingComposite2.pdf}
-  \fi
-  \caption{\label{fig:contractingComposite2} Vesicle reduced area and
-  velocity vs.~time. Permeability rate is $\beta = 10^{-3}$ and maximum
-  velocity is $18\mu$m/s. (a): A semipermeable vesicle passing through
-  six periods of the contracting geometry. (b): The reduced area with
-  the marks representing shapes in (a). (c): The vesicle velocity with
-  the marks representing shapes in (a). In (b) and (c), the bottom
-  x-axis is the $x$-coordinate of the center of mass, and the upper
-  x-axis is time. The colored vesicles show the tension distribution in
-  N/m of the circled vesicles. Throughout the entire simulation, these
-  vesicle configurations have the largest tension.}
-\end{figure}
 
 
 \section*{Discussion}
@@ -852,19 +855,19 @@ condition $\uu(\xx) = \UU(\xx)$ for $\xx \in \partial\Omega$.
 By using a boundary integral equation formulation, the unknowns are the
 vesicle's position and tension and the unknown density function for
 confined flows. Both $\gamma$ and $\partial\Omega$ are discretized at
-$N$ and $N_\text{wall}$ points. Derivatives are computed with Fourier
-differentiation, and the eighth-order quadrature~\cite{alp1999} is
-applied to the weakly singular single-layer potential. For confined
-geometries, the trapezoid rule is used to approximate the double-layer
-potential since its kernel is smooth and periodic. Nearly-singular
-integrals are computed with an interpolation-based quadrature
-rule~\cite{qua-bir2014}.
+$N$ and $N_\text{wall}$ points, respectively. Derivatives are computed
+with Fourier differentiation, and the eighth-order
+quadrature~\cite{alp1999} is applied to the weakly singular single-layer
+potential. For confined geometries, the trapezoid rule is used to
+approximate the double-layer potential since its kernel is smooth and
+periodic. Nearly-singular integrals are computed with an
+interpolation-based quadrature rule~\cite{qua-bir2014}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Discretization in Time}
 To eliminate stringent time step restrictions, we modify a time stepping
 method that discretizes high-order derivatives
-semiimplicitly~\cite{vee-gue-zor-bir2009}. We introduce the notation
+semi-implicitly~\cite{vee-gue-zor-bir2009}. We introduce the notation
 \begin{alignat}{3}
   &B[\xx]\ff = -\frac{d^4}{ds^4} \ff,  \qquad
   &&T[\xx]\sigma = (\sigma \xx_s)_s, \\
@@ -883,14 +886,14 @@ on the vesicle shape, are non-linear with respect to the vesicle
 shape. We construct a time stepping scheme by letting $B^N$ be the
 bending operator due to the vesicle configuration at time $t^N$, and use
 similar notation for the other operators. Then, a first-order
-semiimplicit time stepping method of~\eqref{eqn:vesVelocity} is
+semi-implicit time stepping method of~\eqref{eqn:vesVelocity} is
 \begin{alignat}{3}  
   \frac{\xx^{N+1} - \xx^N}{\triangle t} &= \uu_\infty(\xx^N) 
   &&+ \beta P^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right) \nonumber \\
   & &&+ \SS^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right),  \\
   D^N\xx^{N+1} &= 1,
 \end{alignat}
-and this is a linear system that we solve with matrix-free GMRES.
+and this linear system is solved with matrix-free GMRES.
 
 To achieve second-order accuracy over long time horizons, we modify an
 adaptive spectral deferred correction time stepping
@@ -956,8 +959,8 @@ Mathematica. Unlike in the impermeable case, the solution
 of~\eqref{eqn:curveODE} is not periodic unless $\kappa(s) = \kappa_0$.
 Therefore, the steady state shape of a semipermeable vesicle in a
 quiescent flow is a circle with radius $L/2\pi$ and constant tension
-$\Lambda = 2\pi^2/L^2.$ Note that in contrast to a impermeable vesicle,
-the tension is positive rather than negative.
+$\Lambda = \kappa^2/2 = 2\pi^2/L^2.$ Note that in contrast to a
+impermeable vesicle, the tension is positive rather than negative.
 
 We next compute the transient area of the vesicle. Since the area of the
 vesicle is
