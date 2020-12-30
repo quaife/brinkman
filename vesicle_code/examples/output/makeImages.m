@@ -25,7 +25,7 @@ if 1
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3RA0p25/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
 %file = '~/Dropbox/Adhesion/PermeableV/choke1Ves/choke1VesBData.bin';
-file = 'choke1VesData.bin';
+file = 'choke1VesAData.bin';
 
   options.marker = false;
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3RA0p20/choke1VesData.bin';
