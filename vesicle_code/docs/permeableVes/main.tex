@@ -618,11 +618,31 @@ residence time $t_R=16.2$s and the reduced area decreases by 13.2\%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Semipermeable Vesicle in a Contracting Geometry} 
+\begin{figure}[htp]
+  \centering
+  \ifTikz
+  \input{figures/contractingComposite.tikz}
+  \else
+  \includegraphics{figures/contractingComposite.pdf}
+  \fi
+  \caption{\label{fig:contractingComposite} A contracting geometry
+  similar to the experimental device in~\cite{wu2015critical}. The
+  channel width varies from $18\mu$m to $1.8\mu$m, and it repeats every
+  $45\mu$m. The fluid flux along the red regions is into the vesicle,
+  and the fluid flux along the blue regions is out of the vesicle.
+  (a--c): The ability for a semipermeable vesicle to pass through the
+  contraction depends on the semipermeability rate. (d--f): The ability
+  for a semipermeable vesicle to pass through the contraction depends
+  on the flow rate. The colored vesicles show the tension distribution
+  in N/m of the circled vesicles. Throughout the entire simulation,
+  these vesicle configurations have the largest tension.}
+\end{figure}
 Squeezing a cell or an elastic vesicle through a slit in microfluidics
 has gained popularity for its application in stress-induced release of
-macromolecules~\cite{ShareiEtAl2013_PNAS,Pak2015_PNAS,ZhangShenHoganBarakatMisbah2018_BJ,LuoBai2019_PoF}.
-Red blood cells go through submicron slits many times during their
-lifetime, and such process selects healthy, flexible red blood cells to
+macromolecules~\cite{ShareiEtAl2013_PNAS, Pak2015_PNAS,
+ZhangShenHoganBarakatMisbah2018_BJ, LuoBai2019_PoF}. Red blood cells go
+through submicron slits many times during their lifetime, and such
+process selects healthy, flexible red blood cells to
 survive~\cite{wu2015critical,LuPeng2019_PoF}. Here we investigate the
 role of membrane permeability to water when a semipermeable vesicle is
 squeezed through a contracting microfluidic channel similar
@@ -684,25 +704,6 @@ shown in Figure~\ref{fig:contractingComposite2}.
 %    constriction is 1.43s
 %\end{itemize}
 
-\begin{figure}[htp]
-  \centering
-  \ifTikz
-  \input{figures/contractingComposite.tikz}
-  \else
-  \includegraphics{figures/contractingComposite.pdf}
-  \fi
-  \caption{\label{fig:contractingComposite} A contracting geometry
-  similar to the experimental device in~\cite{wu2015critical}. The
-  channel width varies from $18\mu$m to $1.8\mu$m, and it repeats every
-  $45\mu$m. The fluid flux along the red regions is into the vesicle,
-  and the fluid flux along the blue regions is out of the vesicle.
-  (a--c): The ability for a semipermeable vesicle to pass through the
-  contraction depends on the semipermeability rate. (d--f): The ability
-  for a semipermeable vesicle to pass through the contraction depends
-  on the flow rate. The colored vesicles show the tension distribution
-  in N/m of the circled vesicles. Throughout the entire simulation,
-  these vesicle configurations have the largest tension.}
-\end{figure}
 
 \begin{figure}[htp]
   \ifTikz
