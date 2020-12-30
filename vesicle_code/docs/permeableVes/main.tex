@@ -774,8 +774,8 @@ where $\mu$ is the fluid viscosity. In an unconfined geometry, the
 condition $\uu(\xx) \rightarrow \uu_\infty(\xx)$ is enforced as $|\xx|
 \rightarrow \infty$, and in a confined geometry, the boundary condition
 $\uu(\xx) = \UU(\xx)$ is enforced on $\partial \Omega$, where $\UU(\xx)$
-is prescribed. Along the vesicle $\gamma$, mass continuity, force
-balance, and local inextensibility are enforced by requiring
+is prescribed. Along the vesicle, mass continuity, force balance, and
+local inextensibility are enforced by requiring
 \begin{align}
   \label{eqn:jump}
   \jump{\uu} = 0, \quad
@@ -788,8 +788,9 @@ The membrane force $\ff_\mathrm{mem}$ is the sum of a bending force
 with bending modulus $k_b$ and a force due to the tension $\Lambda$.
 Following~\cite{vee-gue-zor-bir2009}, we introduce the variable $\sigma
 = \Lambda - 1.5\kappa^2$, where $\kappa$ is the vesicle curvature. Then,
-the bending and tension forces are $\ff_\mathrm{ben} = -k_b \xx_{ssss}$
-and $\ff_\mathrm{ten} = (\sigma \xx_s)_s$. 
+the bending and tension forces corresponding to the Helfrich energy are
+$\ff_\mathrm{ben} = -k_b \xx_{ssss}$ and $\ff_\mathrm{ten} = (\sigma
+\xx_s)_s$. 
 
 Semipermeability is introduced by modifying the vesicle velocity from
 the standard no-slip condition $\dot{\xx} = \uu(\xx)$. Instead, we
@@ -809,7 +810,7 @@ the time scale $\tau = \mu R_0^3/k_b = 0.5s$, the velocity scale $U =
 R_0/\tau = 2\mu$m/s, the pressure scale $P = k_b/R_0^3 = 10^{-1}$Pa, the
 tension scale $Q = k_b/R_0^2 = 10^{-7}$N/m, and the permeability scale
 $W = R_0\mu = 2 \times 10^{-5}$m$^2$s/kg. Another standard dimensionless
-variable in vesicle suspensions is the reduced area $\nu = 4\pi A/L^2
+variable in vesicle suspensions is the reduced area $\alpha = 4\pi A/L^2
 \in (0,1]$, where $L$ is the vesicle length and $A$ is its area. The
 length is conserved by the local inextensibility condition, but the area
 is not because of semipermeability. Therefore, the reduced area is
