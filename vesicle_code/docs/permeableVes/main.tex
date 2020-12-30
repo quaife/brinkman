@@ -14,13 +14,11 @@ Confinement}
 % Use letters for affiliations, numbers to show equal authorship (if applicable) and to indicate the corresponding author
 \author[a]{Bryan Quaife}
 \author[a]{Ashley Gannon}
-\author[b]{Howard A.~Stone}
-\author[c,1]{Y.-N.~Young} 
+\author[b,1]{Y.-N.~Young} 
 
 
 \affil[a]{Department of Scientific Computing, Florida State University, Tallahessee, FL 32306}
-\affil[b]{Department of Mechanical and Aerospace Engineering, Princeton University, Princeton, NJ 08544}
-\affil[c]{Department of Mathematical Sciences, New Jersey Institute of
+\affil[b]{Department of Mathematical Sciences, New Jersey Institute of
 Technology, Newark, NJ 07102}
 
 % Please give the surname of the lead author for the running footer
@@ -48,10 +46,8 @@ is required for all research papers.}
 
 \begin{abstract}
 Lipid bilayer membranes have a native (albeit small) permeability for
-water molecules. Provided that the bilayer structure stays intact
-without membrane poration or rupture under load, the water influx/efflux is
-often assumed negligible in the absence of a gradient of osmotic
-stress. 
+water molecules. Provided that the bilayer structure stays intact (no membrane poration or rupture) under load, the water influx/efflux is
+often assumed negligible in the absence of a osmolarity pressure across the membrane. 
 %
 In this work we focus on physical regimes where the membrane tension is below the critical value for membrane poration, and use boundary integral simulations to
 investigate the effects of native water permeability on the hydrodynamics of
@@ -82,8 +78,8 @@ membrane permeability.
 \input my_macros2.tex	
 
 \newif\ifTikz
-%\Tikztrue
-\Tikzfalse
+\Tikztrue
+%\Tikzfalse
 
 %\usepgfplotslibrary{external}
 %\tikzexternalize
