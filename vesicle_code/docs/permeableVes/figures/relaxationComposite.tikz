@@ -10322,6 +10322,11 @@
 \node at (9.8,2.36) {\small $\alpha(0) = 0.38$};
 \node at (9.8,0.89) {\small $\alpha(0) = 0.12$};
 
+\draw[-,line width=1.0pt] (0.7,-0.7)--(4.2-0.2,-0.7);
+\draw[->,line width=1.0pt] (4.2+0.2,-0.7)--(7.7,-0.7);
+\node at (4.2,-0.7) {\large $t$};
+
+
 \node at (0.2,6.5) {(a)};
 \node at (9.2,6.5) {(b)};
 
