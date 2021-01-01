@@ -3890,9 +3890,9 @@
 
 \end{axis}
 
-\node at (11.0,6.25) {\small 10 sec};
-\node at (13.3,6.25) {\small 10 min};
-\node at (15.6,6.25) {\small 10 hour};
+\node at (11.0,6.25) {\small 50 sec};
+\node at (13.3,6.25) {\small 50 min};
+\node at (15.6,6.25) {\small 50 hour};
 
 % Start of the top row of images (ellipse1.dat)
 \begin{axis}[

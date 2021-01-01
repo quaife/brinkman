@@ -19,13 +19,13 @@ if 0
   options.marker = true;
 end
 
-if 1
+if 0
 %  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/stenosis/shortConstriction_beta1em3/choke1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/stenosis/longConstriction_ra065_beta1em3/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3RA0p25/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
 %file = '~/Dropbox/Adhesion/PermeableV/choke1Ves/choke1VesBData.bin';
-file = 'choke1VesData.bin';
+file = 'choke1VesBData.bin';
 
   options.marker = false;
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3RA0p20/choke1VesData.bin';
@@ -132,9 +132,9 @@ if 0
   ax = [-2 2 -2 2];
   options.confined = false;
 end
-if 0
-  file = 'shear1VesAData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1_ra065_beta1p0em3/shear1VesData.bin';
+if 1
+  file = 'shear1VesBData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em1_ra065_beta1p0em4p5/shear1VesData.bin.old';
 %  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/shear/Chi1p0e0_ra075_beta1p0em3/shear1VesData.bin';
   ax = [-5 5 -5 5];
   options.confined = false;
