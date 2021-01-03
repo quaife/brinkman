@@ -203,17 +203,18 @@ conditions and confinement, see Figure~\ref{fig:sketch}.
 %time scale and length scale over which water permeation becomes
 %important. 
 
-\begin{figure}[htp]
+\begin{figure*}[htp]
   \centering
-  \includegraphics[width=0.5\textwidth]{figures/schematic.pdf}
+  \includegraphics[width=0.9\textwidth]{figures/schematic.pdf}
   \caption{\label{fig:sketch} Schematics showing the effects of
   semipermeability on vesicle hydrodynamics in various configurations. 
   The lipid bilayer membrane (modeled as an interface $\gamma$ of zero
   thickness and an outward normal $\nn$) is permeable to water
   molecules, depending on the mechanical normal stress balance on the
   membrane.  The slipper in (a) is the steady-state shape of a
-  semipermeable vesicle in a Poiseuille flow.}
-\end{figure}
+  semipermeable vesicle in a Poiseuille flow. \todo[inline]{Fix font
+  size of block (d)}}
+\end{figure*}
 
 % In this work we use numerical simulations to examine the hydrodynamics
 % of a semipermeable vesicle in two dimensions. 
@@ -645,54 +646,8 @@ length in Figure~\ref{fig:stenosisComposite}(b) with $U_{max}=8.4
 residence time $t_R=16.2$s and the reduced area decreases by 13.2\%
 (Figure~\ref{fig:stenosisComposite}(e)).
 
-%\begin{figure*}[htp]
-%  \ifTikz
-%  \input{figures/stenosisComposite.tikz}
-%  \else
-%  \includegraphics{figures/stenosisComposite.pdf}
-%  \fi
-%  \caption{\label{fig:stenosisComposite} (a): A semipermeable vesicle
-%  passing through a constricted geometry similar to the experimental
-%  device in~\cite{abk-fai-sto2006}. (b): A semipermeable vesicle passing
-%  through a constricted geometry that is over five times longer. (c):
-%  The excess pressure of an impermeable and semipermeable vesicle in the
-%  short geometry in (a). (d): The reduced area of the semipermeable
-%  vesicles in the geometries in (a) and (b) as a function of the
-%  vesicles' center of mass. The $x$-axis is scaled by $1/L$ where $L$ is
-%  half the length of the constriction. (e) The reduced area of the
-%  semipermeable vesicles in the geometries in (a) and (b) as a function
-%  of time. The time axis is scaled by $1/t_R$ where $t_R$ is the
-%  residency time. In parts (c) and (d), the dashed lines correspond to
-%  the locations of the inlet and outlet. In part (e), the dashed lines
-%  correspond to the times that the vesicle enters and exits the
-%  constriction. The colored vesicles show the tension distribution in
-%  N/m of the circled vesicles. Throughout the entire simulation, these
-%  vesicle configurations have the largest tension.}
-%\end{figure*}
-%
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Semipermeable Vesicle in a Contracting Geometry} 
-\begin{figure}[htp]
-  \centering
-  \ifTikz
-  \input{figures/contractingComposite2.tikz}
-  \else
-  \includegraphics{figures/contractingComposite2.pdf}
-  \fi
-  \caption{\label{fig:contractingComposite2} Vesicle reduced area and
-  velocity vs.~time. Permeability rate is $\beta = 10^{-3}$ and maximum
-  velocity is $18\mu$m/s. (a) A semipermeable vesicle passing through
-  six periods of the contracting geometry. (b) The reduced area with
-  the marks representing shapes in (a). (c) The vesicle velocity with
-  the marks representing shapes in (a). In (b) and (c), the bottom
-  x-axis is the $x$-coordinate of the center of mass, and the upper
-  x-axis is time. The colored vesicles show the tension distribution in
-  N/m of the circled vesicles. Throughout the entire simulation, these
-  vesicle configurations have the largest tension.\todo[inline]{Make the
-  time steps equispaced and the values of $x$ non-uniform. Reverse their
-  orders between to and bottom.}}
-\end{figure}
 
 Squeezing a cell or an elastic vesicle through a slit in microfluidics
 has gained popularity for its application in stress-induced release of
@@ -747,6 +702,26 @@ through the contraction, it first accelerates until it reaches the neck
 where it abruptly decelerates to go through the contraction. The
 variation of the reduced area and velocity with respect to time are also
 shown in Figure~\ref{fig:contractingComposite2}.
+\begin{figure}[hbp]
+  \centering
+  \ifTikz
+  \input{figures/contractingComposite2.tikz}
+  \else
+  \includegraphics{figures/contractingComposite2.pdf}
+  \fi
+  \caption{\label{fig:contractingComposite2} Vesicle reduced area and
+  velocity vs.~time. Permeability rate is $\beta = 10^{-3}$ and maximum
+  velocity is $18\mu$m/s. (a) A semipermeable vesicle passing through
+  six periods of the contracting geometry. (b) The reduced area with
+  the marks representing shapes in (a). (c) The vesicle velocity with
+  the marks representing shapes in (a). In (b) and (c), the bottom
+  x-axis is the $x$-coordinate of the center of mass, and the upper
+  x-axis is time. The colored vesicles show the tension distribution in
+  N/m of the circled vesicles. Throughout the entire simulation, these
+  vesicle configurations have the largest tension.\todo[inline]{Make the
+  time steps equispaced and the values of $x$ non-uniform. Reverse their
+  orders between to and bottom.}}
+\end{figure}
 
 %
 %\begin{itemize}
