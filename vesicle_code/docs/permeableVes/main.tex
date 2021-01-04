@@ -53,31 +53,44 @@ that over sufficiently long time the water permeability affects the equilibrium 
 \keywords{Keyword 1 $|$ Keyword 2 $|$ Keyword 3 $|$ ...} 
 
 \begin{abstract}
-Lipid bilayer membranes have a native (albeit small) permeability for
-water molecules. Under load, as long as the bilayer membrane stays intact (no poration or rupture), the water influx/efflux is
-often assumed negligible in the absence of a osmolarity pressure across the membrane. 
+Lipid bilayer membranes have a native (albeit small) permeability for water molecules. Under an external load 
+ the water influx/efflux is often assumed  negligible in the absence of osmolarity, provided 
+that the lipid bilayer membrane remains intact (no poration or rupture),. 
 %
-In this work we focus on physical regimes where the membrane tension is below the critical value for membrane poration, and use boundary integral simulations to
-investigate the effects of native water permeability on the hydrodynamics of
-a vesicle under various flows and confinement configurations. 
+In this work we use boundary integral simulations to investigate the effects
+of native water permeability on the vesicle hydrodynamics due to a mechanical load,  such as the viscous stress
+from an external flow deforming a vesicle in free space or pushing the vesicle through a confinement. Coupling the 
+membrane permeability with membrane elastic stress and tension in the framework of Helfrich free energy, we 
+illustrate that, in the absence of an osmotic stress gradient, a giant unilamellar vesicle may be affected by water 
+influx/efflux over a sufficiently long time or under a strong confinement. Our simulation results quantify the conditions 
+for water permeation to be negligible in terms of the time scales, flow strength and confinement. These results shed 
+light on how microfluidic confinement can be utilized to estimate membrane permeability.
 %
-Coupling the membrane permeability with membrane elastic stress, tension, and
-mechanical stress in the framework of Helfrich free energy, we
-illustrate that, in the absence of an osmotic stress gradient, a giant
-unilamellar vesicle may be significantly affected by water
-influx/efflux over a sufficiently long time or under a strong
-confinement. Our simulation results quantify the conditions for water
-permeation to be negligible in terms of the time scales, flow strength
-of an external flow, and degree of confinement. These results shed
-light on how microfluidic confinement can be utilized to estimate
-membrane permeability.
-%
-%osmotic stress gradient 
-%We describe a mathematical model for a semipermeable vesicle and derive
-%  a boundary integral equation formulation for simulating its
-%  hydrodynamics.  
-%
-%Please provide an abstract of no more than 250 words in a single paragraph. Abstracts should explain to the general reader the major contributions of the article. References in the abstract must be cited in full within the abstract itself and cited in the text.
+%Lipid bilayer membranes have a native (albeit small) permeability for
+%water molecules. Under load, as long as the bilayer membrane stays intact (no poration or rupture), the water influx/efflux is
+%often assumed negligible in the absence of a osmolarity pressure across the membrane. 
+%%
+%In this work we focus on physical regimes where the membrane tension is below the critical value for membrane poration, and use boundary integral simulations to
+%investigate the effects of native water permeability on the hydrodynamics of
+%a vesicle under various flows and confinement configurations. 
+%%
+%Coupling the membrane permeability with membrane elastic stress, tension, and
+%mechanical stress in the framework of Helfrich free energy, we
+%illustrate that, in the absence of an osmotic stress gradient, a giant
+%unilamellar vesicle may be significantly affected by water
+%influx/efflux over a sufficiently long time or under a strong
+%confinement. Our simulation results quantify the conditions for water
+%permeation to be negligible in terms of the time scales, flow strength
+%of an external flow, and degree of confinement. These results shed
+%light on how microfluidic confinement can be utilized to estimate
+%membrane permeability.
+%%
+%%osmotic stress gradient 
+%%We describe a mathematical model for a semipermeable vesicle and derive
+%%  a boundary integral equation formulation for simulating its
+%%  hydrodynamics.  
+%%
+%%Please provide an abstract of no more than 250 words in a single paragraph. Abstracts should explain to the general reader the major contributions of the article. References in the abstract must be cited in full within the abstract itself and cited in the text.
 \end{abstract}
 
 \dates{This manuscript was compiled on \today}
@@ -86,8 +99,8 @@ membrane permeability.
 \input my_macros2.tex	
 
 \newif\ifTikz
-%\Tikztrue
-\Tikzfalse
+\Tikztrue
+%\Tikzfalse
 
 %\usepgfplotslibrary{external}
 %\tikzexternalize
