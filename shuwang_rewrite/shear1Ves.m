@@ -10,12 +10,12 @@
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
 params.N = 64*4; % points on vesicle
 params.dt = 1e-4; % time step size
-params.T = 0.2; % time horizon
+params.T = 0.5; % time horizon
 params.outpt = 1e-3; % ouptut frequency
-params.concentra = 0.3; %concentration; % constant, initial concentration of lipid species
+params.concentra = 0.0; %concentration; % constant, initial concentration of lipid species
 params.oddeven = 0; % flag for initial lipid species profile?
-params.shortax = .8;%8146; % short axis length
-params.shearRate = 0; %farFieldSpeed; % shear rate
+params.shortax = .8146;%8146; % short axis length
+params.shearRate = 4; %farFieldSpeed; % shear rate
 params.viscosityInside = 1.0;
 params.viscosityOutside = 1.0;
 params.bendsti = 1; % maximum bending stiffness
@@ -26,7 +26,7 @@ params.nloop = 20; % number of time steps of Cahn-Hilliard to be taken at
 params.epsch = 0.04; % small parameter  in the double-well potential 
 params.gmresTol = 1e-10; %GMRES tolerance
 params.gmresMaxIter = params.N; %maximum number of GMRES iterations
-params.SPcoeff = 0.0; %fluxCoeff; %semi-permeable coefficient
+params.SPcoeff = 0; %fluxCoeff; %semi-permeable coefficient
 
 options.saveData = false;
 options.verbose = true;  % write data to console

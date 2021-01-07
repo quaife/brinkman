@@ -71,7 +71,8 @@ end
 
 if nargout>2  % if user requires curvature
   IK = o.modes(N);
-  [DDx,DDy] = oc.getDXY([Dx,Dy]);
+  [DDx,DDy] = o.getDXY([Dx,Dy]);
+  DDx = DDx(:); DDy = DDy(:);
   curvature = (Dx.*DDy - Dy.*DDx)./(jacobian.^3);
 end
 % curvature of the curve
@@ -364,11 +365,11 @@ function X = recon(o,N,x0,y0,L,theta)
 IK = o.modes(N);
 x = x0 + L*o.intFT(cos(theta),IK);%/2/pi;
 y = y0 + L*o.intFT(sin(theta),IK);%/2/pi;
-figure(1);clf;
-%semilogy(abs(fftshift(fft(theta-2*pi*(0:N-1)'/N))))
-semilogy(abs(fftshift(fft(sin(theta)))),'r')
-%semilogy(abs(fftshift(fft(y))),'r')
-pause
+%figure(1);clf;
+%%semilogy(abs(fftshift(fft(theta-2*pi*(0:N-1)'/N))))
+%semilogy(abs(fftshift(fft(sin(theta)))),'r')
+%%semilogy(abs(fftshift(fft(y))),'r')
+%pause
 
 X = o.setXY(x,y);
 
@@ -446,6 +447,7 @@ end %rmLinearPart
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function fntheta = fthetaim(o,ves,un,ut,fdotn)
+
 N = ves.N;
 L = ves.L;  
 theta = ves.theta;
@@ -465,12 +467,22 @@ var2 = fft(theta-[2*pi*(0:N-1)]'/N);
 %plot(ut)
 %pause
 fntheta = real(ifft(var1 - rlen.*var2));
+%clf;
+%figure(1); hold on
+%figure(1); clf
+%semilogy(abs(fftshift(fft(fntheta))),'r*')
+%semilogy(abs(real(fftshift(fft(fntheta)))),'bo')
+%pause
 %figure(3)
 %clf;
 %semilogy(abs(fftshift(fft(un))))
 %hold on
 %Krasney filter applied to smooth out spurious high frequency terms
+%clf;
+%semilogy(abs(fftshift(fft(fntheta))),'bo')
+%hold on
 fntheta = o.kfilter(fntheta,N);
+% semilogy(abs(fftshift(fft(fntheta))),'r*')
 % semilogy(abs(fftshift(fft(fntheta))),'r--')
 % plot(fntheta)
 %pause
@@ -500,10 +512,15 @@ end % forceTheta
 function filtered = kfilter(o,ftheta,N)
 %fourier filter with krasny filtering with 1 input vector 
 %USING FAST FOURIER TRANSFORM
-tol = 1e-10;
+tol = 1e-8;
 b = fft(ftheta);
+%clf;
+%semilogy(abs((fftshift(b))),'bo')
 b(abs(b)/N < tol) = 0;
 b(N/2:N/2+2) = 0;
+
+%hold on
+%semilogy(abs(fftshift((b))),'k*')
 
 c = real(b.*exp(-10*([0:2:N N-2:-2:2]'/N).^25));
 d = imag(b.*exp(-10*([1:2:N-1 0 N-1:-2:3]'/N).^25));
@@ -511,7 +528,11 @@ d(N/2-1) = 0; d(N/2+3) = 0;
 
 filtered = real(ifft(c+1i*d));
 
-%size(ftheta)
+%hold on
+%semilogy(abs(fftshift(fft(filtered))),'ro')
+%pause
+%hold on
+%%size(ftheta)
 %figure(1); clf;
 %plot(ftheta); hold on;
 %plot(filtered,'r--')
