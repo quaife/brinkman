@@ -28,6 +28,7 @@ oc = curve;
 o.N = size(X,1)/2;
 o.X = X;
 [o.L,o.theta,o.cur] = oc.computeOpeningAngle(o.N,X);
+
 o.rcon = rcon;
 o.x0 = X(1);
 o.y0 = X(o.N + 1);

@@ -19,15 +19,17 @@ if 0
   options.marker = true;
 end
 
-if 1
-%  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/stenosis/shortConstriction_beta1em3/choke1VesData.bin';
+if 0
+  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/stenosis/shortConstriction_beta1em3/choke1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/stenosis/longConstriction_ra065_beta1em3/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3RA0p25/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
 %file = '~/Dropbox/Adhesion/PermeableV/choke1Ves/choke1VesBData.bin';
-file = 'choke1VesData.bin';
+%file = 'choke1VesData.bin';
 
   options.marker = false;
+%  file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/stenosis/shortConstriction_beta1em3/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3RA0p20/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3RA0p65Centered/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield1e0/choke1VesData.bin'
@@ -39,15 +41,16 @@ file = 'choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em4Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em5Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
-  ax = [-120 120 -12.5 12.5];
+%  ax = [-120 120 -12.5 12.5];
+  ax = [-55 55 -22.5 22.5];
   options.confined = true;
-  options.pressure = false;
+  options.pressure = true;
   options.savefig = false;
   count = 1;
   irate = 1;
 end
 
-if 0
+if 1
 %  file = 'contracting1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1e1/contracting1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1em0p5/contracting1VesData.bin';

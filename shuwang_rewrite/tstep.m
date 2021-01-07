@@ -251,7 +251,7 @@ function [ves,ux_old,uy_old,L,Ln,dcur0,N1,N2Hat,cx,cy] = FirstSteps(...
 % Refines the first time step [0,dt] and uses a first-order Euler method
 % to find the vesicle position, curv, velocity, and density function.
 % Returns ves, L, Ln and dcur0 to use for higher-order time stepping.     
-    
+ 
 time = 0; % current time
 oc = curve; % define shorthand for curve class
 L = ves.L; % shorthand vesicle length
@@ -294,7 +294,7 @@ Ln = L + params.dt*dcur0(1);
 % equation (54) but without the alpha derivative multiplied by the
 % integral operator \mathcal{L}. It does include the semi-permeability
 % terms using fdotn
- N1 = oc.fthetaim(ves,un,ut,fdotn);
+N1 = oc.fthetaim(ves,un,ut,fdotn);
 % hold off;clf;
 % semilogy(abs(fftshift(fft(N1))))
 % pause
@@ -304,6 +304,9 @@ Ln = L + params.dt*dcur0(1);
 % Fourier series of the derivative of the tangent angle. i.e. Fourier
 % series of N_1
 fsN1 = fft(N1);
+%clf
+%semilogy(abs(fftshift(fsN1)),'bo')
+%pause
 
 % Fourier derivative of the tangent angle adjusted by a linear function
 % so that we are taking the fft of a periodic function
@@ -378,6 +381,11 @@ ves.L = Ln;
 % update ves.theta
 ves.theta = thetan;
 
+disp('HERE')
+mean(cos(ves.theta))
+mean(sin(ves.theta))
+pause
+
 % % --------------- center of mass calculations
 % xnormal =  sin(ves.theta);
 % ynormal = -cos(ves.theta);
@@ -385,18 +393,17 @@ ves.theta = thetan;
 % cy = oc.centerOfMass(ves.X, ves.X(end/2+1:end),ves.L,ynormal);
 % compute the average velocity
 
-
 avgux = sum(ux)*ves.L/ves.N;
 avguy = sum(uy)*ves.L/ves.N;
 % 
-disp('HERE')
+%disp('HERE')
 Xprov = oc.recon(ves.N,0,0,ves.L,ves.theta);    
 
-disp('HERE')
-clf
+%disp('HERE')
+%clf
 %semilogy(abs(fftshift(fft(ves.theta-2*pi*(0:ves.N-1)'/ves.N))))
 %semilogy(abs(fftshift(fft(Xprov(end/2+1:end)))))
-pause
+%pause
 %
 cXprovx = oc.centerOfMass(Xprov, Xprov(1:end/2),ves.L,xnormal);
 cXprovy = oc.centerOfMass(Xprov, Xprov(end/2+1:end),ves.L,ynormal);
@@ -418,6 +425,11 @@ ves.cur = oc.acurv(ves);
 % set up variables for timestepping loop
 ux_old = ux(1);
 uy_old = uy(1);
+
+jac = oc.diffProp(ves.X);
+figure(2); clf;
+semilogy(abs(fftshift(fft(jac))))
+pause
 
 
 [~,a_new,l_new] = oc.geomProp(ves.X);
@@ -610,6 +622,11 @@ for ktime = 1:nstep
 
   ves.X(1:end/2) = Xprov(1:end/2) + cx - cXprovx;
   ves.X(end/2+1:end) = Xprov(end/2+1:end) + cy - cXprovy;
+
+  jac = oc.diffProp(ves.X);
+  figure(2); clf;
+  semilogy(abs(fftshift(fft(jac))))
+  pause
   
 %   % update the single tracker point using Adams Bashforth
 %    ves.x0 = ves.x0 + 0.5*params.dt*(3*uxvel_new - ux_old);

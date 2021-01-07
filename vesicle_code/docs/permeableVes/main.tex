@@ -99,8 +99,8 @@ light on how microfluidic confinement can be utilized to estimate membrane perme
 \input my_macros2.tex	
 
 \newif\ifTikz
-\Tikztrue
-%\Tikzfalse
+%\Tikztrue
+\Tikzfalse
 
 %\usepgfplotslibrary{external}
 %\tikzexternalize
@@ -1004,13 +1004,6 @@ condition. Therefore,
   \frac{1}{2} \int_{\gamma} (\xx \cdot \dot{\nn})\, ds.
 \end{align}
 Applying integration by parts, the two integrals agree, and we have
-%\begin{align}
-%  \int_\gamma (\xx \cdot \dot{\nn})\, ds 
-%    = \int_\gamma \left(\xx \cdot \dot{\xx}_s^\perp \right)
-%    = -\int_\gamma \left(\xx^\perp \cdot \dot{\xx}_s\right)\, ds 
-%    = \int_\gamma \left(\xx_s^\perp \cdot \dot{\xx}\right)\, ds 
-%    = \int_\gamma (\dot{\xx} \cdot \nn)\, ds.
-%\end{align}
 \begin{align}
   \dot{A}(t) = \int_\gamma \left(\beta (\ff \cdot \nn)\nn 
     + \SS[\ff]\right) \cdot \nn\, ds 
@@ -1035,6 +1028,18 @@ Repeatedly applying integration by parts, we have
 \end{align}
 Note that the integrand in~\eqref{eqn:areaROC} is zero when the vesicle
 reaches its steady state which confirms that $\dot{A}(t) = 0$.
+
+\section*{Vesicle Tensions}
+\begin{figure*}[htp]
+  \centering
+  \ifTikz
+    \input{figures/relaxationTensions.tikz}
+  \else
+    \includegraphics{figures/relaxationTensions.pdf}
+  \fi
+  \caption{\label{fig:relaxationTensions} Tension of images in
+  relaxation.}
+\end{figure*}
 
 
 \end{document}
