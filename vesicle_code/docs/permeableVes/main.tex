@@ -428,9 +428,12 @@ to inflate to a circle with no vanishing force and velocity.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Planar Shear Flow}
 
-We consider a semipermeable vesicle in a planar shear flow
-$\uu_{\infty}(\xx) = \dot{\gamma} (y,0)$ with different permeability
-$\beta$ and shear rates $\dot{\gamma}$. When $\beta=0$ (impermeable
+We consider a semipermeable vesicle in a planar shear flow, characterized by the elastic capillary number
+$Ca_E=\dot{\gamma}\tau$, where $\tau$ is the characteristic time scale in the system (see Supplementary Material) and
+$\dot{\gamma}$ is the shear rate of the planar shear flow
+$\uu_{\infty}(\xx) = \dot{\gamma} (y,0)$.
+ %with different permeability $\beta$ and shear rates $\dot{\gamma}$. 
+ When $\beta=0$ (impermeable
 case), a vesicle's reduced area and viscosity contrast determine whether
 it tank treads or tumbles~\cite{fin-lam-sei-gom2008,
 kra-win-sei-lip1996}. Focusing on semipermeable vesicles with no
@@ -858,7 +861,7 @@ tension by $k_b/R_0^2 = 10^{-7}$N/m, and the permeability by $R_0\mu = 2 \times 
 Under this nondimensionalization, a two-dimensional semipermeable vesicle in a viscous fluid is characterized by 
 (a) its reduced area $\alpha = 4\pi A/L^2
 \in (0,1]$, where $L$ is the vesicle length and $A$ is its area, and 
-(b) its permeability $\beta = k_w/W$.
+(b) its permeability $\beta = k_w/(R_0\mu)$.
 In two dimensions, the membrane length is conserved by the local inextensibility condition, 
 but the enclosed area is not because of semipermeability. Therefore, the reduced area is
 dynamic.
@@ -872,9 +875,12 @@ boundary conditions~\eqref{eqn:jump}, the fluid velocity is
 \end{align}
 where $\SS$ is the single-layer potential
 \begin{align}
-  \SS[\ff](\xx) = \frac{1}{4\pi\mu} \int_{\gamma} \left(
+  \SS[\ff](\xx) = \frac{1}{4\pi} \int_{\gamma} \left(
     -\mathbf{I} \log\rho + \frac{\rr \otimes \rr}{\rho^2} \right)
     \ff(\yy) ds_{\yy},
+%  \SS[\ff](\xx) = \frac{1}{4\pi\mu} \int_{\gamma} \left(
+%    -\mathbf{I} \log\rho + \frac{\rr \otimes \rr}{\rho^2} \right)
+%    \ff(\yy) ds_{\yy},
 \end{align}
 with $\rr = \xx - \yy$ and $\rho = |\rr|$. Imposing the flux
 condition~\eqref{eqn:vesicleFlux} and the inextensibility condition, the
@@ -883,10 +889,10 @@ vesicle velocity satisfies the boundary integral equation
   \label{eqn:vesVelocity}
   \dot{\xx} &= \uu_\infty(\xx) + \beta (\ff_\mathrm{mem}\cdot\nn)\nn
   + \SS [\ff_\mathrm{mem}](\xx),  \quad
-  \xx_s \cdot \dot{\xx}_s = 0,
+  \xx_s \cdot \dot{\xx}_s = 0.
 \end{align}
-where $\beta = k_w/W$ is the dimensionless water permeability. In
-confined geometries, the far field term $\uu_\infty$ is replaced by a
+%where $\beta = k_w/W$ is the dimensionless water permeability. 
+In confined geometries, the far field term $\uu_\infty$ is replaced by a
 double-layer potential with a density defined on $\partial\Omega$. The
 unknown density function allows us to satisfy the Dirichlet boundary
 condition $\uu(\xx) = \UU(\xx)$ for $\xx \in \partial\Omega$.
