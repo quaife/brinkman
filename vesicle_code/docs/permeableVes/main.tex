@@ -99,8 +99,8 @@ light on how microfluidic confinement can be utilized to estimate membrane perme
 \input my_macros2.tex	
 
 \newif\ifTikz
-%\Tikztrue
-\Tikzfalse
+\Tikztrue
+%\Tikzfalse
 
 %\usepgfplotslibrary{external}
 %\tikzexternalize
@@ -837,17 +837,30 @@ membrane traction~\cite{yao-mor2017}. That is,
 \end{align}
 where $k_w$ is the water permeability.
 
-The governing equations are non-dimensionalized by introducing a length
-scale that we take to be $R_0 = 10^{-6}$m. Using a bending stiffness of
-$k_b = 10^{-19}$J and fluid viscosity $5 \times 10^{-2}$kg/ms, we define
-the time scale $\tau = \mu R_0^3/k_b = 0.5s$, the velocity scale $U =
-R_0/\tau = 2\mu$m/s, the pressure scale $P = k_b/R_0^3 = 10^{-1}$Pa, the
-tension scale $Q = k_b/R_0^2 = 10^{-7}$N/m, and the permeability scale
-$W = R_0\mu = 2 \times 10^{-5}$m$^2$s/kg. Another standard dimensionless
-variable in vesicle suspensions is the reduced area $\alpha = 4\pi A/L^2
-\in (0,1]$, where $L$ is the vesicle length and $A$ is its area. The
-length is conserved by the local inextensibility condition, but the area
-is not because of semipermeability. Therefore, the reduced area is
+%The governing equations are non-dimensionalized by introducing a length
+%scale that we take to be $R_0 = 10^{-6}$m. Using a bending stiffness of
+%$k_b = 10^{-19}$J and fluid viscosity $5 \times 10^{-2}$kg/ms, we define
+%the time scale $\tau = \mu R_0^3/k_b = 0.5s$, the velocity scale $U =
+%R_0/\tau = 2\mu$m/s, the pressure scale $P = k_b/R_0^3 = 10^{-1}$Pa, the
+%tension scale $Q = k_b/R_0^2 = 10^{-7}$N/m, and the permeability scale
+%$W = R_0\mu = 2 \times 10^{-5}$m$^2$s/kg. Another standard dimensionless
+%variable in vesicle suspensions is the reduced area $\alpha = 4\pi A/L^2
+%\in (0,1]$, where $L$ is the vesicle length and $A$ is its area. The
+%length is conserved by the local inextensibility condition, but the area
+%is not because of semipermeability. Therefore, the reduced area is
+%dynamic.
+
+The governing equations are non-dimensionalized by using a 
+characteristic length scale $R_0 = 10^{-6}$m, a bending stiffness of
+$k_b = 10^{-19}$J and fluid viscosity $5 \times 10^{-2}$kg/ms. We scale time by $\tau\equiv\mu R_0^3/k_b = 0.5s$, 
+the velocity by $R_0/\tau = 2\mu$m/s, the pressure by $k_b/R_0^3 = 10^{-1}$Pa, 
+tension by $k_b/R_0^2 = 10^{-7}$N/m, and the permeability by $R_0\mu = 2 \times 10^{-5}$m$^2$s/kg. 
+Under this nondimensionalization, a two-dimensional semipermeable vesicle in a viscous fluid is characterized by 
+(a) its reduced area $\alpha = 4\pi A/L^2
+\in (0,1]$, where $L$ is the vesicle length and $A$ is its area, and 
+(b) its permeability $\beta = k_w/W$.
+In two dimensions, the membrane length is conserved by the local inextensibility condition, 
+but the enclosed area is not because of semipermeability. Therefore, the reduced area is
 dynamic.
 
 Since the fluid satisfies the Stokes equations, the velocity and
