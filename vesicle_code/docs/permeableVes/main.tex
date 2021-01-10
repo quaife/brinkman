@@ -236,12 +236,9 @@ conditions and confinement, see Figure~\ref{fig:sketch}.
 
 % In this work we use numerical simulations to examine the hydrodynamics
 % of a semipermeable vesicle in two dimensions. 
-In microfluidic experiments, it is challenging to keep a freely
-suspended red blood cell or vesicle in a steady flow for more than a few
-hours. It is also difficult to quantify the vesicle area/volume ratio
-accurately.  Using numerical simulations we can quantify the effects of
-water permeability on the hydrodynamics of a vesicle under mechanical
-stresses. Vesicles (self-enclosed lipid bilayer membranes) have been
+
+
+Vesicles (self-enclosed lipid bilayer membranes) have been
 used as a model system to study reshaping, remodeling, and scission of
 cell membranes due to osmotic stress~\cite{OgleckaEtAl2014_eLife,
 CamposSaric2020_bioRxiv, Dimova2020_GVB, BhatiaChrist2020_SoftMatt}.
@@ -254,7 +251,15 @@ BhatiaChrist2020_SoftMatt}, an illustration that the permeable water
 flow is inevitably coupled with the mechanical pressure jump across the
 membrane~\cite{yao-mor2017}, which could become comparable to osmotic
 stress when the membrane deformation is large~\cite{LiMoriSun2015_PRL,
-yao-mor2017}. In the absence of an osmotic gradient, we first show that
+yao-mor2017}. 
+
+In microfluidic experiments, it is challenging to keep a freely
+suspended red blood cell or vesicle in a steady flow for more than a few
+hours. It is also difficult to quantify the vesicle area/volume ratio
+accurately.  Using numerical simulations we can quantify the effects of
+water permeability on the hydrodynamics of a vesicle under mechanical
+stresses. 
+In the absence of an osmotic gradient, we first show that
 a freely suspended semipermeable vesicle behaves differently from an
 impermeable vesicle over a long time. Next we show that, at normal
 physiological conditions, the permeable water flow can be amplified by
@@ -337,9 +342,9 @@ lead to different vesicle hydrodynamics over a time scale of 10 to 100
 minutes. 
 %{\bf YNY: is this correct? The shear flow results seem to suggest that
 %the permeability may lead to change in area in less than a second???}
-For vesicles in a narrow microfluidic channel, the typical time scale is
-milliseconds~\cite{abk-fai-sto2006} \todo[inline]{Howard talked about
-this statement not always being true}. Our simulations show that strong
+For vesicles in a narrow microfluidic channel, the experiments usually do not last longer than a few minutes~\cite{abk-fai-sto2006}.
+%\todo[inline]{Howard talked aboutthis statement not always being true}. 
+Our simulations show that strong
 confinement can lead to amplification of water permeability at such
 short time scale.
 %
@@ -822,9 +827,9 @@ $\ff_\mathrm{ben} = -k_b \xx_{ssss}$ and $\ff_\mathrm{ten} = (\sigma
 \xx_s)_s$. 
 
 Semipermeability is introduced by modifying the vesicle velocity from
-the standard no-slip condition $\dot{\xx} = \uu(\xx)$. Instead, we
-assume that the flux through the vesicle is proportional to the
-mechanical force~\cite{yao-mor2017}. That is, 
+the standard no-slip condition $\dot{\xx} = \uu(\xx)$. Instead,
+the permeating water flux through the lipid bilayer membrane is proportional to the
+membrane traction~\cite{yao-mor2017}. That is, 
 \begin{align}
   \label{eqn:vesicleFlux}
   \uu - \dot{\xx} = - k_w (\ff_\mathrm{mem} \cdot \nn) \nn, \qquad
