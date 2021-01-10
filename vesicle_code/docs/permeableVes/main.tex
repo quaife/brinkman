@@ -1029,6 +1029,7 @@ Repeatedly applying integration by parts, we have
 Note that the integrand in~\eqref{eqn:areaROC} is zero when the vesicle
 reaches its steady state which confirms that $\dot{A}(t) = 0$.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Vesicle Tensions}
 \begin{figure*}[htp]
   \centering
@@ -1037,9 +1038,22 @@ reaches its steady state which confirms that $\dot{A}(t) = 0$.
   \else
     \includegraphics{figures/relaxationTensions.pdf}
   \fi
-  \caption{\label{fig:relaxationTensions} Tension of images in
+  \caption{\label{fig:relaxationTensions} Tension of vesicles in
   relaxation.}
 \end{figure*}
+
+
+\begin{figure*}[htp]
+  \centering
+  \ifTikz
+    \input{figures/stenosisTensions.tikz}
+  \else
+    \includegraphics{figures/stenosisTensions.pdf}
+  \fi
+  \caption{\label{fig:stenosisTensions} Tension of vesicles in
+  stenosis.}
+\end{figure*}
+
 
 
 \end{document}
