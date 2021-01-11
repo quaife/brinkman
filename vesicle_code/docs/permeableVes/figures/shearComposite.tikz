@@ -18,7 +18,7 @@
   xmode = log,
   xtick pos = left,
   ytick pos = left,
-  legend entries={$\dot{\gamma} = 10^{1}$,,,,$\dot{\gamma} = 10^{0}$},
+  legend entries={$\mathrm{Ca} = 10^{1}$,,,,$\mathrm{Ca} = 10^{0}$},
   legend cell align=left,
   legend style={draw=none,font=\large,fill=none},
   legend style={at={(0.1,0.1)},anchor=south west} 
@@ -23857,7 +23857,7 @@
   xlabel = {$\beta$},
   ytick = {2,7,12,17,22,27,32},
   yticklabels = {$10^{-1}$,,$10^{0}$,,$10^{1}$,,$10^2$},
-  ylabel = {$\dot{\gamma}$},
+  ylabel = {$\mathrm{Ca}$},
   ylabel near ticks,
 %  ylabel shift = {-0.3cm},
   xtick pos = left,
