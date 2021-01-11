@@ -1064,19 +1064,28 @@ reaches its steady state which confirms that $\dot{A}(t) = 0$.
   \fi
   \caption{\label{fig:relaxationTensions} Tension of vesicles in
   relaxation.}
+  \todo[inline]{Redo using cline}
 \end{figure*}
 
+\begin{figure*}[hbp]
+  \includegraphics[width=\textwidth]{figures/shearTensions.pdf}
+  \caption{\label{fig:shearTensions} Tension of vesicles in
+  shear flow. The semi-permeability constant is $\beta = 10^{-4}$ for
+  all these cases, and the elastic capillary number ranges from
+  $10^{-1}$ to $10^{2}$ as in Figure~\ref{fig:shearComposite}.}
+\end{figure*}
 
 \begin{figure*}[htp]
   \centering
-  \ifTikz
-    \input{figures/stenosisTensions.tikz}
-  \else
-    \includegraphics{figures/stenosisTensions.pdf}
-  \fi
+  \begin{tikzpicture}[scale=1]
+    \node[inner sep=0pt] at (0,0) {
+    \includegraphics[width=\textwidth]{figures/stenosisTensions.pdf}
+    };
+    \node at (-8.6,0.7) {(a)};
+    \node at (-1.6,0.7) {(b)};
+  \end{tikzpicture}
   \caption{\label{fig:stenosisTensions} Tension of vesicles in
   stenosis.}
-  \includegraphics[width=0.66\textwidth]{figures/stenosisLongTension.pdf}
 \end{figure*}
 
 
