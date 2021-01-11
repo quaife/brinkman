@@ -105,6 +105,8 @@ light on how microfluidic confinement can be utilized to estimate membrane perme
 %\usepgfplotslibrary{external}
 %\tikzexternalize
 
+\setboolean{displaywatermark}{false}
+
 \begin{document}
 
 \maketitle
@@ -256,7 +258,7 @@ yao-mor2017}.
 In microfluidic experiments, it is challenging to keep a freely
 suspended red blood cell or vesicle in a steady flow for more than a few
 hours. It is also difficult to quantify the vesicle area/volume ratio
-accurately.  Using numerical simulations we can quantify the effects of
+accurately \cite{MinetttiCallensCoupier2008_AppliedOptics}.  Using numerical simulations we can quantify the effects of
 water permeability on the hydrodynamics of a vesicle under mechanical
 stresses. 
 In the absence of an osmotic gradient, we first show that
@@ -429,7 +431,7 @@ to inflate to a circle with no vanishing force and velocity.
 \subsection*{Planar Shear Flow}
 
 We consider a semipermeable vesicle in a planar shear flow, characterized by the elastic capillary number
-$Ca_\mathrm{E}=\dot{\gamma}\tau$, where $\tau$ is the characteristic time scale in the system (see Supplementary Material) and
+$Ca_\mathrm{E}=\dot{\gamma}\tau$, where $\tau$ is the characteristic time scale in the non-dimensionalization (see Supplementary Material) and
 $\dot{\gamma}$ is the shear rate of the planar shear flow
 $\uu_{\infty}(\xx) = \dot{\gamma} (y,0)$.
  %with different permeability $\beta$ and shear rates $\dot{\gamma}$. 
