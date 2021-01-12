@@ -3902,10 +3902,10 @@
   xtick = \empty,
   ytick = \empty,
   axis equal image,
-  xmin = -1.4,
-  xmax = 1.4,
-  ymin = -1.4,
-  ymax = 1.4,
+  xmin = -1.5,
+  xmax = 1.5,
+  ymin = -1.5,
+  ymax = 1.5,
 ]
 \addplot[red, line width=1pt] coordinates{
 (2.0909e-14,1.1782e+00)
@@ -4206,10 +4206,10 @@
   xtick = \empty,
   ytick = \empty,
   axis equal image,
-  xmin = -1.4,
-  xmax = 1.4,
-  ymin = -1.4,
-  ymax = 1.4,
+  xmin = -1.5,
+  xmax = 1.5,
+  ymin = -1.5,
+  ymax = 1.5,
 ]
 \addplot[red, line width=1pt] coordinates{
 (-4.4843e-14,1.1757e+00)
@@ -4479,10 +4479,10 @@
   xtick = \empty,
   ytick = \empty,
   axis equal image,
-  xmin = -1.4,
-  xmax = 1.4,
-  ymin = -1.4,
-  ymax = 1.4,
+  xmin = -1.5,
+  xmax = 1.5,
+  ymin = -1.5,
+  ymax = 1.5,
 ]
 \addplot[red, line width=1pt] coordinates{
 (8.4655e-14,1.1652e+00)
@@ -4753,10 +4753,10 @@
   xtick = \empty,
   ytick = \empty,
   axis equal image,
-  xmin = -1.4,
-  xmax = 1.4,
-  ymin = -1.4,
-  ymax = 1.4,
+  xmin = -1.5,
+  xmax = 1.5,
+  ymin = -1.5,
+  ymax = 1.5,
 ]
 \addplot[red, line width=1pt] coordinates{
 (-1.8563e-13,1.1036e+00)
@@ -5026,10 +5026,10 @@
   xtick = \empty,
   ytick = \empty,
   axis equal image,
-  xmin = -1.4,
-  xmax = 1.4,
-  ymin = -1.4,
-  ymax = 1.4,
+  xmin = -1.5,
+  xmax = 1.5,
+  ymin = -1.5,
+  ymax = 1.5,
 ]
 \addplot[red, line width=1pt] coordinates{
 (-2.5814e-13,1.0011e+00)

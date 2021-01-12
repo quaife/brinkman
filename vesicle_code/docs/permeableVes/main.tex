@@ -1066,19 +1066,58 @@ reaches its steady state which confirms that $\dot{A}(t) = 0$.
   \fi
   \caption{\label{fig:relaxationTensions} Tension of vesicles in
   relaxation.}
+  \todo[inline]{Redo using cline}
 \end{figure*}
 
+\begin{figure*}[hbp]
+  \begin{tikzpicture}[scale=1]
+    \node[inner sep=0pt] at (0,0) {
+    \includegraphics[width=\textwidth]{figures/shearTensions.pdf}
+    };
+    \node at (-8.54,0.6) {(a)};
+    \node at (-6.00,0.6) {(b)};
+    \node at (-3.46,0.6) {(c)};
+    \node at (-0.92,0.6) {(d)};
+    \node at (+1.60,0.6) {(e)};
+    \node at (+4.16,0.6) {(f)};
+    \node at (+6.70,0.6) {(g)};
+  \end{tikzpicture}
+%  \includegraphics[width=\textwidth]{figures/shearTensions.pdf}
+  \caption{\label{fig:shearTensions} Tension of vesicles in
+  shear flow. The semi-permeability constant is $\beta = 10^{-4}$ for
+  all these cases, and the elastic capillary number ranges from
+  $10^{-1}$ to $10^{2}$ as in Figure~\ref{fig:shearComposite}.}
+\end{figure*}
+
+\begin{figure*}[hbp]
+  \centering
+  \begin{tikzpicture}[scale=1]
+    \node[inner sep=0pt] at (0,0) {
+    \includegraphics[width=\textwidth]{figures/parabolicTensions.pdf}
+    };
+    \node at (-8.2,1.5) {(a)};
+    \node at (-3.8,1.5) {(b)};
+    \node at (+0.6,1.5) {(c)};
+    \node at (+5.0,1.5) {(d)};
+  \end{tikzpicture}
+  \caption{\label{fig:parabolicTensions} The steady state tension
+  profile of a semipermeable vesicle with $\beta=10^{-3}$ in a parabolic
+  flow (see Figure~\ref{fig:parabolicComposite}). The flow velocities
+  are (a) 200$\mu$m/s, (b) 400$\mu$m/s, (c) 600$\mu$m/s, and (d)
+  800$\mu$m/s.}
+\end{figure*}
 
 \begin{figure*}[htp]
   \centering
-  \ifTikz
-    \input{figures/stenosisTensions.tikz}
-  \else
-    \includegraphics{figures/stenosisTensions.pdf}
-  \fi
+  \begin{tikzpicture}[scale=1]
+    \node[inner sep=0pt] at (0,0) {
+    \includegraphics[width=\textwidth]{figures/stenosisTensions.pdf}
+    };
+    \node at (-8.6,0.7) {(a)};
+    \node at (-1.6,0.7) {(b)};
+  \end{tikzpicture}
   \caption{\label{fig:stenosisTensions} Tension of vesicles in
   stenosis.}
-  \includegraphics[width=0.66\textwidth]{figures/stenosisLongTension.pdf}
 \end{figure*}
 
 
