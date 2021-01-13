@@ -99,8 +99,8 @@ light on how microfluidic confinement can be utilized to estimate membrane perme
 \input my_macros2.tex	
 
 \newif\ifTikz
-\Tikztrue
-%\Tikzfalse
+%\Tikztrue
+\Tikzfalse
 
 %\usepgfplotslibrary{external}
 %\tikzexternalize
@@ -367,7 +367,7 @@ short time scale.
   \caption{\label{fig:shearComposite} (a) The reduced area of a
   semipermeable vesicle with $\beta = 10^{-3}$ initialized with four
   different reduced areas in a shear flow with two different flow rates.
-  (b) The steady state shape of a vesicle with varying flow rates and
+  (b) The equilibrium shape of a vesicle with varying flow rates and
   semipermeability rates. The circled vesicles correspond to the
   simulations in part (a).}
 \end{figure*}
@@ -474,7 +474,7 @@ its steady state configuration is proportional to $\beta^{-1}$.
   \else
   \includegraphics{figures/parabolicComposite.pdf}
   \fi
-  \caption{\label{fig:parabolicComposite} (a) The steady state shape of
+  \caption{\label{fig:parabolicComposite} (a) The equilibrium shape of
   a semipermeable vesicle submerged in a Poiseuille flow with varying
   initial reduced areas and flow rates. The red regions correspond to
   influx and the blue regions correspond to efflux. (b) The steady
@@ -586,9 +586,9 @@ further away vesicle is relative to the flow center at $y=0$.
   \includegraphics{figures/stenosisComposite.pdf}
   \fi
   \caption{\label{fig:stenosisComposite} (a) A semipermeable vesicle
-  passing through a constricted geometry similar to the experimental
+  passing through a closely-fit channel similar to the experimental
   device in~\cite{abk-fai-sto2006}. (b) A semipermeable vesicle passing
-  through a constricted geometry that is over five times longer. (c)
+  through a  (four-times) longer closely-fit channel than (a). (c)
   The excess pressure of an impermeable and semipermeable vesicle in the
   short geometry in (a). (d) The reduced area of the semipermeable
    vesicles in the geometries in (a) and (b) as a function of the
@@ -1047,7 +1047,7 @@ Repeatedly applying integration by parts, we have
   &= -\beta \int_\gamma \left(\kappa (\xx_{ss} \cdot \xx_{ss}) + 
     \kappa_s (\xx_{ss} \cdot \xx_s) + \kappa \sigma \right) 
     \, ds \\
-  &= -\beta \int_\gamma \left(\kappa^3 + \kappa \sigma \right) 
+  &  = -\beta \int_\gamma \left(\kappa^3 + \kappa \sigma \right) 
     \, ds = \beta \int_\gamma \left(
     \frac{\kappa^3}{2} - \kappa \Lambda \right) \, ds.
   \label{eqn:areaROC}
@@ -1056,7 +1056,14 @@ Note that the integrand in~\eqref{eqn:areaROC} is zero when the vesicle
 reaches its steady state which confirms that $\dot{A}(t) = 0$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Vesicle Tensions}
+\section*{Supplementary Material: Vesicle Tensions}
+
+\subsection*{Vesicle Relaxation}
+Figure~\ref{fig:relaxationTensions} shows the membrane tension distribution along the relaxing vesicles in Figure~\ref{fig:relaxationComposite}. 
+The membrane tension (color bars) is in N/m. As the semipermeable vesicle relaxes, the membrane tension reduces in magnitude and becomes more
+evenly distributed along the membrane. In the top row the vesicle nearly relaxes to a circle on the right, and the membrane tension is uniform and equal to $k_b \kappa^2/2$ as predicted by our analysis (see Eq.~\ref{eqn:areaROC}).
+In the bottom row, the initial vesicle shape has a lot of high curvature regions (and thus the low reduced area), and it takes more than four hours to 
+inflate to twice the total water content for $\beta=10^{-7}$. In contrast the water enclosed inside the vesicle in the top row remains nearly constant in four hours.
 \begin{figure*}[htp]
   \centering
   \ifTikz
@@ -1064,11 +1071,18 @@ reaches its steady state which confirms that $\dot{A}(t) = 0$.
   \else
     \includegraphics{figures/relaxationTensions.pdf}
   \fi
-  \caption{\label{fig:relaxationTensions} Tension of vesicles in
-  relaxation.}
+  \caption{\label{fig:relaxationTensions} Tension distribution of vesicles in
+  relaxation that corresponds to Figure~\ref{fig:relaxationComposite}.}
   \todo[inline]{Redo using cline}
 \end{figure*}
 
+\subsection*{Vesicle in a planar shear flow}
+Our integral simulations of a semipermeable vesicle in a planar shear flow show that the equilibrium
+vesicle shape depends mostly on the capillary number $Ca_\mathrm{E}$, independent of the dimensionless water permeability $\beta$.
+Our simulations show that the time it takes for a semipermeable vesicle to reach equilibrium in a planar shear flow is inversely proportional to $\beta$, just like the relaxing vesicle.
+The tension distribution along the equilibrium vesicle at $\beta=10^{-4}$ is shown in Figure~\ref{fig:shearTensions}, where the color bars are for the membrane tension in N/m.
+The capillary number $Ca_\mathrm{E}$ increases from Figure~\ref{fig:shearTensions}(a) to (g), and we observe that the tension magnitude also increases almost linearly with
+$Ca_\mathrm{E}$.  We also observe that the membrane tension is relatively small at the tip when the membrane curvature is large due to the extensional component in the shear flow.
 \begin{figure*}[hbp]
   \begin{tikzpicture}[scale=1]
     \node[inner sep=0pt] at (0,0) {
@@ -1083,12 +1097,17 @@ reaches its steady state which confirms that $\dot{A}(t) = 0$.
     \node at (+6.70,0.6) {(g)};
   \end{tikzpicture}
 %  \includegraphics[width=\textwidth]{figures/shearTensions.pdf}
-  \caption{\label{fig:shearTensions} Tension of vesicles in
-  shear flow. The semi-permeability constant is $\beta = 10^{-4}$ for
+  \caption{\label{fig:shearTensions} Tension distribution along a vesicle in
+  a linear shear flow. The semi-permeability constant is $\beta = 10^{-4}$ for
   all these cases, and the elastic capillary number ranges from
   $10^{-1}$ to $10^{2}$ as in Figure~\ref{fig:shearComposite}.}
 \end{figure*}
 
+\subsection*{Vesicle in a Poiseuille flow}
+In a nonlinear shear flow, an impermeable vesicle can reach equilibrium position at the mid-plane of the shear flow
+for sufficiently large reduced area, regardless of the maximum flow velocity $U$. For a semi-permeable vesicle, however,
+our simulation results (summarized in Figure~\ref{fig:parabolicComposite}) show that the equilibrium vesicle shape (and position) is determined by $U$, 
+and independent of the initial vesicle reduced area and permeability $\beta$. The corresponding membrane tension distribution is shown in Figure~\ref{fig:parabolicTensions} as a function of flow velocity $U$ from $200\mu$m/s  to $800\mu$m/s.
 \begin{figure*}[hbp]
   \centering
   \begin{tikzpicture}[scale=1]
@@ -1100,13 +1119,17 @@ reaches its steady state which confirms that $\dot{A}(t) = 0$.
     \node at (+0.6,1.5) {(c)};
     \node at (+5.0,1.5) {(d)};
   \end{tikzpicture}
-  \caption{\label{fig:parabolicTensions} The steady state tension
-  profile of a semipermeable vesicle with $\beta=10^{-3}$ in a parabolic
+  \caption{\label{fig:parabolicTensions} The equilibrium tension
+  distribution of a semipermeable vesicle with $\beta=10^{-3}$ in a parabolic
   flow (see Figure~\ref{fig:parabolicComposite}). The flow velocities
   are (a) 200$\mu$m/s, (b) 400$\mu$m/s, (c) 600$\mu$m/s, and (d)
   800$\mu$m/s.}
 \end{figure*}
 
+We note that in the Poiseuille flow the membrane tension is positive in the front, and negative in the rear part of the vesicle. Furthermore we also note that the tension magnitude is almost linearly proportional to $U$ as in the linear shear flow.
+
+\subsection*{Vesicle in a closely-fit channel}
+When a semi-permeable vesicle goes through a closely-fit channel, we observe that the water efflux is found in the front, and the influx is in the rear of the vesicle membrane (Figure~\ref{fig:stenosisComposite}). This corresponds well to the corresponding tension distribution in Figure~\ref{fig:stenosisTensions}: Larger tension in the front, and smaller tension in the rear.
 \begin{figure*}[htp]
   \centering
   \begin{tikzpicture}[scale=1]
@@ -1116,8 +1139,7 @@ reaches its steady state which confirms that $\dot{A}(t) = 0$.
     \node at (-8.6,0.7) {(a)};
     \node at (-1.6,0.7) {(b)};
   \end{tikzpicture}
-  \caption{\label{fig:stenosisTensions} Tension of vesicles in
-  stenosis.}
+  \caption{\label{fig:stenosisTensions} Tension distribution along a semi-permeable vesicle going through a closely-fit channel.}
 \end{figure*}
 
 
