@@ -61,7 +61,7 @@ In this work we use boundary integral simulations to investigate the effects
 of native water permeability on the vesicle hydrodynamics due to a mechanical load,  such as the viscous stress
 from an external flow deforming a vesicle membrane in free space or pushing it through a confinement. Coupling the 
 membrane permeability with membrane elastic stress and tension in the framework of Helfrich free energy, we 
-illustrate that, in the absence of an osmotic stress gradient, a giant unilamellar vesicle may be affected by water 
+illustrate that, in the absence of an osmotic stress gradient, the model semipermeable vesicle is affected by water 
 influx/efflux over a sufficiently long time or under a strong confinement. Our simulation results quantify the conditions 
 for water permeation to be negligible in terms of the time scales, flow strength and confinement. These results shed 
 light on how microfluidic confinement can be utilized to estimate membrane permeability.
@@ -170,10 +170,6 @@ DeamerBramhall1986_ChemPhysLipids, Grafmueller2019_ABLS}.
 %
 %In the presence of an osmotic gradient across the membrane (such as a contrast in the concentration of an impermeable solute), water flows against the osmotic gradient  to neutralize the osmolarity. 
 %
-Without aquaporins or other membrane channels that promote water
-permeability, the intrinsic water permeability is known to depend on the
-temperature, lipid composition~\cite{OlbrichRawiczNeedhamEtAl2000_BJ},
-and the hydration of the membrane~\cite{MarrinkBerendsen1994_JPhysChem}.
 In the red blood cell membrane, aquaporin-1 channels give rise to a much
 higher water permeability of approximately $1.8\times 10^{-2}$ cm/s in
 erythrocytes~\cite{YangMaVerkman2001_JBC} while the intrinsic water
@@ -181,6 +177,10 @@ permeability of a lipid bilayer membrane is in the range of
 $10^{-4}$--$10^{-3}$ cm/s~\cite{ThompsonHuang1966_ANYAS,
 FettiplaceHaydon1980_PhysRev, Grafmueller2019_ABLS, Dimova2020_GVB,
 BhatiaRobinsonDimova2020_SoftMatt}. 
+Without aquaporins or other membrane channels that promote water
+permeability, the intrinsic membrane permeability is known to depend on the
+temperature, lipid composition~\cite{OlbrichRawiczNeedhamEtAl2000_BJ},
+and the hydration of the membrane~\cite{MarrinkBerendsen1994_JPhysChem}.
 %
 %The swelling/shrinking of a cell is inevitably coupled to changes in
 %membrane tension and deformation. Under a strong confinement (such as
@@ -193,8 +193,8 @@ membrane porates when the membrane tension reaches the order of $2$--$4$
 mN/m (\cite{RazizadehNikfarPaulLiu2020_BJ} and references therein),
 giving rise to enhanced membrane permeability to both water and
 macromolecules. Consequently, as long as the lipid bilayer membrane
-remains intact (no poration or rupture), red blood cells and vesicles
-are assumed to be of the same volume throughout experiments of durations
+remains intact (no poration or rupture), the total amount of water enclosed by the membrane 
+is assumed to remain the same throughout experiments of durations
 no longer than tens of minutes.
 %
 %membrane poration is inevitable when membrane tension is of the order
