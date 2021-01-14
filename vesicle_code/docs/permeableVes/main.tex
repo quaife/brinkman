@@ -844,18 +844,19 @@ where $k_w$ is the water permeability.
 %is not because of semipermeability. Therefore, the reduced area is
 %dynamic.
 
-The governing equations are non-dimensionalized by using a 
+The governing equations are non-dimensionalized by using a
 characteristic length scale $R_0 = 10^{-6}$m, a bending stiffness of
-$k_b = 10^{-19}$J and fluid viscosity $5 \times 10^{-2}$kg/ms. We scale time by $\tau\equiv\mu R_0^3/k_b = 0.5s$, 
-the velocity by $R_0/\tau = 2\mu$m/s, the pressure by $k_b/R_0^3 = 10^{-1}$Pa, 
-tension by $k_b/R_0^2 = 10^{-7}$N/m, and the permeability by $R_0\mu = 2 \times 10^{-5}$m$^2$s/kg. 
-Under this nondimensionalization, a two-dimensional semipermeable vesicle in a viscous fluid is characterized by 
-(a) its reduced area $\alpha = 4\pi A/L^2
-\in (0,1]$, where $L$ is the vesicle length and $A$ is its area, and 
-(b) its permeability $\beta = k_w/(R_0\mu)$.
-In two dimensions, the membrane length is conserved by the local inextensibility condition, 
-but the enclosed area is not because of semipermeability. Therefore, the reduced area is
-dynamic.
+$k_b = 10^{-19}$J, and fluid viscosity $5 \times 10^{-2}$kg/ms. We scale
+time by $\tau\equiv\mu R_0^3/k_b = 0.5s$, the velocity by $R_0/\tau =
+2\mu$m/s, the pressure by $k_b/R_0^3 = 10^{-1}$Pa, tension by $k_b/R_0^2
+= 10^{-7}$N/m, and the permeability by $R_0\mu = 2 \times
+10^{-5}$m$^2$s/kg. Under this nondimensionalization, a two-dimensional
+semipermeable vesicle in a viscous fluid is characterized by (a) its
+reduced area $\alpha = 4\pi A/L^2 \in (0,1]$, where $L$ is the vesicle
+length and $A$ is its area, and (b) its permeability $\beta =
+k_w/(R_0\mu)$. In two dimensions, the membrane length is conserved by
+the local inextensibility condition, but the enclosed area is not
+because of semipermeability. Therefore, the reduced area is dynamic.
 
 Since the fluid satisfies the Stokes equations, the velocity and
 pressure can be represented as layer potentials. Given the interfacial
@@ -882,10 +883,9 @@ vesicle velocity satisfies the boundary integral equation
   + \SS [\ff_\mathrm{mem}](\xx),  \quad
   \xx_s \cdot \dot{\xx}_s = 0.
 \end{align}
-%where $\beta = k_w/W$ is the dimensionless water permeability. 
-In confined geometries, the far field term $\uu_\infty$ is replaced by a
-double-layer potential with a density defined on $\partial\Omega$. The
-unknown density function allows us to satisfy the Dirichlet boundary
+In confined geometries, the far field term $\uu_\infty(\xx)$ is replaced
+by a double-layer potential with a density defined on $\partial\Omega$.
+The unknown density function allows us to satisfy the Dirichlet boundary
 condition $\uu(\xx) = \UU(\xx)$ for $\xx \in \partial\Omega$.
 
 
@@ -943,20 +943,6 @@ conserved, we only use the length of the vesicle to estimate the error
 which determines if a time step is accepted or not and determines the
 subsequent time step size.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Numerical Validation}
-To validate our methods, we construct a phase diagram of the steady
-state shape of an impermeable vesicle in a Poiseuille flow. Depending on
-the flow rate and the reduced area, the steady state vesicle becomes
-either a axisymmetric bullet, a axisymmetric parachute, or a tank
-treading asymmetric slipper~\cite{kao-bir-mis2009}. Comparing our
-results (Figure~\ref{fig:PoiseuillePhase}) with those
-in~\cite{kao-bir-mis2009} (see Figure 2), we see that the vesicle shapes
-qualitatively agree. We note that Kaoui {\em et al.}~report that the
-vesicles with $\alpha=0.7$ and flow rates $U = 1200 \mu$ m/s and $U =
-1600 \mu$m/s are axisymmetric.  In our simulations these vesicles are
-slightly asymmetric, are undergoing a tank treading motion, and we
-therefore report them as asymmetric slippers.
 \begin{figure}[htp]
   \centering
   \ifTikz
@@ -969,6 +955,22 @@ therefore report them as asymmetric slippers.
   various flow rates. The shapes agree qualitatively with Kaoui {\em et
   al.}~\cite{kao-bir-mis2009} (see Figure 2).}
 \end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Numerical Validation}
+To validate our methods, we construct a phase diagram of the steady
+state shape of an impermeable vesicle in a Poiseuille flow. Depending on
+the flow rate and the reduced area, the steady state vesicle is either a
+axisymmetric bullet, a axisymmetric parachute, or a tank treading
+asymmetric slipper~\cite{kao-bir-mis2009}. Comparing our results
+(Figure~\ref{fig:PoiseuillePhase}) with those in~\cite{kao-bir-mis2009}
+(see Figure 2), we see that the vesicle shapes qualitatively agree. We
+note that Kaoui {\em et al.}~report that the vesicles with $\alpha=0.7$
+and flow rates $U = 1200 \mu$m/s and $U = 1600 \mu$m/s are axisymmetric.
+In our simulations these vesicles are slightly asymmetric, are
+undergoing a tank treading motion, and we therefore report them as
+asymmetric slippers.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Supplementary Material: Vesicle Area}
@@ -1001,7 +1003,9 @@ of~\eqref{eqn:curveODE} is not periodic unless $\kappa(s) = \kappa_0$.
 Therefore, the steady state shape of a semipermeable vesicle in a
 quiescent flow is a circle with radius $L/2\pi$ and constant tension
 $\Lambda = \kappa^2/2 = 2\pi^2/L^2.$ Note that in contrast to a
-impermeable vesicle, the tension is positive rather than negative.
+impermeable vesicle, the steady state tension is positive rather than
+negative.
+
 
 We next compute the transient area of the vesicle. Since the area of the
 vesicle is
@@ -1046,6 +1050,19 @@ reaches its steady state which confirms that $\dot{A}(t) = 0$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Supplementary Material: Vesicle Tensions}
+\begin{figure*}[htp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/relaxationTensions2.pdf}
+%  \ifTikz
+%    \input{figures/relaxationTensions.tikz}
+%  \else
+%    \includegraphics{figures/relaxationTensions.pdf}
+%  \fi
+  \caption{\label{fig:relaxationTensions} The tension distribution of
+  vesicles in relaxation that corresponds to
+  Figure~\ref{fig:relaxationComposite}.}
+\end{figure*}
+
 
 \subsection*{Vesicle Relaxation}
 Figure~\ref{fig:relaxationTensions} shows the membrane tension
@@ -1055,32 +1072,29 @@ is in N/m. As the semipermeable vesicle relaxes, the membrane tension
 reduces in magnitude and becomes more evenly distributed along the
 membrane. In the top row the vesicle nearly relaxes to a circle on the
 right, and the membrane tension is uniform and equal to $k_b \kappa^2/2$
-as predicted by our analysis (see Eq.~\ref{eqn:areaROC}). In the bottom
+as predicted by our analysis (see \eqref{eqn:areaROC}). In the bottom
 row, the initial vesicle shape has a lot of high curvature regions (and
 thus the low reduced area), and it takes more than four hours to inflate
 to twice the total water content for $\beta=10^{-7}$. In contrast the
 water enclosed inside the vesicle in the top row remains nearly constant
 in four hours.
-\begin{figure*}[htp]
-  \includegraphics[width=\textwidth]{figures/relaxationTensions2.pdf}
-
-%  \centering
-%  \ifTikz
-%    \input{figures/relaxationTensions.tikz}
-%  \else
-%    \includegraphics{figures/relaxationTensions.pdf}
-%  \fi
-  \caption{\label{fig:relaxationTensions} Tension distribution of vesicles in
-  relaxation that corresponds to Figure~\ref{fig:relaxationComposite}.}
-\end{figure*}
+\todo[inline]{I don't understand this last sentence}
 
 \subsection*{Vesicle in a planar shear flow}
-Our integral simulations of a semipermeable vesicle in a planar shear flow show that the equilibrium
-vesicle shape depends mostly on the capillary number $Ca_\mathrm{E}$, independent of the dimensionless water permeability $\beta$.
-Our simulations show that the time it takes for a semipermeable vesicle to reach equilibrium in a planar shear flow is inversely proportional to $\beta$, just like the relaxing vesicle.
-The tension distribution along the equilibrium vesicle at $\beta=10^{-4}$ is shown in Figure~\ref{fig:shearTensions}, where the color bars are for the membrane tension in N/m.
-The capillary number $Ca_\mathrm{E}$ increases from Figure~\ref{fig:shearTensions}(a) to (g), and we observe that the tension magnitude also increases almost linearly with
-$Ca_\mathrm{E}$.  We also observe that the membrane tension is relatively small at the tip when the membrane curvature is large due to the extensional component in the shear flow.
+Our simulations of a semipermeable vesicle in a planar shear flow show
+that the equilibrium vesicle shape depends mostly on the capillary
+number $Ca_\mathrm{E}$, independent of the dimensionless water
+permeability $\beta$. Our simulations show that the time it takes for a
+semipermeable vesicle to reach equilibrium in a planar shear flow is
+inversely proportional to $\beta$, just like the relaxing vesicle. The
+tension distribution along the equilibrium vesicle at $\beta=10^{-4}$ is
+shown in Figure~\ref{fig:shearTensions}, where the color bars are for
+the membrane tension in N/m. The capillary number $Ca_\mathrm{E}$
+increases from Figure~\ref{fig:shearTensions}(a) to (g), and we observe
+that the tension magnitude also increases almost linearly with
+$Ca_\mathrm{E}$. We also observe that the membrane tension is relatively
+small at the tip when the membrane curvature is large due to the
+extensional component in the shear flow.
 \begin{figure*}[hbp]
   \begin{tikzpicture}[scale=1]
     \node[inner sep=0pt] at (0,0) {
@@ -1095,18 +1109,14 @@ $Ca_\mathrm{E}$.  We also observe that the membrane tension is relatively small 
     \node at (+6.70,0.6) {(g)};
   \end{tikzpicture}
 %  \includegraphics[width=\textwidth]{figures/shearTensions.pdf}
-  \caption{\label{fig:shearTensions} Tension distribution along a vesicle in
-  a linear shear flow. The semi-permeability constant is $\beta = 10^{-4}$ for
-  all these cases, and the elastic capillary number ranges from
-  $10^{-1}$ to $10^{2}$ as in Figure~\ref{fig:shearComposite}.}
+  \caption{\label{fig:shearTensions} The tension distribution along a
+  vesicle in a linear shear flow. The semi-permeability constant is
+  $\beta = 10^{-4}$ for all these cases, and the elastic capillary
+  number ranges from $10^{-1}$ to $10^{2}$ as in
+  Figure~\ref{fig:shearComposite}.}
 \end{figure*}
 
-\subsection*{Vesicle in a Poiseuille flow}
-In a nonlinear shear flow, an impermeable vesicle can reach equilibrium position at the mid-plane of the shear flow
-for sufficiently large reduced area, regardless of the maximum flow velocity $U$. For a semi-permeable vesicle, however,
-our simulation results (summarized in Figure~\ref{fig:parabolicComposite}) show that the equilibrium vesicle shape (and position) is determined by $U$, 
-and independent of the initial vesicle reduced area and permeability $\beta$. The corresponding membrane tension distribution is shown in Figure~\ref{fig:parabolicTensions} as a function of flow velocity $U$ from $200\mu$m/s  to $800\mu$m/s.
-\begin{figure*}[hbp]
+\begin{figure*}[htp]
   \centering
   \begin{tikzpicture}[scale=1]
     \node[inner sep=0pt] at (0,0) {
@@ -1124,7 +1134,22 @@ and independent of the initial vesicle reduced area and permeability $\beta$. Th
   800$\mu$m/s.}
 \end{figure*}
 
-We note that in the Poiseuille flow the membrane tension is positive in the front, and negative in the rear part of the vesicle. Furthermore we also note that the tension magnitude is almost linearly proportional to $U$ as in the linear shear flow.
+\subsection*{Vesicle in a Poiseuille flow}
+In a nonlinear shear flow, an impermeable vesicle can reach equilibrium
+position at the mid-plane of the shear flow for sufficiently large
+reduced area, regardless of the maximum flow velocity $U$. For a
+semi-permeable vesicle, however, our simulation results (summarized in
+Figure~\ref{fig:parabolicComposite}) show that the equilibrium vesicle
+shape and position are determined by $U$, and independent of the initial
+vesicle reduced area and permeability $\beta$. The corresponding
+membrane tension distribution is shown in
+Figure~\ref{fig:parabolicTensions} as a function of flow velocity $U$
+from $200\mu$m/s to $800\mu$m/s.
+
+We note that in the Poiseuille flow the membrane tension is positive in
+the front, and negative in the rear part of the vesicle. Furthermore we
+also note that the tension magnitude is almost linearly proportional to
+$U$ as in the linear shear flow.
 
 \subsection*{Vesicle in a closely-fit channel}
 When a semi-permeable vesicle goes through a closely-fit channel, we observe that the water efflux is found in the front, and the influx is in the rear of the vesicle membrane (Figure~\ref{fig:stenosisComposite}). This corresponds well to the corresponding tension distribution in Figure~\ref{fig:stenosisTensions}: Larger tension in the front, and smaller tension in the rear.
@@ -1137,14 +1162,16 @@ When a semi-permeable vesicle goes through a closely-fit channel, we observe tha
     \node at (-8.6,0.7) {(a)};
     \node at (-1.6,0.7) {(b)};
   \end{tikzpicture}
-  \caption{\label{fig:stenosisTensions} Tension distribution along a semi-permeable vesicle going through a closely-fit channel.}
+  \caption{\label{fig:stenosisTensions} The tension distribution along a
+  semi-permeable vesicle going through a closely-fit channel of two
+  different lengths.}
 \end{figure*}
 
 \subsection*{Vesicle going through a contracting channel (slit)}
 When a semipermeable vesicle goes through a contracting channel (slit)
 the numerical simulations show that both the driving flow and the
 membrane permeability have to be sufficiently large for a successful
-passage through the slit, see Figure~\ref{fig:contractingComposite}.  As
+passage through the slit (see Figure~\ref{fig:contractingComposite}). As
 the vesicle goes through the contracting channel, the gradual
 confinement first leads to a slow inflation. Once the vesicle is close
 to the neck, it quickly deflates in order to fit the constriction. When
@@ -1155,7 +1182,9 @@ their position in the contracting channel is summarized in
 Figure~\ref{fig:contractingTensions1}, where we observe the membrane
 tension has the largest magnitude when the vesicle is at the neck. Away
 from the neck the membrane tension is quite small due to th
-\begin{figure*}[htp]
+\todo[inline]{I might have accidentally deleted some of your work here.
+Sorry!}
+\begin{figure*}[hbp]
   \centering
   \begin{tikzpicture}[scale=1]
     \node[inner sep=0pt] at (0,0) {
@@ -1172,12 +1201,12 @@ from the neck the membrane tension is quite small due to th
     };
     \node at (-6.79,1.4) {(e)};
   \end{tikzpicture}
-  \caption{\label{fig:contractingTensions1} Tension distribution along a
-  semi-permeable vesicle going through a contracting geometry. The
-  vesicle tension increases by up to five orders of magnitude when as it
-  enters the neck. The permeability constant and flow rates are (a)
-  $U_{\max} = 5.7\mu$m/s, $\beta = 5 \times 10^{-4}$; (b) $U_{\max} =
-  5.7\mu$m/s, $\beta = 5 \times 10^{-3}$; (c) $U_{\max} = 0.57\mu$m/s,
+  \caption{\label{fig:contractingTensions1} The tension distribution
+  along a semi-permeable vesicle going through a contracting geometry.
+  The vesicle tension increases by up to five orders of magnitude when
+  as it enters the neck. The permeability constant and flow rates are
+  (a) $U_{\max} = 5.7\mu$m/s, $\beta = 5 \times 10^{-4}$; (b) $U_{\max}
+  = 5.7\mu$m/s, $\beta = 5 \times 10^{-3}$; (c) $U_{\max} = 0.57\mu$m/s,
   $\beta = 1 \times 10^{-3}$; (d) $U_{\max} = 5.7\mu$m/s, $\beta = 1
   \times 10^{-3}$; (e) $U_{\max} = 18\mu$m/s, $\beta = 1 \times
   10^{-3}$.}
