@@ -591,11 +591,11 @@ further away vesicle is relative to the flow center at $y=0$.
   \includegraphics{figures/stenosisComposite.pdf}
   \fi
   \caption{\label{fig:stenosisComposite} (a) A semipermeable vesicle
-  passing through a closely-fit channel similar to the experimental
-  device in~\cite{abk-fai-sto2006}. (b) A semipermeable vesicle passing
-  through a  (four-times) longer closely-fit channel than (a). (c)
-  The excess pressure of an impermeable and semipermeable vesicle in the
-  short geometry in (a). (d) The reduced area of the semipermeable
+   passing through a closely-fit channel similar to the experimental
+   device in~\cite{abk-fai-sto2006}. (b) A semipermeable vesicle passing
+   through a  (four-times) longer closely-fit channel than (a). (c) The
+   excess pressure of an impermeable and semipermeable vesicle in the
+   short geometry in (a). (d) The reduced area of the semipermeable
    vesicles in the geometries in (a) and (b) as a function of the
    vesicles' center of mass. In (c) and (d), the $x$-axis is scaled by
    $1/L$ where $L$ is half the length of the constriction. (e) The
@@ -606,13 +606,12 @@ further away vesicle is relative to the flow center at $y=0$.
    (e), the dashed lines correspond to the times that the vesicle enters
    and exits the constriction. The colored vesicles show the tension
    distribution in N/m of the circled vesicles. Throughout the entire
-   simulation, these vesicle configurations have the largest tension.
-   \todo[inline]{Figure out the oscillations in excess pressure}}
+   simulation, these vesicle configurations have the largest tension.}
 \end{figure*}
 
 Cells experience stretching and release messengers when they pass
 through capillary vessels~\cite{Wan2008_PNAS, ForsythWan2011_PNAS,
-Pak2015_PNAS}.  Many cells exhibit extraordinary flexibility as they go
+Pak2015_PNAS}. Many cells exhibit extraordinary flexibility as they go
 through narrow channels~\cite{AuStoreyMoore2016_PNAS}, and adjustment of
 area to volume ratio may be a key factor for a successful passage.  Here
 we quantify the effect of water permeability on a vesicle going through
@@ -626,7 +625,7 @@ Poiseuille flow imposed at the inlet and outlet
 (Figure~\ref{fig:stenosisComposite}(a)). The flow velocity $U_{max} =
 1000 \mu$m/s is maintained at the inlet and outlet and is chosen so that
 the residency time of the vesicle in the stenosis channel is $t_R
-\approx 0.5$s which agrees with the experimental
+\approx 25$ms which agrees with the experimental
 results~\cite{abk-fai-sto2006}. When the red blood cell enters the
 channel, an increase in the pressure drop is required to maintain a
 constant flow rate, and the difference in the pressure drop is called
@@ -656,9 +655,9 @@ Figures~\ref{fig:stenosisComposite}(d)
 and~\ref{fig:stenosisComposite}i(e). Thus we expect that a larger amount
 of deflation is possible if the vesicle is inside a longer stenosis: we
 consider a vesicle passing through a channel of triple the length in
-Figure~\ref{fig:stenosisComposite}(b) with $U_{max}=8.4 \mu$m/s, and we
-observe that vesicle stays inside the stenosis for a residence time
-$t_R=16.2$s and the reduced area decreases by 13.2\% (red curves).
+Figure~\ref{fig:stenosisComposite}(b) with $U_{\max}=1000\mu$m/s, and we
+observe that vesicle stays inside the stenosis for a residence time $t_R
+\approx 70$ms and the reduced area decreases by 13.2\% (red curves).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Semipermeable Vesicle in a Contracting Geometry} 
@@ -1199,22 +1198,23 @@ Figure~\ref{fig:contractingTensions1}, where we observe the membrane
 tension has the largest magnitude when the vesicle is at the neck. Away
 from the neck the membrane tension is quite small due to th
 %\todo[inline]{I might have accidentally deleted some of your work here.Sorry!}
-\begin{figure*}[hbp]
+\begin{figure}[htp]
   \centering
   \begin{tikzpicture}[scale=1]
     \node[inner sep=0pt] at (0,0) {
-    \includegraphics[width=\textwidth]{figures/contractingTensions1.pdf}
+    \includegraphics[width=0.5\textwidth]{figures/contractingTensions1.pdf}
     };
-    \node at (-8.62,4.3) {(a)};
-    \node at (+1.1,4.3) {(c)};
-    \node at (-8.62,-1.2) {(b)};
-    \node at (+1.1,-1.2) {(d)};
-  \end{tikzpicture}
-  \begin{tikzpicture}[scale=1]
-    \node[inner sep=0pt] at (0,0) {
-    \includegraphics[width=0.8\textwidth]{figures/contractingTensions2.pdf}
+    \node[inner sep=0pt] at (0,-2.3) {
+    \includegraphics[width=0.5\textwidth]{figures/contractingTensions2.pdf}
     };
-    \node at (-6.79,1.4) {(e)};
+    \node[inner sep=0pt] at (0,-4.8) {
+    \includegraphics[width=0.5\textwidth]{figures/contractingTensions3.pdf}
+    };
+    \node at (-4.2,0.9) {(a)};
+    \node at (-4.2,-1.4) {(b)};
+    \node at (+0.8,0.9) {(c)};
+    \node at (+0.8,-1.4) {(d)};
+    \node at (-4.2,-3.7) {(e)};
   \end{tikzpicture}
   \caption{\label{fig:contractingTensions1} The tension distribution
   along a semi-permeable vesicle going through a contracting geometry.
@@ -1225,7 +1225,7 @@ from the neck the membrane tension is quite small due to th
   $\beta = 1 \times 10^{-3}$; (d) $U_{\max} = 5.7\mu$m/s, $\beta = 1
   \times 10^{-3}$; (e) $U_{\max} = 18\mu$m/s, $\beta = 1 \times
   10^{-3}$.}
-\end{figure*}
+\end{figure}
 
 
 \end{document}
