@@ -8,10 +8,13 @@ oc = curve;
 % has the parameter values that give this parameterization
 upRate = 4;
 h = (params.shortax - 1)^2/(params.shortax+1)^2;
+% Lscale = 0.4626;
+% L = Lscale*pi*(params.shortax + 1)*(1+h/4+h^2/64);
 L = pi*(params.shortax + 1)*(1+h/4+h^2/64);
-scale = 0.6516;
+scale = 1;%0.6516;
+angle = pi/2;
 [alpha,X] = oc.initConfig(upRate*params.N,false,'ellipse',...
-            'shortax',params.shortax, 'scale', scale);
+            'shortax',params.shortax, 'scale', scale, 'angle', angle);
 % figure(3);clf;
 % plot(alpha)
 % pause
@@ -36,7 +39,7 @@ ves.rcon = ves.rcon(1:upRate:end);
 % is band limited. Note that it will still have some small coefficients
 % in the tails of the Fourier spectrum, but they will be much smaller
 % than the original theta
-ves.smoothGeom;
+%ves.smoothGeom;
 tt = tstep(params,ves); % set up tstep class
 om = monitor(ves.X,params,options); % set up monitor class
 

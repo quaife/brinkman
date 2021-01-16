@@ -51,8 +51,34 @@ theta = ves.theta; %shorthand for opening angle of vesicle
 op = poten(N); %shorthand for poten class
 oc = curve; %shorthand for curve class
 
+
+% disp('here for the first time')
+% plot(ves.theta, 'b--')
+% hold off
+% pause
+cur = oc.acurv(ves);
+% EDITED WHY
+% ves.x0 = ves.x0/2;
+% ves.y0 = ves.y0/2;
+
+ves.X = oc.recon(ves.N, ves.x0, ves.y0, ves.L, ves.theta);
+% disp('uset')
+% jac = oc.diffProp(ves.X);
+% figure(2); clf;
+% semilogy(abs(fftshift(fft(jac))))
+% pause(0.1)
+
 %Compute Eu and Esigma, equations (13) and (14) 
 [Eu,Esigma] = ves.variationsNonStiff;
+
+% disp('EU and Esigma')
+% clf
+% semilogy(abs(fftshift(fft(Esigma))))
+% plot(Eu)
+% hold on
+% plot(Esigma)
+% hold off
+%pause
 %Compute the force in eq (33)
 %tau = [-[+Esigma.*sin(theta) - Eu.*cos(theta)]; ...
 %       -[-Esigma.*cos(theta) - Eu.*sin(theta)]];
@@ -103,8 +129,9 @@ c2 = -L/(8*pi);
 % sigma1 and sigma2 are the solution of equation (33) (still unsure
 % about the u_s term). Also, it includes the background shear flow which
 % is not stated in equation (33), but instead in equations (6) and (7)
-sigma1 = k(1:N)*c1 + LogKernel1*c2 + ves.X(N+1:end)*o.shearRate;
-sigma2 = k(N+1:end)*c1 + LogKernel2*c2;
+%EDITED SIGN ON KERNELs
+sigma1 = k(1:N)*c1 - LogKernel1*c2 + ves.X(N+1:end)*o.shearRate;
+sigma2 = k(N+1:end)*c1 - LogKernel2*c2;
 
 %  figure(2);clf; %hold on
 % % %plot(StokesMat(1:N,10),'b-o')
@@ -141,9 +168,13 @@ rhs = -(dvdotsds + cur.*vdotn - ves.SPc*cur.*Esigma);
 % GMRES.
 % Each iteration of GMRES requires a solution of Stokes equation
 % LambdaTilde is the lambda with a tilde in eq (39)
+% [lambTil,flag,relres,iter,resvec] = ...
+%       gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
+%               o.gmresMaxIter,@(x) x);% o.preconditioner(x));
 [lambTil,flag,relres,iter,resvec] = ...
       gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
-              o.gmresMaxIter,@(x) x);% o.preconditioner(x));
+              o.gmresMaxIter,@(x) o.preconditioner(x));
+
 % norm(lambTil)
 % pause
 %calculate the Fourier derivative of lambdaTilde
@@ -251,18 +282,23 @@ function [ves,ux_old,uy_old,L,Ln,dcur0,N1,N2Hat,cx,cy] = FirstSteps(...
 % Refines the first time step [0,dt] and uses a first-order Euler method
 % to find the vesicle position, curv, velocity, and density function.
 % Returns ves, L, Ln and dcur0 to use for higher-order time stepping.     
- 
+% clf
+% semilogy(abs(fftshift(fft(ves.theta-2*pi*(0:ves.N-1)'/ves.N))))
+% pause
 time = 0; % current time
 oc = curve; % define shorthand for curve class
 L = ves.L; % shorthand vesicle length
-[~,a_old,l_old] = oc.geomProp(ves.X);
-
-
+%[~,a_old,l_old] = oc.geomProp(ves.X);
+% disp('check initial theta')
+% clf
+% plot(ves.theta, 'r')
+% %hold on
+% pause
 % --------------- center of mass calculations
-xnormal =  sin(ves.theta);
-ynormal = -cos(ves.theta);
-cx0 = oc.centerOfMass(ves.X, ves.X(1:end/2),ves.L,xnormal);
-cy0 = oc.centerOfMass(ves.X, ves.X(end/2+1:end),ves.L,ynormal);
+%xnormal =  sin(ves.theta);
+%ynormal = -cos(ves.theta);
+cx0 = 0;%oc.centerOfMass(ves.X, ves.X(1:end/2),ves.L,xnormal);
+cy0 = 0;%oc.centerOfMass(ves.X, ves.X(end/2+1:end),ves.L,ynormal);
 
 % Compute the x velocity, y velocity using the initialized concentration
 % field. A step of Cahn-Hilliard is not taken until after this step.
@@ -277,6 +313,15 @@ cy0 = oc.centerOfMass(ves.X, ves.X(end/2+1:end),ves.L,ynormal);
 theta = ves.theta; %shorthand theta so we don't type ves. a million times
 un = ux.*sin(theta) - uy.*cos(theta); % Normal Velocity
 ut = ux.*cos(theta) + uy.*sin(theta); % Tangential Velocity
+% figure(3);
+% disp('velocities')
+% clf
+% semilogy(abs(fftshift(fft(un))),'b')
+% hold on
+% semilogy(abs(fftshift(fft(ut))),'r')
+% %plot(ut)
+% pause
+
 %plot(un)
 %semilogy(abs(fftshift(fft(ux))))
 %pause
@@ -288,15 +333,19 @@ ut = ux.*cos(theta) + uy.*sin(theta); % Tangential Velocity
 %   Ln = ves.L if params.dt*dcur(1) = 0.
 dcur0 = oc.fdcur(ves,un);
 Ln = L + params.dt*dcur0(1);
-
+%ves.L = Ln;
 % Get the velocity of the vesicle by its velocity of the tangential
 % angle, but without the stiff term. The nonlinear term N_1 defined in
 % equation (54) but without the alpha derivative multiplied by the
 % integral operator \mathcal{L}. It does include the semi-permeability
 % terms using fdotn
 N1 = oc.fthetaim(ves,un,ut,fdotn);
+clf
+%disp('N1')
+% plot(N1)
+%semilogy(abs(fftshift(fft(N1))),'r-o')
+%pause
 % hold off;clf;
-% semilogy(abs(fftshift(fft(N1))))
 % pause
 
 
@@ -304,9 +353,10 @@ N1 = oc.fthetaim(ves,un,ut,fdotn);
 % Fourier series of the derivative of the tangent angle. i.e. Fourier
 % series of N_1
 fsN1 = fft(N1);
-%clf
-%semilogy(abs(fftshift(fsN1)),'bo')
-%pause
+% clf
+% plot(N1)
+% semilogy(abs(fftshift(fsN1)),'b-o')
+% pause
 
 % Fourier derivative of the tangent angle adjusted by a linear function
 % so that we are taking the fft of a periodic function
@@ -318,11 +368,16 @@ Nk = 2*pi*[0 1:ves.N/2 ves.N/2-1:-1:1]';
 % rsl is the stiff term in equation (55) that will be integrated
 % implicitly using an integrating factor
 
-rsl = 0.25*ves.bendsti*abs(Nk/ves.L).^3 + ...
+% rsl = ves.bendsti*abs(Nk/ves.L).^3/4 + ...
+%       ves.SPc*ves.bendsti*(Nk/ves.L).^4;
+rsl = ves.bendsti*(Nk/ves.L).^3/4 + ...
       ves.SPc*ves.bendsti*(Nk/ves.L).^4;
+
 % rsln is the next step of rsl 'n' is for 'new' since we'll be using
-% multistep
-rsln = 0.25*ves.bendsti*abs(Nk/Ln).^3 + ...
+% % multistep
+% rsln = ves.bendsti*abs(Nk/Ln).^3/4 + ...
+%        ves.SPc*ves.bendsti*(Nk/Ln).^4;
+rsln = ves.bendsti*(Nk/Ln).^3/4 + ...
        ves.SPc*ves.bendsti*(Nk/Ln).^4;
 
 % use trapezoid rule to approximate integral in equation (57). This next
@@ -338,8 +393,25 @@ ek = exp(-(params.dt*(rsl + rsln)/2));
 % the shape.
 thetan = real(ifft(ek.*(fsTA + params.dt*fsN1))) + ...
       2*pi*(0:ves.N-1)'/ves.N;
-
+%  clf
+%  disp('new theta')
+%  disp('sum cos theta ne then old')
+%  sum(cos(thetan))
+%  sum(cos(ves.theta))
+%  disp('sum sin theta ne then old')
+%  sum(sin(thetan))
+%  sum(sin(ves.theta))
+% 
+%  semilogy(abs(fftshift(fft(thetan-2*pi*(0:ves.N-1)'/ves.N))),'r')
+%  hold on
+%  semilogy(abs(fftshift(fft(ves.theta-2*pi*(0:ves.N-1)'/ves.N))))
+%  hold off 
+%  pause
 % -----  define the lipid species model for u  ----- 
+% clf
+% disp('rcon')
+% plot(ves.rcon)
+% pause
 if params.concentra > 0
   % Define the Fourier modes, but scaled by 2*pi. Note that these two
   % vectors will be nearly identical since L \approx Ln by
@@ -362,82 +434,78 @@ if params.concentra > 0
     % fncon is the non-linear term N_2 in equation (67)
     N2Hat = oc.frconim(ves,params.epsch,params.consta);
     % fcN2 are the fourier coefficients of N_2 as in equation (68)
-    fcN2 = fft(N2Hat);
+    fsN2 = fft(N2Hat);
     % fcLS is the fourier coefficients of the lipid species
     % concentration as in equation (68)
-    fcLS = fft(ves.rcon);
+    fsLS = fft(ves.rcon);
     % Compute vesicle concentration using first-order Euler method that
     % is analagous to equation (69)
-    ves.rcon = real(ifft(ek.*(fcLS+params.dt/params.nloop*fcN2)));
-  end
-else
-  N2Hat = [];
+    ves.rcon = real(ifft(ek.*(fsLS+params.dt/params.nloop*fsN2)));
+  end 
+  else
+    N2Hat = [];
 end
-
+% hold on
+% disp('rcon after')
+% plot(ves.rcon)
+% pause
 %              -----  update ves and area -----
 % update ves.L
 ves.L = Ln;
+%  mean(cos(ves.theta))
+%  mean(sin(ves.theta))
+
 
 % update ves.theta
 ves.theta = thetan;
 
-disp('HERE')
-mean(cos(ves.theta))
-mean(sin(ves.theta))
-pause
+%  disp('HERE')
+%  mean(cos(ves.theta))
+%  mean(sin(ves.theta))
+%  pause
 
 % % --------------- center of mass calculations
-% xnormal =  sin(ves.theta);
-% ynormal = -cos(ves.theta);
-% cx = oc.centerOfMass(ves.X, ves.X(1:end/2),ves.L,xnormal);
-% cy = oc.centerOfMass(ves.X, ves.X(end/2+1:end),ves.L,ynormal);
-% compute the average velocity
-
-avgux = sum(ux)*ves.L/ves.N;
-avguy = sum(uy)*ves.L/ves.N;
+%  xnormal =  sin(ves.theta);
+%  ynormal = -cos(ves.theta);
+%  cx = oc.centerOfMass(ves.X, ves.X(1:end/2),ves.L,xnormal);
+%  cy = oc.centerOfMass(ves.X, ves.X(end/2+1:end),ves.L,ynormal);
 % 
-%disp('HERE')
-Xprov = oc.recon(ves.N,0,0,ves.L,ves.theta);    
+%  % compute the average velocity
+% avgux = sum(ux)*ves.L/ves.N;
+% avguy = sum(uy)*ves.L/ves.N;
+% 
+% 
+% Xprov = oc.recon(ves.N,0,0,ves.L,ves.theta);    
+% 
+% cXprovx = oc.centerOfMass(Xprov, Xprov(1:end/2),ves.L,xnormal);
+% cXprovy = oc.centerOfMass(Xprov, Xprov(end/2+1:end),ves.L,ynormal);
+% 
+ cx = 0;%cx0 + params.dt*avgux;
+ cy = 0;%cy0 + params.dt*avguy;
+% 
+% ves.X(1:end/2) = Xprov(1:end/2) + cx - cXprovx;
+% ves.X(end/2+1:end) = Xprov(end/2+1:end) + cy - cXprovy;
 
-%disp('HERE')
-%clf
-%semilogy(abs(fftshift(fft(ves.theta-2*pi*(0:ves.N-1)'/ves.N))))
-%semilogy(abs(fftshift(fft(Xprov(end/2+1:end)))))
+%ves.X = oc.recon(ves.N, cx, cy, ves.L, ves.theta);
+% 
+% update the position with Forward Euler. At future time steps,
+% second-order Adams-Bashforth will be used
+ves.x0 = ves.x0 + params.dt*ux(1);
+ves.y0 = ves.y0 + params.dt*uy(1);
 %pause
-%
-cXprovx = oc.centerOfMass(Xprov, Xprov(1:end/2),ves.L,xnormal);
-cXprovy = oc.centerOfMass(Xprov, Xprov(end/2+1:end),ves.L,ynormal);
-
-cx = cx0 + params.dt*avgux;
-cy = cy0 + params.dt*avguy;
-
-ves.X(1:end/2) = Xprov(1:end/2) + cx - cXprovx;
-ves.X(end/2+1:end) = Xprov(end/2+1:end) + cy - cXprovy;
-% 
-% % update the position with Forward Euler. At future time steps,
-% % second-order Adams-Bashforth will be used
-% ves.x0 = ves.x0 + params.dt*ux(1);
-% ves.y0 = ves.y0 + params.dt*uy(1);
-% 
-% % Reconstruct ves.X with updated tracking point 
-% ves.X = oc.recon(ves.N,ves.x0,ves.y0,ves.L,ves.theta);    
-ves.cur = oc.acurv(ves);
+% Reconstruct ves.X with updated tracking point 
+%ves.X = oc.recon(ves.N,ves.x0,ves.y0,ves.L,ves.theta);    
+%ves.cur = oc.acurv(ves);
 % set up variables for timestepping loop
 ux_old = ux(1);
 uy_old = uy(1);
 
-jac = oc.diffProp(ves.X);
-figure(2); clf;
-semilogy(abs(fftshift(fft(jac))))
-pause
-
-
-[~,a_new,l_new] = oc.geomProp(ves.X);
-ea = abs(a_new - a_old)./abs(a_old);
-el = abs(l_new - l_old)./abs(l_old);
+%[~,a_new,l_new] = oc.geomProp(ves.X);
+%ea = abs(a_new - a_old)./abs(a_old);
+%el = abs(l_new - l_old)./abs(l_old);
+ea = 0;el=0;
 om.plotData(ves.X,time,ea,el,[ux;uy],ves.rcon)
 om.initializeFiles(ves.X,ves.rcon,time,[ux;uy])
-
 
 end % FirstSteps
 
@@ -445,7 +513,6 @@ end % FirstSteps
 function ves = TimeStepLoop(o,ves,params,om,ux_old,uy_old,L,Ln,...
                             dcur0,fntheta,N2Hat,cx0,cy0)
 % Main time stepping routine which can be either Euler or multistep
-
 
 oc = curve;
 nstep = round(params.T/params.dt); % total number of time steps
@@ -464,7 +531,13 @@ for ktime = 1:nstep
   % compute the x- and y-components of the velocity. This is the routine
   % that calls GMRES which is used to solve equation (30) 
   [uxvel_loop,uyvel_loop,fdotn] = o.usetself;
-  
+%   clf
+%   plot(uxvel_loop)
+%   hold on
+%   plot(uyvel_loop)
+%   hold off
+%   pause
+
 %  [uxvel_loop(1) uxvel_loop(end/2+1)]
 %  uxvel_loop(1)+uxvel_loop(end/2+1)
 %  sum(uxvel_loop)
@@ -477,9 +550,10 @@ for ktime = 1:nstep
 %    plot(uyvel_loop, 'r')
 %    hold off
   % Velocity at the first discretization point
+  disp('========================')
   uxvel_new = uxvel_loop(1);
   uyvel_new = uyvel_loop(1);
-  
+  %pause
   % put the x-y velocity into the normal and tangential velocity.
   theta = ves.theta; % shorthand for theta
   % Normal Velocity
@@ -543,10 +617,6 @@ for ktime = 1:nstep
         0.5*params.dt*(3*d1.*fcfnthetan - d2.*fcfntheta))) + ...
         2*pi*(0:ves.N-1)'/ves.N;
     
-  figure(3)
-  clf;
-  semilogy(abs(fftshift(fft(thetann - 2*pi*(0:ves.N-1)'/ves.N))))
-  pause(0.01)
 %   disp('here')
 %   norm(fnthetan)
 %   pause
@@ -602,41 +672,43 @@ for ktime = 1:nstep
 %   cx = oc.centerOfMass(ves.X, ves.X(1:end/2),ves.L,xnormal)
 %   cy = oc.centerOfMass(ves.X, ves.X(end/2+1:end),ves.L,ynormal);
   
-  avgux = sum(uxvel_loop)*ves.L/ves.N;
-  avguy = sum(uyvel_loop)*ves.L/ves.N;
+%   avgux = sum(uxvel_loop)*ves.L/ves.N;
+%   avguy = sum(uyvel_loop)*ves.L/ves.N;
 %  % 
 %   figure(3)
 %   clf
 %   semilogy(abs(fftshift(fft(ves.theta))))
 %   pause()
  
-  Xprov = oc.recon(ves.N,0,0,ves.L,ves.theta);    
- %
-  xnormal =  sin(ves.theta);
-  ynormal = -cos(ves.theta);
-  cXprovx = oc.centerOfMass(Xprov, Xprov(1:end/2),ves.L,xnormal);
-  cXprovy = oc.centerOfMass(Xprov, Xprov(end/2+1:end),ves.L,ynormal);
-
-  cx = cx0 + params.dt*avgux;
-  cy = cy0 + params.dt*avguy;
-
-  ves.X(1:end/2) = Xprov(1:end/2) + cx - cXprovx;
-  ves.X(end/2+1:end) = Xprov(end/2+1:end) + cy - cXprovy;
-
-  jac = oc.diffProp(ves.X);
-  figure(2); clf;
-  semilogy(abs(fftshift(fft(jac))))
-  pause
-  
-%   % update the single tracker point using Adams Bashforth
-%    ves.x0 = ves.x0 + 0.5*params.dt*(3*uxvel_new - ux_old);
-%    ves.y0 = ves.y0 + 0.5*params.dt*(3*uyvel_new - uy_old);
+%   Xprov = oc.recon(ves.N,0,0,ves.L,ves.theta);    
+%  %
+%   xnormal =  sin(ves.theta);
+%   ynormal = -cos(ves.theta);
+%   cXprovx = oc.centerOfMass(Xprov, Xprov(1:end/2),ves.L,xnormal);
+%   cXprovy = oc.centerOfMass(Xprov, Xprov(end/2+1:end),ves.L,ynormal);
 % 
+%   cx = cx0 + params.dt*avgux;
+%   cy = cy0 + params.dt*avguy;
+% 
+%   ves.X(1:end/2) = Xprov(1:end/2) + cx - cXprovx;
+%   ves.X(end/2+1:end) = Xprov(end/2+1:end) + cy - cXprovy;
+
+%   
+  % update the single tracker point using Adams Bashforth
+   ves.x0 = ves.x0 + 0.5*params.dt*(3*uxvel_new - ux_old);
+   ves.y0 = ves.y0 + 0.5*params.dt*(3*uyvel_new - uy_old);
+
 % %    ves.x0 = ves.x0 + params.dt*uxvel_new;
 % %    ves.y0 = ves.y0 + params.dt*uyvel_new;
 % 
-%   % Update X
-%   ves.X = oc.recon(ves.N,ves.x0,ves.y0,ves.L,ves.theta);
+  % Update X
+  ves.X = oc.recon(ves.N,ves.x0,ves.y0,ves.L,ves.theta);
+  
+  jac = oc.diffProp(ves.X);
+  figure(2); clf;
+  semilogy(abs(fftshift(fft(jac))))
+  pause(0.1)
+  
   ves.cur = oc.acurv(ves);
   % HACK: keep the vesicle centered at (0,0)
   %ves.X(1:end/2) = ves.X(1:end/2) - mean(ves.X(1:end/2));
@@ -654,8 +726,8 @@ for ktime = 1:nstep
   ux_old = uxvel_new;
   uy_old = uyvel_new;
   
-  cx0 = cx;
-  cy0 = cy;
+  cx0 = 0;%cx;
+  cy0 = 0;%cy;
 end
 
  

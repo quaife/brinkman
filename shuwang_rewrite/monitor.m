@@ -41,7 +41,7 @@ o.dataFile = options.dataFile;      % data file name
 o.logFile = options.logFile;        % log file name
 
 oc = curve;
-[o.reducedArea,o.area,o.length] = oc.geomProp(X);
+%[o.reducedArea,o.area,o.length] = oc.geomProp(X);
 % area, length, and reduced area of initial shape
 
 end % constructor: monitor

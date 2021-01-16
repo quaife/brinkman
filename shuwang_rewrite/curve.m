@@ -175,7 +175,7 @@ elseif any(strcmp(options,'star'))
   % a star that comes very close to intersecting itself at the origin
 
 elseif any(strcmp(options,'ellipse'))
-  X0 = [shortax*cos(2*pi*alpha);sin(2*pi*alpha)];
+  X0 = [cos(2*pi*alpha);shortax*sin(2*pi*alpha)];
 else
   X0 = o.ellipse(N,ra);
   % build a vesicle of reduced area ra with N points
@@ -337,8 +337,8 @@ else
 end
 % initial opening angle
 [DDx,DDy] = o.getDXY([Dx;Dy]);
-% second derivative of the shape
 
+% second derivative of the shape
 L = sum(sqrt(Dx.^2 + Dy.^2))/N;
 % arclength which should be nearly constant since we constructed
 % discretizations points that are equally spaced in arclength
@@ -351,6 +351,7 @@ theta = L*o.intFT(cur,IK);
 % integrate the curature to find the opening angle
 
 theta = theta + t0;
+
 % add in the initial opening angle
 
 end % computeOpeningAngle
@@ -363,14 +364,31 @@ function X = recon(o,N,x0,y0,L,theta)
 % (x0,y0)
 
 IK = o.modes(N);
-x = x0 + L*o.intFT(cos(theta),IK);%/2/pi;
-y = y0 + L*o.intFT(sin(theta),IK);%/2/pi;
+x = o.intFT(L*cos(theta),IK);
+y = o.intFT(L*sin(theta),IK);
+avx = sum(L*cos(theta))/N;
+avy = sum(L*sin(theta))/N;
+
+x = x - (0:N-1)'*avx/N + x0;
+y = y - (0:N-1)'*avy/N + y0;
+
+% clf
+% disp('here')
+% jac = o.diffProp([x;y]);
+% semilogy(abs(fftshift(fft(theta-2*pi*(0:N-1)'/N))))
+% pause
+
+% x(1)
+% x(end)
+% y(1)
+% y(end)
+% disp('--------------------------')
+% pause
 %figure(1);clf;
 %%semilogy(abs(fftshift(fft(theta-2*pi*(0:N-1)'/N))))
 %semilogy(abs(fftshift(fft(sin(theta)))),'r')
 %%semilogy(abs(fftshift(fft(y))),'r')
 %pause
-
 X = o.setXY(x,y);
 
 %clf;
@@ -387,7 +405,22 @@ function df = diffFT(o,f,IK)
 % df = diffFT(f,IK) Computes the first derivative of a periodic function
 % f using fourier transform. IK is used to speed up the code.  It is the
 % index of the fourier modes so that fft and ifft can be used
+%f
+%disp('fft of f')
+%semilogy(abs(fftshift(fft(f))))
+%pause
 df = real(ifft(IK.*fft(f)));
+
+% disp('f')
+% clf
+% plot(f)
+% %semilogy(abs(fftshift(fft(f))))
+% pause
+% f(1:10)
+% disp('fft of f')
+% clf
+% semilogy(abs(fftshift(fft(f))))
+% pause
 
 end % diffFT
 
@@ -458,16 +491,18 @@ ftheta = o.forceTheta(ves,un,ut,fdotn);
 % now we must subtract off the stiffest part in Fourier space.
 % To the power of 3 term comes from the third-derivative of the function
 % that L is being applied to in equation (53)
+
 rlen = -ves.bendsti*(abs(IK)/L).^3/4 - ves.SPc*ves.bendsti*(IK/L).^4; 
 % last term in eq(54)
 
 var1 = fft(ftheta); % fft of first 2 terms in (54)
-var2 = fft(theta-[2*pi*(0:N-1)]'/N);
+var2 = fft(theta-(2*pi*(0:N-1))'/N);
 %clf;
 %plot(ut)
 %pause
-fntheta = real(ifft(var1 - rlen.*var2));
+fntheta = real(ifft(var1 + rlen.*var2));
 %clf;
+%disp('N1 in fthetaim')
 %figure(1); hold on
 %figure(1); clf
 %semilogy(abs(fftshift(fft(fntheta))),'r*')
@@ -633,7 +668,7 @@ end %fluxj
 function dkap = acurv(o,ves)
 %This routine computes the curvature from the tangent angle
 %formulation
-
+%disp('In acurv')
 dkap = o.rmLinearPart(ves)/ves.L;
 
 end %acurv

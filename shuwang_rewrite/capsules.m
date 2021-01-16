@@ -154,32 +154,47 @@ N = ves.N;
 IK = oc.modes(N);
 rcon = ves.rcon;
 cur = oc.acurv(ves);
+
 b0 = ves.bendsti;
 b1 = ves.bendsti * ves.bendratio;
 %bending coefficient which depends on the lipid concentration that is
 %stored in rcon. This is the variable b(u) in equation (10)
 % rcon is the concentration u
 rbn = b0 * (ones(N,1) - rcon) + b1*rcon;
-% plot(ves.cur)
-% pause
-
 Drbn = oc.diffFT(rbn,IK)/ves.L; 
+
+IK = 2*pi*1i*[0:1:ves.N/2 -ves.N/2+1:1:-1]';
+
 Drbn_cur = oc.diffFT(rbn.*cur,IK)/ves.L; % derivative of the curvature
+
 % second derivative of the curvature
+
 DDrbn_cur = oc.diffFT(Drbn_cur,IK)/ves.L; 
-% plot(DDrbn_cur)
+% 
+%  clf; disp('curvatures')
+%  plot(cur, 'b')
+%  hold on
+%  plot(DDrbn_cur, 'r')
 %  pause
 Esigma = -DDrbn_cur - 0.5*rbn.*cur.^3;
 %clf
 %plot(DDrbn_cur)
 %pause
 % figure(1)
-% plot(Esigma)
-
+% clf; disp('esigma')
+%  semilogy(abs(fftshift(fft((Esigma)))))
+% plot(cur)
+% pause
 %Esigma is equation (14) with spotaneous curvature set to zero.
-
-Eu = 0.5*Drbn.*cur.^2;
-
+%ADDED -
+Eu = -0.5*Drbn.*cur.^2;
+%plot(Eu)
+%  semilogy(abs(fftshift(fft((Eu)))))
+% pause
+% clf
+% disp('plotting EU')
+% plot(-Eu)
+% pause
 %figure(2);clf; %hold on
 %plot(StokesMat(1:N,10),'b-o')
 % StokesMat(1,10)
