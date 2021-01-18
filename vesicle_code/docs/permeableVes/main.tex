@@ -740,8 +740,8 @@ contraction.
   vesicle configurations have the largest tension.}
 \end{figure}
 
-To understand the effects of water permeability on cells that repeatedly
-pass through micro-capillary vessels or sub-micron slits, we construct a
+To understand the effects of water permeability on a vesicle that repeatedly
+passes through micro-capillary vessels or sub-micron slits, we construct a
 contracting geometry (see Figure~\ref{fig:contractingComposite2}) to
 simulate a vesicle passing through the contracting geometry six times.
 In Figure~\ref{fig:contractingComposite2}(b), we show that the vesicle
@@ -1057,6 +1057,7 @@ Repeatedly applying integration by parts, we finally obtain
 %\end{align}
 Note that the integrand in~\eqref{eqn:areaROC} is zero when the membrane tension balances the elastic force:
 \begin{align}
+\label{eqn:areaROC2}
 \Lambda &= \frac{\kappa^2}{2}=\frac{\kappa_0^2}{2} \;\mathrm{ at }\; \mathrm{equilibrium},
 \end{align}
 which is consistent with the equilibrium results in the vesicle area dynamics.
@@ -1082,15 +1083,15 @@ which is consistent with the equilibrium results in the vesicle area dynamics.
 \subsection*{Vesicle Relaxation}
 Figure~\ref{fig:relaxationTensions} shows the membrane tension
 distribution along the relaxing vesicles in
-Figure~\ref{fig:relaxationComposite}. The membrane tension (color bars)
-is in N/m. As the semipermeable vesicle relaxes, the membrane tension
+Figure~\ref{fig:relaxationComposite}. The membrane tension magnitude (color bars) is in N/m.
+As the semipermeable vesicle relaxes, the membrane tension
 reduces in magnitude and becomes more evenly distributed along the
-membrane. In the top row the vesicle nearly relaxes to a circle on the
-right, and the membrane tension is uniform and equal to $k_b \kappa^2/2$
-as predicted by our analysis (see \eqref{eqn:areaROC}). In the bottom
-row, the initial vesicle shape has a lot of high curvature regions (and
+membrane. In the top row ($\alpha(0)=0.95$) the vesicle nearly relaxes to a circle on the
+right, and the membrane tension is uniform and equal to $k_b \kappa_0^2/2$
+as predicted by our analysis (see \eqref{eqn:areaROC2}). In the bottom
+row ($\alpha(0)=0.12$), the initial vesicle shape has a lot of high curvature regions (and
 thus the low reduced area), and it takes more than four hours to inflate
-to twice the total water content for $\beta=10^{-7}$. In contrast the
+to twice the initial total water content for $\beta=10^{-7}$. In contrast the
 water enclosed inside the vesicle in the top row remains nearly constant
 in the first four hours.
 %\todo[inline]{I don't understand this last sentence}
@@ -1194,9 +1195,9 @@ the vesicle is near the neck, simulations show that the water efflux is
 in the front and rear of vesicle while most water influx is in the
 middle. The tension distribution along the vesicle as a function of
 their position in the contracting channel is summarized in
-Figure~\ref{fig:contractingTensions1}, where we observe the membrane
-tension has the largest magnitude when the vesicle is at the neck. Away
-from the neck the membrane tension is quite small due to th
+Figure~\ref{fig:contractingTensions1}, where we observe the
+tension has the largest magnitude when the vesicle is at the neck. 
+%Away from the neck the tension is relatively small, and water efflux is found in the corner of the vesicle.
 %\todo[inline]{I might have accidentally deleted some of your work here.Sorry!}
 \begin{figure}[htp]
   \centering
