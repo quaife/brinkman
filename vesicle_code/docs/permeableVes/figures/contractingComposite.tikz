@@ -13,7 +13,7 @@
   ytick = \empty,
   title style = {align=center, yshift = -0.4cm},
   title = {\footnotesize $\beta = 5 \times 10^{-4}$ \\ 
-           \footnotesize $U_{\max} = 5.7\mu$m/s},
+           \footnotesize $U_{\max} = 5.7\;\mu$m/s},
 ]
 
 % outer wall
@@ -2409,7 +2409,7 @@
   ytick = \empty,
   title style = {align=center, yshift = -0.4cm},
   title = {\footnotesize $\beta = 5 \times 10^{-3}$ \\ 
-           \footnotesize $U_{\max} = 5.7\mu$m/s},
+           \footnotesize $U_{\max} = 5.7\;\mu$m/s},
 ]
 
 % outer wall
@@ -5819,7 +5819,7 @@
   ytick = \empty,
   title style = {align=center, yshift = -0.4cm},
   title = {\footnotesize $\beta = 1 \times 10^{-3}$ \\ 
-           \footnotesize $U_{\max} = 0.57\mu$m/s},
+           \footnotesize $U_{\max} = 0.57\;\mu$m/s},
 ]
 
 % outer wall
@@ -8194,7 +8194,7 @@
   ytick = \empty,
   title style = {align=center, yshift = -0.4cm},
   title = {\footnotesize $\beta = 1 \times 10^{-3}$ \\ 
-           \footnotesize $U_{\max} = 5.7\mu$m/s},
+           \footnotesize $U_{\max} = 5.7\;\mu$m/s},
 ]
 
 % outer wall
@@ -11127,8 +11127,8 @@
   ylabel = {$\alpha$},
   xtick pos = left,
   ytick pos = left,
-  legend entries = {$U_{\max}=0.57\mu$m/s,
-                    $U_{\max}=5.7\mu$m/s},
+  legend entries = {$U_{\max}=0.57\;\mu$m/s,
+                    $U_{\max}=5.7\;\mu$m/s},
   legend cell align=left,
   legend style={draw=none,font=\tiny,fill=none},
   legend style={at={(-0.01,0.02)},anchor=south west} 
