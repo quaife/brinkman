@@ -42,8 +42,8 @@ that over sufficiently long time the water permeability affects the equilibrium 
 }
 
 % Please include corresponding author, author contribution and author declaration information
-\authorcontributions{B.Q.~and Y.-N.Y.~designed and perfored research
-with A.~G.'s assistance. B.Q.~and Y.-N.Y.~analyzed the data and wrote
+\authorcontributions{B.Q.~and Y.-N.Y.~designed and performed research
+with A.G.'s assistance. B.Q.~and Y.-N.Y.~analyzed the data and wrote
 the paper.}
 %\authordeclaration{Please declare any competing interests here.}
 \correspondingauthor{\textsuperscript{1} E-mail: yyoung@njit.edu}
@@ -457,18 +457,17 @@ to inflate to a circle with vanishing force and velocity.
   area of each vesicle is indicated by the marks in plot (c).}
 \end{figure*}
 
-We consider a semipermeable vesicle in a planar shear flow, characterized by the elastic capillary number
-$Ca_\mathrm{E}=\dot{\gamma}\tau$, where $\tau$ is the characteristic time scale in the non-dimensionalization (see Supplementary Material) and
-$\dot{\gamma}$ is the shear rate of the planar shear flow
-$\uu_{\infty}(\xx) = \dot{\gamma} (y,0)$.
- %with different permeability $\beta$ and shear rates $\dot{\gamma}$. 
- When $\beta=0$ (impermeable
-case), a vesicle's reduced area and viscosity contrast determine whether
-it tank treads or tumbles~\cite{fin-lam-sei-gom2008,
-kra-win-sei-lip1996}. Focusing on semipermeable vesicles with no
-viscosity contrast, we find that a semipermeable vesicle tilts to an
-inclination angle and undergoes tank-treading dynamics, similar to the
-case of an impermeable vesicle.
+We consider a semipermeable vesicle in a planar shear flow,
+characterized by the elastic capillary number $Ca_\mathrm{E}=\chi\tau$,
+where $\tau$ is the characteristic time scale in the
+non-dimensionalization (see Supplementary Material) and $\chi$ is the
+shear rate of the planar shear flow $\uu_{\infty}(\xx) = \chi (y,0)$.
+When $\beta=0$ (impermeable case), a vesicle's reduced area and
+viscosity contrast determine whether it tank treads or
+tumbles~\cite{fin-lam-sei-gom2008, kra-win-sei-lip1996}. Focusing on
+semipermeable vesicles with no viscosity contrast, we find that a
+semipermeable vesicle tilts to an inclination angle and undergoes
+tank-treading dynamics, similar to the case of an impermeable vesicle.
 
 In Figure~\ref{fig:shearComposite}(a), using four initial reduced areas
 and two flow rates, we plot the reduced area of a semipermeable vesicle
@@ -655,8 +654,7 @@ that the residency time of the vesicle in the stenosis channel is $t_R
 results~\cite{abk-fai-sto2006}. When the red blood cell enters the
 channel, an increase in the pressure drop is required to maintain a
 constant flow rate, and the difference in the pressure drop is called
-the excess pressure. 
-
+the excess pressure.
 
 We consider both an impermeable and semipermeable vesicle with initial
 reduced area $\alpha = 0.65$ passing through a long narrow channel and
@@ -808,22 +806,26 @@ Flatiron Institute, part of Simons Foundation.}
 
 
 \section*{Supplementary Material: Formulation}
-We consider a two-dimensional inextensible semipermeable vesicle membrane $\gamma$
-suspended in a viscous Newtonian fluid in domain $\Omega$.
-The vesicle membrane $\gamma$ is parameterized as $\xx(s,t)$ where $s$ is arclength and $t$ is
-time. In the suspending fluid the flow velocity $\uu$ and pressure $p$ are governed by the incompressible
+We consider a two-dimensional inextensible semipermeable vesicle
+membrane $\gamma$ suspended in a viscous Newtonian fluid in domain
+$\Omega$.  The vesicle membrane $\gamma$ is parameterized as $\xx(s,t)$
+where $s$ is arclength and $t$ is time. In the suspending fluid the flow
+velocity $\uu$ and pressure $p$ are governed by the incompressible
 Stokes equations
 \begin{align}
   \label{eqn:governing}
   -\nabla p + \mu \triangle \uu = 0, \quad
   \nabla \cdot \uu = 0, \qquad \xx \in \Omega \setminus \gamma,
 \end{align}
-where $\mu$ is the fluid viscosity.  When $\Omega$ is an unconfined geometry, the
-condition $\uu(\xx) \rightarrow \uu_\infty(\xx)$ as $|\xx|
-\rightarrow \infty$ is enforced. When $\Omega$ is a confined geometry, the boundary condition
-$\uu(\xx) = \UU(\xx)$ is enforced on the domain boundary $\partial \Omega$, where $\UU(\xx)$
-is prescribed. Along the vesicle membrane, mass continuity, force balance, and
-local inextensibility are enforced on $\gamma$ by requiring
+where $\mu$ is the fluid viscosity. When $\Omega$ is an unconfined
+geometry, the condition $\uu(\xx) \rightarrow \uu_\infty(\xx)$ as $|\xx|
+\rightarrow \infty$ is enforced. In the confined examples, we enforce a
+no-slip boundary condition along the top and bottom of the channel and a
+Hagen–Poiseuille flow at the inlet and outlet---this boundary condition
+has been used in similar vesicle setups~\cite{qua-bir2014,
+rah-vee-bir2010, lu-rah-zor2017}. Along the vesicle membrane $\gamma$,
+mass continuity, force balance, and local inextensibility are enforced
+by requiring
 \begin{align}
   \label{eqn:jump}
   \jump{\uu} = 0, \quad
@@ -865,18 +867,19 @@ where $k_w$ is the hydraulic permeability.
 %dynamic.
 
 The governing equations are non-dimensionalized by using a
-characteristic length scale $R_0 = 10^{-6}$ m, a bending stiffness of
-$k_b = 10^{-19}$ J, and fluid viscosity $5 \times 10^{-2}$ kg/ms. We scale
+characteristic length scale $R_0 = 10^{-6}$ m, a bending stiffness $k_b
+= 10^{-19}$ J, and fluid viscosity $5 \times 10^{-2}$ kg/ms. We scale
 time by $\tau\equiv\mu R_0^3/k_b = 0.5\;s$, the velocity by $R_0/\tau =
-2\;\mu$m/s, the pressure by $k_b/R_0^3 = 10^{-1}$ Pa, tension by $k_b/R_0^2
-= 10^{-7}$ N/m, and the permeability by $R_0\mu = 2 \times
+2\;\mu$m/s, the pressure by $k_b/R_0^3 = 10^{-1}$ Pa, tension by
+$k_b/R_0^2 = 10^{-7}$ N/m, and the permeability by $R_0\mu = 2 \times
 10^{-5}$ m$^2$s/kg. Under this nondimensionalization, a two-dimensional
 semipermeable vesicle in a viscous fluid is characterized by (a) its
 reduced area $\alpha = 4\pi A/L^2 \in (0,1]$, where $L$ is the vesicle
 length and $A$ is its area, and (b) its permeability $\beta =
 k_w/(R_0\mu)$. In two dimensions, the membrane length is conserved by
-the local inextensibility condition, but the enclosed area is not conserved
-because of semipermeability. Therefore, the reduced area is dynamic.
+the local inextensibility condition, but the enclosed area is not
+conserved because of semipermeability. Therefore, the reduced area is
+dynamic.
 
 Since the fluid satisfies the Stokes equations, the velocity and
 pressure can be represented as layer potentials. Given the interfacial
@@ -905,8 +908,8 @@ vesicle velocity satisfies the boundary integral equation
 \end{align}
 In confined geometries, the far field term $\uu_\infty(\xx)$ is replaced
 by a double-layer potential with a density defined on $\partial\Omega$.
-The unknown density function allows us to satisfy the Dirichlet boundary
-condition $\uu(\xx) = \UU(\xx)$ for $\xx \in \partial\Omega$.
+The unknown density function allows us to satisfy the boundary condition
+on $\partial\Omega$.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1054,7 +1057,7 @@ Applying integration by parts, the two integrals agree, and we have
   = \beta \int_\gamma (\ff \cdot \nn)\, ds,
 \end{align}
 where we have used the incompressibility of the single-layer potential.
-Repeatedly applying integration by parts, we finally obtain
+Repeatedly applying integration by parts, we obtain
 \begin{align}
   \dot{A}(t) & = \beta \int_\gamma \left(
     \frac{\kappa^3}{2} - \kappa \Lambda \right) \, ds.
@@ -1146,7 +1149,7 @@ extensional component in the shear flow.
   \end{tikzpicture}
 %  \includegraphics[width=\textwidth]{figures/shearTensions.pdf}
   \caption{\label{fig:shearTensions} The tension distribution along a
-  vesicle in a linear shear flow. The semi-permeability constant is
+  vesicle in a linear shear flow. The semipermeability constant is
   $\beta = 10^{-4}$ for all these cases, and the elastic capillary
   number ranges from $10^{-1}$ to $10^{2}$ as in
   Figure~\ref{fig:shearComposite}.}
@@ -1174,7 +1177,7 @@ extensional component in the shear flow.
 In a nonlinear shear flow, an impermeable vesicle can reach equilibrium
 position at the mid-plane of the shear flow for sufficiently large
 reduced area, regardless of the maximum flow velocity $U$. For a
-semi-permeable vesicle, however, our simulation results (summarized in
+semipermeable vesicle, however, our simulation results (summarized in
 Figure~\ref{fig:parabolicComposite}) show that the equilibrium vesicle
 shape and position are determined by $U$, and independent of the initial
 vesicle reduced area and permeability $\beta$. The corresponding
@@ -1188,7 +1191,7 @@ also note that the tension magnitude is almost linearly proportional to
 $U$ as in the linear shear flow.
 
 \subsection*{Vesicle in a closely-fit channel}
-When a semi-permeable vesicle goes through a closely-fit channel, we observe that the water efflux is found in the front, and the influx is in the rear of the vesicle membrane (Figure~\ref{fig:stenosisComposite}). This corresponds well to the corresponding tension distribution in Figure~\ref{fig:stenosisTensions}: Larger tension in the front, and smaller tension in the rear.
+When a semipermeable vesicle goes through a closely-fit channel, we observe that the water efflux is found in the front, and the influx is in the rear of the vesicle membrane (Figure~\ref{fig:stenosisComposite}). This corresponds well to the corresponding tension distribution in Figure~\ref{fig:stenosisTensions}: Larger tension in the front, and smaller tension in the rear.
 \begin{figure*}[htp]
   \centering
   \begin{tikzpicture}[scale=1]
@@ -1199,8 +1202,8 @@ When a semi-permeable vesicle goes through a closely-fit channel, we observe tha
     \node at (-1.6,0.7) {(b)};
   \end{tikzpicture}
   \caption{\label{fig:stenosisTensions} The tension distribution along a
-  semi-permeable vesicle going through a closely-fit channel of two
-  different lengths.}
+  semipermeable vesicle with $\beta = 10^{-3}$ going through a
+  closely-fit channel of two different lengths.}
 \end{figure*}
 
 \subsection*{Vesicle going through a contracting channel (slit)}
@@ -1217,8 +1220,6 @@ middle. The tension distribution along the vesicle as a function of
 their position in the contracting channel is summarized in
 Figure~\ref{fig:contractingTensions1}, where we observe the
 tension has the largest magnitude when the vesicle is at the neck. 
-%Away from the neck the tension is relatively small, and water efflux is found in the corner of the vesicle.
-%\todo[inline]{I might have accidentally deleted some of your work here.Sorry!}
 \begin{figure}[htp]
   \centering
   \begin{tikzpicture}[scale=1]
@@ -1238,7 +1239,7 @@ tension has the largest magnitude when the vesicle is at the neck.
     \node at (-4.2,-3.7) {(e)};
   \end{tikzpicture}
   \caption{\label{fig:contractingTensions1} The tension distribution
-  along a semi-permeable vesicle going through a contracting geometry.
+  along a semipermeable vesicle going through a contracting geometry.
   The vesicle tension increases by up to five orders of magnitude when
   as it enters the neck. The permeability constant and flow rates are
   (a) $U_{\max} = 5.7\;\mu$m/s, $\beta = 5 \times 10^{-4}$; (b)
