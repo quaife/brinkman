@@ -808,23 +808,22 @@ Flatiron Institute, part of Simons Foundation.}
 
 
 \section*{Supplementary Material: Formulation}
-We consider a two-dimensional inextensible semipermeable vesicle,
-$\gamma$, suspended in unconfined and confined geometries $\Omega$. The
-vesicle is parameterized as $\xx(s,t)$ where $s$ is arclength and $t$ is
-time. The suspending fluid is assumed to be viscous so that the fluid
-velocity $\uu$ and pressure $p$ are governed by the incompressible
+We consider a two-dimensional inextensible semipermeable vesicle membrane $\gamma$
+suspended in a viscous Newtonian fluid in domain $\Omega$.
+The vesicle membrane $\gamma$ is parameterized as $\xx(s,t)$ where $s$ is arclength and $t$ is
+time. In the suspending fluid the flow velocity $\uu$ and pressure $p$ are governed by the incompressible
 Stokes equations
 \begin{align}
   \label{eqn:governing}
   -\nabla p + \mu \triangle \uu = 0, \quad
   \nabla \cdot \uu = 0, \qquad \xx \in \Omega \setminus \gamma,
 \end{align}
-where $\mu$ is the fluid viscosity. In an unconfined geometry, the
-condition $\uu(\xx) \rightarrow \uu_\infty(\xx)$ is enforced as $|\xx|
-\rightarrow \infty$, and in a confined geometry, the boundary condition
-$\uu(\xx) = \UU(\xx)$ is enforced on $\partial \Omega$, where $\UU(\xx)$
-is prescribed. Along the vesicle, mass continuity, force balance, and
-local inextensibility are enforced by requiring
+where $\mu$ is the fluid viscosity.  When $\Omega$ is an unconfined geometry, the
+condition $\uu(\xx) \rightarrow \uu_\infty(\xx)$ as $|\xx|
+\rightarrow \infty$ is enforced. When $\Omega$ is a confined geometry, the boundary condition
+$\uu(\xx) = \UU(\xx)$ is enforced on the domain boundary $\partial \Omega$, where $\UU(\xx)$
+is prescribed. Along the vesicle membrane, mass continuity, force balance, and
+local inextensibility are enforced on $\gamma$ by requiring
 \begin{align}
   \label{eqn:jump}
   \jump{\uu} = 0, \quad
@@ -850,7 +849,7 @@ membrane traction~\cite{yao-mor2017}. That is,
   \uu - \dot{\xx} = - k_w (\ff_\mathrm{mem} \cdot \nn) \nn, \qquad
   \xx \in \gamma,
 \end{align}
-where $k_w$ is the water permeability.
+where $k_w$ is the hydraulic permeability.
 
 %The governing equations are non-dimensionalized by introducing a length
 %scale that we take to be $R_0 = 10^{-6}$m. Using a bending stiffness of
@@ -876,7 +875,7 @@ semipermeable vesicle in a viscous fluid is characterized by (a) its
 reduced area $\alpha = 4\pi A/L^2 \in (0,1]$, where $L$ is the vesicle
 length and $A$ is its area, and (b) its permeability $\beta =
 k_w/(R_0\mu)$. In two dimensions, the membrane length is conserved by
-the local inextensibility condition, but the enclosed area is not
+the local inextensibility condition, but the enclosed area is not conserved
 because of semipermeability. Therefore, the reduced area is dynamic.
 
 Since the fluid satisfies the Stokes equations, the velocity and
@@ -979,14 +978,18 @@ subsequent time step size.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Numerical Validation}
-To validate our methods, we construct a phase diagram of the steady
-state shape of an impermeable vesicle in a Poiseuille flow. Depending on
-the flow rate and the reduced area, the steady state vesicle is either a
-axisymmetric bullet, a axisymmetric parachute, or a tank-treading
+To validate our numerical codes for simulating vesicle hydrodynamics, we reproduce a phase diagram of the equilibrium
+shape of an impermeable vesicle in a Poiseuille flow. Depending on
+the maximum flow velocity and the vesicle reduced area, the equilibrium vesicle shape is either an
+axisymmetric bullet, an axisymmetric parachute, or a tank-treading
 asymmetric slipper~\cite{kao-bir-mis2009}. Comparing our results
 (Figure~\ref{fig:PoiseuillePhase}) with those in~\cite{kao-bir-mis2009}
-(see Figure 2), we see that the vesicle shapes qualitatively agree. We
-note that Kaoui {\em et al.}~report that the vesicles with $\alpha=0.7$
+(see Figure 2), we observe quantitative agreement in the equilibrium vesicle shapes except that,
+%
+%see that the vesicle shapes qualitatively agree. We
+%note that 
+%
+Kaoui {\em et al.}~report that the vesicles with $\alpha=0.7$
 and flow rates $U = 1200\; \mu$m/s and $U = 1600\; \mu$m/s are
 axisymmetric.  In our simulations these vesicles are slightly
 asymmetric, are undergoing a tank-treading motion, and we therefore
@@ -1006,7 +1009,7 @@ stationary point of the Lagrangian
     \Lambda \left(\int_{\gamma} ds  - L \right),
 \end{align}
 where the Lagrange multiplier $\Lambda$ is the tension. Note the absence
-of the pressure Lagrange multiplier since the vesicle's area fluctuates.
+of the pressure Lagrange multiplier since the total water content inside the vesicle membrane is not conserved.
 Taking the variation of $\mathcal{L}$ with respect to $\gamma$ and
 setting it to zero, the steady state shape satisfies $\kappa_{ss} +
 \frac{1}{2}\kappa^3 - \Lambda \kappa = 0$, with initial conditions
@@ -1021,11 +1024,12 @@ Assuming $\kappa_s \neq 0$,~\eqref{eqn:curveODE} is separable, and can
 be solved analytically in terms of the {\em EllipticF} function using
 Mathematica. Unlike in the impermeable case, the solution
 of~\eqref{eqn:curveODE} is not periodic unless $\kappa(s) = \kappa_0$.
-Therefore, the steady state shape of a semipermeable vesicle in a
+Therefore, the equilibrium shape of a semipermeable vesicle in a
 quiescent flow is a circle with radius $L/2\pi$ and constant tension
 $\Lambda = \kappa^2/2 = 2\pi^2/L^2.$ Note that in contrast to a
 impermeable vesicle, the steady state tension is positive rather than
-negative.
+negative. Such equilibrium shape of a semipermeable vesicle results from the balance between elastic stress and membrane tension. 
+For an elastic membrane with a large pore, the equilibrium membrane (hemispherical) shape also results from such balance \cite{Ryham2018_JFM}.
 
 
 We next compute the transient area of the vesicle. Since the area of the
