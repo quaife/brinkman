@@ -337,7 +337,7 @@ flow can be scaled to $v_\mathrm{o}$ as
 $v_\mathrm{o}:v_\mathrm{t}:v_\mathrm{e}=10^{0}:10^{-2}:10^{-6}$.
 Furthermore, we note that in the absence of an osmotic stress, the water
 permeable flow can be significant when the membrane tension is large due
-to the external stress such as the hydrodynamic stress due to an
+to the external stress such as the hydrodynamic stress from an
 external flow or confinement. In the following we explore both.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -352,16 +352,15 @@ each example, we fix the vesicle length and examine the enclosed area as
 a dynamic consequence of water flow, vesicle shape deformation, and
 membrane tension distribution.
 
-In experiments, vesicles under shear flows are measured for a minute
+In experiments, vesicles under shear flows are measured for a few minutes
 (chapter 19 in~\cite{Dimova2020_GVB}), a duration over which a vesicle
 can be assumed impermeable~\cite{AbkarianViallat2005_BJ}. Our
-simulations of a semipermeable vesicle in these flows show that water
-permeability may lead to different vesicle hydrodynamics over a time
-scale of 10 to 100 minutes. For vesicles in a narrow microfluidic
+simulations of a semipermeable vesicle under these flows in open geometry show that water
+permeability may lead to different vesicle hydrodynamics only after  a duration of $\sim 200$ minutes. For vesicles in a narrow microfluidic
 channel, the experiments usually do not last longer than a few
 minutes~\cite{abk-fai-sto2006}. Our simulations show that strong
-confinement can lead to amplification of water permeability at such
-short time scales.
+confinement can lead to amplification of water permeation at a time scale shorter than a few minutes.
+%short time scales.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Quiescent Flow} 
@@ -462,8 +461,8 @@ characterized by the elastic capillary number $Ca_\mathrm{E}=\chi\tau$,
 where $\tau$ is the characteristic time scale in the
 non-dimensionalization (see Supplementary Material) and $\chi$ is the
 shear rate of the planar shear flow $\uu_{\infty}(\xx) = \chi (y,0)$.
-When $\beta=0$ (impermeable case), a vesicle's reduced area and
-viscosity contrast determine whether it tank treads or
+When $\beta=0$ (impermeable case),  the vesicle reduced area and fluid
+viscosity contrast determine whether a vesicle tank treads or
 tumbles~\cite{fin-lam-sei-gom2008, kra-win-sei-lip1996}. Focusing on
 semipermeable vesicles with no viscosity contrast, we find that a
 semipermeable vesicle tilts to an inclination angle and undergoes
@@ -473,21 +472,22 @@ In Figure~\ref{fig:shearComposite}(a), using four initial reduced areas
 and two flow rates, we plot the reduced area of a semipermeable vesicle
 with $\beta = 10^{-3}$. As observed in a quiescent flow, the final
 vesicle shape is independent of the initial reduced area. However, it
-does depend on the flow rate. We also observe that the reduced area
-remains constant until $t\sim 10$ minutes, when the vesicle starts to
-tank-tread and the normal component of the force-balance velocity
+does depend on the flow rate. We also observe that the amount of water inside the vesicle 
+remains constant until $t\sim 10$ minutes, when 
+%the vesicle starts to tank-tread and 
+the normal component of the flow velocity 
 becomes significantly smaller than the permeable velocity, leading to a
 changing reduced area.
 
-For a variety of semipermeability rates and $Ca_\mathrm{E}$, a
-semipermeable vesicle reaches a steady equilibrium as in
-Figure~\ref{fig:shearComposite}(a). Since the final shape is independent
+For a variety of dimensionless permeability coefficient $\beta>0$ and capillary number $Ca_\mathrm{E}$, a
+semipermeable vesicle reaches an equilibrium shape as in
+Figure~\ref{fig:shearComposite}(a). Since the equilibrium shape is selected by $Ca_\mathrm{E}$ and independent
 of the initial reduced area, we initialize the vesicle with reduced area
 $\alpha = 0.65$ for all simulations in
-Figure~\ref{fig:shearComposite}(b), where we summarize the steady state
+Figure~\ref{fig:shearComposite}(b), where we summarize the equilibrium
 vesicle shape and its reduced area. We see that the capillary number
 (flow rate) significantly affects the final vesicle shape, but the
-semipermeability rate has a minor effect. Instead, as we saw in the
+permeability coefficient has a very minor effect. Instead, as we saw in the
 quiescent analysis, $\beta$ sets a time scale since the time required
 for a vesicle to reach its steady state configuration is proportional to
 $\beta^{-1}$.
@@ -540,7 +540,7 @@ al.}~\cite{kao-bir-mis2009} (see Supplementary Material).
 %
 
 At the beginning of the simulations a semipermeable vesicle is
-initialized above the center line $y=0$, and it migrates towards the
+placed above the center line $y=0$, and it migrates towards the
 center line as in the impermeable case~\cite{dan-vla-mis2009}. 
 %
 %However,
@@ -570,19 +570,18 @@ area and migration pattern are shown in
 Figures~\ref{fig:parabolicComposite}(c)
 and~\ref{fig:parabolicComposite}(d), respectively. 
 
-As observed for the planar shear flow, the steady state reduced area is
-independent of the initial reduced area, and larger flow rates result in
-smaller steady state reduced areas. We report the reduced area of the
-equilibrium vesicle shape in Figure~\ref{fig:parabolicComposite}(a). At
-the smallest flow rate of $U= 200\; \mu$m/s, the steady state reduced
-area is large, and the result is an axisymmetric bullet. At the larger
-flow rates, the steady state reduced area is smaller, and the result is
-an asymmetric tank-treading slipper. We observe that the membrane
-permeability to water drastically alters the vesicle shape and position
-relative to the flow at equilibrium: At $\beta=10^{-3}$ the equilibrium
+As observed for the planar shear flow, the equilibrium vesicle reduced area is
+independent of the initial reduced area and $\beta$, and  larger maximum flow velocity $U$ results in
+smaller equilibrium reduced areas, as summarized in Figure~\ref{fig:parabolicComposite}(a). At
+the smallest velocitty $U= 200\; \mu$m/s, the steady state reduced
+area is large, and the equilibrium vesicle shape is an axisymmetric bullet. The equilibrium reduced area
+decreases with increasing $U$, and the nonlinear flow profile gives rise to 
+an asymmetric tank-treading slipper for $U\ge 400$ $\mu m/s$. We observe that the membrane
+permeability to water drastically alters the equilibrium vesicle shape and position
+relative to the Poiseuille flow: At $\beta=10^{-3}$ the equilibrium
 vesicle depends only on the maximum velocity $U$ of the nonlinear shear
 flow. The higher $U$ the smaller the equilibrium reduced area and the
-further away vesicle is relative to the flow center at $y=0$. 
+further away vesicle is relative to the flow center at $y=0$.  
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Semipermeable Vesicle in a Narrow Channel (Stenosis)}
@@ -633,10 +632,12 @@ further away vesicle is relative to the flow center at $y=0$.
   tension.}
 \end{figure}
 
-
-Cells experience stretching and release messengers when they pass
-through capillary vessels~\cite{Wan2008_PNAS, ForsythWan2011_PNAS,
-Pak2015_PNAS}. Many cells exhibit extraordinary flexibility as they go
+When cells go through small capillary vessels, they experience
+large shape deformation and significant membrane stretching that leads to release of messengers 
+%Cells experience stretching and release messengers when they pass
+%through capillary vessels
+~\cite{Wan2008_PNAS, ForsythWan2011_PNAS,Pak2015_PNAS}. 
+Many cells exhibit extraordinary flexibility as they go
 through narrow channels~\cite{AuStoreyMoore2016_PNAS}, and adjustment of
 area to volume ratio may be a key factor for a successful passage.  Here
 we quantify the effect of water permeability on a vesicle going through
@@ -648,7 +649,7 @@ to squeeze a red blood cell through a constriction with diameter
 $5\;\mu$m and length $45\;\mu$m. We set up a similar computational
 geometry with a Poiseuille flow imposed at the inlet and outlet
 (Figure~\ref{fig:stenosisComposite}(a)). The flow velocity $U_{\max} =
-1000 \;\mu$m/s is maintained at the inlet and outlet and is chosen so
+1000 \;\mu$m/s at the inlet and outlet and is chosen so
 that the residency time of the vesicle in the stenosis channel is $t_R
 \approx 25$ ms which agrees with the experimental
 results~\cite{abk-fai-sto2006}. When the red blood cell enters the
