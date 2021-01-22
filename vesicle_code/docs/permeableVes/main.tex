@@ -335,10 +335,16 @@ length scale of $10^{-6}$ m, the tension contribution ($v_\mathrm{t}$)
 and elastic stress contribution ($v_\mathrm{e}$) to the permeable water
 flow can be scaled to $v_\mathrm{o}$ as
 $v_\mathrm{o}:v_\mathrm{t}:v_\mathrm{e}=10^{0}:10^{-2}:10^{-6}$.
-Furthermore, we note that in the absence of an osmotic stress, the water
-permeable flow can be significant when the membrane tension is large due
+Furthermore, we note that in the absence of an osmotic stress, the permeating water
+flow may be non-negligible when the membrane tension becomes large due
 to the external stress such as the hydrodynamic stress from an
 external flow or confinement. In the following we explore both.
+
+For a semipermeable vesicle without confinement, our simulations show that the
+dynamic evolution towards equilibrium is dictated by the background flow field, while the permeability $\beta$ only rescales the time in the dynamics.
+With confinement, we find that we need to use larger value of $\beta$ to keep the membrane tension below the poration value $\sim 10^{-3}$ N/m. 
+Such large value of $\beta$ may pertain to 
+a lipid bilayer membrane with aquaporin proteins at a high temperature.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Effects of membrane water permeability}
@@ -356,7 +362,7 @@ In experiments, vesicles under shear flows are measured for a few minutes
 (chapter 19 in~\cite{Dimova2020_GVB}), a duration over which a vesicle
 can be assumed impermeable~\cite{AbkarianViallat2005_BJ}. Our
 simulations of a semipermeable vesicle under these flows in open geometry show that water
-permeability may lead to different vesicle hydrodynamics only after  a duration of $\sim 200$ minutes. For vesicles in a narrow microfluidic
+permeability may lead to different vesicle hydrodynamics only after  a duration of $\sim 1$ day. For vesicles in a narrow microfluidic
 channel, the experiments usually do not last longer than a few
 minutes~\cite{abk-fai-sto2006}. Our simulations show that strong
 confinement can lead to amplification of water permeation at a time scale shorter than a few minutes.
@@ -398,14 +404,14 @@ vesicle shape determines the direction of water flux. For the vesicle
 with an initial reduced area $\alpha(0)=0.12$ (bottom row) the vesicle
 deflates (blue regions) first due to the high interior capillary
 pressure that corresponds to the high membrane curvatures. For the other
-three cases efflux is dominated by influx, especially after $t=250$ minutes when
-the increase in total water content becomes significant.
+three cases efflux is dominated by influx, especially after $t=1$ day when
+the increase in total water content becomes non-negligible.
 %
 %is found at some locations of high curvature, while
 %mostly water permeates into the vesicle and significant change in the
 %reduced area is found at $t\sim 1$ hour. 
 %
-Over time (about ten days) all
+Over time (about four weeks) all
 vesicles inflate and as expected, each vesicle eventually reaches a
 circular shape with reduced area $\alpha=1$. 
 %%These regions are denoted in blue and are only present at early times. 
@@ -425,7 +431,7 @@ circular shape with reduced area $\alpha=1$.
 %Finally, the vesicles's reduced area do not
 %change by much at early times (up to ten minutes), and 
 
-Between $t=250$ seconds and $t=250$ minutes, the total water content is nearly constant.
+Between $t=30$ minutes and $t=1$ day, the total water content is nearly constant.
 %
 %the intermediate shapes of
 %semipermeable vesicles resemble the shape of an impermeable vesicle.
