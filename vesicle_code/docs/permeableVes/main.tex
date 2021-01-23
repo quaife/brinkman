@@ -69,7 +69,7 @@ its water influx/efflux is often assumed negligible in the absence of
 osmolarity. 
 %
 In this work we use boundary integral simulations to investigate the
-effects of native water permeability on the vesicle hydrodynamics due to
+effects of water permeability on the vesicle hydrodynamics due to
 a mechanical load, such as the viscous stress from an external flow
 deforming a vesicle membrane in free space or pushing it through a
 confinement. Coupling the membrane permeability with membrane elastic
@@ -231,7 +231,7 @@ no longer than tens of minutes.
 %%The osmolarity-induced water flux has been well studied, while mechanical pressure may also contribute to the permeable water flow \cite{yao-mor2017}.
 %%The response of a cell to an osmotic gradient is inevitably both mechanical (tension redistribution and shape change) and chemical (water flux across the membrane).  
 Under what condition is this a good assumption? Do liposomes conserve
-volume over hours under flow? What is the dynamic consequence when water
+volume under flow over a long time (hours)? What is the dynamic consequence when water
 influx/efflux affects the membrane hydrodynamics? To answer these
 questions, we investigate the balance between hydrodynamics stresses,
 tension, and elastic stress of a semipermeable membrane under various
@@ -269,7 +269,7 @@ CamposSaric2020_bioRxiv, Dimova2020_GVB, BhatiaChrist2020_SoftMatt}.
 %tank-treading and tumbling
 %motions~\cite{BhatiaRobinsonDimova2020_SoftMatt,
 %BhatiaChrist2020_SoftMatt}, an 
-These results illustrate that the permeable water
+These results illustrate that the permeating water
 flow is inevitably coupled with the mechanical pressure jump across the
 membrane~\cite{yao-mor2017}, which could become comparable to osmotic
 stress when the membrane deformation is large~\cite{LiMoriSun2015_PRL,
@@ -320,6 +320,7 @@ water flux gives rise to a difference between the fluid velocity
 ${\uu}({\xx}\in \gamma)$ and the membrane velocity
 $\dot{\xx}$~\cite{yao-mor2017}:
 \begin{align}
+\label{eq:water_flux}
   \uu - \dot{\xx} = - k_w (R T \triangle c + \ff_\mathrm{mem} \cdot \nn) \nn, \qquad
   \xx \in \gamma,
 \end{align}
@@ -341,41 +342,42 @@ length scale of $10^{-6}$ m, the tension contribution ($v_\mathrm{t}$)
 and elastic stress contribution ($v_\mathrm{e}$) to the permeable water
 flow can be scaled to $v_\mathrm{o}$ as
 $v_\mathrm{o}:v_\mathrm{t}:v_\mathrm{e}=10^{0}:10^{-2}:10^{-6}$.
-Furthermore, we note that in the absence of an osmotic stress, the permeating water
+Furthermore, we note that in the absence of an osmotic stress ($\triangle c = 0$), the permeating water
 flow may be non-negligible when the membrane tension becomes large due
 to the external stress such as the hydrodynamic stress from an
 external flow or confinement. In the following we explore both.
 
-For a semipermeable vesicle without confinement, our simulations show
-that the dynamic evolution towards equilibrium is dictated by the
-background flow field, while the permeability $\beta$ only rescales the
-time in the dynamics. With confinement, we find that we need to use
-larger values of $\beta$ to keep the membrane tension below the poration
-value $\sim 10^{-3}$ N/m. Such large values of $\beta$ may pertain to a
-lipid bilayer membrane with aquaporin proteins at a high temperature.
+Specifically we focus on the mechanical component of the water flux in Eq. (\ref{eq:water_flux}) with $\triangle c =0$ in this work.
+In our non-dimensionnalization the hydraulic conductivity is scaled to $R_0/\mu$ (where $R_0$ is a characteristic length and $\mu$ is the solvent viscosity): $\beta \equiv k_w/(R_0/\mu)$
+(see Supplementary Material): $\beta=0$ for an impermeable vesicle and $\beta>0$ for a semipermeable vesicle.
+%
+Under strong confinement,
+a large value of $\beta$ is needed in our simulations to keep the membrane tension below the threshold value for membrane poration
+$\sim 10^{-3}$ N/m. Such large value of $\beta$ may pertain to
+red blood cell membranes with aquaporin proteins.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Effects of membrane water permeability}
-We consider a single semipermeable vesicle, with dimensionless
-permeability coefficient $\beta$, in familiar configurations to
-highlight the effects of membrane water permeability. In free space we
+\section*{Hydrodynamics of a semipermeable vesicle in free space}
+To highlight the effects of membrane permeability for water,
+we consider a single semipermeable vesicle, with (dimensionless)
+permeability coefficient $\beta>0$, in familiar configurations: In free space we
 place a semipermeable vesicle in a quiescent flow, a planar shear flow,
-and a Poiseuille flow. We also consider a semipermeable vesicle in
-confinement: a long close-fitting channel and a contracting channel. For
-each example, we fix the vesicle length and examine the enclosed area as
+and a Poiseuille flow.  For each example, we fix the vesicle length and examine the enclosed water content as
 a dynamic consequence of water flow, vesicle shape deformation, and
 membrane tension distribution.
 
+
+Under these flows, our simulations show
+that the steady state of an impermeable vesicle is different from that of a semipermeable vesicle, which depends only on the strength of the external flow and does not depend on permeability $\beta$ (as long as $\beta>0$).
+Our simulations show that $\beta$ only rescales time in the dynamic evolution towards equilibrium.
 In experiments, vesicles under shear flows are measured for a few
 minutes (chapter 19 in~\cite{Dimova2020_GVB}), a duration over which a
 vesicle can be assumed impermeable~\cite{AbkarianViallat2005_BJ}. Our
 simulations of a semipermeable vesicle under these flows in open
 geometry show that water permeability may lead to different vesicle
-hydrodynamics only after a duration of $\sim 1$ day. For vesicles in a
-narrow microfluidic channel, the experiments usually do not last longer
-than a few minutes~\cite{abk-fai-sto2006}. Our simulations show that
-strong confinement can lead to amplification of water permeation at a
-time scale shorter than a few minutes.
+hydrodynamics only after a duration of $\sim 1$ day. 
+
+
 %short time scales.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -606,6 +608,20 @@ The higher $U$ the smaller the equilibrium reduced area and the further
 away vesicle is relative to the flow center at $y=0$.  
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{A semipermeable vesicle under strong confinement}
+Here we consider a semipermeable vesicle under strong
+confinement: a long closely-fit channel and a contracting channel.
+%
+In a narrow microfluidic channel, a large pressure jump is often needed to push the vesicle through a closely-fit channel~\cite{abk-fai-sto2006}.
+Our simulations show that such configuration can lead to amplification of water permeation at a
+time scale shorter than a few minutes. In addition, we find that a large value of $\beta$
+is needed to keep the membrane tension below the threshold value for membrane poration. 
+%
+Such high permeability for water may be regarded as an indication that the lipid bilayer membrane is porated under strong confinement, and our model vesicle is for a porated vesicle within the Helfrich free energy framework.
+As in the previous examples, we fix the vesicle length and examine the enclosed water content as
+a dynamic consequence of water flow, vesicle shape deformation, and
+membrane tension distribution.
+
 \subsection*{Semipermeable Vesicle in a Closely-fit Channel (Stenosis)}
  \begin{figure*}[htp]
   \centering
