@@ -1,12 +1,12 @@
 %setup the intial data for the coefficient
-shearate = 0;
-shape = .3;
+shearate = 4;
+shape = .8146;
 phi = 0.3;
 scale = 1;
 
 global consta eps_ch kmatrix velocity bendsti bendratio uinside uoutside m
 
-initialdata = [256 1e-3 1/scale 1e-3 phi -1 shape  ...
+initialdata = [256 1e-3 1/scale 1e-3 phi 0 shape  ...
     shearate 1 .1 1 100 1.0 1.0];
 
 ngrid = initialdata(1);
@@ -162,7 +162,9 @@ temp4 = real(ifft(temp4));
 % step of Euler with the stiffest term treated implicitly and integrated
 % with an integrating factor
 thetan = temp4 + 2*pi*(0:m-1)/m;
-
+mean(cos(thetan))
+mean(sin(thetan))
+pause
 % lipid species model for u
 rk = 2*pi*[0 1:m/2 m/2-1:-1:1]; 
 % Fourier modes scaled by 2*pi. Note that these two vectors will be

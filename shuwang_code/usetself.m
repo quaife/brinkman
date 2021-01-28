@@ -117,7 +117,7 @@ sigma2 = k(m+1:2*m)'*c - forc002_l(1:m)*c1;
 
 % Calculate v dot n in eq (40)
 uun = sigma1(1,1:m).*sin(theta(1,1:m)) - ...
-      sigma2(1,1:m).*c5os(theta(1,1:m));
+      sigma2(1,1:m).*cos(theta(1,1:m));
 % Calculate v dot s in eq (40)
 utn = sigma1(1,1:m).*cos(theta(1,1:m)) + ...
       sigma2(1,1:m).*sin(theta(1,1:m));
