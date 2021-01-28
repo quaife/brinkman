@@ -24667,17 +24667,17 @@
 % length of the short constriction
 \draw[|-] (0.10,0.29) -- (1.37-0.4,0.29);
 \draw[black,-|] (1.37+0.4,0.29) -- (2.64,0.29);
-\node at (1.37,0.29) {\scriptsize 45$\mu$m};
+\node at (1.37,0.29) {\scriptsize 45 $\mu$m};
 %
 
 % length of the short constriction
-\draw[|-] (6.58,0.29) -- (10.19-0.4,0.29);
-\draw[-|] (10.19+0.4,0.29) -- (13.80,0.29);
-\node at (10.19,0.29) {\scriptsize 130$\mu$m};
+\draw[|-] (6.58,0.29) -- (10.19-0.45,0.29);
+\draw[-|] (10.19+0.45,0.29) -- (13.80,0.29);
+\node at (10.19,0.29) {\scriptsize 130 $\mu$m};
 
 % diameter of the channel exit
 \draw[|-|,black] (4.3,0.03) -- (4.3,1.2);
-\node[rotate=90] at (4.44,0.6) {\scriptsize 25$\mu$m};
+\node[rotate=90] at (4.44,0.6) {\scriptsize 25 $\mu$m};
 
 \draw[rounded corners,black,line width=0.5pt] (9.15,0.47) rectangle +(0.5,0.3) {};
 \draw[rounded corners,black,line width=0.5pt] (1.84,0.47) rectangle +(0.5,0.3) {};
@@ -30804,7 +30804,8 @@
 
 \addplot[black,dashed,line width=0.5pt] coordinates{
   (-1,0.001)
-  (-1,-0.02)
+%  (-1,-0.02)
+  (-1,-0.015)
 };
 
 \addplot[black,dashed,line width=0.5pt] coordinates{
@@ -36984,12 +36985,12 @@
 };
 
 \addplot[black,dashed,line width=0.5pt] coordinates{
-  (-1,0.57)
+  (-1,0.56)
   (-1,0.66)
 };
 
 \addplot[black,dashed,line width=0.5pt] coordinates{
-  (+1,0.57)
+  (+1,0.56)
   (+1,0.66)
 };
 
@@ -43158,12 +43159,12 @@
 };
 
 \addplot[black,dashed,line width=0.5pt] coordinates{
-  (0,0.57)
+  (0,0.56)
   (0,0.66)
 };
 
 \addplot[black,dashed,line width=0.5pt] coordinates{
-  (1,0.57)
+  (1,0.56)
   (1,0.66)
 };
 

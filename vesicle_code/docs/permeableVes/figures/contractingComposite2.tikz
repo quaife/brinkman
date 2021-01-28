@@ -18296,13 +18296,13 @@
 % length of channel
 \draw[black,|-] (0.4,8.1+0.89) -- (1.95-0.4,8.1+0.89);
 \draw[black,-|] (1.95+0.4,8.1+0.89) -- (3.5,8.1+0.89);
-\node at (1.95,8.1+0.88) {\scriptsize 45$\mu$m};
+\node at (1.95,8.1+0.88) {\scriptsize 45 $\mu$m};
 
 % width of channel
 
 \draw[black,|-] (-0.2,6.65+0.89)--(-0.2,7.315-0.4+0.89);
 \draw[black,-|] (-0.2,7.315+0.4+0.89)--(-0.2,7.98+0.89);
-\node[rotate=90] at (-0.2,7.315+0.89) {\scriptsize 18$\mu$m};
+\node[rotate=90] at (-0.2,7.315+0.89) {\scriptsize 18 $\mu$m};
 
 \draw[rounded corners,black,line width=0.5pt] (2.10,8.0) rectangle
 +(0.80,0.4) {};

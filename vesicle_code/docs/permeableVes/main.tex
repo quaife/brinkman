@@ -29,7 +29,13 @@ Technology, Newark, NJ 07102}
 permeability to water on the hydrodynamics of a vesicle (self-enclosing
 lipid bilayer membrane) under flows and confinement. Without membrane
 poration or rupture, we use direct numerical simulations to illustrate
-that over sufficiently long time the water permeability affects the equilibrium vesicle shapes in open space. Under confinement, we show that water permeability may be quickly amplified to induce significant change in shape as the vesicle goes through a closely-fit long channel and a narrow slit. These results provide a quantitative measure of membrane permeability to water in terms of vesicle inflation/deflation under load.
+that over sufficiently long time the water permeability affects the
+equilibrium vesicle shapes in open space. Under confinement, we show
+that water permeability may be quickly amplified to induce significant
+change in shape as the vesicle goes through a closely-fit slender
+channel and a contracting channel. These results provide a quantitative
+measure of membrane permeability to water in terms of vesicle
+inflation/deflation under load.
 %
 %Authors must submit a 120-word maximum statement
 %about the significance of their research paper written at a level
@@ -42,36 +48,39 @@ that over sufficiently long time the water permeability affects the equilibrium 
 }
 
 % Please include corresponding author, author contribution and author declaration information
-\authorcontributions{All authors designed research. B.Q. and Y.-N.Y
-performed the research, analyzed the data, and wrote the paper.}
+\authorcontributions{B.Q.~and Y.-N.Y.~designed and performed research
+with A.G.'s assistance. B.Q.~and Y.-N.Y.~analyzed the data and wrote
+the paper.}
 %\authordeclaration{Please declare any competing interests here.}
-\correspondingauthor{\textsuperscript{1} E-mail: yyoung@njit.edu}
+\correspondingauthor{\textsuperscript{1} Corresponding author's e-mail: yyoung@njit.edu}
 
 
 % At least three keywords are required at submission. Please provide three to five keywords, separated by the pipe symbol.
-\keywords{Semipermeable $|$ Vesicle $|$ Extreme confinement $|$
-Boundary Integral Equations $|$ Stokes flow} 
+\keywords{Semipermeable membrane$|$ Vesicle $|$ Extreme confinement $|$
+Boundary integral equations $|$ Stokes flow} 
 
 \begin{abstract}
 Lipid bilayer membranes have a native (albeit small) permeability for
-water molecules. Under an external load, a lipid membrane deforms and
-its water influx/efflux is often assumed  negligible in the absence of
-osmolarity, provided that the bilayer structure stays intact and does
-not suffer from poration or rupture. 
+water molecules. Under an external load, 
+provided that the bilayer structure stays intact and does
+not suffer from poration or rupture,
+a lipid membrane deforms and
+its water influx/efflux is often assumed negligible in the absence of
+osmolarity. 
 %
 In this work we use boundary integral simulations to investigate the
-effects of native water permeability on the vesicle hydrodynamics due to
-a mechanical load,  such as the viscous stress from an external flow
+effects of water permeability on the vesicle hydrodynamics due to
+a mechanical load, such as the viscous stress from an external flow
 deforming a vesicle membrane in free space or pushing it through a
 confinement. Coupling the membrane permeability with membrane elastic
 stress and tension in the framework of Helfrich free energy, we
 illustrate that, in the absence of an osmotic stress gradient, the
-model semipermeable vesicle is affected by water influx/efflux over a
-sufficiently long time or under a strong confinement. Our simulation
-results quantify the conditions for water permeation to be negligible
-in terms of the time scales, flow strength, and confinement. These
-results shed light on how microfluidic confinement can be utilized to
-estimate membrane permeability.
+semipermeable vesicle is affected by water influx/efflux over a
+sufficiently long time or under a strong confinement. Our simulations
+quantify the conditions for water permeation to be negligible in terms
+of the time scales, flow strength, and confinement. These results shed
+light on how microfluidic confinement can be utilized to estimate
+membrane permeability.
 %
 %Lipid bilayer membranes have a native (albeit small) permeability for
 %water molecules. Under load, as long as the bilayer membrane stays intact (no poration or rupture), the water influx/efflux is
@@ -171,14 +180,14 @@ vesicle without poration or rupture in the lipid bilayer membrane.
 %%\dropcap{W}ater balance is an essential process in the adaptation of a living cell to its environment \cite{AlbertsMolecularBiology}: Erythrocytes are known to  participate in efficient body water homeostasis by regulating its exchange of water  \cite{YangMaVerkman2001_JBC,SugieIntaglietta2018_AmJPhysiolHCP}.  Cells achieve motility by simultaneously regulating their cell volume and cell membrane tension through trafficking of aquaporin proteins \cite{SaadounPapadopoulosWatanabeEtAl2005_JCS,Verkman2008_JMM,BerthaudEtAl2016_SM} and flattening of caveolae \cite{Keren2011_EurBJ}. 
 %%Cells also control water transport  as they activate shape fluctuations in the membrane for the bleb formation \cite{TaloniKardashSalmanEtAl2015_PRL}.
 
-The lipid bilayer membrane is permeable to water and water-soluble
+The lipid bilayer membrane is permeable to water and lipid-soluble
 molecules~\cite{Dick1964_JTB, FettiplaceHaydon1980_PhysRev,
 DeamerBramhall1986_ChemPhysLipids, Grafmueller2019_ABLS}. 
 %
 %In the presence of an osmotic gradient across the membrane (such as a contrast in the concentration of an impermeable solute), water flows against the osmotic gradient  to neutralize the osmolarity. 
 %
 In the red blood cell membrane, aquaporin-1 channels give rise to a much
-higher water permeability of approximately $1.8\times 10^{-2}$ cm/s in
+higher water permeability coefficient of approximately $1.8\times 10^{-2}$ cm/s in
 erythrocytes~\cite{YangMaVerkman2001_JBC} while the intrinsic water
 permeability of a lipid bilayer membrane is in the range of
 $10^{-4}$--$10^{-3}$ cm/s~\cite{ThompsonHuang1966_ANYAS,
@@ -222,11 +231,11 @@ no longer than tens of minutes.
 %%The osmolarity-induced water flux has been well studied, while mechanical pressure may also contribute to the permeable water flow \cite{yao-mor2017}.
 %%The response of a cell to an osmotic gradient is inevitably both mechanical (tension redistribution and shape change) and chemical (water flux across the membrane).  
 Under what condition is this a good assumption? Do liposomes conserve
-volume over hours under flow? What is the dynamic consequence when water
+volume under flow over a long time (hours)? What is the dynamic consequence when water
 influx/efflux affects the membrane hydrodynamics? To answer these
-questions, we investigate the balance between hydrodynamics, tension,
-and elasticity of a semipermeable vesicle under various flowing
-conditions and confinement, see Figure~\ref{fig:sketch}.
+questions, we investigate the balance between hydrodynamics stresses,
+tension, and elastic stress of a semipermeable membrane under various
+flowing conditions and confinement (Figure~\ref{fig:sketch}).
 %Specifically our numerical simulations yield the quantification of the
 %time scale and length scale over which water permeation becomes
 %important. 
@@ -260,7 +269,7 @@ CamposSaric2020_bioRxiv, Dimova2020_GVB, BhatiaChrist2020_SoftMatt}.
 %tank-treading and tumbling
 %motions~\cite{BhatiaRobinsonDimova2020_SoftMatt,
 %BhatiaChrist2020_SoftMatt}, an 
-These results illustrate that the permeable water
+These results illustrate that the permeating water
 flow is inevitably coupled with the mechanical pressure jump across the
 membrane~\cite{yao-mor2017}, which could become comparable to osmotic
 stress when the membrane deformation is large~\cite{LiMoriSun2015_PRL,
@@ -271,10 +280,10 @@ suspended red blood cell or vesicle in a steady flow for more than a few
 hours. It is also difficult to quantify the vesicle surface-to-volume
 ratio accurately~\cite{MinetttiCallensCoupier2008_AppliedOptics}. Using
 numerical simulations we can quantify the effects of water permeability
-on the hydrodynamics of a vesicle under mechanical stresses.  
-Without an osmotic gradient, we first show that a freely suspended
-semipermeable vesicle behaves differently from an impermeable vesicle
-over a long time. Next we show that
+on the hydrodynamics of a vesicle under mechanical stresses.  Without an
+osmotic gradient, we first show that a freely suspended semipermeable
+vesicle behaves differently from an impermeable vesicle over a long
+time. Next we show that
 %, at normal physiological conditions,
 the permeating water flow can be amplified by extreme confinement to give rise to observable change in both hydrodynamics and water content. 
 These results provide insight into quantifying the effects of membrane permeability on vesicle hydrodynamics in microfluidics.
@@ -285,7 +294,7 @@ These results provide insight into quantifying the effects of membrane permeabil
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Formulation}
-\begin{figure*}[hbp]
+\begin{figure*}[htp]
   \centering
   \ifTikz
   \input{figures/relaxationComposite.tikz}
@@ -293,12 +302,12 @@ These results provide insight into quantifying the effects of membrane permeabil
   \includegraphics{figures/relaxationComposite.pdf}
   \fi
   \caption{\label{fig:relaxationComposite} (a) Snapshots of four
-  semipermeable vesicles with $\beta = 10^{-7}$ submerged in a fluid
-  with no background flow flow. Time goes from left to right. The red
-  regions correspond to influx and the blue regions correspond to
-  efflux. In all cases, the vesicle reaches a steady state circular
-  shape. (b) The reduced area of each of the simulations. The particular
-  snapshots in (a) occur at the marks along the curve.}
+  semipermeable vesicles with $\beta = 10^{-8}$ submerged in a fluid
+  with no background flow. Time goes from left to right. The red regions
+  correspond to influx and the blue regions correspond to efflux. In all
+  cases, the vesicle reaches a steady state circular shape. (b) The
+  reduced area of each of the simulations. The particular snapshots in
+  (a) occur at the marks along the curve.}
 \end{figure*}
 We consider a two-dimensional semipermeable vesicle (permeable only to
 water) suspended in a viscous fluid (Figure~\ref{fig:sketch}), and we
@@ -311,53 +320,68 @@ water flux gives rise to a difference between the fluid velocity
 ${\uu}({\xx}\in \gamma)$ and the membrane velocity
 $\dot{\xx}$~\cite{yao-mor2017}:
 \begin{align}
+\label{eq:water_flux}
   \uu - \dot{\xx} = - k_w (R T \triangle c + \ff_\mathrm{mem} \cdot \nn) \nn, \qquad
   \xx \in \gamma,
 \end{align}
 where $\nn$ is the outward normal (Figure~\ref{fig:sketch}), $k_w$ is
-the water permeability, $R$ is the ideal gas constant, $T$ is the
-temperature ($^{\circ}$K), $\triangle c$ is contrast in a solute
+the hydraulic conductivity (m$^2$s/kg), $R$ is the ideal gas constant,
+$T$ is the temperature (K), $\triangle c$ is contrast in a solute
 concentration (mol/volume), and $\ff_\mathrm{mem}$ is the membrane
 stress that consists of both bending $ \ff_\mathrm{ben}= -k_b
-\xx_{ssss}$ and tension $\ff_\mathrm{ten}=(\sigma \xx_s)_s$ ($s$ is the
-arclength along the membrane, see Supplementary Material). Using
-$k_w\sim 10^{-12}$ m$^2$s/kg (typical of mammalian cell
-membranes~\cite{LiMoriSun2015_PRL}) and an osmolarity $\triangle c =
-0.1$ mol/L (consistent with the osmotic forces in vesicle aspiration
-experiments~\cite{OlbrichRawiczNeedhamEtAl2000_BJ}), the corresponding
-water flow is of the order $v_\mathrm{o}=0.1 \mu$m/s. Assuming that the
-membrane bending stiffness $k_b = 10^{-19}$J, a membrane tension
-$10^{-3}$N/m (one tenth of the lysis tension), and a characteristic
-length scale of $10^{-6}$m, the tension contribution ($v_\mathrm{t}$)
-and elastic stress contribution ($v_\mathrm{e}$) to the permeable water
-flow can be scaled to $v_\mathrm{o}$ as
+\xx_{ssss}$ and tension $\ff_\mathrm{ten}=(\sigma \xx_s)_s$, where $s$
+is the arclength, $\sigma = \Lambda - \frac{3}{2}\kappa^2$, $\Lambda$ is the
+membrane tension, and $\kappa$ is the membrane curvature (see
+Supplementary Material). Using $k_w\sim 10^{-12}$ m$^2$s/kg 
+%(typical of mammalian cell membranes~\cite{LiMoriSun2015_PRL}) 
+and an osmolarity $\triangle c = 0.1$ mol/L (consistent with the osmotic
+filtration experiments~\cite{OlbrichRawiczNeedhamEtAl2000_BJ}), the
+corresponding water flow is of the order $v_\mathrm{o}=0.1 \; \mu$m/s.
+Assuming a membrane bending stiffness of $k_b = 10^{-19}$ J, a membrane
+tension of $10^{-3}$ N/m (one tenth of the lysis tension), and a
+characteristic length scale of $10^{-6}$ m, the tension contribution
+($v_\mathrm{t}$) and elastic stress contribution ($v_\mathrm{e}$) to the
+permeable water flow can be scaled to $v_\mathrm{o}$ as
 $v_\mathrm{o}:v_\mathrm{t}:v_\mathrm{e}=10^{0}:10^{-2}:10^{-6}$.
-Furthermore, we note that in the absence of an osmotic stress, the water
-permeable flow can be significant when the membrane tension is large due
-to the external stress such as the hydrodynamic stress due to an
-external flow or confinement. In the following we explore both.
+Furthermore, we note that in the absence of an osmotic stress
+($\triangle c = 0$), the permeating water flow may be non-negligible
+when the membrane tension becomes large due to the external stress such
+as the hydrodynamic stress from an external flow or confinement. In the
+following we explore both.
+
+Specifically we focus on the mechanical component of the water flux
+in~\eqref{eq:water_flux} with $\triangle c =0$. In our
+non-dimensionalization the hydraulic conductivity is scaled to $R_0/\mu$
+(where $R_0$ is a characteristic length and $\mu$ is the solvent
+viscosity): $\beta = k_w/(R_0/\mu)$ (see Supplementary Material),
+$\beta=0$ for an impermeable vesicle, and $\beta>0$ for a semipermeable
+vesicle. Under strong confinement, a large value of $\beta$ is needed in
+our simulations to keep the membrane tension below the threshold value
+for membrane poration $\sim 10^{-3}$ N/m. Such large value of $\beta$
+may pertain to red blood cell membranes with aquaporin proteins.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Effects of membrane water permeability}
-We consider a single semipermeable vesicle, with dimensionless
-permeability coefficient $\beta$, in familiar configurations to
-highlight the effects of membrane water permeability. In free space we
+\section*{Hydrodynamics of a semipermeable vesicle in free space}
+To highlight the effects of membrane permeability to water, we consider
+a single semipermeable vesicle, with (dimensionless) permeability
+coefficient $\beta>0$, in familiar configurations: In free space we
 place a semipermeable vesicle in a quiescent flow, a planar shear flow,
-and a Poiseuille flow. We also consider a semipermeable vesicle in
-confinement: a long close-fitting channel and a contracting channel. For
-each example, we fix the vesicle length and examine the enclosed area as
-a dynamic consequence of water flow, vesicle shape deformation, and
-membrane tension distribution.
+and a Poiseuille flow. For each example, we fix the vesicle length and
+examine the enclosed water content as a dynamic consequence of water
+flow, vesicle shape deformation, and membrane tension distribution.
+%
+Under these flows, our simulations show
+that the steady state of an impermeable vesicle is different from that of a semipermeable vesicle, which depends only on the strength of the external flow and is insensitive to permeability $\beta$ (as long as $\beta>0$). We find that  the time in the dynamic evolution towards equilibrium is scaled by $\beta^{-1}$: the smaller $\beta$ is the longer it takes to reach the steady state.
 
-In experiments, vesicles under shear flows are measured for a minute
-(chapter 19 in~\cite{Dimova2020_GVB}), a duration over which vesicle can
-be assumed impermeable~\cite{AbkarianViallat2005_BJ}. Our simulations of
-a semipermeable vesicle in these flows show that water permeability may
-lead to different vesicle hydrodynamics over a time scale of 10 to 100
-minutes. For vesicles in a narrow microfluidic channel, the experiments
-usually do not last longer than a few minutes~\cite{abk-fai-sto2006}.
-Our simulations show that strong confinement can lead to amplification
-of water permeability at such short time scales.
+In experiments, vesicles under shear flows are measured for a few
+minutes (chapter 19 in~\cite{Dimova2020_GVB}), a duration over which a
+vesicle can be assumed impermeable~\cite{AbkarianViallat2005_BJ}. Our
+simulations of a semipermeable vesicle under these flows in open
+geometry show that water permeability may lead to different vesicle
+hydrodynamics only after a duration of $\sim 1$ day. 
+
+
+%short time scales.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Quiescent Flow} 
@@ -372,7 +396,7 @@ of water permeability at such short time scales.
   semipermeable vesicle with $\beta = 10^{-3}$ initialized with four
   different reduced areas in a shear flow with two different flow rates.
   (b) The equilibrium shape of a vesicle with varying flow rates and
-  semipermeability rates. The circled vesicles correspond to the
+  membrane permeability. The circled vesicles correspond to the
   simulations in part (a).}
 \end{figure*}
 In the absence of a background flow, a semipermeable vesicle in free
@@ -390,18 +414,21 @@ In Figure~\ref{fig:relaxationComposite}, we examine the relaxation
 dynamics of a semipermeable vesicle with four initial shapes and reduced
 areas as labeled. The vesicles on the left are color-coded by the water
 permeation flux: red denotes an influx into the vesicle, and blue
-denotes an efflux out of the vesicle.
+denotes an efflux out of the vesicle. First we observe that the initial
+vesicle shape determines the direction of water flux. For the vesicle
+with an initial reduced area $\alpha(0)=0.12$ (bottom row) the vesicle
+deflates (blue regions) first due to the high interior capillary
+pressure that corresponds to the high membrane curvatures. For the other
+three cases efflux is dominated by influx, especially after $t=1$ day
+when the increase in total water content becomes non-negligible.
 %
-First we observe that the initial vesicle shape determines the direction
-of water flux. For the vesicle with an initial reduced area
-($\alpha(0)=0.12$ in the bottom row) the vesicle deflates (blue regions)
-first due to the high interior capillary pressure that corresponds to
-the high membrane curvatures. For the other three cases efflux is found
-at some locations of high curvature, while mostly water permeates into
-the vesicle and significant change in the reduced area is found at
-$t\sim 1$ hour. Over time (about ten days) all vesicles inflate and as
-expected, each vesicle eventually reaches a circular shape with reduced
-area $\alpha=1$. 
+%is found at some locations of high curvature, while
+%mostly water permeates into the vesicle and significant change in the
+%reduced area is found at $t\sim 1$ hour. 
+%
+Over time (about four weeks) all vesicles inflate and as expected, each
+vesicle eventually reaches a circular shape with reduced area
+$\alpha=1$. 
 %%These regions are denoted in blue and are only present at early times. 
 %Finally, the vesicles's reduced area do not steady state tension is
 %$\Lambda = 2\pi^2/L^2$. 
@@ -419,8 +446,11 @@ area $\alpha=1$.
 %Finally, the vesicles's reduced area do not
 %change by much at early times (up to ten minutes), and 
 
-Between $t=250$ seconds and $t=250$ minutes, the intermediate shapes of
-semipermeable vesicles resemble the shape of an impermeable vesicle.
+Between $t=30$ minutes and $t=1$ day, the total water content is nearly constant.
+%
+%the intermediate shapes of
+%semipermeable vesicles resemble the shape of an impermeable vesicle.
+%
 This can be explained by considering the two terms that contribute to
 the vesicle velocity: (i) the permeability velocity, $\beta(\ff \cdot
 \nn) \nn$, and (ii) the force balance velocity, $\SS[\ff]$. Since
@@ -433,7 +463,44 @@ to inflate to a circle with vanishing force and velocity.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Planar Shear Flow}
-\begin{figure*}[hbp]
+We consider a semipermeable vesicle in a planar shear flow,
+characterized by the elastic capillary number $Ca_\mathrm{E}=\chi\tau$ where $\tau$ is the characteristic time scale from balancing the viscous stress with the elastic stress
+%in the non-dimensionalization 
+(see Supplementary Material) and $\chi$ is the shear rate of the planar
+shear flow $\uu_{\infty}(\xx) = \chi (y,0)$.  When $\beta=0$
+(impermeable case), the vesicle reduced area and fluid viscosity
+contrast determine whether a vesicle tank treads or
+tumbles~\cite{fin-lam-sei-gom2008, kra-win-sei-lip1996}. Focusing on
+semipermeable vesicles with no viscosity contrast, we find that a
+semipermeable vesicle tilts to an inclination angle and undergoes
+tank-treading dynamics, similar to the case of an impermeable vesicle.
+
+In Figure~\ref{fig:shearComposite}(a), using four initial reduced areas
+and two flow rates, we plot the reduced area of a semipermeable vesicle
+with $\beta = 10^{-3}$. As observed in a quiescent flow, the final
+vesicle shape is independent of the initial reduced area. However, it
+does depend on the flow rate. We also observe that the amount of water
+inside the vesicle remains constant until $t\sim 2$ hours, when the
+normal component of the flow velocity becomes significantly smaller than
+the permeable velocity, leading to a changing reduced area.
+
+For a variety of dimensionless permeability coefficient $\beta>0$ and
+capillary number $Ca_\mathrm{E}$, a semipermeable vesicle reaches an
+equilibrium shape as in Figure~\ref{fig:shearComposite}(a). Since the
+equilibrium shape depends on $Ca_\mathrm{E}$ and is independent of the
+initial reduced area, we initialize the vesicle with reduced area
+$\alpha = 0.65$ for all simulations in
+Figure~\ref{fig:shearComposite}(b), where we summarize the equilibrium
+vesicle shape and its reduced area. We see that the capillary number
+(flow rate) significantly affects the final vesicle shape, but the
+permeability coefficient has a very minor effect. Instead, as we saw in
+the quiescent analysis, $\beta$ sets a time scale since the time
+required for a vesicle to reach its steady state configuration is
+proportional to $\beta^{-1}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Poiseuille Flow}
+\begin{figure*}[htp]
   \centering
   \ifTikz
   \input{figures/parabolicComposite.tikz}
@@ -444,52 +511,14 @@ to inflate to a circle with vanishing force and velocity.
   a semipermeable vesicle submerged in a Poiseuille flow with varying
   initial reduced areas and flow rates. The red regions correspond to
   influx and the blue regions correspond to efflux. (b) The steady
-  state vertical displacement for four different flow velocities. The
+  state vertical displacement at four different flow velocities. The
   steady state shapes are superimposed. (c) The reduced area of the
-  slipper formed with the flow rate of $800 \mu$m/s. (d) The vesicle
+  slipper formed with the flow rate of $800 \; \mu$m/s. (d) The vesicle
   shape shown with the background imposed flow. The channel width is
   12.5 times larger than the vesicle radius. The corresponding reduced
   area of each vesicle is indicated by the marks in plot (c).}
 \end{figure*}
 
-We consider a semipermeable vesicle in a planar shear flow, characterized by the elastic capillary number
-$Ca_\mathrm{E}=\dot{\gamma}\tau$, where $\tau$ is the characteristic time scale in the non-dimensionalization (see Supplementary Material) and
-$\dot{\gamma}$ is the shear rate of the planar shear flow
-$\uu_{\infty}(\xx) = \dot{\gamma} (y,0)$.
- %with different permeability $\beta$ and shear rates $\dot{\gamma}$. 
- When $\beta=0$ (impermeable
-case), a vesicle's reduced area and viscosity contrast determine whether
-it tank treads or tumbles~\cite{fin-lam-sei-gom2008,
-kra-win-sei-lip1996}. Focusing on semipermeable vesicles with no
-viscosity contrast, we find that a semipermeable vesicle tilts to an
-inclination angle and undergoes tank treading dynamics, similar to the
-case of an impermeable vesicle.
-
-In Figure~\ref{fig:shearComposite}(a), using four initial reduced areas
-and two flow rates, we plot the reduced area of a semipermeable vesicle
-with $\beta = 10^{-3}$. As observed in a quiescent flow, the final
-vesicle shape is independent of the initial reduced area. However, it
-does depend on the flow rate. We also observe that the reduced area
-remains constant until $t\sim 10$ minutes, when the vesicle starts to
-tank-tread and the normal component of the force-balance velocity
-becomes significantly smaller than the permeable velocity, leading to a
-changing reduced area.
-
-For a variety of semipermeability rates and $Ca_\mathrm{E}$, a
-semipermeable vesicle reaches a steady equilibrium as in
-Figure~\ref{fig:shearComposite}(a). Since the final shape is independent
-of the initial reduced area, we initialize the vesicle with reduced area
-$\alpha = 0.65$ for all simulations in
-Figure~\ref{fig:shearComposite}(b), where we summarize the steady state
-vesicle shape and its reduced area. We see that the capillary number
-(flow rate) significantly affects the final vesicle shape, but the
-semipermeability rate has a minor effect. Instead, as we saw in the
-quiescent analysis, $\beta$ sets a time scale since the time required
-for a vesicle to reach its steady state configuration is proportional to
-$\beta^{-1}$.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Poiseuille Flow}
 
 We consider a semipermeable vesicle in the Poiseuille flow $\uu =
 U(1-(y/W)^2,0)$, where $U$ is the maximum velocity at $y=0$. The
@@ -535,9 +564,9 @@ al.}~\cite{kao-bir-mis2009} (see Supplementary Material).
 %semipermeable vesicle. 
 %
 
-At the beginning of the simulations a semipermeable vesicle is
-initialized above the center line $y=0$, and it migrates towards the
-center line as in the impermeable case~\cite{dan-vla-mis2009}. 
+At the beginning of the simulations, a semipermeable vesicle is placed
+above the center line $y=0$ and it migrates towards the center line as
+in the impermeable case~\cite{dan-vla-mis2009}. 
 %
 %However,
 %for an impermeable vesicle, depending on the initial reduced area and
@@ -561,27 +590,11 @@ The equilibrium vesicle shape for different $U$ and initial reduced area
 is summarized in Figure~\ref{fig:parabolicComposite}(a), and the
 vertical displacement of the vesicle's center of mass is in
 Figure~\ref{fig:parabolicComposite}(b). The effect of semipermeability
-of a vesicle with $\alpha(0) = 0.9$ and $U=800 \mu$m/s on its reduced
+of a vesicle with $\alpha(0) = 0.9$ and $U=800\; \mu$m/s on its reduced
 area and migration pattern are shown in
 Figures~\ref{fig:parabolicComposite}(c)
 and~\ref{fig:parabolicComposite}(d), respectively. 
 
-As observed for the planar shear flow, the steady state reduced area is
-independent of the initial reduced area, and larger flow rates result in
-smaller steady state reduced areas. We report the reduced area of the
-equilibrium vesicle shape in Figure~\ref{fig:parabolicComposite}(a). At
-the smallest flow rate of $U= 200 \mu$m/s, the steady state reduced
-area is large, and the result is an axisymmetric bullet. At the larger
-flow rates, the steady state reduced area is smaller, and the result is
-an asymmetric tank-treading slipper. We observe that the membrane
-permeability to water drastically alters the vesicle shape and position
-relative to the flow at equilibrium: At $\beta=10^{-3}$ the equilibrium
-vesicle depends only on the maximum velocity $U$ of the nonlinear shear
-flow. The higher $U$ the smaller the equilibrium reduced area and the
-further away vesicle is relative to the flow center at $y=0$. 
- 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Semipermeable Vesicle in a Narrow Channel (Stenosis)}
  \begin{figure*}[hbp]
   \centering
   \ifTikz
@@ -596,7 +609,7 @@ further away vesicle is relative to the flow center at $y=0$.
    excess pressure of an impermeable and semipermeable vesicle in the
    short geometry in (a). (d) The reduced area of the semipermeable
    vesicles in the geometries in (a) and (b) as a function of the
-   vesicles' center of mass. In (c) and (d), the $x$-axis is scaled by
+   vesicles' center of mass. In (c) and (d), the x-axis is scaled by
    $1/L$ where $L$ is half the length of the constriction. (e) The
    reduced area of the semipermeable vesicles in the geometries in (a)
    and (b) as a function of time. The time axis is scaled by $1/t_R$
@@ -608,58 +621,64 @@ further away vesicle is relative to the flow center at $y=0$.
    simulation, these vesicle configurations have the largest tension.}
 \end{figure*}
 
-Cells experience stretching and release messengers when they pass
-through capillary vessels~\cite{Wan2008_PNAS, ForsythWan2011_PNAS,
-Pak2015_PNAS}. Many cells exhibit extraordinary flexibility as they go
-through narrow channels~\cite{AuStoreyMoore2016_PNAS}, and adjustment of
-area to volume ratio may be a key factor for a successful passage.  Here
-we quantify the effect of water permeability on a vesicle going through
-a stenosis (a long microfluidic channel with a width smaller than the
-cell radius).  Based on the findings in~\cite{abk-fai-sto2006}, we first
-examine the effect of semipermeability on the pressure fluctuation
-across a stenosed geometry. In this experiment, a pressure drop is used
-to squeeze a red blood cell through a constriction with diameter $5\mu$m
-and length $45\mu$m. We set up a similar computational geometry with a
-Poiseuille flow imposed at the inlet and outlet
-(Figure~\ref{fig:stenosisComposite}(a)). The flow velocity $U_{max} =
-1000 \mu$m/s is maintained at the inlet and outlet and is chosen so that
+As observed for the planar shear flow, the equilibrium reduced area of a
+semipermeable vesicle in a Poiseuille flow is independent of the initial
+reduced area and $\beta$, and  larger maximum flow velocity $U$ results
+in smaller equilibrium reduced area
+(Figure~\ref{fig:parabolicComposite}(a)). At the smallest velocity $U=
+200\; \mu$m/s, the steady state reduced area is large, and the
+equilibrium vesicle shape is an axisymmetric bullet. The equilibrium
+reduced area decreases with increasing $U$, and the nonlinear flow
+profile gives rise to an asymmetric tank-treading slipper for $U\ge 400$
+$\mu m/s$. We observe that the membrane permeability to water
+drastically alters the equilibrium vesicle shape and position relative
+to the Poiseuille flow: At $\beta=10^{-3}$ the equilibrium vesicle
+depends only on the maximum velocity $U$ of the nonlinear shear flow.
+The higher $U$ the smaller the equilibrium reduced area and the farther
+away the vesicle is relative to the flow center at $y=0$.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{A semipermeable vesicle under strong confinement}
+Here we consider a semipermeable vesicle under strong confinement: a
+long closely-fit channel and a contracting channel. In a narrow
+microfluidic channel, a large pressure jump is often needed to push the
+vesicle through a closely-fit channel~\cite{abk-fai-sto2006}.  Our
+simulations show that such a configuration can lead to an amplification
+of water permeation at a time scale shorter than a few minutes. In
+addition, we find that a large value of $\beta$ is needed to keep the
+membrane tension below the threshold value for membrane poration. Such
+high permeability for water may be regarded as an indication that the
+lipid bilayer membrane is porated under strong confinement, and our
+model vesicle is for a porated vesicle within the Helfrich free energy
+framework.  As in the previous examples, we fix the vesicle length and
+examine the enclosed water content as a dynamic consequence of water
+flow, vesicle shape deformation, and membrane tension distribution.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Semipermeable Vesicle in a Closely-fit Channel (Stenosis)}
+When red blood cells go through small capillary vessels, they experience
+large shape deformation and significant membrane stretching that
+triggers ATP release~\cite{Wan2008_PNAS, ForsythWan2011_PNAS}.  Many
+cells exhibit extraordinary flexibility as they go through narrow
+vessels~\cite{AuStoreyMoore2016_PNAS}, and adjustment of
+surface-to-volume ratio may be a key factor for a successful passage.
+Here we quantify the effect of water permeability on a vesicle going
+through a stenosis (a long microfluidic channel with a width smaller
+than the cell radius).  Based on the findings in~\cite{abk-fai-sto2006},
+we first examine the effect of semipermeability on the pressure
+fluctuation across a stenosed geometry. In this experiment, a pressure
+drop is used to squeeze a red blood cell through a constriction with
+diameter $5\;\mu$m and length $45\;\mu$m. We set up a similar
+computational geometry with a Poiseuille flow imposed at the inlet and
+outlet (Figure~\ref{fig:stenosisComposite}(a)). We set the maximum flow
+velocity to $U_{\max} = 1000 \;\mu$m/s at the inlet and outlet so that
 the residency time of the vesicle in the stenosis channel is $t_R
-\approx 25$ms which agrees with the experimental
+\approx 25$ ms which agrees with the experimental
 results~\cite{abk-fai-sto2006}. When the red blood cell enters the
 channel, an increase in the pressure drop is required to maintain a
 constant flow rate, and the difference in the pressure drop is called
-the excess pressure. 
-
-We consider both an impermeable and semipermeable vesicle with initial
-reduced area $\alpha = 0.65$ passing through a long narrow channel and
-compute the excess pressure as a function of vesicle position in the
-channel, see Figure~\ref{fig:stenosisComposite}(c). The impermeable case
-agrees with experimental results~\cite{abk-fai-sto2006} (see Figure 3).
-Our simulations show that less excess pressure is needed to drive a
-semipermeable vesicle through the closely-fit channel. Once in the
-channel, the vesicle takes a bullet shape with maximum tension in the
-front and minimum tension in the back (see
-Figure~\ref{fig:stenosisComposite}(a)), consistent with earlier
-results~\cite{Pak2015_PNAS, HarmanBertrandJoos2017_CJP}.
-
-Figures~\ref{fig:stenosisComposite}(d)
-and~\ref{fig:stenosisComposite}(e) show that the vesicle deflates from
-the beginning due to the high flow velocity, consistent with the results
-for a vesicle in a Poiseuille flow in open space (blue curves). As the
-vesicle enters the stenosis channel, it continues to deflate in the
-front even though we observe influx (red segment) at various rear
-locations in the membrane. Overall, the vesicle loses about 6.1\% of its
-initial total water at a constant rate as shown in
-Figures~\ref{fig:stenosisComposite}(d)
-and~\ref{fig:stenosisComposite}i(e). Thus we expect that a larger amount
-of deflation is possible if the vesicle is inside a longer stenosis: we
-consider a vesicle passing through a channel of triple the length in
-Figure~\ref{fig:stenosisComposite}(b) with $U_{\max}=1000\mu$m/s, and we
-observe that vesicle stays inside the stenosis for a residence time $t_R
-\approx 70$ms and the reduced area decreases by 13.2\% (red curves).
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Semipermeable Vesicle in a Contracting Geometry} 
+the excess pressure.
 \begin{figure}[htp]
   \centering
   \ifTikz
@@ -668,38 +687,69 @@ observe that vesicle stays inside the stenosis for a residence time $t_R
   \includegraphics{figures/contractingComposite.pdf}
   \fi
   \caption{\label{fig:contractingComposite} A contracting channel
-  similar to the experimental configuration in~\cite{wu2015critical}. The
-  channel width varies from $18\mu$m to $1.8\mu$m, and it repeats every
-  $45\mu$m. The fluid flux along the red regions is into the vesicle,
-  and the fluid flux along the blue regions is out of the vesicle.
-  (a--c): The ability for a semipermeable vesicle to pass through the
-  contraction depends on the semipermeability rate. (d--f): The ability
-  for a semipermeable vesicle to pass through the contraction depends
-  on the flow rate. The colored vesicles show the tension distribution
-  in N/m of the circled vesicles. Throughout the entire simulation,
-  these vesicle configurations have the largest tension.}
+  similar to the experimental configuration in~\cite{wu2015critical}.
+  The channel width varies from $18\;\mu$m to $1.8\;\mu$m, and it
+  repeats every $45\;\mu$m. The fluid flux along the red regions is into
+  the vesicle, and the fluid flux along the blue regions is out of the
+  vesicle.  (a--c): The ability for a semipermeable vesicle to pass
+  through the contraction depends on the permeability $\beta$. (d--f):
+  The ability for a semipermeable vesicle to pass through the
+  contraction depends on the flow rate. The colored vesicles show the
+  tension distribution in N/m of the circled vesicles. Throughout the
+  entire simulation, these vesicle configurations have the largest
+  tension.}
 \end{figure}
 
+We consider both an impermeable and semipermeable vesicle with initial
+reduced area $\alpha = 0.65$ passing through a long narrow channel and
+compute the excess pressure as a function of vesicle position in the
+channel (Figure~\ref{fig:stenosisComposite}(c)). The impermeable case
+agrees with experimental results~\cite{abk-fai-sto2006} (see Figure 3).
+Our simulations show that less excess pressure is needed to drive a
+semipermeable vesicle through the closely-fit channel. Once in the
+channel, the vesicle takes a bullet shape with maximum tension in the
+front and minimum tension in the back
+(Figure~\ref{fig:stenosisComposite}(a)), consistent with earlier
+results~\cite{Pak2015_PNAS, HarmanBertrandJoos2017_CJP}.
 
+Figures~\ref{fig:stenosisComposite}(d)
+and~\ref{fig:stenosisComposite}(e) show that the vesicle deflates from
+the beginning due to the high flow velocity, consistent with the results
+for a vesicle in a Poiseuille flow in open space. As the vesicle enters
+the stenosis channel, it continues to deflate in the front even though
+we observe influx (red segment) at various rear locations in the
+membrane. Overall, the vesicle loses about 6.1\% of its initial total
+water at a constant rate as shown in
+Figures~\ref{fig:stenosisComposite}(d)
+and~\ref{fig:stenosisComposite}(e) (blue curves). Thus we expect that a
+larger amount of deflation is possible if the vesicle is inside a longer
+stenosis: we consider a vesicle passing through a channel of triple the
+length in Figure~\ref{fig:stenosisComposite}(b) with
+$U_{\max}=1000\;\mu$m/s, and we observe that vesicle stays inside the
+stenosis for a residence time $t_R \approx 70$ ms and the area decreases
+by 13.2\% (red curves).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Semipermeable Vesicle in a Contracting Geometry} 
 Squeezing a cell or an elastic vesicle through a slit in microfluidics
 has gained popularity for its application in stress-induced release of
 macromolecules~\cite{ShareiEtAl2013_PNAS, Pak2015_PNAS,
 ZhangShenHoganBarakatMisbah2018_BJ, LuoBai2019_PoF}. Red blood cells go
-through submicron slits many times during their lifetime, and such
+through submicron slits many times during their lifetime, and this
 process selects healthy, flexible red blood cells to
 survive~\cite{wu2015critical,LuPeng2019_PoF}. Here we investigate the
 role of membrane permeability to water when a semipermeable vesicle is
 squeezed through a contracting microfluidic channel similar
 to~\cite{wu2015critical}, where the width of the channel gradually
-decreases from $18 \mu$m to $1.8 \mu$m. The channel then immediately
-reopens to $18 \mu$m (Figure~\ref{fig:contractingComposite}). A
+decreases from $18 \;\mu$m to $1.8\; \mu$m. The channel then immediately
+reopens to $18\;\mu$m (Figure~\ref{fig:contractingComposite}). A
 Poiseuille flow is imposed at the inlet and outlet with a constant
 maximum flow rate of $U_{\max}$. We initialize a semipermeable vesicle
-with $\alpha = 0.65$ that spans $10 \mu$m of the total channel width and
-investigate the effects of the membrane permeability to water and the
-maximum flow velocity on whether a vesicle can successfully pass through
-the slit. We color the vesicle according to the sign of its flux---red
-for influx and blue for efflux.
+with $\alpha = 0.65$ that spans $10\; \mu$m of the total channel width
+and investigate the effects of the membrane permeability to water and
+the maximum flow velocity on whether a vesicle can successfully pass
+through the slit. We color the vesicle according to the sign of its
+flux---red for influx and blue for efflux.
 
 In Figures~\ref{fig:contractingComposite}(a)
 and~\ref{fig:contractingComposite}(b), we plot snapshots of vesicles
@@ -708,7 +758,7 @@ Figure~\ref{fig:contractingComposite}(c) shows the corresponding reduced
 area as a function of the vesicle's location. We observe that if the
 permeability is sufficiently large, the vesicle inflates gradually over
 seconds before it reaches the neck, and then it quickly deflates within
-a fraction of a second. However, if the semipermeability rate is too
+a fraction of a second. However, if the permeability $\beta$ is too
 low, the vesicle is too large when it reaches the narrowest part of the
 channel, and it is unable to pass. In
 Figures~\ref{fig:contractingComposite}(d)
@@ -720,7 +770,8 @@ inflates similar to the unbounded parabolic flow example, and it is
 unable to pass through the contraction. However, higher flow rates
 result in additional deflation and the vesicle passes through the
 contraction.
-\begin{figure}[htp]
+
+\begin{figure}[hbp]
   \centering
   \ifTikz
   \input{figures/contractingComposite2.tikz}
@@ -728,34 +779,36 @@ contraction.
   \includegraphics{figures/contractingComposite2.pdf}
   \fi
   \caption{\label{fig:contractingComposite2} Vesicle reduced area and
-  velocity vs.~time. Permeability rate is $\beta = 10^{-3}$ and maximum
-  velocity is $18\mu$m/s. (a) A semipermeable vesicle passing through
-  six periods of the contracting geometry. (b) The reduced area with
-  the marks representing shapes in (a). (c) The vesicle velocity with
-  the marks representing shapes in (a). In (b) and (c), the bottom
-  x-axis is the $x$-coordinate of the center of mass, and the upper
-  x-axis is time. The colored vesicles show the tension distribution in
-  N/m of the circled vesicles. Throughout the entire simulation, these
-  vesicle configurations have the largest tension.}
+  velocity vs.~time. The permeability coefficient is $\beta = 10^{-3}$
+  and the maximum velocity is $18\;\mu$m/s. (a) A semipermeable vesicle
+  passing through six periods of the contracting geometry. (b) The
+  reduced area with the marks representing shapes in (a). (c) The
+  vesicle velocity with the marks representing shapes in (a). In (b) and
+  (c), the lower x-axis is the x-coordinate of the center of mass, and
+  the upper x-axis is time. The colored vesicles show the tension
+  distribution in N/m of the circled vesicles. Throughout the entire
+  simulation, these vesicle configurations have the largest tension.}
 \end{figure}
 
-To understand the effects of water permeability on cells that repeatedly
-pass through micro-capillary vessels or sub-micron slits, we construct a
-contracting geometry (see Figure~\ref{fig:contractingComposite2}) to
-simulate a vesicle passing through the contracting geometry six times.
-In Figure~\ref{fig:contractingComposite2}(b), we show that the vesicle
+To understand the effects of water permeability on a vesicle that
+repeatedly passes through micro-capillary vessels or sub-micron slits,
+we construct a contracting geometry
+(Figure~\ref{fig:contractingComposite2}) to simulate a vesicle passing
+through the contracting geometry six times.  In
+Figure~\ref{fig:contractingComposite2}(b), we show that the vesicle
 deflates each time it passes through the contraction followed by a
 gradual inflation (over seconds). The total area loss over the history
 of the vesicle is almost 50\%. In
 Figure~\ref{fig:contractingComposite2}(c), we show the vesicle velocity
 as a function of the vesicle's center of mass. As the vesicle passes
 through the contraction, it first accelerates until it reaches the neck
-where it abruptly decelerates to go through the contraction. The
-variation of the reduced area and velocity with respect to time are also
-shown in Figure~\ref{fig:contractingComposite2}.
+where it abruptly decelerates to go through the contraction. The reduced
+area and velocity with respect to time are also shown in
+Figure~\ref{fig:contractingComposite2}.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Discussion}
-In this work we investigated the effects of membrane permeability to
+In this work we investigate the effects of membrane permeability to
 water on vesicle hydrodynamics. Without any external flow or
 confinement, our analysis shows that a semipermeable vesicle always
 inflates to maximize the water content inside the vesicle of a fixed
@@ -766,15 +819,13 @@ illustrate that the relaxation process consists of at least two phases:
 The first phase is dominated by the balance between membrane traction
 and viscous stress at early times (up to five minutes), when the vesicle
 behaves like an impermeable membrane. The second phase sets in after a
-few hours, when water influx begins to dominate and inflate the
-vesicle. Over a time scale of more than ten days, a semipermeable vesicle is
+few hours, when water influx begins to dominate and inflate the vesicle.
+Over a time scale of more than four weeks, a semipermeable vesicle is
 fully inflated, independent of its initial surface-to-volume ratio.
-%\todo[inline]{Do the time scales in this paragraph reflect the
-%adjustments we made to $\beta$ for the quiescent case?}
 
 Under strong confinement we show that water permeation can be amplified
 on a time scale of a few seconds as a vesicle is squeezed through a
-closely fit channel and a contracting channel. As a semipermeable
+closely-fit channel and a contracting channel. As a semipermeable
 vesicle goes through a long closely-fit channel, we observe that the
 vesicle loses water at a constant rate, and the longer the channel the
 more the loss of water. In the case of a contracting channel, we find
@@ -786,22 +837,41 @@ the vesicle hydrodynamics, and our simulation results shed light on the
 configuration and time scales needed to observe the effects of
 permeability on vesicle hydrodynamics under confinement. 
 
-\acknow{We thank Howard Stone for important suggestions.
-B.Q.~acknowledges support from the Simons Foundation, Mathematics and
-Physical Sciences-Collaboration Grants for Mathematicians, Award Number
-527139. Y.-N.Y.~acknowledges support from $\ldots$}
+Using scaling arguments, we showed that permeability due to osmolarity
+is two orders of magnitude larger than permeability due to tension, and
+six orders of magnitude larger than permeability due to bending.
+Therefore, future studies will investigate semi-permeability in the
+presence of a solute concentration. The presence of such a solute
+concentrations is responsible for many physiological processes including
+cell migration in confined
+microenvironments~\cite{StrokaJiangChenEtAl2014_Cell},
+dialysis~\cite{wan2006}, cell desiccation~\cite{vogl2014effect} and
+apoptosis~\cite{marchetti1996mitochondrial}. We plan to investigate
+vesicle motion in a solute in the zero Peclet number limit which was
+analyzed for spherical vesicles by Anderson~\cite{and1983} and more
+general shapes using a finite element method by Jaeger {\em et
+al.}~\cite{jae-car-med-try1999}.
+
+
+\acknow{We thank Howard Stone, Michael J.~Shelley, Petia Vlahovska,
+Chaoqui Misbah, Manouk Abkarian, Sangwoo Shin, and Shravan
+K.~Veerapaneni for discussions. B.Q.~acknowledges support from the
+Simons Foundation, Mathematics and Physical Sciences-Collaboration
+Grants for Mathematicians, Award Number 527139.  Y.-N.Y.~acknowledges
+support from NSF (DMS 1614863, DMS 195160) and Flatiron Institute, part
+of Simons Foundation.}
 
 \showacknow{} % display acknowledgments
 
-% \bibliographystyle{plain}
+% \bibliographystyle{pnas-new}
  \bibliography{refs}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Supplementary Material: Formulation}
-We consider a two-dimensional inextensible semipermeable vesicle,
-$\gamma$, suspended in unconfined and confined geometries $\Omega$. The
-vesicle is parameterized as $\xx(s,t)$ where $s$ is arclength and $t$ is
-time. The suspending fluid is assumed to be viscous so that the fluid
+We consider a two-dimensional inextensible semipermeable vesicle
+membrane $\gamma$ suspended in a viscous Newtonian fluid in domain
+$\Omega$.  The vesicle membrane $\gamma$ is parameterized as $\xx(s,t)$
+where $s$ is arclength and $t$ is time. In the suspending fluid the flow
 velocity $\uu$ and pressure $p$ are governed by the incompressible
 Stokes equations
 \begin{align}
@@ -809,12 +879,15 @@ Stokes equations
   -\nabla p + \mu \triangle \uu = 0, \quad
   \nabla \cdot \uu = 0, \qquad \xx \in \Omega \setminus \gamma,
 \end{align}
-where $\mu$ is the fluid viscosity. In an unconfined geometry, the
-condition $\uu(\xx) \rightarrow \uu_\infty(\xx)$ is enforced as $|\xx|
-\rightarrow \infty$, and in a confined geometry, the boundary condition
-$\uu(\xx) = \UU(\xx)$ is enforced on $\partial \Omega$, where $\UU(\xx)$
-is prescribed. Along the vesicle, mass continuity, force balance, and
-local inextensibility are enforced by requiring
+where $\mu$ is the fluid viscosity. When $\Omega$ is an unconfined
+geometry, the condition $\uu(\xx) \rightarrow \uu_\infty(\xx)$ as $|\xx|
+\rightarrow \infty$ is enforced. In the confined examples, we enforce a
+no-slip boundary condition along the top and bottom of the channel and a
+Hagen–Poiseuille flow at the inlet and outlet---this boundary condition
+has been used in similar vesicle setups~\cite{qua-bir2014,
+rah-vee-bir2010, lu-rah-zor2017}. Along the vesicle membrane $\gamma$,
+mass continuity, force balance, and local inextensibility are enforced
+by requiring
 \begin{align}
   \label{eqn:jump}
   \jump{\uu} = 0, \quad
@@ -826,7 +899,7 @@ jump across the interface, and $T$ is the hydrodynamic stress tensor.
 The membrane force $\ff_\mathrm{mem}$ is the sum of a bending force
 with bending modulus $k_b$ and a force due to the tension $\Lambda$.
 Following~\cite{vee-gue-zor-bir2009}, we introduce the variable $\sigma
-= \Lambda - 1.5\kappa^2$, where $\kappa$ is the vesicle curvature. Then,
+= \Lambda - \frac{3}{2}\kappa^2$, where $\kappa$ is the vesicle curvature. Then,
 the bending and tension forces corresponding to the Helfrich energy are
 $\ff_\mathrm{ben} = -k_b \xx_{ssss}$ and $\ff_\mathrm{ten} = (\sigma
 \xx_s)_s$. 
@@ -840,7 +913,7 @@ membrane traction~\cite{yao-mor2017}. That is,
   \uu - \dot{\xx} = - k_w (\ff_\mathrm{mem} \cdot \nn) \nn, \qquad
   \xx \in \gamma,
 \end{align}
-where $k_w$ is the water permeability.
+where $k_w$ is the hydraulic conductivity.
 
 %The governing equations are non-dimensionalized by introducing a length
 %scale that we take to be $R_0 = 10^{-6}$m. Using a bending stiffness of
@@ -856,18 +929,25 @@ where $k_w$ is the water permeability.
 %dynamic.
 
 The governing equations are non-dimensionalized by using a
-characteristic length scale $R_0 = 10^{-6}$m, a bending stiffness of
-$k_b = 10^{-19}$J, and fluid viscosity $5 \times 10^{-2}$kg/ms. We scale
-time by $\tau\equiv\mu R_0^3/k_b = 0.5s$, the velocity by $R_0/\tau =
-2\mu$m/s, the pressure by $k_b/R_0^3 = 10^{-1}$Pa, tension by $k_b/R_0^2
-= 10^{-7}$N/m, and the permeability by $R_0\mu = 2 \times
-10^{-5}$m$^2$s/kg. Under this nondimensionalization, a two-dimensional
+characteristic length scale $R_0 = 10^{-6}$ m, a bending stiffness $k_b
+= 10^{-19}$ J, and fluid viscosity $5 \times 10^{-2}$ kg/ms. We scale
+time by $\tau = \mu R_0^3/k_b = 0.5\;s$, the velocity by $R_0/\tau =
+2\;\mu$m/s, the pressure by $k_b/R_0^3 = 10^{-1}$ Pa, the tension by
+$k_b/R_0^2 = 10^{-7}$ N/m, and the permeability by $R_0/\mu = 10^{-3}$
+m$^2$s/kg. Under this nondimensionalization, a two-dimensional
 semipermeable vesicle in a viscous fluid is characterized by (a) its
 reduced area $\alpha = 4\pi A/L^2 \in (0,1]$, where $L$ is the vesicle
-length and $A$ is its area, and (b) its permeability $\beta =
-k_w/(R_0\mu)$. In two dimensions, the membrane length is conserved by
-the local inextensibility condition, but the enclosed area is not
-because of semipermeability. Therefore, the reduced area is dynamic.
+length and $A$ is its area, and (b) its permeability $\beta = k_w \mu
+/R_0$. In two dimensions, the membrane length is conserved by the local
+inextensibility condition, but the enclosed area is not conserved
+because of semipermeability. Therefore, the reduced area is dynamic. We
+convert the apparent permeability of a polyunsaturated PC
+bilayer~\cite{OlbrichRawiczNeedhamEtAl2000_BJ} to the hydraulic
+conductivity $k_w$ using the conversion
+in~\cite{FettiplaceHaydon1980_PhysRev}, and found that $10^{-14}\le
+k_w\le 10^{-12}$ m$^2$s/kg, thus $\beta$ is in the range $10^{-11}\le
+\beta\le 10^{-9}$.
+
 
 Since the fluid satisfies the Stokes equations, the velocity and
 pressure can be represented as layer potentials. Given the interfacial
@@ -895,9 +975,9 @@ vesicle velocity satisfies the boundary integral equation
   \xx_s \cdot \dot{\xx}_s = 0.
 \end{align}
 In confined geometries, the far field term $\uu_\infty(\xx)$ is replaced
-by a double-layer potential with a density defined on $\partial\Omega$.
-The unknown density function allows us to satisfy the Dirichlet boundary
-condition $\uu(\xx) = \UU(\xx)$ for $\xx \in \partial\Omega$.
+by a double-layer potential with an unknown density defined on
+$\partial\Omega$. The density function is used to satisfy the boundary
+condition on $\partial\Omega$.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -906,14 +986,14 @@ condition $\uu(\xx) = \UU(\xx)$ for $\xx \in \partial\Omega$.
 \subsection*{Discretization in Space}
 By using a boundary integral equation formulation, the unknowns are the
 vesicle's position and tension and the unknown density function for
-confined flows. Both $\gamma$ and $\partial\Omega$ are discretized at
-$N$ and $N_\text{wall}$ points, respectively. Derivatives are computed
-with Fourier differentiation, and the eighth-order
-quadrature~\cite{alp1999} is applied to the weakly singular single-layer
-potential. For confined geometries, the trapezoid rule is used to
-approximate the double-layer potential since its kernel is smooth and
-periodic. Nearly-singular integrals are computed with an
-interpolation-based quadrature rule~\cite{qua-bir2014}.
+confined flows. Both $\gamma$ and $\partial\Omega$ are discretized at a
+set of collocation points. Derivatives are computed with Fourier
+differentiation, and the eighth-order quadrature~\cite{alp1999} is
+applied to the weakly singular single-layer potential. For confined
+geometries, the trapezoid rule is used to approximate the double-layer
+potential since its kernel is smooth and periodic. Nearly-singular
+integrals are computed with an interpolation-based quadrature
+rule~\cite{qua-bir2014}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Discretization in Time}
@@ -969,18 +1049,23 @@ subsequent time step size.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Numerical Validation}
-To validate our methods, we construct a phase diagram of the steady
-state shape of an impermeable vesicle in a Poiseuille flow. Depending on
-the flow rate and the reduced area, the steady state vesicle is either a
-axisymmetric bullet, a axisymmetric parachute, or a tank treading
+To validate our numerical codes for simulating vesicle hydrodynamics, we reproduce a phase diagram of the equilibrium
+shape of an impermeable vesicle in a Poiseuille flow. Depending on
+the maximum flow velocity and the vesicle reduced area, the equilibrium vesicle shape is either an
+axisymmetric bullet, an axisymmetric parachute, or a tank-treading
 asymmetric slipper~\cite{kao-bir-mis2009}. Comparing our results
 (Figure~\ref{fig:PoiseuillePhase}) with those in~\cite{kao-bir-mis2009}
-(see Figure 2), we see that the vesicle shapes qualitatively agree. We
-note that Kaoui {\em et al.}~report that the vesicles with $\alpha=0.7$
-and flow rates $U = 1200 \mu$m/s and $U = 1600 \mu$m/s are axisymmetric.
-In our simulations these vesicles are slightly asymmetric, are
-undergoing a tank treading motion, and we therefore report them as
-asymmetric slippers.
+(see Figure 2), we observe qualitative agreement in the equilibrium
+vesicle shapes except that,
+%
+%see that the vesicle shapes qualitatively agree. We
+%note that 
+%
+Kaoui {\em et al.}~report that the vesicles with $\alpha=0.7$
+and flow rates $U = 1200\; \mu$m/s and $U = 1600\; \mu$m/s are
+axisymmetric.  In our simulations these vesicles are slightly
+asymmetric, are undergoing a tank-treading motion, and we therefore
+report them as asymmetric slippers.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -996,7 +1081,7 @@ stationary point of the Lagrangian
     \Lambda \left(\int_{\gamma} ds  - L \right),
 \end{align}
 where the Lagrange multiplier $\Lambda$ is the tension. Note the absence
-of the pressure Lagrange multiplier since the vesicle's area fluctuates.
+of the pressure Lagrange multiplier since the total water content inside the vesicle membrane is not conserved.
 Taking the variation of $\mathcal{L}$ with respect to $\gamma$ and
 setting it to zero, the steady state shape satisfies $\kappa_{ss} +
 \frac{1}{2}\kappa^3 - \Lambda \kappa = 0$, with initial conditions
@@ -1011,11 +1096,12 @@ Assuming $\kappa_s \neq 0$,~\eqref{eqn:curveODE} is separable, and can
 be solved analytically in terms of the {\em EllipticF} function using
 Mathematica. Unlike in the impermeable case, the solution
 of~\eqref{eqn:curveODE} is not periodic unless $\kappa(s) = \kappa_0$.
-Therefore, the steady state shape of a semipermeable vesicle in a
+Therefore, the equilibrium shape of a semipermeable vesicle in a
 quiescent flow is a circle with radius $L/2\pi$ and constant tension
 $\Lambda = \kappa^2/2 = 2\pi^2/L^2.$ Note that in contrast to a
 impermeable vesicle, the steady state tension is positive rather than
-negative.
+negative. Such equilibrium shape of a semipermeable vesicle results from the balance between elastic stress and membrane tension. 
+For an elastic membrane with a large pore, the equilibrium membrane (hemispherical) shape also results from such balance \cite{Ryham2018_JFM}.
 
 
 We next compute the transient area of the vesicle. Since the area of the
@@ -1026,8 +1112,8 @@ vesicle is
 \end{align}
 its derivative includes terms due to the time derivative of $\xx \cdot
 \nn$ and a term due to interface stretching~\cite{lai-tse-hua2008}, but
-this latter term term is zero because of the local inextensibility
-condition. Therefore,
+this latter term is zero because of the local inextensibility condition.
+Therefore,
 \begin{align}
   \dot{A}(t) =
   \frac{1}{2} \int_{\gamma} (\dot{\xx} \cdot \nn)\, ds  + 
@@ -1040,7 +1126,7 @@ Applying integration by parts, the two integrals agree, and we have
   = \beta \int_\gamma (\ff \cdot \nn)\, ds,
 \end{align}
 where we have used the incompressibility of the single-layer potential.
-Repeatedly applying integration by parts, we finally obtain
+Repeatedly applying integration by parts, we obtain
 \begin{align}
   \dot{A}(t) & = \beta \int_\gamma \left(
     \frac{\kappa^3}{2} - \kappa \Lambda \right) \, ds.
@@ -1063,6 +1149,7 @@ Repeatedly applying integration by parts, we finally obtain
 %\end{align}
 Note that the integrand in~\eqref{eqn:areaROC} is zero when the membrane tension balances the elastic force:
 \begin{align}
+\label{eqn:areaROC2}
 \Lambda &= \frac{\kappa^2}{2}=\frac{\kappa_0^2}{2} \;\mathrm{ at }\; \mathrm{equilibrium},
 \end{align}
 which is consistent with the equilibrium results in the vesicle area dynamics.
@@ -1088,20 +1175,20 @@ which is consistent with the equilibrium results in the vesicle area dynamics.
 \subsection*{Vesicle Relaxation}
 Figure~\ref{fig:relaxationTensions} shows the membrane tension
 distribution along the relaxing vesicles in
-Figure~\ref{fig:relaxationComposite}. The membrane tension (color bars)
-is in N/m. As the semipermeable vesicle relaxes, the membrane tension
-reduces in magnitude and becomes more evenly distributed along the
-membrane. In the top row the vesicle nearly relaxes to a circle on the
-right, and the membrane tension is uniform and equal to $k_b \kappa^2/2$
-as predicted by our analysis (see \eqref{eqn:areaROC}). In the bottom
-row, the initial vesicle shape has a lot of high curvature regions (and
-thus the low reduced area), and it takes more than four hours to inflate
-to twice the total water content for $\beta=10^{-7}$. In contrast the
-water enclosed inside the vesicle in the top row remains nearly constant
-in the first four hours.
-%\todo[inline]{I don't understand this last sentence}
+Figure~\ref{fig:relaxationComposite}. The membrane tension magnitude
+(color bars) is in N/m.  As the semipermeable vesicle relaxes, the
+membrane tension reduces in magnitude and becomes more evenly
+distributed along the membrane. In the top row ($\alpha(0)=0.95$) the
+vesicle nearly relaxes to a circle on the right, and the membrane
+tension is uniform and equal to $k_b \kappa_0^2/2$ as predicted by our
+analysis (see~\eqref{eqn:areaROC2}). In the bottom row
+($\alpha(0)=0.12$), the initial vesicle shape has a lot of high
+curvature regions (and thus the low reduced area), and it takes more
+than four hours to inflate to twice the initial total water content for
+$\beta=10^{-7}$. In contrast the water enclosed inside the vesicle in
+the top row remains nearly constant in the first four hours.
 
-\subsection*{Vesicle in a planar shear flow}
+\subsection*{Vesicle in a Planar Shear Flow}
 Our simulations of a semipermeable vesicle in a planar shear flow show
 that the equilibrium vesicle shape depends mostly on the capillary
 number $Ca_\mathrm{E}$, independent of the dimensionless water
@@ -1131,7 +1218,7 @@ extensional component in the shear flow.
   \end{tikzpicture}
 %  \includegraphics[width=\textwidth]{figures/shearTensions.pdf}
   \caption{\label{fig:shearTensions} The tension distribution along a
-  vesicle in a linear shear flow. The semi-permeability constant is
+  vesicle in a linear shear flow. The semipermeability constant is
   $\beta = 10^{-4}$ for all these cases, and the elastic capillary
   number ranges from $10^{-1}$ to $10^{2}$ as in
   Figure~\ref{fig:shearComposite}.}
@@ -1150,30 +1237,30 @@ extensional component in the shear flow.
   \end{tikzpicture}
   \caption{\label{fig:parabolicTensions} The equilibrium tension
   distribution of a semipermeable vesicle with $\beta=10^{-3}$ in a parabolic
-  flow (see Figure~\ref{fig:parabolicComposite}). The flow velocities
-  are (a) 200$\mu$m/s, (b) 400$\mu$m/s, (c) 600$\mu$m/s, and (d)
-  800$\mu$m/s.}
+  flow (Figure~\ref{fig:parabolicComposite}). The flow velocities
+  are (a) 200 $\mu$m/s, (b) 400 $\mu$m/s, (c) 600 $\mu$m/s, and (d)
+  800 $\mu$m/s.}
 \end{figure*}
 
 \subsection*{Vesicle in a Poiseuille flow}
 In a nonlinear shear flow, an impermeable vesicle can reach equilibrium
 position at the mid-plane of the shear flow for sufficiently large
 reduced area, regardless of the maximum flow velocity $U$. For a
-semi-permeable vesicle, however, our simulation results (summarized in
+semipermeable vesicle, however, our simulation results (summarized in
 Figure~\ref{fig:parabolicComposite}) show that the equilibrium vesicle
 shape and position are determined by $U$, and independent of the initial
 vesicle reduced area and permeability $\beta$. The corresponding
 membrane tension distribution is shown in
 Figure~\ref{fig:parabolicTensions} as a function of flow velocity $U$
-from $200\mu$m/s to $800\mu$m/s.
+from $200\;\mu$m/s to $800 \;\mu$m/s.
 
 We note that in the Poiseuille flow the membrane tension is positive in
 the front, and negative in the rear part of the vesicle. Furthermore we
 also note that the tension magnitude is almost linearly proportional to
 $U$ as in the linear shear flow.
 
-\subsection*{Vesicle in a closely-fit channel}
-When a semi-permeable vesicle goes through a closely-fit channel, we observe that the water efflux is found in the front, and the influx is in the rear of the vesicle membrane (Figure~\ref{fig:stenosisComposite}). This corresponds well to the corresponding tension distribution in Figure~\ref{fig:stenosisTensions}: Larger tension in the front, and smaller tension in the rear.
+\subsection*{Vesicle in a Closely-Fit Channel}
+When a semipermeable vesicle goes through a closely-fit channel, we observe that the water efflux is found in the front, and the influx is in the rear of the vesicle membrane (Figure~\ref{fig:stenosisComposite}). This corresponds well to the corresponding tension distribution in Figure~\ref{fig:stenosisTensions}: Larger tension in the front, and smaller tension in the rear.
 \begin{figure*}[htp]
   \centering
   \begin{tikzpicture}[scale=1]
@@ -1184,15 +1271,15 @@ When a semi-permeable vesicle goes through a closely-fit channel, we observe tha
     \node at (-1.6,0.7) {(b)};
   \end{tikzpicture}
   \caption{\label{fig:stenosisTensions} The tension distribution along a
-  semi-permeable vesicle going through a closely-fit channel of two
-  different lengths.}
+  semipermeable vesicle with $\beta = 10^{-3}$ going through a
+  closely-fit channel of two different lengths.}
 \end{figure*}
 
-\subsection*{Vesicle going through a contracting channel (slit)}
+\subsection*{Vesicle Going Through a Contracting Channel (Slit)}
 When a semipermeable vesicle goes through a contracting channel (slit)
 the numerical simulations show that both the driving flow and the
 membrane permeability have to be sufficiently large for a successful
-passage through the slit (see Figure~\ref{fig:contractingComposite}). As
+passage through the slit (Figure~\ref{fig:contractingComposite}). As
 the vesicle goes through the contracting channel, the gradual
 confinement first leads to a slow inflation. Once the vesicle is close
 to the neck, it quickly deflates in order to fit the constriction. When
@@ -1200,10 +1287,8 @@ the vesicle is near the neck, simulations show that the water efflux is
 in the front and rear of vesicle while most water influx is in the
 middle. The tension distribution along the vesicle as a function of
 their position in the contracting channel is summarized in
-Figure~\ref{fig:contractingTensions1}, where we observe the membrane
-tension has the largest magnitude when the vesicle is at the neck. Away
-from the neck the membrane tension is quite small due to th
-%\todo[inline]{I might have accidentally deleted some of your work here.Sorry!}
+Figure~\ref{fig:contractingTensions1}, where we observe the
+tension has the largest magnitude when the vesicle is at the neck. 
 \begin{figure}[htp]
   \centering
   \begin{tikzpicture}[scale=1]
@@ -1223,14 +1308,14 @@ from the neck the membrane tension is quite small due to th
     \node at (-4.2,-3.7) {(e)};
   \end{tikzpicture}
   \caption{\label{fig:contractingTensions1} The tension distribution
-  along a semi-permeable vesicle going through a contracting geometry.
+  along a semipermeable vesicle going through a contracting geometry.
   The vesicle tension increases by up to five orders of magnitude when
   as it enters the neck. The permeability constant and flow rates are
-  (a) $U_{\max} = 5.7\mu$m/s, $\beta = 5 \times 10^{-4}$; (b) $U_{\max}
-  = 5.7\mu$m/s, $\beta = 5 \times 10^{-3}$; (c) $U_{\max} = 0.57\mu$m/s,
-  $\beta = 1 \times 10^{-3}$; (d) $U_{\max} = 5.7\mu$m/s, $\beta = 1
-  \times 10^{-3}$; (e) $U_{\max} = 18\mu$m/s, $\beta = 1 \times
-  10^{-3}$.}
+  (a) $U_{\max} = 5.7\;\mu$m/s, $\beta = 5 \times 10^{-4}$; (b)
+  $U_{\max} = 5.7\;\mu$m/s, $\beta = 5 \times 10^{-3}$; (c) $U_{\max} =
+  0.57\;\mu$m/s, $\beta = 1 \times 10^{-3}$; (d) $U_{\max} =
+  5.7\;\mu$m/s, $\beta = 1 \times 10^{-3}$; (e) $U_{\max} = 18\;\mu$m/s,
+  $\beta = 1 \times 10^{-3}$.}
 \end{figure}
 
 
