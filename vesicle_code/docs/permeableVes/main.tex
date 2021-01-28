@@ -771,25 +771,6 @@ unable to pass through the contraction. However, higher flow rates
 result in additional deflation and the vesicle passes through the
 contraction.
 
-\begin{figure}[hbp]
-  \centering
-  \ifTikz
-  \input{figures/contractingComposite2.tikz}
-  \else
-  \includegraphics{figures/contractingComposite2.pdf}
-  \fi
-  \caption{\label{fig:contractingComposite2} Vesicle reduced area and
-  velocity vs.~time. The permeability coefficient is $\beta = 10^{-3}$
-  and the maximum velocity is $18\;\mu$m/s. (a) A semipermeable vesicle
-  passing through six periods of the contracting geometry. (b) The
-  reduced area with the marks representing shapes in (a). (c) The
-  vesicle velocity with the marks representing shapes in (a). In (b) and
-  (c), the lower x-axis is the x-coordinate of the center of mass, and
-  the upper x-axis is time. The colored vesicles show the tension
-  distribution in N/m of the circled vesicles. Throughout the entire
-  simulation, these vesicle configurations have the largest tension.}
-\end{figure}
-
 To understand the effects of water permeability on a vesicle that
 repeatedly passes through micro-capillary vessels or sub-micron slits,
 we construct a contracting geometry
@@ -823,6 +804,25 @@ few hours, when water influx begins to dominate and inflate the vesicle.
 Over a time scale of more than four weeks, a semipermeable vesicle is
 fully inflated, independent of its initial surface-to-volume ratio.
 
+\begin{figure}[hbp]
+  \centering
+  \ifTikz
+  \input{figures/contractingComposite2.tikz}
+  \else
+  \includegraphics{figures/contractingComposite2.pdf}
+  \fi
+  \caption{\label{fig:contractingComposite2} Vesicle reduced area and
+  velocity vs.~time. The permeability coefficient is $\beta = 10^{-3}$
+  and the maximum velocity is $18\;\mu$m/s. (a) A semipermeable vesicle
+  passing through six periods of the contracting geometry. (b) The
+  reduced area with the marks representing shapes in (a). (c) The
+  vesicle velocity with the marks representing shapes in (a). In (b) and
+  (c), the lower x-axis is the x-coordinate of the center of mass, and
+  the upper x-axis is time. The colored vesicles show the tension
+  distribution in N/m of the circled vesicles. Throughout the entire
+  simulation, these vesicle configurations have the largest tension.}
+\end{figure}
+
 Under strong confinement we show that water permeation can be amplified
 on a time scale of a few seconds as a vesicle is squeezed through a
 closely-fit channel and a contracting channel. As a semipermeable
@@ -840,17 +840,25 @@ permeability on vesicle hydrodynamics under confinement.
 Using scaling arguments, we showed that permeability due to osmolarity
 is two orders of magnitude larger than permeability due to tension, and
 six orders of magnitude larger than permeability due to bending.
-Therefore, future studies will investigate semi-permeability in the
-presence of a solute concentration. The presence of such a solute
-concentrations is responsible for many physiological processes including
-cell migration in confined
-microenvironments~\cite{StrokaJiangChenEtAl2014_Cell},
-dialysis~\cite{wan2006}, cell desiccation~\cite{vogl2014effect} and
-apoptosis~\cite{marchetti1996mitochondrial}. We plan to investigate
-vesicle motion in a solute in the zero Peclet number limit which was
-analyzed for spherical vesicles by Anderson~\cite{and1983} and more
-general shapes using a finite element method by Jaeger {\em et
-al.}~\cite{jae-car-med-try1999}.
+Therefore, future studies will investigate semipermeable membranes
+suspended in a solvent with a solute concentration. The presence of a
+solute is responsible for many physiological processes including cell
+migration in confined
+microenvironments~\cite{StrokaJiangChenEtAl2014_Cell,
+papadopoulos2008aquaporins}, dialysis~\cite{wan2006}, cell
+desiccation~\cite{vogl2014effect}, and
+apoptosis~\cite{marchetti1996mitochondrial}. While the solute dynamics
+is governed by an advection-diffusion equation, many biophysical
+applications involve speeds no greater than $\sim 50$
+$\mu$m/hour~\cite{StrokaJiangChenEtAl2014_Cell}, a length scale of 10
+$\mu$m, and a solute diffusivity of $\sim 10^{-10}$ m$^2$/s (glucose in
+water). The resulting Peclet number is $\sim 10^{-2}$, and this limit
+has been analyzed for spherical vesicles by Anderson~\cite{and1983} and
+more general shapes using a finite element method by Jaeger {\em et
+al.}~\cite{jae-car-med-try1999}. Since the dynamics of the concentration
+is diffusion-dominated, we will use a stable and accurate boundary
+integral method that is similar to the numerical method we apply to the
+hydrodynamics (see Supplementary Material).
 
 
 \acknow{We thank Howard Stone, Michael J.~Shelley, Petia Vlahovska,
