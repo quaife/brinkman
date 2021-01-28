@@ -847,18 +847,28 @@ migration in confined
 microenvironments~\cite{StrokaJiangChenEtAl2014_Cell,
 papadopoulos2008aquaporins}, dialysis~\cite{wan2006}, cell
 desiccation~\cite{vogl2014effect}, and
-apoptosis~\cite{marchetti1996mitochondrial}. While the solute dynamics
-is governed by an advection-diffusion equation, many biophysical
-applications involve speeds no greater than $\sim 50$
-$\mu$m/hour~\cite{StrokaJiangChenEtAl2014_Cell}, a length scale of 10
-$\mu$m, and a solute diffusivity of $\sim 10^{-10}$ m$^2$/s (glucose in
-water). The resulting Peclet number is $\sim 10^{-2}$, and this limit
-has been analyzed for spherical vesicles by Anderson~\cite{and1983} and
-more general shapes using a finite element method by Jaeger {\em et
-al.}~\cite{jae-car-med-try1999}. Since the dynamics of the concentration
-is diffusion-dominated, we will use a stable and accurate boundary
-integral method that is similar to the numerical method we apply to the
-hydrodynamics (see Supplementary Material).
+apoptosis~\cite{marchetti1996mitochondrial}. 
+
+Cells exhibit a dynamic volume-to-surface ratio in 
+many physiological processes, such as 
+cell migration in confined microenvironments~\cite{StrokaJiangChenEtAl2014_Cell, papadopoulos2008aquaporins}, 
+dialysis~\cite{wan2006}, cell desiccation~\cite{vogl2014effect}, cell division~\cite{FredChang} and
+apoptosis~\cite{marchetti1996mitochondrial}.
+%osmotic flow across the membrane.
+While osmotic stress  is more effective and efficient than mechanical stress in contributing to change in cellular volume, our results suggest that the water permeation due to the capillary pressure may be non-negligible over long times and/or under strong confinement in these physiological processes. Currently we are investigating the effects of osmotic stress in the small Peclet number limit, which is relevant to cellular migration in the presence of both confinement and a solute gradient~\cite{StrokaJiangChenEtAl2014_Cell} and has been studied numerically by Jaeger {\em et al.}~\cite{jae-car-med-try1999}
+
+%While the solute dynamics
+%is governed by an advection-diffusion equation, many biophysical
+%applications involve speeds no greater than $\sim 50$
+%$\mu$m/hour~\cite{StrokaJiangChenEtAl2014_Cell}, a length scale of 10
+%$\mu$m, and a solute diffusivity of $\sim 10^{-10}$ m$^2$/s (glucose in
+%water). The resulting Peclet number is $\sim 10^{-2}$, and this limit
+%has been analyzed for spherical vesicles by Anderson~\cite{and1983} and
+%more general shapes using a finite element method by Jaeger {\em et
+%al.}~\cite{jae-car-med-try1999}. Since the dynamics of the concentration
+%is diffusion-dominated, we will use a stable and accurate boundary
+%integral method that is similar to the numerical method we apply to the
+%hydrodynamics (see Supplementary Material).
 
 
 \acknow{We thank Howard Stone, Michael J.~Shelley, Petia Vlahovska,
