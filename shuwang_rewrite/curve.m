@@ -21,6 +21,7 @@ end % getXY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function V = setXY(o,x,y)
 % V = setXY(x,y) sets the [x,y] component of vector V on the curve
+
 N = size(x,1);
 V=zeros(2*N,size(x,2));
 V(1:N,:) = x;
@@ -33,7 +34,9 @@ end % setXY
 function [Dx,Dy] = getDXY(o,X)
 % [Dx,Dy]=getDXY(X), compute the derivatives of each component of X 
 % these are the derivatives with respect the parameterization 
-% not arclength
+% NOT arclength. Divide by length to find the derivative with respect to 
+% arclength
+
 x = X(1:end/2,:);
 y = X(end/2+1:end,:);
 N = size(x,1);
@@ -187,13 +190,9 @@ end
 X = zeros(2*N,1);
 X(1:N) = scale*(cos(theta) * X0(1:N) - sin(theta) * X0(N+1:2*N));
 X(N+1:2*N) = scale*(sin(theta) * X0(1:N) +  cos(theta) * X0(N+1:2*N));
-% Rotate and scale vesicle
 
+% Rotate and scale vesicle
 if ~equispaced
-%  figure(1); clf;
-%  plot(X(1:end/2),X(end/2+1:end),'b--')
-%  axis equal;
-%  hold on;
   sa = o.diffProp(X); % compute arclength of the vesicle shape
   alpha = o.arc(sa);
   % find parameter values that give discretization points that are
@@ -203,11 +202,6 @@ if ~equispaced
        'folds',folds,'parameter',alpha);
 end
 alpha = (0:N-1)'/N;
-% clf
-% figure(1); hold on;
-% plot(X(1:end/2),X(end/2+1:end),'ro')
-% axis equal;
-% pause
 
 end % initConfig
 
@@ -251,7 +245,6 @@ for j = 2:N
     end
   end
 end
-
 
 end % arc
 
@@ -318,6 +311,7 @@ elseif symmetry==2
   rcon = concentration+ 5*smallper*sin(4*pi^2*alpha);
   % uniform concentration with one small odd Fourier mode
 end
+
 end % initialConcentration
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -338,8 +332,9 @@ end
 % initial opening angle
 [DDx,DDy] = o.getDXY([Dx;Dy]);
 
-% second derivative of the shape
+% second derivative of the shape;
 L = sum(sqrt(Dx.^2 + Dy.^2))/N;
+
 % arclength which should be nearly constant since we constructed
 % discretizations points that are equally spaced in arclength
 
@@ -347,11 +342,10 @@ cur = (Dx.*DDy - Dy.*DDx)/L^3;
 % compute curvature
 
 IK = o.modes(N);
-theta = L*o.intFT(cur,IK);
+theta = o.intFT(L*cur-2*pi,IK);
 % integrate the curature to find the opening angle
 
-theta = theta + t0;
-
+theta = theta + t0 + (0:N-1)'*2*pi/N;
 % add in the initial opening angle
 
 end % computeOpeningAngle
@@ -372,30 +366,7 @@ avy = sum(L*sin(theta))/N;
 x = x - (0:N-1)'*avx/N + x0;
 y = y - (0:N-1)'*avy/N + y0;
 
-% clf
-% disp('here')
-% jac = o.diffProp([x;y]);
-% semilogy(abs(fftshift(fft(theta-2*pi*(0:N-1)'/N))))
-% pause
-
-% x(1)
-% x(end)
-% y(1)
-% y(end)
-% disp('--------------------------')
-% pause
-%figure(1);clf;
-%%semilogy(abs(fftshift(fft(theta-2*pi*(0:N-1)'/N))))
-%semilogy(abs(fftshift(fft(sin(theta)))),'r')
-%%semilogy(abs(fftshift(fft(y))),'r')
-%pause
 X = o.setXY(x,y);
-
-%clf;
-%semilogy(abs(fftshift(fft(theta - (0:N-1)'*2*pi/N))))
-%hold on
-%semilogy(abs(fftshift(fft(x))),'r')
-%pause
 
 end % recon
 
@@ -405,22 +376,8 @@ function df = diffFT(o,f,IK)
 % df = diffFT(f,IK) Computes the first derivative of a periodic function
 % f using fourier transform. IK is used to speed up the code.  It is the
 % index of the fourier modes so that fft and ifft can be used
-%f
-%disp('fft of f')
-%semilogy(abs(fftshift(fft(f))))
-%pause
-df = real(ifft(IK.*fft(f)));
 
-% disp('f')
-% clf
-% plot(f)
-% %semilogy(abs(fftshift(fft(f))))
-% pause
-% f(1:10)
-% disp('fft of f')
-% clf
-% semilogy(abs(fftshift(fft(f))))
-% pause
+df = real(ifft(IK.*fft(f)));
 
 end % diffFT
 
@@ -491,36 +448,13 @@ ftheta = o.forceTheta(ves,un,ut,fdotn);
 % now we must subtract off the stiffest part in Fourier space.
 % To the power of 3 term comes from the third-derivative of the function
 % that L is being applied to in equation (53)
-
 rlen = -ves.bendsti*(abs(IK)/L).^3/4 - ves.SPc*ves.bendsti*(IK/L).^4; 
 % last term in eq(54)
-
 var1 = fft(ftheta); % fft of first 2 terms in (54)
 var2 = fft(theta-(2*pi*(0:N-1))'/N);
-%clf;
-%plot(ut)
-%pause
-fntheta = real(ifft(var1 + rlen.*var2));
-%clf;
-%disp('N1 in fthetaim')
-%figure(1); hold on
-%figure(1); clf
-%semilogy(abs(fftshift(fft(fntheta))),'r*')
-%semilogy(abs(real(fftshift(fft(fntheta)))),'bo')
-%pause
-%figure(3)
-%clf;
-%semilogy(abs(fftshift(fft(un))))
-%hold on
+fntheta = real(ifft(var1 - rlen.*var2));
 %Krasney filter applied to smooth out spurious high frequency terms
-%clf;
-%semilogy(abs(fftshift(fft(fntheta))),'bo')
-%hold on
 fntheta = o.kfilter(fntheta,N);
-% semilogy(abs(fftshift(fft(fntheta))),'r*')
-% semilogy(abs(fftshift(fft(fntheta))),'r--')
-% plot(fntheta)
-%pause
 
 end %fthetaim
 
@@ -533,10 +467,8 @@ IK = o.modes(N);
 %compute first derivative of the opening angle using Fourier
 %differentiation. This is actually the curvature
 dthetads = o.rmLinearPart(ves)/L;
-
 %compute the derivative of the normal velocity
 dunds = o.diffFT(un + ves.SPc*fdotn,IK)/L;    
-
 % Check T_s = -V * curvature (local inextensibility condition) (see
 % equation (20) in Sohn et al JCP 2010)
 ftheta = -dunds + dthetads.*ut;
@@ -549,30 +481,12 @@ function filtered = kfilter(o,ftheta,N)
 %USING FAST FOURIER TRANSFORM
 tol = 1e-8;
 b = fft(ftheta);
-%clf;
-%semilogy(abs((fftshift(b))),'bo')
 b(abs(b)/N < tol) = 0;
 b(N/2:N/2+2) = 0;
-
-%hold on
-%semilogy(abs(fftshift((b))),'k*')
-
 c = real(b.*exp(-10*([0:2:N N-2:-2:2]'/N).^25));
 d = imag(b.*exp(-10*([1:2:N-1 0 N-1:-2:3]'/N).^25));
 d(N/2-1) = 0; d(N/2+3) = 0;
-
 filtered = real(ifft(c+1i*d));
-
-%hold on
-%semilogy(abs(fftshift(fft(filtered))),'ro')
-%pause
-%hold on
-%%size(ftheta)
-%figure(1); clf;
-%plot(ftheta); hold on;
-%plot(filtered,'r--')
-%semilogy(fftshift(abs(b)))
-%pause
 
 end %kfilter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -588,7 +502,6 @@ IK = o.modes(N);
 %ie. termd is the variational derivative of the energy with
 %respect to the lipid concentration
 termd = o.fluxj(ves,epsch,consta);
-
 %now taking derivative of the variational derivative twice
 rcons = o.diffFT(termd,IK)/L;
 rconss = o.diffFT(rcons,IK)/L;
@@ -602,21 +515,11 @@ rconHat = fft(rcon);
 %the lipid species to result in the fourth derivative scaled by the a
 %and \eps constants in equation (67)
 rlen = invPe*(IK/L).^4*consta*epsch;
-
 %N2 is equation (67) in the physical space.
 N2Hat = fconHat + rlen.*rconHat;
 N2Hat(1) = 0;
 N2 = real(ifft(N2Hat));
 
-% N2 = real(ifft(fconHat + rlen.*rconHat));
-% figure(2)
-% clf
-% z1 = rcon;
-% z2 = N2Hat;
-% semilogy(abs(fftshift(fft(z1))),'b')
-% hold on
-% semilogy(abs(fftshift(fft(z2))),'r')
-% pause()
 end %frconim
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -629,7 +532,6 @@ N = ves.N;
 L = ves.L;
 rcon = ves.rcon;
 IK = o.modes(N);
-
 %dfu is the derivative of the double-well potential
 dfu = 0.5*(rcon.*(ones(N,1)-rcon).^2 - rcon.^2.*(ones(N,1)-rcon));
 %derivative of the concentration 
@@ -638,16 +540,6 @@ rcons = o.diffFT(rcon,IK)/L;
 rconss = o.diffFT(rcons,IK)/L;
 %term2 is eps^2 * u_ss as defined in equation (13)
 term2 = -epsch^2*rconss;
-% 
-% figure(2)
-% clf
-% z1 = term2;
-% z2 = rcon;
-% semilogy(abs(fftshift(fft(z1))),'b')
-% hold on
-% semilogy(abs(fftshift(fft(z2))))
-% pause()
-
 %computing the b'(u)/2 * kappa^2 term in eq (13)
 b0 = ves.bendsti;
 b1 = ves.bendsti*ves.bendratio;
@@ -668,18 +560,22 @@ end %fluxj
 function dkap = acurv(o,ves)
 %This routine computes the curvature from the tangent angle
 %formulation
-%disp('In acurv')
+
 dkap = o.rmLinearPart(ves)/ves.L;
 
 end %acurv
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function CoM = centerOfMass(o, X, xory, L, normal)
+% This function returns the center of mass of the vesicle
+    
   N = length(X)/2;  
   [~,Area,~] = o.geomProp(X);
   CoM = 0.5*L*sum(xory.^2.*normal)/(N*Area); 
+
 end %centerOfMass
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 end % methods
 
 end % classdef

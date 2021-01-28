@@ -28,21 +28,18 @@ function o = monitor(X,params,options)
 % so that the errors in area and length can be monitored throughout the
 % simulation.
 % This is the constructor
-
-o.N = params.N;                      % points per vesicle
-o.T = params.T;                      % time horizon
-o.m = params.T/params.dt;            % number of time steps
-o.cls = params.concentra;            % concentration of lipid species
-
-o.verbose = options.verbose;        % write data to console
-o.saveData = options.saveData;      % save the data
-o.usePlot = options.usePlot;        % plot the data
-o.dataFile = options.dataFile;      % data file name
-o.logFile = options.logFile;        % log file name
-
-oc = curve;
-%[o.reducedArea,o.area,o.length] = oc.geomProp(X);
-% area, length, and reduced area of initial shape
+o.N = params.N; % points per vesicle
+o.T = params.T; % time horizon
+o.m = params.T/params.dt; % number of time steps
+o.cls = params.concentra; % concentration of lipid species
+o.verbose = options.verbose; % write data to console
+o.saveData = options.saveData; % save the data
+o.usePlot = options.usePlot; % plot the data
+o.dataFile = options.dataFile; % data file name
+o.logFile = options.logFile; % log file name
+oc = curve; %shorthand for curve class
+% compute the area, length, and reduced area of initial shape
+[o.reducedArea,o.area,o.length] = oc.geomProp(X);
 
 end % constructor: monitor
 
@@ -54,8 +51,8 @@ function initializeFiles(o,X,conc,time,vel)
 % targets X and Xwalls are the vesicles and solid walls.
 
 N = o.N; % points per vesicle
-oc = curve;
-
+oc = curve; % shorthand for curve class
+% Save data to files if desired
 if o.saveData
   fid = fopen(o.dataFile,'w');
   %write number of points and vesicles to data file
@@ -64,31 +61,26 @@ if o.saveData
   fid = fopen(o.logFile,'w');
   fclose(fid);
 end
-
 o.writeMessage(' ','%s\n')
 message = ['************* PHYSICAL PARAMETERS *************'];
 o.writeMessage(message,'%s\n')
-
 % write number of points
 message = [num2str(N) ' points per vesicle'];
 o.writeMessage(message,'%s\n')
-
 %write the timestep size
 message = ['Time step size is ' ...
   num2str(o.T/o.m)];
 o.writeMessage(message,'%s\n')
 % write time step size or that we are doing adaptive time stepping
-
 message = ['The concentration of lipid species is: ' ...
     num2str(o.cls,'%4.2e')];
 o.writeMessage(message,'%s\n')
-  
+% compute the errors in length and area  
 [ea,el] = o.errors(X);
-
+% Save data
 if o.saveData
   o.writeData(X,conc,ea,el,time,vel,N);
   % save initial configuartion
-
   message = ['Initial Area is:                ' ...
       num2str(o.area(1),'%10.2e')];
   o.writeMessage(message,'%s\n')
@@ -100,7 +92,6 @@ if o.saveData
   o.writeMessage(message,'%s\n\n')
 end
 % write initial reduced area, area, and length to log file
-
 o.writeStars
 o.writeMessage(' ','%s\n')
 
@@ -111,7 +102,8 @@ function terminate = outputInfo(o,X,conc,time,vel,ea,el)
 % computes the error in area and length and write messages to the data
 % file, the log file, and the console.
 
-%[ea,el] = o.errors(X);
+%Compute the error in area and length 
+[ea,el] = o.errors(X);
 
 % Begin plotting
 if o.usePlot
@@ -191,10 +183,11 @@ function plotData(o,X,time,ea,el,vel,conc)
 % plotData(X,Xwalls,time,ea,el) plots the current configuration with
 % title X is the vesicle position time is the current time, ea and el
 % are the errors in area and length
+%TODO: Edit this so that ea and el are computed instead of inputs
 
- oc = curve;
- [x,y] = oc.getXY(X); %seperate x and y coordinates
- figure(1); clf; %hold on
+oc = curve; % shorthand for curve class
+ [x,y] = oc.getXY(X); % seperate x and y coordinates
+ figure(1); clf; % hold on
 
 %----------- General Position Plot ------------------------------------
 %plot([x;x(1,:)],[y;y(1,:)],'r','linewidth',2)
@@ -203,20 +196,17 @@ function plotData(o,X,time,ea,el,vel,conc)
 %[xvel,yvel] = oc.getXY(vel);
 %quiver(x,y,xvel,yvel)
 
-%----------- Cline Concentration Plot ---------------------------------
+%----------- Cline Bending Stiffness Plot ---------------------------------
 rbn = 1 * (ones(o.N,1) - conc) + 0.1*conc;
-
 h = cline([x;x(1,:)],[y;y(1,:)],[rbn;rbn(1,:)]);
 set(h,'linewidth',3)
 colorbar
-
 %Title and axis settings for all plots
 titleStr = ['t = ' num2str(time,'%4.2e') ...
   ' eA = ' num2str(ea,'%4.2e') ...
   ' eL = ' num2str(el,'%4.2e')];
 title(titleStr)
 axis equal
-
 
 end % plotData
 
