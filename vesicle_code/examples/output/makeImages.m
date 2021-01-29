@@ -20,7 +20,8 @@ if 0
 end
 
 if 1
-  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/stenosis/longConstriction_ra065_beta1em3/choke1VesData_Part1.bin';
+file = '~/Dropbox/Adhesion/choke1VesKEp01Data_Jan24.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/stenosis/longConstriction_ra065_beta1em3/choke1VesData_Part1.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/stenosis/longConstriction_ra065_beta1em3/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3RA0p25/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
@@ -29,7 +30,7 @@ if 1
 
   options.marker = false;
 %  file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/stenosis/shortConstriction_beta1em3/choke1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/stenosis/shortConstriction_beta0/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3RA0p20/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3RA0p65Centered/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield1e0/choke1VesData.bin'

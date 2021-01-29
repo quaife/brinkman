@@ -10,12 +10,12 @@
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
 params.N = 64; % points on vesicle
 params.dt = 1e-3; % time step size
-params.T = 0.5; % time horizon
+params.T = 5; % time horizon
 params.outpt = 1e-3; % ouptut frequency
 params.concentra = 0.3; %concentration; % constant, initial concentration of lipid species
 params.oddeven = 0; % flag for initial lipid species profile?
 params.shortax = .8146/3;%8146; % short axis length
-params.shearRate = 0; %farFieldSpeed; % shear rate
+params.shearRate = 20; %farFieldSpeed; % shear rate
 params.viscosityInside = 1.0;
 params.viscosityOutside = 1.0;
 params.bendsti = 1; % maximum bending stiffness
