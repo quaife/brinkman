@@ -720,6 +720,18 @@ resemble those of an impermeable vesicle. As the force balance velocity
 decreases, the permeability velocity dominates, and the vesicle begins
 to inflate to a circle with vanishing force and velocity. 
 
+\begin{figure*}[htp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/relaxationTensions2.pdf}
+%  \ifTikz
+%    \input{figures/relaxationTensions.tikz}
+%  \else
+%    \includegraphics{figures/relaxationTensions.pdf}
+%  \fi
+  \caption{\label{fig:relaxationTensions} The tension distribution of
+  vesicles in relaxation that corresponds to
+  Figure~\ref{fig:relaxationComposite}.}
+\end{figure*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Planar Shear Flow}
@@ -792,13 +804,13 @@ extensional component in the shear flow.
     \node[inner sep=0pt] at (0,0) {
     \includegraphics[width=\textwidth]{figures/shearTensions.pdf}
     };
-    \node at (-8.54,0.6) {(a)};
-    \node at (-6.00,0.6) {(b)};
-    \node at (-3.46,0.6) {(c)};
-    \node at (-0.92,0.6) {(d)};
-    \node at (+1.60,0.6) {(e)};
-    \node at (+4.16,0.6) {(f)};
-    \node at (+6.70,0.6) {(g)};
+%    \node at (-8.54,0.6) {(a)};
+%    \node at (-6.00,0.6) {(b)};
+%    \node at (-3.46,0.6) {(c)};
+%    \node at (-0.92,0.6) {(d)};
+%    \node at (+1.60,0.6) {(e)};
+%    \node at (+4.16,0.6) {(f)};
+%    \node at (+6.70,0.6) {(g)};
   \end{tikzpicture}
 %  \includegraphics[width=\textwidth]{figures/shearTensions.pdf}
   \caption{\label{fig:shearTensions} The tension distribution along a
@@ -979,11 +991,11 @@ flow, vesicle shape deformation, and membrane tension distribution.
 \subsection{Semipermeable Vesicle in a Closely-fit Channel (Stenosis)}
  \begin{figure*}[hbp]
   \centering
-  \ifTikz
+%  \ifTikz
   \input{figures/stenosisComposite.tikz}
-  \else
-  \includegraphics{figures/stenosisComposite.pdf}
-  \fi
+%  \else
+%  \includegraphics{figures/stenosisComposite.pdf}
+%  \fi
   \caption{\label{fig:stenosisComposite} (a) A semipermeable vesicle
    passing through a closely-fit channel similar to the experimental
    device in~\cite{abk-fai-sto2006}. (b) A semipermeable vesicle passing
@@ -1057,19 +1069,19 @@ stenosis for a residence time $t_R \approx 70$ ms and the area decreases
 by 13.2\% (red curves).
 
 When a semipermeable vesicle goes through a closely-fit channel, we observe that the water efflux is found in the front, and the influx is in the rear of the vesicle membrane (Figure~\ref{fig:stenosisComposite}). This corresponds well to the corresponding tension distribution in Figure~\ref{fig:stenosisTensions}: Larger tension in the front, and smaller tension in the rear.
-\begin{figure*}[htp]
-  \centering
-  \begin{tikzpicture}[scale=1]
-    \node[inner sep=0pt] at (0,0) {
-    \includegraphics[width=\textwidth]{figures/stenosisTensions.pdf}
-    };
-    \node at (-8.6,0.7) {(a)};
-    \node at (-1.6,0.7) {(b)};
-  \end{tikzpicture}
-  \caption{\label{fig:stenosisTensions} The tension distribution along a
-  semipermeable vesicle with $\beta = 10^{-3}$ going through a
-  closely-fit channel of two different lengths.}
-\end{figure*}
+%\begin{figure*}[htp]
+%  \centering
+%  \begin{tikzpicture}[scale=1]
+%    \node[inner sep=0pt] at (0,0) {
+%    \includegraphics[width=\textwidth]{figures/stenosisTensions.pdf}
+%    };
+%    \node at (-8.6,0.7) {(a)};
+%    \node at (-1.6,0.7) {(b)};
+%  \end{tikzpicture}
+%  \caption{\label{fig:stenosisTensions} The tension distribution along a
+%  semipermeable vesicle with $\beta = 10^{-3}$ going through a
+%  closely-fit channel of two different lengths.}
+%\end{figure*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Semipermeable Vesicle in a Contracting Geometry} 
@@ -1078,7 +1090,18 @@ When a semipermeable vesicle goes through a closely-fit channel, we observe that
   \ifTikz
   \input{figures/contractingComposite.tikz}
   \else
+  \begin{minipage}{0.45\textwidth}
+    \centering
   \includegraphics{figures/contractingComposite.pdf}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.45\textwidth}
+    \centering
+  \includegraphics[width=\textwidth]{figures/contractingTensions1.pdf}
+  \includegraphics[width=\textwidth]{figures/contractingTensions2.pdf}
+    \todo[inline]{Maximum tension as a function of center of mass down
+    here}
+  \end{minipage}
   \fi
   \caption{\label{fig:contractingComposite} A contracting channel
   similar to the experimental configuration in~\cite{wu2015critical}.
@@ -1136,11 +1159,11 @@ contraction.
 
 \begin{figure}[hbp]
   \centering
-  \ifTikz
+%  \ifTikz
   \input{figures/contractingComposite2.tikz}
-  \else
-  \includegraphics{figures/contractingComposite2.pdf}
-  \fi
+%  \else
+%  \includegraphics{figures/contractingComposite2.pdf}
+%  \fi
   \caption{\label{fig:contractingComposite2} Vesicle reduced area and
   velocity vs.~time. The permeability coefficient is $\beta = 10^{-3}$
   and the maximum velocity is $18\;\mu$m/s. (a) A semipermeable vesicle
@@ -1182,34 +1205,34 @@ middle. The tension distribution along the vesicle as a function of
 their position in the contracting channel is summarized in
 Figure~\ref{fig:contractingTensions1}, where we observe the
 tension has the largest magnitude when the vesicle is at the neck. 
-\begin{figure}[htp]
-  \centering
-  \begin{tikzpicture}[scale=1]
-    \node[inner sep=0pt] at (0,0) {
-    \includegraphics[width=0.5\textwidth]{figures/contractingTensions1.pdf}
-    };
-    \node[inner sep=0pt] at (0,-2.3) {
-    \includegraphics[width=0.5\textwidth]{figures/contractingTensions2.pdf}
-    };
-    \node[inner sep=0pt] at (0,-4.8) {
-    \includegraphics[width=0.5\textwidth]{figures/contractingTensions3.pdf}
-    };
-    \node at (-4.2,0.9) {(a)};
-    \node at (-4.2,-1.4) {(b)};
-    \node at (+0.8,0.9) {(c)};
-    \node at (+0.8,-1.4) {(d)};
-    \node at (-4.2,-3.7) {(e)};
-  \end{tikzpicture}
-  \caption{\label{fig:contractingTensions1} The tension distribution
-  along a semipermeable vesicle going through a contracting geometry.
-  The vesicle tension increases by up to five orders of magnitude when
-  as it enters the neck. The permeability constant and flow rates are
-  (a) $U_{\max} = 5.7\;\mu$m/s, $\beta = 5 \times 10^{-4}$; (b)
-  $U_{\max} = 5.7\;\mu$m/s, $\beta = 5 \times 10^{-3}$; (c) $U_{\max} =
-  0.57\;\mu$m/s, $\beta = 1 \times 10^{-3}$; (d) $U_{\max} =
-  5.7\;\mu$m/s, $\beta = 1 \times 10^{-3}$; (e) $U_{\max} = 18\;\mu$m/s,
-  $\beta = 1 \times 10^{-3}$.}
-\end{figure}
+%\begin{figure}[htp]
+%  \centering
+%  \begin{tikzpicture}[scale=1]
+%%    \node[inner sep=0pt] at (0,0) {
+%%    \includegraphics[width=0.5\textwidth]{figures/contractingTensions1.pdf}
+%%    };
+%%    \node[inner sep=0pt] at (0,-2.3) {
+%%    \includegraphics[width=0.5\textwidth]{figures/contractingTensions2.pdf}
+%%    };
+%    \node[inner sep=0pt] at (0,-4.8) {
+%    \includegraphics[width=0.5\textwidth]{figures/contractingTensions3.pdf}
+%    };
+%    \node at (-4.2,0.9) {(a)};
+%    \node at (-4.2,-1.4) {(b)};
+%    \node at (+0.8,0.9) {(c)};
+%    \node at (+0.8,-1.4) {(d)};
+%    \node at (-4.2,-3.7) {(e)};
+%  \end{tikzpicture}
+%  \caption{\label{fig:contractingTensions1} The tension distribution
+%  along a semipermeable vesicle going through a contracting geometry.
+%  The vesicle tension increases by up to five orders of magnitude when
+%  as it enters the neck. The permeability constant and flow rates are
+%  (a) $U_{\max} = 5.7\;\mu$m/s, $\beta = 5 \times 10^{-4}$; (b)
+%  $U_{\max} = 5.7\;\mu$m/s, $\beta = 5 \times 10^{-3}$; (c) $U_{\max} =
+%  0.57\;\mu$m/s, $\beta = 1 \times 10^{-3}$; (d) $U_{\max} =
+%  5.7\;\mu$m/s, $\beta = 1 \times 10^{-3}$; (e) $U_{\max} = 18\;\mu$m/s,
+%  $\beta = 1 \times 10^{-3}$.}
+%\end{figure}
 
 \section{Discussion}
 In this work we investigate the effects of membrane permeability to

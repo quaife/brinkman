@@ -1,6 +1,7 @@
 \begin{tikzpicture}[scale=1.0]
 
 % START OF RIGHT PANEL OF COMPOSITE FIGURE
+% vesicle going through constriction
 \begin{axis}[
   at = {(0.0cm,7.4cm)},
   width = 8.00cm,
@@ -4506,8 +4507,9 @@
 
 \end{axis}
 
+% reduced area vs. time/space
 \begin{axis}[
-  at = {(0.0cm,0.0cm)},
+  at = {(9.0cm,3.0cm)},
   width = 8.00cm,
   xmin = 0,
   xmax = 8.2,
@@ -10325,7 +10327,7 @@
 
 \begin{axis}[
   xticklabel pos=right,
-  at = {(0.0cm,0.0cm)},
+  at = {(9.0cm,3.0cm)},
   width = 8.00cm,
   xmin = 0,
   xmax = 8.2,
@@ -10344,27 +10346,26 @@
 
 \end{axis}
 
-
-
+% inset
 \begin{axis}[
-  width = 5.0cm,
-  at = {(2.8cm,1.8cm)},
+  width = 4.5cm,
+  at = {(12.2cm,5.1cm)},
   xmin = 0,
   xmax = 8.2,
   ymin = 10,
   ymax = 100,
   xtick = {0,2,4,6,8},
-  xticklabels = {\footnotesize 0,\footnotesize 2,\footnotesize
-  4,\footnotesize 6,\footnotesize 8},
+  xticklabels = {\scriptsize 0,\scriptsize 2,\scriptsize 4,\scriptsize
+  6,\scriptsize 8},
   ytick = {20,40,60,80,100},
-  yticklabels = {\footnotesize 20,\footnotesize 40,\footnotesize
-  60,\footnotesize 80,\footnotesize 100},
+  yticklabels = {\scriptsize 20,\scriptsize 40,\scriptsize
+  60,\scriptsize 80,\scriptsize 100},
   xlabel near ticks,
   ylabel near ticks,
   xlabel style = {yshift = 0.1cm},
-  ylabel style = {yshift = -0.3cm},
-  xlabel = {\footnotesize $t$ [s]},
-  ylabel = {\footnotesize velocity [$\mu$m/s]},
+  ylabel style = {yshift = -0.2cm},
+  xlabel = {\scriptsize $t$ [s]},
+  ylabel = {\scriptsize velocity [$\mu$m/s]},
   xtick pos = left,
   ytick pos = left,
 ]
@@ -16170,21 +16171,18 @@
 
 \begin{axis}[
   xticklabel pos=right,
-  width = 5.0cm,
-  at = {(2.8cm,1.8cm)},
+  width = 4.5cm,
+  at = {(12.2cm,5.1cm)},
   xmin = 0,
   xmax = 8.2,
   ymin = 10,
   ymax = 100,
-%  xtick = {0,1.4214,3.1108,4.8104,6.4968,8.1661},
-%  xticklabels = {\footnotesize 0,\footnotesize 45,\footnotesize
-%  90,\footnotesize 135,\footnotesize 180,\footnotesize  225},
   xtick = {0,8.9559e-01,1.4214e+00,2.6003e+00,3.1108e+00,4.2626e+00,4.8104e+00,5.9071e+00,6.4968e+00,7.5264e+00,8.1661e+00},
-  xticklabels = {\footnotesize 0,,\footnotesize 45,,\footnotesize
-  90,,\footnotesize 135,,\footnotesize 180,,\footnotesize  225},
+  xticklabels = {\scriptsize 0,,\scriptsize 45,,\scriptsize
+  90,,\scriptsize 135,,\scriptsize 180,,\scriptsize  225},
   ytick = \empty,
   xlabel near ticks,
-  xlabel = {\footnotesize $x$ [$\mu$m]},
+  xlabel = {\scriptsize $x$ [$\mu$m]},
   xlabel style = {yshift = -0.1cm},
   xtick pos = right,
   ytick pos = left,
@@ -18309,10 +18307,15 @@
 \draw[rounded corners,black,line width=0.5pt] (5.20,8.0) rectangle
 +(0.80,0.4) {};
 
+\node[inner sep=0pt] at (3.35,4.6) {
+\includegraphics[width=0.41\textwidth]{contractingTensions3.pdf}
+};
 
-\node at (0.1,8.2+0.89) {(a)};
-\node at (0.1,6.1) {(b)};
-\node at (3.1,4.2) {(c)};
+
+\node at (0.1,9.09) {(a)};
+\node at (0.1,5.42) {(b)};
+\node at (9.1,9.09) {(c)};
+\node at (11.8,7.9) {(d)};
 
 
 \end{tikzpicture}
