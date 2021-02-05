@@ -1,4 +1,4 @@
-filename=main
+filename=semipermeable_vesicle
 compileLatexOptions=--quiet --c-style-errors
 compilePdfOptions=
 

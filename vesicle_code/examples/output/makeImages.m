@@ -20,7 +20,7 @@ if 0
 end
 
 if 1
-file = '~/Dropbox/Adhesion/choke1VesKEp01Data_Jan24.bin';
+file = '~/Dropbox/Adhesion/choke1VesKEp01bData_Jan24.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/stenosis/longConstriction_ra065_beta1em3/choke1VesData_Part1.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/stenosis/longConstriction_ra065_beta1em3/choke1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3RA0p25/choke1VesData.bin';
