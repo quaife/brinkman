@@ -321,7 +321,7 @@ when the membrane tension becomes large due to the external stress such
 as the hydrodynamic stress from an external flow or confinement. In the
 following we explore both.
 
-Specifically we focus on the mechanical component of the water flux
+In this work we focus on the mechanical component of the water flux
 in~\eqref{eq:water_flux} with $\triangle c =0$. In our
 non-dimensionalization the hydraulic conductivity is scaled to $R_0/\mu$
 (where $R_0$ is a characteristic length and $\mu$ is the solvent
@@ -332,9 +332,8 @@ our simulations to keep the membrane tension below the threshold value
 for membrane poration $\sim 10^{-3}$ N/m. Such large value of $\beta$
 may pertain to red blood cell membranes with aquaporin proteins.
 
-We consider a two-dimensional inextensible semipermeable vesicle
-membrane $\gamma$ suspended in a viscous Newtonian fluid in domain
-$\Omega$.  The vesicle membrane $\gamma$ is parameterized as $\xx(s,t)$
+In our formulation, an inextensible semipermeable vesicle is suspended in a viscous Newtonian fluid 
+(in domain $\Omega$).  The vesicle membrane $\gamma$ is parameterized as $\xx(s,t)$
 where $s$ is arclength and $t$ is time. In the suspending fluid the flow
 velocity $\uu$ and pressure $p$ are governed by the incompressible 
 Stokes equations
@@ -347,7 +346,7 @@ where $\mu$ is the fluid viscosity. When $\Omega$ is an unconfined
 geometry, the condition $\uu(\xx) \rightarrow \uu_\infty(\xx)$ as $|\xx|
 \rightarrow \infty$ is enforced. 
 
-The governing equations are non-dimensionalized by using a
+We non-dimensionalize the governing equations by a
 characteristic length scale $R_0 = 10^{-6}$ m, a bending stiffness $k_b
 = 10^{-19}$ J, and fluid viscosity $5 \times 10^{-2}$ kg/ms. We scale
 time by $\tau = \mu R_0^3/k_b = 0.5\;s$, the velocity by $R_0/\tau =
@@ -398,10 +397,10 @@ the permeating water flux through the lipid bilayer membrane is proportional to 
 membrane traction~\cite{yao-mor2017}. That is, 
 \begin{align}
   \label{eqn:vesicleFlux}
-  \uu - \dot{\xx} = - k_w (\ff_\mathrm{mem} \cdot \nn) \nn, \qquad
+  \uu - \dot{\xx} = - \beta (\ff_\mathrm{mem} \cdot \nn) \nn, \qquad
   \xx \in \gamma,
 \end{align}
-where $k_w$ is the hydraulic conductivity.
+where $\beta = k_w/(R_0/\mu)$ is the dimensionless membrane permeability for water.
 
 %The governing equations are non-dimensionalized by introducing a length
 %scale that we take to be $R_0 = 10^{-6}$m. Using a bending stiffness of
@@ -602,9 +601,13 @@ To validate our numerical codes for simulating vesicle hydrodynamics, we reprodu
 shape of an impermeable vesicle in a Poiseuille flow. Depending on
 the maximum flow velocity and the vesicle reduced area, the equilibrium vesicle shape is either an
 axisymmetric bullet, an axisymmetric parachute, or a tank-treading
-asymmetric slipper~\cite{kao-bir-mis2009}. Comparing our results
-(Figure~\ref{fig:PoiseuillePhase}) with those in~\cite{kao-bir-mis2009}
-(see Figure 2), we observe qualitative agreement in the equilibrium
+asymmetric slipper~\cite{kao-bir-mis2009}. Comparing against the simulation results of an impermeable vesicle in Poiseuille flow
+(specifically Figure 2 in~\citet{kao-bir-mis2009}),
+%
+%(Figure~\ref{fig:PoiseuillePhase}) with those in~\cite{kao-bir-mis2009}
+%(see Figure 2), 
+%
+we observe general agreement in the equilibrium
 vesicle shapes except that,
 %
 %see that the vesicle shapes qualitatively agree. We
