@@ -482,7 +482,7 @@ of the pressure Lagrange multiplier since the total water content inside the ves
 Taking the variation of $\mathcal{L}$ with respect to $\gamma$ and
 setting it to zero, the steady state shape satisfies $\kappa_{ss} +
 \frac{1}{2}\kappa^3 - \Lambda \kappa = 0$, with initial conditions
-$\kappa(0) = \kappa_0$ and $\kappa_s(0) = 0$.  Integrating once, we have
+$\kappa(0) = \kappa_0$ and $\kappa_s(0) = 0$.  Multpiying $\kappa_s$ and integrating once, we have
 \begin{align}
   \frac{\kappa_s^2}{2} + \frac{\kappa^4}{8} - 
     \frac{\Lambda}{2}\kappa^2 = \frac{\kappa_0^4}{8} - 
@@ -501,7 +501,7 @@ negative. Such equilibrium shape of a semipermeable vesicle results from the bal
 For an elastic membrane with a large pore, the equilibrium membrane (hemispherical) shape also results from such balance \cite{Ryham2018_JFM}.
 
 
-We next compute the transient area of the vesicle. Since the area of the
+We next compute the area dynamics of a semipermeable vesicle. Since the area of the
 vesicle is
 \begin{align}
   A(t) = \frac{1}{2}\int_{\gamma} (\xx \cdot \nn)\, ds,
@@ -553,9 +553,8 @@ which is consistent with the equilibrium results in the vesicle area dynamics.
 
 
 \section{Numerical Methods}
-By using a boundary integral equation formulation, the unknowns are the
-vesicle's position and tension and the unknown density function for
-confined flows. Both $\gamma$ and $\partial\Omega$ are discretized at a
+In the  boundary integral equation formulation, the unknowns are the
+vesicle's position and tension without confinement. With confinement, an extra unknown (the density function) is added to enforce the no-slip boundary conditions on the confinement wall. Both $\gamma$ and $\partial\Omega$ are discretized at a
 set of collocation points. Derivatives are computed with Fourier
 differentiation, and the eighth-order quadrature~\cite{alp1999} is
 applied to the weakly singular single-layer potential. For confined
