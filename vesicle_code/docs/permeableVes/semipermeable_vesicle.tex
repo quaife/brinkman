@@ -190,7 +190,7 @@ and the hydration of the membrane~\cite{MarrinkBerendsen1994_JPhysChem}.
 %\cite{StrokaJiangChenEtAl2014_Cell,LiMoriSun2015_PRL,yao-mor2017}.  
 Molecular dynamic (MD) simulations show that a stretched red blood cell
 membrane porates when the membrane tension reaches the order of $2$--$4$
-mN/m (\cite{RazizadehNikfarPaulLiu2020_BJ} and references therein),
+mN/m (see \citet{RazizadehNikfarPaulLiu2020_BJ} and references therein),
 giving rise to enhanced membrane permeability to both water and
 macromolecules. Consequently, as long as the lipid bilayer membrane
 remains intact (no poration or rupture), the total amount of water inside the membrane 
@@ -267,9 +267,9 @@ numerical simulations we can quantify the effects of water permeability
 on the hydrodynamics of a vesicle under mechanical stresses.  Without an
 osmotic gradient, we first show that a freely suspended semipermeable
 vesicle behaves differently from an impermeable vesicle over a long
-time. Next we show that
+time in \S~\ref{sec:free_space}. Next in \S~\ref{sec:confinement} we show that
 %, at normal physiological conditions,
-the permeating water flow can be amplified by extreme confinement to give rise to observable change in both hydrodynamics and water content. 
+the permeating water flow can be amplified by extreme confinement to give rise to observable change in both  vesicle hydrodynamics and vesicle's water content. 
 These results provide insight into quantifying the effects of membrane permeability on vesicle hydrodynamics in microfluidics.
 %
 %shed light on the dynamic aging process of
@@ -282,16 +282,19 @@ These results provide insight into quantifying the effects of membrane permeabil
 \section{Formulation\label{sec:formulation}}
 We consider a two-dimensional semipermeable vesicle (permeable only to
 water) suspended in a viscous fluid (Figure~\ref{fig:sketch}), and we
-let $\gamma$ denote the membrane boundary. We let
-$\alpha=4\pi A/L^2$ be the vesicle's reduced area where $A$ is its area
-and $L$ is its length. To focus on the effect of water flow on vesicle
+let $\gamma$ denote the membrane boundary, of length $L$ and enclosing an area $A$.
+%
+%$\alpha=4\pi A/L^2$ be the vesicle's reduced area where $A$ is its area
+%and $L$ is its length. 
+%
+To focus on the effect of water flow on vesicle
 hydrodynamics in various conditions, we assume the fluid is the same
 inside and outside the vesicle membrane. On the membrane the permeable
 water flux gives rise to a difference between the fluid velocity
 ${\uu}({\xx}\in \gamma)$ and the membrane velocity
 $\dot{\xx}$~\cite{yao-mor2017}:
 \begin{align}
-\label{eq:water_flux}
+\label{eqn:water_flux}
   \uu - \dot{\xx} = - k_w (R T \triangle c + \ff_\mathrm{mem} \cdot \nn) \nn, \qquad
   \xx \in \gamma,
 \end{align}
@@ -318,21 +321,20 @@ $v_\mathrm{o}:v_\mathrm{t}:v_\mathrm{e}=10^{0}:10^{-2}:10^{-6}$.
 Furthermore, we note that in the absence of an osmotic stress
 ($\triangle c = 0$), the permeating water flow may be non-negligible
 when the membrane tension becomes large due to the external stress such
-as the hydrodynamic stress from an external flow or confinement. In the
-following we explore both.
+as the hydrodynamic stress from an external flow or confinement. 
+In this work we set $\triangle c =0$ in Equation~\eqref{eqn:water_flux}  to
+focus on the water flux driven by the pressure difference due to an external flow or confinement.
 
-In this work we focus on the mechanical component of the water flux
-in~\eqref{eq:water_flux} with $\triangle c =0$. In our
-non-dimensionalization the hydraulic conductivity is scaled to $R_0/\mu$
-(where $R_0$ is a characteristic length and $\mu$ is the solvent
-viscosity): $\beta = k_w/(R_0/\mu)$,
-$\beta=0$ for an impermeable vesicle, and $\beta>0$ for a semipermeable
-vesicle. Under strong confinement, a large value of $\beta$ is needed in
-our simulations to keep the membrane tension below the threshold value
-for membrane poration $\sim 10^{-3}$ N/m. Such large value of $\beta$
-may pertain to red blood cell membranes with aquaporin proteins.
+%In our non-dimensionalization the hydraulic conductivity is scaled to $R_0/\mu$
+%(where $R_0$ is a characteristic length and $\mu$ is the solvent
+%viscosity): $\beta = k_w/(R_0/\mu)$,
+%$\beta=0$ for an impermeable vesicle, and $\beta>0$ for a semipermeable
+%vesicle. Under strong confinement, a large value of $\beta$ is needed in
+%our simulations to keep the membrane tension below the threshold value
+%for membrane poration $\sim 10^{-3}$ N/m. Such large value of $\beta$
+%may pertain to red blood cell membranes with aquaporin proteins.
 
-In our formulation, an inextensible semipermeable vesicle is suspended in a viscous Newtonian fluid 
+In our formulation, a semipermeable vesicle is suspended in a viscous Newtonian fluid 
 (in domain $\Omega$).  The vesicle membrane $\gamma$ is parameterized as $\xx(s,t)$
 where $s$ is arclength and $t$ is time. In the suspending fluid the flow
 velocity $\uu$ and pressure $p$ are governed by the incompressible 
@@ -345,34 +347,8 @@ Stokes equations
 where $\mu$ is the fluid viscosity. When $\Omega$ is an unconfined
 geometry, the condition $\uu(\xx) \rightarrow \uu_\infty(\xx)$ as $|\xx|
 \rightarrow \infty$ is enforced. 
-
-We non-dimensionalize the governing equations by a
-characteristic length scale $R_0 = 10^{-6}$ m, a bending stiffness $k_b
-= 10^{-19}$ J, and fluid viscosity $5 \times 10^{-2}$ kg/ms. We scale
-time by $\tau = \mu R_0^3/k_b = 0.5\;s$, the velocity by $R_0/\tau =
-2\;\mu$m/s, the pressure by $k_b/R_0^3 = 10^{-1}$ Pa, the tension by
-$k_b/R_0^2 = 10^{-7}$ N/m, and the permeability by $R_0/\mu = 10^{-3}$
-m$^2$s/kg. Under this nondimensionalization, a two-dimensional
-semipermeable vesicle in a viscous fluid is characterized by (a) its
-reduced area $\alpha = 4\pi A/L^2 \in (0,1]$, where $L$ is the vesicle
-length and $A$ is its area, and (b) its permeability $\beta = k_w \mu
-/R_0$. In two dimensions, the membrane length is conserved by the local
-inextensibility condition, but the enclosed area is not conserved
-because of semipermeability. Therefore, the reduced area is dynamic. We
-convert the apparent permeability of a polyunsaturated PC
-bilayer~\cite{OlbrichRawiczNeedhamEtAl2000_BJ} to the hydraulic
-conductivity $k_w$ using the conversion
-in~\cite{FettiplaceHaydon1980_PhysRev}, and found that $10^{-14}\le
-k_w\le 10^{-12}$ m$^2$s/kg, thus $\beta$ is in the range $10^{-11}\le
-\beta\le 10^{-9}$.
-
-
-
-In the confined examples, we enforce a
-no-slip boundary condition along the top and bottom of the channel and a
-Hagen–Poiseuille flow at the inlet and outlet---this boundary condition
-has been used in similar vesicle setups~\cite{qua-bir2014,
-rah-vee-bir2010, lu-rah-zor2017}. Along the vesicle membrane $\gamma$,
+%
+Along the vesicle membrane $\gamma$,
 mass continuity, force balance, and local inextensibility are enforced
 by requiring
 \begin{align}
@@ -391,16 +367,21 @@ the bending and tension forces corresponding to the Helfrich energy are
 $\ff_\mathrm{ben} = -k_b \xx_{ssss}$ and $\ff_\mathrm{ten} = (\sigma
 \xx_s)_s$. 
 
-Semipermeability is introduced by modifying the vesicle velocity from
-the standard no-slip condition $\dot{\xx} = \uu(\xx)$. Instead,
-the permeating water flux through the lipid bilayer membrane is proportional to the
-membrane traction~\cite{yao-mor2017}. That is, 
-\begin{align}
-  \label{eqn:vesicleFlux}
-  \uu - \dot{\xx} = - \beta (\ff_\mathrm{mem} \cdot \nn) \nn, \qquad
-  \xx \in \gamma,
-\end{align}
-where $\beta = k_w/(R_0/\mu)$ is the dimensionless membrane permeability for water.
+
+We non-dimensionalize the governing equations (Equations~(\ref{eqn:water_flux}-\ref{eqn:jump})) by a
+characteristic length scale $R_0 = 10^{-6}$ m, a bending stiffness $k_b
+= 10^{-19}$ J, and fluid viscosity $5 \times 10^{-2}$ kg/ms. We scale
+time by $\tau = \mu R_0^3/k_b = 0.5\;s$, the velocity by $R_0/\tau =
+2\;\mu$m/s, the pressure by $k_b/R_0^3 = 10^{-1}$ Pa, the tension by
+$k_b/R_0^2 = 10^{-7}$ N/m, and the permeability by $R_0/\mu = 10^{-3}$
+m$^2$s/kg. Under this nondimensionalization, a two-dimensional
+semipermeable vesicle in a viscous fluid is characterized by (a) its
+reduced area $\alpha = 4\pi A/L^2 \in (0,1]$, where $L$ is the vesicle
+length and $A$ is its area, and (b) its permeability $\beta = k_w \mu
+/R_0$. 
+In two dimensions, the conservation of total lipids in the membrane corresponds to the inextensibility (fixed length $L$) of $\gamma$.
+Due to semipermeability to water ($\beta>0$),  the enclosed area $A$ is not conserved and the reduced area $\alpha$ is dynamic. 
+
 
 %The governing equations are non-dimensionalized by introducing a length
 %scale that we take to be $R_0 = 10^{-6}$m. Using a bending stiffness of
@@ -432,9 +413,28 @@ where $\SS$ is the single-layer potential
 %    -\mathbf{I} \log\rho + \frac{\rr \otimes \rr}{\rho^2} \right)
 %    \ff(\yy) ds_{\yy},
 \end{align}
-with $\rr = \xx - \yy$ and $\rho = |\rr|$. Imposing the flux
-condition~\eqref{eqn:vesicleFlux} and the inextensibility condition, the
-vesicle velocity satisfies the boundary integral equation
+with $\rr = \xx - \yy$ and $\rho = |\rr|$. 
+Together with the inextensibility constraint and the dimensionless boundary condition
+\begin{align}
+  \label{eqn:vesicleFlux}
+  \uu - \dot{\xx} = - \beta (\ff_\mathrm{mem} \cdot \nn) \nn, \qquad
+  \xx \in \gamma,
+\end{align}
+%
+%Semipermeability is introduced by modifying the vesicle velocity from
+%the standard no-slip condition $\dot{\xx} = \uu(\xx)$. Instead,
+%the permeating water flux through the lipid bilayer membrane is proportional to the
+%membrane traction~\cite{yao-mor2017}. That is, 
+%\begin{align}
+%  \label{eqn:vesicleFlux}
+%  \uu - \dot{\xx} = - \beta (\ff_\mathrm{mem} \cdot \nn) \nn, \qquad
+%  \xx \in \gamma,
+%\end{align}
+%where $\beta = k_w/(R_0/\mu)$ is the dimensionless membrane permeability for water.
+%
+%Imposing the flux
+%condition~\eqref{eqn:vesicleFlux} and the inextensibility condition, 
+the vesicle membrane velocity satisfies the boundary integral equation
 \begin{align}
   \label{eqn:vesVelocity}
   \dot{\xx} &= \uu_\infty(\xx) + \beta (\ff_\mathrm{mem}\cdot\nn)\nn
@@ -444,7 +444,27 @@ vesicle velocity satisfies the boundary integral equation
 In confined geometries, the far field term $\uu_\infty(\xx)$ is replaced
 by a double-layer potential with an unknown density defined on
 $\partial\Omega$. The density function is used to satisfy the boundary
-condition on $\partial\Omega$.
+condition on $\partial\Omega$. Specifically, in the two examples of a semipermeable vesicle under strong confinement, we enforce a
+no-slip boundary condition along the top and bottom of the channel and a
+Hagen–Poiseuille flow at the inlet and outlet---this boundary condition
+has been used in similar vesicle setups~\cite{qua-bir2014,
+rah-vee-bir2010, lu-rah-zor2017}. 
+
+The value of $\beta$ can be estimated by first
+converting the apparent permeability of a 
+bilayer~\cite{OlbrichRawiczNeedhamEtAl2000_BJ} to the hydraulic
+conductivity $k_w$ using the conversion
+in~\cite{FettiplaceHaydon1980_PhysRev}, and then scaling $k_w$ to $R_0/\mu$. We found that for most lipid bilayer membranes, $10^{-14}\le
+k_w\le 10^{-12}$ m$^2$s/kg, thus the range of $\beta$ corresponding to the native membrane permeability for water is $10^{-11}\le
+\beta\le 10^{-9}$. 
+%
+Under strong confinement, a large value of $\beta$ is needed in
+our simulations to keep the membrane tension below the threshold value
+for membrane poration $\sim 10^{-3}$ N/m. Such large value of $\beta$
+may pertain to red blood cell membranes with aquaporin proteins.
+
+
+
 
 \subsection{Dynamics of Vesicle Area\label{subsec:area_dynamics}}
 In the absence of an imposed flow, the steady state vesicle shape and a
@@ -620,7 +640,7 @@ asymmetric, are undergoing a tank-treading motion, and we therefore
 report them as asymmetric slippers.
 
 
-\section{Hydrodynamics of a semipermeable vesicle in free space}
+\section{Hydrodynamics of a semipermeable vesicle in free space\label{sec:free_space}}
 To highlight the effects of membrane permeability to water, we consider
 a single semipermeable vesicle, with (dimensionless) permeability
 coefficient $\beta>0$, in familiar configurations: In free space we
@@ -970,7 +990,7 @@ $U$ as in the linear shear flow.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{A semipermeable vesicle under strong confinement}
+\section{A semipermeable vesicle under strong confinement\label{sec:confinement}}
 Here we consider a semipermeable vesicle under strong confinement: a
 long closely-fit channel and a contracting channel. In a narrow
 microfluidic channel, a large pressure jump is often needed to push the
@@ -1299,7 +1319,7 @@ To examine if this is the case in the physiological processes,  currently we are
 %hydrodynamics (see Supplementary Material).
 
 \acknowledgments
-We thank Howard Stone, Michael J.~Shelley, Petia Vlahovska,
+We thank Howard A.~Stone, Michael J.~Shelley, Petia M.~Vlahovska,
 Chaoqui Misbah, Manouk Abkarian, Sangwoo Shin, and Shravan
 K.~Veerapaneni for discussions. B.Q.~acknowledges support from the
 Simons Foundation, Mathematics and Physical Sciences-Collaboration
@@ -1309,6 +1329,6 @@ of Simons Foundation.
 
 \bigskip
  
- \bibliography{refs}
+\bibliography{refs}
 \end{document}
 
