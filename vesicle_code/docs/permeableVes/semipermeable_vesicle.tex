@@ -90,7 +90,8 @@
 %\Tikztrue
 \Tikzfalse
 
-
+%\usepgfplotslibrary{external}
+%\tikzexternalize
 
 \begin{document}
 
@@ -98,7 +99,8 @@
 Confinement}
 
 \author{Bryan Quaife$^{1}$, Ashley Gannon$^{1}$ and Y.-N. Young$^{2*}$}
-\affiliation{$^1$Department of Scientific Computing, Florida State University, Tallahessee, Florida, 32306, USA\\
+\affiliation{$^1$Department of Scientific Computing, Florida State
+University, Tallahassee, Florida, 32306, USA\\
 $^2$Department of Mathematical Sciences, New Jersey Institute of Technology, Newark, New Jersey, 07102, USA\\}
 
 \date{\today}
@@ -503,7 +505,8 @@ Applying integration by parts, the two integrals agree, and we have
   = \beta \int_\gamma (\ff \cdot \nn)\, ds,
 \end{align}
 where we have used the incompressibility of the single-layer potential.
-Repeatedly applying integration by parts, we obtain
+Substituting in $\ff = \ff_\mathrm{ben} + \ff_\mathrm{ten}$ and
+repeatedly applying integration by parts, we obtain
 \begin{align}
   \dot{A}(t) & = \beta \int_\gamma \left(
     \frac{\kappa^3}{2} - \kappa \Lambda \right) \, ds.
@@ -569,8 +572,11 @@ similar notation for the other operators. Then, a first-order
 semi-implicit time stepping method of~\eqref{eqn:vesVelocity} is
 \begin{alignat}{3}  
   \frac{\xx^{N+1} - \xx^N}{\triangle t} &= \uu_\infty(\xx^N) 
-  &&+ \beta P^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right) \nonumber \\
-  & &&+ \SS^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right),  \\
+  + \beta P^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right) 
+  + \SS^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right),  \\
+%  \frac{\xx^{N+1} - \xx^N}{\triangle t} &= \uu_\infty(\xx^N) 
+%  &&+ \beta P^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right) \nonumber \\
+%  & &&+ \SS^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right),  \\
   D^N\xx^{N+1} &= 1,
 \end{alignat}
 and this linear system is solved with matrix-free GMRES.
@@ -957,10 +963,10 @@ from $200\;\mu$m/s to $800 \;\mu$m/s.
     \node at (+5.0,1.5) {(d)};
   \end{tikzpicture}
   \caption{\label{fig:parabolicTensions} The equilibrium tension
-  distribution of a semipermeable vesicle with $\beta=10^{-3}$ in a parabolic
-  flow (Figure~\ref{fig:parabolicComposite}). The flow velocities
-  are (a) 200 $\mu$m/s, (b) 400 $\mu$m/s, (c) 600 $\mu$m/s, and (d)
-  800 $\mu$m/s.}
+  distribution of a semipermeable vesicle with $\beta=10^{-3}$ in a
+  parabolic flow (Figure~\ref{fig:parabolicComposite}). The flow
+  velocities are (a) 200 $\mu$m/s, (b) 400 $\mu$m/s, (c) 600 $\mu$m/s,
+  and (d) 800 $\mu$m/s.}
 \end{figure*}
 
 We note that in the Poiseuille flow the membrane tension is positive in
@@ -991,11 +997,11 @@ flow, vesicle shape deformation, and membrane tension distribution.
 \subsection{Semipermeable Vesicle in a Closely-fit Channel (Stenosis)}
  \begin{figure*}[hbp]
   \centering
-%  \ifTikz
+  \ifTikz
   \input{figures/stenosisComposite.tikz}
-%  \else
-%  \includegraphics{figures/stenosisComposite.pdf}
-%  \fi
+  \else
+  \includegraphics{figures/stenosisComposite.pdf}
+  \fi
   \caption{\label{fig:stenosisComposite} (a) A semipermeable vesicle
    passing through a closely-fit channel similar to the experimental
    device in~\cite{abk-fai-sto2006}. (b) A semipermeable vesicle passing
@@ -1087,22 +1093,23 @@ When a semipermeable vesicle goes through a closely-fit channel, we observe that
 \subsection{Semipermeable Vesicle in a Contracting Geometry} 
 \begin{figure}[htp]
   \centering
-  \ifTikz
-  \input{figures/contractingComposite.tikz}
-  \else
   \begin{minipage}{0.45\textwidth}
     \centering
-  \includegraphics{figures/contractingComposite.pdf}
+%  \ifTikz
+  \input{figures/contractingComposite.tikz}
+%  \else
+%  \includegraphics{figures/contractingComposite.pdf}
+%  \fi
   \end{minipage}
   \hfill
   \begin{minipage}{0.45\textwidth}
     \centering
-  \includegraphics[width=\textwidth]{figures/contractingTensions1.pdf}
-  \includegraphics[width=\textwidth]{figures/contractingTensions2.pdf}
-    \todo[inline]{Maximum tension as a function of center of mass down
-    here}
+    \includegraphics[width=\textwidth]{figures/contractingTensions1.pdf}
+    \includegraphics[width=\textwidth]{figures/contractingTensions2.pdf}
+    \input{figures/contractingMaxTension_vs_COM.tikz}
+%    \todo[inline]{Maximum tension as a function of center of mass down
+%    here}
   \end{minipage}
-  \fi
   \caption{\label{fig:contractingComposite} A contracting channel
   similar to the experimental configuration in~\cite{wu2015critical}.
   The channel width varies from $18\;\mu$m to $1.8\;\mu$m, and it
@@ -1159,11 +1166,11 @@ contraction.
 
 \begin{figure}[hbp]
   \centering
-%  \ifTikz
+  \ifTikz
   \input{figures/contractingComposite2.tikz}
-%  \else
-%  \includegraphics{figures/contractingComposite2.pdf}
-%  \fi
+  \else
+  \includegraphics{figures/contractingComposite2.pdf}
+  \fi
   \caption{\label{fig:contractingComposite2} Vesicle reduced area and
   velocity vs.~time. The permeability coefficient is $\beta = 10^{-3}$
   and the maximum velocity is $18\;\mu$m/s. (a) A semipermeable vesicle
