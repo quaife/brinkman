@@ -401,7 +401,7 @@ Due to semipermeability to water ($\beta>0$),  the enclosed area $A$ is not cons
 
 Since the fluid satisfies the Stokes equations, the velocity and
 pressure can be represented as layer potentials. Given the interfacial
-boundary conditions~\eqref{eqn:jump}, the fluid velocity is
+boundary conditions in Equation~\eqref{eqn:jump}, the fluid velocity is
 \begin{align}
   \uu(\xx) = \uu_\infty(\xx) + \SS[\ff_\mathrm{mem}](\xx), \quad
     \xx \in \Omega,
@@ -484,17 +484,17 @@ of the pressure Lagrange multiplier since the total water content inside the ves
 Taking the variation of $\mathcal{L}$ with respect to $\gamma$ and
 setting it to zero, the steady state shape satisfies $\kappa_{ss} +
 \frac{1}{2}\kappa^3 - \Lambda \kappa = 0$, with initial conditions
-$\kappa(0) = \kappa_0$ and $\kappa_s(0) = 0$.  Multpiying $\kappa_s$ and integrating once, we have
+$\kappa(0) = \kappa_0$ and $\kappa_s(0) = 0$.  Multiplying $\kappa_s$ and integrating once, we have
 \begin{align}
   \frac{\kappa_s^2}{2} + \frac{\kappa^4}{8} - 
     \frac{\Lambda}{2}\kappa^2 = \frac{\kappa_0^4}{8} - 
     \frac{\Lambda}{2}\kappa_0^2.
   \label{eqn:curveODE}
 \end{align}
-Assuming $\kappa_s \neq 0$,~\eqref{eqn:curveODE} is separable, and can
+Assuming $\kappa_s \neq 0$, Equation~\eqref{eqn:curveODE} is separable, and can
 be solved analytically in terms of the {\em EllipticF} function using
 Mathematica. Unlike in the impermeable case, the solution
-of~\eqref{eqn:curveODE} is not periodic unless $\kappa(s) = \kappa_0$.
+of Equation~\eqref{eqn:curveODE} is not periodic unless $\kappa(s) = \kappa_0$.
 Therefore, the equilibrium shape of a semipermeable vesicle in a
 quiescent flow is a circle with radius $L/2\pi$ and constant tension
 $\Lambda = \kappa^2/2 = 2\pi^2/L^2.$ Note that in contrast to a
@@ -518,7 +518,7 @@ Therefore,
   \frac{1}{2} \int_{\gamma} (\dot{\xx} \cdot \nn)\, ds  + 
   \frac{1}{2} \int_{\gamma} (\xx \cdot \dot{\nn})\, ds.
 \end{align}
-Applying integration by parts, the two integrals agree, and we have
+Applying integration by parts, the two integrals are identical and we combine them to obtain
 \begin{align}
   \dot{A}(t) = \int_\gamma \left(\beta (\ff \cdot \nn)\nn 
     + \SS[\ff]\right) \cdot \nn\, ds 
@@ -547,12 +547,12 @@ repeatedly applying integration by parts, we obtain
 %    \frac{\kappa^3}{2} - \kappa \Lambda \right) \, ds.
 %  \label{eqn:areaROC}
 %\end{align}
-Note that the integrand in~\eqref{eqn:areaROC} is zero when the membrane tension balances the elastic force:
+Note that the integrand in Equation~\eqref{eqn:areaROC} is zero when the membrane tension balances the elastic force:
 \begin{align}
 \label{eqn:areaROC2}
 \Lambda &= \frac{\kappa^2}{2}=\frac{\kappa_0^2}{2} \;\mathrm{ at }\; \mathrm{equilibrium},
 \end{align}
-which is consistent with the equilibrium results in the vesicle area dynamics.
+which is consistent with the equilibrium results in Equation~(\ref{eqn:curveODE}).
 
 
 \section{Numerical Methods}
@@ -576,8 +576,8 @@ semi-implicitly~\cite{vee-gue-zor-bir2009}. We introduce the notation
   &D[\xx]\ff = \xx_s \cdot \ff_s, 
   &&P[\xx]\ff = (\ff \cdot \nn) \nn,
 \end{alignat}
-for the differential and projection operators. Then, the
-governing equations~\eqref{eqn:vesVelocity} are
+for the differential and projection operators. Then, Equations~\eqref{eqn:vesVelocity} are
+recast in the following form
 \begin{align}
   \dot{\xx} &= \uu_\infty(\xx) + \beta P(B\xx + T\sigma)
   + \SS (B\xx + T\sigma), \quad
@@ -588,7 +588,7 @@ on the vesicle shape, are non-linear with respect to the vesicle
 shape. We construct a time stepping scheme by letting $B^N$ be the
 bending operator due to the vesicle configuration at time $t^N$, and use
 similar notation for the other operators. Then, a first-order
-semi-implicit time stepping method of~\eqref{eqn:vesVelocity} is
+semi-implicit time stepping method of Equation~\eqref{eqn:vesVelocity} is
 \begin{alignat}{3}  
   \frac{\xx^{N+1} - \xx^N}{\triangle t} &= \uu_\infty(\xx^N) 
   + \beta P^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right) 
@@ -652,7 +652,7 @@ coefficient $\beta>0$, in familiar configurations: In free space we
 place a semipermeable vesicle in a quiescent flow, a planar shear flow,
 and a Poiseuille flow. For each example, we fix the vesicle length and
 examine the enclosed water content as a dynamic consequence of water
-flow, vesicle shape deformation, and membrane tension distribution.
+flow, vesicle shape deformation, and distribution of membrane tension.
 %
 Under these flows, our simulations show
 that the steady state of an impermeable vesicle is different from that of a semipermeable vesicle, which depends only on the strength of the external flow and is insensitive to permeability $\beta$ (as long as $\beta>0$). We find that  the time in the dynamic evolution towards equilibrium is scaled by $\beta^{-1}$: the smaller $\beta$ is the longer it takes to reach the steady state.
@@ -755,8 +755,8 @@ to inflate to a circle with vanishing force and velocity.
 %    \includegraphics{figures/relaxationTensions.pdf}
 %  \fi
   \todo[inline]{Convert to tikz}
-  \caption{\label{fig:relaxationTensions} The tension distribution of
-  vesicles in relaxation that corresponds to
+  \caption{\label{fig:relaxationTensions} The distribution of membrane tension of a relaxing
+  vesicle that corresponds to
   Figure~\ref{fig:relaxationComposite}.}
 \end{figure*}
 
