@@ -825,25 +825,17 @@ $Ca_\mathrm{E}$. We also observe that the membrane tension is relatively
 small at the tip when the membrane curvature is large due to the
 extensional component in the shear flow.
 \begin{figure*}[hbp]
-  \begin{tikzpicture}[scale=1]
-    \node[inner sep=0pt] at (0,0) {
-    \includegraphics[width=\textwidth]{figures/shearTensions.pdf}
-    };
-%    \node at (-8.54,0.6) {(a)};
-%    \node at (-6.00,0.6) {(b)};
-%    \node at (-3.46,0.6) {(c)};
-%    \node at (-0.92,0.6) {(d)};
-%    \node at (+1.60,0.6) {(e)};
-%    \node at (+4.16,0.6) {(f)};
-%    \node at (+6.70,0.6) {(g)};
-  \end{tikzpicture}
-  \todo[inline]{Convert to tikz}
-%  \includegraphics[width=\textwidth]{figures/shearTensions.pdf}
+  \centering
+  \ifTikz
+  \input{figures/shearTensions.tikz}
+  \else
+  \includegraphics{figures/shearTensions.pdf}
+  \fi
   \caption{\label{fig:shearTensions} The tension distribution along a
   vesicle in a linear shear flow. The semipermeability constant is
   $\beta = 10^{-4}$ for all these cases, and the elastic capillary
-  number ranges from $10^{-1}$ to $10^{2}$ as in
-  Figure~\ref{fig:shearComposite}.}
+  numbers are (a) $10^{-1}$, (b) $10^{0}$, (c), $10^{1}$, and (d)
+  $10^{2}$ as in Figure~\ref{fig:shearComposite}.}
 \end{figure*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -977,16 +969,20 @@ from $200\;\mu$m/s to $800 \;\mu$m/s.
 
 \begin{figure*}[htp]
   \centering
-  \begin{tikzpicture}[scale=1]
-    \node[inner sep=0pt] at (0,0) {
-    \includegraphics[width=\textwidth]{figures/parabolicTensions.pdf}
-    };
-    \node at (-8.2,1.5) {(a)};
-    \node at (-3.8,1.5) {(b)};
-    \node at (+0.6,1.5) {(c)};
-    \node at (+5.0,1.5) {(d)};
-  \end{tikzpicture}
-  \todo[inline]{Overflow. Need to reduce sizes. Convert to tikz}
+  \ifTikz
+  \input{figures/parabolicTensions.tikz}
+  \else
+  \includegraphics{figures/parabolicTensions.pdf}
+  \fi
+%  \begin{tikzpicture}[scale=1]
+%    \node[inner sep=0pt] at (0,0) {
+%    \includegraphics[width=\textwidth]{figures/parabolicTensions.pdf}
+%    };
+%    \node at (-8.2,1.5) {(a)};
+%    \node at (-3.8,1.5) {(b)};
+%    \node at (+0.6,1.5) {(c)};
+%    \node at (+5.0,1.5) {(d)};
+%  \end{tikzpicture}
   \caption{\label{fig:parabolicTensions} The equilibrium tension
   distribution of a semipermeable vesicle with $\beta=10^{-3}$ in a
   parabolic flow (Figure~\ref{fig:parabolicComposite}). The flow
@@ -1027,7 +1023,6 @@ flow, vesicle shape deformation, and membrane tension distribution.
   \else
   \includegraphics{figures/stenosisComposite.pdf}
   \fi
-   \todo[inline]{Overflow. Need to reduce sizes}
   \caption{\label{fig:stenosisComposite} (a) A semipermeable vesicle
    passing through a closely-fit channel similar to the experimental
    device in~\cite{abk-fai-sto2006}. (b) A semipermeable vesicle passing
@@ -1181,13 +1176,11 @@ contraction.
 
 \begin{figure}[hbp]
   \centering
-%  \ifTikz
+  \ifTikz
   \input{figures/contractingComposite2.tikz}
-%  \else
-%  \includegraphics{figures/contractingComposite2.pdf}
-%  \fi
-  \todo[inline]{Do max tension vs. center of mass and time for plot
-  (d).}
+  \else
+  \includegraphics{figures/contractingComposite2.pdf}
+  \fi
   \caption{\label{fig:contractingComposite2} Vesicle reduced area and
   velocity vs.~time. The permeability coefficient is $\beta = 10^{-3}$
   and the maximum velocity is $18\;\mu$m/s. (a) A semipermeable vesicle
