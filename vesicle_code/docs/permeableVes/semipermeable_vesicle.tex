@@ -827,25 +827,17 @@ $Ca_\mathrm{E}$. We also observe that the membrane tension is relatively
 small at the tip when the membrane curvature is large due to the
 extensional component in the shear flow.
 \begin{figure*}[hbp]
-  \begin{tikzpicture}[scale=1]
-    \node[inner sep=0pt] at (0,0) {
-    \includegraphics[width=\textwidth]{figures/shearTensions.pdf}
-    };
-%    \node at (-8.54,0.6) {(a)};
-%    \node at (-6.00,0.6) {(b)};
-%    \node at (-3.46,0.6) {(c)};
-%    \node at (-0.92,0.6) {(d)};
-%    \node at (+1.60,0.6) {(e)};
-%    \node at (+4.16,0.6) {(f)};
-%    \node at (+6.70,0.6) {(g)};
-  \end{tikzpicture}
-  \todo[inline]{Convert to tikz}
-%  \includegraphics[width=\textwidth]{figures/shearTensions.pdf}
+  \centering
+  \ifTikz
+  \input{figures/shearTensions.tikz}
+  \else
+  \includegraphics{figures/shearTensions.pdf}
+  \fi
   \caption{\label{fig:shearTensions} The tension distribution along a
   vesicle in a linear shear flow. The semipermeability constant is
   $\beta = 10^{-4}$ for all these cases, and the elastic capillary
-  number ranges from $10^{-1}$ to $10^{2}$ as in
-  Figure~\ref{fig:shearComposite}.}
+  numbers are (a) $10^{-1}$, (b) $10^{0}$, (c), $10^{1}$, and (d)
+  $10^{2}$ as in Figure~\ref{fig:shearComposite}.}
 \end{figure*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

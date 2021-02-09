@@ -13,7 +13,8 @@ prams.kappa = ones(prams.nv,1);   % bending coefficient
 prams.viscCont = ones(prams.nv,1);         % viscosity contrast
 prams.saveRate = 100;
 options.farField = 'parabolic'; % background velocity
-options.farFieldSpeed = 4.2;
+%options.farFieldSpeed = 4.2;
+options.farFieldSpeed = 600*4.2;
 %options.farFieldSpeed = farFieldSpeed;
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -22,11 +23,11 @@ options.inextens = 'method1';
 options.near = true;        % near-singular integration
 options.fmm = false;
 options.verbose = true;
-options.semipermeable = true;
+options.semipermeable = false;
 prams.gmresMaxIter = 3*prams.N;
 prams.gmresTol = 1e-8;
 prams.errorTol = 1000;
-prams.fluxCoeff = 1e-3;
+prams.fluxCoeff = 0e-3;
 %prams.fluxCoeff = fluxCoeff;
 options.fluxShape = 1;
 
@@ -37,7 +38,7 @@ prams.adStrength = 100;
 % TIME ADAPTIVITY (parameters for new implementation)
 options.timeAdap = true;
 
-prams.rtolArea = 1e20;
+prams.rtolArea = 1e-2;
 prams.rtolLength = 1e-2;
 prams.dtMax = 1e-1;
 prams.dtMin = 1e-4;
@@ -65,13 +66,14 @@ options.dataFile = 'output/parabolic1VesData.bin';
 % Also add src to path
 
 oc = curve;
-ra = 0.65;
+ra = 0.70;
 centerx = 0;
-%centery = 1.0;
-centery = 0.0;
+centery = 1.0;
+%centery = 0.0;
 ang = -pi/18;
-ang = pi/2;
-scale = 0.5*sqrt(ra)*3.5662;
+%ang = pi/2;
+scale = 0.5*sqrt(ra)/1.0172;
+%*3.5662;
 X = oc.initConfig(prams.N,...
     'nv', prams.nv, ...
     'reducedArea',ra,...

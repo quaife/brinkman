@@ -7,10 +7,10 @@ options.marker = false;
 
 irate = 1; % controls the speed of the visualization
 
-if 0
-%  file = 'parabolic1VesData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/semipermeable/parabolic1Ves_speed8.00e02_RA9.00em01Data.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/impermeable/parabolic1Ves_speed1.20e03_RA6.00em01Data.bin';
+if 1
+  file = 'parabolic1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/semipermeable/parabolic1Ves_speed8.00e02_RA9.00em01Data.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/impermeable/parabolic1Ves_speed1.20e03_RA7.00em01Data.bin';
 
   ax = 1*[-2 2 -2 12.5];
   irate = 1;
@@ -19,7 +19,7 @@ if 0
   options.marker = true;
 end
 
-if 1
+if 0
 file = '~/Dropbox/Adhesion/choke1VesKEp01bData_Feb02.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/stenosis/longConstriction_ra065_beta1em3/choke1VesData_Part1.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/stenosis/longConstriction_ra065_beta1em3/choke1VesData.bin';

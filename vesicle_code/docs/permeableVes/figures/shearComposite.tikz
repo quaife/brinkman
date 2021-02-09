@@ -1,4 +1,4 @@
-\begin{tikzpicture}[scale=1.05]
+\begin{tikzpicture}[scale=1.00]
 
 \pgfmathsetlengthmacro\MajorTickLength{
       \pgfkeysvalueof{/pgfplots/major tick length} * 0.5
