@@ -975,16 +975,20 @@ from $200\;\mu$m/s to $800 \;\mu$m/s.
 
 \begin{figure*}[htp]
   \centering
-  \begin{tikzpicture}[scale=1]
-    \node[inner sep=0pt] at (0,0) {
-    \includegraphics[width=\textwidth]{figures/parabolicTensions.pdf}
-    };
-    \node at (-8.2,1.5) {(a)};
-    \node at (-3.8,1.5) {(b)};
-    \node at (+0.6,1.5) {(c)};
-    \node at (+5.0,1.5) {(d)};
-  \end{tikzpicture}
-  \todo[inline]{Overflow. Need to reduce sizes. Convert to tikz}
+  \ifTikz
+  \input{figures/parabolicTensions.tikz}
+  \else
+  \includegraphics{figures/parabolicTensions.pdf}
+  \fi
+%  \begin{tikzpicture}[scale=1]
+%    \node[inner sep=0pt] at (0,0) {
+%    \includegraphics[width=\textwidth]{figures/parabolicTensions.pdf}
+%    };
+%    \node at (-8.2,1.5) {(a)};
+%    \node at (-3.8,1.5) {(b)};
+%    \node at (+0.6,1.5) {(c)};
+%    \node at (+5.0,1.5) {(d)};
+%  \end{tikzpicture}
   \caption{\label{fig:parabolicTensions} The equilibrium tension
   distribution of a semipermeable vesicle with $\beta=10^{-3}$ in a
   parabolic flow (Figure~\ref{fig:parabolicComposite}). The flow
