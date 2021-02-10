@@ -95,7 +95,7 @@
 
 \begin{document}
 
-\title{Hydrodynamics of a  Semipermeable Vesicle Under Flow and
+\title{Hydrodynamics of a  Semipermeable Inextensible Membrane Under Flow and
 Confinement}
 
 \author{Bryan Quaife$^{1}$, Ashley Gannon$^{1}$ and Y.-N. Young$^{2*}$}
@@ -460,11 +460,19 @@ in~\cite{FettiplaceHaydon1980_PhysRev}, and then scaling $k_w$ to $R_0/\mu$. We 
 k_w\le 10^{-12}$ m$^2$s/kg, thus the range of $\beta$ corresponding to the native membrane permeability for water is $10^{-11}\le
 \beta\le 10^{-9}$. 
 %
-Under strong confinement, a large value of $\beta$ is needed in
+In our simulations the equilibrium shape of a semipermeable membrane in open space is found to be independent of $\beta$ for $10^{-5}\le\beta\le10^{-2}$.
+Within this range we find that the permeability $\beta$ only affects the time it takes to reach the equilibrium membrane shape, which is determined by the imposed flow,
+such as a quiescent flow, a linear shear flow and its shear rate, and a Poiseuille flow and its maximum velocity.
+From these results and our analysis of area dynamics, we suspect similar hydrodynamics of a semipermeable inextensible membrane 
+with a smaller $\beta$ (as long as $\beta\ne 0$). 
+On the other hand,  when $\beta\ge 0.1$, we find that the membrane shape swells to maximize the water content inside the membrane, independent of the initial reduced 
+area and the imposed flow in the far field.
+In the simulations we focus on intermediate value of $10^{-5}\le \beta\le 10^{-3}$ to investigate the hydrodynamics of a semipermeable inextensible membrane. 
+%
+Under strong confinement,  $10^{-4}\le\beta\le10^{-3}$ is needed in
 our simulations to keep the membrane tension below the threshold value
-for membrane poration $\sim 10^{-3}$ N/m. Such large value of $\beta$
-may pertain to red blood cell membranes with aquaporin proteins.
-
+for membrane poration $\sim 10^{-3}$ N/m. Such range of $\beta$
+may imply that the lipid bilayer membrane would be porated under large stress in the confinement.
 
 
 
@@ -797,7 +805,7 @@ inside the vesicle remains constant until $t\sim 2$ hours, when the
 normal component of the flow velocity becomes significantly smaller than
 the permeable velocity, leading to a changing reduced area.
 
-For a variety of dimensionless permeability coefficient $\beta>0$ and
+For a range of dimensionless permeability coefficient $\beta>0$ and
 capillary number $Ca_\mathrm{E}$, a semipermeable vesicle reaches an
 equilibrium shape as in Figure~\ref{fig:shearComposite}(a). Since the
 equilibrium shape depends on $Ca_\mathrm{E}$ and is independent of the
@@ -806,7 +814,7 @@ $\alpha = 0.65$ for all simulations in
 Figure~\ref{fig:shearComposite}(b), where we summarize the equilibrium
 vesicle shape and its reduced area. We see that the capillary number
 (flow rate) significantly affects the final vesicle shape, but the
-permeability coefficient has a very minor effect on the equilibrium shape for $10^{-4}\le\beta\le 10^{-2}$. Instead, 
+permeability coefficient has a very minor effect on the equilibrium shape for $10^{-5}\le\beta\le 10^{-2}$. Instead, 
 $\beta$ sets the time required for a vesicle to reach its steady state configuration which is
 proportional to $\beta^{-1}$, as we saw in the analysis for the quiescent flow (\S~\ref{subsec:area_dynamics}).
 
