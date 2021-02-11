@@ -1043,7 +1043,7 @@ away the vesicle is relative to the flow center at $y=0$.
 Here we consider a semipermeable vesicle under strong confinement: a
 long closely-fit channel and a contracting channel. In a narrow
 microfluidic channel, a large pressure jump is often needed to push the
-vesicle through a closely-fit channel~\cite{abk-fai-sto2006}.  Our
+vesicle through a closely-fit channel~\cite{abk-fai-sto2006}. Our
 simulations show that such a configuration can lead to an amplification
 of water permeation at a time scale shorter than a few minutes. In
 addition, we find that a large value of $\beta$ is needed to keep the
@@ -1051,14 +1051,14 @@ membrane tension below the threshold value for membrane poration. Such
 high permeability for water may be regarded as an indication that the
 lipid bilayer membrane is porated under strong confinement, and our
 model vesicle is for a porated vesicle within the Helfrich free energy
-framework.  As in the previous examples, we fix the vesicle length and
+framework. As in the previous examples, we fix the vesicle length and
 examine the enclosed water content as a dynamic consequence of water
 flow, vesicle shape deformation, and membrane tension distribution.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Semipermeable Vesicle in a Closely-fit Channel (Stenosis)}
- \begin{figure*}[hbp]
+\begin{figure*}[htp]
   \centering
   \ifTikz
   \input{figures/stenosisComposite.tikz}
@@ -1066,25 +1066,25 @@ flow, vesicle shape deformation, and membrane tension distribution.
   \includegraphics{figures/stenosisComposite.pdf}
   \fi
   \caption{\label{fig:stenosisComposite} (a) A semipermeable vesicle
-   passing through a closely-fit channel similar to the experimental
-   device in~\cite{abk-fai-sto2006}. (b) A semipermeable vesicle passing
-   through a  (four-times) longer closely-fit channel than (a). (c) The
-   excess pressure of an impermeable and semipermeable vesicle in the
-   short geometry in (a). (d) The reduced area of the semipermeable
-   vesicles in the geometries in (a) and (b) as a function of the
-   vesicles' center of mass. In (c) and (d), the x-axis is scaled by
-   $1/L$ where $L$ is half the length of the constriction. (e) The
-   reduced area of the semipermeable vesicles in the geometries in (a)
-   and (b) as a function of time. The time axis is scaled by $1/t_R$
-   where $t_R$ is the residency time. In parts (c) and (d), the dashed
-   lines correspond to the locations of the inlet and outlet. In part
-   (e), the dashed lines correspond to the times that the vesicle enters
-   and exits the constriction. The colored vesicles show the tension
-   distribution in N/m of the circled vesicles. Throughout the entire
-   simulation, these vesicle configurations have the largest tension.}
+  passing through a closely-fit channel similar to the experimental
+  device in~\citet{abk-fai-sto2006}. (b) A semipermeable vesicle passing
+  through a (four-times) longer closely-fit channel than (a).  (c) The
+  tension in N/m of the vesicle shapes in (a). (d) The tension in N/m of
+  the vesicle shapes in (b). (e) The excess pressure of an impermeable
+  and semipermeable vesicle in the short geometry in (a). (f) The
+  reduced area of the semipermeable vesicles in the geometries in (a)
+  and (b) as a function of the vesicles' center of mass. In (c) and (d),
+  the x-axis is scaled by $1/L$ where $L$ is half the length of the
+  constriction. (g) The reduced area of the semipermeable vesicles in
+  the geometries in (a) and (b) as a function of time. The time axis is
+  scaled by $1/t_R$ where $t_R$ is the residency time. In parts (e) and
+  (f), the dashed lines correspond to the locations of the inlet and
+  outlet. In part (g), the dashed lines correspond to the times that the
+  vesicle enters and exits the constriction. The colored vesicles show
+  the tension distribution in N/m of the circled vesicles. Throughout
+  the entire simulation, these vesicle configurations have the largest
+  tension.}
 \end{figure*}
-
-
 When red blood cells go through small capillary vessels, they experience
 large shape deformation and significant membrane stretching that
 triggers ATP release~\cite{Wan2008_PNAS, ForsythWan2011_PNAS}.  Many
@@ -1138,19 +1138,6 @@ stenosis for a residence time $t_R \approx 70$ ms and the area decreases
 by 13.2\% (red curves).
 
 When a semipermeable vesicle goes through a closely-fit channel, we observe that the water efflux is found in the front, and the influx is in the rear of the vesicle membrane (Figure~\ref{fig:stenosisComposite}). This corresponds well to the corresponding tension distribution in Figure~\ref{fig:stenosisTensions}: Larger tension in the front, and smaller tension in the rear.
-%\begin{figure*}[htp]
-%  \centering
-%  \begin{tikzpicture}[scale=1]
-%    \node[inner sep=0pt] at (0,0) {
-%    \includegraphics[width=\textwidth]{figures/stenosisTensions.pdf}
-%    };
-%    \node at (-8.6,0.7) {(a)};
-%    \node at (-1.6,0.7) {(b)};
-%  \end{tikzpicture}
-%  \caption{\label{fig:stenosisTensions} The tension distribution along a
-%  semipermeable vesicle with $\beta = 10^{-3}$ going through a
-%  closely-fit channel of two different lengths.}
-%\end{figure*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Semipermeable Vesicle in a Contracting Geometry} 
