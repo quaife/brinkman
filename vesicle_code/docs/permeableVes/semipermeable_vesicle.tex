@@ -622,8 +622,6 @@ subsequent time step size.
   \else
   \includegraphics{figures/parabolicImpermeable.pdf}
   \fi
-  \todo[inline]{Update the coloring since two of the runs are actually
-  symmetric slippers}
   \caption{\label{fig:PoiseuillePhase} Phase diagram of an impermeable
   vesicle with various reduced areas submerged in a Poiseuille flow with
   various flow rates. The shapes agree qualitatively with Kaoui {\em et
@@ -632,27 +630,15 @@ subsequent time step size.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Numerical Validation\label{subsec:numerical_validation}}
-To validate our numerical codes for simulating vesicle hydrodynamics, we reproduce a phase diagram of the equilibrium
-shape of an impermeable vesicle in a Poiseuille flow. Depending on
-the maximum flow velocity and the vesicle reduced area, the equilibrium vesicle shape is either an
+To validate our numerical codes for simulating vesicle hydrodynamics, we
+reproduce a phase diagram of the equilibrium shape of an impermeable
+vesicle in a Poiseuille flow. Depending on the maximum flow velocity and
+the vesicle reduced area, the equilibrium vesicle shape is either an
 axisymmetric bullet, an axisymmetric parachute, or a tank-treading
-asymmetric slipper~\cite{kao-bir-mis2009}. Comparing against the simulation results of an impermeable vesicle in Poiseuille flow
-(specifically Figure 2 in~\citet{kao-bir-mis2009}),
-%
-%(Figure~\ref{fig:PoiseuillePhase}) with those in~\cite{kao-bir-mis2009}
-%(see Figure 2), 
-%
-we observe general agreement in the equilibrium
-vesicle shapes except that,
-%
-%see that the vesicle shapes qualitatively agree. We
-%note that 
-%
-Kaoui {\em et al.}~report that the vesicles with $\alpha=0.7$
-and flow rates $U = 1200\; \mu$m/s and $U = 1600\; \mu$m/s are
-axisymmetric.  In our simulations these vesicles are slightly
-asymmetric, are undergoing a tank-treading motion, and we therefore
-report them as asymmetric slippers.
+asymmetric slipper~\cite{kao-bir-mis2009}. Comparing against the
+simulation results of an impermeable vesicle in Poiseuille flow
+(specifically Figure 2 in~\citet{kao-bir-mis2009}), we observe general
+agreement in the equilibrium vesicle shapes.
 
 
 \section{Hydrodynamics of a semipermeable vesicle in free space\label{sec:free_space}}
@@ -664,8 +650,13 @@ and a Poiseuille flow. For each example, we fix the vesicle length and
 examine the enclosed water content as a dynamic consequence of water
 flow, vesicle shape deformation, and distribution of membrane tension.
 %
-Under these flows, our simulations show
-that the steady state of an impermeable vesicle is different from that of a semipermeable vesicle, which depends only on the strength of the external flow and is insensitive to permeability $\beta$ (as long as $\beta>0$). We find that  the time in the dynamic evolution towards equilibrium is scaled by $\beta^{-1}$: the smaller $\beta$ is the longer it takes to reach the steady state.
+Under these flows, our simulations show that the steady state of an
+impermeable vesicle is different from that of a semipermeable vesicle,
+which depends only on the strength of the external flow and is
+insensitive to permeability $\beta$ (as long as $\beta>0$). We find that
+the time in the dynamic evolution towards equilibrium is scaled by
+$\beta^{-1}$: the smaller $\beta$ is the longer it takes to reach the
+steady state.
 
 In experiments, vesicles under shear flows are measured for a few
 minutes (chapter 19 in~\cite{Dimova2020_GVB}), a duration over which a
