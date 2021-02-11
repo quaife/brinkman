@@ -622,6 +622,8 @@ subsequent time step size.
   \else
   \includegraphics{figures/parabolicImpermeable.pdf}
   \fi
+  \todo[inline]{Update the coloring since two of the runs are actually
+  symmetric slippers}
   \caption{\label{fig:PoiseuillePhase} Phase diagram of an impermeable
   vesicle with various reduced areas submerged in a Poiseuille flow with
   various flow rates. The shapes agree qualitatively with Kaoui {\em et
@@ -754,15 +756,13 @@ to inflate to a circle with vanishing force and velocity.
 
 \begin{figure*}[htp]
   \centering
-  \includegraphics[width=\textwidth]{figures/relaxationTensions2.pdf}
-%  \ifTikz
-%    \input{figures/relaxationTensions.tikz}
-%  \else
-%    \includegraphics{figures/relaxationTensions.pdf}
-%  \fi
-  \todo[inline]{Convert to tikz}
-  \caption{\label{fig:relaxationTensions} The distribution of membrane tension of a relaxing
-  vesicle that corresponds to
+  \ifTikz
+    \input{figures/relaxationTensions.tikz}
+  \else
+    \includegraphics{figures/relaxationTensions.pdf}
+  \fi
+  \caption{\label{fig:relaxationTensions} The distribution of membrane
+  tension of a relaxing vesicle that corresponds to
   Figure~\ref{fig:relaxationComposite}.}
 \end{figure*}
 

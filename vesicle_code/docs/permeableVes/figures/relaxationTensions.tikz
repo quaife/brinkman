@@ -2,8 +2,8 @@
 
 % Start of the ellipse1 images 
 \begin{axis}[
-  at = {(0.0cm,7.8cm)},
-  width = 4cm,
+  at = {(0.0cm,7.2cm)},
+  width = 3.7cm,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -14,11 +14,12 @@
   ymax = 1.42,
   colorbar,
   colorbar style={
+    /pgfplots/tick scale binop=\times,
     at = {(1.02,0)},
     anchor = south west,
     ytick={-2.650e-7,-2.660e-7},
     yticklabels = {$-2.650$,$-2.660$},
-    font = \normalsize
+    font = \footnotesize,
   },
   colorbar/width=2mm
 ]
@@ -286,8 +287,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(3.5cm,7.8cm)},
-  width = 4cm,
+  at = {(3.3cm,7.2cm)},
+  width = 3.7cm,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -298,11 +299,12 @@
   ymax = 1.42,
   colorbar,
   colorbar style={
+    /pgfplots/tick scale binop=\times,
     at = {(1.02,0)},
     anchor = south west,
     ytick={-2.485e-7,-2.490e-7},
     yticklabels = {$-2.485$,$-2.490$},
-    font = \normalsize
+    font = \footnotesize,
   },
   colorbar/width=2mm
 ]
@@ -569,8 +571,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(7.0cm,7.8cm)},
-  width = 4cm,
+  at = {(6.6cm,7.2cm)},
+  width = 3.7cm,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -581,11 +583,12 @@
   ymax = 1.42,
   colorbar,
   colorbar style={
+    /pgfplots/tick scale binop=\times,
     at = {(1.02,0)},
     anchor = south west,
     ytick={-2.225e-7,-2.230e-7},
     yticklabels = {$-2.225$,$-2.230$},
-    font = \normalsize
+    font = \footnotesize,
   },
   colorbar/width=2mm
 ]
@@ -852,8 +855,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(10.5cm,7.8cm)},
-  width = 4cm,
+  at = {(9.9cm,7.2cm)},
+  width = 3.7cm,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -864,11 +867,12 @@
   ymax = 1.42,
   colorbar,
   colorbar style={
+    /pgfplots/tick scale binop=\times,
     at = {(1.02,0)},
     anchor = south west,
     ytick={-2.024e-7,-2.030e-7},
     yticklabels = {$-2.024$,$-2.030$},
-    font = \normalsize,
+    font = \footnotesize,
   },
   colorbar/width=2mm
 ]
@@ -1135,8 +1139,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(14.0cm,7.8cm)},
-  width = 4cm,
+  at = {(13.2cm,7.2cm)},
+  width = 3.7cm,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -1147,11 +1151,12 @@
   ymax = 1.42,
   colorbar,
   colorbar style={
+    /pgfplots/tick scale binop=\times,
     at = {(1.02,0)},
     anchor = south west,
     ytick={4.9895e-8},
     yticklabels = {$+4.990$},
-    font = \normalsize
+    font = \footnotesize,
   },
   colorbar/width=2mm
 ]
@@ -1426,8 +1431,8 @@
 
 % Start of the ellipse2 images
 \begin{axis}[
-  at = {(0.0cm,5.2cm)},
-  width = 4cm,
+  at = {(0.0cm,4.8cm)},
+  width = 3.7cm,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -1438,11 +1443,12 @@
   ymax = 1.42,
   colorbar,
   colorbar style={
+    /pgfplots/tick scale binop=\times,
     at = {(1.02,0)},
     anchor = south west,
     ytick = {-8.0e-7,-6.0e-7,-4.0e-7},
     yticklabels = {$-8.0$,$-6.0$,$-4.0$},
-    font = \normalsize
+    font = \footnotesize,
   },
   colorbar/width=2mm
 ]
@@ -1710,8 +1716,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(3.5cm,5.2cm)},
-  width = 4cm,
+  at = {(3.3cm,4.8cm)},
+  width = 3.7cm,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -1722,11 +1728,12 @@
   ymax = 1.42,
   colorbar,
   colorbar style={
+    /pgfplots/tick scale binop=\times,
     at = {(1.02,0)},
     anchor = south west,
     ytick = {-4.5e-7,-3.5e-7,-2.5e-7},
     yticklabels = {$-4.5$,$-3.5$,$-2.5$},
-    font = \normalsize
+    font = \footnotesize,
   },
   colorbar/width=2mm
 ]
@@ -1994,8 +2001,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(7.0cm,5.2cm)},
-  width = 4cm,
+  at = {(6.6cm,4.8cm)},
+  width = 3.7cm,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -2006,11 +2013,12 @@
   ymax = 1.42,
   colorbar,
   colorbar style={
+    /pgfplots/tick scale binop=\times,
     at = {(1.02,0)},
     anchor = south west,
     ytick={-1.6e-7,-1.5e-7,-1.4e-7},
     yticklabels = {$-1.6$,$-1.5$,$-1.4$},
-    font = \normalsize
+    font = \footnotesize,
   },
   colorbar/width=2mm
 ]
@@ -2278,8 +2286,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(10.5cm,5.2cm)},
-  width = 4cm,
+  at = {(9.9cm,4.8cm)},
+  width = 3.7cm,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -2290,11 +2298,12 @@
   ymax = 1.42,
   colorbar,
   colorbar style={
+    /pgfplots/tick scale binop=\times,
     at = {(1.02,0)},
     anchor = south west,
     ytick={-1.45e-7,-1.44e-7,-1.43e-7,-1.42e-7},
     yticklabels = {$-1.45$,$-1.44$,$-1.43$,$-1.42$},
-    font = \normalsize,
+    font = \footnotesize,
   },
   colorbar/width=2mm
 ]
@@ -2562,8 +2571,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(14.0cm,5.2cm)},
-  width = 4cm,
+  at = {(13.2cm,4.8cm)},
+  width = 3.7cm,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -2574,11 +2583,12 @@
   ymax = 1.42,
   colorbar,
   colorbar style={
+    /pgfplots/tick scale binop=\times,
     at = {(1.02,0)},
     anchor = south west,
     ytick={-1.98e-7,-1.97e-7,-1.96e-7,-1.95e-7},
     yticklabels = {$-1.98$,$-1.97$,$-1.96$,$-1.95$},
-    font = \normalsize
+    font = \footnotesize,
   },
   colorbar/width=2mm
 ]
@@ -2848,8 +2858,8 @@
 
 % Start of the star1.dat images
 \begin{axis}[
-  at = {(0.0cm,2.6cm)},
-  width = 4cm,
+  at = {(0.0cm,2.4cm)},
+  width = 3.7cm,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -2860,11 +2870,12 @@
   ymax = 1.42,
   colorbar,
   colorbar style={
+    /pgfplots/tick scale binop=\times,
     at = {(1.02,0)},
     anchor = south west,
     ytick={-1.0e-6,-2.0e-6,-3.0e-6,-4.0e-6},
     yticklabels = {$-1.0$,$-2.0$,$-3.0$,$-4.0$},
-    font = \normalsize
+    font = \footnotesize,
   },
   colorbar/width=2mm
 ]
@@ -3132,8 +3143,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(3.5cm,2.6cm)},
-  width = 4cm,
+  at = {(3.3cm,2.4cm)},
+  width = 3.7cm,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -3144,11 +3155,12 @@
   ymax = 1.42,
   colorbar,
   colorbar style={
+    /pgfplots/tick scale binop=\times,
     at = {(1.02,0)},
     anchor = south west,
     ytick={-4.0e-7,-6.0e-7,-8.0e-7,-1.0e-6},
     yticklabels = {$-0.4$,$-0.6$,$-0.8$,$-1.0$},
-    font = \normalsize
+    font = \footnotesize,
   },
   colorbar/width=2mm
 ]
@@ -3416,8 +3428,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(7.0cm,2.6cm)},
-  width = 4cm,
+  at = {(6.6cm,2.4cm)},
+  width = 3.7cm,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -3428,11 +3440,12 @@
   ymax = 1.42,
   colorbar,
   colorbar style={
+    /pgfplots/tick scale binop=\times,
     at = {(1.02,0)},
     anchor = south west,
     ytick={-7.00e-7,-7.40e-7,-7.80e-7},
     yticklabels = {$-7.0$,$-7.4$,$-7.8$},
-    font = \normalsize
+    font = \footnotesize,
   },
   colorbar/width=2mm
 ]
@@ -3700,8 +3713,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(10.5cm,2.6cm)},
-  width = 4cm,
+  at = {(9.9cm,2.4cm)},
+  width = 3.7cm,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -3712,11 +3725,12 @@
   ymax = 1.42,
   colorbar,
   colorbar style={
+    /pgfplots/tick scale binop=\times,
     at = {(1.02,0)},
     anchor = south west,
     ytick={-1.30e-6,-1.32e-6,-1.34e-6},
     yticklabels = {$-1.30$,$-1.32$,$-1.34$},
-    font = \normalsize,
+    font = \footnotesize,
   },
   colorbar/width=2mm
 ]
@@ -3985,8 +3999,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(14.0cm,2.6cm)},
-  width = 4cm,
+  at = {(13.2cm,2.4cm)},
+  width = 3.7cm,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -3997,11 +4011,12 @@
   ymax = 1.42,
   colorbar,
   colorbar style={
+    /pgfplots/tick scale binop=\times,
     at = {(1.02,0)},
     anchor = south west,
     ytick={-1.84e-7,-1.86e-7,-1.88e-7},
     yticklabels={$-1.84$,$-1.86$,$-1.88$},
-    font = \normalsize
+    font = \footnotesize,
   },
   colorbar/width=2mm
 ]
@@ -4273,7 +4288,7 @@
 % Start of the star2 images
 \begin{axis}[
   at = {(0.0cm,0.0cm)},
-  width = 4cm,
+  width = 3.7cm,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -4284,11 +4299,12 @@
   ymax = 1.42,
   colorbar,
   colorbar style={
+    /pgfplots/tick scale binop=\times,
     at = {(1.02,0)},
     anchor = south west,
     ytick={-1.5e-5,-0.5e-5,+0.5e-5},
     yticklabels = {$-1.5$,$-0.5$,$+0.5$},
-    font = \normalsize
+    font = \footnotesize,
   },
   colorbar/width=2mm
 ]
@@ -4556,8 +4572,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(3.5cm,0.0cm)},
-  width = 4cm,
+  at = {(3.3cm,0.0cm)},
+  width = 3.7cm,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -4568,11 +4584,12 @@
   ymax = 1.42,
   colorbar,
   colorbar style={
+    /pgfplots/tick scale binop=\times,
     at = {(1.02,0)},
     anchor = south west,
     ytick={-1.0e-5,-0.5e-5,0,+0.5e-5},
     yticklabels={$-1.0$,$-0.5$,$+0.0$,$+0.5$},
-    font = \normalsize
+    font = \footnotesize,
   },
   colorbar/width=2mm
 ]
@@ -4840,8 +4857,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(7.0cm,0.0cm)},
-  width = 4cm,
+  at = {(6.6cm,0.0cm)},
+  width = 3.7cm,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -4852,11 +4869,12 @@
   ymax = 1.42,
   colorbar,
   colorbar style={
+    /pgfplots/tick scale binop=\times,
     at = {(1.02,0)},
     anchor = south west,
     ytick={-2.5e-5,-1.5e-5,-0.5e-5},
     yticklabels={$-2.5$,$-1.5$,$-0.5$},
-    font = \normalsize
+    font = \footnotesize,
   },
   colorbar/width=2mm
 ]
@@ -5124,8 +5142,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(10.5cm,0.0cm)},
-  width = 4cm,
+  at = {(9.9cm,0.0cm)},
+  width = 3.7cm,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -5136,11 +5154,12 @@
   ymax = 1.42,
   colorbar,
   colorbar style={
+    /pgfplots/tick scale binop=\times,
     at = {(1.02,0)},
     anchor = south west,
     ytick={-2.5e-5,-1.5e-5,-0.5e-5},
     yticklabels = {$-2.5$,$-1.5$,$-0.5$},
-    font = \normalsize,
+    font = \footnotesize,
   },
   colorbar/width=2mm
 ]
@@ -5408,8 +5427,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(14.0cm,0.0cm)},
-  width = 4cm,
+  at = {(13.2cm,0.0cm)},
+  width = 3.7cm,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -5420,11 +5439,12 @@
   ymax = 1.42,
   colorbar,
   colorbar style={
+    /pgfplots/tick scale binop=\times,
     at = {(1.02,0)},
     anchor = south west,
     ytick={-2e-5,-1.5e-5,-1.0e-5,-0.5e-5},
     yticklabels={$-2.0$,$-1.5$,$-1.0$,$-0.5$},
-    font = \normalsize
+    font = \footnotesize,
   },
   colorbar/width=2mm
 ]

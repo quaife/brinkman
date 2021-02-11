@@ -14,7 +14,7 @@ prams.viscCont = ones(prams.nv,1);         % viscosity contrast
 prams.saveRate = 100;
 options.farField = 'parabolic'; % background velocity
 %options.farFieldSpeed = 4.2;
-options.farFieldSpeed = 600*4.2;
+options.farFieldSpeed = 800*4.2;
 %options.farFieldSpeed = farFieldSpeed;
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
