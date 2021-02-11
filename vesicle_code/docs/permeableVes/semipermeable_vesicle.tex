@@ -589,10 +589,8 @@ Nearly-singular integrals are computed with an interpolation-based
 quadrature rule~\cite{qua-bir2014}.
 
 \subsection{Discretization in Time}
-To eliminate stringent time step restrictions, we modify a time stepping
-method that discretizes high-order derivatives
-semi-implicitly~\cite{vee-gue-zor-bir2009, qua-bir2014}. We introduce
-the notation
+To develop a second-order, non-stiff, adaptive time stepping method, we
+first introduce the notation
 %\begin{alignat}{3}
 %  &\BB\ff = -\frac{d^4}{ds^4} \ff,  \qquad
 %  &&\TT\sigma = (\sigma \xx_s)_s, \\
@@ -618,8 +616,9 @@ all depend on the vesicle shape. A time stepping method that treats
 these dependencies implicitly would result in a non-linear set of
 equations that would be computationally expensive to solve. Instead, we
 use a time stepping method that defines the operators at time $t^N$ and
-discretizes the stiff terms implicitly. In particular, we use the
-first-order semi-implicit method
+discretizes the stiff terms due to high-order derivatives
+implicitly~\cite{vee-gue-zor-bir2009, qua-bir2014}. In particular, we
+use the first-order semi-implicit method
 %We note that the integral and differential operators, which all depend
 %on the vesicle shape, are non-linear with respect to the vesicle shape.
 %We construct a time stepping scheme by letting $\BB^N$ be the bending
@@ -642,6 +641,18 @@ conserved, we only use the length of the vesicle to estimate the error
 which determines if a time step is accepted or not and determines the
 subsequent time step size.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Numerical Validation\label{subsec:numerical_validation}}
+To validate our numerical codes for simulating vesicle hydrodynamics, we
+reproduce a phase diagram of the equilibrium shape of an impermeable
+vesicle in a Poiseuille flow. Depending on the maximum flow velocity and
+the vesicle reduced area, the equilibrium vesicle shape is either an
+axisymmetric bullet, an axisymmetric parachute, or a tank-treading
+asymmetric slipper~\cite{kao-bir-mis2009}. Comparing against the
+simulation results of an impermeable vesicle in Poiseuille flow
+(specifically Figure 2 in~\citet{kao-bir-mis2009}), we observe general
+agreement in the equilibrium vesicle shapes.
+
 \begin{figure}[htp]
   \centering
   \ifTikz
@@ -656,18 +667,6 @@ subsequent time step size.
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Numerical Validation\label{subsec:numerical_validation}}
-To validate our numerical codes for simulating vesicle hydrodynamics, we
-reproduce a phase diagram of the equilibrium shape of an impermeable
-vesicle in a Poiseuille flow. Depending on the maximum flow velocity and
-the vesicle reduced area, the equilibrium vesicle shape is either an
-axisymmetric bullet, an axisymmetric parachute, or a tank-treading
-asymmetric slipper~\cite{kao-bir-mis2009}. Comparing against the
-simulation results of an impermeable vesicle in Poiseuille flow
-(specifically Figure 2 in~\citet{kao-bir-mis2009}), we observe general
-agreement in the equilibrium vesicle shapes.
-
-
 \section{Hydrodynamics of a semipermeable vesicle in free space\label{sec:free_space}}
 To highlight the effects of membrane permeability to water, we consider
 a single semipermeable vesicle, with (dimensionless) permeability
