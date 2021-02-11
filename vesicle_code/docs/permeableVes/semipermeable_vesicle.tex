@@ -339,11 +339,11 @@ external flow or confinement.
 %for membrane poration $\sim 10^{-3}$ N/m. Such large value of $\beta$
 %may pertain to red blood cell membranes with aquaporin proteins.
 
-In our formulation, a semipermeable vesicle is suspended in a viscous Newtonian fluid 
-(in domain $\Omega$).  The vesicle membrane $\gamma$ is parameterized as $\xx(s,t)$
-where $s$ is arclength and $t$ is time. In the suspending fluid the flow
-velocity $\uu$ and pressure $p$ are governed by the incompressible 
-Stokes equations
+In our formulation, a semipermeable vesicle is suspended in a viscous
+Newtonian fluid (in domain $\Omega$).  The vesicle membrane $\gamma$ is
+parameterized as $\xx(s,t)$ where $s$ is arclength and $t$ is time. In
+the suspending fluid the flow velocity $\uu$ and pressure $p$ are
+governed by the incompressible Stokes equations
 \begin{align}
   \label{eqn:governing}
   -\nabla p + \mu \triangle \uu = 0, \quad
@@ -359,14 +359,14 @@ by requiring
 \begin{align}
   \label{eqn:jump}
   \jump{\uu} = 0, \quad
-  \jump{T\cdot\nn} = \ff_\mathrm{mem}, \quad
+  \jump{\mathbf{T}\cdot\nn} = \ff_\mathrm{mem}, \quad
   \xx_s \cdot \uu_s = 0,
 \end{align}
 where 
 %$\nn$ is the outward normal of $\gamma$, 
-$\jump{\cdot}$ is the jump across the interface, and $T$ is the
+$\jump{\cdot}$ is the jump across the interface, and $\mathbf{T} = -p
+\mathbf{I} + \mu \left(\nabla \uu + \nabla \uu^T \right)$ is the
 hydrodynamic stress tensor.
-\todo[inline]{We defined $T$ to be the pressure in equation (1)}
 %The membrane force $\ff_\mathrm{mem}$ is the sum of a bending force
 %with bending modulus $k_b$ and a force due to the tension $\Lambda$.
 %Following~\citet{vee-gue-zor-bir2009}, we introduce the variable
@@ -414,6 +414,7 @@ boundary conditions in Equation~\eqref{eqn:jump}, the fluid velocity is
 \end{align}
 where $\SS$ is the single-layer potential
 \begin{align}
+  \label{eqn:SLP}
   \SS[\ff](\xx) = \frac{1}{4\pi} \int_{\gamma} \left(
     -\mathbf{I} \log\rho + \frac{\rr \otimes \rr}{\rho^2} \right)
     \ff(\yy) ds_{\yy},
@@ -592,33 +593,45 @@ To eliminate stringent time step restrictions, we modify a time stepping
 method that discretizes high-order derivatives
 semi-implicitly~\cite{vee-gue-zor-bir2009, qua-bir2014}. We introduce
 the notation
-\begin{alignat}{3}
-  &B[\xx]\ff = -\frac{d^4}{ds^4} \ff,  \qquad
-  &&T[\xx]\sigma = (\sigma \xx_s)_s, \\
-  &D[\xx]\ff = \xx_s \cdot \ff_s, 
-  &&P[\xx]\ff = (\ff \cdot \nn) \nn,
-\end{alignat}
-for the differential and projection operators. Then,
-Equation~\eqref{eqn:vesVelocity} is written as
+%\begin{alignat}{3}
+%  &\BB\ff = -\frac{d^4}{ds^4} \ff,  \qquad
+%  &&\TT\sigma = (\sigma \xx_s)_s, \\
+%  &\DD\ff = \xx_s \cdot \ff_s, 
+%  &&P\ff = (\ff \cdot \nn) \nn,
+%\end{alignat}
 \begin{align}
-  \dot{\xx} &= \uu_\infty(\xx) + \beta P(B\xx + T\sigma)
-  + \SS (B\xx + T\sigma), \quad
-  D \dot{\xx} = 0.
+  \BB\ff = -\frac{d^4}{ds^4} \ff,  \qquad
+  \TT\sigma = (\sigma \xx_s)_s, \quad
+  \DD\ff = \xx_s \cdot \ff_s, \quad
+  P\ff = (\ff \cdot \nn) \nn,
+  \label{eqn:operators}
 \end{align}
-We note that the integral and differential operators, which all depend
-on the vesicle shape, are non-linear with respect to the vesicle
-shape. We construct a time stepping scheme by letting $B^N$ be the
-bending operator due to the vesicle configuration at time $t^N$, and use
-similar notation for the other operators. Then, a first-order
-semi-implicit time stepping method of Equation~\eqref{eqn:vesVelocity} is
+for the differential and projection operators. Then,
+Equation~\eqref{eqn:vesVelocity} can be written as
+\begin{align}
+  \dot{\xx} &= \uu_\infty(\xx) + \beta P(\BB\xx + \TT\sigma)
+  + \SS (\BB\xx + \TT\sigma), \quad \DD \dot{\xx} = 0.
+\end{align}
+We note that the operators defined in Equation~\eqref{eqn:operators}, as
+well as the single-layer potential defined in Equation~\eqref{eqn:SLP}
+all depend on the vesicle shape. A time stepping method that treats
+these dependencies implicitly would result in a non-linear set of
+equations that would be computationally expensive to solve. Instead, we
+use a time stepping method that defines the operators at time $t^N$ and
+discretizes the stiff terms implicitly. In particular, we use the
+first-order semi-implicit method
+%We note that the integral and differential operators, which all depend
+%on the vesicle shape, are non-linear with respect to the vesicle shape.
+%We construct a time stepping scheme by letting $\BB^N$ be the bending
+%operator due to the vesicle configuration at time $t^N$, and use
+%similar notation for the other operators. Then, a first-order
+%semi-implicit time stepping method of Equation~\eqref{eqn:vesVelocity}
+%is
 \begin{alignat}{3}  
   \frac{\xx^{N+1} - \xx^N}{\triangle t} &= \uu_\infty(\xx^N) 
-  + \beta P^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right) 
-  + \SS^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right),  \\
-%  \frac{\xx^{N+1} - \xx^N}{\triangle t} &= \uu_\infty(\xx^N) 
-%  &&+ \beta P^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right) \nonumber \\
-%  & &&+ \SS^N\left(B^N\xx^{N+1} + T^N\sigma^{N+1}\right),  \\
-  D^N\xx^{N+1} &= 1,
+  + \beta P^N\left(\BB^N\xx^{N+1} + \TT^N\sigma^{N+1}\right) 
+  + \SS^N\left(\BB^N\xx^{N+1} + \TT^N\sigma^{N+1}\right),  \\
+  \DD^N\xx^{N+1} &= 1,
 \end{alignat}
 and this linear system is solved with matrix-free GMRES.
 
