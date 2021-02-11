@@ -1,19 +1,21 @@
 \begin{tikzpicture}[scale=1]
 
 \begin{axis}[
-  at = {(9.0cm,0.0cm)},
-  scale = 1.07,
+  at = {(8.5cm,0.6cm)},
+  scale = 0.90,
   xmin = 5e-7,
   xmax = 2e-1,
   xmode = log,
   xminorticks = false,
   xtick = {1e-6,1e-5,1e-4,1e-3,1e-2,1e-1},
-  xticklabels = {$10^{-6}$,$10^{-5}$,$10^{-4}$,$10^{-3}$,$10^{-2}$,$10^{-1}$},
+  xticklabels = {\small $10^{-6}$,\small $10^{-5}$,\small $10^{-4}$,\small $10^{-3}$,\small $10^{-2}$,\small $10^{-1}$},
   ymin = 0,
   ymax = 1.1,
+  ytick = {0,0.2,0.4,0.6,0.8,1},
+  yticklabels = {\small 0,\small 0.2,\small 0.4,\small 0.6,\small 0.8,\small 1},
   yticklabel pos = right,
-  xlabel = {\large $\beta t$},
-  ylabel = {\large ${\alpha}(t)$},
+  xlabel = {$\beta t$},
+  ylabel = {${\alpha}$},
   ylabel near ticks,
 ]
 
@@ -3896,17 +3898,14 @@
 
 \end{axis}
 
-%\node at (11.1,6.25) {\small 250 sec};
-%\node at (13.45,6.25) {\small 250 min};
-%\node at (15.8,6.25) {\small 250 hour};
-\node at (11.0,6.25) {\small 30 min};
-\node at (13.1,6.25) {\small 1 day};
-\node at (15.0,6.25) {\small 4 weeks};
+\node at (10.2,5.85) {\scriptsize 30 min};
+\node at (12.0,5.85) {\scriptsize 1 day};
+\node at (13.6,5.85) {\scriptsize 4 weeks};
 
 % Start of the top row of images (ellipse1.dat)
 \begin{axis}[
-  at = {(0.0cm,4.6cm)},
-  scale = 0.28,
+  at = {(0.0cm,4.5cm)},
+  scale = 0.25,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -4209,8 +4208,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(1.7cm,4.6cm)},
-  scale = 0.28,
+  at = {(1.5cm,4.5cm)},
+  scale = 0.25,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -4482,8 +4481,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(3.4cm,4.6cm)},
-  scale = 0.28,
+  at = {(3.0cm,4.5cm)},
+  scale = 0.25,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -4756,8 +4755,8 @@
 
 
 \begin{axis}[
-  at = {(5.1cm,4.6cm)},
-  scale = 0.28,
+  at = {(4.5cm,4.5cm)},
+  scale = 0.25,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -5029,8 +5028,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(6.8cm,4.6cm)},
-  scale = 0.28,
+  at = {(6.0cm,4.5cm)},
+  scale = 0.25,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -5304,8 +5303,8 @@
 %
 % Start of the second row of images (ellipse2.dat)
 \begin{axis}[
-  at = {(0.0cm,2.9cm)},
-  scale = 0.28,
+  at = {(0.0cm,3.0cm)},
+  scale = 0.25,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -5621,8 +5620,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(1.7cm,2.9cm)},
-  scale = 0.28,
+  at = {(1.5cm,3.0cm)},
+  scale = 0.25,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -5982,8 +5981,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(3.4cm,2.9cm)},
-  scale = 0.28,
+  at = {(3.0cm,3.0cm)},
+  scale = 0.25,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -6256,8 +6255,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(5.1cm,2.9cm)},
-  scale = 0.28,
+  at = {(4.5cm,3.0cm)},
+  scale = 0.25,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -6530,8 +6529,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(6.8cm,2.9cm)},
-  scale = 0.28,
+  at = {(6.0cm,3.0cm)},
+  scale = 0.25,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -6807,8 +6806,8 @@
 
 % Start of the third row of images (star1.dat)
 \begin{axis}[
-  at = {(0.0cm,1.2cm)},
-  scale = 0.28,
+  at = {(0.0cm,1.5cm)},
+  scale = 0.25,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -7269,8 +7268,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(1.7cm,1.2cm)},
-  scale = 0.28,
+  at = {(1.5cm,1.5cm)},
+  scale = 0.25,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -7653,8 +7652,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(3.4cm,1.2cm)},
-  scale = 0.28,
+  at = {(3.0cm,1.5cm)},
+  scale = 0.25,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -7927,8 +7926,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(5.1cm,1.2cm)},
-  scale = 0.28,
+  at = {(4.5cm,1.5cm)},
+  scale = 0.25,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -8201,8 +8200,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(6.8cm,1.2cm)},
-  scale = 0.28,
+  at = {(6.0cm,1.5cm)},
+  scale = 0.25,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -8478,8 +8477,8 @@
 
 % Start of the top row of images (star2.dat)
 \begin{axis}[
-  at = {(0.0cm,-0.5cm)},
-  scale = 0.28,
+  at = {(0.0cm,0.0cm)},
+  scale = 0.25,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -8993,8 +8992,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(1.7cm,-0.5cm)},
-  scale = 0.28,
+  at = {(1.5cm,0.0cm)},
+  scale = 0.25,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -9293,8 +9292,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(3.4cm,-0.5cm)},
-  scale = 0.28,
+  at = {(3.0cm,0.0cm)},
+  scale = 0.25,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -9690,8 +9689,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(5.1cm,-0.5cm)},
-  scale = 0.28,
+  at = {(4.5cm,0.0cm)},
+  scale = 0.25,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -10048,8 +10047,8 @@
 \end{axis}
 
 \begin{axis}[
-  at = {(6.8cm,-0.5cm)},
-  scale = 0.28,
+  at = {(6.0cm,0.0cm)},
+  scale = 0.25,
 %  hide axis, 
   xtick = \empty,
   ytick = \empty,
@@ -10321,23 +10320,23 @@
 \end{axis}
 % End of the top row of images (star1.dat)
 
-\draw[->,line width=1pt] (8.45cm,0.65cm)--(8.95cm,0.65cm);
-\draw[->,line width=1pt] (8.45cm,2.10cm)--(8.95cm,2.10cm);
-\draw[->,line width=1pt] (8.45cm,3.64cm)--(8.95cm,3.64cm);
-\draw[->,line width=1pt] (8.45cm,5.25cm)--(8.95cm,5.25cm);
+\draw[->,line width=1pt] (7.45cm,1.12cm)--(8.45cm,1.12cm);
+\draw[->,line width=1pt] (7.45cm,2.35cm)--(8.45cm,2.35cm);
+\draw[->,line width=1pt] (7.45cm,3.67cm)--(8.45cm,3.67cm);
+\draw[->,line width=1pt] (7.45cm,5.01cm)--(8.45cm,5.01cm);
 
-\node at (9.8,5.50) {\small $\alpha(0) = 0.95$};
-\node at (9.8,3.90) {\small $\alpha(0) = 0.66$};
-\node at (9.8,2.36) {\small $\alpha(0) = 0.38$};
-\node at (9.8,0.89) {\small $\alpha(0) = 0.12$};
+\node at (9.3,5.25) {\scriptsize $\alpha(0) = 0.95$};
+\node at (9.3,3.90) {\scriptsize $\alpha(0) = 0.66$};
+\node at (9.3,2.60) {\scriptsize $\alpha(0) = 0.38$};
+\node at (9.3,1.37) {\scriptsize $\alpha(0) = 0.12$};
 
-\draw[-,line width=1.0pt] (0.7,-0.7)--(4.2-0.2,-0.7);
-\draw[->,line width=1.0pt] (4.2+0.2,-0.7)--(7.7,-0.7);
-\node at (4.2,-0.7) {\large $t$};
+\draw[-,line width=1.0pt] (0.6,-0.2)--(3.8-0.2,-0.2);
+\draw[->,line width=1.0pt] (3.8+0.2,-0.2)--(7.0,-0.2);
+\node at (3.8,-0.2) {$t$};
 
 
-\node at (0.2,6.5) {(a)};
-\node at (9.2,6.5) {(b)};
+\node at (0.2,6.2) {(a)};
+\node at (8.7,6.2) {(b)};
 
 
 \end{tikzpicture}
