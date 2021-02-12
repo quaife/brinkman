@@ -18078,17 +18078,18 @@ plot coordinates {
   ymax = 4,
   xtick = \empty,
   ytick = \empty,
-%  title style = {align=center, yshift = -0.4cm},
-%  title = {\footnotesize $\beta = 5 \times 10^{-4}$ \\ 
-%           \footnotesize $U_{\max} = 5.7\;\mu$m/s},
+  title style = {align=center, yshift = -0.4cm},
+  title = {\scriptsize $\beta = 5 \times 10^{-4}$ \\ 
+           \scriptsize $U_{\max} = 5.7\;\mu$m/s},
   colorbar,
   colorbar style={
     /pgfplots/tick scale binop=\tiny{\times},
-%    ytick scale label code/.code={},
+    y tick scale label style={xshift=0.4cm},
     at = {(1.02,0)},
     anchor = south west,
     ytick={0,2e-5,4e-5,6e-5,8e-5},
     yticklabels = {\tiny $0$,\tiny $2$,\tiny $4$,\tiny $6$,\tiny $8$},
+    font = \scriptsize
   },
   colorbar/width=2mm
 ]
@@ -20435,17 +20436,18 @@ plot coordinates {
   ymax = 4,
   xtick = \empty,
   ytick = \empty,
-%  title style = {align=center, yshift = -0.4cm},
-%  title = {\footnotesize $\beta = 5 \times 10^{-4}$ \\ 
-%           \footnotesize $U_{\max} = 5.7\;\mu$m/s},
+  title style = {align=center, yshift = -0.4cm},
+  title = {\scriptsize $\beta = 5 \times 10^{-4}$ \\ 
+           \scriptsize $U_{\max} = 5.7\;\mu$m/s},
   colorbar,
   colorbar style={
     /pgfplots/tick scale binop=\tiny{\times},
-%    ytick scale label code/.code={},
+    y tick scale label style={xshift=0.4cm},
     at = {(1.02,0)},
     anchor = south west,
     ytick={0,5e-6,1e-5,1.5e-5},
     yticklabels = {\tiny $0$,\tiny $0.5$,\tiny $1$,\tiny $1.5$},
+    font = \scriptsize
   },
   colorbar/width=2mm
 ]
@@ -23052,17 +23054,18 @@ plot coordinates {
   ymax = 4,
   xtick = \empty,
   ytick = \empty,
-%  title style = {align=center, yshift = -0.4cm},
-%  title = {\footnotesize $\beta = 5 \times 10^{-4}$ \\ 
-%           \footnotesize $U_{\max} = 5.7\;\mu$m/s},
+  title style = {align=center, yshift = -0.4cm},
+  title = {\scriptsize $\beta = 5 \times 10^{-4}$ \\ 
+           \scriptsize $U_{\max} = 5.7\;\mu$m/s},
   colorbar,
   colorbar style={
     /pgfplots/tick scale binop=\tiny{\times},
-%    ytick scale label code/.code={},
+    y tick scale label style={xshift=0.4cm},
     at = {(1.02,0)},
     anchor = south west,
     ytick={0,2e-6,4e-6,6e-6},
     yticklabels = {\tiny $0$,\tiny $2$,\tiny $4$,\tiny $6$},
+    font = \scriptsize
   },
   colorbar/width=2mm
 ]
@@ -25409,18 +25412,19 @@ plot coordinates {
   ymax = 4,
   xtick = \empty,
   ytick = \empty,
-%  title style = {align=center, yshift = -0.4cm},
-%  title = {\footnotesize $\beta = 5 \times 10^{-4}$ \\ 
-%           \footnotesize $U_{\max} = 5.7\;\mu$m/s},
+  title style = {align=center, yshift = -0.4cm},
+  title = {\scriptsize $\beta = 5 \times 10^{-4}$ \\ 
+           \scriptsize $U_{\max} = 5.7\;\mu$m/s},
   colorbar,
   colorbar style={
     /pgfplots/tick scale binop=\tiny{\times},
-%    ytick scale label code/.code={},
+    y tick scale label style={xshift=0.4cm},
     at = {(1.02,0)},
     anchor = south west,
     ytick={0,1e-5,2e-5,3e-5,4e-5,5e-5},
     yticklabels = {\tiny $0$,\tiny $1$,\tiny $2$,\tiny $3$,
       \tiny $4$,\tiny $5$},
+    font = \scriptsize
   },
   colorbar/width=2mm
 ]

@@ -16209,6 +16209,7 @@
     anchor = south west,
     ytick={0,5e-5,1e-4,1.5e-4},
     yticklabels = {\tiny $0$,\tiny $0.5$,\tiny $1$,\tiny $1.5$},
+    font = \scriptsize
   },
   colorbar/width=2mm
 ]
@@ -26387,8 +26388,9 @@
 
 \node at (0.1,9.10) {(a)};
 \node at (0.1,6.60) {(b)};
-\node at (7.7,9.10) {(c)};
-\node at (7.7,6.60) {(d)};
+\node at (2.6,5.45) {(c)};
+\node at (7.7,9.10) {(d)};
+\node at (7.7,6.60) {(e)};
 
 
 \end{tikzpicture}
