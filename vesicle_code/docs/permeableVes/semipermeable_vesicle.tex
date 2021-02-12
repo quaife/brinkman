@@ -116,10 +116,10 @@ its water influx/efflux is often assumed negligible in the absence of
 osmolarity. 
 %
 In this work we use boundary integral simulations to investigate the
-effects of water permeability on the vesicle hydrodynamics due to
+effects of water permeability on the hydrodynamics of an inextensible membrane under
 a mechanical load, such as the viscous stress from an external flow
-deforming a vesicle membrane in free space or pushing it through a
-confinement. Incorporating the membrane permeability into the framework of Helfrich free energy for an inextensible, elastic membrane as a model for a semipermeable vesicle, we
+deforming an inextensible membrane in free space or pushing it through a
+confinement. Incorporating the membrane permeability into the framework of Helfrich free energy for an inextensible, elastic membrane (a vesicle), we
 illustrate that, in the absence of an osmotic stress gradient, the
 semipermeable vesicle is affected by water influx/efflux over a
 sufficiently long time or under a strong confinement. Our simulations
@@ -160,13 +160,10 @@ GordonShimmelFrye2020_FP},
 mechanically induced water permeation is often associated with membrane
 poration or rupture under extreme
 stresses~\cite{HarmanBertrandJoos2017_CJP,
-RazizadehNikfarPaulLiu2020_BJ}. In this work we use modeling and direct
-numerical simulations to show that, over the appropriate time scales or
-under strong confinement, the intrinsic membrane permeability to water
-can give rise to significantly distinct hydrodynamics of a semipermeable
-vesicle. 
+RazizadehNikfarPaulLiu2020_BJ}. 
 
-The lipid bilayer membrane is permeable to water and lipid-soluble
+
+The cellular membrane is a lipid bilayer membrane that is slightly permeable to water and lipid-soluble
 molecules~\cite{Dick1964_JTB, FettiplaceHaydon1980_PhysRev,
 DeamerBramhall1986_ChemPhysLipids, Grafmueller2019_ABLS}. 
 %
@@ -179,7 +176,7 @@ permeability of a lipid bilayer membrane is in the range of
 $10^{-4}$--$10^{-3}$ cm/s~\cite{ThompsonHuang1966_ANYAS,
 FettiplaceHaydon1980_PhysRev, Grafmueller2019_ABLS, Dimova2020_GVB,
 BhatiaRobinsonDimova2020_SoftMatt}. 
-Without aquaporins or other membrane channels that promote water
+Without aquaporins or other membrane channels to promote water
 permeability, the intrinsic membrane permeability is known to depend on the
 temperature, lipid composition~\cite{OlbrichRawiczNeedhamEtAl2000_BJ},
 and the hydration of the membrane~\cite{MarrinkBerendsen1994_JPhysChem}.
@@ -194,7 +191,7 @@ Molecular dynamic (MD) simulations show that a stretched red blood cell
 membrane porates when the membrane tension reaches the order of $2$--$4$
 mN/m (see~\citet{RazizadehNikfarPaulLiu2020_BJ} and references therein),
 giving rise to enhanced membrane permeability to both water and
-macromolecules. Consequently, as long as the lipid bilayer membrane
+macromolecules such as ATP. Consequently, as long as the lipid bilayer membrane
 remains intact (no poration or rupture), the total amount of water inside the membrane 
 is assumed constant throughout the experiment of duration
 no longer than tens of minutes.
@@ -216,12 +213,8 @@ no longer than tens of minutes.
 %%
 %%The osmolarity-induced water flux has been well studied, while mechanical pressure may also contribute to the permeable water flow \cite{yao-mor2017}.
 %%The response of a cell to an osmotic gradient is inevitably both mechanical (tension redistribution and shape change) and chemical (water flux across the membrane).  
-Under what condition is this a good assumption? Do liposomes conserve
-volume under flow over a long time (hours)? What is the dynamic consequence when water
-influx/efflux affects the membrane hydrodynamics? To answer these
-questions, we investigate the balance between hydrodynamics stresses,
-tension, and elastic stress of a semipermeable membrane under various
-flowing conditions and confinement (Figure~\ref{fig:sketch}).
+
+
 %Specifically our numerical simulations yield the quantification of the
 %time scale and length scale over which water permeation becomes
 %important. 
@@ -242,8 +235,7 @@ flowing conditions and confinement (Figure~\ref{fig:sketch}).
 % of a semipermeable vesicle in two dimensions. 
 
 
-Vesicles 
-%(self-enclosed lipid bilayer membranes) 
+Vesicles are self-enclosed lipid bilayer membranes (often without transmembrane proteins), and they 
 have been used as a
 model system to study reshaping, remodeling, and scission of cell
 membranes due to osmotic stress~\cite{OgleckaEtAl2014_eLife, BhatiaRobinsonDimova2020_SoftMatt,
@@ -255,17 +247,42 @@ CamposSaric2020_bioRxiv, Dimova2020_GVB, BhatiaChrist2020_SoftMatt}.
 %tank-treading and tumbling
 %motions~\cite{BhatiaRobinsonDimova2020_SoftMatt,
 %BhatiaChrist2020_SoftMatt}, an 
-These results illustrate that the permeating water
+In most modeling works of vesicle hydrodynamics in free space, the permeating water flow due to a jump in hydrodynamic pressure is neglected (eg, see \citet{vogl2014effect}).
+Recent results illustrate that the permeating water
 flow is inevitably coupled with the mechanical pressure jump across the
 membrane~\cite{yao-mor2017}, which could become comparable to osmotic
-stress when the membrane deformation is large~\cite{LiMoriSun2015_PRL,
+stress when the membrane deformation is large under confinement~\cite{LiMoriSun2015_PRL,
 yao-mor2017}. 
+%
+Motivated by these results we extend the Helfrich free energy for an inextensilbe elastic vesicle membrane to incorporate membrane permeability 
+for the viscous solvent (water) to study the hydrodynamics of such semipermeable membrane.
+
+
+
+
+In this work we use modeling and direct
+numerical simulations to show that, over the appropriate time scales or
+under strong confinement, the intrinsic membrane permeability to water
+can give rise to significantly distinct hydrodynamics of a semipermeable
+vesicle. 
 %
 In microfluidic experiments, it is challenging to keep a freely
 suspended red blood cell or vesicle in a steady flow for more than a few
 hours. It is also difficult to quantify the vesicle surface-to-volume
-ratio accurately~\cite{MinetttiCallensCoupier2008_AppliedOptics}. Using
-numerical simulations described in \S~\ref{sec:formulation} and
+ratio accurately~\cite{MinetttiCallensCoupier2008_AppliedOptics}. 
+Using our model and integral simulations, we aim to address the following questions:
+%
+Under what flowing conditions can we assume that vesicle conserves its water content?
+Do liposomes conserve
+volume under flow over a long time (hours)? What is the dynamic consequence when water
+influx/efflux affects the membrane hydrodynamics? 
+
+To answer these
+questions, we focus on the balance between hydrodynamics stresses,
+tension, and elastic stress of a semipermeable membrane under various
+flowing conditions and confinement (Figure~\ref{fig:sketch}).
+%
+Using numerical simulations described in \S~\ref{sec:formulation} and
 \S~\ref{sec:numerics} we can quantify the effects of water permeability
 on the hydrodynamics of a vesicle under mechanical stresses.  Without an
 osmotic gradient, we first show that a freely suspended semipermeable
@@ -667,17 +684,17 @@ agreement in the equilibrium vesicle shapes.
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Hydrodynamics of a semipermeable vesicle in free space\label{sec:free_space}}
+\section{Hydrodynamics of a semipermeable inextensible membrane in free space\label{sec:free_space}}
 To highlight the effects of membrane permeability to water, we consider
-a single semipermeable vesicle, with (dimensionless) permeability
+a single semipermeable inextensible membrane, with (dimensionless) permeability
 coefficient $\beta>0$, in familiar configurations: In free space we
-place a semipermeable vesicle in a quiescent flow, a planar shear flow,
-and a Poiseuille flow. For each example, we fix the vesicle length and
+place a semipermeable inextensible membrane in a quiescent flow, a planar shear flow,
+and a Poiseuille flow. For each example, we fix the membrane length and
 examine the enclosed water content as a dynamic consequence of water
-flow, vesicle shape deformation, and distribution of membrane tension.
+flow, membrane shape deformation, and distribution of membrane tension.
 %
 Under these flows, our simulations show that the steady state of an
-impermeable vesicle is different from that of a semipermeable vesicle,
+impermeable vesicle is different from that of a semipermeable inextensible membrane,
 which depends only on the strength of the external flow and is
 insensitive to permeability $\beta$ (as long as $\beta>0$). We find that
 the time in the dynamic evolution towards equilibrium is scaled by
@@ -688,7 +705,7 @@ In experiments, vesicles under shear flows are measured for a few
 minutes (chapter 19 in~\citet{Dimova2020_GVB}), a duration over which a
 vesicle can be assumed impermeable~\cite{AbkarianViallat2005_BJ}. Our
 simulations of a semipermeable vesicle under these flows in open
-geometry show that water permeability may lead to different vesicle
+geometry show that water permeability may lead to different membrane
 hydrodynamics only after a duration of $\sim 1$ day. 
 
 
@@ -711,14 +728,17 @@ hydrodynamics only after a duration of $\sim 1$ day.
   reduced area of each of the simulations. The particular snapshots in
   (a) occur at the marks along the curve.}
 \end{figure*}
-In the absence of a background flow, a semipermeable vesicle in free
-space can be quantified in terms of its area dynamics and its transition
-to the equilibrium shape. Our analysis in \S~\ref{subsec:area_dynamics} shows
-that a semipermeable vesicle relaxes to a circle at a rate that is
-proportional to $\beta$, and the steady state tension is $\Lambda =
-2\pi^2/L^2$. Our analysis further shows that the time for a
-semipermeable vesicle to deviate from its initial reduced area and to
-reach its steady state is proportional to $\beta^{-1}$. For this reason,
+The analysis in \S~\ref{subsec:area_dynamics} shows
+that a semipermeable inextensible membrane relaxes to a circle at a rate that is
+proportional to $\beta$, regardless of the initial membrane shape (for a fixed length):
+In the absence of a background flow, a semipermeable inextensible membrane in free
+space is quantified in terms of its area dynamics and transition
+to the equilibrium shape, which is a circular membrane with a uniform 
+membrane tension $\Lambda = 2\pi^2/L^2$.
+This is in stark contrast with the impermeable vesicle relaxing to equilibrium that depends on the vesicle reduced area,  which remains constant for $\beta=0$.
+%
+Our analysis further shows that the rate of change in area enclosed inside a
+semipermeable inextensible membrane is proportional to $\beta$. For this reason,
 our numerical results are reported in terms of the scaled time $\beta t$.
 
 In Figure~\ref{fig:relaxationComposite}, we examine the relaxation
@@ -967,7 +987,13 @@ in the impermeable case~\cite{dan-vla-mis2009}.
 %
 Using several initial reduced areas and flow rates, we recreate the
 impermeable vesicle phase diagram for semipermeable vesicles with $\beta
-= 10^{-3}$. The equilibrium vesicle shape for different $U$ and initial
+= 10^{-3}$. Smaller value of $\beta$ has been used for some parameters but the time 
+it takes to reach equilibrium (for some this involves a transient tank-treading
+motion along the membrane to gradually slow down in the presence of small $\beta$) is too long in these simulations.
+
+
+
+The equilibrium membrane shape for different $U$ and initial
 reduced area is summarized in Figure~\ref{fig:parabolicComposite}(a),
 and the vertical displacement of the vesicle's center of mass is in
 Figure~\ref{fig:parabolicComposite}(b). The effect of semipermeability
@@ -977,12 +1003,14 @@ Figures~\ref{fig:parabolicComposite}(c)
 and~\ref{fig:parabolicComposite}(d), respectively. 
 
 
-As observed for the linear shear flow, our simulations with $0<\beta\le 10^{-2}$ 
-%in the range  $10^{-4}\le \beta\le 10^{-2}$ 
-\todo[inline]{I don't understand this range of $\beta$ values?}
-show that the equilibrium reduced area of a semipermeable vesicle in a
-Poiseuille flow is independent of both the initial reduced area and
-$\beta$. Instead we find that larger maximum flow velocity $U$ results
+As observed for the linear shear flow, our simulations 
+%with $0<\beta\le 10^{-2}$ 
+%%in the range  $10^{-4}\le \beta\le 10^{-2}$ 
+%\todo[inline]{I don't understand this range of $\beta$ values?}
+show that the equilibrium reduced area of a semipermeable inextensible membrane in a
+Poiseuille flow is independent of the initial reduced area.
+%and $\beta$. 
+ Instead we find that larger maximum flow velocity $U$ results
 in smaller equilibrium reduced area
 (Figure~\ref{fig:parabolicComposite}(a)). At the smallest velocity $U=
 200\; \mu$m/s, the steady state reduced area is large, and the
