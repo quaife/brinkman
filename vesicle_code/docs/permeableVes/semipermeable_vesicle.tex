@@ -283,8 +283,8 @@ tension, and elastic stress of a semipermeable membrane under various
 flowing conditions and confinement (Figure~\ref{fig:sketch}).
 %
 Using numerical simulations described in \S~\ref{sec:formulation} and
-\S~\ref{sec:numerics} we can quantify the effects of water permeability
-on the hydrodynamics of a vesicle under mechanical stresses.  Without an
+\S~\ref{sec:numerics} we quantify the effects of water permeability on
+the hydrodynamics of a vesicle under mechanical stresses.  Without an
 osmotic gradient, we first show that a freely suspended semipermeable
 vesicle behaves differently from an impermeable vesicle over a long time
 in \S~\ref{sec:free_space}. Next in \S~\ref{sec:confinement} we show
@@ -617,14 +617,13 @@ Nearly-singular integrals are computed with an interpolation-based
 quadrature rule~\cite{qua-bir2014}.
 
 \subsection{Discretization in Time}
-To develop a second-order, non-stiff, adaptive time stepping method, we
-first introduce the notation
-%\begin{alignat}{3}
-%  &\BB\ff = -\frac{d^4}{ds^4} \ff,  \qquad
-%  &&\TT\sigma = (\sigma \xx_s)_s, \\
-%  &\DD\ff = \xx_s \cdot \ff_s, 
-%  &&P\ff = (\ff \cdot \nn) \nn,
-%\end{alignat}
+We apply a second-order spectral deferred correction (SDC) method that was
+thoroughly tested in previous work~\cite{qua-bir2016}. To control error
+over long time horizons, we use the error in length to adaptively adjust
+the time step size. SDC requires two steps of a first-order time
+stepping method. To allow for large time step sizes, terms involving
+high-order derivatives are discretized semi-implicitly. We start by
+defining
 \begin{align}
   \BB\ff = -\frac{d^4}{ds^4} \ff,  \qquad
   \TT\sigma = (\sigma \xx_s)_s, \quad
@@ -645,15 +644,8 @@ these dependencies implicitly would result in a non-linear set of
 equations that would be computationally expensive to solve. Instead, we
 use a time stepping method that defines the operators at time $t^N$ and
 discretizes the stiff terms due to high-order derivatives
-implicitly~\cite{vee-gue-zor-bir2009, qua-bir2014}. In particular, we
-use the first-order semi-implicit method
-%We note that the integral and differential operators, which all depend
-%on the vesicle shape, are non-linear with respect to the vesicle shape.
-%We construct a time stepping scheme by letting $\BB^N$ be the bending
-%operator due to the vesicle configuration at time $t^N$, and use
-%similar notation for the other operators. Then, a first-order
-%semi-implicit time stepping method of Equation~\eqref{eqn:vesVelocity}
-%is
+implicitly~\cite{vee-gue-zor-bir2009, qua-bir2014}. In particular, the
+first-order semi-implicit method that is applied iteratively with SDC is
 \begin{alignat}{3}  
   \frac{\xx^{N+1} - \xx^N}{\triangle t} &= \uu_\infty(\xx^N) 
   + \beta P^N\left(\BB^N\xx^{N+1} + \TT^N\sigma^{N+1}\right) 
@@ -661,17 +653,6 @@ use the first-order semi-implicit method
   \DD^N\xx^{N+1} &= 1,
 \end{alignat}
 and this linear system is solved with matrix-free GMRES.
-
-\todo[inline]{Somehow emphasize that we are getting second-order}
-
-\todo[inline]{Have validated that it's second order in other work ...}
-
-To achieve second-order accuracy over long time horizons, we modify an
-adaptive spectral deferred correction time stepping
-method~\cite{qua-bir2016}. Since the area of the vesicle is not
-conserved, we only use the length of the vesicle to estimate the error
-which determines if a time step is accepted or not and determines the
-subsequent time step size.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Numerical Validation\label{subsec:numerical_validation}}
@@ -1083,20 +1064,21 @@ away the vesicle is relative to the flow center at $y=0$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Hydrodynamics of A semipermeable inextensible membrane under strong confinement\label{sec:confinement}}
-Here we consider a semipermeable inextensible membrane under strong confinement: a
-long closely-fit channel and a contracting channel. In a narrow
-microfluidic channel, a large pressure jump is often used to push the
-vesicle through a closely-fit channel~\cite{abk-fai-sto2006}. Our
+Here we consider a semipermeable inextensible membrane under strong
+confinement: a long closely-fit channel and a contracting channel. In a
+narrow microfluidic channel, a large pressure jump is often used to push
+the vesicle through a closely-fit channel~\cite{abk-fai-sto2006}. Our
 simulations show that such a configuration can lead to an amplification
-of water permeation at a fast time scale of the order of mini seconds. In
-addition, we find that a large value of $\beta$ is needed to keep the
-membrane tension below the threshold value for membrane poration. Such
-high permeability for water may be regarded as an indication that the
-lipid bilayer membrane is porated under strong confinement, and our
-model inextensible membrane is for a porated vesicle within the Helfrich free energy
-framework. As in the previous examples, we fix the membrane length and
-examine the enclosed water content as a dynamic consequence of water
-flow, membrane shape deformation, and membrane tension distribution.
+of water permeation at a fast time scale of the order of
+\todo[inline]{mini seconds?} mini seconds.  In addition, we find that a
+large value of $\beta$ is needed to keep the membrane tension below the
+threshold value for membrane poration. Such high permeability for water
+may be regarded as an indication that the lipid bilayer membrane is
+porated under strong confinement, and our model inextensible membrane is
+for a porated vesicle within the Helfrich free energy framework. As in
+the previous examples, we fix the membrane length and examine the
+enclosed water content as a dynamic consequence of water flow, membrane
+shape deformation, and membrane tension distribution.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
