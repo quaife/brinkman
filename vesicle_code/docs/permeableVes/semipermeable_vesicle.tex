@@ -302,7 +302,8 @@ These results provide insight into quantifying the effects of membrane permeabil
 \section{Formulation\label{sec:formulation}}
 We consider a two-dimensional semipermeable vesicle (permeable only to
 water) suspended in a viscous fluid (Figure~\ref{fig:sketch}), and we
-let $\gamma$ denote the membrane boundary, of length $L$ and enclosing an area $A$.
+let $\gamma$ denote the membrane boundary, of length $L$ and enclosing a
+region of area $A$.
 %
 %$\alpha=4\pi A/L^2$ be the vesicle's reduced area where $A$ is its area
 %and $L$ is its length. 
@@ -485,14 +486,17 @@ k_w\le 10^{-12}$ m$^2$s/kg, thus the range of $\beta$ corresponding to the nativ
 semipermeable inextensible membrane.
 %
 
-For example, we use $10^{-5}\le\beta\le10^{-2}$
-in our simulations of a semipermeable inextensible membrane in free space under various flowing conditions.
-We found that 
-the equilibrium shape of a semipermeable membrane in free space to be independent of $\beta$.
-Within this range of $\beta$ we find that $\beta$ only affects the time it takes for the membrane to reach the equilibrium shape, which is determined by the background flow
-(such as a quiescent flow, a linear shear flow and its shear rate, and a Poiseuille flow and its maximum velocity.)
-From these results and our analysis of area dynamics, we suspect similar hydrodynamics of a semipermeable vesicle
-(with $10^{-11}\le\beta\le 10^{-9}$). 
+For example, we use $10^{-5}\le\beta\le10^{-2}$ in our simulations of a
+semipermeable inextensible membrane in free space under various flowing
+conditions. We found that the equilibrium shape of a semipermeable
+membrane in free space to be independent of $\beta$. Within this range
+of $\beta$ we find that $\beta$ only affects the time it takes for the
+membrane to reach the equilibrium shape, which is determined by the
+background flow (such as a quiescent flow, a linear shear flow and its
+shear rate, and a Poiseuille flow and its maximum velocity). From these
+results and our analysis of area dynamics, we suspect similar
+hydrodynamics of a semipermeable vesicle (with $10^{-11}\le\beta\le
+10^{-9}$). 
 %
 When we use $\beta\ge 0.1$, we find that the semipermeable membrane swells to maximize its water content, independent of the initial reduced 
 area and the background flow.
@@ -543,11 +547,10 @@ Equation~\eqref{eqn:curveODE} is not periodic unless $\kappa(s) =
 in a quiescent flow is a circle with radius $L/2\pi$ and constant
 tension $\Lambda = \kappa^2/2 = 2\pi^2/L^2.$ Note that in contrast to a
 impermeable vesicle, the steady state tension is positive rather than
-negative. Such equilibrium shape of a semipermeable vesicle results from
+negative. The equilibrium shape of a semipermeable vesicle results from
 the balance between elastic stress and membrane tension. For an elastic
 membrane with a large pore, the equilibrium membrane (hemispherical)
 shape also results from such a balance~\cite{Ryham2018_JFM}.
-
 
 We next compute the area dynamics of a semipermeable vesicle. Since the
 area of the vesicle is
@@ -599,7 +602,8 @@ Note that the integrand in Equation~\eqref{eqn:areaROC} is zero when the membran
 \Lambda &= \frac{\kappa^2}{2}=\frac{\kappa_0^2}{2},
 %  \;\mathrm{ at }\; \mathrm{equilibrium},
 \end{align}
-which is consistent with the equilibrium results in Equation~(\ref{eqn:curveODE}).
+which is consistent with the equilibrium result in
+Equation~(\ref{eqn:curveODE}).
 
 
 \section{Numerical Methods}
@@ -617,13 +621,13 @@ Nearly-singular integrals are computed with an interpolation-based
 quadrature rule~\cite{qua-bir2014}.
 
 \subsection{Discretization in Time}
-We apply a second-order spectral deferred correction (SDC) method that was
-thoroughly tested in previous work~\cite{qua-bir2016}. To control error
-over long time horizons, we use the error in length to adaptively adjust
-the time step size. SDC requires two steps of a first-order time
-stepping method. To allow for large time step sizes, terms involving
-high-order derivatives are discretized semi-implicitly. We start by
-defining
+We apply a second-order spectral deferred correction (SDC) method that
+was thoroughly tested in previous work~\cite{qua-bir2016}. To control
+error over long time horizons, we use the error in length to adaptively
+adjust the time step size. Our SDC formulation requires two applications
+of a first-order time stepping method. To allow for large time step
+sizes, terms involving high-order derivatives are discretized
+semi-implicitly. We start by defining
 \begin{align}
   \BB\ff = -\frac{d^4}{ds^4} \ff,  \qquad
   \TT\sigma = (\sigma \xx_s)_s, \quad
@@ -637,16 +641,16 @@ Equation~\eqref{eqn:vesVelocity} can be written as
   \dot{\xx} &= \uu_\infty(\xx) + \beta P(\BB\xx + \TT\sigma)
   + \SS (\BB\xx + \TT\sigma), \quad \DD \dot{\xx} = 0.
 \end{align}
-We note that the operators defined in Equation~\eqref{eqn:operators}, as
-well as the single-layer potential defined in Equation~\eqref{eqn:SLP}
-all depend on the vesicle shape. A time stepping method that treats
-these dependencies implicitly would result in a non-linear set of
-equations that would be computationally expensive to solve. Instead, we
-use a time stepping method that defines the operators at time $t^N$ and
-discretizes the stiff terms due to high-order derivatives
+We note that the operators defined in Equation~\eqref{eqn:operators} and
+the single-layer potential defined in Equation~\eqref{eqn:SLP} depend on
+the vesicle shape. A time stepping method that treats these dependencies
+implicitly would result in a non-linear set of equations that would be
+computationally expensive to solve. Instead, we define the operators at
+time $t^N$ and discretize the stiff terms due to high-order derivatives
 implicitly~\cite{vee-gue-zor-bir2009, qua-bir2014}. In particular, the
-first-order semi-implicit method that is applied iteratively with SDC is
-\begin{alignat}{3}  
+first-order semi-implicit method that is applied iteratively within SDC
+is
+\begin{alignat}{3}
   \frac{\xx^{N+1} - \xx^N}{\triangle t} &= \uu_\infty(\xx^N) 
   + \beta P^N\left(\BB^N\xx^{N+1} + \TT^N\sigma^{N+1}\right) 
   + \SS^N\left(\BB^N\xx^{N+1} + \TT^N\sigma^{N+1}\right),  \\
