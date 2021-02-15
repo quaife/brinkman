@@ -721,25 +721,25 @@ hydrodynamics only after a duration of $\sim 1$ day.
   \includegraphics{figures/relaxationComposite.pdf}
   \fi
   \caption{\label{fig:relaxationComposite} (a) Snapshots of four
-  semipermeable inextensible membranes with $\beta = 10^{-8}$ submerged in a fluid
-  with no background flow. Time goes from left to right. The red regions
-  correspond to influx and the blue regions correspond to efflux. In all
-  cases, the vesicle reaches a steady state circular shape. (b) The
-  reduced area of each of the simulations. The particular snapshots in
-  (a) occur at the marks along the curve.}
+  semipermeable inextensible membranes with $\beta = 10^{-8}$ submerged
+  in a fluid with no background flow. Time goes from left to right. The
+  red regions correspond to influx and the blue regions correspond to
+  efflux. In all cases, the vesicle reaches a steady state circular
+  shape. (b) The reduced area of each of the simulations. The particular
+  snapshots in (a) occur at the marks along the curve. Three dimensioned
+  times are denoted by the dashed lines.}
 \end{figure*}
-The analysis in \S~\ref{subsec:area_dynamics} shows
-that a semipermeable inextensible membrane relaxes to a circle at a rate that is
-proportional to $\beta$, regardless of the initial membrane shape (for a fixed length):
-In the absence of a background flow, a semipermeable inextensible membrane in free
-space is quantified in terms of its area dynamics and transition
-to the equilibrium shape, which is a circular membrane with a uniform 
-membrane tension $\Lambda = 2\pi^2/L^2$.
-This is in stark contrast with the impermeable vesicle relaxing to equilibrium that depends on the vesicle reduced area,  which remains constant for $\beta=0$.
-%
-Our analysis further shows that the rate of change in area enclosed inside a
-semipermeable inextensible membrane is proportional to $\beta$. For this reason,
-our numerical results are reported in terms of the scaled time $\beta t$.
+In the absence of a background flow, a semipermeable inextensible
+membrane in free space is quantified in terms of its area dynamics and
+transition to the equilibrium shape, which is a circular membrane with a
+uniform membrane tension $\Lambda = 2\pi^2/L^2$. This is in stark
+contrast with the impermeable vesicle relaxing to equilibrium that
+depends on the vesicle reduced area, which remains constant for
+$\beta=0$. Our analysis in \S~\ref{subsec:area_dynamics} shows that a
+semipermeable inextensible membrane relaxes to a circle at a rate that
+is proportional to $\beta$, regardless of the initial membrane shape
+(for a fixed length). For this reason, our numerical results are
+reported in terms of the scaled time $\beta t$.
 
 In Figure~\ref{fig:relaxationComposite}, we examine the relaxation
 dynamics with four initial shapes and reduced
@@ -829,24 +829,26 @@ Equation~\eqref{eqn:areaROC2}.
   \includegraphics{figures/shearComposite.pdf}
   \fi
   \caption{\label{fig:shearComposite} (a) The reduced area of a
-  semipermeable inextensible membrane with $\beta = 10^{-3}$ initialized with four
-  different reduced areas in a shear flow with two different flow rates.
-  (b) The equilibrium membrane shape with varying flow rates and
-  membrane permeability. The red regions correspond to influx and the
-  blue regions correspond to efflux The boxed membranes correspond to the
-  simulation results in part (a).}
+  semipermeable inextensible membrane with $\beta = 10^{-3}$ initialized
+  with four different reduced areas in a shear flow with two different
+  flow rates. (b) The equilibrium membrane shape with varying flow rates
+  and membrane permeability. The red regions correspond to influx and
+  the blue regions correspond to efflux. The boxed membranes correspond
+  to the simulation results in part (a).}
 \end{figure*}
 
-We consider a semipermeable inextensible membrane in a planar shear flow,
-characterized by the elastic capillary number $Ca_\mathrm{E}=\chi\tau$ where $\tau$ is the characteristic time scale from balancing the viscous stress with the elastic stress
+We consider a semipermeable inextensible membrane in a planar shear
+flow, characterized by the elastic capillary number
+$Ca_\mathrm{E}=\chi\tau$ where $\tau$ is the characteristic time scale
+from balancing the viscous stress with the elastic stress
 %in the non-dimensionalization 
 (see \S~\ref{sec:formulation}) and $\chi$ is the shear rate of the
 planar shear flow $\uu_{\infty}(\xx) = \chi (y,0)$. When $\beta=0$
 (impermeable case), the vesicle reduced area and fluid viscosity
 contrast determine whether a vesicle tank treads or
-tumbles~\cite{fin-lam-sei-gom2008, kra-win-sei-lip1996}. Focusing on
-a semipermeable inextensible membrane with no viscosity contrast, 
-we find that the membrane tilts to an inclination angle and undergoes
+tumbles~\cite{fin-lam-sei-gom2008, kra-win-sei-lip1996}. Focusing on a
+semipermeable inextensible membrane with no viscosity contrast, we find
+that the membrane tilts to an inclination angle and undergoes
 tank-treading dynamics, similar to the case of an impermeable vesicle.
 
 In Figure~\ref{fig:shearComposite}(a), using four initial reduced areas
@@ -901,15 +903,15 @@ the extensional component in the shear flow.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Poiseuille Flow}
-We consider a semipermeable inextensible membrane in the Poiseuille flow $\uu =
-U(1-(y/W)^2,0)$, where $U$ is the maximum velocity at $y=0$. The
-non-linear effects of the Poiseuille flow on the migration of an
-impermeable vesicle have been well-studied~\cite{kao-bir-mis2009}: At a
-given value of the maximum velocity $U$, there exists a critical reduced
-volume above which the equilibrium vesicle shape is symmetric (parachute
-or bullet shapes) and the vesicle stays at $y=0$. Below this critical
-reduced volume the equilibrium vesicle moves off the center and is
-asymmetric (tank-treading slipper shape). We validated our numerical
+We consider a semipermeable inextensible membrane in the Poiseuille flow
+$\uu_\infty(\xx) = U(1-(y/W)^2,0)$, where $U$ is the maximum velocity at
+$y=0$. The non-linear effects of the Poiseuille flow on the migration of
+an impermeable vesicle have been well-studied~\cite{kao-bir-mis2009}: At
+a given value of the maximum velocity $U$, there exists a critical
+reduced volume above which the equilibrium vesicle shape is symmetric
+(parachute or bullet shapes) and the vesicle stays at $y=0$. Below this
+critical reduced volume the equilibrium vesicle moves off the center and
+is asymmetric (tank-treading slipper shape). We validated our numerical
 codes by comparing against results in~\citet{kao-bir-mis2009} (see
 \S~\ref{subsec:numerical_validation}).
 
@@ -987,21 +989,19 @@ in the impermeable case~\cite{dan-vla-mis2009}.
 %
 Using several initial reduced areas and flow rates, we recreate the
 impermeable vesicle phase diagram for semipermeable vesicles with $\beta
-= 10^{-3}$. Smaller value of $\beta$ has been used for some parameters but the time 
-it takes to reach equilibrium (for some this involves a transient tank-treading
-motion along the membrane to gradually slow down in the presence of small $\beta$) is too long in these simulations.
+= 10^{-3}$. Smaller values of $\beta$ have been used for some parameters
+but the time it takes to reach equilibrium (for some this involves a
+transient tank-treading motion along the membrane to gradually slow down
+in the presence of small $\beta$) is too long in these simulations.
 
-
-
-The equilibrium membrane shape for different $U$ and initial
-reduced area is summarized in Figure~\ref{fig:parabolicComposite}(a),
-and the vertical displacement of the vesicle's center of mass is in
+The equilibrium membrane shape for different $U$ and initial reduced
+area is summarized in Figure~\ref{fig:parabolicComposite}(a), and the
+vertical displacement of the vesicle's center of mass is in
 Figure~\ref{fig:parabolicComposite}(b). The effect of semipermeability
 of a vesicle with $\alpha(0) = 0.9$ and $U=800\; \mu$m/s on its reduced
 area and migration pattern are shown in
 Figures~\ref{fig:parabolicComposite}(c)
 and~\ref{fig:parabolicComposite}(d), respectively. 
-
 
 As observed for the linear shear flow, our simulations show that the
 equilibrium reduced area of a semipermeable inextensible membrane in a
@@ -1047,10 +1047,11 @@ farther away the vesicle is relative to the flow center at $y=0$.
 %    \node at (+5.0,1.5) {(d)};
 %  \end{tikzpicture}
   \caption{\label{fig:parabolicTensions} The equilibrium tension
-  distribution of a semipermeable inextensible membrane with $\beta=10^{-3}$ in a
-  parabolic flow (Figure~\ref{fig:parabolicComposite}). The flow
-  velocities are (a) 200 $\mu$m/s, (b) 400 $\mu$m/s, (c) 600 $\mu$m/s,
-  and (d) 800 $\mu$m/s.}
+  distribution of a semipermeable inextensible membrane with
+  $\beta=10^{-3}$ in a parabolic flow
+  (Figure~\ref{fig:parabolicComposite}). The maximum flow velocities are
+  (a) 200 $\mu$m/s, (b) 400 $\mu$m/s, (c) 600 $\mu$m/s, and (d) 800
+  $\mu$m/s.}
 \end{figure*}
  The membrane tension distribution of the equilibrium shapes are shown
  in Figure~\ref{fig:parabolicTensions} for the flow velocities $U$ from
