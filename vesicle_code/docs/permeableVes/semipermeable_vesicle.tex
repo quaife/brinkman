@@ -213,6 +213,10 @@ no longer than tens of minutes.
 %%
 %%The osmolarity-induced water flux has been well studied, while mechanical pressure may also contribute to the permeable water flow \cite{yao-mor2017}.
 %%The response of a cell to an osmotic gradient is inevitably both mechanical (tension redistribution and shape change) and chemical (water flux across the membrane).  
+%
+%The cellular nuclear envelop (NE) consists of two lipid bilayer membranes connected via nuclear pore complexes (NPCs). As a result, NE is has a higher hydraulic conductivity
+%than a lipid bilayer membrane. Even though the NPCs are sufficiently large for transport of both macromolecules and water molecules, the colloid-osmotic pressure inside
+%the nucleus is highly effective in regulating the water content (see \citet{Shahin2019_AdvSci} and references therein).
 
 
 %Specifically our numerical simulations yield the quantification of the
@@ -482,10 +486,20 @@ membrane~\cite{OlbrichRawiczNeedhamEtAl2000_BJ} to the hydraulic
 conductivity $k_w$ using the conversion
 in~\citet{FettiplaceHaydon1980_PhysRev}, and then scaling $k_w$ to $R_0/\mu$. We found that for most lipid bilayer membranes, $10^{-14}\le
 k_w\le 10^{-12}$ m$^2$s/kg, thus the range of $\beta$ corresponding to the native water permeability of a lipid bilayer membrane (vesicle) is $10^{-11}\le
-\beta\le 10^{-9}$, consistent with the value in \citet{vogl2014effect}. In the following we use a wider range of $\beta$ to elucidate the effects of permeating water flow across a
+\beta\le 10^{-9}$, consistent with the value in \citet{vogl2014effect}. 
+The cellular nuclear envelop is often treated as a filtration membrane \cite{Shahin2019_AdvSci}, and 
+%Treating the cellular nuclear envelop as an ultrafiltration membrane, 
+its hydraulic conductivity is reported to be order of magnitude larger \cite{Wijmans1984_JMS}:
+$10^{-11}\le k_w \le 10^{-9}$m$^2$s/kg,  and the corresponding range of $\beta$ (using the same $R_0/\mu$ for scaling) is $10^{-8}\le
+\beta\le 10^{-6}$.
+
+
+
+
+
+For the simulations in \S~\ref{sec:free_space} and \S~\ref{sec:confinement} we use a wider range of $\beta$ to elucidate the effects of permeating water flow across a
 semipermeable inextensible membrane.
 %
-
 For example, we use $10^{-5}\le\beta\le10^{-2}$ in our simulations of a
 semipermeable inextensible membrane in free space under various flowing
 conditions. We found that the equilibrium shape of a semipermeable
