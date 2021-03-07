@@ -44,7 +44,7 @@ oc = curve; %shorthand for curve class
 end % constructor: monitor
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function initializeFiles(o,X,conc,time,vel)
+function initializeFiles(o,X,conc,time,vel,ten)
 % initializeFiles(X,sig,eta,RS,Xwalls) does the initial writing of data
 % to files and the console.  It first deletes any previous data and then
 % writes the number of points, tracer initial conditions, pressure
@@ -79,7 +79,7 @@ o.writeMessage(message,'%s\n')
 [ea,el] = o.errors(X);
 % Save data
 if o.saveData
-  o.writeData(X,conc,ea,el,time,vel,N);
+  o.writeData(X,conc,ea,el,time,vel,ten, N);
   % save initial configuartion
   message = ['Initial Area is:                ' ...
       num2str(o.area(1),'%10.2e')];
@@ -98,7 +98,7 @@ o.writeMessage(' ','%s\n')
 end % initializeFiles
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function terminate = outputInfo(o,X,conc,time,vel,ea,el)
+function terminate = outputInfo(o,X,conc,time,vel,ten)
 % computes the error in area and length and write messages to the data
 % file, the log file, and the console.
 
@@ -117,7 +117,7 @@ if o.saveData
   % don't want to save initial small time steps, but still want to check
   % the error in area and length so that the simulation is killed early
   % on if need be
-  o.writeData(X,conc,ea,el,time,vel,o.N);
+  o.writeData(X,conc,ea,el,time,vel,ten, o.N);
 end
 % End saving data
 
@@ -211,7 +211,7 @@ axis equal
 end % plotData
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function writeData(o,X,conc,ea,el,time,vel,N)
+function writeData(o,X,conc,ea,el,time,vel,ten,N)
 % writeData(X,sigma,ea,el,time,res) writes the position, concentration,
 % errors, and time to a binary file.  Matlab can later read this file to
 % postprocess the data
@@ -219,7 +219,7 @@ function writeData(o,X,conc,ea,el,time,vel,N)
 oc = curve;
 [x,y] = oc.getXY(X);
 [xvel,yvel] = oc.getXY(vel);
-output = [x(:);y(:);conc(:);ea;el;time;xvel(:);yvel(:)];
+output = [x(:);y(:);conc(:);ea;el;time;xvel(:);yvel(:);ten(:)];
 % format that postProcess/loadfile.m reads the output
 fid = fopen(o.dataFile,'a');
 fwrite(fid,output,'double');

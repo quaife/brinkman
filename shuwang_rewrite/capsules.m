@@ -14,6 +14,7 @@ bendratio; % bending ratio
 viscIn;
 viscOut;
 SPc;
+ten;
 
 end % properties
 
@@ -103,13 +104,14 @@ while abs(area - areaRef)/areaRef > 1e-10
   end
 end
 % update X
-X(1:end/2) = X(1:end/2) - mean(X(1:end/2));
-X(end/2+1:end) = X(end/2+1:end) - mean(X(end/2+1:end));
-ves.X = X;
+%X(1:end/2) = X(1:end/2) - mean(X(1:end/2));
+%X(end/2+1:end) = X(end/2+1:end) - mean(X(end/2+1:end));
+%ves.X = X;
 % update x0 and y0
-ves.x0 = X(1);
-ves.y0 = X(1 + ves.N);
+%ves.x0 = X(1);
+%ves.y0 = X(1 + ves.N);
 % replace the geometry with the new shape
+
 [ves.L,ves.theta,ves.cur] = oc.computeOpeningAngle(N,X);
 
 end % smoothGeom
@@ -127,7 +129,7 @@ oc = curve;
 N = ves.N;
 IK = oc.modes(N);
 rcon = ves.rcon;
-cur = oc.acurv(ves);
+cur = oc.acurv(ves.N,ves.theta,ves.L);
 b0 = ves.bendsti;
 b1 = ves.bendsti * ves.bendratio;
 % bending coefficient which depends on the lipid concentration that is

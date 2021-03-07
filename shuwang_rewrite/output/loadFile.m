@@ -1,4 +1,4 @@
-function [posx,posy,conc,ea,el,time,xvel,yvel] = loadFile(file)
+function [posx,posy,conc,ea,el,time,xvel,yvel,ten] = loadFile(file)
 fid = fopen(file,'r');
 val = fread(fid,'double');
 fclose(fid);
@@ -16,8 +16,9 @@ nv = 1;
   %val = val(2+2*nbd*nvbd:end);
   val = val(2:end);
 %end
-ntime = numel(val)/(5*n*nv+3);
-% 2 positions, concentration, two stresses
+ntime = numel(val)/(6*n*nv+3);
+
+% 2 positions, concentration, two stresses,tension
 % error in area, error in length
 if ntime ~= ceil(ntime);
   disp('PROBLEM WITH VALUES FOR n AND nv');
@@ -35,6 +36,7 @@ ntime = floor(ntime);
 posx = zeros(n,nv,ntime);
 posy = zeros(n,nv,ntime);
 conc = zeros(n,nv,ntime);
+ten  = zeros(n,nv,ntime);
 time = zeros(ntime,1);
 ea = zeros(ntime,1);
 el = zeros(ntime,1);
@@ -77,6 +79,13 @@ for m = 1:ntime
     yvel(:,k,m) = val(istart:iend);
     istart = iend + 1;
   end
+  
+  for k=1:nv
+    iend = istart + n - 1;
+    ten(:,k,m) = val(istart:iend);
+    istart = iend + 1;
+  end
+  
 end
 
 

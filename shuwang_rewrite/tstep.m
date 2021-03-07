@@ -7,6 +7,7 @@ properties
 
 ves; % vesicle structure
 shearRate; % background shear rate
+farFieldFlow; % far field flow type
 bendsti; % maximum bending stiffness
 bendratio; % ratio between max and min bending stiffness
 SPc; %Semi permeability coefficient
@@ -25,6 +26,7 @@ function o = tstep(params,ves)
 %Take all elements of prams needed by the time stepper
 o.ves = ves;
 o.shearRate = params.shearRate;
+o.farFieldFlow = params.farFieldFlow;
 o.bendsti = params.bendsti; %maximum bending stiffness
 o.bendratio = params.bendratio; %ratio between max and min bending 
                                 %stiffness
@@ -41,6 +43,36 @@ o.kmatrix = op.oddEvenMatrix;
 end % tstep: constructor
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [uinf] = bgFlow(o, X, farFieldSpeed, farFieldFlow)
+% function to compute the far field velocity using specified flow type
+% varargin. If varagin is not specified, default flow is quiescent
+% (relaxation)
+%     relaxation:     (0,0)
+%     shear:          (ky,0)
+%     extensional:    (-x,y)
+%     parabolic:      (k(1-y/r)^2,0) - r is hardcoded for now.
+
+N = length(X);
+oc = curve;
+[x,y] = oc.getXY(X);
+
+if strcmp(farFieldFlow,'relaxation')
+    uinf = zeros(N, 1);
+elseif strcmp(farFieldFlow,'shear')
+    uinf = farFieldSpeed*[y;zeros(N/2,1)];
+elseif strcmp(farFieldFlow, 'parabolic')
+    r = 12.5; %HACKED IN, add parameter?
+    uinf = farFieldSpeed*[(1-(y/r).^2);zeros(N/2,1)];
+elseif strcmp(farFieldFlow,'extensional')
+    uinf = farFieldSpeed*[-x;y];
+else
+    %default flow is relaxed
+    uinf = zeros(N, 1);
+    
+end
+
+end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [uxvel,uyvel,fdotn] = usetself(o)
 %Usetself returns the x and y component of the velocity as well as the 
 %mechanical force, beta*fdotn.
@@ -54,7 +86,7 @@ theta = ves.theta; %shorthand for opening angle of vesicle
 op = poten(N); %shorthand for poten class
 oc = curve; %shorthand for curve class
 % Compute the curvature
-cur = oc.acurv(ves);
+cur = oc.acurv(ves.N,ves.theta,ves.L);
 % Reconstruct the vesicle shape
 ves.X = oc.recon(ves.N, ves.x0, ves.y0, ves.L, ves.theta);
 % Compute Eu and Esigma, equations (13) and (14) 
@@ -82,8 +114,10 @@ c2 = -L/(8*pi);
 % sigma1 and sigma2 are the solution of equation (33) (NOTE: without
 % the u_s term). Also, it includes the background shear flow which
 % is not stated in equation (33), but instead in equations (6) and (7)
-sigma1 = k(1:N)*c1 + LogKernel1*c2 + ves.X(N+1:end)*o.shearRate;
-sigma2 = k(N+1:end)*c1 + LogKernel2*c2;
+uinf = o.bgFlow(ves.X, o.shearRate, o.farFieldFlow);
+[uinfx, uinfy] = oc.getXY(uinf);
+sigma1 = k(1:N)*c1 + LogKernel1*c2 + uinfx; %ves.X(N+1:end)*o.shearRate;
+sigma2 = k(N+1:end)*c1 + LogKernel2*c2 + uinfy;
 % Calculate v dot n in eq (40)
 vdotn = sigma1.*sin(theta) - sigma2.*cos(theta);
 % Calculate v dot s in eq (40)
@@ -119,9 +153,11 @@ force1 = op.IntegrateLogKernel(tau(1:N));
 force2 = op.IntegrateLogKernel(tau(N+1:end));
 % Calulate u in eqatuion (31) by adding the results from the
 % non-singular and weakly singular integral operators
-uxvel = k(1:N)*c1 + force1*c2 + ves.X(N+1:end)*o.shearRate;
-uyvel = k(N+1:end)*c1 + force2*c2;
-
+uinf = o.bgFlow(ves.X, o.shearRate, o.farFieldFlow);
+[uinfx, uinfy] = oc.getXY(uinf);
+uxvel = k(1:N)*c1 + force1*c2 + uinfx;%ves.X(N+1:end)*o.shearRate;
+uyvel = k(N+1:end)*c1 + force2*c2 + uinfy;
+ves.ten = lambTil;
 end % usetself
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -312,7 +348,7 @@ ea = abs(a_new - a_old)./abs(a_old);
 el = abs(l_new - l_old)./abs(l_old);
 % plot and write the new data 
 om.plotData(ves.X,time,ea,el,[ux;uy],ves.rcon)
-om.initializeFiles(ves.X,ves.rcon,time,[ux;uy])
+om.initializeFiles(ves.X,ves.rcon,time,[ux;uy],ves.ten)
 
 end % FirstSteps
 
@@ -451,16 +487,19 @@ for ktime = 1:nstep
        %semilogy(abs(fftshift(fft(jac))))
        %pause(0.1)  
   % Update the curvature
-  ves.cur = oc.acurv(ves);
+  ves.cur = oc.acurv(ves.N,ves.theta,ves.L);
+  
+  if(strcmp(o.farFieldFlow, 'parabolic'))
+      %pin the vesicle at x = 0
+      ves.X(1:end/2) = ves.X(1:end/2) - mean(ves.X(1:end/2));
+  end
+  
   % HACK: keep the vesicle centered at (0,0)
        %ves.X(1:end/2) = ves.X(1:end/2) - mean(ves.X(1:end/2));
        %ves.X(end/2+1:end) = ves.X(end/2+1:end) - mean(ves.X(end/2+1:end));
-  % Compute the errors in length and area: TODO - move this to monitor
-  [~,a_new,l_new] = oc.geomProp(ves.X);
-  ea = abs(a_new - a_old)./abs(a_old);
-  el = abs(l_new - l_old)./abs(l_old);
+       
   % Print outputs
-  om.outputInfo(ves.X,ves.rcon,time,[uxvel_loop;uyvel_loop],ea,el)
+  om.outputInfo(ves.X,ves.rcon,time,[uxvel_loop;uyvel_loop],ves.ten)
   % Update ux_old, uy_old, for timestepping loop
   ux_old = uxvel_new;
   uy_old = uyvel_new;

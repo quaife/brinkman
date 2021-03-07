@@ -128,6 +128,13 @@ else
 end
 % rotate the vesicle by a certain angle
 
+if(any(strcmp(options,'center')))
+  cen = options{find(strcmp(options,'center'))+1};
+else
+  cen = [(0:0);zeros(1,1)];
+end
+% pick the center of the vesicles
+
 if(any(strcmp(options,'reducedArea')))
   ra = options{find(strcmp(options,'reducedArea'))+1};
 else 
@@ -188,8 +195,8 @@ end
 
 % X0 has a reference shape that needs to be scaled and rotated
 X = zeros(2*N,1);
-X(1:N) = scale*(cos(theta) * X0(1:N) - sin(theta) * X0(N+1:2*N));
-X(N+1:2*N) = scale*(sin(theta) * X0(1:N) +  cos(theta) * X0(N+1:2*N));
+X(1:N) = scale*(cos(theta) * X0(1:N) - sin(theta) * X0(N+1:2*N)) + cen(1,1);
+X(N+1:2*N) = scale*(sin(theta) * X0(1:N) +  cos(theta) * X0(N+1:2*N)) + cen(2,1);
 
 % Rotate and scale vesicle
 if ~equispaced
@@ -199,7 +206,7 @@ if ~equispaced
   % nearly equispaced in arclength
   [alpha,X] = o.initConfig(N,true,options{1},'angle',theta,...
        'reducedArea',ra,'shortax',shortax,'scale',scale,...
-       'folds',folds,'parameter',alpha);
+       'folds',folds,'parameter',alpha, 'center', cen);
 end
 alpha = (0:N-1)'/N;
 
@@ -362,7 +369,6 @@ x = o.intFT(L*cos(theta),IK);
 y = o.intFT(L*sin(theta),IK);
 avx = sum(L*cos(theta))/N;
 avy = sum(L*sin(theta))/N;
-
 x = x - (0:N-1)'*avx/N + x0;
 y = y - (0:N-1)'*avy/N + y0;
 
@@ -418,15 +424,15 @@ function dcur = fdcur(o,ves,unt)
 N = ves.N;
 IK = o.modes(N);
 
-dthetads = o.rmLinearPart(ves);
+dthetads = o.rmLinearPart(N, ves.theta);
 dcur = intFT(o,[dthetads.*unt],IK);
 
 end %fdcur
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function dx = rmLinearPart(o,ves)
-N = ves.N;
-theta = ves.theta;
+function dx = rmLinearPart(o,N,theta)
+% N = ves.N;
+% theta = ves.theta;
 IK = o.modes(N);
 
 % function with the same increase over a period of 2*pi as the angle
@@ -466,7 +472,7 @@ L = ves.L;
 IK = o.modes(N);
 %compute first derivative of the opening angle using Fourier
 %differentiation. This is actually the curvature
-dthetads = o.rmLinearPart(ves)/L;
+dthetads = o.rmLinearPart(N,ves.theta)/L;
 %compute the derivative of the normal velocity
 dunds = o.diffFT(un + ves.SPc*fdotn,IK)/L;    
 % Check T_s = -V * curvature (local inextensibility condition) (see
@@ -548,7 +554,7 @@ rbn = b0*(ones(N,1)-rcon) + b1*rcon;
 %rbndu is b'(u) 
 rbndu = (b1 - b0)*ones(N,1);
 %compute the curvature
-dkap = o.acurv(ves);
+dkap = o.acurv(N,ves.theta,L);
 %term3 is b'(u)/2 * kappa^2 in eq (13)
 term3 = 0.5*rbndu.*dkap.^2;
 %RHSflux is a/eps(f'(u)-eps^2u_ss) + b'(u)/2 * kappa^2 terms in eq (13) 
@@ -557,11 +563,11 @@ RHSflux = consta/epsch * (dfu + term2) + term3;
 end %fluxj
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function dkap = acurv(o,ves)
+function dkap = acurv(o,N,theta,L)
 %This routine computes the curvature from the tangent angle
 %formulation
 
-dkap = o.rmLinearPart(ves)/ves.L;
+dkap = o.rmLinearPart(N,theta)/L;
 
 end %acurv
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
