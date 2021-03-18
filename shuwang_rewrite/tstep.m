@@ -16,6 +16,7 @@ viscIn; %viscosity inside the vesicle
 viscOut; %viscosity outside the vesicle
 gmresTol; %tolerance for GMRES 
 gmresMaxIter; %maximum number of iterations GMRES
+R0; %inital radius
 
 end % properties
 
@@ -39,6 +40,7 @@ o.gmresMaxIter = params.gmresMaxIter; %maximum number of GMRES iterations
 op = poten(params.N);
 %construct the odd/even matrix
 o.kmatrix = op.oddEvenMatrix; 
+o.R0 = 2*params.shortax;
 
 end % tstep: constructor
 
@@ -61,8 +63,8 @@ if strcmp(farFieldFlow,'relaxation')
 elseif strcmp(farFieldFlow,'shear')
     uinf = farFieldSpeed*[y;zeros(N/2,1)];
 elseif strcmp(farFieldFlow, 'parabolic')
-    r = 12.5; %HACKED IN, add parameter?
-    uinf = farFieldSpeed*[(1-(y/r).^2);zeros(N/2,1)];
+    W = 10*o.R0; 
+    uinf = farFieldSpeed*[(1-(y/W).^2);zeros(N/2,1)];
 elseif strcmp(farFieldFlow,'extensional')
     uinf = farFieldSpeed*[-x;y];
 else
@@ -489,11 +491,11 @@ for ktime = 1:nstep
   % Update the curvature
   ves.cur = oc.acurv(ves.N,ves.theta,ves.L);
   
-  if(strcmp(o.farFieldFlow, 'parabolic'))
-      %pin the vesicle at x = 0
-      ves.X(1:end/2) = ves.X(1:end/2) - mean(ves.X(1:end/2));
-  end
-  
+   if(strcmp(o.farFieldFlow, 'parabolic'))
+       %pin the vesicle at x = 0
+       ves.X(1:end/2) = ves.X(1:end/2) - mean(ves.X(1:end/2));
+   end
+   
   % HACK: keep the vesicle centered at (0,0)
        %ves.X(1:end/2) = ves.X(1:end/2) - mean(ves.X(1:end/2));
        %ves.X(end/2+1:end) = ves.X(end/2+1:end) - mean(ves.X(end/2+1:end));
