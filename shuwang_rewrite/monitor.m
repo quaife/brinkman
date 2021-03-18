@@ -187,7 +187,7 @@ function plotData(o,X,time,ea,el,vel,conc)
 
 oc = curve; % shorthand for curve class
  [x,y] = oc.getXY(X); % seperate x and y coordinates
- figure(1); clf; % hold on
+% figure(1); clf; % hold on
 
 %----------- General Position Plot ------------------------------------
 %plot([x;x(1,:)],[y;y(1,:)],'r','linewidth',2)

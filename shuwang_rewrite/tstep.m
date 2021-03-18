@@ -349,7 +349,7 @@ uy_old = uy(1);
 ea = abs(a_new - a_old)./abs(a_old);
 el = abs(l_new - l_old)./abs(l_old);
 % plot and write the new data 
-om.plotData(ves.X,time,ea,el,[ux;uy],ves.rcon)
+% om.plotData(ves.X,time,ea,el,[ux;uy],ves.rcon)
 om.initializeFiles(ves.X,ves.rcon,time,[ux;uy],ves.ten)
 
 end % FirstSteps
