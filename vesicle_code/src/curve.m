@@ -233,6 +233,7 @@ elseif any(strcmp(options,'chokeLong'))
   r = (cos(t).^order + sin(t).^order).^(-1/order);
   x = a*r.*cos(t); y = b*r.*sin(t);
   ind = abs(x) < 10;
+%  ind = abs(x) < 0;
   scalRat = 2*c/(1+c)*(0.5-0.5*cos(pi*x(ind(1:end/2))/10)).^10 + ...   
       (1-c)/(1+c);
   y(ind) = y(ind).*[scalRat;scalRat];
@@ -240,6 +241,214 @@ elseif any(strcmp(options,'chokeLong'))
   % choked domain.  a and b control the length and height.  c
   % controls the width of the gap, and order controls the
   % regularity
+
+  sa = o.diffProp(X0);
+  t = o.arc(sa);
+  r = (cos(t).^order + sin(t).^order).^(-1/order);
+  x = a*r.*cos(t); y = b*r.*sin(t);
+  ind = abs(x) < 10;
+%  ind = abs(x) < 0;
+  scalRat = 2*c/(1+c)*(0.5-0.5*cos(pi*x(ind(1:end/2))/10)).^10 + ...   
+      (1-c)/(1+c);
+  y(ind) = y(ind).*[scalRat;scalRat];
+
+%  t = (0:N-1)'*2*pi/N;
+%  x = 10*cos(t); y = 10*sin(t);
+  X0 = [x;y];
+  % redistribute points so that it is equispaced in arclength
+
+elseif any(strcmp(options,'chokeLonger'))
+  a = 100; b = 25/2; c = 0.67; order = 8;
+  % parameters for the boundary
+  t = (0:N-1)'*2*pi/N;
+  r = (cos(t).^order + sin(t).^order).^(-1/order);
+  x = a*r.*cos(t); y = b*r.*sin(t);
+  ind = abs(x) < 35;
+  scalRat = 2*c/(1+c)*(0.5-0.5*cos(pi*x(ind(1:end/2))/35)).^10 + ...   
+      (1-c)/(1+c);
+  y(ind) = y(ind).*[scalRat;scalRat];
+  X0 = [x;y];
+  % choked domain.  a and b control the length and height.  c
+  % controls the width of the gap, and order controls the
+  % regularity
+
+  sa = o.diffProp(X0);
+  t = o.arc(sa);
+  r = (cos(t).^order + sin(t).^order).^(-1/order);
+  x = a*r.*cos(t); y = b*r.*sin(t);
+  ind = abs(x) < 35;
+  scalRat = 2*c/(1+c)*(0.5-0.5*cos(pi*x(ind(1:end/2))/35)).^10 + ...   
+      (1-c)/(1+c);
+  y(ind) = y(ind).*[scalRat;scalRat];
+
+  X0 = [x;y];
+  % redistribute points so that it is equispaced in arclength
+
+elseif any(strcmp(options,'chokeLongest'))
+%  a = 100; b = 25/2; c = 0.67; order = 8;
+  a = 200; b = 25/2; c = 0.67; order = 8;
+  % parameters for the boundary
+  len = 100;
+  % length of the constriction
+  t = (0:N-1)'*2*pi/N;
+  r = (cos(t).^order + sin(t).^order).^(-1/order);
+  x = a*r.*cos(t); y = b*r.*sin(t);
+
+  ind = abs(x) < len;
+  scalRat = 2*c/(1+c)*(0.5-0.5*cos(pi*x(ind(1:end/2))/len)).^10 + ...   
+      (1-c)/(1+c);
+  y(ind) = y(ind).*[scalRat;scalRat];
+  X0 = [x;y];
+  % choked domain.  a and b control the length and height.  c
+  % controls the width of the gap, and order controls the
+  % regularity
+
+  sa = o.diffProp(X0);
+  t = o.arc(sa);
+  r = (cos(t).^order + sin(t).^order).^(-1/order);
+  x = a*r.*cos(t); y = b*r.*sin(t);
+  ind = abs(x) < len;
+  scalRat = 2*c/(1+c)*(0.5-0.5*cos(pi*x(ind(1:end/2))/len)).^10 + ...   
+      (1-c)/(1+c);
+  y(ind) = y(ind).*[scalRat;scalRat];
+
+  X0 = [x;y];
+  % redistribute points so that it is equispaced in arclength
+%  plot(x,y,'b-o')
+%  axis equal;
+%  pause
+
+elseif any(strcmp(options,'chokeMulti'))
+  width = 1;
+  Length = 10;
+  gap = 0.5;
+
+  NN = 32;
+  L1 = Length + width;
+  L2 = pi*(gap/2+width);
+  L3 = Length;
+  L4 = pi*gap/2;
+  L5 = Length;
+  L6 = pi*(gap/2+width);
+  L7 = Length + width;
+  L8 = width;
+  L9 = Length + width;
+  L10 = pi*gap/2;
+  L11 = Length;
+  L12 = pi*(gap/2+width);
+  L13 = Length;
+  L14 = pi*gap/2;
+  L15 = Length + width;
+  L16 = width;
+
+  N1 = round(NN*L1);
+  N2 = round(NN*L2);
+  N3 = round(NN*L3);
+  N4 = round(NN*L4);
+  N5 = round(NN*L5);
+  N6 = round(NN*L6);
+  N7 = round(NN*L7);
+  N8 = 5*round(NN*L8);
+  N9 = round(NN*L9);
+  N10 = round(NN*L10);
+  N11 = round(NN*L11);
+  N12 = round(NN*L12);
+  N13 = round(NN*L13);
+  N14 = round(NN*L14);
+  N15 = round(NN*L15);
+  N16 = 5*round(NN*L16);
+
+  x1 = linspace(-(gap/2+width),Length,N1)';
+  y1 = zeros(N1,1);
+
+  t = linspace(-pi/2,pi/2,N2)';
+  x2 = x1(end) + (gap/2+width)*(cos(t) - cos(t(1)));
+  x2 = x2(2:end);
+  y2 = y1(end) + (gap/2+width)*(sin(t) - sin(t(1)));
+  y2 = y2(2:end);
+
+  x3 = linspace(Length,0,N3)';
+  x3 = x3(2:end);
+  y3 = y2(end)*ones(N3,1);
+  y3 = y3(2:end);
+
+  t = linspace(-pi/2,-3*pi/2,N4)';
+  x4 = x3(end) + (gap/2)*(cos(t) - cos(t(1)));
+  x4 = x4(2:end);
+  y4 = y3(end) + (gap/2)*(sin(t) - sin(t(1)));
+  y4 = y4(2:end);
+
+  x5 = linspace(0,Length,N5)';
+  x5 = x5(2:end);
+  y5 = (2*width+2*gap)*ones(N5,1);
+  y5 = y5(2:end);
+
+  t = linspace(-pi/2,pi/2,N6)';
+  x6 = x5(end) + (gap/2+width)*(cos(t) - cos(t(1)));
+  x6 = x6(2:end);
+  y6 = y5(end) + (gap/2+width)*(sin(t) - sin(t(1)));
+  y6 = y6(2:end);
+
+  x7 = linspace(Length,-(gap/2+width),N7)';
+  x7 = x7(2:end);
+  y7 = y6(end)*ones(N7,1);
+  y7 = y7(2:end);
+
+  x8 = -(gap/2+width)*ones(N8,1);
+  x8 = x8(2:end-1);
+  y8 = linspace(4*width+3*gap,3*width+3*gap,N8)';
+  y8 = y8(2:end-1);
+
+  x9 = linspace(-(gap/2+width),Length,N9)';
+  y9 = (3*width+3*gap)*ones(N9,1);
+
+  t = linspace(+pi/2,-pi/2,N10)';
+  x10 = x9(end) + (gap/2)*(cos(t) - cos(t(1)));
+  x10 = x10(2:end);
+  y10 = y9(end) + (gap/2)*(sin(t) - sin(t(1)));
+  y10 = y10(2:end);
+
+  x11 = linspace(Length,0,N11)';
+  x11 = x11(2:end);
+  y11 = y10(end)*ones(N11,1);
+  y11 = y11(2:end);
+
+  t = linspace(pi/2,3*pi/2,N12)';
+  x12 = x11(end) + (gap/2+width)*(cos(t) - cos(t(1)));
+  x12 = x12(2:end);
+  y12 = y11(end) + (gap/2+width)*(sin(t) - sin(t(1)));
+  y12 = y12(2:end);
+
+  x13 = linspace(0,Length,N13)';
+  x13 = x13(2:end);
+  y13 = y12(end)*ones(N13,1);
+  y13 = y13(2:end);
+
+  t = linspace(+pi/2,-pi/2,N14)';
+  x14 = x13(end) + (gap/2)*(cos(t) - cos(t(1)));
+  x14 = x14(2:end);
+  y14 = y13(end) + (gap/2)*(sin(t) - sin(t(1)));
+  y14 = y14(2:end);
+
+  x15 = linspace(Length,-(gap/2+width),N15)';
+  x15 = x15(2:end);
+  y15 = width*ones(N15,1);
+  y15 = y15(2:end);
+
+  x16 = -(gap/2+width)*ones(N16,1);
+  x16 = x16(2:end-1);
+  y16 = linspace(width,0,N16)';
+  y16 = y16(2:end-1);
+
+  xx = [x1;x2;x3;x4;x5;x6;x7;x8;x9;x10;x11;x12;x13;x14;x15;x16];
+  yy = [y1;y2;y3;y4;y5;y6;y7;y8;y9;y10;y11;y12;y13;y14;y15;y16];
+  z = xx+1i*yy;
+  z = interpft(z,N);
+  X = [real(z);imag(z)];
+%  clf
+%  plot(X0(1:end/2),X0(end/2+1:end),'k--')
+%  axis equal;
+%  pause
 
 elseif any(strcmp(options,'slit'))
   a = 10; b = 3; c = 0.7; order = 8;
@@ -265,11 +474,71 @@ elseif any(strcmp(options,'slit'))
       (1-c)/(1+c);
   y(ind) = y(ind).*[scalRat;scalRat];
   X0 = [x;y];
-
-
   % choked domain.  a and b control the length and height.  c
   % controls the width of the gap, and order controls the
   % regularity
+
+elseif any(strcmp(options,'contracting'))
+  w = 0.5; % width of the opening
+  ell1 = 3.0; % length before contracting region
+  ell2 = 12; % length (in x) of contracting region
+  ell3 = 3.0; % length after contracting region
+  angd = 14; % angle in degrees of contracting region
+  ang = angd*pi/180;
+
+  W = 2*ell2*tan(ang) + w;  % total width of the geometry
+
+  % Set up 10 marker points
+  z1 = 0 - 1i*(W/2);
+  z2 = z1 + ell1;
+  z3 = z2 + (ell2 + 1i*ell2*tan(ang));
+  z4 = z3 - 1i*ell2*tan(ang);
+  z5 = z4 + ell3;
+  z6 = z5 + 1i*W;
+  z7 = z6 - ell3;
+  z8 = z7 - 1i*ell2*tan(ang);
+  z9 = z8 - (ell2 - 1i*ell2*tan(ang));
+  z10 = z9 - ell1;
+
+  dz = 0.1; % length spacing between successive nodes
+
+  % setup roughly equispaced points along the geometry
+  len1 = abs(z1 - z2);
+  zz1 = linspace(z1,z2,round(len1/dz)); zz1 = zz1(1:end-1);
+  len2 = abs(z2 - z3);
+  zz2 = linspace(z2,z3,round(len2/dz)); zz2 = zz2(1:end-1);
+  len3 = abs(z3 - z4);
+  zz3 = linspace(z3,z4,round(len3/dz)); zz3 = zz3(1:end-1);
+  len4 = abs(z4 - z5);
+  zz4 = linspace(z4,z5,round(len4/dz)); zz4 = zz4(1:end-1);
+  len5 = abs(z5 - z6);
+  zz5 = linspace(z5,z6,round(len5/dz)); zz5 = zz5(1:end-1);
+  len6 = abs(z6 - z7);
+  zz6 = linspace(z6,z7,round(len6/dz)); zz6 = zz6(1:end-1);
+  len7 = abs(z7 - z8);
+  zz7 = linspace(z7,z8,round(len7/dz)); zz7 = zz7(1:end-1);
+  len8 = abs(z8 - z9);
+  zz8 = linspace(z8,z9,round(len8/dz)); zz8 = zz8(1:end-1);
+  len9 = abs(z9 - z10);
+  zz9 = linspace(z9,z10,round(len9/dz)); zz9 = zz9(1:end-1);
+  len10 = abs(z10 - z1);
+  zz10 = linspace(z10,z1,round(len10/dz)); zz10 = zz10(1:end-1);
+
+  z = [zz1,zz2,zz3,zz4,zz5,zz6,zz7,zz8,zz9,zz10];
+  winsize = 10; % Gaussian window size
+  zPad = [z(end-winsize+1:end),z,z(1:winsize)];
+  % pad so that periodicity is incorporated into smoothing
+  z = smoothdata(zPad,'gaussian',winsize);
+  % smooth padded data
+  z = z(winsize+1:end - winsize);
+  % remove the padding
+
+  z = interpft(z,N);
+  % interpolate with FFT to the requested number of discretization
+  % points
+  
+  X0 = [real(z)';imag(z)'];
+  % store as (x,y) rather than x + 1i*y
 
 elseif any(strcmp(options,'doublechoke'))
   a = 10; b = 3; c = 0.6; order = 8;
@@ -375,11 +644,13 @@ end
 % end of building reference vesicles.  Only need to rotate
 % and shift them as desired
 
+
 if isempty(X)
   % if X has not been defined, we only have X0 which is 
   % the reference vesicle which not needs to be
   % rotated and translated
   X = zeros(2*N,nv);
+
   for k=1:nv
     X(1:N,k) = scale*(cos(theta(k)) * X0(1:N) - ...
       sin(theta(k)) * X0(N+1:2*N)) + cen(1,k);

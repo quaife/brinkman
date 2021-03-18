@@ -64,7 +64,9 @@ function df = diffFT(f,IK)
 %  w = fft1.diffFT(v,IK);
 %  error = norm(w-vprime,inf);
 %  subplot(2,2,2), plot(x,w,'.-','markersize',13);
-
+%IK
+%f
+%pause
 df = real(ifft(IK.*fft(f)));
 
 end % end diffFT

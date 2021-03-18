@@ -1,22 +1,23 @@
 %setup the intial data for the coefficient
-shearate = 30;
-shape = 0.5;
-phi = 0.5;
-scale = 2;
+shearate = 4;
+shape = .8146;
+phi = 0.3;
+scale = 1;
 
 global consta eps_ch kmatrix velocity bendsti bendratio uinside uoutside m
 
-initialdata = [64 1e-3 1/scale 1e-3 phi 0 shape  ...
-    shearate 1 0.1 1 100 1.0 1.0];
+initialdata = [256 1e-3 1/scale 1e-3 phi 0 shape  ...
+    shearate 1 .1 1 100 1.0 1.0];
 
 ngrid = initialdata(1);
 % the number of the grid points
 dt = initialdata(2);
 % time steps size
-T = initialdata(3);
+T = initialdata(3)*1;
 % time horizon
 outpt = initialdata(4);
 % output data groups
+
 concentra = initialdata(5);
 % concentration of the phase
 oddeven = initialdata(6);
@@ -38,7 +39,7 @@ end
 lambd = initialdata(11);
 % viscosity ratio
 consta = initialdata(12);
-% the speed constant for phase decomposion
+% the speed constant for phase decomposition
 uinside = initialdata(13);
 % viscosity inside
 uoutside = initialdata(14);
@@ -58,19 +59,21 @@ outpt = round(outpt/dt);
 % steps for saving to output
 
 % set the initial condition.
-[x,y,theta,rcon] = initialsetup(shortax,ngrid,concentra,oddeven);
-
+[x,y,theta,rcon,sl] = initialsetup(shortax,ngrid,concentra,oddeven);
+% plot(rcon)
+% %%pause
 % here we keep the total arclength unchanged.
 x0 = x(1);
 y0 = y(1);
-%sl = 2.6442;
-%sl = 2*pi;
-sl = 4.844224110050042;
+%%sl = 2.6442;
+%%sl = 2*pi;
+%sl = 4.844224110050042;
 % For Shuwang: Why is sl defined here? It is actually an output
 % of the call to initialsetup. It is just currently not asked
-% for in the call above
-x0 = x0/2;
-y0 = y0/2;
+% for in the call above. NOTE: We requested sl to be an output in
+% initialsetup
+%x0 = x0/2;
+%y0 = y0/2;
 kmatrix = formkmatrix(ngrid);
 % kmatrix is checkerboard pattern of 0s and 1s which is dot multiplied y
 % the layer potential matricies so that the quadrature is odd/even
@@ -84,18 +87,32 @@ kmatrix = formkmatrix(ngrid);
 % (33)
 [ux0,uy0,rlambdalnew,x,y,forc1,forc2,xcc,ycc] = ...
     usetself(x0,y0,sl,theta,rcon);
-
+%  %disp('plotting un and ut')
+%  plot(ux0)
+%  hold on
+%  plot(uy0)
+%  %%pause
+% clf
+% plot(x,y)
+% % %%pause
+% %figure(1); clf; hold on;
+% quiver(x(1:end-1),y(1:end-1),ux0 - 0*y(1:end-1),uy0)
+% axis equal
+% axis([-3 3 -3 3])
+% %%pause(0.01)
+% hold off
+%%%pause
 u1x = ux0(1);
 u1y = uy0(1);
 % put the x-y velocity into the normal and tangential velocity.
 un  = ux0.*sin(theta) - uy0.*cos(theta); % ???Tangential Velocity???
 utt = ux0.*cos(theta) + uy0.*sin(theta); % ???Normal Velocity???
- 
+
 % Update arc length change over time using a first-order Euler method.
 % For subsequent time steps, will use a multistep method as described in
 % equation (60)
 fsl = forcsl(m,theta,un);
-sln = sl + dt*fsl; 
+sln = sl + dt*fsl;
 % Forward Euler for the arclength. fsl should be zero, so this is just
 % checking for discretization and round-off errors
 
@@ -107,12 +124,17 @@ fntheta = fthetaim(m,sl,theta,bendsti,un,utt);
 
 % compute the non-stiff term for the velocity of the concentration
 % (rcon) of the lipid species. This is what they call N_2.
+%>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 fncon = frconim(m,sl,rcon,theta,bendsti,bendratio,eps_ch,consta);
 
 % next evolve the shape and the phase distribution in Fourier space.
 % Fourier series of the derivative of the tangent angle. i.e. Fourier
 % series of N_1
 temp1 = fft(fntheta); 
+% clf
+% plot(temp1)
+% %%pause
 % Fourier derivative of the tangent angle adjusted by a linear function
 % so that we are taking the fft of a periodic function
 temp2 = fft(theta - 2*pi*(0:m-1)/m);
@@ -140,11 +162,13 @@ temp4 = real(ifft(temp4));
 % step of Euler with the stiffest term treated implicitly and integrated
 % with an integrating factor
 thetan = temp4 + 2*pi*(0:m-1)/m;
-
+mean(cos(thetan))
+mean(sin(thetan))
+pause
 % lipid species model for u
 rk = 2*pi*[0 1:m/2 m/2-1:-1:1]; 
-% Fourier modes, but scaled by 2*pi. Note that these two vectors will be
-% nearly identical since sl \approx sln by inextensibility
+% Fourier modes scaled by 2*pi. Note that these two vectors will be
+% nearly identical since sl is approximately sln by inextensibility.
 rsl = eps_ch*(rk/sl).^4*consta;
 rsln = eps_ch*(rk/sln).^4*consta;
 % form stiffest term that is treated implicitly, but is also linear (and
@@ -155,7 +179,6 @@ rsln = eps_ch*(rk/sln).^4*consta;
 d1 = dt/nloop*(rsl + rsln)/2;
 % d1 is the integrating factor in equation (70)
 d1 = exp(-d1);
-
 % Take small time steps to move the lipid species from time 0 to time dt
 for i=1:nloop
   % fncon is the non-linear term N_2 in equation (67)
@@ -165,17 +188,16 @@ for i=1:nloop
   % temp2c is the fourier coefficients of the lipid species
   % concentration as in equation (68)
   temp2c = fft(rcon(1:m));
-  
   % First-order Euler method that is analagous to equation (69)
   temp4 = d1.*(temp2c + dt/nloop*temp1c);
   rconn = real(ifft(temp4));
   rcon = rconn;
+  
 end
 % For Shuwang: Why do we have to take a time step size that is 1/20 the
 % size of the time step size used for the hydrodynamics?
 
 areasum = sum(sin(theta).*x(1:m)-cos(theta).*y(1,1:m))/2*sl/m;
-
 % update the position with Forward Euler. At future time steps,
 % second-order Adams-Bashforth will be used
 x0 = x0 + dt*u1x;
@@ -193,6 +215,7 @@ ss(1) = sl;
 vx = ux0';
 vy = uy0';
 
+nn = [];
 % From the second step, use multistep the evolve the dynamics.
 for ktime = 1:nstep
   tic
@@ -205,17 +228,36 @@ for ktime = 1:nstep
   % concentration of lipid species rconn. This is the routine that calls
   % GMRES which is used to solve equation (30) in the Sohn et al JCP
   % paper (2010)
-  % ux0 = normal velocity
-  % uy0 = tangential velocity
+  % ux0 = x-velocity
+  % uy0 = y-velocity
   % (x,y) = tracker point
+  %disp('here1')
   [ux0,uy0,rlambdalnew,x,y,forc1,forc2,xcc,ycc,area] = ...
       usetself(x0,y0,sl,thetan,rconn);
-
+  
+%   %disp('here1')
+%   norm(uy0)
+% %   %%pause
+%   %figure(1); clf; hold on;
+%   plot(x,y,'r')
+%   quiver(x(1:end-1),y(1:end-1),ux0,uy0)
+  nn = [nn;norm([ux0;uy0])];
+  %%disp('here 1')
+  %norm([ux0;uy0])
+%   axis equal
+%   axis([-3 3 -3 3])
+%   %%pause(0.1)
+%   hold off
+  
   u1x=ux0(1);
   u1y=uy0(1);    
 
   un  = ux0.*sin(thetan) - uy0.*cos(thetan);
   utt = ux0.*cos(thetan) + uy0.*sin(thetan);
+%   %figure(3)
+%   semilogy(abs(fftshift(fft(ux0))))
+%   %%pause
+  
   
   fsln = forcsl(m,thetan,un);
   slnn = sln + dt*(3*fsln-fsl)/2;
@@ -242,6 +284,9 @@ for ktime = 1:nstep
   temp4 = d1.*temp2 + 1/2*dt*(3*d1.*temp1-d2.*temp3);
   temp4 = real(ifft(temp4));
   thetann = temp4 + 2*pi*(0:1:m-1)/m;
+%   %disp('here')
+%   norm(fnthetan)
+%   %%pause
   % this is what might need to change to do semi-permeability???
 
   rsl = eps_ch*(rk/sl).^4*consta;
@@ -252,16 +297,18 @@ for ktime = 1:nstep
   d2 = dt/nloop*(rsl+rslnn)/2+dt/nloop*rsln;
   d1 = exp(-d1);
   d2 = exp(-d2);
+  clf;
+  plot(d2)
+  pause
   
   if concentra>0
     for innerstep=1:nloop
       % evolve the phase field on the surface            
       fnncon=frconim(m,sl,rconn,thetan,bendsti,bendratio,...
           eps_ch,consta);        
-
       temp1c = fft(fnncon);
       temp2c = fft(rconn);
-      temp3c = fft(fncon);       
+      temp3c = fft(fncon); 
 
       temp5 = d1.*temp2c + 0.5*(dt/nloop)*...
           (3*d1.*temp1c-d2.*temp3c);        
@@ -273,7 +320,10 @@ for ktime = 1:nstep
       fncon = fnncon;
     end
   end
-
+  %clf
+  %%disp('plotting rcon')
+  %plot(rcon)
+  %%%pause
   sl = sln;
   sln = slnn;
   fsl = fsln;
@@ -293,6 +343,10 @@ for ktime = 1:nstep
   y0 = real(y0);
 %  write results if the time is right
   [x,y] = recon(m,x0,y0,sl,theta);
+
+%  clf;
+%  plot(theta)
+%  %%pause
 
   if mod(ktime,outpt)==0
     np = np+1;

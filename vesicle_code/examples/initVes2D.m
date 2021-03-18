@@ -48,7 +48,8 @@ OptList = {'expectedOrder','farField',...
     'axis','saveData','logFile','dataFile','verbose',...
     'profile','collision','timeAdap',...
     'pressure','SDCcorrect','orderGL','nsdc','adhesion','expForce',...
-    'fmmPrecision','semipermeable','fluxShape'};
+    'fmmPrecision','semipermeable','fluxShape',...
+    'xshift','xshiftLoc','xshiftVec'};
 
 defaultOpt.expectedOrder = 2;
 defaultOpt.farField = 'shear';
@@ -75,6 +76,9 @@ defaultOpt.expForce = false;
 defaultOpt.fmmPrecision = 4;
 defaultOpt.semipermeable = false;
 defaultOpt.fluxShape = 1;
+defaultOpt.xshift = false;
+defaultOpt.xshiftLoc = 0;
+defaultOpt.xshiftVec = 0;
 
 for k = 1:length(OptList)
   if ~isfield(options,OptList{k})

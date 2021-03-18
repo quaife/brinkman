@@ -1,16 +1,21 @@
 function  vel=stokes(dkap,m,sl,theta,rhs,A,c,c1)
-    
-tol = 1e-10;  maxit = 10; 
+ 
+tol = 1e-10;  maxit = numel(rhs); 
 rhscolume=rhs';
-
+afun(rhscolume);
 % based on the variable name, it seems that this is solving for a
 % velocity
-vell = gmres(@afun,rhscolume,m/2,tol,maxit,@mfun);
+[vell,flag,relres,iter,resvec] = gmres(@afun,rhscolume,m/2,tol,maxit);
+%,@mfun);
 vel = vell';
-
-% matvec corresponding to equation (40)
+%  flag
+%  relres
+%  iter
+%  %resvec
+%  %pause
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function vell = afun(pss)
+% matvec corresponding to equation (40)
 
 slam = pss';
 
@@ -22,7 +27,8 @@ forc2 = -slam(1,1:m).*dkap(1,1:m).*cos(theta(1,1:m)) - ...
          slams(1,1:m).*sin(theta(1,1:m))/sl;  
 
 k = A*[forc1 forc2]';
-
+% norm(k)
+% %pause
 forc001_l = integral3(forc1,m);
 forc002_l = integral3(forc2,m);
 
@@ -33,7 +39,6 @@ uun(1,1:m) = sigma1(1,1:m).*sin(theta(1,1:m)) - ...
              sigma2(1,1:m).*cos(theta(1,1:m));
 utn(1,1:m) = sigma1(1,1:m).*cos(theta(1,1:m)) + ...
              sigma2(1,1:m).*sin(theta(1,1:m));
-
 utn(m+1) = utn(1);
 utns = fd1(utn,m);
 
@@ -57,7 +62,6 @@ ssigma = fft(ssigma,m);
 coe = [1 1:1:m/2 m/2-1:-1:1];
 ssigma(1,1:m) = ssigma(1,1:m)./coe;
 ssigma(1,1:m) = real(ifft(ssigma(1,1:m),m));
-
 z(1,1:m) = ssigma(1,1:m);
 zz = z';
 end

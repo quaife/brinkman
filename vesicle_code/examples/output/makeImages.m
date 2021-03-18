@@ -2,12 +2,75 @@ addpath ../../src
 set(0,'DefaultAxesFontSize',22)
 options.savefig = false;
 options.pressure = false;
+options.center = false;
+options.marker = false;
 
 irate = 1; % controls the speed of the visualization
 
-if 0
+if 1
   file = 'parabolic1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/semipermeable/parabolic1Ves_speed8.00e02_RA9.00em01Data.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/impermeable/parabolic1Ves_speed1.20e03_RA7.00em01Data.bin';
+
+  ax = 1*[-2 2 -2 12.5];
+  irate = 10;
+  options.confined = false;
+  options.center = true;
+  options.marker = true;
 end
+
+if 0
+file = '~/Dropbox/Adhesion/choke1VesKEp01bData_Feb02.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/stenosis/longConstriction_ra065_beta1em3/choke1VesData_Part1.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/stenosis/longConstriction_ra065_beta1em3/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3RA0p25/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
+%file = '~/Dropbox/Adhesion/PermeableV/choke1Ves/choke1VesBData.bin';
+%file = 'choke1VesData.bin';
+
+  options.marker = false;
+%  file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/stenosis/shortConstriction_beta0/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3RA0p20/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3RA0p65Centered/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield1e0/choke1VesData.bin'
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e1_farfield1e0/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e2_farfield1e0/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield5e2/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield1e2/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta0Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em3Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em4Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/choke1VesLong/beta1em5Scale1p44_kappa1e0_farfield5e2_offcenter/choke1VesData.bin';
+  ax = [-120 120 -12.5 12.5];
+%  ax = [-55 55 -22.5 22.5];
+  options.confined = true;
+  options.pressure = false;
+  options.savefig = false;
+  count = 1;
+  irate = 10;
+end
+
+if 0
+%  file = 'contracting1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1e1/contracting1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1em0p5/contracting1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1e0/contracting1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/contracting/beta0Rate1e0/contracting1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1e0p5/contracting1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1e1/contracting1VesData.bin';
+%  file = '~/Dropbox/Adhesion/PermeableV/contracting1Ves/contracting1VesP3Data.bin';
+%  file = '~/Dropbox/Adhesion/PermeableV/contracting1Ves/Ncontracting1Ves3aData.bin';
+  file = '~/Dropbox/Adhesion/PermeableV/contracting1Ves/contracting1VesP4Data.bin';
+  ax = [-1 19 -5 5];
+  options.confined = true;
+  options.pressure = false;
+  options.savefig = false;
+  count = 1;
+  irate = 10;
+end
+
+
 if 0
 %  file = 'extensional1VesCleanData.bin'; irate = 2;
   file = 'extensional1VesSemiData.bin'; irate = 2;
@@ -35,15 +98,18 @@ if 0
 end
 
 if 0
-  file = 'relaxation1VesData.bin';
+%  file = 'relaxation1VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/relaxation/beta1em3_ra012_star11fold/relaxation1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/Apr142020/starBeta1em3/relaxation1VesData.bin';
-%    file = '~/projects/brinkman/vesicle_code/results/Apr232020/ellipseBeta1em5/relaxation1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/relaxation1Ves/star_beta1p0e0/relaxation1VesData.bin';
+%    file = '~/projects/brinkman/vesicle_code/results/Apr232020/ellipseBeta1em3/relaxation1VesData.bin';
 %  ax = [-3 3 -3.5 3.5];
-  ax = 2*[-1 1 -1 1];
+  ax = 1*[-1 1 -1 1];
   options.confined = false;
   options.savefig = false;
-  beta = 1e-5;
+  beta = 1e-3;
   count = 1;
+  irate = 1;
 end
 
 if 0
@@ -71,30 +137,36 @@ if 0
   options.confined = false;
 end
 if 0
-  file = 'shear1VesKData.bin';
-%  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em0p5_ra065_beta1p0em4p5/shear1VesData.bin';
+  file = 'shear1VesDData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em1_ra065_beta1p0em4p5/shear1VesData.bin.old';
+%  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/shear/Chi1p0e0_ra075_beta1p0em3/shear1VesData.bin';
   ax = [-5 5 -5 5];
   options.confined = false;
-  beta = 0.2;
+  beta = 1e-3;
 end
 if 0
 %  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR1em1adS1e0Chi5em1_ra090/shear2VesData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR1em1adS3em1Chi2p5em1_ra090/shear2VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR1em1adS3em1Chi2p5em1_ra090/shear2VesData_Part2.bin';
   ax = [-3 3 -3 3];
   options.confined = false;
 end
+
 if 0
-  file = 'choke1VesData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/choke1Ves/beta1em3Scale5em1/choke1VesData.bin';
-  ax = [-20.5 20.5 -3.5 3.5];
+  file = 'chokeMulti1VesData.bin';
+  ax = [-1.3 11.3 -0.1 5.6];
   options.confined = true;
-  options.pressure = true;
+  options.pressure = false;
   options.savefig = false;
   count = 1;
+  irate = 1;
 end
-if 1
-  file = 'slit1VesData.bin';
+
+if 0
+%  file = 'slit1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/slit/Scale0p55_Beta0/slit1VesData.bin';
+  file = '~/projects/brinkman/vesicle_code/results/slit/Scale0p55_Beta1em3/slit1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/slit/Scale0p55_Beta1em4/slit1VesData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/slit/Scale0p55_Beta1em5/slit1VesData.bin';
   ax = [-5 5 -2.5 2.5];
   options.confined = true;
   options.pressure = true;
@@ -131,7 +203,7 @@ istart = 1;
 iend = numel(time);
 ntime = iend;
 ntime = numel(time);
-time = time(istart:iend);
+%time = time(istart:iend);
 
 oc = curve;
 [~,~,L] = oc.geomProp([posx(:,1,1);posy(:,1,1)]);
@@ -149,27 +221,32 @@ velBen = zeros(2*n,ntime);
 velTen = zeros(2*n,ntime);
 velSLP = zeros(2*n,ntime);
 velFlux = zeros(2*n,ntime);
+cx = zeros(ntime,1); % x coordinate of center of mass
+cy = zeros(ntime,1); % y coordinate of center of mass
 
 op = poten(n);
 for k = istart:1:iend
-%for k = numel(time)-11:numel(time)
   [ra(k),area(k),length(k)] = oc.geomProp([posx(:,1,k);posy(:,1,k)]);
 %  incAng(k) = InclinationAngle(posx(:,1,k),posy(:,1,k));
 
-  if 0
-  vesicle = capsules([posx(:,:,k);posy(:,:,k)],[],[],1,1);
-  normal(1:end/2,:,k) = +vesicle.xt(end/2+1:end,:);
-  normal(end/2+1:end,:,k) = -vesicle.xt(1:end/2,:);
-  trac(:,:,k) = vesicle.tracJump([posx(:,:,k);posy(:,:,k)],ten(:,:,k));
-  [jac(:,:,k),~,cur(:,:,k)] = oc.diffProp([posx(:,1,k);posy(:,1,k)]);
-  ten(:,:,k) = ten(:,:,k) + 1.5*cur(:,:,k).^2;
+  if 1
+    vesicle = capsules([posx(:,:,k);posy(:,:,k)],[],[],1,1);
+    normal(1:end/2,:,k) = +vesicle.xt(end/2+1:end,:);
+    normal(end/2+1:end,:,k) = -vesicle.xt(1:end/2,:);
+    trac(:,:,k) = vesicle.tracJump([posx(:,:,k);posy(:,:,k)],ten(:,:,k));
+    [jac(:,:,k),~,cur(:,:,k)] = oc.diffProp([posx(:,1,k);posy(:,1,k)]);
+    ten(:,:,k) = ten(:,:,k) + 1.5*cur(:,:,k).^2;
+    cx(k) = 1/(2*area(k))*sum(...
+        posx(:,:,k).^2.*normal(1:end/2,:,k).*jac(:,:,k))*2*pi/n;
+    cy(k) = 1/(2*area(k))*sum(...
+        posy(:,:,k).^2.*normal(end/2+1:end,:,k).*jac(:,:,k))*2*pi/n;
   end
 %
 %  G = op.stokesSLmatrix(vesicle);
 %  velSLP(:,k) = G*trac(:,:,k);
 %
-%  flux(:,k) = -(trac(1:end/2,:,k).*normal(1:end/2,:,k) + ...
-%          trac(end/2+1:end,:,k).*normal(end/2+1:end,:,k));
+  flux(:,k) = -(trac(1:end/2,:,k).*normal(1:end/2,:,k) + ...
+          trac(end/2+1:end,:,k).*normal(end/2+1:end,:,k));
 %  velFlux(:,k) = [flux(:,k).*normal(1:end/2,:,k); ...
 %                  flux(:,k).*normal(end/2+1:end,:,k)];
 end
@@ -195,22 +272,39 @@ min_flux = -15;
 max_flux = +2;
 
 figure(1); clf
+if options.center
+  lambda = 1;
+else 
+  lambda = 0;
+end
 for k = istart:irate:iend
 %  xx = interpft(posx(:,:,k),256); yy = interpft(posy(:,:,k),256);  
-  xx = posx(:,:,k);
+  xx = posx(:,:,k) - lambda*cx(k);
   yy = posy(:,:,k);
   tt = ten(:,:,k);
+  if k > 1
+    uu = (xx - posx(:,:,k-1))/(time(2)-time(1));
+    vv = (yy - posy(:,:,k-1))/(time(2) - time(1));
+  end
   vec1 = [xx(:,:);xx(1,:)];
   vec2 = [yy(:,:);yy(1,:)];
   vec3 = [tt(:,:);tt(1,:)];
   vec4 = [flux(:,k);flux(1,k)];
   if 1
     clf; hold on;
-    plot(vec1,vec2,'r','linewidth',3)
-%    plot(vec1(1,:),vec2(1,:),'b.','markersize',20)
+    plot(vec1,vec2,'r-','linewidth',3)
+%    if k > 1
+%      quiver(xx,yy,uu,vv)
+%      pause
+%    end
+%    plot(0,cy(k),'k.','markersize',10);
+%    plot([-5 5],[0 0],'k--')
+    if options.marker
+      plot(vec1(1,:),vec2(1,:),'b.','markersize',20)
+    end
 %    for j = 1:1
 %      subplot(1,2,1)
-%      h = cline(vec1(:,j),vec2(:,j),vec3(:,j));
+%      h = cline(vec1(:,j),vec2(:,j),vec4(:,j));
 %      set(h,'linewidth',3)
 %    end
 %    colorbar
@@ -232,6 +326,8 @@ for k = istart:irate:iend
     hold off
     axis equal
     axis(ax)
+%    axis([min(posx(:,:,k))-1 max(posx(:,:,k))+1 ...
+%          min(posy(:,:,k))-1 max(posy(:,:,k))+1])
     set(gca,'xtick',[])
     set(gca,'ytick',[])
     set(gca,'xcolor','white')
@@ -318,8 +414,4 @@ for k = istart:irate:iend
   pause(0.01)
 %  pause
 end
-
-
-
-
 

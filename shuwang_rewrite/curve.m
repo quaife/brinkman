@@ -9,7 +9,7 @@ classdef curve
 
 methods
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [x,y] = getXY(o,X)
 % [x,y] = getXY(X) gets the [x,y] component of curves X
 N = size(X,1)/2;
@@ -18,9 +18,10 @@ y = X(N+1:end,:);
 
 end % getXY
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function V = setXY(o,x,y)
 % V = setXY(x,y) sets the [x,y] component of vector V on the curve
+
 N = size(x,1);
 V=zeros(2*N,size(x,2));
 V(1:N,:) = x;
@@ -29,11 +30,13 @@ V(N+1:end,:) = y;
 end % setXY
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [Dx,Dy] = getDXY(o,X)
 % [Dx,Dy]=getDXY(X), compute the derivatives of each component of X 
 % these are the derivatives with respect the parameterization 
-% not arclength
+% NOT arclength. Divide by length to find the derivative with respect to 
+% arclength
+
 x = X(1:end/2,:);
 y = X(end/2+1:end,:);
 N = size(x,1);
@@ -44,11 +47,11 @@ Dy = o.diffFT(y,IK);
 
 end % getDXY
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [jacobian,tangent,curvature] = diffProp(o,X)
 % [jacobian,tangent,curvature] = diffProp(X) returns differential
 % properties of the curve each column of the matrix X. Each column of 
-% X should be a closed curve defined in plane. The tangent is the 
+% X uld be a closed curve defined in plane. The tangent is the 
 % normalized tangent.
 %
 % EXAMPLE:
@@ -71,14 +74,15 @@ end
 
 if nargout>2  % if user requires curvature
   IK = o.modes(N);
-  [DDx,DDy] = oc.getDXY([Dx,Dy])
+  [DDx,DDy] = o.getDXY([Dx,Dy]);
+  DDx = DDx(:); DDy = DDy(:);
   curvature = (Dx.*DDy - Dy.*DDx)./(jacobian.^3);
 end
 % curvature of the curve
 
 end % diffProp
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [reducedArea,area,length] = geomProp(o,X)
 % [reducedArea area length] = geomProp(X) calculate the length, area 
 % and the reduced volume of domains inclose by columns of X. 
@@ -91,14 +95,14 @@ function [reducedArea,area,length] = geomProp(o,X)
 [x,y] = o.getXY(X);
 N = size(x,1);
 [Dx,Dy] = o.getDXY(X);
-length = sum(sqrt(Dx.^2 + Dy.^2))*2*pi/N;
-area = sum(x.*Dy - y.*Dx)*pi/N;
+length = sum(sqrt(Dx.^2 + Dy.^2))/N;
+area = 0.5*sum(x.*Dy - y.*Dx)/N;
 
 reducedArea = 4*pi*area./length.^2;
 
 end % geomProp
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [alpha,X] = initConfig(o,N,equispaced,varargin)       
 % [alpha,X] = initConfig(n,varargin) returns N coordinates of boundary
 % points. alpha are the values in [0,2*pi] that give points that are
@@ -123,6 +127,13 @@ else
   theta = 0;
 end
 % rotate the vesicle by a certain angle
+
+if(any(strcmp(options,'center')))
+  cen = options{find(strcmp(options,'center'))+1};
+else
+  cen = [(0:0);zeros(1,1)];
+end
+% pick the center of the vesicles
 
 if(any(strcmp(options,'reducedArea')))
   ra = options{find(strcmp(options,'reducedArea'))+1};
@@ -152,7 +163,7 @@ else
 end
 % number of folds for a star shape
 
-if(any(strcmp(options,'parameter')));
+if(any(strcmp(options,'parameter')))
   alpha = options{find(strcmp(options,'parameter'))+1};
 else
   alpha = (0:N-1)'/N;
@@ -184,31 +195,24 @@ end
 
 % X0 has a reference shape that needs to be scaled and rotated
 X = zeros(2*N,1);
-X(1:N) = scale*(cos(theta) * X0(1:N) - sin(theta) * X0(N+1:2*N));
-X(N+1:2*N) = scale*(sin(theta) * X0(1:N) +  cos(theta) * X0(N+1:2*N));
-% Rotate and scale vesicle
+X(1:N) = scale*(cos(theta) * X0(1:N) - sin(theta) * X0(N+1:2*N)) + cen(1,1);
+X(N+1:2*N) = scale*(sin(theta) * X0(1:N) +  cos(theta) * X0(N+1:2*N)) + cen(2,1);
 
+% Rotate and scale vesicle
 if ~equispaced
-%  figure(1); clf;
-%  plot(X(1:end/2),X(end/2+1:end),'b--')
-%  axis equal;
-%  hold on;
   sa = o.diffProp(X); % compute arclength of the vesicle shape
   alpha = o.arc(sa);
   % find parameter values that give discretization points that are
   % nearly equispaced in arclength
-  [alpha,X] = o.initConfig(N,'true',options{1},'angle',theta,...
+  [alpha,X] = o.initConfig(N,true,options{1},'angle',theta,...
        'reducedArea',ra,'shortax',shortax,'scale',scale,...
-       'folds',folds,'parameter',alpha);
+       'folds',folds,'parameter',alpha, 'center', cen);
 end
-%figure(1); hold on;
-%plot(X(1:end/2),X(end/2+1:end),'ro')
-%axis equal;
-%pause
+alpha = (0:N-1)'/N;
 
 end % initConfig
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function alpha = arc(o,sa)
 % alpha = arc(sa) computes the parameter values of alpha that can be
 % used to distribute points evenly in arclength
@@ -249,10 +253,9 @@ for j = 2:N
   end
 end
 
-
 end % arc
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function X0 = ellipse(o,N,ra)
 % X0 = o.ellipse(N,ra) finds the ellipse (a*cos(theta),sin(theta)) so
 % that the reduced area is ra.  Uses N points.  Parameter a is found 
@@ -262,7 +265,7 @@ t = (0:N-1)'*2*pi/N;
 a = (1 - sqrt(1-ra^2))/ra;
 % initial guess using approximation length = sqrt(2)*pi*sqrt(a^2+1)
 
-X0 = [a*cos(t);sin(t)];
+X0 = [cos(t);a*sin(t)];
 
 [raNew,~,~] = o.geomProp(X0);
 
@@ -290,37 +293,35 @@ end
 end % ellipse
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function rcon = initialConcentration(o,N,alpha,concentration,symmetry)
 % rcon = initialConcentration(N,alpha,concentration,symmetry) sets up
 % the initial lipid concentration defined on the vesicle.
-
 if concentration == 0
   smallper = 0;
 else
   smallper = 5e-2;
 end
-
 if symmetry == -1
   rcon = concentration + smallper*10*(rand(N,1) - 0.5);
   % uniform concentration with a little random noise
 elseif symmetry == 0
-  rcon = concentration + 3*smallper*cos(alpha) + ...
-    0.5*smallper*cos(3*alpha) + ...
-    0.5*smallper*cos(4*alpha);
+  rcon = concentration + 3*smallper*cos(2*pi*alpha) + ...
+    smallper*0.5*cos(3*2*pi*alpha) + ...
+    smallper*0.5*cos(4*2*pi*alpha);
   % uniform concentration with a little noise at specific even Fourier
   % modes
 elseif symmetry==1
-  rcon = concentration + 5*smallper*cos(2*alpha);
+  rcon = concentration + 5*smallper*cos(2*2*pi*alpha);
   % uniform concentration with one small even Fourier mode
 elseif symmetry==2
-  rcon = concentration+ 5*smallper*sin(alpha);
+  rcon = concentration+ 5*smallper*sin(4*pi^2*alpha);
   % uniform concentration with one small odd Fourier mode
 end
 
 end % initialConcentration
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [L,theta,cur] = computeOpeningAngle(o,N,X)
 % [L,theta,cur] = computeOpeningAngle(N,X) finds the length, opening
 % angle between the tangent vector and the x-axis, and the curvature. N
@@ -330,47 +331,53 @@ function [L,theta,cur] = computeOpeningAngle(o,N,X)
 
 [Dx,Dy] = o.getDXY(X);
 % first derivative of the shape
-if abs(Dx(1)) > 1e-12
+if abs(Dx(1)) > 1e-8
   t0 = atan(Dy(1)/Dx(1));
 else
   t0 = pi/2;
 end
 % initial opening angle
 [DDx,DDy] = o.getDXY([Dx;Dy]);
-% second derivative of the shape
 
-L = sum(sqrt(Dx.^2 + Dy.^2))*2*pi/N;
+% second derivative of the shape;
+L = sum(sqrt(Dx.^2 + Dy.^2))/N;
+
 % arclength which should be nearly constant since we constructed
 % discretizations points that are equally spaced in arclength
 
-cur = (Dx.*DDy - Dy.*DDx)/(L/2/pi)^3;
-
+cur = (Dx.*DDy - Dy.*DDx)/L^3;
 % compute curvature
+
 IK = o.modes(N);
-theta = L/2/pi*o.intFT(cur,IK);
+theta = o.intFT(L*cur-2*pi,IK);
 % integrate the curature to find the opening angle
 
-theta = theta + t0;
+theta = theta + t0 + (0:N-1)'*2*pi/N;
 % add in the initial opening angle
 
 end % computeOpeningAngle
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function X = recon(o,N,x0,y0,L,theta)
 % X = recon(N,x0,y0,L,theta) computes the (x,y) coordinates of a
 % geometry with length L, opening angle theta, and its first point at
 % (x0,y0)
 
 IK = o.modes(N);
-x = x0 + o.intFT(L*cos(theta),IK)/2/pi;
-y = y0 + o.intFT(L*sin(theta),IK)/2/pi;
+x = o.intFT(L*cos(theta),IK);
+y = o.intFT(L*sin(theta),IK);
+avx = sum(L*cos(theta))/N;
+avy = sum(L*sin(theta))/N;
+x = x - (0:N-1)'*avx/N + x0;
+y = y - (0:N-1)'*avy/N + y0;
+
 X = o.setXY(x,y);
 
 end % recon
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function df = diffFT(o,f,IK)
 % df = diffFT(f,IK) Computes the first derivative of a periodic function
 % f using fourier transform. IK is used to speed up the code.  It is the
@@ -380,7 +387,7 @@ df = real(ifft(IK.*fft(f)));
 
 end % diffFT
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function intf = intFT(o,f,IK)
 % intf = intFT(f,IK) computes the indefinite integral of a periodic
 % function f using fourier transform
@@ -398,15 +405,182 @@ intf = real(fh(1)/N * (0:N-1)'/N + ifft(intfh));
 
 end % intFT
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function IK = modes(o,N)
 % IK = modes(N) builds the order of the fourier modes required for using
 % fft and ifft to do spectral differentiation
-
 IK = 2*pi*1i*[(0:N/2-1) -N/2 (-N/2+1:-1)]';
 % diagonal term for Fourier differentiation
 
 end % modes
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function dcur = fdcur(o,ves,unt)
+% compute fourier derivative of opening tangent angle using "trick" by
+% subtracting a function that goes from 0 to 2*pi over the range of
+% alpha values
+% This routine is equation (61) in the Sohn et al 2010 JCP paper
+
+N = ves.N;
+IK = o.modes(N);
+
+dthetads = o.rmLinearPart(N, ves.theta);
+dcur = intFT(o,[dthetads.*unt],IK);
+
+end %fdcur
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function dx = rmLinearPart(o,N,theta)
+% N = ves.N;
+% theta = ves.theta;
+IK = o.modes(N);
+
+% function with the same increase over a period of 2*pi as the angle
+% theta
+dx = o.diffFT([theta - 2*pi*(0:1:N-1)'/N],IK) + 2*pi;
+
+end %rmLinearPart
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function fntheta = fthetaim(o,ves,un,ut,fdotn)
+
+N = ves.N;
+L = ves.L;  
+theta = ves.theta;
+IK = o.modes(N);
+% compute right hand side of the ODE for \theta in equation (8) in Sohn
+% et al JCP 2010
+ftheta = o.forceTheta(ves,un,ut,fdotn);
+% now we must subtract off the stiffest part in Fourier space.
+% To the power of 3 term comes from the third-derivative of the function
+% that L is being applied to in equation (53)
+rlen = -ves.bendsti*(abs(IK)/L).^3/4 - ves.SPc*ves.bendsti*(IK/L).^4; 
+% last term in eq(54)
+var1 = fft(ftheta); % fft of first 2 terms in (54)
+var2 = fft(theta-(2*pi*(0:N-1))'/N);
+fntheta = real(ifft(var1 - rlen.*var2));
+%Krasney filter applied to smooth out spurious high frequency terms
+fntheta = o.kfilter(fntheta,N);
+
+end %fthetaim
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function ftheta = forceTheta(o,ves,un,ut,fdotn)
+%forcing term for the ODE for theta 
+N = ves.N;
+L = ves.L;
+IK = o.modes(N);
+%compute first derivative of the opening angle using Fourier
+%differentiation. This is actually the curvature
+dthetads = o.rmLinearPart(N,ves.theta)/L;
+%compute the derivative of the normal velocity
+dunds = o.diffFT(un + ves.SPc*fdotn,IK)/L;    
+% Check T_s = -V * curvature (local inextensibility condition) (see
+% equation (20) in Sohn et al JCP 2010)
+ftheta = -dunds + dthetads.*ut;
+    
+end % forceTheta
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function filtered = kfilter(o,ftheta,N)
+%fourier filter with krasny filtering with 1 input vector 
+%USING FAST FOURIER TRANSFORM
+tol = 1e-8;
+b = fft(ftheta);
+b(abs(b)/N < tol) = 0;
+b(N/2:N/2+2) = 0;
+c = real(b.*exp(-10*([0:2:N N-2:-2:2]'/N).^25));
+d = imag(b.*exp(-10*([1:2:N-1 0 N-1:-2:3]'/N).^25));
+d(N/2-1) = 0; d(N/2+3) = 0;
+filtered = real(ifft(c+1i*d));
+
+end %kfilter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function N2 = frconim(o,ves,epsch,consta)
+%This routine is about solving equation (75) for N2Hat.
+N = ves.N;
+L = ves.L;
+rcon = ves.rcon;
+IK = o.modes(N);
+%setting up RHS of eq (68) 
+%termd is the a/eps(f'(u)-eps^2u_ss) + b'(u)/2 * kappa^2 terms in eq (13) 
+%ie. termd is the variational derivative of the energy with
+%respect to the lipid concentration
+termd = o.fluxj(ves,epsch,consta);
+%now taking derivative of the variational derivative twice
+rcons = o.diffFT(termd,IK)/L;
+rconss = o.diffFT(rcons,IK)/L;
+%invPe is the 1/Pe term in eq (67)
+invPe = 1;
+%fcon is the part of N_2 in eq (67) but is still missing the
+fcon = invPe*rconss;
+fconHat = fft(fcon);
+rconHat = fft(rcon);
+%rlen is the term that needs to multiply the fourier coefficients of
+%the lipid species to result in the fourth derivative scaled by the a
+%and \eps constants in equation (67)
+rlen = invPe*(IK/L).^4*consta*epsch;
+%N2 is equation (67) in the physical space.
+N2Hat = fconHat + rlen.*rconHat;
+N2Hat(1) = 0;
+N2 = real(ifft(N2Hat));
+
+end %frconim
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function RHSflux = fluxj(o,ves,epsch,consta)
+%This routine computes the forcing on the RHS flux OF THE Cahn_Hillard
+%Equation for rcon periodic on [0,1] and for closed curves. RHSflux are the
+%a/eps(f'(u)-eps^2u_ss) + b'(u)/2 * kappa^2 terms in eq (13) 
+
+N = ves.N;
+L = ves.L;
+rcon = ves.rcon;
+IK = o.modes(N);
+%dfu is the derivative of the double-well potential
+dfu = 0.5*(rcon.*(ones(N,1)-rcon).^2 - rcon.^2.*(ones(N,1)-rcon));
+%derivative of the concentration 
+rcons = o.diffFT(rcon,IK)/L;
+%second derivative of the concentration
+rconss = o.diffFT(rcons,IK)/L;
+%term2 is eps^2 * u_ss as defined in equation (13)
+term2 = -epsch^2*rconss;
+%computing the b'(u)/2 * kappa^2 term in eq (13)
+b0 = ves.bendsti;
+b1 = ves.bendsti*ves.bendratio;
+%rbn is b(u).
+rbn = b0*(ones(N,1)-rcon) + b1*rcon;
+%rbndu is b'(u) 
+rbndu = (b1 - b0)*ones(N,1);
+%compute the curvature
+dkap = o.acurv(N,ves.theta,L);
+%term3 is b'(u)/2 * kappa^2 in eq (13)
+term3 = 0.5*rbndu.*dkap.^2;
+%RHSflux is a/eps(f'(u)-eps^2u_ss) + b'(u)/2 * kappa^2 terms in eq (13) 
+RHSflux = consta/epsch * (dfu + term2) + term3;
+
+end %fluxj
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function dkap = acurv(o,N,theta,L)
+%This routine computes the curvature from the tangent angle
+%formulation
+
+dkap = o.rmLinearPart(N,theta)/L;
+
+end %acurv
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function CoM = centerOfMass(o, X, xory, L, normal)
+% This function returns the center of mass of the vesicle
+    
+  N = length(X)/2;  
+  [~,Area,~] = o.geomProp(X);
+  CoM = 0.5*L*sum(xory.^2.*normal)/(N*Area); 
+
+end %centerOfMass
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 end % methods
 

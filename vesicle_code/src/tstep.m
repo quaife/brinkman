@@ -156,6 +156,25 @@ o.bdiagWall = o.wallsPrecond(wallsCoarse);
 % potential and the matrix N0 that removes the rank one null space from
 % the double-layer potential for the solid walls
 
+eta = o.bdiagWall*uwalls;
+%clf
+%plot(eta(1:end/2),'b-o')
+
+%[xx1,yy1] = meshgrid((8:0.1:10),(1.8:0.1:2.2));
+%[xx2,yy2] = meshgrid((10:-0.1:8),(0.2:0.1:0.8));
+%[xx3,yy3] = meshgrid((10.4:0.1:11),(0.9:0.1:1.5));
+%xx = [xx1(:);xx2(:);xx3(:)]; yy = [yy1(:);yy2(:);yy3(:)];
+%Xtar = [xx;yy];
+%
+%[~,vel] = potWall.exactStokesDL(walls,eta,Xtar,1);
+%%vel
+%clf
+%plot(walls.X(1:end/2),walls.X(end/2+1:end),'k')
+%hold on;
+%quiver(xx,yy,vel(1:end/2),vel(end/2+1:end))
+%axis equal;
+%pause
+
 end % initialConfined
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -221,12 +240,12 @@ function [X,sigma,u,eta,RS,iter,accept,dtScale,normRes,iflag] = ...
 % [X,sigma,u,eta,RS,iter,dt,accept,dtScale,normRes,iflag] = ...
 %    timeStepGL(ves,...
 %    etaStore,RSstore,walls,wallsCoarse,a0,l0)
-% takes the desired number of time steps at Gauss-Lobatto points to
-% find solution at dt given solution at 0.  Calls o.timeStep which is
-% what we use for the constant sized time step integration.  Returns a
-% flag that says if the solution was accepted or not and the amount the
-% time step was scaled.  errors is the norm of the residual and iflag
-% is tells if any of the gmres runs failed
+% takes the desired number of time steps at Gauss-Lobatto points to find
+% solution at dt given solution at 0.  Calls o.timeStep which is what we
+% use for the constant sized time step integration.  Returns a flag that
+% says if the solution was accepted or not and the amount the time step
+% was scaled.  errors is the norm of the residual and iflag is tells if
+% any of the gmres runs failed
 
 Xstore = ves.X;
 sigStore = ves.sig;
@@ -1850,7 +1869,6 @@ end
 % walls.  Sets the layer-potential to zero if using explicit
 % interactions
 
-
 % START COMPUTING REQUIRED DOUBLE-LAYER POTENTIALS FOR VISCOSITY
 % CONTRAST
 if any(vesicle.viscCont ~= 1)
@@ -2531,7 +2549,7 @@ M21 = zeros(3*(nvbd-1),2*Nbd*nvbd);
 % in (A4) and (A5) in Rahimian et al.
 
 M11(1:2*Nbd,1:2*Nbd) = M11(1:2*Nbd,1:2*Nbd) + o.wallN0(:,:,1);
-jump = - 1/2; 
+jump = -0.5; 
 for k = 1:nvbd
   istart = (k-1)*2*Nbd+1;
   iend = 2*k*Nbd;
@@ -2718,7 +2736,8 @@ elseif any(strcmp(varargin,'parabolic'))
   R = find(strcmp(varargin,'R'));
   if isempty(R)
 %    R = 100;
-      R = 10;
+%      R = 10;
+      R = 12.5;
   else
     R = varargin{R+1};
   end
@@ -2772,6 +2791,7 @@ elseif any(strcmp(varargin,'slit'))
 elseif any(strcmp(varargin,'chokeLong'))
   vInf = zeros(2*N,nv);
   ind = abs(x)>17;
+%  ind = abs(x)>0;
   ymax = max(y(ind));
   vx = (ymax^2-y(ind).^2)/ymax^2;
   % parabolic flow
@@ -2779,7 +2799,85 @@ elseif any(strcmp(varargin,'chokeLong'))
   T11 = zeros(N,nv);
   T12 = zeros(N,nv);
   T22 = zeros(N,nv);
-  
+%  figure(3); clf;
+%  quiver(x,y,vInf(1:end/2),vInf(end/2+1:end))
+
+elseif any(strcmp(varargin,'chokeMulti'))
+  vInf = zeros(2*N,nv);
+  ind1 = (x < -0.5 & y < 1.01);
+  ymin = min(y(ind1));
+  ymax = max(y(ind1));
+  vx = (ymin - y(ind1)).*(ymax - y(ind1));
+  % parabolic flow
+  vx = vx/max(abs(vx));
+  % normalize
+  vInf(ind1,:) = vx;
+
+  ind2 = (x < -0.5 & y > 4.49);
+  ymin = min(y(ind2));
+  ymax = max(y(ind2));
+  vx = (ymin - y(ind2)).*(ymax - y(ind2));
+  % parabolic flow
+  vx = -vx/max(abs(vx));
+  % normalize
+  vInf(ind2,:) = vx;
+
+
+  T11 = zeros(N,nv);
+  T12 = zeros(N,nv);
+  T22 = zeros(N,nv);
+%  figure(1); clf; hold on;
+%  plot(x,y,'r-')
+%  quiver(x,y,vInf(1:end/2),vInf(end/2+1:end),'b')
+%  axis equal;
+%  pause
+
+elseif any(strcmp(varargin,'chokeLonger'))
+  vInf = zeros(2*N,nv);
+  ind = abs(x)>60;
+%  ymax = max(y(ind));
+  ymax = 12.5;
+  vx = (ymax^2-y(ind).^2)/ymax^2;
+  % parabolic flow
+  vInf(ind,:) = vx;
+  T11 = zeros(N,nv);
+  T12 = zeros(N,nv);
+  T22 = zeros(N,nv);
+%  figure(3); clf;
+%  quiver(x,y,vInf(1:end/2),vInf(end/2+1:end))
+%  pause
+
+elseif any(strcmp(varargin,'chokeLongest'))
+  vInf = zeros(2*N,nv);
+  ind = abs(x)>180;
+%  ymax = max(y(ind));
+  ymax = 12.5;
+  vx = (ymax^2-y(ind).^2)/ymax^2;
+  % parabolic flow
+  vInf(ind,:) = vx;
+  T11 = zeros(N,nv);
+  T12 = zeros(N,nv);
+  T22 = zeros(N,nv);
+%  figure(3); clf; hold on
+%  plot(x,y,'k-o')
+%  quiver(x,y,vInf(1:end/2),vInf(end/2+1:end))
+%  axis equal
+%  pause
+
+elseif any(strcmp(varargin,'contracting'));
+  vInf = zeros(2*N,nv);
+  xmax = max(x);
+  xmin = min(x);
+  ind = find(x < (xmin + 0.1) | x > (xmax - 0.1));
+  ymax = max(y(ind));
+  vx = (ymax^2-y(ind).^2)/ymax^2;
+  % parabolic flow
+  vInf(ind,:) = vx;
+
+  T11 = zeros(N,nv);
+  T12 = zeros(N,nv);
+  T22 = zeros(N,nv);
+
 elseif any(strcmp(varargin,'couette'))
   vInf = [zeros(2*N,1) 1*[-y(:,2)+mean(y(:,2));x(:,2)-mean(x(:,2))]];
   

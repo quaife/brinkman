@@ -17,6 +17,7 @@ function fncon = frconim(m,sl,rcon,theta,bendsti,...
 % ie. termd is the variatiaonl derivative of the energy with
 % respect to the lipid concentration
 termd = fluxj(sl,theta,rcon,bendsti,bendratio,consta,m,eps_ch);
+
 % now taking derivative of the variational derivative twice
 rcons = fd1(termd,m);       
 rconss = fd1(rcons,m);
@@ -38,6 +39,7 @@ rlen = (N/sl).^4*consta*eps_ch;
 % N2Hat is the Fourier coefficeints of the right hand side of
 % equation (67) 
 N2Hat = fconHat + rlen.*rconHat;
+
 % Move back to physical (real) space
 fncon = real(ifft(N2Hat));
 

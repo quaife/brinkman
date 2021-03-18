@@ -3,27 +3,27 @@ addpath ~/projects/brinkman/vesicle_code/src
 scale = 2;
 
 file{1} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em1_ra065_beta1p0em5/shear1VesData.bin';
-file{2} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em0p5_ra065_beta1p0em5/shear1VesData.bin';
-file{3} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e0_ra065_beta1p0em5/shear1VesData.bin';
-file{4} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e0p5_ra065_beta1p0em5/shear1VesData.bin';
-file{5} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1_ra065_beta1p0em5/shear1VesData.bin';
-file{6} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1p5_ra065_beta1p0em5/shear1VesData.bin';
+file{2} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em0p5_ra065_beta1p0em5/shear1VesData_Part2.bin';
+file{3} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e0_ra065_beta1p0em5/shear1VesData_Part3.bin';
+file{4} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e0p5_ra065_beta1p0em5/shear1VesData_Part4.bin';
+file{5} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1_ra065_beta1p0em5/shear1VesData_Part5.bin';
+file{6} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1p5_ra065_beta1p0em5/shear1VesData_Part5.bin';
 file{7} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e2_ra065_beta1p0em5/shear1VesData.bin';
 
 file{8} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em1_ra065_beta1p0em4p5/shear1VesData.bin';
 file{9} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em0p5_ra065_beta1p0em4p5/shear1VesData.bin';
 file{10} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e0_ra065_beta1p0em4p5/shear1VesData.bin';
-file{11} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e0p5_ra065_beta1p0em4p5/shear1VesData.bin';
-file{12} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1_ra065_beta1p0em4p5/shear1VesData.bin';
-file{13} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1p5_ra065_beta1p0em4p5/shear1VesData.bin';
-file{14} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e2_ra065_beta1p0em4p5/shear1VesData.bin';
+file{11} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e0p5_ra065_beta1p0em4p5/shear1VesData_Part2.bin';
+file{12} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1_ra065_beta1p0em4p5/shear1VesData_Part2.bin';
+file{13} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1p5_ra065_beta1p0em4p5/shear1VesData_Part3.bin';
+file{14} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e2_ra065_beta1p0em4p5/shear1VesData_Part3.bin';
 
 file{15} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em1_ra065_beta1p0em4/shear1VesData.bin';
 file{16} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em0p5_ra065_beta1p0em4/shear1VesData.bin';
 file{17} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e0_ra065_beta1p0em4/shear1VesData.bin';
 file{18} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e0p5_ra065_beta1p0em4/shear1VesData.bin';
-file{19} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1_ra065_beta1p0em4/shear1VesData.bin';
-file{20} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1p5_ra065_beta1p0em4/shear1VesData.bin';
+file{19} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1_ra065_beta1p0em4/shear1VesData_Part2.bin';
+file{20} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1p5_ra065_beta1p0em4/shear1VesData_Part2.bin';
 file{21} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e2_ra065_beta1p0em4/shear1VesData.bin';
 
 file{22} = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em1_ra065_beta1p0em3p5/shear1VesData.bin';
@@ -104,7 +104,7 @@ chis = {'1e-1','1e-0.5','1e0','1e0.5','1e1','1e1.5','1e2'};
 
 fid = fopen('data.dat','w');
 %for j = 1:numel(file)
-for j = 17:17
+for j = 8:42
   disp(j)
   [posx,posy,~,~,~,~,~,~,n,~] = loadFile(file{j});
 % some files did not print correctly to file becuase they were either
@@ -127,6 +127,7 @@ for j = 17:17
 
   str = ['%% beta = ',betas{ceil(j/7)},...
       ',shear rate = ',chis{mod(j-1,7)+1},'\n'];
+  disp(str)
   fprintf(fid,str,'%s');
   str = '\\addplot[red,line width=0.5pt] coordinates{\n';
   fprintf(fid,str,'%s');

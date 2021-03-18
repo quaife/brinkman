@@ -11,7 +11,10 @@ x0; % single tracker point
 y0; % single tracker point
 bendsti; % max bending stiffness
 bendratio; % bending ratio
-
+viscIn;
+viscOut;
+SPc;
+ten;
 
 end % properties
 
@@ -19,19 +22,31 @@ methods
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function o = capsules(X,rcon,params)
-% constructor
+% constructor for capsules class
 
-oc = curve;
+oc = curve; %shorthand for curve class
+o.N = size(X,1)/2; % shorthand for Number of discretization points 
+o.X = X; % shorthand for discretization points
+%compute the length, theta, and curvature of the vesicle
+[o.L,o.theta,o.cur] = oc.computeOpeningAngle(o.N,X); 
+o.rcon = rcon; % shorthand for concentration
+o.x0 = X(1); % shorthand for x tracking point
+o.y0 = X(o.N + 1); % shorthand for y tracking point
 
-o.N = size(X,1)/2;
-o.X = X;
-[o.L,o.theta,o.cur] = oc.computeOpeningAngle(o.N,X);
-o.rcon = rcon;
-o.x0 = X(1);
-o.y0 = X(o.N + 1);
 o.bendsti = params.bendsti;
 o.bendratio = params.bendratio;
-
+o.viscIn = params.viscosityInside;
+o.viscOut = params.viscosityOutside;
+o.SPc = params.SPcoeff;
+%%% Curvature check:
+    %disp('here')
+    %curv = oc.acurv(o);
+    %clf; hold on
+    %plot(o.cur)
+    %plot(curv,'r--')
+    %norm(curv - o.cur,inf)
+    %pause
+%%%
 end % vesicle
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -57,47 +72,47 @@ theta0 = theta(1);
 theta_periodicPart = theta - theta0 - (0:N-1)'*2*pi/N;
 %  Compute the periodic part of the opening angle
 thetah = fft(theta_periodicPart);
-thetah(6:N-4) = 0;
-% QUESTION: IN SHUWANG'S ORIGINAL CODE, THIS WAS NOT SET UP
-% SYMETRICALLY AROUND THE ZERO MODE. CHECKED AND THE IMAG PART OF thetah
-% IS NON-ZERO UNLESS THE COEFFICIENTS ARE ADJUSTED AS IN ABOVE
+% Changed this from 20
+maxFreq = 4;
+thetah(maxFreq:N-maxFreq) = 0;
 % remove all modes with Frequency above 4. Note that Shuwang's original
 % code had an error since he did not truncate the positive and negative
 % coefficients to the same level. Therefore, the imaginary part after
 % taking an ifft was not 0.
 theta_periodicPart = real(ifft(thetah));
-theta = theta_periodicPart + theta0 + (0:N-1)'*2*pi/N;
-
+theta = theta_periodicPart + theta0 + 2*pi*(0:N-1)'/N;
+% Reconstruct the vesicle shape
 X = oc.recon(N,x0,y0,L,theta);
-% new shape with filtered opening angle
-
+% new area with filtered opening angle
 area = sum(sin(theta).*X(1:end/2) - cos(theta).*X(end/2+1:end))*...
       0.5*L/N;
-
+%Adjust theshape until error in area is less than the tolerance
 iter = 1;
 while abs(area - areaRef)/areaRef > 1e-10
   theta_periodicPart = theta_periodicPart * ...
-        (1 + (area - areaRef)/3);
-  theta = theta_periodicPart + theta0 + (0:N-1)'*2*pi/N;
-
-  X = oc.recon(N,x0,y0,L,theta);
+        (1 + (area - areaRef)/30);
+  theta = theta_periodicPart + theta0 + 2*pi*(0:N-1)'/N;
   % new shape with scaled periodic part of theta
-
+  X = oc.recon(N,x0,y0,L,theta);
+  % new area
   area = sum(sin(theta).*X(1:end/2) - cos(theta).*X(end/2+1:end))*...
         0.5*L/N;
-  % new area
-
+  % break if max iterations reached
   iter = iter + 1;
   if iter > 100
     break
   end
-  % break if it is taking too long
 end
-
-ves.X = X;
-[ves.L,ves.theta,ves.cur] = oc.computeOpeningAngle(N,X);
+% update X
+%X(1:end/2) = X(1:end/2) - mean(X(1:end/2));
+%X(end/2+1:end) = X(end/2+1:end) - mean(X(end/2+1:end));
+%ves.X = X;
+% update x0 and y0
+%ves.x0 = X(1);
+%ves.y0 = X(1 + ves.N);
 % replace the geometry with the new shape
 
+[ves.L,ves.theta,ves.cur] = oc.computeOpeningAngle(N,X);
 
 end % smoothGeom
 
@@ -114,29 +129,32 @@ oc = curve;
 N = ves.N;
 IK = oc.modes(N);
 rcon = ves.rcon;
-cur = ves.cur;
-
+cur = oc.acurv(ves.N,ves.theta,ves.L);
 b0 = ves.bendsti;
 b1 = ves.bendsti * ves.bendratio;
-
+% bending coefficient which depends on the lipid concentration that is
+% stored in rcon. This is the variable b(u) in equation (10)
+% rcon is the concentration u
 rbn = b0 * (ones(N,1) - rcon) + b1*rcon;
-Drbn = oc.diffFT(rbn,IK)/(2/pi);
-
-Drbn_cur = oc.diffFT(rbn.*cur,IK)/(ves.L/2/pi);
-DDrbn_cur = oc.diffFT(Drbn_cur,IK)/(ves.L/2/pi);
-
+% take the derivative of b(u)
+Drbn = oc.diffFT(rbn,IK)/ves.L;
+% Fourier modes
+IK = 2*pi*1i*[0:1:ves.N/2 -ves.N/2+1:1:-1]';
+% derivative of the curvature
+Drbn_cur = oc.diffFT(rbn.*cur,IK)/ves.L; 
+% second derivative of the curvature
+DDrbn_cur = oc.diffFT(Drbn_cur,IK)/ves.L; 
+%Esigma is equation (14) with spotaneous curvature set to zero.
 Esigma = -DDrbn_cur - 0.5*rbn.*cur.^3;
-Eu = -Drbn.*cur.^2;
-% SHUWANG QUESTION: THIS IS A PLUS SIGN IN THE PAPER (EQUATION (13)),
-% BUT IS A MINUS SIGN IN SHUWANG'S CODE
-
-%clf
-%plot(Drbn)
-%max(Drbn)
-%plot(DDrbn_cur)
-%pause
-
-
+%Eu is the second term in equation (13) (differs by a negative
+%sign - possibly from the negative sign in eq(23) which has a negative on 
+%the variation for u). The last term drops since spontaneous curvature is 
+%0. The first term is not in this routine since we are only calculating 
+%variations due to changes in the vesicle shape and not the lipid species.
+Eu = -0.5*Drbn.*cur.^2;
+%** SHUWANG QUESTION: THIS IS A PLUS SIGN IN THE PAPER (EQUATION (13)),
+% BUT IS A MINUS SIGN IN SHUWANG'S CODE **OLD COMMENT???
+% ADDED -
 
 end % variations
 

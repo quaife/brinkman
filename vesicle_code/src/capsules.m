@@ -313,6 +313,11 @@ tt.Galpert = op.stokesSLmatrix(vesicle);
 % single-layer potential
 tt.D = op.stokesDLmatrix(vesicle);
 % double-layer potential
+if tt.confined
+  tt.wallDLP = tt.opWall.stokesDLmatrix(walls);
+  tt.wallN0 = tt.opWall.stokesN0matrix(walls);
+  tt.bdiagWall = tt.wallsPrecond(walls);
+end
 
 if tt.near
   if tt.confined
@@ -435,6 +440,9 @@ end
 %clf
 %plot(tt.sigDenMatVec(tt.preconditionerBD(rhs),vesicle,walls) - rhs)
 %pause
+
+%z = tt.sigDenMatVec(rhs,vesicle,walls);
+% DEBUG
 
 [sigDen,F,R,I] = gmres(@(X) tt.sigDenMatVec(X,vesicle,walls),rhs,...
     [],tt.gmresTol,min(tt.gmresMaxIter,N*nv+2*Nbd*nvbd + 3*(nvbd-1)),...

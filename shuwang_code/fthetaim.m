@@ -11,7 +11,6 @@ function fntheta = fthetaim(m,sl,theta,bendsti,un,utt)
 % compute right hand side of the ODE for \theta in equation (8) in Sohn
 % et al JCP 2010
 ftheta = forctheta(m,sl,theta,un,utt);
-
 % now we must subtract off the stiffest part in Fourier space.
 temp(1,1:m) = ftheta(1,1:m);
 tempt(1,1:m) = theta(1,1:m)-pi*2*(0:m-1)/m;
@@ -32,6 +31,8 @@ temp4 = real(ifft(temp(1,1:m) + rlen(1,1:m).*tempt(1,1:m)));
 fntheta(1,1:m) = temp4(1,1:m);
 %fntheta(1,m+1) = fntheta(1,1);
 fntheta = kfilter(fntheta,m);
+% plot(fntheta)
+% %pause
 % Krasney filter applied to smooth out spurious high frequency terms
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -41,7 +42,9 @@ function ftheta = forctheta(m,sl,theta,un,utt)
 % differentiation. This is actually the curvature
 stheta = fd1x(theta,m);
 % the `s' prefix corresponds to arclenght
-
+% %disp('here1')
+% norm(stheta)
+% %pause
 % compute the derivative of the normal velocity
 sun = fd1(un,m);
 

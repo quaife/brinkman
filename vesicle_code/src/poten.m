@@ -1550,7 +1550,6 @@ for k = 1:ncol % loop over columns of target points
   dis2 = (diffx).^2 + (diffy).^2;
   % difference of source and target location and distance squared
   
-  
   rdotnTIMESrdotf = (diffx.*normalx + diffy.*normaly)./dis2.^2 .* ...
       (diffx.*denx + diffy.*deny);
   % \frac{(r \dot n)(r \dot density)}{\rho^{4}} term
@@ -1615,8 +1614,6 @@ global fmms
 fmms = fmms + 1;
 % count the total number of calls to fmm
 
-size(vesicle.X)
-pause
 oc = curve;
 [x,y] = oc.getXY(vesicle.X); % seperate x and y coordinates
 
@@ -1691,7 +1688,7 @@ function [stokesDLP,stokesDLPtar] = ...
 % the double-layer potential due to all vesicles in index set K needs
 % to be evaulated
 global fmms
-disp('OLD FMM is ON')
+%disp('OLD FMM is ON')
 fmms = fmms + 1;
 % count the total number of calls to fmm
 
@@ -2318,13 +2315,12 @@ for k2 = 1:ncol % loop over columns of target points
     diffxy = [Xtar(j,k2) - x(:,K1) ; Xtar(j+Ntar,k2) - y(:,K1)];
     % distance squared and difference of source and target location
     rdotn = diffxy(1:vesicle.N,:).*nx(:,K1) + ...
-        diffxy(vesicle.N+1:2*vesicle.N,:).*ny(1:vesicle.N,K1); 
-  
-    val = (nx(:,K1) - 2*rdotn./dis2.*...
-        diffxy(1:vesicle.N,:))./dis2 .* denx(:,K1);
-    val = val + (ny(:,K1) - 2*rdotn./dis2.*...
-        diffxy(vesicle.N+1:2*vesicle.N,:))./dis2 .* deny(:,K1);
+        diffxy(vesicle.N+1:2*vesicle.N,:).*ny(:,K1); 
+    rdotden = diffxy(1:vesicle.N,:).*denx(:,K1) + ...
+        diffxy(vesicle.N+1:2*vesicle.N,:).*deny(:,K1);
+    ndotden = nx(:,K1).*denx(:,K1) + ny(:,K1).*deny(:,K1);
 
+    val = 1./dis2.*(ndotden - 2./dis2.*rdotn.*rdotden);
     pressDLPtar(j,k2) = sum(val(:)); 
   end % j
 end % k2

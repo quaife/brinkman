@@ -9,6 +9,12 @@ global derivs  ;  % number of times we compute differential
                   % operators for preconditioning
 global fmms       % number of fmm calls
 
+
+% TODO: THIS SHOULDN'T GO HERE
+pressDrop = 200;
+%pressDrop = 5;
+
+
 om = monitor(X,Xwalls,options,prams);
 % Create class for doing input/output
 
@@ -17,6 +23,10 @@ if nargin == 4
 else
   om.initializePressure(pressTar); 
 end
+Ntar = 21;
+ytar = linspace(-3,3,Ntar)';
+dy = ytar(2) - ytar(1);
+pressTar = [[0.5*ones(Ntar,1);ytar] [17.5*ones(Ntar,1);ytar]]; 
 
 matvecs = 0; 
 % counter for the total number of time steps
@@ -58,9 +68,9 @@ om.writeMessage(message,'%s\n')
 message = ' ';
 om.writeMessage(message,'%s\n')
 
-oc = curve;
 tt = tstep(options,prams);
 % build an object of class tstep with required options and parameters
+
 Xstore = zeros(2*N,nv);
 sigStore = zeros(N,nv);
 uStore = zeros(2*N,nv);
@@ -88,7 +98,10 @@ end
 [Xstore,sigStore,uStore,etaStore,RSstore] = ...
     tt.firstSteps(options,prams,Xstore,sigStore,uStore,...
     walls,wallsCoarse,om);
-% Was for higher-order multistep methods which have been fazed out.
+% Was for higher-order multistep methods which have been fazed out. Now
+% it just computes the initial density function and tension that are
+% needed for SDC
+
 
 % compute pressure and stress
 if nargin == 5
@@ -109,8 +122,6 @@ if nargin == 5
   om.writePressure(pressDLPtar + pressSLPtar);
   % write the pressure contributions to file
 end
-
-
 
 time = 0;
 % initial time
@@ -139,6 +150,43 @@ while time < prams.T - 1e-10
   vesicle = capsules(Xstore,sigStore,uStore,...
       prams.kappa,prams.viscCont,options.semipermeable,...
       prams.fluxCoeff,options.fluxShape);
+
+  % TODO: THIS SHOULD BE A FUNCTION IN TSTEP
+  if 0
+    [ssig,eeta] = vesicle.computeSigAndEta(tt,walls);
+
+    [~,pressDLPtar] = tt.opWall.exactPressDL(walls,eeta,[],pressTar,1);
+
+    tracJump = vesicle.tracJump(Xstore,ssig);
+    % compute traction
+%    figure(2); clf;
+%    plot(ssig)
+%    figure(1)
+
+    [~,pressSLPtar] = tt.op.exactPressSL(vesicle,tracJump,[],pressTar,1);
+
+    pressL = pressSLPtar(1:end/2,1) + pressDLPtar(1:end/2,1);
+    pressR = pressSLPtar(1:end/2,2) + pressDLPtar(1:end/2,2);
+    avePressL = dy/(ytar(end) - ytar(1))* ...
+        (0.5*pressL(1) + sum(pressL(2:end-1)) + 0.5*pressL(end));
+    avePressR = dy/(ytar(end) - ytar(1))* ...
+        (0.5*pressR(1) + sum(pressR(2:end-1)) + 0.5*pressR(end));
+
+    dpress = avePressR - avePressL;
+    
+    options.farFieldSpeed = -pressDrop/dpress;
+    tt.farField = @(X) tt.bgFlow(X,...
+        options.farField,'k',options.farFieldSpeed);
+    [walls,wallsCoarse] = tt.initialConfined(prams,Xwalls); 
+%    dpress
+%    [dpress pressDrop options.farFieldSpeed max(walls.u)]
+%    clf;
+%    plot(walls.u)
+%    pause
+    % change velocity field speed so that it maintains a constant
+    % pressure drop
+  end
+
     
   [X,sigma,u,eta,RS,iter,accept,dtScale,res,iflag] = ...
       tt.timeStepGL(vesicle,etaStore,RSstore,...
@@ -195,10 +243,9 @@ while time < prams.T - 1e-10
   end
   % Shift vesicle doublet as in a fluid trap
 
-
   if accept
     nstep = nstep + 1;
-    if mod(nstep,prams.saveRate) == 1
+    if (mod(nstep,prams.saveRate) == 1 || prams.saveRate == 1)
       om.saveData = true;
     else
       om.saveData = false;
@@ -239,6 +286,11 @@ while time < prams.T - 1e-10
   end % if accept
   % save data if solution was accepted
 
+  if options.xshift && max(X(1:end/2)) > options.xshiftLoc
+    X(1:end/2) = X(1:end/2) - options.xshiftVec;
+  end
+  % Shift vesicle back xshiftVec units
+
   Xstore = X;
   sigStore = sigma;
   uStore = u;
@@ -266,6 +318,7 @@ while time < prams.T - 1e-10
     om.writePressure(pressDLPtar + pressSLPtar);
     % write the pressure contributions to file
   end
+
 end
 % end of main 
 

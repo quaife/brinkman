@@ -10,7 +10,7 @@ irate = 1;
 %file = '~/projects/brinkman/vesicle_code/results/semipermeable/shear1VesData_fluxCoeff1_fluxShape3_fluxWidth4.bin';
 %file = '~/projects/brinkman/vesicle_code/examples/output/shear1VesData.bin';
 %file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0e1_ra065_beta2p0e0/shear1VesData.bin';
-file = '~/projects/brinkman/vesicle_code/results/relaxation1Ves/star_beta1p0e0/relaxation1VesData.bin';
+%file = '~/projects/brinkman/vesicle_code/results/relaxation1Ves/star_beta1p0e0/relaxation1VesData.bin';
 chi = 0.0; beta = 1.0;
 
 [posx,posy,sigma,wallx,wally,ea,el,time,n,nv] = loadFile(file);

@@ -16,7 +16,7 @@ function [x,y,theta,rcon,sl] = initiall(...
 tol = 1e-12;
 N = (0:1:ngrid);
 x0 = cos(2*pi*N/ngrid);
-y0 = shortax*sin(2*pi*N/ngrid);
+y0 = shortax*sin(1*pi*N/ngrid);
 % initial distribution of the points, but not equispaced in arclength
 
 dx = fd1(x0,ngrid);
@@ -49,8 +49,10 @@ end
 theta = thetsolve(sxn,syn,sl,t0,ngrid);
 % compute the opening angle between the tangent vector and the
 % horizontal axis
-
 if symmetry == -1
+%   ngrid
+%   concentration
+%   %pause
   rcon = concentration + smallper*10*(rand(1,ngrid+1) - 0.5);
   % uniform concentration with a little random noise
 elseif symmetry==0
@@ -65,5 +67,7 @@ elseif symmetry==2
   rcon = concentration+ 5*smallper*sin(alpha*pi*2); 
   % uniform concentration with one small odd Fourier mode
 end
-
+%figure(3)
+plot(rcon)
+%pause
 end
