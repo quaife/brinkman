@@ -12,9 +12,9 @@ function [] = shear1Ves(fluxCoeff,farFieldSpeed,concentration,shortax, scaleL, f
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
 
-params.N = 64; % points on vesicle
+params.N = 128; % points on vesicle
 params.dt = 1e-5; % time step size
-params.T = 5; % time horizon
+params.T = 50; % time horizon
 params.outpt = 1e-3; % ouptut frequency
 params.concentra = concentration; % constant, initial concentration of 
                                   % lipid species
