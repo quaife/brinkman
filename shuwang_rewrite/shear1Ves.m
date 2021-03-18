@@ -42,7 +42,7 @@ params.angle = -pi/6; % The tracking point is programmed to be at 0,0.
 
 options.verbose = false;  % write data to console
 options.saveData = true; % save the data
-options.usePlot = true;  % plot the data
+options.usePlot = false;  % plot the data
 options.dataFile = true; % data file name
 options.logFile = true;  % log file name
 
