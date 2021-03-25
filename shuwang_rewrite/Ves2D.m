@@ -10,11 +10,10 @@ upRate = 4;
 h = (params.shortax - 1)^2/(params.shortax+1)^2;
 scaleL = params.scaleL;
 L = pi*(params.shortax + 1)*(1+h/4+h^2/64)*scaleL;
-scale = 1;
 angle =  params.angle;
 center = params.center;
 [alpha,X] = oc.initConfig(upRate*params.N,false,'ellipse',...
-            'shortax',params.shortax, 'scale', scale, 'angle', angle, ...
+            'shortax',params.shortax, 'scale', scaleL, 'angle', angle, ...
             'center', center);
 
 % Define the initial concentration field

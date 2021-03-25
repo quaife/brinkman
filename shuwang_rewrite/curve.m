@@ -331,11 +331,12 @@ function [L,theta,cur] = computeOpeningAngle(o,N,X)
 
 [Dx,Dy] = o.getDXY(X);
 % first derivative of the shape
-if abs(Dx(1)) > 1e-8
-  t0 = atan(Dy(1)/Dx(1));
-else
-  t0 = pi/2;
-end
+%if abs(Dx(1)) > 1e-8
+%  t0 = atan(Dy(1)/Dx(1));
+%else
+%  t0 = pi/2;
+%end
+t0 = angle(Dx(1) + 1i*Dy(1));
 % initial opening angle
 [DDx,DDy] = o.getDXY([Dx;Dy]);
 

@@ -40,7 +40,9 @@ o.gmresMaxIter = params.gmresMaxIter; %maximum number of GMRES iterations
 op = poten(params.N);
 %construct the odd/even matrix
 o.kmatrix = op.oddEvenMatrix; 
-o.R0 = 2*params.shortax;
+oc = curve;
+[ra,A,~] = oc.geomProp(ves.X);
+o.R0 = sqrt(A/pi);
 
 end % tstep: constructor
 
@@ -65,6 +67,7 @@ elseif strcmp(farFieldFlow,'shear')
 elseif strcmp(farFieldFlow, 'parabolic')
     W = 10*o.R0; 
     uinf = farFieldSpeed*[(1-(y/W).^2);zeros(N/2,1)];
+
 elseif strcmp(farFieldFlow,'extensional')
     uinf = farFieldSpeed*[-x;y];
 else
@@ -97,6 +100,18 @@ ves.X = oc.recon(ves.N, ves.x0, ves.y0, ves.L, ves.theta);
 %   NOTE: this does not include u_s term.
 tau = [[-Esigma.*sin(theta) - Eu.*cos(theta)]; ...
        [Esigma.*cos(theta) - Eu.*sin(theta)]];
+
+
+x0 = 0.2;
+y0 = 3.0;
+d = 1;
+x = ves.X(1:end/2);
+y = ves.X(end/2+1:end);
+r = sqrt((x - x0).^2 + (y - y0).^2);
+fx = -exp(-r/d).*(x-x0)./r;
+fy = -exp(-r/d).*(y-y0)./r;
+tau = tau + 5*[fx;fy];
+
 % Construct Stokes matrix without the log singularity. 
 % ie. A3 only contains the rightmost kernel in equation (43)
 StokesMat = op.StokesMatrixLogless(ves);

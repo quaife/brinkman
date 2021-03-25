@@ -12,10 +12,10 @@ function [] = shear1Ves(fluxCoeff,farFieldSpeed,concentration,shortax, scaleL, f
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
 
-params.N = 128; % points on vesicle
-params.dt = 1e-5; % time step size
-params.T = 50; % time horizon
-params.outpt = 1e-3; % ouptut frequency
+params.N = 32; % points on vesicle
+params.dt = 1e-3; % time step size
+params.T = 5000; % time horizon
+params.outpt = 1e-2; % ouptut frequency
 params.concentra = concentration; % constant, initial concentration of 
                                   % lipid species
 params.oddeven = 0; % flag for initial lipid species profile?
@@ -36,7 +36,7 @@ params.gmresTol = 1e-10; %GMRES tolerance
 params.gmresMaxIter = params.N; %maximum number of GMRES iterations
 params.SPcoeff = fluxCoeff; %semi-permeable coefficient
 params.center = [0;0.02];
-params.angle = -pi/6; % The tracking point is programmed to be at 0,0.  
+params.angle = pi/6; % The tracking point is programmed to be at 0,0.  
                       % Rotate the vesicle counter-clockwise to keep 
                       % desired center.  
 
@@ -49,6 +49,6 @@ options.logFile = true;  % log file name
 options.logFile = ['output/' fileName '.log'];
 options.dataFile = ['output/' fileName '.bin'];
 
-ves = Ves2D(params,options);      
+ves = Ves2D(params,options);
 
 end

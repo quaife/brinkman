@@ -197,6 +197,7 @@ oc = curve; % shorthand for curve class
 %quiver(x,y,xvel,yvel)
 
 %----------- Cline Bending Stiffness Plot ---------------------------------
+clf;
 rbn = 1 * (ones(o.N,1) - conc) + 0.1*conc;
 h = cline([x;x(1,:)],[y;y(1,:)],[rbn;rbn(1,:)]);
 set(h,'linewidth',3)
