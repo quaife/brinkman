@@ -104,6 +104,11 @@ function terminate = outputInfo(o,X,conc,time,vel,ten)
 
 %Compute the error in area and length 
 [ea,el] = o.errors(X);
+if(ea > 1)
+    terminate = 1;%'True';
+else
+    terminate = 0;%'False';
+end
 
 % Begin plotting
 if o.usePlot

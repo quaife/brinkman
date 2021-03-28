@@ -45,7 +45,9 @@ oc = curve;
 [ra,A,~] = oc.geomProp(ves.X);
 o.R0 = sqrt(A/pi);
 o.saveRate = params.saveRate;
-
+ra
+o.R0
+pause
 end % tstep: constructor
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -518,7 +520,11 @@ for ktime = 1:nstep
        
   % Print outputs
   if mod(ktime,o.saveRate) == 0
-    om.outputInfo(ves.X,ves.rcon,time,[uxvel_loop;uyvel_loop],ves.ten)
+      terminate = om.outputInfo(ves.X,ves.rcon,time,[uxvel_loop;uyvel_loop],ves.ten);
+      if (terminate == 1)
+          disp('Error in area is larger than 0. Stopping simulation.')
+          break
+      end
   end
   % Update ux_old, uy_old, for timestepping loop
   ux_old = uxvel_new;
