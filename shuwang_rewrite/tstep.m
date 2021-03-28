@@ -45,9 +45,7 @@ oc = curve;
 [ra,A,~] = oc.geomProp(ves.X);
 o.R0 = sqrt(A/pi);
 o.saveRate = params.saveRate;
-ra
-o.R0
-pause
+
 end % tstep: constructor
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
