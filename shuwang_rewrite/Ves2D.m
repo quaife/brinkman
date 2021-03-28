@@ -40,6 +40,7 @@ ves.X = oc.recon(ves.N, ves.x0, ves.y0, ves.L, ves.theta);
 tt = tstep(params,ves); % Shorthand for tstep class
 
 om = monitor(ves.X,params,options); % Shorthand for monitor class
+
 % Take first step with first-order Euler to update for dX and dtheta
 [ves,ux_old,uy_old,L,Ln,dcur0,fntheta,N2Hat,cx0,cy0] = ...
       tt.FirstSteps(ves,params,options,om);

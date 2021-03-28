@@ -17,6 +17,7 @@ viscOut; %viscosity outside the vesicle
 gmresTol; %tolerance for GMRES 
 gmresMaxIter; %maximum number of iterations GMRES
 R0; %inital radius
+saveRate; % how often the solution will be saved
 
 end % properties
 
@@ -43,6 +44,7 @@ o.kmatrix = op.oddEvenMatrix;
 oc = curve;
 [ra,A,~] = oc.geomProp(ves.X);
 o.R0 = sqrt(A/pi);
+o.saveRate = params.saveRate;
 
 end % tstep: constructor
 
@@ -378,7 +380,6 @@ function ves = TimeStepLoop(o,ves,params,om,ux_old,uy_old,L,Ln,...
 
 oc = curve;
 nstep = round(params.T/params.dt); % total number of time steps
-outpt = round(params.outpt/params.dt); % integer values for when output is 
 % Compute current area and length of the vesicle
 [~,a_old,l_old] = oc.geomProp(ves.X);
 
@@ -516,7 +517,9 @@ for ktime = 1:nstep
        %ves.X(end/2+1:end) = ves.X(end/2+1:end) - mean(ves.X(end/2+1:end));
        
   % Print outputs
-  om.outputInfo(ves.X,ves.rcon,time,[uxvel_loop;uyvel_loop],ves.ten)
+  if mod(ktime,o.saveRate) == 0
+    om.outputInfo(ves.X,ves.rcon,time,[uxvel_loop;uyvel_loop],ves.ten)
+  end
   % Update ux_old, uy_old, for timestepping loop
   ux_old = uxvel_new;
   uy_old = uyvel_new;

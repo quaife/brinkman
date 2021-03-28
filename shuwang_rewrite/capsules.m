@@ -86,7 +86,7 @@ X = oc.recon(N,x0,y0,L,theta);
 % new area with filtered opening angle
 area = sum(sin(theta).*X(1:end/2) - cos(theta).*X(end/2+1:end))*...
       0.5*L/N;
-%Adjust theshape until error in area is less than the tolerance
+% Adjust the shape until error in area is less than the tolerance
 iter = 1;
 while abs(area - areaRef)/areaRef > 1e-10
   theta_periodicPart = theta_periodicPart * ...
