@@ -518,7 +518,7 @@ for ktime = 1:nstep
        %ves.X(1:end/2) = ves.X(1:end/2) - mean(ves.X(1:end/2));
        %ves.X(end/2+1:end) = ves.X(end/2+1:end) - mean(ves.X(end/2+1:end));
        
-  % Print outputs
+  % Print outputs.
   if mod(ktime,o.saveRate) == 0
       terminate = om.outputInfo(ves.X,ves.rcon,time,[uxvel_loop;uyvel_loop],ves.ten);
       if (terminate == 1)
