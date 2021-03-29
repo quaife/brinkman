@@ -13,7 +13,7 @@ options.savefig = false;
 %file = 'Parabolic_RA0p75_Conc0_Chi600_beta0.bin';
 %file = 'Parabolic_RA0p6_Conc0_Chi600_beta0.bin';
 %file = 'Parabolic_RA0p95_Conc0p3_Chi600_beta0.bin';
-file = 'blah.bin';
+file = 'blah2.bin';
 ax = [-2 2 -2 2];
 
 [posx,posy,conc,ea,el,time,xvel1,yvel1,ten] = loadFile(file);

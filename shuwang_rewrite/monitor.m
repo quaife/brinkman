@@ -104,10 +104,10 @@ function terminate = outputInfo(o,X,conc,time,vel,ten)
 
 %Compute the error in area and length 
 [ea,el] = o.errors(X);
-if(ea > 1)
-    terminate = 1;%'True';
+if(max(ea,el) > 1 || isnan(ea) || isnan(el))
+  terminate = 1;%'True';
 else
-    terminate = 0;%'False';
+  terminate = 0;%'False';
 end
 
 % Begin plotting

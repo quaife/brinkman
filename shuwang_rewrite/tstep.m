@@ -519,9 +519,10 @@ for ktime = 1:nstep
   % Print outputs.
   if mod(ktime,o.saveRate) == 0
       terminate = om.outputInfo(ves.X,ves.rcon,time,[uxvel_loop;uyvel_loop],ves.ten);
-      if (terminate == 1)
-          disp('Error in area is larger than 0. Stopping simulation.')
-          break
+      if terminate
+        msg = 'ERROR IN AREA IS TOO LARGE. STOPPING SIMULATION.';
+        om.writeMessage(msg,'%s\n');
+        break
       end
   end
   % Update ux_old, uy_old, for timestepping loop

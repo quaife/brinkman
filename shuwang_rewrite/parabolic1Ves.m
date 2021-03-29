@@ -13,8 +13,8 @@ function [] = parabolic1Ves(fluxCoeff,farFieldSpeed,concentration,shortax, scale
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
 
 params.N = 256; % points on vesicle
-params.dt = 1e-3; % time step size
-params.T = 5; % time horizon
+params.dt = 1e-2; % time step size
+params.T = 500; % time horizon
 params.saveRate = 100; % ouptut frequency
 params.concentra = concentration; % constant, initial concentration of 
                                   % lipid species
@@ -40,9 +40,9 @@ params.angle = pi/6; % The tracking point is programmed to be at 0,0.
                       % Rotate the vesicle counter-clockwise to keep 
                       % desired center.  
 
-options.verbose = false;  % write data to console
+options.verbose = true;  % write data to console
 options.saveData = true; % save the data
-options.usePlot = true;  % plot the data
+options.usePlot = false;  % plot the data
 options.dataFile = true; % data file name
 options.logFile = true;  % log file name
 
