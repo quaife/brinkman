@@ -13,7 +13,7 @@ function [] = parabolic1Ves(fluxCoeff,farFieldSpeed,concentration,shortax, scale
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
 
 params.N = 256; % points on vesicle
-params.dt = 1e-2; % time step size
+params.dt = 1e-6; % time step size
 params.T = 500; % time horizon
 params.saveRate = 100; % ouptut frequency
 params.concentra = concentration; % constant, initial concentration of 
