@@ -11,16 +11,17 @@ options.savefig = false;
 %file = 'Parabolic_RA0p95_Conc0_Chi600_beta0.bin';
 %file = 'Parabolic_RA0p85_Conc0_Chi600_beta0.bin';
 %file = 'Parabolic_RA0p75_Conc0_Chi600_beta0.bin';
-%file = 'Parabolic_RA0p6_Conc0_Chi600_beta0.bin';
+%file = 'Parabolic_RA0p60_Conc0_Chi100_beta0.bin';
 %file = 'Parabolic_RA0p95_Conc0p3_Chi600_beta0.bin';
-file = 'blah2.bin';
+%file = 'blah2.bin';
+file = '/Users/bquaife/Dropbox/Adhesion/Parabolic_SA3_Conc0p3_Chi400_beta0_n256_dt0en5.bin';
 ax = [-2 2 -2 2];
 
 [posx,posy,conc,ea,el,time,xvel1,yvel1,ten] = loadFile(file);
 
 %plot(time,squeeze(mean(posy)))
  
- irate = 1; 
+ irate = 100; 
  istart = 1;
  iend = numel(time);
  ntime = iend;
@@ -44,6 +45,7 @@ ax = [-2 2 -2 2];
        plot(vec1,vec2,'r','linewidth',3);
        hold on
        plot(vec1(1,:),vec2(1,:),'k.','markersize',30)
+       plot([ax(1) ax(2)],[0 0],'k--','linewidth',2)
        axis equal
        axis(ax)
       

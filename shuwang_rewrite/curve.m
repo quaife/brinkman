@@ -303,7 +303,8 @@ else
   smallper = 5e-2;
 end
 if symmetry == -1
-  rcon = concentration + smallper*10*(rand(N,1) - 0.5);
+  rcon = smallper*10*(rand(N,1) - 0.5);
+  rcon = rcon - mean(rcon) + concentration;
   % uniform concentration with a little random noise
 elseif symmetry == 0
   rcon = concentration + 3*smallper*cos(2*pi*alpha) + ...
@@ -315,7 +316,7 @@ elseif symmetry==1
   rcon = concentration + 5*smallper*cos(2*2*pi*alpha);
   % uniform concentration with one small even Fourier mode
 elseif symmetry==2
-  rcon = concentration+ 5*smallper*sin(4*pi^2*alpha);
+  rcon = concentration+ 5*smallper*sin(4*pi*alpha);
   % uniform concentration with one small odd Fourier mode
 end
 
