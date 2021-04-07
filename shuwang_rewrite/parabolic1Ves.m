@@ -12,10 +12,10 @@ function [] = parabolic1Ves(fluxCoeff,farFieldSpeed,concentration,shortax, scale
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
 
-params.N = 256; % points on vesicle
-params.dt = 1e-2; % time step size
+params.N = 128; % points on vesicle
+params.dt = 1e-5; % time step size
 params.T = 500; % time horizon
-params.saveRate = 100; % ouptut frequency
+params.saveRate = 10000; % ouptut frequency
 params.concentra = concentration; % constant, initial concentration of 
                                   % lipid species
 params.oddeven = 0; % flag for initial lipid species profile?
@@ -35,12 +35,12 @@ params.epsch = 0.04; % small parameter  in the double-well potential
 params.gmresTol = 1e-10; %GMRES tolerance
 params.gmresMaxIter = params.N; %maximum number of GMRES iterations
 params.SPcoeff = fluxCoeff; %semi-permeable coefficient
-params.center = [0;0.02];
+params.center = [0;0.1];
 params.angle = pi/6; % The tracking point is programmed to be at 0,0.  
                       % Rotate the vesicle counter-clockwise to keep 
                       % desired center.  
 
-options.verbose = true;  % write data to console
+options.verbose = false;  % write data to console
 options.saveData = true; % save the data
 options.usePlot = false;  % plot the data
 options.dataFile = true; % data file name
