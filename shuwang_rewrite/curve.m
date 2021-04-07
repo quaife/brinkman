@@ -303,6 +303,7 @@ else
   smallper = 5e-2;
 end
 if symmetry == -1
+  rng(10245621);
   rcon = smallper*10*(rand(N,1) - 0.5);
   rcon = rcon - mean(rcon) + concentration;
   % uniform concentration with a little random noise
