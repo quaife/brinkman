@@ -255,6 +255,7 @@ cy0 = oc.centerOfMass(ves.X, ves.X(end/2+1:end),ves.L,ynormal);
 % field. A step of Cahn-Hilliard is not taken until after this step.
 %   Missing the u_s term in equation (33)
 [ux,uy,fdotn] = o.usetself;
+om.initializeFiles(ves.X,ves.rcon,time,[ux;uy],ves.ten)
 % put the x-y velocity into the normal and tangential velocity.
 theta = ves.theta; %shorthand theta so we don't type ves. a million times
 un = ux.*sin(theta) - uy.*cos(theta); % Normal Velocity
@@ -367,7 +368,6 @@ ea = abs(a_new - a_old)./abs(a_old);
 el = abs(l_new - l_old)./abs(l_old);
 % plot and write the new data 
 % om.plotData(ves.X,time,ea,el,[ux;uy],ves.rcon)
-om.initializeFiles(ves.X,ves.rcon,time,[ux;uy],ves.ten)
 
 end % FirstSteps
 
