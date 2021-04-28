@@ -1,0 +1,25 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{nsf}[2009/10/09 nsf proposal]
+\RequirePackage{trace}
+
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{9.0in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\topmargin}{-1in}
+\setlength{\headheight}{0.5in}
+\setlength{\headsep}{0.5in}
+\def\loosespacing{\topsep=5pt\itemsep=2pt\itemindent=0pt\labelwidth=11pt\leftmargin=11pt\parsep=0pt}
+\def\tightspacing{\topsep=2pt\itemsep=1pt\itemindent=0pt\labelwidth=11pt\leftmargin=11pt\parsep=0pt}
+
+%\def\section{\@startsection {section}{1}{\z@}{-1.0ex plus -0.25ex
+%		minus -.1ex}{0.7ex plus 0.2ex minus 0.1ex}{\Large\bf\raggedright}} 
+%\def\subsection{\@startsection{subsection}{2}{\z@}{-0.75ex plus 
+%    -0.15ex minus -.1ex}{0.4ex plus .1ex}{\large\bf\raggedright}} 
+\def\subsubsection{\@startsection{subsubsection}{3}{\z@}{-0.25ex plus 
+   -0.25ex minus -.25ex}{0.5ex plus .2ex}{\normalsize\bf\raggedright}} 
+\def\paragraph{\@startsection{paragraph}{4}{\z@}{0.5ex plus 
+   0.25ex minus .25ex}{-1em}{\normalsize\sc}} 
+\def\subparagraph{\@startsection{subparagraph}{5}{\z@}{1.3ex plus 
+   0.5ex minus .2ex}{-1em}{\small\sc}} 
+\def\subsubsubsection{\vskip 8pt{\noindent\normalsize\rm\raggedright}}
