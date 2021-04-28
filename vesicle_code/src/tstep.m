@@ -156,7 +156,7 @@ o.bdiagWall = o.wallsPrecond(wallsCoarse);
 % potential and the matrix N0 that removes the rank one null space from
 % the double-layer potential for the solid walls
 
-eta = o.bdiagWall*uwalls;
+eta = o.bdiagWall*[uwalls(:);zeros(3*(walls.nv-1),1)];
 %clf
 %plot(eta(1:end/2),'b-o')
 
@@ -2878,8 +2878,25 @@ elseif any(strcmp(varargin,'contracting'));
   T12 = zeros(N,nv);
   T22 = zeros(N,nv);
 
+elseif any(strcmp(varargin,'porous'))
+  vInf = zeros(2*N,nv);
+  xmax = max(x(:,1));
+  xmin = min(x(:,1));
+  ind = find(x(:,1) < (xmin + 0.1) | x(:,1) > (xmax - 0.1));
+  ymax = max(y(ind,1));
+  vx = (ymax^2-y(ind(:,1)).^2)/ymax^2;
+  % parabolic flow
+  vInf(ind,1) = vx;
+
+  T11 = zeros(N,nv);
+  T12 = zeros(N,nv);
+  T22 = zeros(N,nv);
+
 elseif any(strcmp(varargin,'couette'))
   vInf = [zeros(2*N,1) 1*[-y(:,2)+mean(y(:,2));x(:,2)-mean(x(:,2))]];
+  T11 = zeros(N,nv);
+  T12 = zeros(N,nv);
+  T22 = zeros(N,nv);
   
 elseif any(strcmp(varargin,'couetteOuter'))
   vInf = [1*[-y(:,1)+mean(y(:,1));x(:,1)-mean(x(:,1))] zeros(2*N,1)];  

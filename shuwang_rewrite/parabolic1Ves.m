@@ -1,4 +1,4 @@
-function [] = parabolic1Ves(fluxCoeff,farFieldSpeed,concentration,shortax, scaleL, fileName)
+%function [] = parabolic1Ves(fluxCoeff,farFieldSpeed,concentration,shortax, scaleL, fileName)
 %   fluxCoeff = 0;
 %   farFieldSpeed = 10;
 %   concentration =0.3;
@@ -8,14 +8,21 @@ function [] = parabolic1Ves(fluxCoeff,farFieldSpeed,concentration,shortax, scale
 %of multicomponent vesicles in a viscous fluid" by Sohn, Tseng, Li
 %Voigt, &  Lowengrub JCP 2013
 
+fluxCoeff = 0;
+farFieldSpeed = 800;
+concentration = 0;
+shortax = 3.45;
+scaleL = 0.538;
+fileName = 'parabolic1Ves';
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
 
-params.N = 128; % points on vesicle
+params.N = 192; % points on vesicle
 params.dt = 1e-5; % time step size
 params.T = 500; % time horizon
-params.saveRate = 10000; % ouptut frequency
+params.saveRate = 100; % ouptut frequency
 params.concentra = concentration; % constant, initial concentration of 
                                   % lipid species
 params.oddeven = 0; % flag for initial lipid species profile?
@@ -42,7 +49,7 @@ params.angle = pi/6; % The tracking point is programmed to be at 0,0.
 
 options.verbose = false;  % write data to console
 options.saveData = true; % save the data
-options.usePlot = false;  % plot the data
+options.usePlot = true;  % plot the data
 options.dataFile = true; % data file name
 options.logFile = true;  % log file name
 
@@ -51,4 +58,4 @@ options.dataFile = ['output/' fileName '.bin'];
 
 ves = Ves2D(params,options);
 
-end
+%end

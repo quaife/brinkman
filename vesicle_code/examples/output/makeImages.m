@@ -52,6 +52,15 @@ file = '~/Dropbox/Adhesion/choke1VesKEp01bData_Feb02.bin';
 end
 
 if 1
+%  file = 'porous1VesImpermData.bin';
+%  file = 'porous1VesPerm1Data.bin';
+  file = 'porous1VesData.bin';
+  options.confined = true;
+  ax = [-8 8 -2 2];
+  irate = 1;
+end
+
+if 0
 %  file = 'contracting1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1e1/contracting1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1em0p5/contracting1VesData.bin';

@@ -18,7 +18,7 @@
   xmode = log,
   xtick pos = left,
   ytick pos = left,
-  legend entries={$Ca_\mathrm{E} = 10^{1}$,,,,$Ca_\mathrm{E} = 10^{0}$},
+  legend entries={$Ca_\mathrm{E} = 10^{0}$,,,,$Ca_\mathrm{E} = 10^{1}$},
   legend cell align=left,
   legend style={draw=none,font=\large,fill=none},
   legend style={at={(0.1,0.1)},anchor=south west} 

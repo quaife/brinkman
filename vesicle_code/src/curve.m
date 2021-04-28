@@ -607,6 +607,32 @@ elseif any(strcmp(options,'tube'))
   X0 = [x;y];
   % rounded off cylinder.  a and b control the length and height 
   % and order controls the regularity
+elseif any(strcmp(options,'porous'))
+  a = 10; b = 3; order = 8;
+  % parameters for the boundary
+  Nsides = ceil(0.5*b/(2*a+2*b)*N);
+  Ntop = (N-4*Nsides)/2;
+  t1 = linspace(0,0.2*pi,Nsides+1); t1 = t1(1:end-1)';
+  t2 = linspace(0.2*pi,pi-0.2*pi,Ntop+1); t2 = t2(1:end-1)';
+  t3 = linspace(pi-0.2*pi,pi+0.2*pi,2*Nsides+1); t3 = t3(1:end-1)';
+  t4 = linspace(pi+0.2*pi,2*pi-0.2*pi,Ntop+1); t4 = t4(1:end-1)';
+  t5 = linspace(2*pi-0.2*pi,2*pi,Nsides+1); t5 = t5(1:end-1)';
+  t = [t1;t2;t3;t4;t5];
+  % Parameterize t so that geometry is closer to 
+  % equispaced in arclength
+  r = (cos(t).^order + sin(t).^order).^(-1/order);
+  x = a*r.*cos(t); y = b*r.*sin(t);
+  X0 = [x;y];
+  % rounded off cylinder.  a and b control the length and height 
+  % and order controls the regularity
+
+  t = (0:N-1)'*2*pi/N;
+  xpores = 0.5*cos(-t);
+  ypores = 0.5*sin(-t);
+  Xpores = [[xpores;ypores] [xpores-4;ypores+0.5] ...
+            [xpores-2;ypores-0.5] [xpores-3;ypores-2.0]];
+  
+  X = [X0 Xpores];
 else
   if ~isempty(ra)
     X0 = o.ellipse(N,ra);

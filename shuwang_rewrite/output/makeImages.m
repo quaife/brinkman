@@ -13,15 +13,21 @@ options.savefig = false;
 %file = 'Parabolic_RA0p75_Conc0_Chi600_beta0.bin';
 %file = 'Parabolic_RA0p60_Conc0_Chi100_beta0.bin';
 %file = 'Parabolic_RA0p95_Conc0p3_Chi600_beta0.bin';
-%file = 'blah2.bin';
-file = '/Users/bquaife/Dropbox/Adhesion/Parabolic_SA3_Conc0p3_Chi400_beta0_n256_dt0en5.bin';
+%file = 'parabolic1Ves.bin';
+%file = 'Parabolic_RA0p60_Conc0p3_Chi200_beta0.bin';
+%file = '~/Dropbox/Adhesion/Parabolic_SA1_Conc0p3_Chi400_beta0_n256_dt0en5.bin';
+file = 'Parabolic_RA0p85_Conc0p3_Chi200_beta0.bin';
+%file = '~/Desktop/Chi200_RA0p6_Conc0p3_Beta0_y0p1_e0p04.bin';
+%file = '~/Desktop/Chi200_RA0p6_Conc0p3_Beta0_y0p1_testingCondor_e0p004.bin';
+%file = 'Testing.bin';
+
 ax = [-2 2 -2 2];
 
 [posx,posy,conc,ea,el,time,xvel1,yvel1,ten] = loadFile(file);
 
 %plot(time,squeeze(mean(posy)))
  
- irate = 100; 
+ irate = 1; 
  istart = 1;
  iend = numel(time);
  ntime = iend;
@@ -35,7 +41,7 @@ ax = [-2 2 -2 2];
         xx1 = posx(:,:,k);
         yy1 = posy(:,:,k);
         tt = conc(:,:,k);
- %       [~,area(k),~] = oc.geomProp([xx1;yy1]); 
+        [ra(k),area(k),~] = oc.geomProp([xx1;yy1]); 
  % 
         vec1 = [xx1(:,:);xx1(1,:)];
         vec2 = [yy1(:,:);yy1(1,:)];
@@ -74,7 +80,7 @@ ax = [-2 2 -2 2];
  %       
         % ------------SECOND SUBPLOT COICE TWO: Bending Modulus ---------
        subplot(2,2,2)
-       N = length(conc(:,:,k));
+       N = numel(conc(:,:,k));
        rbn = 1 * (ones(N,1) - conc(:,:,k)) + 0.1*conc(:,:,k);
        vec4 = [rbn(:,:);rbn(1,:)];
        h = cline(vec1,vec2,vec4);
@@ -101,7 +107,8 @@ ax = [-2 2 -2 2];
        
        % --------------FOURTH SUBPLOT: Curvature squared ----------------
        subplot(2,2,4)
-       [~,~,cur] = oc.computeOpeningAngle(N,[posx(:,:,k);posy(:,:,k)]); 
+%       [~,~,cur] = oc.computeOpeningAngle(N,[posx(:,:,k);posy(:,:,k)]); 
+       [~,~,cur] = oc.diffProp([posx(:,:,k);posy(:,:,k)]); 
        plot(cur.^2,'linewidth',3)
        xlim([0 N])
        title('\kappa^2');
