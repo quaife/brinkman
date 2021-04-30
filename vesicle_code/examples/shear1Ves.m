@@ -7,8 +7,8 @@ fprintf('First-order semi-implicit time stepping.\n');
 % Physics parameters
 prams.N = 128;               % points per vesicle
 prams.nv = 1;               % number of vesicles
-prams.T = 1e4;               % time horizon (two tumbling)
-prams.m = 500;              % number of time steps
+prams.T = 1500;               % time horizon (two tumbling)
+prams.m = ceil(prams.T/.023);              % number of time steps
 prams.kappa = ones(prams.nv,1);   % bending coefficient
 prams.viscCont = ones(prams.nv,1);         % viscosity contrast
 options.farField = 'shear'; % background velocity
@@ -39,8 +39,10 @@ options.timeAdap = true;
 
 prams.rtolArea = 1e10;
 prams.rtolLength = 1e-2;
-prams.dtMax = 1e1;
-prams.dtMin = 1e-4;
+%prams.dtMax = 1e1;
+%prams.dtMin = 1e-4;
+prams.dtMax = 0.023;
+prams.dtMin = 0.023;
 prams.betaUp = 1.2;
 prams.betaDown = 0.5;
 prams.alpha = 0.9;
@@ -75,7 +77,7 @@ options.dataFile = 'output/shear1VesData.bin';
 %end
 
 oc = curve;
-ra = 0.45;
+ra = 0.75;
 %centerx = [-2.5 2.5];
 %centery = zeros(1,2);
 centerx = 0;
@@ -102,6 +104,9 @@ X = oc.initConfig(prams.N,...
 
 %theta = (0:prams.N-1)'*2*pi/prams.N;
 %X = [cos(theta);3*sin(theta)];
+
+load('~/projects/brinkman/vesicle_code/results/PNAS_runs/shear/Chi1p0e1_ra075_beta1p0em3/finalConfig.mat');
+
 
 Xfinal = Ves2D(X,[],prams,options);
 % Run vesicle code

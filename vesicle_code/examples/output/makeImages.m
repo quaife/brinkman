@@ -5,7 +5,7 @@ options.pressure = false;
 options.center = false;
 options.marker = false;
 
-irate = 1; % controls the speed of the visualization
+irate = 10; % controls the speed of the visualization
 
 if 0
   file = 'parabolic1VesData.bin';
@@ -51,7 +51,7 @@ file = '~/Dropbox/Adhesion/choke1VesKEp01bData_Feb02.bin';
   irate = 10;
 end
 
-if 1
+if 0
 %  file = 'porous1VesImpermData.bin';
 %  file = 'porous1VesPerm1Data.bin';
   file = 'porous1VesData.bin';
@@ -146,8 +146,8 @@ if 0
   ax = [-2 2 -2 2];
   options.confined = false;
 end
-if 0
-  file = 'shear1VesDData.bin';
+if 1
+  file = 'shear1VesEData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em1_ra065_beta1p0em4p5/shear1VesData.bin.old';
 %  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/shear/Chi1p0e0_ra075_beta1p0em3/shear1VesData.bin';
   ax = [-5 5 -5 5];
