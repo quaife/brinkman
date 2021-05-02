@@ -7,7 +7,6 @@ classdef poten
 
 properties
 N; % points per curve
-
 end % properties
 
 methods
@@ -60,7 +59,7 @@ d2 = imag(r); % y-coordinate of r
 Ilogr = log(abs(r)./denom43);  % log(1/r) diag block
 salpha = ves.L/(2*pi); % limiting value for log part of kernel
 Ilogr(1:o.N+1:end) = log(salpha); % correct the diagonal terms
-oc = curve; %shorthand for curve class
+oc = curve(o.N); %shorthand for curve class
 % Compute the derivatives of x and y
 [dx,dy] = oc.getDXY(ves.X);
 % Divide by length to get the arclength derivative

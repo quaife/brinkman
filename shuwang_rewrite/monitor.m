@@ -5,7 +5,7 @@ classdef monitor
 
 properties
 area            % area of initial vesicles 
-length          % length of initial vesicles
+len             % length of initial vesicles
 reducedArea     % reduced area
 verbose         % write data to console
 saveData        % save the vesicle positions, conc, etc
@@ -37,9 +37,9 @@ o.saveData = options.saveData; % save the data
 o.usePlot = options.usePlot; % plot the data
 o.dataFile = options.dataFile; % data file name
 o.logFile = options.logFile; % log file name
-oc = curve; %shorthand for curve class
+oc = curve(o.N); %shorthand for curve class
 % compute the area, length, and reduced area of initial shape
-[o.reducedArea,o.area,o.length] = oc.geomProp(X);
+[o.reducedArea,o.area,o.len] = oc.geomProp(X);
 
 end % constructor: monitor
 
@@ -51,7 +51,7 @@ function initializeFiles(o,X,conc,time,vel,ten)
 % targets X and Xwalls are the vesicles and solid walls.
 
 N = o.N; % points per vesicle
-oc = curve; % shorthand for curve class
+oc = curve(N); % shorthand for curve class
 % Save data to files if desired
 if o.saveData
   fid = fopen(o.dataFile,'w');
@@ -85,7 +85,7 @@ if o.saveData
       num2str(o.area(1),'%10.2e')];
   o.writeMessage(message,'%s\n')
   message = ['Initial Length is:              ' ...
-      num2str(o.length(1),'%10.2e')];
+      num2str(o.len(1),'%10.2e')];
   o.writeMessage(message,'%s\n')
   message = ['Initial Reduced Area is:        ' ...
       num2str(o.reducedArea(1),'%10.2e')];
@@ -144,13 +144,13 @@ end % outputInfo
 function [ea,el] = errors(o,X)
 % function [ea,el] = errors(X) computes the errors in area and length
 % of the new vesicle position
-
-oc = curve;
+N = length(X)/2;
+oc = curve(N);
 [~,a,l] = oc.geomProp(X);
 % compute new areas and length
 
 ea = max(abs(a./o.area - 1));
-el = max(abs(l./o.length - 1));
+el = max(abs(l./o.len - 1));
 % compute error in area and length
 
 end % errors
@@ -189,8 +189,8 @@ function plotData(o,X,time,ea,el,vel,conc)
 % title X is the vesicle position time is the current time, ea and el
 % are the errors in area and length
 %TODO: Edit this so that ea and el are computed instead of inputs
-
-oc = curve; % shorthand for curve class
+N = length(X)/2;
+oc = curve(N); % shorthand for curve class
  [x,y] = oc.getXY(X); % seperate x and y coordinates
 % figure(1); clf; % hold on
 
@@ -222,7 +222,7 @@ function writeData(o,X,conc,ea,el,time,vel,ten,N)
 % errors, and time to a binary file.  Matlab can later read this file to
 % postprocess the data
  
-oc = curve;
+oc = curve(N);
 [x,y] = oc.getXY(X);
 [xvel,yvel] = oc.getXY(vel);
 output = [x(:);y(:);conc(:);ea;el;time;xvel(:);yvel(:);ten(:)];

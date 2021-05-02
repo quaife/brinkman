@@ -1,40 +1,30 @@
 %clc;clear;close all
-clf
+
 addpath ..
-%set(gcf,'Position',get(0,'Screensize'));
+set(gcf,'Position',get(0,'Screensize'));
 set(0,'DefaultAxesFontSize',22)
 options.savefig = false;
 
 %file = 'extensional_RAp8_Conc0p3_Chi10_beta0_n500_dt0en4.bin';
 %file = 'parabolic_Conc0p3_Chi600_beta0_n500_dt0en4_h2.bin';
 
-%file = 'Parabolic_RA0p95_Conc0_Chi600_beta0.bin';
-%file = 'Parabolic_RA0p85_Conc0_Chi600_beta0.bin';
-%file = 'Parabolic_RA0p75_Conc0_Chi600_beta0.bin';
-%file = 'Parabolic_RA0p60_Conc0_Chi100_beta0.bin';
-%file = 'Parabolic_RA0p95_Conc0p3_Chi600_beta0.bin';
-%file = 'parabolic1Ves.bin';
-%file = 'Parabolic_RA0p60_Conc0p3_Chi200_beta0.bin';
-%file = '~/Dropbox/Adhesion/Parabolic_SA1_Conc0p3_Chi400_beta0_n256_dt0en5.bin';
-file = 'Parabolic_RA0p85_Conc0p3_Chi200_beta0.bin';
-%file = '~/Desktop/Chi200_RA0p6_Conc0p3_Beta0_y0p1_e0p04.bin';
-%file = '~/Desktop/Chi200_RA0p6_Conc0p3_Beta0_y0p1_testingCondor_e0p004.bin';
-%file = 'Testing.bin';
-
+file = 'cChi600_RA0p6_Conc0p3_Beta0_y0p1_eps0p04.bin';
 ax = [-2 2 -2 2];
 
 [posx,posy,conc,ea,el,time,xvel1,yvel1,ten] = loadFile(file);
+% plot(mean(squeeze(posy)))
+% pause
 
 %plot(time,squeeze(mean(posy)))
  
- irate = 1; 
+ irate = 10; 
  istart = 1;
  iend = numel(time);
  ntime = iend;
  ntime = numel(time);
- 
+ N = length(posx(:,:,1));
  time = time(istart:iend);
- oc = curve;
+ oc = curve(N);
  
   for k = istart:irate:iend
         clf; 
@@ -108,7 +98,8 @@ ax = [-2 2 -2 2];
        % --------------FOURTH SUBPLOT: Curvature squared ----------------
        subplot(2,2,4)
 %       [~,~,cur] = oc.computeOpeningAngle(N,[posx(:,:,k);posy(:,:,k)]); 
-       [~,~,cur] = oc.diffProp([posx(:,:,k);posy(:,:,k)]); 
+pause
+       [~,~,cur] = oc.diffProp([xx1;yy1]); 
        plot(cur.^2,'linewidth',3)
        xlim([0 N])
        title('\kappa^2');

@@ -24,8 +24,8 @@ methods
 function o = capsules(X,rcon,params)
 % constructor for capsules class
 
-oc = curve; %shorthand for curve class
 o.N = size(X,1)/2; % shorthand for Number of discretization points 
+oc = curve(o.N); %shorthand for curve class
 o.X = X; % shorthand for discretization points
 %compute the length, theta, and curvature of the vesicle
 [o.L,o.theta,o.cur] = oc.computeOpeningAngle(o.N,X); 
@@ -55,9 +55,8 @@ function smoothGeom(ves)
 % vesicle shape with same area and length, but with a bandlimited
 % opening angle
 
-oc = curve;
-
 N = ves.N;
+oc = curve(N);
 X = ves.X;
 theta = ves.theta;
 L = ves.L;
@@ -125,8 +124,8 @@ function [Eu,Esigma] = variationsNonStiff(ves)
 % so the last term in equation (13) vanishes and the first two terms in
 % equation (14) simplify
 
-oc = curve;
 N = ves.N;
+oc = curve(N);
 IK = oc.modes(N);
 rcon = ves.rcon;
 cur = oc.acurv(ves.N,ves.theta,ves.L);
@@ -137,13 +136,13 @@ b1 = ves.bendsti * ves.bendratio;
 % rcon is the concentration u
 rbn = b0 * (ones(N,1) - rcon) + b1*rcon;
 % take the derivative of b(u)
-Drbn = oc.diffFT(rbn,IK)/ves.L;
+Drbn = oc.diffFT(rbn)/ves.L;
 % Fourier modes
-IK = 2*pi*1i*[0:1:ves.N/2 -ves.N/2+1:1:-1]';
+% !!! IK = 2*pi*1i*[0:1:ves.N/2 -ves.N/2+1:1:-1]';
 % derivative of the curvature
-Drbn_cur = oc.diffFT(rbn.*cur,IK)/ves.L; 
+Drbn_cur = oc.diffFT(rbn.*cur)/ves.L; 
 % second derivative of the curvature
-DDrbn_cur = oc.diffFT(Drbn_cur,IK)/ves.L; 
+DDrbn_cur = oc.diffFT(Drbn_cur)/ves.L; 
 %Esigma is equation (14) with spotaneous curvature set to zero.
 Esigma = -DDrbn_cur - 0.5*rbn.*cur.^3;
 %Eu is the second term in equation (13) (differs by a negative

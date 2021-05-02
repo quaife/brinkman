@@ -5,8 +5,8 @@ function ves = Ves2D(params,options)
 
 % Form initial shape that has points equally spaced in arclength. alpha
 % has the parameter values that give this parameterization
-oc = curve;
 upRate = 4;
+oc = curve(upRate*params.N);
 h = (params.shortax - 1)^2/(params.shortax+1)^2;
 scaleL = params.scaleL;
 L = pi*(params.shortax + 1)*(1+h/4+h^2/64)*scaleL;
@@ -34,6 +34,7 @@ ves.rcon = ves.rcon(1:upRate:end);
 % than the original theta
 ves.smoothGeom;
 
+oc = curve(ves.N);
 % Reconstruct the vesicle position using the new, smooth theta
 ves.X = oc.recon(ves.N, ves.x0, ves.y0, ves.L, ves.theta);
 

@@ -41,7 +41,7 @@ o.gmresMaxIter = params.gmresMaxIter; %maximum number of GMRES iterations
 op = poten(params.N);
 %construct the odd/even matrix
 o.kmatrix = op.oddEvenMatrix; 
-oc = curve;
+oc = curve(params.N);
 [ra,A,~] = oc.geomProp(ves.X);
 o.R0 = sqrt(A/pi);
 o.saveRate = params.saveRate;
@@ -59,7 +59,7 @@ function [uinf] = bgFlow(o, X, farFieldSpeed, farFieldFlow)
 %     parabolic:      (k(1-y/r)^2,0) - r is hardcoded for now.
 
 N = length(X);
-oc = curve;
+oc = curve(N);
 [x,y] = oc.getXY(X);
 
 if strcmp(farFieldFlow,'relaxation')
@@ -91,7 +91,7 @@ N = ves.N; %shorthand for Number of discratization points
 L = ves.L; %shorthand for Length of vesicle
 theta = ves.theta; %shorthand for opening angle of vesicle 
 op = poten(N); %shorthand for poten class
-oc = curve; %shorthand for curve class
+oc = curve(N); %shorthand for curve class
 % Compute the curvature
 cur = oc.acurv(ves.N,ves.theta,ves.L);
 % Reconstruct the vesicle shape
@@ -142,8 +142,7 @@ vdotn = sigma1.*sin(theta) - sigma2.*cos(theta);
 % Calculate v dot s in eq (40)
 vdots = sigma1.*cos(theta) + sigma2.*sin(theta);
 % Calculate d/ds(v dot s) in eq (40)
-IK = oc.modes(N);
-dvdotsds = oc.diffFT(vdots,IK)/L;
+dvdotsds = oc.diffFT(vdots)/L;
 % Compute the right hand side of equation (40)
 rhs = -(dvdotsds + cur.*vdotn - ves.SPc*cur.*Esigma);
 % The velocity components in eq (40) are nonlocal linear functionals of
@@ -154,7 +153,7 @@ rhs = -(dvdotsds + cur.*vdotn - ves.SPc*cur.*Esigma);
       gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
               o.gmresMaxIter,@(x) o.preconditioner(x));
 % Calculate the Fourier derivative of lambdaTilde
-dlamTilds = oc.diffFT(lambTil,IK)/L;
+dlamTilds = oc.diffFT(lambTil)/L;
 % We can now compute the traction jump in first part of equation (39).
 % This comes from applying the product rule and using Frenet-Seret.
 tracJump = [(+lambTil.*cur.*sin(theta) - dlamTilds.*cos(theta));...
@@ -190,11 +189,10 @@ cur = ves.cur; %shorthand for vesicle curvature
 L = ves.L; %shorthand for vesicle length
 N = ves.N; %shorthand for number of discretization points 
 ulam = ves.viscIn/ves.viscOut; %define viscosity ratio
-oc = curve; %shorthand for curve class
+oc = curve(N); %shorthand for curve class
 op = poten(N); %shorthand for poten class
-IK = oc.modes(N); %define the Fourier modes for differentiation
 % The the derivative of the rhs of eq(40)
-drhsds = oc.diffFT(Lambda,IK)/L;
+drhsds = oc.diffFT(Lambda)/L;
 % Compute the forces in equation (39)
 tau = [+Lambda.*cur.*sin(theta) - drhsds.*cos(theta); ...
        -Lambda.*cur.*cos(theta) - drhsds.*sin(theta)];
@@ -215,7 +213,7 @@ utilde2 = krhs(N+1:end)*c1 + LogKerneltau2*c2;
 % Build left hand side of equation (40)
 udotn = utilde1.*sin(theta) - utilde2.*cos(theta);
 udots = utilde1.*cos(theta) + utilde2.*sin(theta);
-dudotsds = oc.diffFT(udots,IK)/L;
+dudotsds = oc.diffFT(udots)/L;
 % LHS is (u \cdot s)_s + kappa * (u \cdot n) in eq (40)
 LHS = (dudotsds + cur.*udotn + ves.SPc*cur.^2.*Lambda);
 
@@ -242,7 +240,7 @@ function [ves,ux_old,uy_old,L,Ln,dcur0,N1,N2Hat,cx,cy] = FirstSteps(...
 % Returns ves, L, Ln and dcur0 to use for higher-order time stepping.     
 
 time = 0; % current time
-oc = curve; % define shorthand for curve class
+oc = curve(params.N); % define shorthand for curve class
 L = ves.L; % shorthand vesicle length
 [~,a_old,l_old] = oc.geomProp(ves.X);
 
@@ -378,7 +376,7 @@ function ves = TimeStepLoop(o,ves,params,om,ux_old,uy_old,L,Ln,...
 % now it is multistep, to change to Euler search for Euler and uncomment
 % appropriate lines.
 
-oc = curve;
+oc = curve(params.N);
 nstep = round(params.T/params.dt); % total number of time steps
 % Compute current area and length of the vesicle
 [~,a_old,l_old] = oc.geomProp(ves.X);
@@ -517,7 +515,9 @@ for ktime = 1:nstep
        %ves.X(end/2+1:end) = ves.X(end/2+1:end) - mean(ves.X(end/2+1:end));
        
   % Print outputs.
-  if mod(ktime,o.saveRate) == 0
+  %if mod(ktime,o.saveRate) == 0
+  cmod = ktime - o.saveRate*floor(ktime/o.saveRate);
+  if cmod == 0
       terminate = om.outputInfo(ves.X,ves.rcon,time,[uxvel_loop;uyvel_loop],ves.ten);
       if terminate
         msg = 'ERROR IN AREA IS TOO LARGE. STOPPING SIMULATION.';

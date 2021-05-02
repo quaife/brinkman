@@ -7,7 +7,15 @@ classdef curve
 % X coordinates do not have to be periodic, but the curvature,
 % normals, etc that they compute will be garbage.
 
+properties
+IK;
+end
+
 methods
+
+function o = curve(N)
+    o.IK = o.modes(N);
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [x,y] = getXY(o,X)
@@ -41,9 +49,9 @@ x = X(1:end/2,:);
 y = X(end/2+1:end,:);
 N = size(x,1);
 nv = size(x,2);
-IK = o.modes(N);
-Dx = o.diffFT(x,IK);
-Dy = o.diffFT(y,IK);
+%IK = o.modes(N);
+Dx = o.diffFT(x);
+Dy = o.diffFT(y);
 
 end % getDXY
 
@@ -73,7 +81,7 @@ if nargout>1  % if user requires tangent
 end
 
 if nargout>2  % if user requires curvature
-  IK = o.modes(N);
+  %IK = o.modes(N);
   [DDx,DDy] = o.getDXY([Dx,Dy]);
   DDx = DDx(:); DDy = DDy(:);
   curvature = (Dx.*DDy - Dy.*DDx)./(jacobian.^3);
@@ -222,9 +230,9 @@ length = sum(sa)/N;
 % total length of vesicle. This is spectrally accurate since it is the
 % trapezoid rule applied to a periodic function
 tol = 1e-13; % tolerance
-IK = o.modes(N);
+%IK = o.modes(N);
 
-intsa = o.intFT(sa,IK);
+intsa = o.intFT(sa,o.IK);
 
 f = (0:N-1)'*length/N - intsa;
 % we are interested in fiding the N roots of f. First one is at 0
@@ -240,10 +248,10 @@ alpha = zeros(N,1);
 for j = 2:N
   alpha(j) = alpha(j-1);
   for k = 1:100 % apply Newton's method
-    falpha = real(sum(fh.*exp(IK*alpha(j)))) + ...
+    falpha = real(sum(fh.*exp(o.IK*alpha(j)))) + ...
         ((j-1)*length/N - alpha(j)*length);
     % f at alpha
-    dfalpha = real(sum(dfh.*exp(IK*alpha(j))));
+    dfalpha = real(sum(dfh.*exp(o.IK*alpha(j))));
     % derivative of f at alpha
     alpha(j) = alpha(j) - falpha/dfalpha;
     % apply Newton iteration
@@ -351,8 +359,8 @@ L = sum(sqrt(Dx.^2 + Dy.^2))/N;
 cur = (Dx.*DDy - Dy.*DDx)/L^3;
 % compute curvature
 
-IK = o.modes(N);
-theta = o.intFT(L*cur-2*pi,IK);
+%IK = o.modes(N);
+theta = o.intFT(L*cur-2*pi,o.IK);
 % integrate the curature to find the opening angle
 
 theta = theta + t0 + (0:N-1)'*2*pi/N;
@@ -367,9 +375,9 @@ function X = recon(o,N,x0,y0,L,theta)
 % geometry with length L, opening angle theta, and its first point at
 % (x0,y0)
 
-IK = o.modes(N);
-x = o.intFT(L*cos(theta),IK);
-y = o.intFT(L*sin(theta),IK);
+% IK = o.modes(N);
+x = o.intFT(L*cos(theta),o.IK);
+y = o.intFT(L*sin(theta),o.IK);
 avx = sum(L*cos(theta))/N;
 avy = sum(L*sin(theta))/N;
 x = x - (0:N-1)'*avx/N + x0;
@@ -381,12 +389,13 @@ end % recon
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function df = diffFT(o,f,IK)
+function df = diffFT(o,f)
 % df = diffFT(f,IK) Computes the first derivative of a periodic function
 % f using fourier transform. IK is used to speed up the code.  It is the
 % index of the fourier modes so that fft and ifft can be used
-
-df = real(ifft(IK.*fft(f)));
+size(o.IK)
+size(f)
+df = real(ifft(o.IK.*fft(f)));
 
 end % diffFT
 
@@ -425,10 +434,10 @@ function dcur = fdcur(o,ves,unt)
 % This routine is equation (61) in the Sohn et al 2010 JCP paper
 
 N = ves.N;
-IK = o.modes(N);
+%IK = o.modes(N);
 
 dthetads = o.rmLinearPart(N, ves.theta);
-dcur = intFT(o,[dthetads.*unt],IK);
+dcur = intFT(o,[dthetads.*unt],o.IK);
 
 end %fdcur
 
@@ -436,11 +445,11 @@ end %fdcur
 function dx = rmLinearPart(o,N,theta)
 % N = ves.N;
 % theta = ves.theta;
-IK = o.modes(N);
+%IK = o.modes(N);
 
 % function with the same increase over a period of 2*pi as the angle
 % theta
-dx = o.diffFT([theta - 2*pi*(0:1:N-1)'/N],IK) + 2*pi;
+dx = o.diffFT([theta - 2*pi*(0:1:N-1)'/N]) + 2*pi;
 
 end %rmLinearPart
 
@@ -450,14 +459,14 @@ function fntheta = fthetaim(o,ves,un,ut,fdotn)
 N = ves.N;
 L = ves.L;  
 theta = ves.theta;
-IK = o.modes(N);
+%IK = o.modes(N);
 % compute right hand side of the ODE for \theta in equation (8) in Sohn
 % et al JCP 2010
 ftheta = o.forceTheta(ves,un,ut,fdotn);
 % now we must subtract off the stiffest part in Fourier space.
 % To the power of 3 term comes from the third-derivative of the function
 % that L is being applied to in equation (53)
-rlen = -ves.bendsti*(abs(IK)/L).^3/4 - ves.SPc*ves.bendsti*(IK/L).^4; 
+rlen = -ves.bendsti*(abs(o.IK)/L).^3/4 - ves.SPc*ves.bendsti*(o.IK/L).^4; 
 % last term in eq(54)
 var1 = fft(ftheta); % fft of first 2 terms in (54)
 var2 = fft(theta-(2*pi*(0:N-1))'/N);
@@ -472,12 +481,12 @@ function ftheta = forceTheta(o,ves,un,ut,fdotn)
 %forcing term for the ODE for theta 
 N = ves.N;
 L = ves.L;
-IK = o.modes(N);
+%IK = o.modes(N);
 %compute first derivative of the opening angle using Fourier
 %differentiation. This is actually the curvature
 dthetads = o.rmLinearPart(N,ves.theta)/L;
 %compute the derivative of the normal velocity
-dunds = o.diffFT(un + ves.SPc*fdotn,IK)/L;    
+dunds = o.diffFT(un + ves.SPc*fdotn)/L;    
 % Check T_s = -V * curvature (local inextensibility condition) (see
 % equation (20) in Sohn et al JCP 2010)
 ftheta = -dunds + dthetads.*ut;
@@ -505,15 +514,15 @@ function N2 = frconim(o,ves,epsch,consta)
 N = ves.N;
 L = ves.L;
 rcon = ves.rcon;
-IK = o.modes(N);
+%IK = o.modes(N);
 %setting up RHS of eq (68) 
 %termd is the a/eps(f'(u)-eps^2u_ss) + b'(u)/2 * kappa^2 terms in eq (13) 
 %ie. termd is the variational derivative of the energy with
 %respect to the lipid concentration
 termd = o.fluxj(ves,epsch,consta);
 %now taking derivative of the variational derivative twice
-rcons = o.diffFT(termd,IK)/L;
-rconss = o.diffFT(rcons,IK)/L;
+rcons = o.diffFT(termd)/L;
+rconss = o.diffFT(rcons)/L;
 %invPe is the 1/Pe term in eq (67)
 invPe = 1;
 %fcon is the part of N_2 in eq (67) but is still missing the
@@ -523,7 +532,7 @@ rconHat = fft(rcon);
 %rlen is the term that needs to multiply the fourier coefficients of
 %the lipid species to result in the fourth derivative scaled by the a
 %and \eps constants in equation (67)
-rlen = invPe*(IK/L).^4*consta*epsch;
+rlen = invPe*(o.IK/L).^4*consta*epsch;
 %N2 is equation (67) in the physical space.
 N2Hat = fconHat + rlen.*rconHat;
 N2Hat(1) = 0;
@@ -540,13 +549,13 @@ function RHSflux = fluxj(o,ves,epsch,consta)
 N = ves.N;
 L = ves.L;
 rcon = ves.rcon;
-IK = o.modes(N);
+%IK = o.modes(N);
 %dfu is the derivative of the double-well potential
 dfu = 0.5*(rcon.*(ones(N,1)-rcon).^2 - rcon.^2.*(ones(N,1)-rcon));
 %derivative of the concentration 
-rcons = o.diffFT(rcon,IK)/L;
+rcons = o.diffFT(rcon)/L;
 %second derivative of the concentration
-rconss = o.diffFT(rcons,IK)/L;
+rconss = o.diffFT(rcons)/L;
 %term2 is eps^2 * u_ss as defined in equation (13)
 term2 = -epsch^2*rconss;
 %computing the b'(u)/2 * kappa^2 term in eq (13)
