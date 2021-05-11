@@ -8,7 +8,7 @@ options.savefig = false;
 %file = 'extensional_RAp8_Conc0p3_Chi10_beta0_n500_dt0en4.bin';
 %file = 'parabolic_Conc0p3_Chi600_beta0_n500_dt0en4_h2.bin';
 
-file = 'cChi600_RA0p6_Conc0p3_Beta0_y0p1_eps0p04.bin';
+file = 'Chi200_RA0p6_Conc0p3_Beta0_y0p1_eps0p04_n20.bin';
 ax = [-2 2 -2 2];
 
 [posx,posy,conc,ea,el,time,xvel1,yvel1,ten] = loadFile(file);
@@ -17,7 +17,7 @@ ax = [-2 2 -2 2];
 
 %plot(time,squeeze(mean(posy)))
  
- irate = 10; 
+ irate = 1; 
  istart = 1;
  iend = numel(time);
  ntime = iend;
@@ -96,14 +96,14 @@ ax = [-2 2 -2 2];
        title('\Lambda^{LL}');
        
        % --------------FOURTH SUBPLOT: Curvature squared ----------------
-       subplot(2,2,4)
-%       [~,~,cur] = oc.computeOpeningAngle(N,[posx(:,:,k);posy(:,:,k)]); 
-pause
-       [~,~,cur] = oc.diffProp([xx1;yy1]); 
-       plot(cur.^2,'linewidth',3)
-       xlim([0 N])
-       title('\kappa^2');
-       
-      pause(0.1);
+%        subplot(2,2,4)
+% %       [~,~,cur] = oc.computeOpeningAngle(N,[posx(:,:,k);posy(:,:,k)]); 
+% pause
+%        [~,~,cur] = oc.diffProp([xx1;yy1]); 
+%        plot(cur.^2,'linewidth',3)
+%        xlim([0 N])
+%        title('\kappa^2');
+%        
+       pause(0.1);
   end
  

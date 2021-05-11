@@ -1,4 +1,4 @@
-%function [] = parabolic1Ves(fluxCoeff,farFieldSpeed,concentration,shortax, scaleL, fileName)
+function [] = parabolic1Ves(fluxCoeff,farFieldSpeed,concentration,shortax, scaleL, fileName)
 %   fluxCoeff = 0;
 %   farFieldSpeed = 10;
 %   concentration =0.3;
@@ -8,12 +8,12 @@
 %of multicomponent vesicles in a viscous fluid" by Sohn, Tseng, Li
 %Voigt, &  Lowengrub JCP 2013
 
-fluxCoeff = 0;
-farFieldSpeed = 200;
-concentration = 0.3;
-shortax = 3.45;
-scaleL = 0.538;
-fileName = 'parabolic1Ves_TESTTESTac';
+%fluxCoeff = 0;
+%farFieldSpeed = 200;
+% concentration = 0;
+% shortax = 3.45;
+% scaleL = 0.538;
+% fileName = 'TEST';
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
@@ -21,7 +21,7 @@ fileName = 'parabolic1Ves_TESTTESTac';
 
 params.N = 256; % points on vesicle
 params.dt = 1e-5; % time step size
-params.T = 1e-4; % time horizon
+params.T = 500; % time horizon
 params.saveRate = 1; % ouptut frequency
 params.concentra = concentration; % constant, initial concentration of 
                                   % lipid species
@@ -56,9 +56,9 @@ options.logFile = true;  % log file name
 options.logFile = ['output/' fileName '.log'];
 options.dataFile = ['output/' fileName '.bin'];
 tic
-profile on
+%profile on
 ves = Ves2D(params,options);
-profile off
-profile viewer
+%profile off
+%profile viewer
 toc
-%end
+end

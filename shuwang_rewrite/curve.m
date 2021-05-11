@@ -393,8 +393,7 @@ function df = diffFT(o,f)
 % df = diffFT(f,IK) Computes the first derivative of a periodic function
 % f using fourier transform. IK is used to speed up the code.  It is the
 % index of the fourier modes so that fft and ifft can be used
-size(o.IK)
-size(f)
+
 df = real(ifft(o.IK.*fft(f)));
 
 end % diffFT
