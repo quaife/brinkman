@@ -147,7 +147,8 @@ if 0
   options.confined = false;
 end
 if 1
-  file = 'shear1VesHData.bin';
+%  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/shear/Chi1p0e1_ra045_beta1p0em3_longer/shear1VesData.bin';
+  file = 'shear1VesE_restartData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em1_ra065_beta1p0em4p5/shear1VesData.bin.old';
 %  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/shear/Chi1p0e0_ra075_beta1p0em3/shear1VesData.bin';
   ax = [-5 5 -5 5];

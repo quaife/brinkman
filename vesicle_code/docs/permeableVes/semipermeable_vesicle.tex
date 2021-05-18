@@ -586,6 +586,7 @@ Applying integration by parts, the two integrals are identical and we combine th
   \dot{A}(t) = \int_\gamma \left(\beta (\ff \cdot \nn)\nn 
     + \SS[\ff]\right) \cdot \nn\, ds 
   = \beta \int_\gamma (\ff \cdot \nn)\, ds,
+  \label{eqn:areaROCforce}
 \end{align}
 where we have used the incompressibility of the single-layer potential.
 Substituting in $\ff = \ff_\mathrm{ben} + \ff_\mathrm{ten}$ and
@@ -698,7 +699,7 @@ agreement in the equilibrium vesicle shapes.
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Hydrodynamics of a semipermeable inextensible membrane in free space\label{sec:free_space}}
+\section{Hydrodynamics of a Semipermeable Inextensible Membrane in Free Space\label{sec:free_space}}
 To highlight the effects of membrane permeability to water, we consider
 a single semipermeable inextensible membrane, with (dimensionless) permeability
 coefficient $\beta>0$, in familiar configurations: In free space we
@@ -1067,17 +1068,72 @@ farther away the vesicle is relative to the flow center at $y=0$.
   (a) 200 $\mu$m/s, (b) 400 $\mu$m/s, (c) 600 $\mu$m/s, and (d) 800
   $\mu$m/s.}
 \end{figure*}
- The membrane tension distribution of the equilibrium shapes are shown
- in Figure~\ref{fig:parabolicTensions} for the flow velocities $U$ from
- $200\;\mu$m/s to $800 \;\mu$m/s. We note that in the Poiseuille flow
- the membrane tension is positive in the front, and negative in the rear
- part of the vesicle. Furthermore we also note that the tension
- magnitude is almost linearly proportional to $U$ as in the linear shear
- flow.
+The membrane tension distribution of the equilibrium shapes are shown in
+Figure~\ref{fig:parabolicTensions} for the flow velocities $U$ from
+$200\;\mu$m/s to $800 \;\mu$m/s. We note that in the Poiseuille flow the
+membrane tension is positive in the front, and negative in the rear part
+of the vesicle. Furthermore we also note that the tension magnitude is
+almost linearly proportional to $U$ as in the linear shear flow.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Role of Tension and Bending on Semipermeability}
+\textcolor{magenta}{Since $\jump{p}= \ff_\mathrm{mem} \cdot
+\nn$~\cite{poz1992}, our model assumes that the permeating flux is
+proportional to the mechanical pressure jump across the membrane. We
+decompose the normal component of the membrane force into its
+contributions due to tension and bending as
+\begin{align}
+  \ff_{\mathrm{ten}} \cdot \nn = -\kappa \Lambda 
+    \quad \text{ and } \quad
+  \ff_{\mathrm{ben}} \cdot \nn = \kappa_{ss} + \frac{1}{2}\kappa^3.
+\end{align}
+Then, the total flux through the membrane due to the tension and bending
+forces are
+\begin{align}
+  \dot{A}_{\mathrm{ten}}(t) = -\beta \int_{\gamma} \kappa \Lambda\, ds  
+  \quad \text{ and } \quad
+  \dot{A}_{\mathrm{ben}}(t) = \frac{\beta}{2} \int_{\gamma} \kappa^3\, ds,
+  \label{eqn:areaROCdecomposed}
+\end{align}
+respectively. Note that the sum of $\dot{A}_{\mathrm{ten}}(t)$ and
+$\dot{A}_{\mathrm{ben}}(t)$ results in equation~\eqref{eqn:areaROC}.
+After multiplying~\eqref{eqn:areaROCdecomposed} by $4\pi/L^2$, where $L$
+is the constant  vesicle length, the rate of change of the reduced area
+due to the tension and bending forces are formed. We investigate the
+effect of the tension and bending forces on the semipermeability for two
+quiescent examples (Figures~\ref{fig:unconfinedRAdecomp}(a) and (b)),
+one planar shear example (Figure~\ref{fig:unconfinedRAdecomp}(c)), and
+one Poiseuille example (Figure~\ref{fig:unconfinedRAdecomp}(d)). In the
+quiescent flow examples, we see that the tension and bending forces
+result in similar amounts of semipermeability, and for the geometry with
+a larger initial curvature, the reduced area changes much quicker and
+the vesicle deflates at early times before inflating to a circular
+shape. In the planar shear flow and Poiseuille flow examples, the
+tension and bending forces result in similar amounts of
+semipermeability.}
+
+\begin{figure*}[htp]
+  \ifTikz
+  \input{figures/unconfinedRAdecomp.tikz}
+  \else
+  \includegraphics{figures/unconfinedRAdecomp.pdf}
+  \fi
+  \caption{\label{fig:unconfinedRAdecomp}\textcolor{magenta}{The rate of
+  change of the reduced area caused by the tension and bending forces.
+  The dashed line is the sum of these two contributions. (a) The
+  quiescent example in Figure~\ref{fig:relaxationComposite} with
+  $\alpha(0) = 0.66$. (b) The quiescent example in
+  Figure~\ref{fig:relaxationComposite} with $\alpha(0) = 0.38$. (c) The
+  planar shear example in Figure~\ref{fig:shearComposite} with $\alpha(0) =
+  0.45$ and $Ca_\mathrm{E} = 10^0$. (d) The Poiseuille example in
+  Figure~\ref{fig:parabolicComposite} with $\alpha(0) = 0.60$ and
+  maximum velocity $U = 600~\mu$m/s.}}
+\end{figure*}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Hydrodynamics of A semipermeable inextensible membrane under strong confinement\label{sec:confinement}}
+\section{Hydrodynamics of a Semipermeable Inextensible Membrane Under Strong Confinement\label{sec:confinement}}
 Here we consider a semipermeable inextensible membrane under strong
 confinement: a long closely-fit channel and a contracting channel. In a
 narrow microfluidic channel, a large pressure jump is often used to push
@@ -1096,7 +1152,8 @@ distribution.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{A Semipermeable Inextensible Membrane in a Closely-fit Channel (Stenosis)}
+\subsection{A Semipermeable Inextensible Membrane in a Closely-fit
+Channel (Stenosis)}
 \begin{figure*}[htp]
   \centering
   \ifTikz
@@ -1122,6 +1179,8 @@ distribution.
   dashed lines correspond to the times that the vesicle enters and exits
   the constriction.}
 \end{figure*}
+
+
 When red blood cells go through small capillary vessels, they experience
 large shape deformation and significant membrane stretching that
 triggers ATP release~\cite{Wan2008_PNAS, ForsythWan2011_PNAS}. Many
@@ -1175,12 +1234,29 @@ and (d) with $U_{\max}=1000\;\mu$m/s, and we observe that vesicle stays
 inside the stenosis for a residence time $t_R \approx 70$ ms and the
 area decreases by 13.2\% (red curves).
 
-%When a semipermeable vesicle goes through a closely-fit channel, we
-%observe that the water efflux is found in the front, and the influx is
-%in the rear of the vesicle membrane
-%(Figure~\ref{fig:stenosisComposite}). This corresponds well to the
-%corresponding tension distribution in Figure~\ref{fig:stenosisTensions}:
-%Larger tension in the front, and smaller tension in the rear.
+\textcolor{magenta}{Using equation~\eqref{eqn:areaROCdecomposed}, we
+investigate the effects of the tension and bending forces on the water
+flux through the membrane. In Figure~\ref{fig:stenosisRAdecomp}, we
+compute the rate of change of the reduced area due to the tension force
+(blue), the bending force (red), and the total membrane force (black).
+In both the short and long closely-fit channels, the tension force is
+responsible for nearly all the semipermeability. This is in contrast to
+the unconfined examples where the tension and bending forces were
+each responsible for a comparable amount of semipermeability.}
+
+\begin{figure*}[htp]
+  \ifTikz
+  \input{figures/stenosisRAdecomp.tikz}
+  \else
+  \includegraphics{figures/stenosisRAdecomp.pdf}
+  \fi
+  \caption{\label{fig:stenosisRAdecomp} \textcolor{magenta}{The rate of
+  change of the reduced area caused by the tension and bending forces.
+  The dashed line is the sum of these two contributions. (a) The short
+  stenosis geometry in Figure~\ref{fig:stenosisComposite}(a). (b) The
+  long stenosis geometry in Figure~\ref{fig:stenosisComposite}(b).}}
+\end{figure*}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{A Semipermeable Inextensible Membrane in a Contracting Geometry} 
@@ -1250,6 +1326,43 @@ influx is in the middle. The tension distribution along the membrane as
 a function of their position in the contracting channel is summarized in
 Figure~\ref{fig:contractingComposite} (g)--(l), where we observe the
 tension has the largest magnitude when the membrane is at the neck. 
+
+\textcolor{magenta}{As was done for the closely-fit channel, we use
+equation~\eqref{eqn:areaROCdecomposed} to investigate the effects of the
+tension and bending forces on semipermeability.
+Figure~\ref{fig:contractingRAdecomp} shows the rate of change of the
+reduced area due to the tension force (blue), the bending force (red),
+and the total membrane force (black). Again, the tension is responsible
+for the majority of the semipermeability. However, when compared to the
+closely-fit channel example, the bending does have more of a
+contribution because of the lower maximum imposed velocity. While we
+only decompose the membrane force into tension and bending for the two
+vesicles that successfully pass through the contraction, we also plot
+the total membrane force for the two vesicles that do not pass through
+the contraction (green). The vesicle does deflate with a smaller
+semipermeability coefficient and a smaller maximum imposed velocity, but
+the rate of efflux is insufficient for successful passage of the vesicle
+through the contraction.}
+
+\begin{figure*}[htp]
+  \ifTikz
+  \input{figures/contractingRAdecomp.tikz}
+  \else
+  \includegraphics{figures/contractingRAdecomp.pdf}
+  \fi
+  \caption{\label{fig:contractingRAdecomp} \textcolor{magenta}{The rate
+  of change of the reduced area caused by the tension and bending
+  forces. The dashed line is the sum of these two contributions. Only
+  simulations where the vesicle passes through the contraction are
+  decomposed into the contributions due to tension and bending. (a) The
+  low semipermeability coefficient in
+  Figure~\ref{fig:contractingComposite}(b). The green line corresponds
+  to the simulation in Figure~\ref{fig:contractingComposite}(a). (b) The
+  high semipermeability coefficient in
+  Figure~\ref{fig:contractingComposite}(e). The green line corresponds
+  to the simulation in Figure~\ref{fig:contractingComposite}(d).}}
+\end{figure*}
+
 
 \begin{figure}[hbp]
   \centering
