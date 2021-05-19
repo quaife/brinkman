@@ -1076,11 +1076,11 @@ of the vesicle. Furthermore we also note that the tension magnitude is
 almost linearly proportional to $U$ as in the linear shear flow.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The Role of Tension and Bending on Semipermeability}
-\textcolor{magenta}{Since $\jump{p}= \ff_\mathrm{mem} \cdot
-\nn$~\cite{poz1992}, our model assumes that the permeating flux is
-proportional to the mechanical pressure jump across the membrane. We
-decompose the normal component of the membrane force into its
+\subsection{Contribution from Membrane Tension and Bending to the Permeating Flux}
+\textcolor{magenta}{In the absence of viscosity contrast between interior and exterior fluids, the pressure jump $\jump{p}= \ff_\mathrm{mem} \cdot
+\nn$~\cite{poz1992}. Thus in our model, the permeating flux is
+proportional to the normal component of membrane forces $\ff_\mathrm{mem}\cdot\nn$. We
+decompose $\ff_\mathrm{mem}\cdot\nn$ into its
 contributions due to tension and bending as
 \begin{align}
   \ff_{\mathrm{ten}} \cdot \nn = -\kappa \Lambda 
@@ -1097,9 +1097,10 @@ forces are
 \end{align}
 respectively. Note that the sum of $\dot{A}_{\mathrm{ten}}(t)$ and
 $\dot{A}_{\mathrm{ben}}(t)$ results in equation~\eqref{eqn:areaROC}.
-After multiplying~\eqref{eqn:areaROCdecomposed} by $4\pi/L^2$, where $L$
-is the constant  vesicle length, the rate of change of the reduced area
-due to the tension and bending forces are formed. We investigate the
+Multiplying~\eqref{eqn:areaROCdecomposed} by $4\pi/L^2$, where $L$
+is the constant  vesicle length, we obtain the rate of change of the reduced area
+due to the tension and bending forces. 
+Figures~\ref{fig:unconfinedRAdecomp} summarize the 
 effect of the tension and bending forces on the semipermeability for two
 quiescent examples (Figures~\ref{fig:unconfinedRAdecomp}(a) and (b)),
 one planar shear example (Figure~\ref{fig:unconfinedRAdecomp}(c)), and
@@ -1119,7 +1120,7 @@ semipermeability.}
   \includegraphics{figures/unconfinedRAdecomp.pdf}
   \fi
   \caption{\label{fig:unconfinedRAdecomp}\textcolor{magenta}{The rate of
-  change of the reduced area caused by the tension and bending forces.
+  change of the reduced area decomposed into contributions from membrane tension (blue curves) and membrane bending (red curves).
   The dashed line is the sum of these two contributions. (a) The
   quiescent example in Figure~\ref{fig:relaxationComposite} with
   $\alpha(0) = 0.66$. (b) The quiescent example in
@@ -1234,15 +1235,17 @@ and (d) with $U_{\max}=1000\;\mu$m/s, and we observe that vesicle stays
 inside the stenosis for a residence time $t_R \approx 70$ ms and the
 area decreases by 13.2\% (red curves).
 
-\textcolor{magenta}{Using equation~\eqref{eqn:areaROCdecomposed}, we
-investigate the effects of the tension and bending forces on the water
-flux through the membrane. In Figure~\ref{fig:stenosisRAdecomp}, we
-compute the rate of change of the reduced area due to the tension force
+\textcolor{magenta}{
+Figure~\ref{fig:stenosisRAdecomp} show
+the rate of change of the reduced area due to the tension force
 (blue), the bending force (red), and the total membrane force (black).
-In both the short and long closely-fit channels, the tension force is
-responsible for nearly all the semipermeability. This is in contrast to
+%Using equation~\eqref{eqn:areaROCdecomposed}, we
+%investigate the effects of the tension and bending forces on the water
+%flux through the membrane. 
+In both short and long closely-fit channels, the membrane tension is
+responsible for nearly all the permeating water flux. This is in contrast to
 the unconfined examples where the tension and bending forces were
-each responsible for a comparable amount of semipermeability.}
+each responsible for a comparable amount of permeating water flux.}
 
 \begin{figure*}[htp]
   \ifTikz
@@ -1251,7 +1254,7 @@ each responsible for a comparable amount of semipermeability.}
   \includegraphics{figures/stenosisRAdecomp.pdf}
   \fi
   \caption{\label{fig:stenosisRAdecomp} \textcolor{magenta}{The rate of
-  change of the reduced area caused by the tension and bending forces.
+  change of the reduced area due to the membrane tension (blue curves) and membrane bending (red curves).
   The dashed line is the sum of these two contributions. (a) The short
   stenosis geometry in Figure~\ref{fig:stenosisComposite}(a). (b) The
   long stenosis geometry in Figure~\ref{fig:stenosisComposite}(b).}}
@@ -1327,19 +1330,20 @@ a function of their position in the contracting channel is summarized in
 Figure~\ref{fig:contractingComposite} (g)--(l), where we observe the
 tension has the largest magnitude when the membrane is at the neck. 
 
-\textcolor{magenta}{As was done for the closely-fit channel, we use
-equation~\eqref{eqn:areaROCdecomposed} to investigate the effects of the
-tension and bending forces on semipermeability.
+\textcolor{magenta}{
+%As was done for the closely-fit channel, we use
+%equation~\eqref{eqn:areaROCdecomposed} to investigate the effects of the
+%tension and bending forces on semipermeability.
 Figure~\ref{fig:contractingRAdecomp} shows the rate of change of the
-reduced area due to the tension force (blue), the bending force (red),
-and the total membrane force (black). Again, the tension is responsible
-for the majority of the semipermeability. However, when compared to the
+reduced area due to membrane tension (blue curves), membrane bending (red curves),
+and the total membrane force (dashed black curves). Again, the tension is responsible
+for the majority of the permeating flux. However, when compared to the
 closely-fit channel example, the bending does have more of a
 contribution because of the lower maximum imposed velocity. While we
 only decompose the membrane force into tension and bending for the two
 vesicles that successfully pass through the contraction, we also plot
 the total membrane force for the two vesicles that do not pass through
-the contraction (green). The vesicle does deflate with a smaller
+the contraction (dash-dotted green curves). The vesicle does deflate with a smaller
 semipermeability coefficient and a smaller maximum imposed velocity, but
 the rate of efflux is insufficient for successful passage of the vesicle
 through the contraction.}
@@ -1351,15 +1355,15 @@ through the contraction.}
   \includegraphics{figures/contractingRAdecomp.pdf}
   \fi
   \caption{\label{fig:contractingRAdecomp} \textcolor{magenta}{The rate
-  of change of the reduced area caused by the tension and bending
-  forces. The dashed line is the sum of these two contributions. Only
+  of change of the reduced area due to  membrane tension (blue curves) and membrane bending
+  (red curves). The dashed black  line is the sum of these two contributions. Only
   simulations where the vesicle passes through the contraction are
   decomposed into the contributions due to tension and bending. (a) The
   low semipermeability coefficient in
-  Figure~\ref{fig:contractingComposite}(b). The green line corresponds
+  Figure~\ref{fig:contractingComposite}(b). The dash-dotted green curve corresponds
   to the simulation in Figure~\ref{fig:contractingComposite}(a). (b) The
   high semipermeability coefficient in
-  Figure~\ref{fig:contractingComposite}(e). The green line corresponds
+  Figure~\ref{fig:contractingComposite}(e). The dash-dotted green curve corresponds
   to the simulation in Figure~\ref{fig:contractingComposite}(d).}}
 \end{figure*}
 
