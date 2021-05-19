@@ -22,7 +22,8 @@
   legend entries = {Tension, Bending, Total},
   legend cell align=left,
   legend style={draw=none,font=\small,fill=none},
-  legend style={at={(1.02,-0.10)},anchor=north west},
+%  legend style={at={(1.02,-0.10)},anchor=north west},
+  legend style={at={(1.00,1.00)},anchor=north east},
   title style = {align=center, yshift = -0.2cm, font=\footnotesize},
   title = {$\alpha(0) = 0.66$},
 ]
@@ -700,7 +701,7 @@
 
 % START OF RELAXATION THIRD LARGEST INITIAL REDUCED AREA
 \begin{axis}[
-  at = {(8.4cm,6.5cm)},
+  at = {(7.6cm,6.5cm)},
   scale = 0.80,
   xmin = 5e-7,
   xmax = 2e-1,
@@ -717,6 +718,10 @@
   ylabel = {\small $\dot{\alpha}(t)$},
   ylabel shift = {-0.2cm},
   ylabel near ticks,
+  legend entries = {Tension, Bending, Total},
+  legend cell align=left,
+  legend style={draw=none,font=\small,fill=none},
+  legend style={at={(1.00,0.00)},anchor=south east},
   title style = {align=center, yshift = -0.2cm, font=\footnotesize},
   title = {$\alpha(0) = 0.38$},
 ]
@@ -2719,6 +2724,10 @@
   ylabel = {\small $\dot{\alpha}(t)$},
   ylabel shift = {-0.2cm},
   ylabel near ticks,
+  legend entries = {Tension, Bending, Total},
+  legend cell align=left,
+  legend style={draw=none,font=\small,fill=none},
+  legend style={at={(0.00,0.00)},anchor=south west},
   title style = {align=center, yshift = -0.2cm, font=\footnotesize},
   title = {$\alpha(0) = 0.45$},
 ]
@@ -16999,7 +17008,7 @@
 % START OF PARABOLIC THIRD LOWEST FLOW RATE
 \begin{axis}[
   /pgfplots/tick scale binop=\times,
-  at = {(8.4cm,0.0cm)},
+  at = {(7.6cm,0.0cm)},
   scale = 0.80,
   xmin = 1e-5,
   xmax = 0.5,
@@ -17017,6 +17026,11 @@
   ylabel = {\small $\dot{\alpha}(t)$},
   ylabel shift = {-0.2cm},
   ylabel near ticks,
+  legend entries = {Tension, Bending, Total},
+  legend cell align=left,
+  legend style={draw=none,font=\small,fill=none},
+%  legend style={at={(1.02,-0.10)},anchor=north west},
+  legend style={at={(1.00,1.00)},anchor=north east},
   title style = {align=center, yshift = -0.2cm, font=\footnotesize},
   title = {$\alpha(0) = 0.60$},
 ]
