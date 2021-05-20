@@ -5,33 +5,82 @@
 \newcommand{\response}[1]{\textcolor{blue}{#1}}
 
 \begin{document}
-We thank the reviewer for reviewing our manuscript \textit{Hydrodynamics
-of a semipermeable inextensible membrane under flow and confinement}.
-Below is a point-by-point response addressing each of the referee's
-comments.
+
+We thank the referee for his/her assessment of our work.  
+The following is
+our response to each of the specific comments and suggestions.
+
+{\bf The referee wrote:
+In this theoretical work, a 2D vesicle is simulated (via boundary elements) in unbounded and confined flows, while accounting for the finite permeability of the membrane to water. While this additional physics has, expectedly, little to no impact on the long-time physics (shape, tension) of vesicles in unbounded flows, in confined flows a marked dependence is observed on the permeability rate. In straight channel flow, the rate of water loss is proportional to the residence time in the channel, resulting in a reduction of the 2D reduced area at the channel outlet. In contraction flow, a high permeability rate (as well as a large pressure gradient) is required to force the vesicle through the nozzle and emerge in the open chamber downstream.
+
+Overall, the paper is well written and the main results are clearly presented. A decent amount of time is spent covering vesicles in quiescent fluids and unbounded flows, which are less interesting than Section V, which includes the main interesting results on confined flows. However, these earlier sections help to paint a cohesive picture to put these later results in a clear context and, for that reason, their addition is welcome. My only real critique of the article is that all of the results are based on 2D simulations and, therefore, their applicability to real 3D systems is limited. However, the novelty of adding finite membrane permeability to the 2D boundary element context (which, to the best of my knowledge, has not been done before) merits publication of this article in Physical Review Fluids. I am therefore recommending this article for publication subject to optional revision (see my comments below).}
+
+
+\noindent
+{\bf Response:}: We thank the referee for the confirmation that the topic is interesting and results are useful.
+
 \begin{enumerate}
-  \item I am slightly confused as to how the length and time scales are
-    derived from the parameters discussed on page 4. As the simulation
-    is 2D, it would seem to me that all physical parameters can only be
-    defined on a ``per unit of length" basis. E.g., for a 2D vesicle
-    contour, the surface tension is actually a line tension with units
-    of N, not N/m. Could the authors clarify this?  In particular,
-    reference is often made to how long things will take in the results
-    (seconds, minutes, days, weeks, etc.), which is why I ask how these
-    time scales are obtained. \\ \\
-    \response{A response}
 
-  \item Could the authors shed some insight as to how these 2D
-    simulations could be reliably connected to real experiments on any
-    quantitative basis? Or is the connection purely qualitative? \\ \\
-    \response{A response}
+\item {\bf The referee wrote: ``1. I am slightly confused as to how the length and time scales are derived from the parameters discussed on page 4. As the simulation is 2D, it would seem to me that all physical parameters can only be defined on a “per unit of length” basis. E.g., for a 2D vesicle contour, the surface tension is actually a line tension with units of N, not N/m. Could the authors clarify this?
+In particular, reference is often made to how long things will take in the results (seconds,
+minutes, days, weeks, etc.), which is why I ask how these time scales are obtained."}
 
-  \item On the last page: ``We observe lose of" $\rightarrow$ ``We
-    observe loss of". \\ \\
-    \response{Thank you for noticing this typo. It is corrected.}
+\noindent
+{\bf Response:}: We thank the referee for this question. The referee is indeed correct that in a 2D system the system remains constant in the $z$ direction. Consequently it is customary to focus on the 2D system on a plane, and the membrane tension is the membrane force per unit length (the length in the $z$ direction). This means that, after the division by the length in the third ($z$) direction, the membrane tension in the plane is force per length. 
+
+The dimensionless group of this system is independent of the spatial dimensions of the system. In the absence of any external flow, we have adopted the initial vesicle size $R_0$ for a length scale,  the elastic relaxation in balance with the viscous dissipation at  length scale $R_0$ for a time scale $\tau$, and the elastic force at length scale $R_0$ for membrane tension. The dimensionless permeability is the hydraulic permeability scaled accordingly. Such scaling is natural for the quiescent cases. We used the same scaling for other cases for consistency in presentation to avoid confusion.
+
+\noindent
+{\bf Locations:} Second to last paragraph in page 4, fifth line in this paragraph, ``Under this nondimensionalization suitable for a vesicle in a quiescent flow".
 
 
-\end{enumerate}
+\item {\bf The referee wrote: ``2. Could the authors shed some insight as to how these 2D simulations could be reliably connected to real experiments on any quantitative basis? Or is the connection purely
+qualitative?"}
+
+\noindent
+{\bf Response:}: The referee is correct that numerical simulations of two-dimensional fluid flow could be ideal and the connection to the real experiments is qualitative at best. The studies of two-dimensional vesicle hydrodynamics, however, have shown that the connection to real experiments or 3d simulations could be more than purely qualitative. For example, for a vesicle in a planar shear flow, the transition from tank-treading to tumbling is predicted in both 2 and 3-dimensions, at similar viscosity contrast. Ghiliotti, Biben and Misbah (JFM, 2010) showed that results for a two-dimensional vesicle could be corrected systematically to agree with the three-dimensional results. More recently, the two-dimensional results in Zhang, Shen, Hogan, Barakat and Misbah are also in more than qualitative agreement with real experiments (Biophys. J, 2018). 
+
+\noindent
+{\bf Location:} Second paragraph in the new Introduction in page 2.
+
+\item {\bf The referee wrote: ``On the last page: “We observe lose of”è“We observe loss of”."}
+
+\noindent
+{\bf Response:} The typo is corrected.
+
+\noindent
+{\bf Location:} Second paragraph in page 21.
+
+
+ \end{enumerate}
+
+%We thank the reviewer for reviewing our manuscript \textit{Hydrodynamics
+%of a semipermeable inextensible membrane under flow and confinement}.
+%Below is a point-by-point response addressing each of the referee's
+%comments.
+%\begin{enumerate}
+%  \item I am slightly confused as to how the length and time scales are
+%    derived from the parameters discussed on page 4. As the simulation
+%    is 2D, it would seem to me that all physical parameters can only be
+%    defined on a ``per unit of length" basis. E.g., for a 2D vesicle
+%    contour, the surface tension is actually a line tension with units
+%    of N, not N/m. Could the authors clarify this?  In particular,
+%    reference is often made to how long things will take in the results
+%    (seconds, minutes, days, weeks, etc.), which is why I ask how these
+%    time scales are obtained. \\ \\
+%    \response{A response}
+%
+%  \item Could the authors shed some insight as to how these 2D
+%    simulations could be reliably connected to real experiments on any
+%    quantitative basis? Or is the connection purely qualitative? \\ \\
+%    \response{A response}
+%
+%  \item On the last page: ``We observe lose of" $\rightarrow$ ``We
+%    observe loss of". \\ \\
+%    \response{Thank you for noticing this typo. It is corrected.}
+%
+%
+%\end{enumerate}
 
 
 \end{document}
