@@ -6,65 +6,110 @@
 \newcommand{\note}[1]{\textcolor{red}{#1}}
 
 \begin{document}
-We thank the reviewer for reviewing our manuscript \textit{Hydrodynamics
-of a semipermeable inextensible membrane under flow and confinement}.
-Below is a point-by-point response addressing each of the referee's
-comments.
+
+We thank the referee for his/her assessment of our work.  
+The following is
+our {\bf Response:} to each of the specific comments and suggestions.
+
+
+{\bf The referee wrote:
+The paper deals with effect of membrane permeation under equilibrium
+and flow conditions. This question is rarely addressed in literature.
+The authors highlight the fact that red blood cells have a long life
+time, and permeation may become decisive. The work report on several
+interesting issues and should be of interest to the community working
+on cell dynamics under flow. The paper is clearly written and results
+very sound. I support publication after the authors have taken into
+account the following points.
+}
+
+\noindent
+{\bf Response:}: We thank the referee for the confirmation that the topic is of interest to researchers working on cell dynamics under flow.
+
 \begin{enumerate}
-  \item It is stated in the introduction that stretching (due to
-    poration $\ldots$) give rise to enhanced membrane permeability to
-    both water and macromolecules such as ATP. Regarding ATP this is
-    possible. In normal conditions ATP is released thanks to protein
-    change of conformation that open channels and I am not sure the
-    evoked permeability is a similar phenomenon. A few words of
-    clarification are needed. \\ \\
-    \response{A response}
+\item {\bf 
+The referee wrote:
+``It is stated in the introduction that stretching (due to poration…)
+give rise to enhanced membrane permeability to both water and
+macromolecules such as ATP. Regarding ATP this is possible. In normal
+conditions ATP is released thanks to protein change of conformation
+that open channels and I am not sure the evoked permeability is a
+similar phenomenon. A few words of clarification are needed."}
 
-  \item What cause more permeation? (i) hydrodynamic stress of
-    suspending fluid, (ii) tension (normal component of force, say
-    Lagrange multiplier), (ii) or the tangential force component due to
-    tension field? It would be nice to check this point. \\ \\
-    \response{A response}
+\noindent
+{\bf Response:}: In recent experiments and simulations by Yaling Liu (Lehigh University), it is reported that under very large stress the spectrin network under a red blood cell membrane can be destroyed and the red blood cell membrane can rupture. As a result the hemoglobin inside the RBC is found to reduce in this process. We now see that the source of confusion arises from the fact that we associate such leakage to enhanced membrane permeability to macromolecules. 
 
-  \item Figure 5 is not well explained. Depending on Capillary number it
-    seems that for all reduced area converge to the same (solid line)
-    value or continue to decrease (dashed line). I suggest both in text
-    and in caption to discuss this issue more clearly. The result
-    (Fig.~5a) is also not intuitive: when capillary number is large (10)
-    there is a final reduced area, whereas for smaller value 1, the
-    final reduced area is smaller. I would have expected that smaller
-    $Ca_E$ would empty less the vesicle. Is there any interpretation? \\
-    \\
-    \response{In the quiescent example, we prove and demonstrate
-    numerically that the steady state vesicle reduced area is
-    independent of the initial reduced area. Figure 5a shows that this
-    result holds in the presence of flow. It also shows that the
-    steady state reduced area depends on the capillary number. However,
-    the entries in the legend of Figure 5a were accidentally reversed in
-    the original submission---this has been corrected. Therefore, the
-    reviewers intuition is correct that smaller capillary number results
-    in less emptying of the vesicle.}
+We agree with the referee that the ATP release is mostly understood when it is through the coupling between Px1 (activated by membrane tension) and CFTR (activated by membrane deformation), and it is not well understood yet how ATP can be released by diffusing through the membrane. We have thus modified this sentence to avoid confusion.
 
-  \item In Fig.~7b reference is made to steady state? I guess there is
-    still water flow across membrane? Or the total flux is zero? In
-    other word is the volume of the shapes shown there the same along
-    the blue solid line? Then I am confused with inset c which shows
-    variation of alpha? My question: are shapes in b along blue line
-    long term ones? Is alpha constant there? Please clarify. \\ \\
-    \response{A response}
-    \note{Is the 2D Green's function the same as the 3D green's function
-    in cylindrical coordinates.}
+\noindent
+{\bf Location:}  The second paragraph of Introduction, five lines above Figure 1: ``....reaches the order of 2-4 mN/m, giving rise to
+membrane rupture and leakage of macromolecules (see Razizadeh {\it et al. }$^{20}$ and references therein)."
 
-  \item I do not quite understand why permeation time scale is much
-    lower for confined situations? Is pressure drop fixed, as compared
-    to previous cases? Does cell see stronger stress now? Why? If the
-    driving force is the same I do not expect such dramatic change of
-    time scale, since the mean shear stress experienced by the cell
-    remains of the same order, as before. A clear discussion of origin
-    (from stress values point of view, and why confinement would enhance
-    imposed stress) is necessary. This section is poorly discussed. \\
-    \\
-    \response{A response}
+\item {\bf
+The referee wrote:
+``What cause more permeation? (i) hydrodynamic stress of suspending
+fluid, (ii) tension (normal component of force, say Lagrange
+multiplier), (ii) or the tangential force component due to tension
+field? It would be nice to check this point."}
+
+\noindent
+{\bf Response:}: We thank the referee for this point. In our formulation, the permeation flux is proportional to the hydrostatic pressure and the normal component of the membrane force, which is the capillary pressure due to the Lagrange multiplier tension. The tangential force component due to tension field does not contribute to the permeation flux. To elucidate the relative contribution between the hydrostatic pressure and the normal component of the membrane force, we have conducted computations 
+added a short paragraph to illustrate how the relative contributions are in all cases.
+
+\noindent
+{\bf Location:} A new \S IV D in page 14, and the new Figures 9 in page 15. The last paragraph in page 17, and the new Figure 11 in page 17. The second paragraph in page 19, and the new Figure 13 in page 19. Second to last paragraph in page 21.
+
+
+\item {\bf 
+The referee wrote:
+``Figure 5 is not well explained. Depending on Capillary number it
+seems that for all reduced area converge to the same (solid line)
+value or continue to decrease (dashed line). I suggest both in text
+and in caption to discuss this issue more clearly. Th result (Fig. 5a)
+is also not intuitive: when capillary number is large (10) there is a
+final reduced area, whereas for smaller value 1, the final reduced
+area is smaller. I would have expected that smaller Cae would empty
+less the vesicle. Is there any interpretation?"}
+
+\noindent
+{\bf Response:}: We have mislabeled the $Ca_E$ in figure 5:  $Ca_E=10^0$ for the solid curves and the $Ca_E=10$ for the dashed curves. To address the effect of Capillary number on the relaxation of a semipermeable vesicle, we have continued the simulations for the cases of $Ca_E = 10$ much further to better illustrate the evolution of reduced area towards equilibrium.
+
+\noindent
+{\bf Location:} A new Figure 5(a) in page 11.
+
+\item{\bf
+The referee wrote:
+``In Fig. 7 B reference is made to steady state? I guess there is
+still water flow across membrane? Or the total flux is zero? In other
+word is the volume of the shapes shown there the same along the blue
+solid line? Then I am confused with inset c which shows variation of
+alpha? My question: are shapes in b along blue line long term ones? Is
+alpha constant there? Please clarify."}
+
+\noindent
+{\bf Response:}: The shapes along the blue curve in Figure 7(b) are equilibrium shapes that enclose a constant area but with an efflux (blue) and an influx (red) that adds to zero. Inset c illustrates the evolution from initial  the configuration (I) to the equilibrium (shape III), which corresponds to the case with the largest displacement on the blue curve. To better present all these results, we have taken out the insets (c) and (d) and moved them to the new Figure 7 (a) and (b). The new Figure 7 (c) and (d) are the old Figure  7 (a) and (b).
+
+\noindent
+{\bf Location:} Figure 7 in page 13.
+
+\item{\bf
+The referee wrote:
+``I do not quite understand why permeation time scale is much lower
+for confined situations? Is pressure drop fixed, as compared to
+previous cases? Does cell see stronger stress now? Why? If the driving
+force is the same I do not expect such dramatic change of time scale,
+since the mean shear stress experienced by the cell remains of the
+same order, as before. A clear discussion of origin (from stress
+values point of view, and why confinement would enhance imposed
+stress) is necessary. This section is poorly discussed."}
+
+\noindent
+{\bf Response:}:  We have added new computations to illustrate the relative contributions of membrane tension and bending forces to the permeating fluxes for all cases in \S IV and \S V (see {\bf Response} to the second point), see the new Figures 9, 11, and 13.
+
+For the closely-fit channel the imposed flow at the inlet/outlet is set $U_{max}=1000$ $\mu$m/s to match the experimental conditions. As a result the membrane tension is dominant over membrane bending in their contribution to the permeating flux. For the contracting channel, the imposed flow at the inlet/outlet is smaller and yet the strong confinement still gives rise to a membrane tension that dominates in contributing to the permeating flux. We also added new paragraphs to discuss these new results.
+
+\noindent
+{\bf Location:} A new \S IV D in page 14, and the new Figures 9 in page 15. The last paragraph in page 17, and the new Figure 11 in page 17. The second paragraph in page 19, and the new Figure 13 in page 19. Second to last paragraph in page 21.
 
 \end{enumerate}
 
