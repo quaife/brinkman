@@ -115,6 +115,42 @@ logKernel = ssigma/2+bsigma*log(1/2)/2/pi;
 end %IntegrateLogKernel_old
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [velx,vely] = StokesSLPtar(o,ves,trac,Xtar)
+
+oc = curve;
+
+[xsou,ysou] = oc.getXY(ves.X);
+[fx,fy] = oc.getXY(trac);
+
+[xtar,ytar] = oc.getXY(Xtar);
+xtar = xtar(:); ytar = ytar(:);
+
+velx = zeros(size(xtar));
+vely = zeros(size(xtar));
+
+
+for k = 1:numel(xtar)
+  rx = xtar(k) - xsou;
+  ry = ytar(k) - ysou;
+  rho2 = rx.^2 + ry.^2;
+  rdotf = rx.*fx + ry.*fy;
+
+  velx(k) = sum(-0.5*log(rho2).*rx + rdotf./rho2.*rx);
+  vely(k) = sum(-0.5*log(rho2).*ry + rdotf./rho2.*ry);
+end
+
+velx = velx * ves.L/N;
+vely = vely * ves.L/N;
+% add the background velocity
+
+clf
+quiver(xtar,ytar,velx,vely);
+pause
+
+end % StokesSLPtar
+
+
+
 
 end % methods
 
