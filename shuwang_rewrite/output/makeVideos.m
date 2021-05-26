@@ -9,7 +9,7 @@ irate = 1000; % controls the speed of the visualization
 %file = 'Chi0_ra065_beta1_conc0p3.bin';
 %file = 'Chi4_ra07564_beta0_conc0p48_MoreEL.bin';
 %file = 'Chi5_ra065_beta0p1_conc0.bin';
-file = 'Testing.bin';
+file = 'Chi200_RA0p85_Conc0p3_Beta0_y0p1_eps0p04_n20.bin';
  [posx1,posy1,conc1,ea1,el1,time1,xvel1,yvel1] = loadFile(file);
   
 istart = 1;

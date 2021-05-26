@@ -49,7 +49,6 @@ x = X(1:end/2,:);
 y = X(end/2+1:end,:);
 N = size(x,1);
 nv = size(x,2);
-%IK = o.modes(N);
 Dx = o.diffFT(x);
 Dy = o.diffFT(y);
 
@@ -82,7 +81,7 @@ end
 
 if nargout>2  % if user requires curvature
   %IK = o.modes(N);
-  [DDx,DDy] = o.getDXY([Dx,Dy]);
+  [DDx,DDy] = o.getDXY([Dx;Dy]);
   DDx = DDx(:); DDy = DDy(:);
   curvature = (Dx.*DDy - Dy.*DDx)./(jacobian.^3);
 end
@@ -327,7 +326,11 @@ elseif symmetry==1
 elseif symmetry==2
   rcon = concentration+ 5*smallper*sin(4*pi*alpha);
   % uniform concentration with one small odd Fourier mode
+elseif symmetry == 3
+  rcon = zeros(N,1);
+  rcon(1:ceil(concentration*N)) = 1;
 end
+
 
 end % initialConcentration
 
@@ -583,12 +586,20 @@ dkap = o.rmLinearPart(N,theta)/L;
 end %acurv
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function CoM = centerOfMass(o, X, xory, L, normal)
+function CoM = centerOfMass(o,X)
 % This function returns the center of mass of the vesicle
     
   N = length(X)/2;  
-  [~,Area,~] = o.geomProp(X);
-  CoM = 0.5*L*sum(xory.^2.*normal)/(N*Area); 
+  [~,Area,L] = o.geomProp(X);
+  [~,tangent,~] = o.diffProp(X);
+  normal = [tangent(N+1:end);-tangent(1:N)];
+%   plot(X(1:N), X(N+1:end))
+%   hold on
+%   quiver(X(1:N), X(N+1:end),normal(1:N),normal(N+1:end))
+%   axis equal
+%   pause
+  CoM = [0.5*L*sum(X(1:N).^2.*normal(1:N))/(N*Area),0.5*L*...
+        sum(X(N+1:end).^2.*normal(N+1:end))/(N*Area)];
 
 end %centerOfMass
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

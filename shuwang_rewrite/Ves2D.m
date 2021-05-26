@@ -43,11 +43,16 @@ tt = tstep(params,ves); % Shorthand for tstep class
 om = monitor(ves.X,params,options); % Shorthand for monitor class
 
 % Take first step with first-order Euler to update for dX and dtheta
-[ves,ux_old,uy_old,L,Ln,dcur0,fntheta,N2Hat,cx0,cy0] = ...
+% [ves,ux_old,uy_old,L,Ln,dcur0,fntheta,N2Hat,cx0,cy0] = ...
+%       tt.FirstSteps(ves,params,options,om);
+[ves,ux_old,uy_old,L,Ln,dcur0,fntheta,N2Hat] = ...
       tt.FirstSteps(ves,params,options,om);
 
 % Begin time step routine using multistep to update dX and dtheta 
+% ves = tt.TimeStepLoop(ves,params,om,ux_old,uy_old,L,Ln,dcur0,...
+%                       fntheta,N2Hat,cx0,cy0);
 ves = tt.TimeStepLoop(ves,params,om,ux_old,uy_old,L,Ln,dcur0,...
-                      fntheta,N2Hat,cx0,cy0);
+                      fntheta,N2Hat);
+
 
 end % Ves2D

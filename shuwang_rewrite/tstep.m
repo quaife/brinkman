@@ -103,16 +103,16 @@ ves.X = oc.recon(ves.N, ves.x0, ves.y0, ves.L, ves.theta);
 tau = [[-Esigma.*sin(theta) - Eu.*cos(theta)]; ...
        [Esigma.*cos(theta) - Eu.*sin(theta)]];
 
-
-x0 = 0.2;
-y0 = 3.0;
-d = 1;
-x = ves.X(1:end/2);
-y = ves.X(end/2+1:end);
-r = sqrt((x - x0).^2 + (y - y0).^2);
-fx = -exp(-r/d).*(x-x0)./r;
-fy = -exp(-r/d).*(y-y0)./r;
-tau = tau + 5*[fx;fy];
+% 
+% x0 = 0.2;
+% y0 = 3.0;
+% d = 1;
+% x = ves.X(1:end/2);
+% y = ves.X(end/2+1:end);
+% r = sqrt((x - x0).^2 + (y - y0).^2);
+% fx = -exp(-r/d).*(x-x0)./r;
+% fy = -exp(-r/d).*(y-y0)./r;
+% tau = tau + 5*[fx;fy];
 
 % Construct Stokes matrix without the log singularity. 
 % ie. A3 only contains the rightmost kernel in equation (43)
@@ -233,8 +233,10 @@ x = real(ifft(x));
 end % preconditioner
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [ves,ux_old,uy_old,L,Ln,dcur0,N1,N2Hat,cx,cy] = FirstSteps(...
+function [ves,ux_old,uy_old,L,Ln,dcur0,N1,N2Hat] = FirstSteps(...
         o,ves,params,options,om)
+% function [ves,ux_old,uy_old,L,Ln,dcur0,N1,N2Hat,cx,cy] = FirstSteps(...
+%         o,ves,params,options,om)
 % Refines the first time step [0,dt] and uses a first-order Euler method
 % to find the vesicle position, curv, velocity, and density function.
 % Returns ves, L, Ln and dcur0 to use for higher-order time stepping.     
@@ -247,8 +249,8 @@ L = ves.L; % shorthand vesicle length
 % --------------- center of mass calculations
 xnormal =  sin(ves.theta);
 ynormal = -cos(ves.theta);
-cx0 = oc.centerOfMass(ves.X, ves.X(1:end/2),ves.L,xnormal);
-cy0 = oc.centerOfMass(ves.X, ves.X(end/2+1:end),ves.L,ynormal);
+%cx0 = oc.centerOfMass(ves.X, ves.X(1:end/2),ves.L,xnormal);
+%cy0 = oc.centerOfMass(ves.X, ves.X(end/2+1:end),ves.L,ynormal);
 % Compute the x velocity, y velocity using the initialized concentration
 % field. A step of Cahn-Hilliard is not taken until after this step.
 %   Missing the u_s term in equation (33)
@@ -339,16 +341,16 @@ ves.theta = thetan;
 % --------------- center of mass calculations -- Not using right now
   xnormal =  sin(ves.theta);
   ynormal = -cos(ves.theta);
-  cx = oc.centerOfMass(ves.X, ves.X(1:end/2),ves.L,xnormal);
-  cy = oc.centerOfMass(ves.X, ves.X(end/2+1:end),ves.L,ynormal);
+  %cx = oc.centerOfMass(ves.X, ves.X(1:end/2),ves.L,xnormal);
+  %cy = oc.centerOfMass(ves.X, ves.X(end/2+1:end),ves.L,ynormal);
 % compute the average velocity
  avgux = sum(ux)*ves.L/ves.N;
  avguy = sum(uy)*ves.L/ves.N;
  Xprov = oc.recon(ves.N,0,0,ves.L,ves.theta);    
- cXprovx = oc.centerOfMass(Xprov, Xprov(1:end/2),ves.L,xnormal);
- cXprovy = oc.centerOfMass(Xprov, Xprov(end/2+1:end),ves.L,ynormal);
- cx = cx0 + params.dt*avgux;
- cy = cy0 + params.dt*avguy;
+ %cXprovx = oc.centerOfMass(Xprov, Xprov(1:end/2),ves.L,xnormal);
+ %cXprovy = oc.centerOfMass(Xprov, Xprov(end/2+1:end),ves.L,ynormal);
+ %cx = cx0 + params.dt*avgux;
+ %cy = cy0 + params.dt*avguy;
  % ves.X(1:end/2) = Xprov(1:end/2) + cx - cXprovx;
  % ves.X(end/2+1:end) = Xprov(end/2+1:end) + cy - cXprovy;
 %---------------------------------------------------------------------
@@ -371,7 +373,9 @@ end % FirstSteps
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function ves = TimeStepLoop(o,ves,params,om,ux_old,uy_old,L,Ln,...
-                            dcur0,fntheta,N2Hat,cx0,cy0)
+                            dcur0,fntheta,N2Hat)
+% function ves = TimeStepLoop(o,ves,params,om,ux_old,uy_old,L,Ln,...
+%                             dcur0,fntheta,N2Hat,cx0,cy0)
 % Main time stepping routine which can be either Euler or multistep. Right
 % now it is multistep, to change to Euler search for Euler and uncomment
 % appropriate lines.
@@ -477,15 +481,15 @@ for ktime = 1:nstep
 %--------- center of mass calculations -- NOT using this section
   xnormal =  sin(ves.theta);
   ynormal = -cos(ves.theta);
-  cx = oc.centerOfMass(ves.X, ves.X(1:end/2),ves.L,xnormal);
-  cy = oc.centerOfMass(ves.X, ves.X(end/2+1:end),ves.L,ynormal);
+  %cx = oc.centerOfMass(ves.X, ves.X(1:end/2),ves.L,xnormal);
+  %cy = oc.centerOfMass(ves.X, ves.X(end/2+1:end),ves.L,ynormal);
   avgux = sum(uxvel_loop)*ves.L/ves.N;
   avguy = sum(uyvel_loop)*ves.L/ves.N;
   Xprov = oc.recon(ves.N,0,0,ves.L,ves.theta);    
-  cXprovx = oc.centerOfMass(Xprov, Xprov(1:end/2),ves.L,xnormal);
-  cXprovy = oc.centerOfMass(Xprov, Xprov(end/2+1:end),ves.L,ynormal);
-  cx = cx0 + params.dt*avgux;
-  cy = cy0 + params.dt*avguy;  
+  %cXprovx = oc.centerOfMass(Xprov, Xprov(1:end/2),ves.L,xnormal);
+  %cXprovy = oc.centerOfMass(Xprov, Xprov(end/2+1:end),ves.L,ynormal);
+  %cx = cx0 + params.dt*avgux;
+  %cy = cy0 + params.dt*avguy;  
   %ves.X(1:end/2) = Xprov(1:end/2) + cx - cXprovx;
   %ves.X(end/2+1:end) = Xprov(end/2+1:end) + cy - cXprovy;
 %----------------------------------------------------------------
@@ -528,8 +532,8 @@ for ktime = 1:nstep
   % Update ux_old, uy_old, for timestepping loop
   ux_old = uxvel_new;
   uy_old = uyvel_new;
-  cx0 = cx;
-  cy0 = cy;
+%   cx0 = cx;
+%   cy0 = cy;
 end
 
 end % TimeStepLoop    

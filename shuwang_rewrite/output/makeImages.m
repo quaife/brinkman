@@ -1,23 +1,55 @@
-%clc;clear;close all
+clc;clear;close all
 
 addpath ..
-set(gcf,'Position',get(0,'Screensize'));
-set(0,'DefaultAxesFontSize',22)
-options.savefig = false;
+
+% set(gcf,'Position',get(0,'Screensize'));
+% set(0,'DefaultAxesFontSize',22)
+% options.savefig = false;
 
 %file = 'extensional_RAp8_Conc0p3_Chi10_beta0_n500_dt0en4.bin';
 %file = 'parabolic_Conc0p3_Chi600_beta0_n500_dt0en4_h2.bin';
 
-file = 'Chi200_RA0p6_Conc0p3_Beta0_y0p1_eps0p04_n20.bin';
-ax = [-2 2 -2 2];
+file = 'Chi800_RA0p5_Conc0p3_Beta0_y0p1_eps0p04_n20.bin';
+% name = 'Chi200_RA0p95_Conc0p3_Beta0_y0p1_eps0p04_n20.jpg';
+ax = [-4 4 -4 4];
 
 [posx,posy,conc,ea,el,time,xvel1,yvel1,ten] = loadFile(file);
-% plot(mean(squeeze(posy)))
-% pause
+% N = numel(posx(:,:,1));
+% oc = curve(N);
+% CoM = [];
+% for k = 1:length(time)
+%     C = oc.centerOfMass([posx(:,:,k);posy(:,:,k)]);
+%     CoM = [CoM;C];
+% end
+% plot(time,CoM(:,2),'linewidth',3)
+% semilogy(time,abs(CoM(:,2)))
+% title('Center of mass: $\chi$ = 400, $RA_0$ = 0.95, $u$ = 0.3','interpreter','latex')
+% xlabel('time')
+% ylabel('y')
+% saveas(gcf,name)
+% vec1 = [posx(:,:,end);posx(1,:,end)];
+% vec2 = [posy(:,:,end);posy(1,:,end)];
+% N = numel(conc(:,:,end));
+% rbn = 1 * (ones(N,1) - conc(:,:,end)) + 0.1*conc(:,:,end);
+% vec4 = [rbn(:,:);rbn(1,:)];
+% h = cline(vec1,vec2,vec4);
+% set(h,'linewidth',3)
+% axis equal
+% 
+% set(gca,'xtick',[])
+% set(gca,'ytick',[])
+% set(gca,'xcolor','white')
+% set(gca,'ycolor','white')
+% hold off
 
-%plot(time,squeeze(mean(posy)))
- 
- irate = 1; 
+% 
+% % plot(mean(squeeze(posy)))
+% % pause
+% 
+% %plot(time,squeeze(mean(posy)))
+
+
+ irate = 100; 
  istart = 1;
  iend = numel(time);
  ntime = iend;
@@ -45,10 +77,10 @@ ax = [-2 2 -2 2];
        axis equal
        axis(ax)
       
-       set(gca,'xtick',[])
-       set(gca,'ytick',[])
-       set(gca,'xcolor','white')
-       set(gca,'ycolor','white')
+       %set(gca,'xtick',[])
+       %set(gca,'ytick',[])
+       %set(gca,'xcolor','white')
+       %set(gca,'ycolor','white')
        titleStr = ['t = ' num2str(time(k),'%4.2e') ...
          ' eA = ' num2str(ea(k),'%4.2e') ...
          ' eL = ' num2str(el(k),'%4.2e')];
@@ -91,7 +123,7 @@ ax = [-2 2 -2 2];
        
        % --------------THIRD SUBPLOT: Tension ---------------------------
        subplot(2,2,3)
-       plot(ten(:,:,k),'linewidth',3)
+       plot(conc(:,:,k),'linewidth',3)
        xlim([0 N])
        title('\Lambda^{LL}');
        

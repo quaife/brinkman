@@ -1,8 +1,8 @@
 clc;clear;close all;
 addpath ..
 
-name = 'cChi800_RA0p6_Conc0p3_Beta0_y0p1_eps0p04';
-ptitle ={'\chi = 800, RA_0 = 0.6, u = 0.3,', '\beta = 0, \epsilon = 0.04'};
+name = 'Chi200_RA0p85_Conc0p3_Beta0_y0p1_eps0p04_n20';
+ptitle ={'\chi = 200, RA_0 = 0.85, u = 0.3,', '\beta = 0, \epsilon = 0.04'};
 file = [name '.bin'];
 ax = [-2 2 -2 2];
 
@@ -12,7 +12,7 @@ ax = [-2 2 -2 2];
 
 %plot(time,squeeze(mean(posy)))
  
- irate = 10; 
+ irate = 100; 
  istart = 1;
  iend = numel(time);
  ntime = iend;
@@ -23,7 +23,8 @@ ax = [-2 2 -2 2];
  h = figure;
  set(gca,'LineWidth',3)
  set(0,'DefaultAxesFontSize',22)
- set(gcf,'position',[500,0,900,1000])
+ %set(gcf,'position',[500,0,900,1000])
+ set(gcf,'Position',get(0,'Screensize'))
  ax = [-2 2 -2 2];
  
   for k = istart:irate:iend
@@ -40,11 +41,11 @@ ax = [-2 2 -2 2];
        
        
        cline(vec1,vec2,vec4);
-       %set(h,'linewidth',3)
+       set(gca,'linewidth',3)
        colorbar
        hold on
        plot(vec1(1,:),vec2(1,:),'k.','markersize',30);
-       plot([ax(1) ax(2)],[0 0],'k--','linewidth',1)
+       plot([ax(1) ax(2)],[0 0],'k--')
        axis equal
        axis(ax)
       
