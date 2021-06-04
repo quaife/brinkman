@@ -1,4 +1,4 @@
-clc;clear;close all
+%clc;clear;close all
 
 addpath ..
 
@@ -9,10 +9,11 @@ addpath ..
 %file = 'extensional_RAp8_Conc0p3_Chi10_beta0_n500_dt0en4.bin';
 %file = 'parabolic_Conc0p3_Chi600_beta0_n500_dt0en4_h2.bin';
 
-file = 'Chi800_RA0p5_Conc0p3_Beta0_y0p1_eps0p04_n20.bin';
+%file = 'Chi800_RA0p5_Conc0p3_Beta0_y0p1_eps0p04_n20.bin';
 % name = 'Chi200_RA0p95_Conc0p3_Beta0_y0p1_eps0p04_n20.jpg';
 ax = [-4 4 -4 4];
 
+file = 'RA30.bin';
 [posx,posy,conc,ea,el,time,xvel1,yvel1,ten] = loadFile(file);
 % N = numel(posx(:,:,1));
 % oc = curve(N);
@@ -49,7 +50,7 @@ ax = [-4 4 -4 4];
 % %plot(time,squeeze(mean(posy)))
 
 
- irate = 100; 
+ irate = 1000; 
  istart = 1;
  iend = numel(time);
  ntime = iend;

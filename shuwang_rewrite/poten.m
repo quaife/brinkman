@@ -96,26 +96,78 @@ Symm_sigma = real(ifft(Symm_sigmah));
 end %IntegrateLogKernel
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function logKernel = IntegrateLogKernel_old(o,sigma)
-% logKernel = IntegrateLogKernel evaluates the integral of log|sin|: L
+function D = StokesDLP(o,geom)
 
-% See first term in equation (43)
-bsigma = sum(sigma)/o.N;
-%compute the fft of sigma
-ssigma = fft(sigma,o.N); 
-%define the fourier coefficients
-coeff = -[1 1:o.N/2 o.N/2-1:-1:1]'*2*pi;
-csigma = ssigma./coeff;
-%zero out the zero mode
-csigma(1,1) = 0;
-ssigma = real(ifft(csigma,o.N));
-%Construct the log kernel 
-logKernel = ssigma/2+bsigma*log(1/2)/2/pi;
+oc = curve(geom.N);
+% Geometry positions
+[x,y] = oc.getXY(geom.X);
 
-end %IntegrateLogKernel_old
+% number of points on geometry
+N = geom.N;
+
+% tangent vector
+tx = cos(geom.theta);
+ty = sin(geom.theta);
+
+% curvature
+cur = geom.cur';
+
+% target points
+xtar = x(:,ones(N,1))';
+ytar = y(:,ones(N,1))';
+
+% source points
+xsou = x(:,ones(N,1));
+ysou = y(:,ones(N,1));
+
+% tangent at sources
+txsou = tx';
+tysou = ty';
+
+% rx and ry terms
+diffx = xtar - xsou;
+diffy = ytar - ysou;
+% 1 over the distance to the power of 4
+rho4 = (diffx.^2 + diffy.^2).^(-2);
+% set diagonal terms to 0. Will fix with limiting value involving the
+% curvature a bit later
+rho4(1:N+1:N.^2) = 0;
+
+kernel = diffx.*(tysou(ones(N,1),:)) - ...
+        diffy.*(txsou(ones(N,1),:));
+kernel = kernel.*rho4;
+
+% (1,1) component
+D11 = kernel.*diffx.^2;
+% diagonal limiting term
+D11(1:N+1:N.^2) = 0.5*cur.*txsou.^2;
+
+% (1,2) component
+D12 = kernel.*diffx.*diffy;
+% diagonal limiting term
+D12(1:N+1:N.^2) = 0.5*cur.*txsou.*tysou;
+
+% (2,2) component
+D22 = kernel.*diffy.^2;
+% diagonal limiting term
+D22(1:N+1:N.^2) = 0.5*cur.*tysou.^2;
+
+% build matrix with four blocks
+D = [D11 D12; D12 D22];
+% scale with the arclength spacing and divide by pi
+D = 1/pi*D*geom.L/N;
+
+
+end % StokesDLP
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [vel] = StokesSLPtar(o,ves,trac,Xtar)
+% START OF ROUTINES THAT EVALUATE STOKES LAYER POTENTIALS AT TARGET
+% POINTS THAT DIFFER FROM THE SOURCCE POINTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function vel = StokesSLPtar(o,ves,trac,Xtar)
 
 oc = curve(ves.N);
 
@@ -145,6 +197,20 @@ vel = [velx;vely];
 
 end % StokesSLPtar
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function vel = StokesDLPtar(o,geom,eta,Xtar)
+% evaluate the double-layer potential due to the geometry stored in geom
+% using the density function eta, and evaluating at the target points in
+% Xtar
+
+vel = zeros(size(Xtar));
+
+end % StokesDLPtar
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% END OF ROUTINES THAT EVALUATE STOKES LAYER POTENTIALS AT TARGET POINTS
+% THAT DIFFER FROM THE SOURCCE POINTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 

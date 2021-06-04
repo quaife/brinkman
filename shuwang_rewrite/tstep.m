@@ -6,6 +6,7 @@ classdef tstep < handle
 properties
 
 ves; % vesicle structure
+walls; % outer wall structure
 shearRate; % background shear rate
 farFieldFlow; % far field flow type
 bendsti; % maximum bending stiffness
@@ -23,10 +24,11 @@ end % properties
 
 methods
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function o = tstep(params,ves)
-%o = tstep(prams,ves) is a constructor that initializes the class. 
+function o = tstep(params,ves,walls)
+%o = tstep(prams,ves,walls) is a constructor that initializes the class.
 %Take all elements of prams needed by the time stepper
 o.ves = ves;
+o.walls = walls;
 o.shearRate = params.shearRate;
 o.farFieldFlow = params.farFieldFlow;
 o.bendsti = params.bendsti; %maximum bending stiffness
@@ -85,6 +87,7 @@ function [uxvel,uyvel,fdotn] = usetself(o)
 %mechanical force, beta*fdotn.
 
 ves = o.ves; %shorthand for ves object
+walls = o.walls; % shorthand for the walls object
 x0 = ves.x0; %shorthand for x component of tracking point
 y0 = ves.y0; %shorthand for y component of tracking point
 N = ves.N; %shorthand for Number of discratization points
@@ -176,6 +179,39 @@ uinf = o.bgFlow(ves.X, o.shearRate, o.farFieldFlow);
 uxvel = k(1:N)*c1 + force1*c2 + uinfx;%ves.X(N+1:end)*o.shearRate;
 uyvel = k(N+1:end)*c1 + force2*c2 + uinfy;
 ves.ten = lambTil;
+
+
+% compute velocity due to the vesicle's traction and evaluate on the
+% outer wall
+velVes2Walls = op.StokesSLPtar(ves,tau,walls.X);
+
+% build right hand side for the double-layer potential solver
+% rhsWalls = backgroundflow - velVes2Walls
+
+% build the dlp matrix (which is actually the same for all time steps so
+% this is herendous to do, but I'll do it nonetheless
+D = op.StokesDLP(walls);
+
+% solve for the density function which satisfies the second-kind
+% Fredholm integral equation
+%eta = (-0.5*eye(2*prams.Nbd) + D)\rhsWalls;
+
+%clf;hold on;
+%[velx,vely] = oc.getXY(velVes2Walls);
+%nx = +sin(walls.theta);
+%ny = -cos(walls.theta);
+%flux = velx.*nx + vely.*ny;
+%plot(flux)
+%sum(flux)
+%pause
+%plot(ves.X(1:end/2),ves.X(end/2+1:end),'b-o')
+%plot(walls.X(1:end/2),walls.X(end/2+1:end),'k-o')
+%quiver(walls.X(1:end/2),walls.X(end/2+1:end),...
+%      sin(walls.theta),-cos(walls.theta))
+%axis equal
+%pause
+
+
 end % usetself
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -234,10 +270,10 @@ end % preconditioner
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [ves,ux_old,uy_old,L,Ln,dcur0,N1,N2Hat] = FirstSteps(...
-        o,ves,params,options,om)
+        o,ves,walls,params,options,om)
 % function [ves,ux_old,uy_old,L,Ln,dcur0,N1,N2Hat,cx,cy] = FirstSteps(...
-%         o,ves,params,options,om)
-% Refines the first time step [0,dt] and uses a first-order Euler method
+%         o,ves,walls,params,options,om)
+% Calculates the first time step [0,dt] using a first-order Euler method
 % to find the vesicle position, curv, velocity, and density function.
 % Returns ves, L, Ln and dcur0 to use for higher-order time stepping.     
 
@@ -344,9 +380,9 @@ ves.theta = thetan;
   %cx = oc.centerOfMass(ves.X, ves.X(1:end/2),ves.L,xnormal);
   %cy = oc.centerOfMass(ves.X, ves.X(end/2+1:end),ves.L,ynormal);
 % compute the average velocity
- avgux = sum(ux)*ves.L/ves.N;
- avguy = sum(uy)*ves.L/ves.N;
- Xprov = oc.recon(ves.N,0,0,ves.L,ves.theta);    
+% avgux = sum(ux)*ves.L/ves.N;
+% avguy = sum(uy)*ves.L/ves.N;
+% Xprov = oc.recon(ves.N,0,0,ves.L,ves.theta);
  %cXprovx = oc.centerOfMass(Xprov, Xprov(1:end/2),ves.L,xnormal);
  %cXprovy = oc.centerOfMass(Xprov, Xprov(end/2+1:end),ves.L,ynormal);
  %cx = cx0 + params.dt*avgux;

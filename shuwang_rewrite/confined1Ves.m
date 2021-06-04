@@ -1,21 +1,21 @@
-function [] = parabolic1Ves(fluxCoeff,farFieldSpeed,concentration,shortax, scaleL, fileName)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %This code has been developed using the methods described in "Dynamics
 %of multicomponent vesicles in a viscous fluid" by Sohn, Tseng, Li
 %Voigt, &  Lowengrub JCP 2013
 
-% fluxCoeff = 0;
-% farFieldSpeed = 80;
-% concentration = 0.3;
-% shortax = 3.45;
-% scaleL = 0.538;
-% fileName = 'TEST';
+fluxCoeff = 0;
+farFieldSpeed = 80;
+concentration = 0.3;
+shortax = 3.45;
+scaleL = 0.538;
+fileName = 'TEST';
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
 
-params.N = 256; % points on vesicle
+params.N = 64; % points on vesicle
+params.Nbd = 256; % points on the solid wall
 params.dt = 1e-4; % time step size
 params.T = 50; % time horizon
 params.saveRate = 1; % ouptut frequency
@@ -44,6 +44,7 @@ params.angle = 0;%pi/2;%pi/6; % The tracking point is programmed to be at 0,0.
                       % Rotate the vesicle counter-clockwise to keep 
                       % desired center.  
 
+options.confined = true;
 options.verbose = false;  % write data to console
 options.saveData = true; % save the data
 options.usePlot = true;  % plot the data
@@ -58,4 +59,3 @@ ves = Ves2D(params,options);
 %profile off
 %profile viewer
 %toc
-end

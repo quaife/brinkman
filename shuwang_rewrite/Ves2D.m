@@ -39,7 +39,20 @@ oc = curve(ves.N);
 
 % Reconstruct the vesicle position using the new, smooth theta
 ves.X = oc.recon(ves.N, ves.x0, ves.y0, ves.L, ves.theta);
-tt = tstep(params,ves); % Shorthand for tstep class
+
+if options.confined
+  oc = curve(params.Nbd);
+  [~,Xwalls] = oc.initConfig(params.Nbd,false,...
+              'scale', 2, ...
+              'center', center, 'geometry', 'tube');
+
+  % Build object for the vesicle but without a band-limited opening angle
+  walls = capsules(Xwalls,[],params);
+else
+  walls = [];
+end
+
+tt = tstep(params,ves,walls); % Shorthand for tstep class
 
 om = monitor(ves.X,params,options); % Shorthand for monitor class
 
@@ -47,7 +60,7 @@ om = monitor(ves.X,params,options); % Shorthand for monitor class
 % [ves,ux_old,uy_old,L,Ln,dcur0,fntheta,N2Hat,cx0,cy0] = ...
 %       tt.FirstSteps(ves,params,options,om);
 [ves,ux_old,uy_old,L,Ln,dcur0,fntheta,N2Hat] = ...
-      tt.FirstSteps(ves,params,options,om);
+      tt.FirstSteps(ves,walls,params,options,om);
 
 % Begin time step routine using multistep to update dX and dtheta 
 % ves = tt.TimeStepLoop(ves,params,om,ux_old,uy_old,L,Ln,dcur0,...

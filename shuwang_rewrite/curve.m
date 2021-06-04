@@ -181,7 +181,15 @@ else
 end
 % Discretization in parameter space
 
-if any(strcmp(options,'curly'))
+if(any(strcmp(options,'geometry')))
+  geometry = options{find(strcmp(options,'geometry'))+1};
+else
+  geometry = 'ellipse';
+end
+% Discretization in parameter space
+
+if strcmp(geometry,'curly')
+%if any(strcmp(options,'curly'))
   a = 1; b = 3*a; c = 0.85; 
   r = 0.5*sqrt( (a*cos(2*pi*alpha)).^2 + (b*sin(2*pi*alpha)).^2) + ...
       .07*cos(12*2*pi*alpha);
@@ -190,12 +198,14 @@ if any(strcmp(options,'curly'))
   X0 = [x;y];
   % radius of curly vesicle
 
-elseif any(strcmp(options,'star'))
+elseif strcmp(geometry,'star')
+%elseif any(strcmp(options,'star'))
   radius = 1 + 0.2*cos(folds*2*pi*alpha);
   X0 = [radius.*cos(2*pi*alpha);radius.*sin(2*pi*alpha)];
   % a star that comes very close to intersecting itself at the origin
 
-elseif any(strcmp(options,'choke'))
+elseif strcmp(geometry,'choke')
+%elseif any(strcmp(options,'choke'))
   a = 10; b = 3; c = 0.6; order = 8;
   % parameters for the boundary
   Nsides = ceil(0.5*b/(2*a+2*b)*N);
@@ -218,7 +228,8 @@ elseif any(strcmp(options,'choke'))
   % controls the width of the gap, and order controls the
   % regularity
 
-elseif any(strcmp(options,'doublechoke'))
+elseif strcmp(geometry,'doublechoke')
+%elseif any(strcmp(options,'doublechoke'))
   a = 10; b = 3; c = 0.6; order = 8;
   shift = pi/2 + 0.1;
   % parameters for the boundary
@@ -234,7 +245,8 @@ elseif any(strcmp(options,'doublechoke'))
   % regularity.  shift controls the distance between the two
   % regions where the domain is restricted
 
-elseif any(strcmp(options,'contracting'))
+elseif strcmp(geometry,'contracting')
+%elseif any(strcmp(options,'contracting'))
   w = 0.5; % width of the opening
   ell1 = 3.0; % length before contracting region
   ell2 = 12; % length (in x) of contracting region
@@ -296,7 +308,8 @@ elseif any(strcmp(options,'contracting'))
   X0 = [real(z)';imag(z)'];
   % store as (x,y) rather than x + 1i*y
 
-elseif any(strcmp(options,'tube'))
+elseif strcmp(geometry,'tube')
+%elseif any(strcmp(options,'tube'))
   a = 10; b = 3; order = 8;
   % parameters for the boundary
   Nsides = ceil(0.5*b/(2*a+2*b)*N);
@@ -306,11 +319,12 @@ elseif any(strcmp(options,'tube'))
   t3 = linspace(pi-0.2*pi,pi+0.2*pi,2*Nsides+1); t3 = t3(1:end-1)';
   t4 = linspace(pi+0.2*pi,2*pi-0.2*pi,Ntop+1); t4 = t4(1:end-1)';
   t5 = linspace(2*pi-0.2*pi,2*pi,Nsides+1); t5 = t5(1:end-1)';
-  t = [t1;t2;t3;t4;t5];
+%  t = [t1;t2;t3;t4;t5];
+  t = alpha;
   % Parameterize t so that geometry is closer to 
   % equispaced in arclength
-  r = (cos(t).^order + sin(t).^order).^(-1/order);
-  x = a*r.*cos(t); y = b*r.*sin(t);
+  r = (cos(2*pi*t).^order + sin(2*pi*t).^order).^(-1/order);
+  x = a*r.*cos(2*pi*t); y = b*r.*sin(2*pi*t);
   X0 = [x;y];
   % rounded off cylinder.  a and b control the length and height 
   % and order controls the regularity
@@ -336,7 +350,8 @@ if ~equispaced
  
   [alpha,X] = o.initConfig(N,true,'angle',theta,...
        'reducedArea',ra,'shortax',shortax,'scale',scale,...
-       'folds',folds,'parameter',alpha, 'center', cen);
+       'folds',folds,'parameter',alpha, 'center', cen,...
+       'geometry',geometry);
   % [alpha, X] = o.initConfig(N,true,options,'parameter',alpha);
    
 end

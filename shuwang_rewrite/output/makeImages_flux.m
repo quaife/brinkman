@@ -1,17 +1,20 @@
 %clc;clear;close all
 addpath ..
 
- file = 'Chi200_RA0p75_Conc0p3_Beta0_y0p1_eps0p04_n20.bin';
+% file = 'Chi200_RA0p75_Conc0p3_Beta0_y0p1_eps0p04_n20.bin';
 %file = 'Test.bin';
-farFieldSpeed = 200;
+%file = 'parabolic1Ves.bin';
+file = 'Parabolic_RA0p60_Conc0_Chi100_beta0.bin';
+farFieldSpeed = 100;
 farFieldFlow = 'parabolic';
 
 [posx,posy,conc,ea,el,time,xvel1,yvel1,lambTil] = loadFile(file);
 N = numel(posx(:,:,end));
+dt = time(2) - time(1);
 oc = curve(N);
 op = poten(N);
 
-istart = 2;
+istart = 1;
 irate = 100; 
 iend = numel(time);
 
@@ -41,8 +44,8 @@ for k = istart:irate:iend
     % old variable tau
     tau = tau + tracJump;
 
-    x = -0.8:0.05:1.2;
-    y = -1.2:0.05:1.2;
+    x = -2:0.1:2;
+    y = -1.6:0.1:1.6;
     [xtar,ytar] = meshgrid(x,y);
     xtar = xtar(:); ytar = ytar(:);
     [vel] = op.StokesSLPtar(ves,tau,[xtar;ytar]);
@@ -54,12 +57,14 @@ for k = istart:irate:iend
         R0 = sqrt(A/pi);
         W = 10*R0; 
         velx = velx + farFieldSpeed*(1-(ytar/W).^2);
+
+        velx = velx - mean(xvel1(:,:,k));
 %         %clf; plot(velx);hold on;
 %         dt = 1e-5;
 %         dxdt = (posx(:,:,k+1)-posx(:,:,k))/dt + farFieldSpeed*(1-(posy(:,:,k)/W).^2);
 %         velx = velx - (1/N)*sum(dxdt);
 %        vesvel = xvel1(:,:,k) + farFieldSpeed*(1-(posy(:,:,k)/W).^2);
-        velx = velx - mean(xvel1(:,:,k));
+%        velx = velx - mean(xvel1(:,:,k));
 %         plot(velx,'r--')
 %         pause
     elseif strcmp(farFieldFlow,'extensional')
@@ -73,6 +78,8 @@ for k = istart:irate:iend
     py = posy(:,:,k);
     plot(px,py)
     plot(px(1),py(1),'ko')
+    axis equal;
+    title(num2str(time(k)))
     pause(0.1)
 end
 
