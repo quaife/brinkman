@@ -12,10 +12,11 @@ scaleL = params.scaleL;
 L = pi*(params.shortax + 1)*(1+h/4+h^2/64)*scaleL;
 angle =  params.angle;
 center = params.center;
-[alpha,X] = oc.initConfig(upRate*params.N,false,'ellipse',...
+geometry = params.geometry;
+[alpha,X] = oc.initConfig(upRate*params.N,false,...
             'shortax',params.shortax, 'scale', scaleL, 'angle', angle, ...
-            'center', center);
-
+            'center', center, 'geometry', geometry);
+        
 % Define the initial concentration field
 rcon = oc.initialConcentration(upRate*params.N,alpha,...
       params.concentra,params.oddeven);
@@ -35,9 +36,9 @@ ves.rcon = ves.rcon(1:upRate:end);
 ves.smoothGeom;
 
 oc = curve(ves.N);
+
 % Reconstruct the vesicle position using the new, smooth theta
 ves.X = oc.recon(ves.N, ves.x0, ves.y0, ves.L, ves.theta);
-
 tt = tstep(params,ves); % Shorthand for tstep class
 
 om = monitor(ves.X,params,options); % Shorthand for monitor class

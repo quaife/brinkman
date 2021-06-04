@@ -79,7 +79,7 @@ o.writeMessage(message,'%s\n')
 [ea,el] = o.errors(X);
 % Save data
 if o.saveData
-  o.writeData(X,conc,ea,el,time,vel,ten, N);
+  o.writeData(X,conc,ea,el,time,vel,ten,N);
   % save initial configuartion
   message = ['Initial Area is:                ' ...
       num2str(o.area(1),'%10.2e')];

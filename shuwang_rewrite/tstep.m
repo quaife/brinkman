@@ -102,8 +102,7 @@ ves.X = oc.recon(ves.N, ves.x0, ves.y0, ves.L, ves.theta);
 %   NOTE: this does not include u_s term.
 tau = [[-Esigma.*sin(theta) - Eu.*cos(theta)]; ...
        [Esigma.*cos(theta) - Eu.*sin(theta)]];
-
-% 
+% --- Pulling force code - Yuan's project
 % x0 = 0.2;
 % y0 = 3.0;
 % d = 1;
@@ -113,6 +112,7 @@ tau = [[-Esigma.*sin(theta) - Eu.*cos(theta)]; ...
 % fx = -exp(-r/d).*(x-x0)./r;
 % fy = -exp(-r/d).*(y-y0)./r;
 % tau = tau + 5*[fx;fy];
+% ---------------------------------------- 
 
 % Construct Stokes matrix without the log singularity. 
 % ie. A3 only contains the rightmost kernel in equation (43)
@@ -169,7 +169,7 @@ k = StokesMat*tau;
 % Compute the weakly singluar part of the log kernel
 force1 = op.IntegrateLogKernel(tau(1:N));
 force2 = op.IntegrateLogKernel(tau(N+1:end));
-% Calulate u in eqatuion (31) by adding the results from the
+% Calulate u in equation (31) by adding the results from the
 % non-singular and weakly singular integral operators
 uinf = o.bgFlow(ves.X, o.shearRate, o.farFieldFlow);
 [uinfx, uinfy] = oc.getXY(uinf);

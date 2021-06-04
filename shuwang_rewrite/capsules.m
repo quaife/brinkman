@@ -21,7 +21,7 @@ end % properties
 methods
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function o = capsules(X,rcon,params)
+function o = capsules(X,rcon,params,varargin)
 % constructor for capsules class
 
 o.N = size(X,1)/2; % shorthand for Number of discretization points 
@@ -33,11 +33,13 @@ o.rcon = rcon; % shorthand for concentration
 o.x0 = X(1); % shorthand for x tracking point
 o.y0 = X(o.N + 1); % shorthand for y tracking point
 
-o.bendsti = params.bendsti;
-o.bendratio = params.bendratio;
-o.viscIn = params.viscosityInside;
-o.viscOut = params.viscosityOutside;
-o.SPc = params.SPcoeff;
+if nargin >= 3
+    o.bendsti = params.bendsti;
+    o.bendratio = params.bendratio;
+    o.viscIn = params.viscosityInside;
+    o.viscOut = params.viscosityOutside;
+    o.SPc = params.SPcoeff;
+end
 %%% Curvature check:
     %disp('here')
     %curv = oc.acurv(o);
@@ -128,6 +130,7 @@ N = ves.N;
 oc = curve(N);
 IK = oc.modes(N);
 rcon = ves.rcon;
+save('rcon.mat', 'rcon')
 cur = oc.acurv(ves.N,ves.theta,ves.L);
 b0 = ves.bendsti;
 b1 = ves.bendsti * ves.bendratio;
@@ -151,11 +154,13 @@ Esigma = -DDrbn_cur - 0.5*rbn.*cur.^3;
 %0. The first term is not in this routine since we are only calculating 
 %variations due to changes in the vesicle shape and not the lipid species.
 Eu = -0.5*Drbn.*cur.^2;
+save('drbnCur.mat', 'Drbn','cur')
 %** SHUWANG QUESTION: THIS IS A PLUS SIGN IN THE PAPER (EQUATION (13)),
 % BUT IS A MINUS SIGN IN SHUWANG'S CODE **OLD COMMENT???
 % ADDED -
 
 end % variations
+
 
 end % methods
 

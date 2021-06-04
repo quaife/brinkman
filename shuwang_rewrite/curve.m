@@ -125,9 +125,13 @@ function [alpha,X] = initConfig(o,N,equispaced,varargin)
 %   'angle'       - inclination angle of the vesicle(s) form the
 %                   vertical position, 
 %   'scale'       - multiplies the size of the output boundary
+%   'choke'       - returns a choked domain.
+%   'doublechoke' - returns a domain with two chokes
+%   'contracting' - returns a domain for a couette apparatus.
+%   'tube'        - returns a domain that is an ellongated ellipse
+
 
 options = varargin;
-
 if(any(strcmp(options,'angle')))
   theta = options{find(strcmp(options,'angle'))+1};
 else
@@ -191,10 +195,129 @@ elseif any(strcmp(options,'star'))
   X0 = [radius.*cos(2*pi*alpha);radius.*sin(2*pi*alpha)];
   % a star that comes very close to intersecting itself at the origin
 
-elseif any(strcmp(options,'ellipse'))
-  X0 = [cos(2*pi*alpha);shortax*sin(2*pi*alpha)];
+elseif any(strcmp(options,'choke'))
+  a = 10; b = 3; c = 0.6; order = 8;
+  % parameters for the boundary
+  Nsides = ceil(0.5*b/(2*a+2*b)*N);
+  Ntop = (N-4*Nsides)/2;
+  t1 = linspace(0,0.2*pi,Nsides+1); t1 = t1(1:end-1)';
+  t2 = linspace(0.2*pi,pi-0.2*pi,Ntop+1); t2 = t2(1:end-1)';
+  t3 = linspace(pi-0.2*pi,pi+0.2*pi,2*Nsides+1); t3 = t3(1:end-1)';
+  t4 = linspace(pi+0.2*pi,2*pi-0.2*pi,Ntop+1); t4 = t4(1:end-1)';
+  t5 = linspace(2*pi-0.2*pi,2*pi,Nsides+1); t5 = t5(1:end-1)';
+  t = [t1;t2;t3;t4;t5];
+  % Parameterize t so that geometry is closer to equi-spaced in
+  % arclength
+%  t = (0:N-1)'*2*pi/N;
+  r = (cos(t).^order + sisn(t).^order).^(-1/order);
+  x = a*r.*cos(t); y = b*r.*sin(t);
+  ind = abs(x) < pi;
+  y(ind) = y(ind).*(1-c*cos(x(ind)))/(1+c);
+  X0 = [x;y];
+  % choked domain.  a and b control the length and height.  c
+  % controls the width of the gap, and order controls the
+  % regularity
+
+elseif any(strcmp(options,'doublechoke'))
+  a = 10; b = 3; c = 0.6; order = 8;
+  shift = pi/2 + 0.1;
+  % parameters for the boundary
+  r = (cos(t).^order + sin(t).^order).^(-1/order);
+  x = a*r.*cos(t); y = b*r.*sin(t);
+  ind = abs(x-shift) < pi/2;
+  y(ind) = y(ind).*(1-c*cos(2*(x(ind)-shift)))/(1+c);
+  ind = abs(x+shift) < pi/2;
+  y(ind) = y(ind).*(1-c*cos(2*(x(ind)+shift)))/(1+c);
+  X0 = [x;y];
+  % choked domain.  a and b control the length and height.  c
+  % controls the width of the gap, and order controls the
+  % regularity.  shift controls the distance between the two
+  % regions where the domain is restricted
+
+elseif any(strcmp(options,'contracting'))
+  w = 0.5; % width of the opening
+  ell1 = 3.0; % length before contracting region
+  ell2 = 12; % length (in x) of contracting region
+  ell3 = 3.0; % length after contracting region
+  angd = 14; % angle in degrees of contracting region
+  ang = angd*pi/180;
+
+  W = 2*ell2*tan(ang) + w;  % total width of the geometry
+
+  % Set up 10 marker points
+  z1 = 0 - 1i*(W/2);
+  z2 = z1 + ell1;
+  z3 = z2 + (ell2 + 1i*ell2*tan(ang));
+  z4 = z3 - 1i*ell2*tan(ang);
+  z5 = z4 + ell3;
+  z6 = z5 + 1i*W;
+  z7 = z6 - ell3;
+  z8 = z7 - 1i*ell2*tan(ang);
+  z9 = z8 - (ell2 - 1i*ell2*tan(ang));
+  z10 = z9 - ell1;
+
+  dz = 0.1; % length spacing between successive nodes
+
+  % setup roughly equispaced points along the geometry
+  len1 = abs(z1 - z2);
+  zz1 = linspace(z1,z2,round(len1/dz)); zz1 = zz1(1:end-1);
+  len2 = abs(z2 - z3);
+  zz2 = linspace(z2,z3,round(len2/dz)); zz2 = zz2(1:end-1);
+  len3 = abs(z3 - z4);
+  zz3 = linspace(z3,z4,round(len3/dz)); zz3 = zz3(1:end-1);
+  len4 = abs(z4 - z5);
+  zz4 = linspace(z4,z5,round(len4/dz)); zz4 = zz4(1:end-1);
+  len5 = abs(z5 - z6);
+  zz5 = linspace(z5,z6,round(len5/dz)); zz5 = zz5(1:end-1);
+  len6 = abs(z6 - z7);
+  zz6 = linspace(z6,z7,round(len6/dz)); zz6 = zz6(1:end-1);
+  len7 = abs(z7 - z8);
+  zz7 = linspace(z7,z8,round(len7/dz)); zz7 = zz7(1:end-1);
+  len8 = abs(z8 - z9);
+  zz8 = linspace(z8,z9,round(len8/dz)); zz8 = zz8(1:end-1);
+  len9 = abs(z9 - z10);
+  zz9 = linspace(z9,z10,round(len9/dz)); zz9 = zz9(1:end-1);
+  len10 = abs(z10 - z1);
+  zz10 = linspace(z10,z1,round(len10/dz)); zz10 = zz10(1:end-1);
+
+  z = [zz1,zz2,zz3,zz4,zz5,zz6,zz7,zz8,zz9,zz10];
+  winsize = 10; % Gaussian window size
+  zPad = [z(end-winsize+1:end),z,z(1:winsize)];
+  % pad so that periodicity is incorporated into smoothing
+  z = smoothdata(zPad,'gaussian',winsize);
+  % smooth padded data
+  z = z(winsize+1:end - winsize);
+  % remove the padding
+
+  z = interpft(z,N);
+  % interpolate with FFT to the requested number of discretization
+  % points
+  
+  X0 = [real(z)';imag(z)'];
+  % store as (x,y) rather than x + 1i*y
+
+elseif any(strcmp(options,'tube'))
+  a = 10; b = 3; order = 8;
+  % parameters for the boundary
+  Nsides = ceil(0.5*b/(2*a+2*b)*N);
+  Ntop = (N-4*Nsides)/2;
+  t1 = linspace(0,0.2*pi,Nsides+1); t1 = t1(1:end-1)';
+  t2 = linspace(0.2*pi,pi-0.2*pi,Ntop+1); t2 = t2(1:end-1)';
+  t3 = linspace(pi-0.2*pi,pi+0.2*pi,2*Nsides+1); t3 = t3(1:end-1)';
+  t4 = linspace(pi+0.2*pi,2*pi-0.2*pi,Ntop+1); t4 = t4(1:end-1)';
+  t5 = linspace(2*pi-0.2*pi,2*pi,Nsides+1); t5 = t5(1:end-1)';
+  t = [t1;t2;t3;t4;t5];
+  % Parameterize t so that geometry is closer to 
+  % equispaced in arclength
+  r = (cos(t).^order + sin(t).^order).^(-1/order);
+  x = a*r.*cos(t); y = b*r.*sin(t);
+  X0 = [x;y];
+  % rounded off cylinder.  a and b control the length and height 
+  % and order controls the regularity
+
 else
-  X0 = o.ellipse(N,ra);
+  X0 = [cos(2*pi*alpha);shortax*sin(2*pi*alpha)]; 
+  %X0 = o.ellipse(N,ra);
   % build a vesicle of reduced area ra with N points
 end 
 % end of building reference vesicles.  Only need to rotate
@@ -204,18 +327,19 @@ end
 X = zeros(2*N,1);
 X(1:N) = scale*(cos(theta) * X0(1:N) - sin(theta) * X0(N+1:2*N)) + cen(1,1);
 X(N+1:2*N) = scale*(sin(theta) * X0(1:N) +  cos(theta) * X0(N+1:2*N)) + cen(2,1);
-
 % Rotate and scale vesicle
 if ~equispaced
   sa = o.diffProp(X); % compute arclength of the vesicle shape
   alpha = o.arc(sa);
   % find parameter values that give discretization points that are
-  % nearly equispaced in arclength
-  [alpha,X] = o.initConfig(N,true,options{1},'angle',theta,...
+  % nearly equispaced in arclength\
+ 
+  [alpha,X] = o.initConfig(N,true,'angle',theta,...
        'reducedArea',ra,'shortax',shortax,'scale',scale,...
        'folds',folds,'parameter',alpha, 'center', cen);
+  % [alpha, X] = o.initConfig(N,true,options,'parameter',alpha);
+   
 end
-alpha = (0:N-1)'/N;
 
 end % initConfig
 
