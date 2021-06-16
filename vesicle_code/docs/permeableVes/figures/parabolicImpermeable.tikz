@@ -18,7 +18,7 @@
   xlabel = {$U$ [$\mu m/s$]},
   ytick = {2,10,18,26},
   yticklabels = {$0.6$,$0.7$,$0.8$,$0.9$},
-  ylabel = {Reduced Area ($\nu$)},
+  ylabel = {Reduced Area ($\alpha$)},
   ylabel near ticks,
   xtick pos = left,
   ytick pos = left,

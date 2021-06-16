@@ -26387,10 +26387,10 @@
 
 
 \node at (0.1,9.10) {(a)};
-\node at (0.1,6.60) {(b)};
+\node at (-0.3,6.20) {(b)};
 \node at (2.6,5.45) {(c)};
 \node at (7.7,9.10) {(d)};
-\node at (7.7,6.60) {(e)};
+\node at (7.7,6.20) {(e)};
 
 
 \end{tikzpicture}

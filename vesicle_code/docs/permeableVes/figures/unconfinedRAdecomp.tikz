@@ -17018,9 +17018,9 @@
   xticklabels = {\small $10^{-5}$,\small $10^{-3}$,\small
   $10^{-1}$},
   ymin = -0.02,
-  ymax = +0.06,
-  ytick = {-0.02,0,0.02,0.04,0.06},
-  yticklabels = {\small -2,\small 0,\small 2,\small 4,\small 6},
+  ymax = +0.05,
+  ytick = {-0.02,0,0.02,0.04},
+  yticklabels = {\small -2,\small 0,\small 2,\small 4},
   yticklabel pos = left,
   xlabel = {\small $\beta t$},
   ylabel = {\small $\dot{\alpha}(t)$},
@@ -19422,9 +19422,9 @@
 
 \end{axis}
 
-\node at (-0.1,11.45) {(a)};
-\node at (8.3,11.45) {(b)};
-\node at (-0.1,4.95) {(c)};
-\node at (8.3,4.95) {(d)};
+\node at (-0.3,11.35) {(a)};
+\node at (7.3,11.35) {(b)};
+\node at (-0.3,4.82) {(c)};
+\node at (7.3,4.82) {(d)};
 
 \end{tikzpicture}

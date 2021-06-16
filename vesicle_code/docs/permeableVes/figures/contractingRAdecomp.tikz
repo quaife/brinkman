@@ -17,11 +17,13 @@
   ylabel shift = {-0.2cm},
   ylabel near ticks,
   title style = {align=center, yshift = -0.2cm},
-  title = {$\beta = 5 \times 10^{-3}$},
-  legend entries = {Tension, Bending, Total, 
-    $\beta = 5 \times 10^{-4}$},
+  title = {$U_{\max} = 0.57~\mu$m/s},
+%  title = {$\beta = 5 \times 10^{-3}$},
+  legend entries = {Tension ($\beta = 5 \times 10^{-3}$), Bending
+  ($\beta = 5 \times 10^{-3}$), Total ($\beta = 5 \times 10^{-3}$),
+  Total ($\beta = 5 \times 10^{-4}$)},
   legend cell align=left,
-  legend style={draw=none,font=\small,fill=none},
+  legend style={draw=none,font=\scriptsize,fill=none},
   legend style={at={(-0.01,0.02)},anchor=south west} 
 ]
 
@@ -2239,9 +2241,11 @@
   ylabel near ticks,
   title style = {align=center, yshift = -0.2cm},
   title = {$\beta = 1 \times 10^{-3}$},
-  legend entries = {Tension, Bending, Total, $U_{\max} = 0.57~\mu$m/s},
+  legend entries = {Tension ($U_{\max} = 5.7~\mu$m/s), Bending
+  ($U_{\max} = 5.7~\mu$m/s), Total ($U_{\max} = 5.7~\mu$m/s), Total
+  ($U_{\max} = 0.57~\mu$m/s)},
   legend cell align=left,
-  legend style={draw=none,font=\small,fill=none},
+  legend style={draw=none,font=\scriptsize,fill=none},
   legend style={at={(-0.01,0.02)},anchor=south west} 
 ]
 
