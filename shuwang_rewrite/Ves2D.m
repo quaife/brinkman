@@ -11,11 +11,16 @@ h = (params.shortax - 1)^2/(params.shortax+1)^2;
 scaleL = params.scaleL;
 L = pi*(params.shortax + 1)*(1+h/4+h^2/64)*scaleL;
 angle =  params.angle;
-center = params.center;
-geometry = params.geometry;
+vesCenter = params.vesCenter;
+geomCenter = params.geomCenter;
+wallGeometry = params.wallGeometry;
+vesGeometry = params.vesGeometry;
+% [alpha,X] = oc.initConfig(upRate*params.N,false,...
+%             'shortax',params.shortax, 'scale', scaleL, 'angle', angle, ...
+%             'center', center, 'FFflow', FFflow);
 [alpha,X] = oc.initConfig(upRate*params.N,false,...
             'shortax',params.shortax, 'scale', scaleL, 'angle', angle, ...
-            'center', center, 'geometry', geometry);
+            'center', vesCenter, 'geometry', vesGeometry);
         
 % Define the initial concentration field
 rcon = oc.initialConcentration(upRate*params.N,alpha,...
@@ -43,8 +48,8 @@ ves.X = oc.recon(ves.N, ves.x0, ves.y0, ves.L, ves.theta);
 if options.confined
   oc = curve(params.Nbd);
   [~,Xwalls] = oc.initConfig(params.Nbd,false,...
-              'scale', 2, ...
-              'center', center, 'geometry', 'tube');
+              'scale', 1, ...
+              'center', geomCenter, 'geometry', wallGeometry);
 
   % Build object for the vesicle but without a band-limited opening angle
   walls = capsules(Xwalls,[],params);
@@ -52,21 +57,20 @@ else
   walls = [];
 end
 
-tt = tstep(params,ves,walls); % Shorthand for tstep class
-
-om = monitor(ves.X,params,options); % Shorthand for monitor class
+tt = tstep(params,options,ves,walls); % Shorthand for tstep class
+om = monitor(ves.X,walls,params,options); % Shorthand for monitor class
 
 % Take first step with first-order Euler to update for dX and dtheta
 % [ves,ux_old,uy_old,L,Ln,dcur0,fntheta,N2Hat,cx0,cy0] = ...
 %       tt.FirstSteps(ves,params,options,om);
-[ves,ux_old,uy_old,L,Ln,dcur0,fntheta,N2Hat] = ...
+[ves,ux_old,uy_old,L,Ln,dcur0,fntheta,N2Hat,eta_old] = ...
       tt.FirstSteps(ves,walls,params,options,om);
 
 % Begin time step routine using multistep to update dX and dtheta 
 % ves = tt.TimeStepLoop(ves,params,om,ux_old,uy_old,L,Ln,dcur0,...
 %                       fntheta,N2Hat,cx0,cy0);
-ves = tt.TimeStepLoop(ves,params,om,ux_old,uy_old,L,Ln,dcur0,...
-                      fntheta,N2Hat);
+ves = tt.TimeStepLoop(ves,walls,params,om,ux_old,uy_old,L,Ln,dcur0,...
+                      fntheta,N2Hat,eta_old);
 
 
 end % Ves2D

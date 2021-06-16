@@ -16,19 +16,25 @@ T               % time horizion
 m               % number of time steps
 N               % points per vesicle
 cls             % concentration
+confined        % T/F confined
+Nbd             % number of points on the boundary
 
 end % properties
 
 methods
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function o = monitor(X,params,options)
+function o = monitor(X,walls,params,options)
 % monitor(X,Xwalls,options,prams) saves options and parameters needed
 % by the class and also computes the initial error in area and length
 % so that the errors in area and length can be monitored throughout the
 % simulation.
 % This is the constructor
 o.N = params.N; % points per vesicle
+o.confined = options.confined;
+if o.confined
+    o.Nbd = walls.N;
+end
 o.T = params.T; % time horizon
 o.m = params.T/params.dt; % number of time steps
 o.cls = params.concentra; % concentration of lipid species
@@ -40,7 +46,6 @@ o.logFile = options.logFile; % log file name
 oc = curve(o.N); %shorthand for curve class
 % compute the area, length, and reduced area of initial shape
 [o.reducedArea,o.area,o.len] = oc.geomProp(X);
-
 end % constructor: monitor
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -98,7 +103,7 @@ o.writeMessage(' ','%s\n')
 end % initializeFiles
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function terminate = outputInfo(o,X,conc,time,vel,ten)
+function terminate = outputInfo(o,X,walls,conc,time,vel,ten)
 % computes the error in area and length and write messages to the data
 % file, the log file, and the console.
 
@@ -112,7 +117,7 @@ end
 
 % Begin plotting
 if o.usePlot
-  o.plotData(X,time,ea,el,vel,conc);
+  o.plotData(X,walls,time,ea,el,vel,conc);
   pause(0.01)
 end
 % End plotting
@@ -184,7 +189,7 @@ end
 end % writeMessage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function plotData(o,X,time,ea,el,vel,conc)
+function plotData(o,X,walls,time,ea,el,vel,conc)
 % plotData(X,Xwalls,time,ea,el) plots the current configuration with
 % title X is the vesicle position time is the current time, ea and el
 % are the errors in area and length
@@ -207,6 +212,11 @@ rbn = 1 * (ones(o.N,1) - conc) + 0.1*conc;
 h = cline([x;x(1,:)],[y;y(1,:)],[rbn;rbn(1,:)]);
 set(h,'linewidth',3)
 colorbar
+if o.confined
+    hold on
+    plot(walls.X(1:end/2),walls.X(end/2+1:end),'linewidth',3);
+    hold off
+end
 %Title and axis settings for all plots
 titleStr = ['t = ' num2str(time,'%4.2e') ...
   ' eA = ' num2str(ea,'%4.2e') ...

@@ -7,6 +7,7 @@ properties
 
 ves; % vesicle structure
 walls; % outer wall structure
+confined; %confined option T or F
 shearRate; % background shear rate
 farFieldFlow; % far field flow type
 bendsti; % maximum bending stiffness
@@ -19,16 +20,16 @@ gmresTol; %tolerance for GMRES
 gmresMaxIter; %maximum number of iterations GMRES
 R0; %inital radius
 saveRate; % how often the solution will be saved
-
+DLPmat; %double-layer Stokes potential matrix
 end % properties
 
 methods
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function o = tstep(params,ves,walls)
+function o = tstep(params,options,ves,walls)
 %o = tstep(prams,ves,walls) is a constructor that initializes the class.
 %Take all elements of prams needed by the time stepper
+o.confined = options.confined;
 o.ves = ves;
-o.walls = walls;
 o.shearRate = params.shearRate;
 o.farFieldFlow = params.farFieldFlow;
 o.bendsti = params.bendsti; %maximum bending stiffness
@@ -47,6 +48,13 @@ oc = curve(params.N);
 [ra,A,~] = oc.geomProp(ves.X);
 o.R0 = sqrt(A/pi);
 o.saveRate = params.saveRate;
+if o.confined
+    o.walls = walls;
+    o.DLPmat = op.StokesDLP(o.walls);
+else
+    o.walls = [];
+    o.DLPmat = [];
+end
 
 end % tstep: constructor
 
@@ -74,6 +82,21 @@ elseif strcmp(farFieldFlow, 'parabolic')
 
 elseif strcmp(farFieldFlow,'extensional')
     uinf = farFieldSpeed*[-x;y];
+elseif strcmp(farFieldFlow, 'tube')
+    W = 3.5;%10*o.R0;
+    uinf = farFieldSpeed*[(1-(y/W).^2);zeros(N/2,1)];
+elseif strcmp(farFieldFlow, 'choke') || strcmp(farFieldFlow, 'doublechoke')
+    W = 1;
+    uinf = farFieldSpeed*[(1-(y/W).^2);zeros(N/2,1)];
+elseif strcmp(farFieldFlow, 'contracting')
+    uinf = zeros(N,1);
+    xmax = max(x);
+    xmin = min(x);
+    ind = find(x < (xmin + 0.1) | x > (xmax - 0.1));
+    ymax = max(y(ind));
+    vx = (ymax^2-y(ind).^2)/ymax^2;
+    % parabolic flow
+    uinf(ind,:) = vx;  
 else
     %default flow is relaxed
     uinf = zeros(N, 1);
@@ -81,8 +104,19 @@ else
 end
 
 end
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [uxvel,uyvel,fdotn] = usetself(o)
+function [eta] = etaSolver(o, rhs)
+    walls = o.walls;
+    op = poten(walls.N);
+    N0 = op.StokesN0mat(walls);
+    % solve for the density function which satisfies the second-kind
+    % Fredholm integral equation
+    eta = (0.5*eye(2*walls.N) + o.DLPmat + N0)\rhs;
+end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [uxvel,uyvel,fdotn,eta] = usetself(o,eta)
 %Usetself returns the x and y component of the velocity as well as the 
 %mechanical force, beta*fdotn.
 
@@ -136,16 +170,37 @@ c2 = -L/(8*pi);
 % sigma1 and sigma2 are the solution of equation (33) (NOTE: without
 % the u_s term). Also, it includes the background shear flow which
 % is not stated in equation (33), but instead in equations (6) and (7)
-uinf = o.bgFlow(ves.X, o.shearRate, o.farFieldFlow);
+if ~o.confined
+    uinf = o.bgFlow(ves.X, o.shearRate, o.farFieldFlow);
+else
+    uinf = zeros(size(ves.X));
+end
 [uinfx, uinfy] = oc.getXY(uinf);
-sigma1 = k(1:N)*c1 + LogKernel1*c2 + uinfx; %ves.X(N+1:end)*o.shearRate;
-sigma2 = k(N+1:end)*c1 + LogKernel2*c2 + uinfy;
+vesVelx = k(1:N)*c1 + LogKernel1*c2 + uinfx;
+vesVely = k(N+1:end)*c1 + LogKernel2*c2 + uinfy;
+if o.confined
+    wallVel2Ves = op.StokesDLPtar(walls,eta,ves.X);
+    [wallVel2Vesx, wallVel2Vesy] = oc.getXY(wallVel2Ves);
+else
+    wallVel2Vesx = zeros(size(vesVelx));
+    wallVel2Vesy = zeros(size(vesVely));
+end
+% plot(walls.X(1:end/2),walls.X(end/2+1:end))
+% hold on
+% plot(ves.X(1:end/2),ves.X(end/2+1:end))
+% quiver(walls.X(1:end/2),walls.X(end/2+1:end),rhsWalls(1:end/2), rhsWalls(end/2+1:end))
+% quiver(ves.X(1:end/2),ves.X(end/2+1:end),wallVel2Ves(1:end/2), wallVel2Ves(end/2+1:end))
+% axis equal
+% pause
+
+
 % Calculate v dot n in eq (40)
-vdotn = sigma1.*sin(theta) - sigma2.*cos(theta);
+vdotn = (vesVelx + wallVel2Vesx).*sin(theta) - (vesVely + wallVel2Vesy).*cos(theta);
 % Calculate v dot s in eq (40)
-vdots = sigma1.*cos(theta) + sigma2.*sin(theta);
+vdots = (vesVelx + wallVel2Vesx).*cos(theta) + (vesVely + wallVel2Vesy).*sin(theta);
 % Calculate d/ds(v dot s) in eq (40)
 dvdotsds = oc.diffFT(vdots)/L;
+
 % Compute the right hand side of equation (40)
 rhs = -(dvdotsds + cur.*vdotn - ves.SPc*cur.*Esigma);
 % The velocity components in eq (40) are nonlocal linear functionals of
@@ -164,6 +219,25 @@ tracJump = [(+lambTil.*cur.*sin(theta) - dlamTilds.*cos(theta));...
 % Now we add the jump conditions in eq (39) to (33) which is in the 
 % old variable tau
 tau = tau + tracJump;
+if o.confined
+    % compute velocity due to the vesicle's traction and evaluate on the
+    % outer wall
+    vesVel2Wall = op.StokesSLPtar(ves,tau,walls.X);
+    % build right hand side for the double-layer potential solver
+    bgFlowWalls = o.bgFlow(walls.X, o.shearRate, o.farFieldFlow);
+%     plot(walls.X(1:end/2),walls.X(end/2+1:end));
+%     hold on
+%     quiver(walls.X(1:end/2),walls.X(end/2+1:end), bgFlowWalls(1:end/2),bgFlowWalls(end/2+1:end))
+%     pause
+    rhsWalls = bgFlowWalls - vesVel2Wall;
+    eta = o.etaSolver(rhsWalls);
+ %   wallVel2Ves = op.StokesDLPtar(walls,eta,ves.X);
+ %   [wallVel2Vesx, wallVel2Vesy] = oc.getXY(wallVel2Ves);
+% else 
+%     eta = zeros(size(ves.X));
+%     wallVel2Vesx = zeros(size(vesVelx));
+%     wallVel2Vesy = zeros(size(vesVely));
+end
 % Add in the fdotn term for the semipermeability model
 fdotn = tau(1:end/2).*sin(theta)-tau(end/2+1:end).*cos(theta);
 % Compute u tilde in equations (38) through (40) without the weakly 
@@ -174,27 +248,16 @@ force1 = op.IntegrateLogKernel(tau(1:N));
 force2 = op.IntegrateLogKernel(tau(N+1:end));
 % Calulate u in equation (31) by adding the results from the
 % non-singular and weakly singular integral operators
-uinf = o.bgFlow(ves.X, o.shearRate, o.farFieldFlow);
-[uinfx, uinfy] = oc.getXY(uinf);
-uxvel = k(1:N)*c1 + force1*c2 + uinfx;%ves.X(N+1:end)*o.shearRate;
-uyvel = k(N+1:end)*c1 + force2*c2 + uinfy;
+uxvel = k(1:N)*c1 + force1*c2 + wallVel2Vesx; 
+uyvel = k(N+1:end)*c1 + force2*c2 + wallVel2Vesy;
+if ~o.confined
+    uinf = o.bgFlow(ves.X, o.shearRate, o.farFieldFlow);
+    [uinfx, uinfy] = oc.getXY(uinf);
+    uxvel = uxvel + uinfx;
+    uyvel = uyvel + uinfy;
+end
 ves.ten = lambTil;
 
-
-% compute velocity due to the vesicle's traction and evaluate on the
-% outer wall
-velVes2Walls = op.StokesSLPtar(ves,tau,walls.X);
-
-% build right hand side for the double-layer potential solver
-% rhsWalls = backgroundflow - velVes2Walls
-
-% build the dlp matrix (which is actually the same for all time steps so
-% this is herendous to do, but I'll do it nonetheless
-D = op.StokesDLP(walls);
-
-% solve for the density function which satisfies the second-kind
-% Fredholm integral equation
-%eta = (-0.5*eye(2*prams.Nbd) + D)\rhsWalls;
 
 %clf;hold on;
 %[velx,vely] = oc.getXY(velVes2Walls);
@@ -203,13 +266,13 @@ D = op.StokesDLP(walls);
 %flux = velx.*nx + vely.*ny;
 %plot(flux)
 %sum(flux)
-%pause
-%plot(ves.X(1:end/2),ves.X(end/2+1:end),'b-o')
-%plot(walls.X(1:end/2),walls.X(end/2+1:end),'k-o')
-%quiver(walls.X(1:end/2),walls.X(end/2+1:end),...
-%      sin(walls.theta),-cos(walls.theta))
-%axis equal
-%pause
+% plot(ves.X(1:end/2),ves.X(end/2+1:end),'b-o')
+% hold on
+% plot(walls.X(1:end/2),walls.X(end/2+1:end),'k-o')
+% quiver(walls.X(1:end/2),walls.X(end/2+1:end),...
+%       sin(walls.theta),-cos(walls.theta))
+% axis equal
+% pause
 
 
 end % usetself
@@ -269,7 +332,7 @@ x = real(ifft(x));
 end % preconditioner
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [ves,ux_old,uy_old,L,Ln,dcur0,N1,N2Hat] = FirstSteps(...
+function [ves,ux_old,uy_old,L,Ln,dcur0,N1,N2Hat,eta] = FirstSteps(...
         o,ves,walls,params,options,om)
 % function [ves,ux_old,uy_old,L,Ln,dcur0,N1,N2Hat,cx,cy] = FirstSteps(...
 %         o,ves,walls,params,options,om)
@@ -287,10 +350,19 @@ xnormal =  sin(ves.theta);
 ynormal = -cos(ves.theta);
 %cx0 = oc.centerOfMass(ves.X, ves.X(1:end/2),ves.L,xnormal);
 %cy0 = oc.centerOfMass(ves.X, ves.X(end/2+1:end),ves.L,ynormal);
+if o.confined
+    % build right hand side for the double-layer potential solver
+    bgFlowWalls = o.bgFlow(walls.X, o.shearRate, o.farFieldFlow);
+    rhsWalls = bgFlowWalls;
+    eta = o.etaSolver(rhsWalls);
+else 
+    eta = zeros(params.Nbd,1);
+end
+
 % Compute the x velocity, y velocity using the initialized concentration
 % field. A step of Cahn-Hilliard is not taken until after this step.
 %   Missing the u_s term in equation (33)
-[ux,uy,fdotn] = o.usetself;
+[ux,uy,fdotn,eta] = o.usetself(eta);
 om.initializeFiles(ves.X,ves.rcon,time,[ux;uy],ves.ten)
 % put the x-y velocity into the normal and tangential velocity.
 theta = ves.theta; %shorthand theta so we don't type ves. a million times
@@ -404,12 +476,11 @@ ea = abs(a_new - a_old)./abs(a_old);
 el = abs(l_new - l_old)./abs(l_old);
 % plot and write the new data 
 % om.plotData(ves.X,time,ea,el,[ux;uy],ves.rcon)
-
 end % FirstSteps
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function ves = TimeStepLoop(o,ves,params,om,ux_old,uy_old,L,Ln,...
-                            dcur0,fntheta,N2Hat)
+function ves = TimeStepLoop(o,ves,walls,params,om,ux_old,uy_old,L,Ln,...
+                            dcur0,fntheta,N2Hat,eta_old)
 % function ves = TimeStepLoop(o,ves,params,om,ux_old,uy_old,L,Ln,...
 %                             dcur0,fntheta,N2Hat,cx0,cy0)
 % Main time stepping routine which can be either Euler or multistep. Right
@@ -426,7 +497,7 @@ for ktime = 1:nstep
   time = ktime*params.dt;
   % compute the x- and y-components of the velocity. This is the routine
   % that calls GMRES which is used to solve equation (30) 
-   [uxvel_loop,uyvel_loop,fdotn] = o.usetself;
+   [uxvel_loop,uyvel_loop,fdotn,eta] = o.usetself(eta_old);
   % Save the velocity at the first discretization point
   uxvel_new = uxvel_loop(1);
   uyvel_new = uyvel_loop(1);
@@ -545,7 +616,8 @@ for ktime = 1:nstep
   % Update the curvature
   ves.cur = oc.acurv(ves.N,ves.theta,ves.L);
   
-   if(strcmp(o.farFieldFlow, 'parabolic'))
+   if(strcmp(o.farFieldFlow, 'parabolic') || ...
+           strcmp(o.farFieldFlow, 'tube'))
        %pin the vesicle at x = 0
        ves.X(1:end/2) = ves.X(1:end/2) - mean(ves.X(1:end/2));
    end
@@ -558,16 +630,17 @@ for ktime = 1:nstep
   %if mod(ktime,o.saveRate) == 0
   cmod = ktime - o.saveRate*floor(ktime/o.saveRate);
   if cmod == 0
-      terminate = om.outputInfo(ves.X,ves.rcon,time,[uxvel_loop;uyvel_loop],ves.ten);
+      terminate = om.outputInfo(ves.X,walls,ves.rcon,time,[uxvel_loop;uyvel_loop],ves.ten);
       if terminate
         msg = 'ERROR IN AREA IS TOO LARGE. STOPPING SIMULATION.';
         om.writeMessage(msg,'%s\n');
         break
       end
   end
-  % Update ux_old, uy_old, for timestepping loop
+  % Update ux_old, uy_old, and eta_old for timestepping loop
   ux_old = uxvel_new;
   uy_old = uyvel_new;
+  eta_old = eta;
 %   cx0 = cx;
 %   cy0 = cy;
 end

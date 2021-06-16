@@ -160,6 +160,36 @@ D = 1/pi*D*geom.L/N;
 
 end % StokesDLP
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [N0] = StokesN0mat(o, ves)
+% N0 = stokesN0matrix(vesicle) generates the the integral operator with
+% kernel normal(x) \otimes normal(y) which removes the rank one
+% defficiency of the double-layer potential.  Need this operator for
+% solid walls
+
+% Use N0 if solving (-1/2 + DLP)\eta = f where f has no flux through
+% the boundary.  By solving (-1/2 + DLP + N0)\eta = f, we guarantee
+% that \eta also has no flux through the boundary.  This is not
+% required, but it means we're enforcing one addition condition on eta
+% which removes the rank one kernel.  DLP is the double-layer potential
+% for stokes equation
+
+N = ves.N;
+X = ves.X;
+oc = curve(N);
+
+%get the tangent
+[~,tangent,~] = oc.diffProp(X);
+%compute the normal
+normal = [tangent(N+1:end);-tangent(1:N)];
+normal = normal(:,ones(2*N,1));
+jac = oc.diffProp(X);
+jacobian = [jac;jac];
+jacobian = jacobian(:,ones(2*N,1));
+N0 = normal.*normal'.*jacobian'*2*pi/N;
+    
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % START OF ROUTINES THAT EVALUATE STOKES LAYER POTENTIALS AT TARGET
@@ -203,7 +233,32 @@ function vel = StokesDLPtar(o,geom,eta,Xtar)
 % using the density function eta, and evaluating at the target points in
 % Xtar
 
-vel = zeros(size(Xtar));
+oc = curve(geom.N);
+
+[xsou,ysou] = oc.getXY(geom.X);
+[~,tangent,~] = oc.diffProp(geom.X);
+normal = [tangent(geom.N+1:end);-tangent(1:geom.N)];
+[nx,ny] = oc.getXY(normal);
+
+[xtar,ytar] = oc.getXY(Xtar);
+[xeta,yeta] = oc.getXY(eta);
+xtar = xtar(:); ytar = ytar(:);
+xeta = xeta(:); yeta = yeta(:); 
+
+velx = zeros(size(xtar));
+vely = zeros(size(xtar));
+
+for k = 1:numel(xtar)
+  rx = xtar(k) - xsou;
+  ry = ytar(k) - ysou;
+  rho2 = rx.^2 + ry.^2;
+  rdotn = rx.*nx + ry.*ny;
+  rdoteta = rx.*xeta + ry.*yeta;
+  kernel = (rdotn./rho2).*(rdoteta./rho2);
+  velx(k) = -1/pi*sum(kernel.*rx);
+  vely(k) = -1/pi*sum(kernel.*ry);
+end
+vel = [velx;vely]*geom.L/geom.N;
 
 end % StokesDLPtar
 

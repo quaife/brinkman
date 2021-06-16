@@ -206,7 +206,7 @@ elseif strcmp(geometry,'star')
 
 elseif strcmp(geometry,'choke')
 %elseif any(strcmp(options,'choke'))
-  a = 10; b = 3; c = 0.6; order = 8;
+  a = 3; b = 1; c = 0.6; order = 8;
   % parameters for the boundary
   Nsides = ceil(0.5*b/(2*a+2*b)*N);
   Ntop = (N-4*Nsides)/2;
@@ -219,10 +219,10 @@ elseif strcmp(geometry,'choke')
   % Parameterize t so that geometry is closer to equi-spaced in
   % arclength
 %  t = (0:N-1)'*2*pi/N;
-  r = (cos(t).^order + sisn(t).^order).^(-1/order);
+  r = (cos(t).^order + sin(t).^order).^(-1/order);
   x = a*r.*cos(t); y = b*r.*sin(t);
-  ind = abs(x) < pi;
-  y(ind) = y(ind).*(1-c*cos(x(ind)))/(1+c);
+  ind = abs(x) < 1;
+  y(ind) = y(ind).*(1-c*cos(x(ind)*pi))/(1+c);
   X0 = [x;y];
   % choked domain.  a and b control the length and height.  c
   % controls the width of the gap, and order controls the
@@ -233,6 +233,7 @@ elseif strcmp(geometry,'doublechoke')
   a = 10; b = 3; c = 0.6; order = 8;
   shift = pi/2 + 0.1;
   % parameters for the boundary
+  t = (0:N-1)'*2*pi/N;
   r = (cos(t).^order + sin(t).^order).^(-1/order);
   x = a*r.*cos(t); y = b*r.*sin(t);
   ind = abs(x-shift) < pi/2;
@@ -310,7 +311,7 @@ elseif strcmp(geometry,'contracting')
 
 elseif strcmp(geometry,'tube')
 %elseif any(strcmp(options,'tube'))
-  a = 10; b = 3; order = 8;
+  a = 3; b = 1; order = 8;
   % parameters for the boundary
   Nsides = ceil(0.5*b/(2*a+2*b)*N);
   Ntop = (N-4*Nsides)/2;
@@ -325,7 +326,7 @@ elseif strcmp(geometry,'tube')
   % equispaced in arclength
   r = (cos(2*pi*t).^order + sin(2*pi*t).^order).^(-1/order);
   x = a*r.*cos(2*pi*t); y = b*r.*sin(2*pi*t);
-  X0 = [x;y];
+  X0 = 3.5*[x;y];
   % rounded off cylinder.  a and b control the length and height 
   % and order controls the regularity
 
@@ -355,7 +356,8 @@ if ~equispaced
   % [alpha, X] = o.initConfig(N,true,options,'parameter',alpha);
    
 end
-
+% plot(X(1:N),X(N+1:2*N))
+% pause
 end % initConfig
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

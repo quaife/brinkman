@@ -4,29 +4,33 @@
 %Voigt, &  Lowengrub JCP 2013
 
 fluxCoeff = 0;
-farFieldSpeed = 80;
-concentration = 0.3;
-shortax = 3.45;
-scaleL = 0.538;
+farFieldSpeed = 800;
+concentration = 0;
+shortax = 5.7;
+scaleL = 0.419;
 fileName = 'TEST';
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
 
-params.N = 64; % points on vesicle
-params.Nbd = 256; % points on the solid wall
-params.dt = 1e-4; % time step size
-params.T = 50; % time horizon
+params.N = 512; % points on vesicle
+params.Nbd = 512; % points on the solid wall
+params.dt = 5e-5; % time step size
+params.T = 2*0.01; % time horizon
 params.saveRate = 1; % ouptut frequency
 params.concentra = concentration; % constant, initial concentration of 
                                   % lipid species
 params.oddeven = 0; % flag for initial lipid species profile?
 params.shortax = shortax; % short axis length
 params.scaleL = scaleL;
-params.farFieldFlow = 'parabolic';  % Available options: 'relaxation', 
-                                    % 'shear', 'parabolic, 'extensional'
-params.geometry = 'ellipse';
+params.farFieldFlow = 'parabolic';   
+% Available options: 'relaxation', 'shear', 'parabolic, 'extensional'
+% 'tube', 'choke', 'doublechoke', 'contracting'
+params.wallGeometry = 'tube';
+params.vesGeometry = 'ellipse';
+% Available options: 'relaxation', 'shear', 'parabolic, 'extensional'
+% 'tube', 'choke', 'doublechoke', 'contracting', 'tube' 
 params.shearRate = farFieldSpeed; % shear rate
 params.viscosityInside = 1.0;
 params.viscosityOutside = 1.0;
@@ -39,12 +43,13 @@ params.epsch = 0.04; % small parameter  in the double-well potential
 params.gmresTol = 1e-10; %GMRES tolerance
 params.gmresMaxIter = params.N; %maximum number of GMRES iterations
 params.SPcoeff = fluxCoeff; %semi-permeable coefficient
-params.center = [0;0];%[0;0.1];
-params.angle = 0;%pi/2;%pi/6; % The tracking point is programmed to be at 0,0.  
+params.vesCenter = [0;0.1];%[0;0.1];
+params.geomCenter = [0;0];
+params.angle = 0;%pi/6; % The tracking point is programmed to be at 0,0.  
                       % Rotate the vesicle counter-clockwise to keep 
                       % desired center.  
 
-options.confined = true;
+options.confined = false; %param for now to pass into tstep, change later
 options.verbose = false;  % write data to console
 options.saveData = true; % save the data
 options.usePlot = true;  % plot the data
