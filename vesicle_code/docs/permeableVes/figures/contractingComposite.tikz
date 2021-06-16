@@ -5114,7 +5114,7 @@ plot coordinates {
   xmin = 0,
   xmax = 45,
   ymin = 0.45,
-  ymax = 0.80,
+  ymax = 0.85,
   xtick = {0,15,30,45},
   xticklabels = {0,15,30,45},
   ytick = {0.5,0.6,0.7,0.8},
@@ -28296,18 +28296,18 @@ plot coordinates {
 %+(0.80,0.4) {};
 
 
-\node at (0.1,7.8) {(a)};
-\node at (0.1,4.8) {(b)};
-\node at (0.1,2.3) {(c)};
-\node at (4.8,7.8) {(d)};
-\node at (4.8,4.8) {(e)};
-\node at (4.8,2.3) {(f)};
-\node at (9.5,7.8) {(g)};
-\node at (9.5,4.8) {(h)};
-\node at (9.5,2.3) {(i)};
-\node at (14.2,7.8) {(j)};
-\node at (14.2,4.8) {(k)};
-\node at (14.2,2.3) {(l)};
+\node at (-0.3,7.8) {(a)};
+\node at (-0.3,4.8) {(b)};
+\node at (-0.3,2.3) {(c)};
+\node at (4.5,7.8) {(d)};
+\node at (4.5,4.8) {(e)};
+\node at (4.5,2.3) {(f)};
+\node at (9.3,7.8) {(g)};
+\node at (9.3,4.8) {(h)};
+\node at (9.3,2.3) {(i)};
+\node at (14.1,7.8) {(j)};
+\node at (14.1,4.8) {(k)};
+\node at (14.1,2.3) {(l)};
 
 %\node at (5.1,7.9) {(d)};
 %\node at (5.1,4.4) {(e)};
