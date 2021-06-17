@@ -5,7 +5,6 @@ classdef tstep < handle
 
 properties
 
-ves; % vesicle structure
 walls; % outer wall structure
 confined; %confined option T or F
 shearRate; % background shear rate
@@ -18,7 +17,6 @@ viscIn; %viscosity inside the vesicle
 viscOut; %viscosity outside the vesicle
 gmresTol; %tolerance for GMRES 
 gmresMaxIter; %maximum number of iterations GMRES
-R0; %inital radius
 saveRate; % how often the solution will be saved
 DLPmat; %double-layer Stokes potential matrix
 end % properties
@@ -29,7 +27,6 @@ function o = tstep(params,options,ves,walls)
 %o = tstep(prams,ves,walls) is a constructor that initializes the class.
 %Take all elements of prams needed by the time stepper
 o.confined = options.confined;
-o.ves = ves;
 o.shearRate = params.shearRate;
 o.farFieldFlow = params.farFieldFlow;
 o.bendsti = params.bendsti; %maximum bending stiffness
@@ -45,8 +42,6 @@ op = poten(params.N);
 %construct the odd/even matrix
 o.kmatrix = op.oddEvenMatrix; 
 oc = curve(params.N);
-[ra,A,~] = oc.geomProp(ves.X);
-o.R0 = sqrt(A/pi);
 o.saveRate = params.saveRate;
 if o.confined
     o.walls = walls;
@@ -68,26 +63,28 @@ function [uinf] = bgFlow(o, X, farFieldSpeed, farFieldFlow)
 %     extensional:    (-x,y)
 %     parabolic:      (k(1-y/r)^2,0) - r is hardcoded for now.
 
-N = length(X);
+N = length(X)/2; % number of points on vesicle or solid wall
 oc = curve(N);
 [x,y] = oc.getXY(X);
 
 if strcmp(farFieldFlow,'relaxation')
-    uinf = zeros(N, 1);
+    uinf = zeros(2*N, 1);
 elseif strcmp(farFieldFlow,'shear')
-    uinf = farFieldSpeed*[y;zeros(N/2,1)];
+    uinf = farFieldSpeed*[y;zeros(N,1)];
 elseif strcmp(farFieldFlow, 'parabolic')
-    W = 10*o.R0; 
-    uinf = farFieldSpeed*[(1-(y/W).^2);zeros(N/2,1)];
-
+    [ra,A,~] = oc.geomProp(X);
+    R0 = sqrt(A/pi);
+    W = 10*R0;
+    W = 3.5;
+    uinf = farFieldSpeed*[(1-(y/W).^2);zeros(N,1)];
 elseif strcmp(farFieldFlow,'extensional')
     uinf = farFieldSpeed*[-x;y];
 elseif strcmp(farFieldFlow, 'tube')
-    W = 3.5;%10*o.R0;
-    uinf = farFieldSpeed*[(1-(y/W).^2);zeros(N/2,1)];
+    W = max(y);
+    uinf = farFieldSpeed*[(1-(y/W).^2);zeros(N,1)];
 elseif strcmp(farFieldFlow, 'choke') || strcmp(farFieldFlow, 'doublechoke')
     W = 1;
-    uinf = farFieldSpeed*[(1-(y/W).^2);zeros(N/2,1)];
+    uinf = farFieldSpeed*[(1-(y/W).^2);zeros(N,1)];
 elseif strcmp(farFieldFlow, 'contracting')
     uinf = zeros(N,1);
     xmax = max(x);
@@ -116,11 +113,10 @@ function [eta] = etaSolver(o, rhs)
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [uxvel,uyvel,fdotn,eta] = usetself(o,eta)
+function [uxvel,uyvel,fdotn,eta] = usetself(o,ves,eta)
 %Usetself returns the x and y component of the velocity as well as the 
 %mechanical force, beta*fdotn.
 
-ves = o.ves; %shorthand for ves object
 walls = o.walls; % shorthand for the walls object
 x0 = ves.x0; %shorthand for x component of tracking point
 y0 = ves.y0; %shorthand for y component of tracking point
@@ -185,13 +181,17 @@ else
     wallVel2Vesx = zeros(size(vesVelx));
     wallVel2Vesy = zeros(size(vesVely));
 end
+
+%bgFlowWalls = o.bgFlow(walls.X, o.shearRate, o.farFieldFlow);
+%bgFlowVes = o.bgFlow(ves.X, o.shearRate, o.farFieldFlow);
+%figure(2); clf;
 % plot(walls.X(1:end/2),walls.X(end/2+1:end))
 % hold on
 % plot(ves.X(1:end/2),ves.X(end/2+1:end))
-% quiver(walls.X(1:end/2),walls.X(end/2+1:end),rhsWalls(1:end/2), rhsWalls(end/2+1:end))
+% quiver(walls.X(1:end/2),walls.X(end/2+1:end),bgFlowWalls(1:end/2),bgFlowWalls(end/2+1:end))
 % quiver(ves.X(1:end/2),ves.X(end/2+1:end),wallVel2Ves(1:end/2), wallVel2Ves(end/2+1:end))
 % axis equal
-% pause
+% figure(1);
 
 
 % Calculate v dot n in eq (40)
@@ -208,7 +208,7 @@ rhs = -(dvdotsds + cur.*vdotn - ves.SPc*cur.*Esigma);
 % GMRES. Each iteration of GMRES requires a solution of Stokes equation.
 % LambdaTilde is the lambda with a tilde in eq (39), in case it's not obv.
 [lambTil,flag,relres,iter,resvec] = ...
-      gmres(@(x) o.matvec40(x,StokesMat),rhs,[],o.gmresTol,...
+      gmres(@(x) o.matvec40(x,ves,StokesMat),rhs,[],o.gmresTol,...
               o.gmresMaxIter,@(x) o.preconditioner(x));
 % Calculate the Fourier derivative of lambdaTilde
 dlamTilds = oc.diffFT(lambTil)/L;
@@ -278,11 +278,10 @@ ves.ten = lambTil;
 end % usetself
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function LHS = matvec40(o,Lambda,StokesMat)   
+function LHS = matvec40(o,Lambda,ves,StokesMat)   
 % This function cooresponds to the matvec in equation 40 and returns the
 % LHS of eq(40), (u \cdot s)_s + kappa * (u \cdot n) as LHS
 
-ves = o.ves; %shorthand for ves object
 theta = ves.theta; %shorthand for opening angle
 cur = ves.cur; %shorthand for vesicle curvature
 L = ves.L; %shorthand for vesicle length
@@ -324,8 +323,7 @@ function x = preconditioner(o,rhs)
 % Schur complement for a Lagrange multiplier needed to enforce local
 % inextensibility
 
-ves = o.ves;
-N = ves.N;
+N = numel(rhs);
 x = fft(rhs)./[1 1:1:N/2 N/2-1:-1:1]';
 x = real(ifft(x));
 
@@ -362,7 +360,7 @@ end
 % Compute the x velocity, y velocity using the initialized concentration
 % field. A step of Cahn-Hilliard is not taken until after this step.
 %   Missing the u_s term in equation (33)
-[ux,uy,fdotn,eta] = o.usetself(eta);
+[ux,uy,fdotn,eta] = o.usetself(ves,eta);
 om.initializeFiles(ves.X,ves.rcon,time,[ux;uy],ves.ten)
 % put the x-y velocity into the normal and tangential velocity.
 theta = ves.theta; %shorthand theta so we don't type ves. a million times
@@ -466,6 +464,11 @@ ves.theta = thetan;
 % second-order Adams-Bashforth will be used
 ves.x0 = ves.x0 + params.dt*ux(1);
 ves.y0 = ves.y0 + params.dt*uy(1);
+if(strcmp(o.farFieldFlow, 'parabolic') || ...
+  strcmp(o.farFieldFlow, 'tube'))
+  %pin the vesicle at x = 0
+  ves.x0 = ves.x0 - mean(ves.X(1:end/2));
+end
 % set up variables for timestepping loop
 ux_old = ux(1);
 uy_old = uy(1);
@@ -497,7 +500,7 @@ for ktime = 1:nstep
   time = ktime*params.dt;
   % compute the x- and y-components of the velocity. This is the routine
   % that calls GMRES which is used to solve equation (30) 
-   [uxvel_loop,uyvel_loop,fdotn,eta] = o.usetself(eta_old);
+   [uxvel_loop,uyvel_loop,fdotn,eta] = o.usetself(ves,eta_old);
   % Save the velocity at the first discretization point
   uxvel_new = uxvel_loop(1);
   uyvel_new = uyvel_loop(1);
@@ -619,7 +622,8 @@ for ktime = 1:nstep
    if(strcmp(o.farFieldFlow, 'parabolic') || ...
            strcmp(o.farFieldFlow, 'tube'))
        %pin the vesicle at x = 0
-       ves.X(1:end/2) = ves.X(1:end/2) - mean(ves.X(1:end/2));
+       ves.x0 = ves.x0 - mean(ves.X(1:end/2));
+%       ves.X(1:end/2) = ves.X(1:end/2) - mean(ves.X(1:end/2));
    end
    
   % HACK: keep the vesicle centered at (0,0)

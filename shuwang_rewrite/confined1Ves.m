@@ -6,7 +6,7 @@
 fluxCoeff = 0;
 farFieldSpeed = 800;
 concentration = 0;
-shortax = 5.7;
+shortax = 2.7;
 scaleL = 0.419;
 fileName = 'TEST';
 

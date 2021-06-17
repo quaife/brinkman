@@ -211,7 +211,8 @@ clf;
 rbn = 1 * (ones(o.N,1) - conc) + 0.1*conc;
 h = cline([x;x(1,:)],[y;y(1,:)],[rbn;rbn(1,:)]);
 set(h,'linewidth',3)
-colorbar
+h = colorbar;
+set(h,'fontsize',20)
 if o.confined
     hold on
     plot(walls.X(1:end/2),walls.X(end/2+1:end),'linewidth',3);
@@ -221,7 +222,7 @@ end
 titleStr = ['t = ' num2str(time,'%4.2e') ...
   ' eA = ' num2str(ea,'%4.2e') ...
   ' eL = ' num2str(el,'%4.2e')];
-title(titleStr)
+title(titleStr,'fontsize',30)
 axis equal
 
 end % plotData
