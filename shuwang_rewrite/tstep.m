@@ -147,39 +147,63 @@ tau = [[-Esigma.*sin(theta) - Eu.*cos(theta)]; ...
 % tau = tau + 5*[fx;fy];
 % ---------------------------------------- 
 
-% Construct Stokes matrix without the log singularity. 
-% ie. A3 only contains the rightmost kernel in equation (43)
+% OLD WAY OF APPLYING THE STOKES SINGLE LAYER POTENTIAL. IT IS NOW ALL
+% IN SUBROUTINE StokesSLP IN POTEN.M
+%% Construct Stokes matrix without the log singularity. 
+%% ie. A3 only contains the rightmost kernel in equation (43)
+%StokesMat = op.StokesMatrixLogless(ves);
+%% Form the velocity, k, on the interface corresponding to v^u in eq (33)
+%% If [[P^u n]]_sigma = tau, then k = stokesMatrix*tau
+%k = StokesMat*tau;
+%ulam = ves.viscIn/ves.viscOut; %ulam is the viscosity contrast
+%% LogKernel1 and LogKernel2 are the log kernels in the left term in the
+%% right hand side of equation (43) integrated against the x and y
+%% components of the density functions tau that involves Eu and Esigma
+%LogKernel1 = op.IntegrateLogKernel(tau(1:N));
+%LogKernel2 = op.IntegrateLogKernel(tau(N+1:end));
+%% Calculate constants that multiply the weakly singular and regular
+%% parts of the integral operators LogKernel1 and LogKernel2
+%c1 = 1/(4*pi)*L/N;
+%c2 = -L/(8*pi);
+%% sigma1 and sigma2 are the solution of equation (33) (NOTE: without
+%% the u_s term). Also, it includes the background shear flow which
+%% is not stated in equation (33), but instead in equations (6) and (7)
+% OLD WAY OF APPLYING THE STOKES SINGLE LAYER POTENTIAL. IT IS NOW ALL
+% IN SUBROUTINE StokesSLP IN POTEN.M
+
 StokesMat = op.StokesMatrixLogless(ves);
-% Form the velocity, k, on the interface corresponding to v^u in eq (33)
-% If [[P^u n]]_sigma = tau, then k = stokesMatrix*tau
-k = StokesMat*tau;
-ulam = ves.viscIn/ves.viscOut; %ulam is the viscosity contrast
-% LogKernel1 and LogKernel2 are the log kernels in the left term in the
-% right hand side of equation (43) integrated against the x and y
-% components of the density functions tau that involves Eu and Esigma
-LogKernel1 = op.IntegrateLogKernel(tau(1:N));
-LogKernel2 = op.IntegrateLogKernel(tau(N+1:end));
-% Calculate constants that multiply the weakly singular and regular
-% parts of the integral operators LogKernel1 and LogKernel2
-c1 = 1/(4*pi)*L/N;
-c2 = -L/(8*pi);
-% sigma1 and sigma2 are the solution of equation (33) (NOTE: without
-% the u_s term). Also, it includes the background shear flow which
-% is not stated in equation (33), but instead in equations (6) and (7)
+vel = op.StokesSLP(ves,StokesMat,tau);
+
 if ~o.confined
-    uinf = o.bgFlow(ves.X, o.shearRate, o.farFieldFlow);
+  uinf = o.bgFlow(ves.X, o.shearRate, o.farFieldFlow);
 else
-    uinf = zeros(size(ves.X));
+  uinf = zeros(size(ves.X));
 end
 [uinfx, uinfy] = oc.getXY(uinf);
-vesVelx = k(1:N)*c1 + LogKernel1*c2 + uinfx;
-vesVely = k(N+1:end)*c1 + LogKernel2*c2 + uinfy;
+% add background velocity. It is 0 if it is confined.
+vesVelx = vel(1:N) + uinfx;
+vesVely = vel(N+1:end) + uinfy;
+%vesVelx = k(1:N)*c1 + LogKernel1*c2 + uinfx;
+%vesVely = k(N+1:end)*c1 + LogKernel2*c2 + uinfy;
+
 if o.confined
-    wallVel2Ves = op.StokesDLPtar(walls,eta,ves.X);
-    [wallVel2Vesx, wallVel2Vesy] = oc.getXY(wallVel2Ves);
+  % near singular integration structure for characterizing points as
+  % close or far
+  [~,NearW2V] = getZone(walls,ves,2);
+  kernel = @op.StokesDLPtar;
+  D = op.StokesDLP(walls);
+  DLP = @(X) +0.5*X + D*X;
+
+  % with near singular integration
+  wallVel2Ves = op.nearSingInt(walls,eta,DLP,...
+    NearW2V,kernel,kernel,ves,false,false);
+
+  % without near singular integration
+%  wallVel2Ves = op.StokesDLPtar(walls,eta,ves.X);
+  [wallVel2Vesx, wallVel2Vesy] = oc.getXY(wallVel2Ves);
 else
-    wallVel2Vesx = zeros(size(vesVelx));
-    wallVel2Vesy = zeros(size(vesVely));
+  wallVel2Vesx = zeros(size(vesVelx));
+  wallVel2Vesy = zeros(size(vesVely));
 end
 
 %bgFlowWalls = o.bgFlow(walls.X, o.shearRate, o.farFieldFlow);
@@ -220,9 +244,26 @@ tracJump = [(+lambTil.*cur.*sin(theta) - dlamTilds.*cos(theta));...
 % old variable tau
 tau = tau + tracJump;
 if o.confined
-    % compute velocity due to the vesicle's traction and evaluate on the
-    % outer wall
-    vesVel2Wall = op.StokesSLPtar(ves,tau,walls.X);
+  % compute velocity due to the vesicle's traction and evaluate on the
+  % outer wall
+  [~,NearV2W] = getZone(ves,walls,2);
+  kernel = @op.StokesSLPtar;
+  SLP = @(X) op.StokesSLP(ves,StokesMat,X);
+
+  % with near singular integration
+  vesVel2Wall = op.nearSingInt(ves,tau,SLP,...
+    NearV2W,kernel,kernel,walls,false,false);
+
+  % without near singular integration
+%  vesVel2Wall = op.StokesSLPtar(ves,tau,walls.X);
+
+%    z1 = vesVel2Wall(1:end/2) + 1i*vesVel2Wall(end/2+1:end);
+%    z2 = vesVel2Wall_new(1:end/2) + 1i*vesVel2Wall_new(end/2+1:end);
+%    clf; 
+%    semilogy(abs(fftshift(fft(z2))),'b')
+%    hold on
+%    semilogy(abs(fftshift(fft(z1))),'r--')
+%    pause
     % build right hand side for the double-layer potential solver
     bgFlowWalls = o.bgFlow(walls.X, o.shearRate, o.farFieldFlow);
 %     plot(walls.X(1:end/2),walls.X(end/2+1:end));
@@ -248,6 +289,8 @@ force1 = op.IntegrateLogKernel(tau(1:N));
 force2 = op.IntegrateLogKernel(tau(N+1:end));
 % Calulate u in equation (31) by adding the results from the
 % non-singular and weakly singular integral operators
+c1 = 1/(4*pi)*L/N;
+c2 = -L/(8*pi);
 uxvel = k(1:N)*c1 + force1*c2 + wallVel2Vesx; 
 uyvel = k(N+1:end)*c1 + force2*c2 + wallVel2Vesy;
 if ~o.confined

@@ -6,13 +6,15 @@ fprintf('Two elliptical vesicles in a extensional flow.\n');
 
 % Physics parameters
 prams.N = 128;               % points per vesicle
-prams.nv = 1;               % number of vesicles
-prams.T = 20;               % time horizon (two tumbling)
+prams.nv = 2;               % number of vesicles
+prams.T = 15000;               % time horizon (two tumbling)
+%prams.T = 1;               % time horizon (two tumbling)
 prams.m = 10000;             % number of time steps
 prams.kappa = 1;         % bending coefficient
 prams.viscCant = 1;         % viscosity contrast
 options.farField = 'extensional'; % background velocity
-options.farFieldSpeed = 0.5;
+%options.farFieldSpeed = 0.01;
+options.farFieldSpeed = 0.0013;
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
 % Eithe 'explicit' or 'implicit'
@@ -30,14 +32,15 @@ prams.adRange = 4e-1;
 prams.adStrength = 7e-1;
 
 % TIME ADAPTIVITY (parameters for new implementation)
-%options.timeAdap = true;
-options.timeAdap = false;
+options.timeAdap = true;
+%options.timeAdap = false;
 
-prams.rtolArea = 1e+2;
-prams.rtolLength = 1e-1;
+prams.rtolArea = 1e-3;
+prams.rtolLength = 1e-3;
 prams.betaUp = 1.2;
 prams.betaDown = 0.5;
 prams.alpha = 0.9;
+prams.dtMax = 10;
 
 options.orderGL = 2;
 options.nsdc = 1;
@@ -45,15 +48,15 @@ options.expectedOrder = 2;
 
 % Plot on-the-fly
 options.usePlot = true;
-options.axis = [-2 2 -5 5];
+options.axis = [-20 20 -20 20];
 % Save vesicle information and create a log file
-options.logFile = 'output/ext_vbeta_Ves.log';
+options.logFile = 'output/extensional2Ves.log';
 % Name of log file for saving messages
-options.dataFile = 'output/ext_vbeta_VesData.bin';
+options.dataFile = 'output/extensional2VesData.bin';
 % Name of binary data file for storing vesicle information
 
 options.saveError = true;
-options.errorFile = 'output/ext_vbeta_VesError.bin';
+options.errorFile = 'output/extensional2VesError.bin';
 % Name of binary data file for storing truncation errors after each step
 
 [options,prams] = initVes2D(options,prams);
@@ -65,8 +68,8 @@ options.errorFile = 'output/ext_vbeta_VesError.bin';
 %posx2 = load('posx2_RA070_rotated.dat');
 %posy2 = load('posy2_RA070_rotated.dat');
 
-options.semipermeable = true;
-prams.fluxCoeff = 1e0;
+options.semipermeable = false;
+prams.fluxCoeff = 1e-3;
 
 if 0
 ysep = mean(posy2) - mean(posy1);
@@ -101,15 +104,15 @@ end
 %X = [posx1 - mean(posx1);posy1 - mean(posy1)];
 
 oc = curve;
-centerx = 0;
-centery = 0;
-ang = pi/2;
-ra = 0.65;
-scale = sqrt(ra);
+centerx = [-9 9];
+centery = [0.01 -0.01];
+ang = [pi/2 pi/2];
+ra = 0.98;
+scale = 3*sqrt(ra);
 %scale = 0.5;
 X = oc.initConfig(prams.N,'nv',prams.nv,...
     'reducedArea',ra,...
-    'center',[0;0],...
+    'center',[centerx;centery],...
     'angle',ang,...
     'scale',scale);
 %% Initial configuration of reduce area 0.65 and aligned

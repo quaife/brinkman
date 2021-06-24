@@ -5,7 +5,7 @@ options.pressure = false;
 options.center = false;
 options.marker = false;
 
-irate = 10; % controls the speed of the visualization
+irate = 1; % controls the speed of the visualization
 
 if 0
   file = 'parabolic1VesData.bin';
@@ -81,19 +81,19 @@ if 0
 end
 
 
-if 0
+if 1
 %  file = 'extensional1VesCleanData.bin'; irate = 2;
-  file = 'extensional1VesSemiData.bin'; irate = 2;
+%  file = 'extensional1VesSemiData.bin'; irate = 2;
 %  file = 'extensional1VesCircleCleanData.bin'; irate = 2;
 %  file = 'extensional1VesCircleSemiData.bin'; irate = 1;
 
-%  file = 'extensional1VesData.bin'; 
+  file = 'extensional2VesData.bin'; 
 
 
 %file = '~/projects/brinkman/vesicle_code/docs/adhesion/makefigs/extensional_adR4em1adS7em1Chi1em1_ra070/extensional2VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/extensional2Ves/adR4em1adS7em1Chi1em2_ra070/extensional2VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/yuan_runs/june_28_2019/extensional2VesData75be.bin';
-  ax = 1*[-3 3 -3 3];
+  ax = 20*[-1 1 -1 1];
   options.confined = false;
 end
 if 0
@@ -146,7 +146,7 @@ if 0
   ax = [-2 2 -2 2];
   options.confined = false;
 end
-if 1
+if 0
 %  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/shear/Chi1p0e1_ra045_beta1p0em3_longer/shear1VesData.bin';
   file = 'shear1VesE_restartData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/shear1Ves/Chi1p0em1_ra065_beta1p0em4p5/shear1VesData.bin.old';
@@ -240,7 +240,7 @@ for k = istart:1:iend
   [ra(k),area(k),length(k)] = oc.geomProp([posx(:,1,k);posy(:,1,k)]);
 %  incAng(k) = InclinationAngle(posx(:,1,k),posy(:,1,k));
 
-  if 1
+  if 0
     vesicle = capsules([posx(:,:,k);posy(:,:,k)],[],[],1,1);
     normal(1:end/2,:,k) = +vesicle.xt(end/2+1:end,:);
     normal(end/2+1:end,:,k) = -vesicle.xt(1:end/2,:);
@@ -256,8 +256,8 @@ for k = istart:1:iend
 %  G = op.stokesSLmatrix(vesicle);
 %  velSLP(:,k) = G*trac(:,:,k);
 %
-  flux(:,k) = -(trac(1:end/2,:,k).*normal(1:end/2,:,k) + ...
-          trac(end/2+1:end,:,k).*normal(end/2+1:end,:,k));
+%  flux(:,k) = -(trac(1:end/2,:,k).*normal(1:end/2,:,k) + ...
+%          trac(end/2+1:end,:,k).*normal(end/2+1:end,:,k));
 %  velFlux(:,k) = [flux(:,k).*normal(1:end/2,:,k); ...
 %                  flux(:,k).*normal(end/2+1:end,:,k)];
 end

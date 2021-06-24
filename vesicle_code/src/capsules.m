@@ -430,7 +430,7 @@ for k = 1:nv
       Div(:,:,k) zeros(N)]);
   else
     [tt.bdiagVes.L(:,:,k),tt.bdiagVes.U(:,:,k)] = lu(...
-      [eye(2*N), -diag([vesicle.beta;vesicle.beta])*...
+      [eye(2*N), -diag([vesicle.beta(:,k);vesicle.beta(:,k)])*...
       P(:,:,k)*Ten(:,:,k) - tt.Galpert(:,:,k)*Ten(:,:,k); ...
       Div(:,:,k), zeros(N)]);
   end
@@ -1025,6 +1025,116 @@ InOut(InOut <= thresh) = 0;
 %InOut = reshape(InOut,size(Xtar,1)/2,size(Xtar,2));
 
 end % sortPts
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [velx,vely] = velocity(vesicle,f,RS,velTar,fmm,LP)
+% vel = velocity(vesicle,f,RS,velTar,fmm,LP) computes the velocity due
+% to vesicle at the locations velTar with near-singular integration with
+% traction jump f and Rotlets stored in RS. LP is either SLP or DLP and
+% tells this routine if it needs to evaluate the velocity due to the
+% single-layer potential or the double-layer potential. Note that
+% vesicle may correspond to solid walls rather than vesicles
+
+N = vesicle.N; % points per vesicle
+nv = vesicle.nv; % number of vesicles
+op = poten(N);
+Ntar = velTar.N;
+% number of target points where we want to compute the pressure
+% and stress
+
+[~,NearV2T] = vesicle.getZone(velTar,2);
+% build near-singular integration structure for vesicle
+% to pressure target points
+InOutFlag = find(vesicle.sortPts(velTar.X,fmm,NearV2T) == 1);
+%figure(1); clf; hold on
+%plot(vesicle.X(1:end/2,:),vesicle.X(end/2+1:end,:),'r');
+%oc = curve;
+%[xx,yy] = oc.getXY(pressTar.X);
+%plot(xx,yy,'b.');
+%plot(xx(InOutFlag),yy(InOutFlag),'k.');
+% DEBUG: MAKE SURE POINTS INSIDE AND OUTSIDE ARE LABELLED CORRECTLY
+
+%if strcmp(LP,'SLP')
+  veldiagIn = op.stokesSLmatrix(vesicle);
+  veldiagOut = veldiagIn;
+  % use Alpert quadrature to evaluate velocity due to each vesicle
+  % independent of the others on its boundary
+
+  veldiag = @(X) op.exactStokesSLdiag(vesicle,veldiagIn,X);
+
+  if ~fmm
+    kernel = @op.exactStokesSL;
+  else
+    kernel = @op.exactStokesSL;
+  end
+  kernelDirect = @op.exactStokesSL;
+%elseif strcmp(LP,'DLP')
+%  oc = curve;
+%  PdiagIn = op.pressDLmatrix(vesicle);
+%  PdiagOut = PdiagIn;
+%  Deriv = fft1.D1(N);
+%  % spectral differentiation matrix
+%  for k = 1:nv
+%    [tanx,tany] = oc.getXY(vesicle.xt(:,k));
+%    % tangent vector
+%    sa = vesicle.sa(:,k);
+%    % Jacobian
+%
+%    jump = -[diag(tanx./sa) diag(tany./sa)] * ...
+%        [Deriv zeros(N); zeros(N) Deriv];
+%    PdiagIn(:,:,k) = PdiagIn(:,:,k) - jump;
+%    PdiagOut(:,:,k) = PdiagOut(:,:,k) + jump;
+%    % add in the jump term.  Jump term is negative because target
+%    % points are interior to the solid walls
+%  end
+%  % Jump term that comes from pressure of double-layer potential
+%  % is the dot product of the tangential derivative of the traction 
+%  % jump with the tangent.  Assuming that all the pressure target
+%  % points are inside the physical domain so there is no use to
+%  % consider the limiting value from the other side
+%  Pdiag = @(X) op.exactPressureDLdiag(vesicle,[PdiagOut;PdiagIn],X);
+%  % nearSingInt assumes that input and output are vector-valued Take
+%  % adavntage of the fact that nearSingInt only works with
+%  % vector-valued densities by passing in two different jumps---one for
+%  % the limit from the inside and one from the outside.
+%
+%  kernel = @op.exactPressDL;
+%  kernelDirect = @op.exactPressDL;
+%end
+
+vel = op.nearSingInt(vesicle,f,veldiag,...
+    NearV2T,kernel,kernelDirect,velTar,false,false);
+% compute the velocity of the single- or double-layer 
+% potential using near-singular integration.  First row 
+% corresponds to using the limiting value for the pressure 
+% exterior of the vesicle and the second row corresponds to 
+% using the limiting value for the pressure interior of the 
+% vesicle
+velx = vel(1:Ntar);
+vely = vel(Ntar+1:end);
+
+if ~isempty(RS)
+  for k = 2:vesicle.nv
+    cx = vesicle.center(1,k);
+    cy = vesicle.center(2,k);
+    % center of interior solid wall k
+    xi1 = RS(3*(k-2) + 1,k);
+    xi2 = RS(3*(k-2) + 2,k);
+    % first and second components of the stokeslet on 
+    % interior solid wall k 
+    [x,y] = oc.getXY(pressTar.X);
+    rx = x - cx;
+    ry = y - cy;
+    press = press +  2./(rx.^2 + ry.^2).*(rx*xi1 + ry*xi2);
+    % add in pressure of stokeslet term
+    % rotlet has a vanishing pressure gradient
+  end
+end
+
+end % velocity
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function press = pressure(vesicle,f,RS,pressTar,fmm,LP)

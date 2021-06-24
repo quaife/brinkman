@@ -7,15 +7,15 @@ fluxCoeff = 0;
 farFieldSpeed = 800;
 concentration = 0;
 shortax = 2.7;
-scaleL = 0.419;
+scaleL = 0.419*3;
 fileName = 'TEST';
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
 
-params.N = 512; % points on vesicle
-params.Nbd = 512; % points on the solid wall
+params.N = 64; % points on vesicle
+params.Nbd = 128; % points on the solid wall
 params.dt = 5e-5; % time step size
 params.T = 2*0.01; % time horizon
 params.saveRate = 1; % ouptut frequency
@@ -49,7 +49,7 @@ params.angle = 0;%pi/6; % The tracking point is programmed to be at 0,0.
                       % Rotate the vesicle counter-clockwise to keep 
                       % desired center.  
 
-options.confined = false; %param for now to pass into tstep, change later
+options.confined = true; %param for now to pass into tstep, change later
 options.verbose = false;  % write data to console
 options.saveData = true; % save the data
 options.usePlot = true;  % plot the data

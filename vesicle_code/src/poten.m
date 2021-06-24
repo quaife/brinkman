@@ -2172,8 +2172,8 @@ end % exactLaplaceDLfmm
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [pressSLP,pressSLPtar] = exactPressSL(o,vesicle,f,...
-    pressTrap,Xtar,K1)
-% [pressSLP,pressSLPtar] = exactPressSL(vesicle,f,pressTrap,Xtar,K1)
+    Xtar,K1)
+% [pressSLP,pressSLPtar] = exactPressSL(vesicle,f,Xtar,K1)
 % computes the pressure due to all vesicles contained in vesicle and
 % indexed over K1.  Evaluates it at Xtar Everything but Xtar is in the
 % 2*N x nv format Xtar is in the 2*Ntar x ncol format
@@ -2182,7 +2182,7 @@ oc = curve;
 [x,y] = oc.getXY(vesicle.X);
 % vesicle position
 
-if nargin == 6
+if nargin == 5
   Ntar = size(Xtar,1)/2;
   ncol = size(Xtar,2);
   pressSLPtar = zeros(Ntar,ncol);
