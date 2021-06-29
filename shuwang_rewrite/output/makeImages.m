@@ -11,10 +11,36 @@ addpath ..
 
 %file = 'Chi800_RA0p5_Conc0p3_Beta0_y0p1_eps0p04_n20.bin';
 % name = 'Chi200_RA0p95_Conc0p3_Beta0_y0p1_eps0p04_n20.jpg';
-ax = [-4 4 -4 4];
+ax = [-12 12 -4 4];
 
-file = 'RA30.bin';
+file = 'Unconf_Scale1p257_conc0.bin';
+%file1 = 'Unconfined_larger_800.bin';
 [posx,posy,conc,ea,el,time,xvel1,yvel1,ten] = loadFile(file);
+%[posx1,posy1,conc1,ea1,el1,time1,xvel11,yvel11,ten1] = loadFile(file1);
+
+plot(posx(:,:,end),posy(:,:,end))
+hold on
+%plot(posx1(:,:,end),posy1(:,:,end), 'r--')
+% title('Confined vs unconfined for larger ves, x = 800, conc = 0') 
+% legend('confined','unconfined')
+
+if 1
+    Nbd = 128;
+    geomCenter = [0;0];
+    wallGeometry = 'tube';
+    oc = curve(Nbd);
+    [~,Xwalls] = oc.initConfig(Nbd,false,...
+                 'scale', 1, ...
+                 'center', geomCenter, 'geometry', wallGeometry);
+    [xwalls,ywalls] = oc.getXY(Xwalls);
+else
+    xwalls = 0;
+    ywalls = 0;
+end
+% plot(posx(:,:,1),posy(:,:,1))
+% hold on 
+% plot(xwalls,ywalls)
+% pause
 % N = numel(posx(:,:,1));
 % oc = curve(N);
 % CoM = [];
@@ -60,21 +86,22 @@ file = 'RA30.bin';
  oc = curve(N);
  
   for k = istart:irate:iend
-        clf; 
-        xx1 = posx(:,:,k);
-        yy1 = posy(:,:,k);
-        tt = conc(:,:,k);
-        [ra(k),area(k),~] = oc.geomProp([xx1;yy1]); 
+       clf; 
+       xx1 = posx(:,:,k);
+       yy1 = posy(:,:,k);
+       tt = conc(:,:,k);
+       [ra(k),area(k),~] = oc.geomProp([xx1;yy1]); 
  % 
-        vec1 = [xx1(:,:);xx1(1,:)];
-        vec2 = [yy1(:,:);yy1(1,:)];
+       vec1 = [xx1(:,:);xx1(1,:)];
+       vec2 = [yy1(:,:);yy1(1,:)];
        vec3 = [tt(:,:);tt(1,:)];
        % --------------FIRST SUBPLOT: POSITION --------------------------
        subplot(2,2,1)
        plot(vec1,vec2,'r','linewidth',3);
        hold on
-       plot(vec1(1,:),vec2(1,:),'k.','markersize',30)
+       plot(vec1(1,:),vec2(1,:),'k.','markersize',20)
        plot([ax(1) ax(2)],[0 0],'k--','linewidth',2)
+       plot(xwalls,ywalls,'k','linewidth',2)
        axis equal
        axis(ax)
       
@@ -110,8 +137,9 @@ file = 'RA30.bin';
        set(h,'linewidth',3)
        colorbar
        hold on
-       plot(vec1(1,:),vec2(1,:),'k.','markersize',30)
-       
+       plot(vec1(1,:),vec2(1,:),'k.','markersize',20)
+       plot(xwalls,ywalls,'k','linewidth',2)
+    
        axis equal
        axis(ax)
       

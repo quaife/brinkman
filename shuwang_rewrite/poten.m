@@ -105,11 +105,16 @@ N = geom.N;
 vel = zeros(2*N,1);
 L = geom.L;
 
+%Form the velocity, k, on the interface corresponding to v^u in eq (33)
+%If [[P^u n]]_sigma = tau, then k = stokesMatrix*tau
 k = StokesMat*tau;
-
+%LogKernel1 and LogKernel2 are the log kernels in the left term in the
+%right hand side of equation (43) integrated against the x and y
+%components of the density functions tau that involves Eu and Esigma
 LogKernel1 = o.IntegrateLogKernel(tau(1:N));
 LogKernel2 = o.IntegrateLogKernel(tau(N+1:end));
-
+%vel is the solution of equation (33) (NOTE: without
+%the u_s term). 
 vel(1:N) = L/(4*pi*N)*k(1:N) - L/(8*pi)*LogKernel1;
 vel(N+1:end) = L/(4*pi*N)*k(N+1:end) - L/(8*pi)*LogKernel2;
 
