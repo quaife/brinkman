@@ -83,10 +83,10 @@ elseif strcmp(farFieldFlow, 'tube')
     W = max(y);
     uinf = farFieldSpeed*[(1-(y/W).^2);zeros(N,1)];
 elseif strcmp(farFieldFlow, 'choke') || strcmp(farFieldFlow, 'doublechoke')
-    W = 8;
+    W = 3.5;
     uinf = farFieldSpeed*[(1-(y/W).^2);zeros(N,1)];
     uinfx = uinf(1:end/2);
-    uinfx(abs(x) < 10) = 0;
+    uinfx(abs(x) < 5) = 0;
     uinf = [uinfx;uinf(end/2+1:end)];
 elseif strcmp(farFieldFlow, 'contracting')
     uinf = zeros(N,1);
@@ -220,7 +220,7 @@ if o.confined
   %compute velocity due to the vesicle's traction and evaluate on the
   %outer wall using near singular integration
   vesVel2Wall = op.nearSingInt(ves,tau,SLP,...
-                               NearV2W,kernel,kernel,walls,false,false);
+                               NearV2W,kernel,kernel,walls,false,true);
   %build right hand side for the double-layer potential solver
   bgFlowWalls = o.bgFlow(walls.X, o.shearRate, o.farFieldFlow);
   rhsWalls = bgFlowWalls - vesVel2Wall;
@@ -426,7 +426,7 @@ ves.theta = thetan;
 ves.x0 = ves.x0 + params.dt*ux(1);
 ves.y0 = ves.y0 + params.dt*uy(1);
 if(strcmp(o.farFieldFlow, 'parabolic') || ...
-  strcmp(o.farFieldFlow, 'tube'))
+  strcmp(o.farFieldFlow, 'ttube'))
   %pin the vesicle at x = 0
   ves.x0 = ves.x0 - mean(ves.X(1:end/2));
 end
@@ -581,7 +581,7 @@ for ktime = 1:nstep
   ves.cur = oc.acurv(ves.N,ves.theta,ves.L);
   
    if(strcmp(o.farFieldFlow, 'parabolic') || ...
-           strcmp(o.farFieldFlow, 'tube'))
+           strcmp(o.farFieldFlow, 'ttube'))
        %pin the vesicle at x = 0
        ves.x0 = ves.x0 - mean(ves.X(1:end/2));
 %       ves.X(1:end/2) = ves.X(1:end/2) - mean(ves.X(1:end/2));

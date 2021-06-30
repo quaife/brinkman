@@ -208,22 +208,23 @@ elseif strcmp(geometry,'choke')
 %elseif any(strcmp(options,'choke'))
   a = 3; b = 1; c = 0.6; order = 8;
   % parameters for the boundary
-  Nsides = ceil(0.5*b/(2*a+2*b)*N);
-  Ntop = (N-4*Nsides)/2;
-  t1 = linspace(0,0.2*pi,Nsides+1); t1 = t1(1:end-1)';
-  t2 = linspace(0.2*pi,pi-0.2*pi,Ntop+1); t2 = t2(1:end-1)';
-  t3 = linspace(pi-0.2*pi,pi+0.2*pi,2*Nsides+1); t3 = t3(1:end-1)';
-  t4 = linspace(pi+0.2*pi,2*pi-0.2*pi,Ntop+1); t4 = t4(1:end-1)';
-  t5 = linspace(2*pi-0.2*pi,2*pi,Nsides+1); t5 = t5(1:end-1)';
-  t = [t1;t2;t3;t4;t5];
+%  Nsides = ceil(0.5*b/(2*a+2*b)*N);
+%  Ntop = (N-4*Nsides)/2;
+%  t1 = linspace(0,0.2*pi,Nsides+1); t1 = t1(1:end-1)';
+%  t2 = linspace(0.2*pi,pi-0.2*pi,Ntop+1); t2 = t2(1:end-1)';
+%  t3 = linspace(pi-0.2*pi,pi+0.2*pi,2*Nsides+1); t3 = t3(1:end-1)';
+%  t4 = linspace(pi+0.2*pi,2*pi-0.2*pi,Ntop+1); t4 = t4(1:end-1)';
+%  t5 = linspace(2*pi-0.2*pi,2*pi,Nsides+1); t5 = t5(1:end-1)';
+%  t = [t1;t2;t3;t4;t5];
   % Parameterize t so that geometry is closer to equi-spaced in
   % arclength
 %  t = (0:N-1)'*2*pi/N;
-  r = (cos(t).^order + sin(t).^order).^(-1/order);
-  x = a*r.*cos(t); y = b*r.*sin(t);
+  t = alpha;
+  r = (cos(2*pi*t).^order + sin(2*pi*t).^order).^(-1/order);
+  x = a*r.*cos(2*pi*t); y = b*r.*sin(2*pi*t);
   ind = abs(x) < 1;
-  y(ind) = y(ind).*(1-c*cos(x(ind)*pi))/(1+c);
-  X0 = [x;y];
+  y(ind) = y(ind).*(1-c*cos(pi*x(ind)))/(1+c);
+  X0 = 3.5*[x;y];
   % choked domain.  a and b control the length and height.  c
   % controls the width of the gap, and order controls the
   % regularity
@@ -313,13 +314,13 @@ elseif strcmp(geometry,'tube')
 %elseif any(strcmp(options,'tube'))
   a = 3; b = 1; order = 8;
   % parameters for the boundary
-  Nsides = ceil(0.5*b/(2*a+2*b)*N);
-  Ntop = (N-4*Nsides)/2;
-  t1 = linspace(0,0.2*pi,Nsides+1); t1 = t1(1:end-1)';
-  t2 = linspace(0.2*pi,pi-0.2*pi,Ntop+1); t2 = t2(1:end-1)';
-  t3 = linspace(pi-0.2*pi,pi+0.2*pi,2*Nsides+1); t3 = t3(1:end-1)';
-  t4 = linspace(pi+0.2*pi,2*pi-0.2*pi,Ntop+1); t4 = t4(1:end-1)';
-  t5 = linspace(2*pi-0.2*pi,2*pi,Nsides+1); t5 = t5(1:end-1)';
+%  Nsides = ceil(0.5*b/(2*a+2*b)*N);
+%  Ntop = (N-4*Nsides)/2;
+%  t1 = linspace(0,0.2*pi,Nsides+1); t1 = t1(1:end-1)';
+%  t2 = linspace(0.2*pi,pi-0.2*pi,Ntop+1); t2 = t2(1:end-1)';
+%  t3 = linspace(pi-0.2*pi,pi+0.2*pi,2*Nsides+1); t3 = t3(1:end-1)';
+%  t4 = linspace(pi+0.2*pi,2*pi-0.2*pi,Ntop+1); t4 = t4(1:end-1)';
+%  t5 = linspace(2*pi-0.2*pi,2*pi,Nsides+1); t5 = t5(1:end-1)';
 %  t = [t1;t2;t3;t4;t5];
   t = alpha;
   % Parameterize t so that geometry is closer to 
@@ -329,7 +330,6 @@ elseif strcmp(geometry,'tube')
   X0 = 3.5*[x;y];
   % rounded off cylinder.  a and b control the length and height 
   % and order controls the regularity
-
 else
   X0 = [cos(2*pi*alpha);shortax*sin(2*pi*alpha)]; 
   %X0 = o.ellipse(N,ra);

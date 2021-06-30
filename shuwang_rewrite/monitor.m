@@ -18,6 +18,7 @@ N               % points per vesicle
 cls             % concentration
 confined        % T/F confined
 Nbd             % number of points on the boundary
+ax              % axis for plotting
 
 end % properties
 
@@ -46,6 +47,7 @@ o.logFile = options.logFile; % log file name
 oc = curve(o.N); %shorthand for curve class
 % compute the area, length, and reduced area of initial shape
 [o.reducedArea,o.area,o.len] = oc.geomProp(X);
+o.ax = options.axis;
 end % constructor: monitor
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -215,7 +217,7 @@ h = colorbar;
 set(h,'fontsize',20)
 if o.confined
     hold on
-    plot(walls.X(1:end/2),walls.X(end/2+1:end),'linewidth',3);
+    plot(walls.X(1:end/2),walls.X(end/2+1:end),'k','linewidth',3);
     hold off
 end
 %Title and axis settings for all plots
@@ -224,6 +226,7 @@ titleStr = ['t = ' num2str(time,'%4.2e') ...
   ' eL = ' num2str(el,'%4.2e')];
 title(titleStr,'fontsize',30)
 axis equal
+axis(o.ax)
 
 end % plotData
 
