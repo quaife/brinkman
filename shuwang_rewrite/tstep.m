@@ -86,7 +86,13 @@ elseif strcmp(farFieldFlow, 'choke') || strcmp(farFieldFlow, 'doublechoke')
     W = 3.5;
     uinf = farFieldSpeed*[(1-(y/W).^2);zeros(N,1)];
     uinfx = uinf(1:end/2);
-    uinfx(abs(x) < 5) = 0;
+    uinfx(abs(x) < 8) = 0;
+    uinf = [uinfx;uinf(end/2+1:end)];
+elseif strcmp(farFieldFlow, 'longchoke')
+    W = 3.5;
+    uinf = farFieldSpeed*[(1-(y/W).^2);zeros(N,1)];
+    uinfx = uinf(1:end/2);
+    uinfx(abs(x) < 28) = 0;
     uinf = [uinfx;uinf(end/2+1:end)];
 elseif strcmp(farFieldFlow, 'contracting')
     uinf = zeros(N,1);
@@ -102,6 +108,7 @@ else
     uinf = zeros(N, 1);
     
 end
+
 
 end
 

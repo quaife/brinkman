@@ -126,6 +126,7 @@ function [alpha,X] = initConfig(o,N,equispaced,varargin)
 %                   vertical position, 
 %   'scale'       - multiplies the size of the output boundary
 %   'choke'       - returns a choked domain.
+%   'longchoke'   - returns a long coked domain
 %   'doublechoke' - returns a domain with two chokes
 %   'contracting' - returns a domain for a couette apparatus.
 %   'tube'        - returns a domain that is an ellongated ellipse
@@ -205,21 +206,11 @@ elseif strcmp(geometry,'star')
   % a star that comes very close to intersecting itself at the origin
 
 elseif strcmp(geometry,'choke')
-%elseif any(strcmp(options,'choke'))
   a = 3; b = 1; c = 0.6; order = 8;
-  % parameters for the boundary
-%  Nsides = ceil(0.5*b/(2*a+2*b)*N);
-%  Ntop = (N-4*Nsides)/2;
-%  t1 = linspace(0,0.2*pi,Nsides+1); t1 = t1(1:end-1)';
-%  t2 = linspace(0.2*pi,pi-0.2*pi,Ntop+1); t2 = t2(1:end-1)';
-%  t3 = linspace(pi-0.2*pi,pi+0.2*pi,2*Nsides+1); t3 = t3(1:end-1)';
-%  t4 = linspace(pi+0.2*pi,2*pi-0.2*pi,Ntop+1); t4 = t4(1:end-1)';
-%  t5 = linspace(2*pi-0.2*pi,2*pi,Nsides+1); t5 = t5(1:end-1)';
-%  t = [t1;t2;t3;t4;t5];
   % Parameterize t so that geometry is closer to equi-spaced in
   % arclength
-%  t = (0:N-1)'*2*pi/N;
   t = alpha;
+  % parameters for the boundary
   r = (cos(2*pi*t).^order + sin(2*pi*t).^order).^(-1/order);
   x = a*r.*cos(2*pi*t); y = b*r.*sin(2*pi*t);
   ind = abs(x) < 1;
@@ -229,6 +220,24 @@ elseif strcmp(geometry,'choke')
   % controls the width of the gap, and order controls the
   % regularity
 
+elseif strcmp(geometry,'longchoke')
+  a = 30; b = 7/2; c = 0.67; order = 8;
+  len = 25;
+  % Parameterize t so that geometry is closer to equi-spaced in
+  % arclength
+  t = alpha;
+  % parameters for the boundary
+  r = (cos(2*pi*t).^order + sin(2*pi*t).^order).^(-1/order);
+  x = a*r.*cos(2*pi*t); y = b*r.*sin(2*pi*t);
+  ind = abs(x) < len;
+  scalRat = 2*c/(1+c)*(0.5-0.5*cos(pi*x(ind(1:end/2))/len)).^10 + ...   
+            (1-c)/(1+c);
+  y(ind) = y(ind).*[scalRat;scalRat];
+  X0 = [x;y];
+  % choked domain.  a and b control the length and height.  c
+  % controls the width of the gap, and order controls the
+  % regularity
+%   
 elseif strcmp(geometry,'doublechoke')
 %elseif any(strcmp(options,'doublechoke'))
   a = 10; b = 3; c = 0.6; order = 8;

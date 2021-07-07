@@ -266,7 +266,7 @@ function vel = StokesDLPtar(o,geom,eta,Xtar)
 oc = curve(geom.N);
 
 [xsou,ysou] = oc.getXY(geom.X);
-[~,tangent,~] = oc.diffProp(geom.X);
+[jac,tangent,~] = oc.diffProp(geom.X);
 normal = [tangent(geom.N+1:end);-tangent(1:geom.N)];
 [nx,ny] = oc.getXY(normal);
 

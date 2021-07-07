@@ -1,22 +1,19 @@
+function [] = confined1Ves_func(fluxCoeff,farFieldSpeed,concentration,...
+                               shortax, scaleL, fileName, farFieldFlow,...
+                               wallGeometry, vesCenter, dt, Nbd, N)
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %This code has been developed using the methods described in "Dynamics
 %of multicomponent vesicles in a viscous fluid" by Sohn, Tseng, Li
 %Voigt, &  Lowengrub JCP 2013
 
-fluxCoeff = 0;
-farFieldSpeed = 400;
-concentration = 0;
-shortax = 2.7;
-scaleL = 0.6;
-%fileName = 'Unconfined_Chi0_Scale55_shortax2p7_conc0p3_testRand_ep28';
-fileName = 'longChokeTest';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
 
-params.N = 4*128; % points on vesicle
-params.Nbd = 8*128; % points on the solid wall
-params.dt = 1e-5; % time step size
+params.N = N; % points on vesicle
+params.Nbd = Nbd; % points on the solid wall
+params.dt = dt; % time step size
 params.T = 0.2; % time horizon
 params.saveRate = 1; % ouptut frequency
 params.concentra = concentration; % constant, initial concentration of 
@@ -24,10 +21,10 @@ params.concentra = concentration; % constant, initial concentration of
 params.oddeven = -1; % flag for initial lipid species profile
 params.shortax = shortax; % short axis length
 params.scaleL = scaleL;
-params.farFieldFlow = 'longchoke';   
+params.farFieldFlow = farFieldFlow;   
 % Available options: 'relaxation', 'shear', 'parabolic, 'extensional'
 % 'tube', 'choke', 'doublechoke', 'contracting'
-params.wallGeometry = 'longchoke';
+params.wallGeometry = wallGeometry;
 params.vesGeometry = 'ellipse';
 % Available options: 'relaxation', 'shear', 'parabolic, 'extensional'
 % 'tube', 'choke', 'doublechoke', 'contracting', 'tube' 
@@ -43,7 +40,7 @@ params.epsch = 0.28; % small parameter  in the double-well potential
 params.gmresTol = 1e-10; %GMRES tolerance
 params.gmresMaxIter = params.N; %maximum number of GMRES iterations
 params.SPcoeff = fluxCoeff; %semi-permeable coefficient
-params.vesCenter = [-25;0];%[0;0.1];
+params.vesCenter = vesCenter;%[0;0.1];
 params.geomCenter = [0;0];
 params.angle = 0;%pi/6; % The tracking point is programmed to be at 0,0.  
                       % Rotate the vesicle counter-clockwise to keep 
