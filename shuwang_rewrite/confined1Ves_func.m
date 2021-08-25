@@ -1,6 +1,7 @@
 function [] = confined1Ves_func(fluxCoeff,farFieldSpeed,concentration,...
                                shortax, scaleL, fileName, farFieldFlow,...
-                               wallGeometry, vesCenter, dt, Nbd, N)
+                               wallGeometry, vesCenter, dt, Nbd, N, ...
+                               b_min, b_max)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %This code has been developed using the methods described in "Dynamics
@@ -31,8 +32,8 @@ params.vesGeometry = 'ellipse';
 params.shearRate = farFieldSpeed; % shear rate
 params.viscosityInside = 1.0;
 params.viscosityOutside = 1.0;
-params.bendsti = 1; % maximum bending stiffness
-params.bendratio = 0.1; % ratio between max and min bending stiffness
+params.bendsti = b_max; % maximum bending stiffness
+params.bendratio = b_min/b_max; % ratio between max and min bending stiffness
 params.consta = 100; % parameter 'a' in the Cahn-Hilliard energy
 params.nloop = 20; % number of time steps of Cahn-Hilliard to be taken at 
                    %each time step of the hydrodynamics
