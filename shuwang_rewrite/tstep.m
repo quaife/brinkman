@@ -227,7 +227,7 @@ if o.confined
   %compute velocity due to the vesicle's traction and evaluate on the
   %outer wall using near singular integration
   vesVel2Wall = op.nearSingInt(ves,tau,SLP,...
-                               NearV2W,kernel,kernel,walls,false,true);
+                               NearV2W,kernel,kernel,walls,false,false);
   %build right hand side for the double-layer potential solver
   bgFlowWalls = o.bgFlow(walls.X, o.shearRate, o.farFieldFlow);
   rhsWalls = bgFlowWalls - vesVel2Wall;
