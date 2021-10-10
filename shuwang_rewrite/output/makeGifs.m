@@ -1,21 +1,22 @@
 clc;clear;close all;
 addpath ..
 
-name = 'Confined_Chi400_Scale0p35_shortax2p7_conc0p3';
-%name2 = 'Confined_Chi400_Scale0p35_shortax2p7_conc0p3';
+name = 'NewBendingMod_constrained_1en6';
+name2 = 'Chi400_shax3p45_scL0p49_Conc0p3_Beta0_n1024_nbd1024_dt1en6_bmax1_bmin0p001_eps0p04_longchoke';
 
-ptitle ={'\chi = 400, u = 0.3','Confined'};
+ptitle ={'\chi = 400, u = 0.3','Confined, New bending'};
+ptitle2 ={'\chi = 400, u = 0.3','Confined, Old bending'};
 file1 = [name '.bin'];
-%file2 = [name2 '.bin'];
+file2 = [name2 '.bin'];
 ax = [-10 10 -5 5];
 
 [posx,posy,conc,ea,el,time,xvel1,yvel1,ten] = loadFile(file1);
-%[posx2,posy2,conc2,ea2,el2,time2,xvel12,yvel12,ten2] = loadFile(file2);
+[posx2,posy2,conc2,ea2,el2,time2,xvel12,yvel12,ten2] = loadFile(file2);
 
 if 1
-    Nbd = 4*128;
+    Nbd = 1024;
     geomCenter = [0;0];
-    wallGeometry = 'choke';
+    wallGeometry = 'longchoke';
     oc = curve(Nbd);
     [~,Xwalls] = oc.initConfig(Nbd,false,...
                  'scale', 1, ...
@@ -26,20 +27,19 @@ else
     ywalls = 0;
 end
 
-
 % plot(mean(squeeze(posy)))
 % pause
 
 %plot(time,squeeze(mean(posy)))
  
- irate = 10; 
- istart = 2;
- iend = numel(time);
+ irate = 100; 
+ istart = 1;
+ iend = numel(time2);
  %iend = find(time == 4);
  ntime = iend;
- ntime = numel(time);
+ ntime = numel(time2);
  N = length(posx(:,:,1));
- time = time(istart:iend);
+ time = time2(istart:iend);
  oc = curve(N);
  h = figure;
  set(gca,'LineWidth',3)
@@ -53,36 +53,31 @@ end
        clf; 
        xx1 = posx(:,:,k);
        yy1 = posy(:,:,k);
-       %xx2 = posx2(:,:,k);
-       %yy2 = posy2(:,:,k);
+       xx2 = posx2(:,:,k);
+       yy2 = posy2(:,:,k);
        
-       vec1 = [xx1(:,:);xx1(1,:)];
-       vec2 = [yy1(:,:);yy1(1,:)];
+       xxx1 = [xx1(:,:);xx1(1,:)];
+       yyy1 = [yy1(:,:);yy1(1,:)];
        
-       %vec3 = [xx1(:,:);xx1(1,:)];
-       %vec4 = [yy1(:,:);yy1(1,:)];
+       xxx2 = [xx2(:,:);xx2(1,:)];
+       yyy2 = [yy2(:,:);yy2(1,:)];
        
        N = numel(conc(:,:,k));
        rbn = 1 * (ones(N,1) - conc(:,:,k)) + 0.1*conc(:,:,k);
-       vec5 = [rbn(:,:);rbn(1,:)];
+       ttt1 = [rbn(:,:);rbn(1,:)];
        
-%        N = numel(conc2(:,:,k));
-%        rbn2 = 1 * (ones(N,1) - conc2(:,:,k)) + 0.1*conc2(:,:,k);
-%        vec6 = [rbn2(:,:);rbn2(1,:)];
-%        
-       plot(vec1, vec2, 'r')
+       N = numel(conc2(:,:,k));
+       rbn2 = 1 * (ones(N,1) - conc2(:,:,k)) + 0.1*conc2(:,:,k);
+       ttt2 = [rbn2(:,:);rbn2(1,:)];
+       
+       subplot(2,1,1)
+       plot(xxx1(1,:),yyy1(1,:),'k.','markersize',30);
        hold on
-      % plot(vec3, vec4, 'b--')
-       plot(vec1(1,:),vec2(1,:),'k.','markersize',30);
-       %plot(vec3(1,:),vec4(1,:),'k.','markersize',30);
-       cline(vec1,vec2,vec5);
+       cline(xxx1,yyy1,ttt1);
        set(gca,'linewidth',20)
-       %colorbar
        plot(xwalls,ywalls,'r','linewidth',2)
-       plot([ax(1) ax(2)],[0 0],'k--')
        axis equal
-       axis(ax)
-      
+       axis([min(xxx1)-1, max(xxx1)+1,min(yyy1)-1, max(yyy1)+1 ])
        set(gca,'xtick',[])
        set(gca,'ytick',[])
        set(gca,'xcolor','white')
@@ -91,8 +86,23 @@ end
          ' eA = ' num2str(ea(k),'%4.2e') ...
          ' eL = ' num2str(el(k),'%4.2e')];
        title([ptitle, titleStr]);
-       %title(['confined examples ', titleStr]);
-       %legend('unconfined','confined')
+       hold off
+       subplot(2,1,2)
+       plot(xxx2(1,:),yyy2(1,:),'k.','markersize',30);
+       hold on 
+       cline(xxx2,yyy2,ttt2);
+       set(gca,'linewidth',20)
+       plot(xwalls,ywalls,'r','linewidth',2)
+       axis equal
+       axis([min(xxx2)-1, max(xxx2)+1,min(yyy2)-1, max(yyy2)+1 ])
+       set(gca,'xtick',[])
+       set(gca,'ytick',[])
+       set(gca,'xcolor','white')
+       set(gca,'ycolor','white')
+       titleStr = ['t = ' num2str(time(k),'%4.2e') ...
+         ' eA = ' num2str(ea2(k),'%4.2e') ...
+         ' eL = ' num2str(el2(k),'%4.2e')];
+       title([ptitle2, titleStr]);
        hold off
        
        % Capture the plot as an image 

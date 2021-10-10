@@ -210,7 +210,8 @@ oc = curve(N); % shorthand for curve class
 
 %----------- Cline Bending Stiffness Plot ---------------------------------
 clf;
-rbn = 1 * (ones(o.N,1) - conc) + 0.1*conc;
+%rbn = 1 * (ones(o.N,1) - conc) + 0.1*conc;
+rbn =  (1 - 0.1)/2*tanh(3*(conc - 0.5)) + (1 + 0.1)/2;
 h = cline([x;x(1,:)],[y;y(1,:)],[rbn;rbn(1,:)]);
 set(h,'linewidth',3)
 h = colorbar;

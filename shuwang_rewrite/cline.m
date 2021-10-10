@@ -80,7 +80,7 @@ function h = cline(x, y, z, cdata)
     end
     
     set(p,'cdata', cdata, 'edgecolor','interp','facecolor','none')
-    
+    set(p,'linewidth',3)
     
     % Create output
     if nargout == 1; h = p; end

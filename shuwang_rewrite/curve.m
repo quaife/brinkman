@@ -713,9 +713,11 @@ term2 = -epsch^2*rconss;
 b0 = ves.bendsti;
 b1 = ves.bendsti*ves.bendratio;
 %rbn is b(u).
-rbn = b0*(ones(N,1)-rcon) + b1*rcon;
+%rbn = b0*(ones(N,1)-rcon) + b1*rcon;
+rbn = (b1 - b0)/2*tanh(3*(rcon - 0.5)) + (b0 + b1)/2;
 %rbndu is b'(u) 
-rbndu = (b1 - b0)*ones(N,1);
+%rbndu = (b1 - b0)*ones(N,1);
+rbndu = (3/2)*(b1 - b0)*sech(3*(rcon-0.5)).^2; 
 %compute the curvature
 dkap = o.acurv(N,ves.theta,L);
 %term3 is b'(u)/2 * kappa^2 in eq (13)
