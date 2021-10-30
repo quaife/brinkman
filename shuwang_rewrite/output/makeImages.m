@@ -11,12 +11,18 @@ addpath ..
 
 %file = 'Chi800_RA0p5_Conc0p3_Beta0_y0p1_eps0p04_n20.bin';
 % name = 'Chi200_RA0p95_Conc0p3_Beta0_y0p1_eps0p04_n20.jpg';
-ax = [-12 12 -4 4];
+ax = [-2 2 -2 2];
 
-file = 'Unconf_Scale1p257_conc0.bin';
+file = 'relaxation1VesA.bin';
+%file = 'longChoke_Chi400_Scale0p49_shortax3p45_conc0p3.bin';
+%file = 'longChoke_Chi400_Scale0p59_shortax2p75_conc0p3.bin';
+%file = 'longChoke_Chi400_Scale0p71_shortax2p20_conc0p3.bin';
+%file = 'longChoke_Chi400_Scale0p85_shortax1p70_conc0p3.bin';
+%file = 'longChoke.bin';
 %file1 = 'Unconfined_larger_800.bin';
 [posx,posy,conc,ea,el,time,xvel1,yvel1,ten] = loadFile(file);
 %[posx1,posy1,conc1,ea1,el1,time1,xvel11,yvel11,ten1] = loadFile(file1);
+ten = -ten;
 
 plot(posx(:,:,end),posy(:,:,end))
 hold on
@@ -24,10 +30,10 @@ hold on
 % title('Confined vs unconfined for larger ves, x = 800, conc = 0') 
 % legend('confined','unconfined')
 
-if 1
+if 0
     Nbd = 128;
     geomCenter = [0;0];
-    wallGeometry = 'tube';
+    wallGeometry = 'longchoke';
     oc = curve(Nbd);
     [~,Xwalls] = oc.initConfig(Nbd,false,...
                  'scale', 1, ...
@@ -76,7 +82,7 @@ end
 % %plot(time,squeeze(mean(posy)))
 
 
- irate = 1000; 
+ irate = 1; 
  istart = 1;
  iend = numel(time);
  ntime = iend;
@@ -101,7 +107,7 @@ end
        hold on
        plot(vec1(1,:),vec2(1,:),'k.','markersize',20)
        plot([ax(1) ax(2)],[0 0],'k--','linewidth',2)
-       plot(xwalls,ywalls,'k','linewidth',2)
+%       plot(xwalls,ywalls,'k','linewidth',2)
        axis equal
        axis(ax)
       
@@ -138,7 +144,7 @@ end
        colorbar
        hold on
        plot(vec1(1,:),vec2(1,:),'k.','markersize',20)
-       plot(xwalls,ywalls,'k','linewidth',2)
+%       plot(xwalls,ywalls,'k','linewidth',2)
     
        axis equal
        axis(ax)
