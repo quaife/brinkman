@@ -95,20 +95,24 @@ elseif strcmp(farFieldFlow, 'longchoke')
     uinfx(abs(x) < 28) = 0;
     uinf = [uinfx;uinf(end/2+1:end)];
 elseif strcmp(farFieldFlow, 'contracting')
-    uinf = zeros(N,1);
+    uinf = zeros(2*N,1);
     xmax = max(x);
     xmin = min(x);
     ind = find(x < (xmin + 0.1) | x > (xmax - 0.1));
     ymax = max(y(ind));
     vx = (ymax^2-y(ind).^2)/ymax^2;
-    % parabolic flow
-    uinf(ind,:) = vx;  
+    uinf(ind,:) = farFieldSpeed*vx;  
 else
     %default flow is relaxed
     uinf = zeros(N, 1);
     
 end
 
+% walls = o.walls;
+% plot(walls.X(1:N),walls.X(N+1:end))
+% hold on
+% quiver(walls.X(1:N),walls.X(N+1:end), uinf(1:N),uinf(N+1:end))
+% pause
 
 end
 
@@ -117,9 +121,11 @@ function [eta] = etaSolver(o, rhs)
     walls = o.walls;
     op = poten(walls.N);
     N0 = op.StokesN0mat(walls);
+    
     % solve for the density function which satisfies the second-kind
     % Fredholm integral equation
     eta = (0.5*eye(2*walls.N) + o.DLPmat + N0)\rhs;
+    
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -186,6 +192,8 @@ if o.confined
   wallVel2Ves = op.nearSingInt(walls,eta,DLP,...
                                NearW2V,kernel,kernel,ves,false,false);
   [wallVel2Vesx, wallVel2Vesy] = oc.getXY(wallVel2Ves);
+%   quiver(walls.X(1:N),walls.X(N+1:end),wallVel2Vesx, wallVel2Vesy)
+%   pause
 else
   %if the flow is unconfined, there is no velocity on the vesicle due to
   %walls.
