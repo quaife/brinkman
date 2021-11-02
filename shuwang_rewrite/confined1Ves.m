@@ -4,30 +4,30 @@
 %Voigt, &  Lowengrub JCP 2013
 
 fluxCoeff = 0;
-farFieldSpeed = 400;
-concentration = 0.3;
+farFieldSpeed = 100;
+concentration = 0;
 shortax = 3.45;
-scaleL = 0.49;
+scaleL = 0.2;
 %fileName = 'Unconfined_Chi0_Scale55_shortax2p7_conc0p3_testRand_ep28';
-fileName = 'NewBendingMod_constrained_1en5';
+fileName = 'file2';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
 % TODO: SOME OF THESE ARE MORE OPTIONS THAN PARAMETERS
 
-params.N = 1024; % points on vesicle
+params.N = 256; % points on vesicle
 params.Nbd = 1024; % points on the solid wall
-params.dt = 1e-5; % time step size
-params.T = 0.2; % time horizon
+params.dt = 1e-4; % time step size
+params.T = 3; % time horizon
 params.saveRate = 1; % ouptut frequency
 params.concentra = concentration; % constant, initial concentration of 
                                   % lipid species
 params.oddeven = -1; % flag for initial lipid species profile
 params.shortax = shortax; % short axis length
 params.scaleL = scaleL;
-params.farFieldFlow = 'longchoke';   
+params.farFieldFlow = 'contracting';   
 % Available options: 'relaxation', 'shear', 'parabolic, 'extensional'
 % 'tube', 'choke', 'doublechoke', 'contracting'
-params.wallGeometry = 'longchoke';
+params.wallGeometry = 'contracting';
 params.vesGeometry = 'ellipse';
 % Available options: 'relaxation', 'shear', 'parabolic, 'extensional'
 % 'tube', 'choke', 'doublechoke', 'contracting', 'tube' 
@@ -43,17 +43,17 @@ params.epsch = 0.04; % small parameter  in the double-well potential
 params.gmresTol = 1e-10; %GMRES tolerance
 params.gmresMaxIter = params.N; %maximum number of GMRES iterations
 params.SPcoeff = fluxCoeff; %semi-permeable coefficient
-params.vesCenter = [-25;0];%[0;0.1];
+params.vesCenter = [5;0];%[0;0.1];
 params.geomCenter = [0;0];
-params.angle = 0;%pi/6; % The tracking point is programmed to be at 0,0.  
+params.angle = pi/2;%pi/6; % The tracking point is programmed to be at 0,0.  
                       % Rotate the vesicle counter-clockwise to keep 
                       % desired center.  
 
 options.confined = true; %param for now to pass into tstep, change later
 options.verbose = false;  % write data to console
 options.saveData = true; % save the data
-options.usePlot = false;  % plot the data
-options.axis = [-10 10 -10 10];
+options.usePlot = true;  % plot the data
+options.axis = [-1 20 -10 10];
 options.dataFile = true; % data file name
 options.logFile = true;  % log file name
 

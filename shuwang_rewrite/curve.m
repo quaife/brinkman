@@ -258,7 +258,7 @@ elseif strcmp(geometry,'doublechoke')
 
 elseif strcmp(geometry,'contracting')
 %elseif any(strcmp(options,'contracting'))
-  w = 0.5; % width of the opening
+  w = 1; % width of the opening
   ell1 = 3.0; % length before contracting region
   ell2 = 12; % length (in x) of contracting region
   ell3 = 3.0; % length after contracting region
@@ -311,12 +311,17 @@ elseif strcmp(geometry,'contracting')
   % smooth padded data
   z = z(winsize+1:end - winsize);
   % remove the padding
-
-  z = interpft(z,N);
+  nz = numel(z);
+  nzmodes = [(0:nz/2) (-nz/2+1:-1)];
+  zft = fft(z)/nz;
+  z = zeros(N,1);
+  for k = 1:nz
+     z = z + zft(k)*exp(2*pi*1i*nzmodes(k)*alpha); 
+  end
+  %z = interpft(z,N);
   % interpolate with FFT to the requested number of discretization
   % points
-  
-  X0 = [real(z)';imag(z)'];
+  X0 = [real(z);imag(z)];
   % store as (x,y) rather than x + 1i*y
 
 elseif strcmp(geometry,'tube')

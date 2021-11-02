@@ -130,7 +130,6 @@ N = ves.N;
 oc = curve(N);
 IK = oc.modes(N);
 rcon = ves.rcon;
-save('rcon.mat', 'rcon')
 cur = oc.acurv(ves.N,ves.theta,ves.L);
 b0 = ves.bendsti;
 b1 = ves.bendsti * ves.bendratio;
@@ -148,17 +147,13 @@ Drbn_cur = oc.diffFT(rbn.*cur)/ves.L;
 % second derivative of the curvature
 DDrbn_cur = oc.diffFT(Drbn_cur)/ves.L; 
 %Esigma is equation (14) with spotaneous curvature set to zero.
-Esigma = -DDrbn_cur - 0.5*rbn.*cur.^3;
+Esigma = -DDrbn_cur - 0.5*rbn.*cur.^3; %should be +?
 %Eu is the second term in equation (13) (differs by a negative
 %sign - possibly from the negative sign in eq(23) which has a negative on 
 %the variation for u). The last term drops since spontaneous curvature is 
 %0. The first term is not in this routine since we are only calculating 
 %variations due to changes in the vesicle shape and not the lipid species.
 Eu = -0.5*Drbn.*cur.^2;
-save('drbnCur.mat', 'Drbn','cur')
-%** SHUWANG QUESTION: THIS IS A PLUS SIGN IN THE PAPER (EQUATION (13)),
-% BUT IS A MINUS SIGN IN SHUWANG'S CODE **OLD COMMENT???
-% ADDED -
 
 end % variations
 
