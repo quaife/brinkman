@@ -81,7 +81,7 @@ if 0
 end
 
 
-if 1
+if 0
 %  file = 'extensional1VesCleanData.bin'; irate = 2;
 %  file = 'extensional1VesSemiData.bin'; irate = 2;
 %  file = 'extensional1VesCircleCleanData.bin'; irate = 2;
@@ -155,11 +155,14 @@ if 0
   options.confined = false;
   beta = 1e-3;
 end
-if 0
+if 1
 %  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR1em1adS1e0Chi5em1_ra090/shear2VesData.bin';
-  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR1em1adS3em1Chi2p5em1_ra090/shear2VesData_Part2.bin';
-  ax = [-3 3 -3 3];
+%  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR1em1adS3em1Chi2p5em1_ra090/shear2VesData_Part2.bin';
+  file = 'shear2VesData.bin';
+%  ax = [-3 3 -3 3];
+  ax = 20*[-1 1 -1 1];
   options.confined = false;
+  irate = 50;
 end
 
 if 0
