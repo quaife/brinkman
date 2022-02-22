@@ -1,0 +1,141 @@
+
+addpath ..
+ax = [-50 50 -4 4];
+
+file1 = 'Chi2p5_shax5p7_scL0p311_Conc0p5_Beta0_n1024_nbd1024_dt1en5_bmax1_bmin0p1_eps0p04_a100_longchoke_right.bin';
+file2 = 'Chi2p5_shax5p7_scL0p311_Conc0p5_Beta0_n1024_nbd1024_dt1en5_bmax1_bmin0p1_eps0p04_a100_longchoke_right_cont.bin';
+
+%Merge files
+[posx1,posy1,conc1,ea1,el1,time1,xvel1,yvel1,ten1] = loadFile(file1);
+[posx2,posy2,conc2,ea2,el2,time2,xvel2,yvel2,ten2] = loadFile(file2);
+
+[sx11,sx12,sx13] = size(posx1);
+[sx21,sx22,sx23] = size(posx2);
+posx(1:sx11, sx12, 1:sx13) = posx1;
+posx(1:sx11, sx12, sx13+1:sx23+sx13) = posx2;
+
+[sy11,sy12,sy13] = size(posy1);
+[sy21,sy22,sy23] = size(posy2);
+posy(1:sy11, sy12, 1:sy13) = posy1;
+posy(1:sy11, sy12, sy13+1:sy23+sy13) = posy2;
+
+[sc11,sc12,sc13] = size(conc1);
+[sc21,sc22,sc23] = size(conc2);
+conc(1:sc11, sc12, 1:sc13) = conc1;
+conc(1:sc11, sc12, sc13+1:sc23+sc13) = conc2;
+
+[st11,st12,st13] = size(ten1);
+[st21,st22,st23] = size(ten2);
+ten(1:st11, st12, 1:st13) = ten1;
+ten(1:st11, st12, st13+1:st23+st13) = ten2;
+
+time2 = time2 + time1(end);
+time = [time1;time2];
+ea = [ea1;ea2];
+el = [el1;el2];
+
+%plot walls
+if 1
+    Nbd = 1024;
+    geomCenter = [0;0];
+    wallGeometry = 'longchoke';
+    oc = curve(Nbd);
+    [~,Xwalls] = oc.initConfig(Nbd,false,...
+                 'scale', 1, ...
+                 'center', geomCenter, 'geometry', wallGeometry);
+    [xwalls,ywalls] = oc.getXY(Xwalls);
+else
+    xwalls = 0;
+    ywalls = 0;
+end
+
+irate = 100; 
+istart = 1;
+iend = numel(time)-1;
+ntime = numel(time);
+N = length(posx(:,:,1));
+oc = curve(N);
+[~, ~, Len] = oc.geomProp([posx(:,:,1);posy(:,:,1)]);
+a = 100;
+eps = 0.04;
+bmin = 0.1;
+i = 1;
+for k = istart:irate:iend
+       figure(2)
+       clf; 
+       
+       xx1 = posx(:,:,k);
+       yy1 = posy(:,:,k);
+       tt1 = conc(:,:,k);
+       
+       xxx1 = [xx1(:,:);xx1(1,:)];
+       yyy1 = [yy1(:,:);yy1(1,:)];
+       ttt1 = [tt1(:,:);tt1(1,:)];
+       
+       [~,area(i),~] = oc.geomProp([xx1;yy1]);
+%        
+%        xx2 = posx2(:,:,k);
+%        yy2 = posy2(:,:,k);
+%        tt2 = conc2(:,:,k);
+%        
+%        xxx2 = [xx2(:,:);xx2(1,:)];
+%        yyy2 = [yy2(:,:);yy2(1,:)];
+%        ttt2 = [tt2(:,:);tt2(1,:)];
+
+       % ----- plot title 
+       titleStr = ['t = ' num2str(time(k),'%4.2e') ...
+           ' eA = ' num2str(ea(k),'%4.2e') ...
+           ' eL = ' num2str(el(k),'%4.2e')];
+       title(titleStr);
+
+
+       % ----- vesicle       
+       N = numel(conc(:,:,k));
+       %rbn = 1 * (ones(N,1) - conc1(:,:,k)) + 0.001*conc1(:,:,k);
+       rbn = (bmin - 1)/2*tanh(3*(tt1 - 0.5)) + (1 + bmin)/2;
+       rbn1 = [rbn(:,:);rbn(1,:)];
+       
+       fu = 0.25*conc(:,:,k).^2.*(1-conc(:,:,k)).^2;
+       du = oc.diffFT(conc(:,:,k))/Len;
+       tens = -ten(:,:,k) - a/eps*(fu-(eps^2/2)*du.^2);
+       tens1 = [tens;tens(1)];
+       
+       h = cline(xxx1,yyy1,rbn1);
+       hold on
+       plot(xxx1(1,:),yyy1(1,:),'k.','markersize',30);
+       % second curve
+%        hold on
+%        rbn2 = (bmin - 1)/2*tanh(3*(tt2 - 0.5)) + (1 + bmin)/2;
+%        rbn2 = [rbn2(:,:);rbn2(1,:)];
+%        
+%        fu = 0.25*conc2(:,:,k).^2.*(1-conc2(:,:,k)).^2;
+%        du = oc.diffFT(conc2(:,:,k))/Len;
+%        tens2 = -ten2(:,:,k) - a/eps*(fu-(eps^2/2)*du.^2);
+%        tens2 = [tens2;tens2(1)];
+%        
+%        h = cline(xxx2,yyy2,rbn2);
+       plot(xxx1,yyy1,'k')
+       set(h,'linewidth',3)
+       colorbar
+       hold on
+       plot(xxx1(1,:),yyy1(1,:),'k.','markersize',20)
+%        plot(xxx2(1,:),yyy2(1,:),'k.','markersize',20)
+%        % ----- walls
+        plot(xwalls,ywalls,'k','linewidth',2)
+%     
+%        % ----- axis properties
+       axis equal
+       axis([min(xxx1)-1, max(xxx1)+1,min(yyy1)-1, max(yyy1)+1 ])
+       set(gca,'xtick',[])
+       set(gca,'ytick',[])
+       set(gca,'xcolor','white')
+       set(gca,'ycolor','white')
+       hold off
+       
+       % ----- legend
+       %legend('', 'No Concentration','','0.3 floppy','','0.5 floppy', '')
+
+       pause(0.1);
+       i = i +1;
+  end
+ 
