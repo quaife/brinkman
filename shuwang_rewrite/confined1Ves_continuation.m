@@ -1,7 +1,7 @@
 function [] = confined1Ves_continuation(fluxCoeff,farFieldSpeed,concentration,...
                                shortax, scaleL, fileName, farFieldFlow,...
                                wallGeometry, vesCenter, dt, Nbd, N, ...
-                               b_min, b_max, a, oddeven)
+                               b_min, b_max, a, oddeven, T, restart,rwhere)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %This code has been developed using the methods described in "Dynamics
@@ -15,8 +15,8 @@ function [] = confined1Ves_continuation(fluxCoeff,farFieldSpeed,concentration,..
 params.N = N; % points on vesicle
 params.Nbd = Nbd; % points on the solid wall
 params.dt = dt; % time step size
-params.T = 200; % time horizon
-params.saveRate = 10; % ouptut frequency
+params.T = T; % time horizon
+params.saveRate = 1; % ouptut frequency
 params.concentra = concentration; % constant, initial concentration of 
                                   % lipid species
 params.oddeven = oddeven; % flag for initial lipid species profile
@@ -47,19 +47,29 @@ params.angle = 0;%pi/6; % The tracking point is programmed to be at 0,0.
                       % Rotate the vesicle counter-clockwise to keep 
                       % desired center.  
 
-options.confined = true; %param for now to pass into tstep, change later
+options.confined = false; %param for now to pass into tstep, change later
 options.verbose = false;  % write data to console
 options.saveData = true; % save the data
-options.usePlot = false;  % plot the data
+options.usePlot = true;  % plot the data
 options.axis = [-25 25 -4 4];
 options.dataFile = true; % data file name
 options.logFile = true;  % log file name
 
-options.logFile = ['output/' fileName '_cont.log'];
-options.dataFile = ['output/' fileName '_cont.bin'];
+if restart
+    if rwhere
+        options.logFile = ['output/' fileName '_contFromMid.log'];
+        options.dataFile = ['output/' fileName '_contFromMid.bin'];
+    else
+        options.logFile = ['output/' fileName '_contFromEnd.log'];
+        options.dataFile = ['output/' fileName '_contFromEnd.bin'];
+    end
+else
+    options.logFile = ['output/' fileName '_cont.log'];
+    options.dataFile = ['output/' fileName '_cont.bin'];
+end
 %tic
 %profile on
-ves = Ves2D_Continuation(params,options,fileName);
+ves = Ves2D_Continuation(params,options,fileName, restart, rwhere);
 %profile off
 %profile viewer
 %toc
