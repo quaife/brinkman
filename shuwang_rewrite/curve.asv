@@ -489,15 +489,12 @@ elseif symmetry == 4
   rcon(1:ceil(concentration*N/2)) = 0;
   rcon(end-ceil(concentration*N/2):end) = 0;
 elseif symmetry == 5
-  rcon = zeros(N,1);
-  rcon(1:ceil(concentration*N/2)) = 1;
-  rcon(end-ceil(concentration*N/2):end) = 1;
+  rcon = ones(N,1);
+  rcon(1:ceil(concentration*N/2)) = 0;
+  rcon(end-ceil(concentration*N/2):end) = 0;
 elseif symmetry == 6
-  rcon = ones(N,1);  
-  rcon(ceil(concentration*N):end) = 0;
-elseif symmetry == 7
-  rcon = ones(N,1);  
-  rcon(1:ceil(concentration*N)) = 0;
+  rcon = zeros(N,1);  
+  rcon(end-ceil(concentration*N/2):end) = 1;
 end
 
 
