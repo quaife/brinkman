@@ -5,11 +5,11 @@ fprintf('Two elliptical vesicles in a shear flow.\n');
 % Physics parameters
 prams.N = 128;               % points per vesicle
 prams.nv = 2;               % number of vesicles
-prams.T = 15000;               % time horizon (two tumbling)
-prams.m = 10000;             % number of time steps
+prams.T = 5000;               % time horizon (two tumbling)
+prams.m = 1000;             % number of time steps
 prams.kappa = [1 1];         % bending coefficient
 prams.viscCant = [1 1];         % viscosity contrast
-options.farField = 'shear'; % background velocity
+options.farField = 'extensional'; % background velocity
 options.farFieldSpeed = 0.0013;
 options.vesves = 'implicit';
 % Discretization of vesicle-vesicle interactions.
@@ -44,9 +44,9 @@ options.expectedOrder = 2;
 options.usePlot = true;
 options.axis = [-20 20 -20 20];
 % Save vesicle information and create a log file
-options.logFile = 'output/shear2Ves.log';
+options.logFile = 'output/extensional2Ves.log';
 % Name of log file for saving messages
-options.dataFile = 'output/shear2VesData.bin';
+options.dataFile = 'output/extensional2VesData.bin';
 % Name of binary data file for storing vesicle information
 
 [options,prams] = initVes2D(options,prams);
@@ -54,16 +54,18 @@ options.dataFile = 'output/shear2VesData.bin';
 % Also add src to path
 
 oc = curve;
-centerx = [-9 9];
-centery = zeros(1,2);
+centerx = [-10 10];
+centery = [0.1 -0.1];
+%centery = zeros(1,2);
 ang = pi/2*ones(2,1);
 ra = 0.98;
-scale = 3*sqrt(ra);
+scale = 3.39*sqrt(ra);
 X = oc.initConfig(prams.N,'nv',prams.nv,...
     'reducedArea',ra,...
     'center',[centerx;centery],...
     'angle',ang,...
     'scale',scale);
+[~,~,L] = oc.geomProp(X);
 % Initial configuration of reduce area 0.65 and aligned
 %clf;
 %plot(X(1:end/2,:),X(end/2+1:end,:),'r')

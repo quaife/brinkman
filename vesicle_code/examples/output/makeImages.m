@@ -7,6 +7,7 @@ options.marker = false;
 
 irate = 1; % controls the speed of the visualization
 
+options.confined = false;
 if 0
   file = 'parabolic1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/parabolic_offcenter/semipermeable/parabolic1Ves_speed8.00e02_RA9.00em01Data.bin';
@@ -95,6 +96,8 @@ if 0
 %  file = '~/projects/brinkman/vesicle_code/results/yuan_runs/june_28_2019/extensional2VesData75be.bin';
   ax = 20*[-1 1 -1 1];
   options.confined = false;
+  options.pressure = true;
+  irate = 10;
 end
 if 0
   file = 'extensionalManyVesData.bin';
@@ -158,7 +161,7 @@ end
 if 1
 %  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR1em1adS1e0Chi5em1_ra090/shear2VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR1em1adS3em1Chi2p5em1_ra090/shear2VesData_Part2.bin';
-  file = 'shear2VesData.bin';
+  file = 'extensional2VesData.bin';
 %  ax = [-3 3 -3 3];
   ax = 20*[-1 1 -1 1];
   options.confined = false;

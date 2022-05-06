@@ -356,7 +356,7 @@ for k=1:vesicle.nv  % Loop over curves
   xsou = xx(:,ones(vesicle.N,1)); 
   ysou = yy(:,ones(vesicle.N,1));
   % source points
-  
+
   xsou = xsou(Rfor);
   ysou = ysou(Rfor);
   % have to rotate each column so that it is compatiable with o.qp

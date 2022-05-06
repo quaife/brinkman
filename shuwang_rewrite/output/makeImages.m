@@ -82,7 +82,7 @@ end
 % %plot(time,squeeze(mean(posy)))
 
 
- irate = 1; 
+ irate = 10; 
  istart = 1;
  iend = numel(time);
  ntime = iend;
@@ -111,14 +111,14 @@ end
        axis equal
        axis(ax)
       
-       %set(gca,'xtick',[])
-       %set(gca,'ytick',[])
-       %set(gca,'xcolor','white')
-       %set(gca,'ycolor','white')
+       set(gca,'xtick',[])
+       set(gca,'ytick',[])
+       set(gca,'xcolor','white')
+       set(gca,'ycolor','white')
        titleStr = ['t = ' num2str(time(k),'%4.2e') ...
          ' eA = ' num2str(ea(k),'%4.2e') ...
          ' eL = ' num2str(el(k),'%4.2e')];
-       title(titleStr);
+       title(titleStr,'fontsize',20);
        
        % --------------SECOND SUBPLOT CHOICE 1: Concentration -----------
  %       subplot(2,2,2)
@@ -137,11 +137,13 @@ end
         % ------------SECOND SUBPLOT COICE TWO: Bending Modulus ---------
        subplot(2,2,2)
        N = numel(conc(:,:,k));
-       rbn = 1 * (ones(N,1) - conc(:,:,k)) + 0.1*conc(:,:,k);
+       rbn = 0.9/2*tanh(3*(conc(:,:,k) - 0.5)) + 1.1/2;
+%       rbn = 1 * (ones(N,1) - conc(:,:,k)) + 0.1*conc(:,:,k);
        vec4 = [rbn(:,:);rbn(1,:)];
        h = cline(vec1,vec2,vec4);
        set(h,'linewidth',3)
-       colorbar
+       h2 = colorbar;
+       set(h2,'fontsize',16)
        hold on
        plot(vec1(1,:),vec2(1,:),'k.','markersize',20)
 %       plot(xwalls,ywalls,'k','linewidth',2)
@@ -153,14 +155,23 @@ end
        set(gca,'ytick',[])
        set(gca,'xcolor','white')
        set(gca,'ycolor','white')
-       title('Bending Modulus');
+       title('Bending Modulus','fontsize',20);
        hold off
        
        % --------------THIRD SUBPLOT: Tension ---------------------------
        subplot(2,2,3)
        plot(conc(:,:,k),'linewidth',3)
        xlim([0 N])
-       title('\Lambda^{LL}');
+       title('Concentration','fontsize',20);
+%       title('\Lambda^{LL}');
+      set(gca,'fontsize',16)
+       
+       subplot(2,2,4)
+       plot(rbn,'linewidth',3)
+       xlim([0 N])
+       title('Bending Modulus','fontsize',20);
+%       title('\Lambda^{LL}');
+      set(gca,'fontsize',16)
        
        % --------------FOURTH SUBPLOT: Curvature squared ----------------
 %        subplot(2,2,4)

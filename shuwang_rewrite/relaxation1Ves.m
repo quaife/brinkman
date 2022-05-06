@@ -17,7 +17,7 @@ params.Nbd = [];
 params.dt = 1e-4; % time step size
 params.T = 10; % time horizon
 params.saveRate = 1; % ouptut frequency
-params.concentra = 0.2; % constant, initial concentration of 
+params.concentra = 0.0; % constant, initial concentration of 
                                   % lipid species
 params.oddeven = -1; % flag for initial lipid species profile?
 params.shortax = 3.45; % short axis length
@@ -28,7 +28,7 @@ params.shearRate = 0; % shear rate
 params.viscosityInside = 1.0;
 params.viscosityOutside = 1.0;
 params.bendsti = 1; % maximum bending stiffness
-params.bendratio = 0.1; % ratio between max and min bending stiffness
+params.bendratio = 1; % ratio between max and min bending stiffness
 params.consta = 100; % parameter 'a' in the Cahn-Hilliard energy
 params.nloop = 20; % number of time steps of Cahn-Hilliard to be taken at 
                    %each time step of the hydrodynamics
@@ -52,7 +52,7 @@ options.axis = [-2 2 -2 2];
 options.dataFile = true; % data file name
 options.logFile = true;  % log file name
 
-fileName = 'relaxation1VesA';
+fileName = 'relaxation1Ves';
 options.logFile = ['output/' fileName '.log'];
 options.dataFile = ['output/' fileName '.bin'];
 
