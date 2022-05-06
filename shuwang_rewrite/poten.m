@@ -511,6 +511,7 @@ for k1 = 1:nvSou
               real([vel(J(i),k2,k1) lagrangePts(i,:)]),'g-o')
           plot((0:interpOrder-1)*beta*h,...
               real([vel(J(i)+Ntar,k2,k1) lagrangePts(i+numel(J),:)]),'r--o')
+          pause
           pause(0.1)
         end
         % DEBUG: PASS IN idebug=true INTO THIS ROUTINE AND THEN YOU CAN

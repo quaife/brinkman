@@ -251,6 +251,42 @@ uyvel = vel(N+1:end) + wallVel2Vesy + uinfy;
 %store the lagrange multiplier in ves.
 ves.ten = lambTil;
 
+if 1
+[xtar,ytar] = meshgrid(-15:.1:-10,-0.68:.02:0.68);
+xtar = xtar(:); ytar = ytar(:);
+targets.N = numel(xtar);
+targets.X = [xtar;ytar];
+[~,NearV2T] = getZone(ves,targets,2);
+[~,NearW2T] = getZone(walls,targets,2);
+
+kernel = @op.StokesDLPtar;
+DLP = @(X) +0.5*X + o.DLPmat*X;
+% Evaluate the DLP with near singular integration to get the the
+% velocity on the targets due to the walls
+wallVel2Tar = op.nearSingInt(walls,eta,DLP,...
+                NearW2T,kernel,kernel,targets,false,false);
+
+
+kernel = @op.StokesSLPtar;
+SLP = @(X) op.StokesSLP(ves,StokesMat,X);
+% Evaluate the SLP with near singular integration to get the the
+% velocity on the targets due to the vesicle
+vesVel2Tar = op.nearSingInt(ves,tau,SLP,...
+                NearV2T,kernel,kernel,targets,false,false);
+
+velTar = wallVel2Tar + vesVel2Tar;
+[velxtar,velytar] = oc.getXY(velTar);
+figure(2); clf; hold on
+quiver(xtar,ytar,velxtar,velytar)
+plot(walls.X(1:end/2),walls.X(end/2+1:end),'k')
+plot(ves.X(1:end/2),ves.X(end/2+1:end),'r')
+axis equal
+pause
+
+
+end
+
+
 end % usetself
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -624,6 +660,7 @@ for ktime = 1:nstep
 %   cx0 = cx;
 %   cy0 = cy;
 end
+
 
 end % TimeStepLoop    
 

@@ -4,10 +4,10 @@
 %Voigt, &  Lowengrub JCP 2013
 
 fluxCoeff = 0;
-farFieldSpeed = 100;
+farFieldSpeed = .25;
 concentration = 0;
-shortax = 3.45;
-scaleL = 0.2;
+shortax = 4.37;
+scaleL = 0.5;
 fileName = 'file2';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%% Initialize parameters and options %%%%%%%%%%%%%%%%%%%%%%%
@@ -23,10 +23,10 @@ params.concentra = concentration; % constant, initial concentration of
 params.oddeven = -1; % flag for initial lipid species profile
 params.shortax = shortax; % short axis length
 params.scaleL = scaleL;
-params.farFieldFlow = 'contracting';   
+params.farFieldFlow = 'longchoke';   
 % Available options: 'relaxation', 'shear', 'parabolic, 'extensional'
 % 'tube', 'choke', 'doublechoke', 'contracting'
-params.wallGeometry = 'contracting';
+params.wallGeometry = 'longchoke';
 params.vesGeometry = 'ellipse';
 % Available options: 'relaxation', 'shear', 'parabolic, 'extensional'
 % 'tube', 'choke', 'doublechoke', 'contracting', 'tube' 
@@ -42,17 +42,17 @@ params.epsch = 0.04; % small parameter  in the double-well potential
 params.gmresTol = 1e-10; %GMRES tolerance
 params.gmresMaxIter = params.N; %maximum number of GMRES iterations
 params.SPcoeff = fluxCoeff; %semi-permeable coefficient
-params.vesCenter = [5;0];%[0;0.1];
+params.vesCenter = [-13;0];%[0;0.1];
 params.geomCenter = [0;0];
 params.angle = pi/2;%pi/6; % The tracking point is programmed to be at 0,0.  
                       % Rotate the vesicle counter-clockwise to keep 
                       % desired center.  
 
-options.confined = false; %param for now to pass into tstep, change later
+options.confined = true; %param for now to pass into tstep, change later
 options.verbose = false;  % write data to console
 options.saveData = true; % save the data
 options.usePlot = true;  % plot the data
-options.axis = [-1 20 -10 10];
+options.axis = [-30 -10 -3 3];
 options.dataFile = true; % data file name
 options.logFile = true;  % log file name
 
