@@ -20,8 +20,9 @@ ntime = numel(val)/(6*n*nv+3);
 
 % 2 positions, concentration, two stresses,tension
 % error in area, error in length
-if ntime ~= ceil(ntime);
+if ntime ~= ceil(ntime)
   disp('PROBLEM WITH VALUES FOR n AND nv');
+  ntime = 50000;
 end
 ntime = floor(ntime);
 

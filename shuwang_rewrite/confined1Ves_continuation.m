@@ -16,7 +16,7 @@ params.N = N; % points on vesicle
 params.Nbd = Nbd; % points on the solid wall
 params.dt = dt; % time step size
 params.T = T; % time horizon
-params.saveRate = 1; % ouptut frequency
+params.saveRate = 10; % ouptut frequency
 params.concentra = concentration; % constant, initial concentration of 
                                   % lipid species
 params.oddeven = oddeven; % flag for initial lipid species profile
@@ -35,7 +35,7 @@ params.viscosityOutside = 1.0;
 params.bendsti = b_max; % maximum bending stiffness
 params.bendratio = b_min/b_max; % ratio between max and min bending stiffness
 params.consta = a; % parameter 'a' in the Cahn-Hilliard energy
-params.nloop = 20e2*5; % number of time steps of Cahn-Hilliard to be taken at 
+params.nloop = 20; % number of time steps of Cahn-Hilliard to be taken at 
                    %each time step of the hydrodynamics
 params.epsch = 0.04; % small parameter  in the double-well potential 
 params.gmresTol = 1e-10; %GMRES tolerance
@@ -47,7 +47,7 @@ params.angle = 0;%pi/6; % The tracking point is programmed to be at 0,0.
                       % Rotate the vesicle counter-clockwise to keep 
                       % desired center.  
 
-options.confined = false; %param for now to pass into tstep, change later
+options.confined = true; %param for now to pass into tstep, change later
 options.verbose = false;  % write data to console
 options.saveData = true; % save the data
 options.usePlot = true;  % plot the data

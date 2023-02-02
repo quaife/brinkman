@@ -137,6 +137,7 @@ b1 = ves.bendsti * ves.bendratio;
 % stored in rcon. This is the variable b(u) in equation (10)
 % rcon is the concentration u
 %rbn = b0 * (ones(N,1) - rcon) + b1*rcon;
+
 rbn =  (b1 - b0)/2*tanh(3*(rcon - 0.5)) + (b0 + b1)/2;
 % take the derivative of b(u)
 Drbn = oc.diffFT(rbn)/ves.L;

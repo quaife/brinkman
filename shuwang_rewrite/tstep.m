@@ -38,10 +38,10 @@ o.SPc = params.SPcoeff; %Semi-permeability coefficient
 o.gmresTol = params.gmresTol; %GMRES tolerance
 o.gmresMaxIter = params.gmresMaxIter; %maximum number of GMRES iterations
 %Build poten class op
-op = poten(params.N);
+op = poten(ves.N);
 %construct the odd/even matrix
 o.kmatrix = op.oddEvenMatrix; 
-oc = curve(params.N);
+oc = curve(ves.N);
 o.saveRate = params.saveRate;
 if o.confined
     o.walls = walls;
@@ -105,7 +105,6 @@ elseif strcmp(farFieldFlow, 'contracting')
 else
     %default flow is relaxed
     uinf = zeros(N, 1);
-    
 end
 
 % walls = o.walls;
@@ -129,7 +128,7 @@ function [eta] = etaSolver(o, rhs)
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [uxvel,uyvel,fdotn,eta] = usetself(o,ves,eta)
+function [uxvel,uyvel,fdotn,etaout,uxtar,uytar,pressure] = usetself(o,ves,etain,targets)
 %Usetself returns the x and y component of the velocity as well as the 
 %mechanical force, beta*fdotn.
 
@@ -189,7 +188,7 @@ if o.confined
   DLP = @(X) +0.5*X + o.DLPmat*X;
   %Evaluate the DLP with near singular integration to get the the velocity
   %on the vesicle due to the walls
-  wallVel2Ves = op.nearSingInt(walls,eta,DLP,...
+  wallVel2Ves = op.nearSingInt(walls,etain,DLP,...
                                NearW2V,kernel,kernel,ves,false,false);
   [wallVel2Vesx, wallVel2Vesy] = oc.getXY(wallVel2Ves);
 %   quiver(walls.X(1:N),walls.X(N+1:end),wallVel2Vesx, wallVel2Vesy)
@@ -239,7 +238,7 @@ if o.confined
   %build right hand side for the double-layer potential solver
   bgFlowWalls = o.bgFlow(walls.X, o.shearRate, o.farFieldFlow);
   rhsWalls = bgFlowWalls - vesVel2Wall;
-  eta = o.etaSolver(rhsWalls);
+  etaout = o.etaSolver(rhsWalls);
 end
 %Add in the fdotn term for the semipermeability model
 fdotn = tau(1:end/2).*sin(theta)-tau(end/2+1:end).*cos(theta);
@@ -251,39 +250,33 @@ uyvel = vel(N+1:end) + wallVel2Vesy + uinfy;
 %store the lagrange multiplier in ves.
 ves.ten = lambTil;
 
-if 1
-[xtar,ytar] = meshgrid(-15:.1:-10,-0.68:.02:0.68);
-xtar = xtar(:); ytar = ytar(:);
-targets.N = numel(xtar);
-targets.X = [xtar;ytar];
-[~,NearV2T] = getZone(ves,targets,2);
-[~,NearW2T] = getZone(walls,targets,2);
+if nargin > 3
+  [~,NearV2T] = getZone(ves,targets,2);
+  [~,NearW2T] = getZone(walls,targets,2);
 
-kernel = @op.StokesDLPtar;
-DLP = @(X) +0.5*X + o.DLPmat*X;
-% Evaluate the DLP with near singular integration to get the the
-% velocity on the targets due to the walls
-wallVel2Tar = op.nearSingInt(walls,eta,DLP,...
-                NearW2T,kernel,kernel,targets,false,false);
+  kernel = @op.StokesDLPtar;
+  DLP = @(X) +0.5*X + o.DLPmat*X;
+  % Evaluate the DLP with near singular integration to get the the
+  % velocity on the targets due to the walls
+  wallVel2Tar = op.nearSingInt(walls,etain,DLP,...
+                  NearW2T,kernel,kernel,targets,false,false);
+%%%
+  [vesPress2Tar] = op.PressSLPTar(ves, etain, targets.X);
+  [wallPress2Tar] = op.PressDLPTar(walls, etain, targets.X);
+  pressure = vesPress2Tar + wallPress2Tar;
+%%%
+  kernel = @op.StokesSLPtar;
+  SLP = @(X) op.StokesSLP(ves,StokesMat,X);
+  % Evaluate the SLP with near singular integration to get the the
+  % velocity on the targets due to the vesicle
+  vesVel2Tar = op.nearSingInt(ves,tau,SLP,...
+                  NearV2T,kernel,kernel,targets,false,false);
 
-
-kernel = @op.StokesSLPtar;
-SLP = @(X) op.StokesSLP(ves,StokesMat,X);
-% Evaluate the SLP with near singular integration to get the the
-% velocity on the targets due to the vesicle
-vesVel2Tar = op.nearSingInt(ves,tau,SLP,...
-                NearV2T,kernel,kernel,targets,false,false);
-
-velTar = wallVel2Tar + vesVel2Tar;
-[velxtar,velytar] = oc.getXY(velTar);
-figure(2); clf; hold on
-quiver(xtar,ytar,velxtar,velytar)
-plot(walls.X(1:end/2),walls.X(end/2+1:end),'k')
-plot(ves.X(1:end/2),ves.X(end/2+1:end),'r')
-axis equal
-pause
-
-
+  velTar = wallVel2Tar + vesVel2Tar;
+  [uxtar,uytar] = oc.getXY(velTar);
+else 
+  uxtar = [];
+  uytar = [];
 end
 
 

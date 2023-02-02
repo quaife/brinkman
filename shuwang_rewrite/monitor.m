@@ -211,11 +211,11 @@ oc = curve(N); % shorthand for curve class
 %----------- Cline Bending Stiffness Plot ---------------------------------
 clf;
 %rbn = 1 * (ones(o.N,1) - conc) + 0.1*conc;
-rbn =  (1 - 0.1)/2*tanh(3*(conc - 0.5)) + (1 + 0.1)/2;
+rbn =  (0.3025 - 0.55)/2*tanh(3*(conc - 0.5)) + (0.55 + 0.3025)/2;
 h = cline([x;x(1,:)],[y;y(1,:)],[rbn;rbn(1,:)]);
 set(h,'linewidth',3)
 h = colorbar;
-set(h,'fontsize',20)
+set(h,'fontsize',20,'Limits',[0 1])
 if o.confined
     hold on
     plot(walls.X(1:end/2),walls.X(end/2+1:end),'k','linewidth',3);

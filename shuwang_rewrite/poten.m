@@ -298,6 +298,67 @@ vel = [velx;vely]*geom.L/geom.N;
 end % StokesDLPtar
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [pressSLPTar] = PressSLPTar(o, ves, eta, Xtar)
+% evaluate the single-layer potential due to the geometry stored in geom
+% using the density function eta, and evaluating at the target points in
+% Xtar
+
+oc = curve(ves.N);
+
+[xsou,ysou] = oc.getXY(ves.X);
+[xtar,ytar] = oc.getXY(Xtar);
+[itar,jtar] = size(xtar);
+[xeta,yeta] = oc.getXY(eta);
+xtar = xtar(:); ytar = ytar(:);
+xeta = xeta(:); yeta = yeta(:); 
+pressSLP = zeros(size(xtar));
+
+for k = 1:numel(xtar)
+  rx = xtar(k) - xsou;
+  ry = ytar(k) - ysou;
+  rho2 = rx.^2 + ry.^2;
+  rdoteta = rx.*xeta + ry.*yeta;
+  kernel = rdoteta./rho2;
+  pressSLP(k) = sum(kernel);
+end
+pressSLPTar = 1/(2*pi)*ves.L/ves.N * pressSLP;
+end %PressSLPTar
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [pressDLPTar] = PressDLPTar(o, geom, eta, Xtar)
+% evaluate the double-layer potential due to the geometry stored in geom
+% using the density function eta, and evaluating at the target points in
+% Xtar
+
+oc = curve(geom.N);
+
+[xsou,ysou] = oc.getXY(geom.X);
+[~,tangent,~] = oc.diffProp(geom.X);
+normal = [tangent(geom.N+1:end);-tangent(1:geom.N)];
+[nx,ny] = oc.getXY(normal);
+
+[xtar,ytar] = oc.getXY(Xtar);
+[itar,jtar] = size(xtar);
+[xeta,yeta] = oc.getXY(eta);
+xtar = xtar(:); ytar = ytar(:);
+xeta = xeta(:); yeta = yeta(:); 
+pressDLP = zeros(size(xtar));
+
+for k = 1:numel(xtar)
+  rx = xtar(k) - xsou;
+  ry = ytar(k) - ysou;
+  rho2 = rx.^2 + ry.^2;
+  rdotn = rx.*nx + ry.*ny;
+  rdoteta = rx.*xeta + ry.*yeta;
+  ndoteta = nx.*xeta + ny.*yeta;
+  
+  kernel = 1./rho2.*(ndoteta - 2./rho2.*rdotn.*rdoteta);
+  pressDLP(k) = sum(kernel);
+end
+pressDLPTar = -1/pi * geom.L/geom.N * pressDLP;
+end %PressDLPTar
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % END OF ROUTINES THAT EVALUATE STOKES LAYER POTENTIALS AT TARGET POINTS
 % THAT DIFFER FROM THE SOURCCE POINTS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

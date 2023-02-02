@@ -4,14 +4,11 @@ addpath output
 filename = ['output/' fileName '.bin'];
 [posx,posy,conc,~,~,~,~,~,~] = loadFile(filename);
 if restart
-    if rwhere == 0 %start from end
-        posx(:,:,end) = posx(:,:,end) - 2*max(posx(:,:,end));
-    else 
-        
-        [~,closestIndex] = min(abs(max(squeeze(posx))-10));
-        posx(:,:,end) = posx(:,:,closestIndex) - 2*max(posx(:,:,closestIndex));
-        posy(:,:,end) = posy(:,:,closestIndex);
-        conc(:,:,end) = conc(:,:,closestIndex);
+    if rwhere == 1 %start from end
+       % [~,closestIndex] = min(abs(max(squeeze(posx))-10));
+	posx(:,:,end) = posx(:,:,end - 5000);
+	posy(:,:,end) = posy(:,:,end - 5000);
+	conc(:,:,end) = conc(:,:,end - 5000);
     end
 end
 X = [posx(:,:,end);posy(:,:,end)];
