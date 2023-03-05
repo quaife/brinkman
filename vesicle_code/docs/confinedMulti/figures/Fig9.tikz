@@ -1,0 +1,21 @@
+\begin{tikzpicture}[scale = .6]
+    \begin{axis}  
+    [   axis x line = bottom,
+        axis y line = left,
+        xmin=0, xmax=1.1,
+        xbar, bar width=10pt, 
+        ylabel={}, % the ylabel must precede a # symbol.  
+        xlabel={\ Vesicle velocity},  
+        symbolic y coords={single-component b = 1, single-component b = 0.55, Multicomponent}, % these are the specification of coordinates on the y-axis.  
+        ytick=data, 
+        xticklabels={},
+        xtick={},
+        nodes near coords, % this command is used to mention the y-axis points on the top of the particular bar.  
+        nodes near coords align={horizontal},  
+        ]  
+    % RA 0.4
+    \addplot coordinates {(0.9402,single-component b = 1) (0.9770,single-component b = 0.55) (0.9871,Multicomponent) };  
+    % RA 0.6
+    \addplot coordinates {(0.9868,single-component b = 1) (0.9870,single-component b = 0.55) (0.9704,Multicomponent) }; 
+\end{axis}  
+\end{tikzpicture}

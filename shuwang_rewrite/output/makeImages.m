@@ -13,7 +13,8 @@ addpath ..
 % name = 'Chi200_RA0p95_Conc0p3_Beta0_y0p1_eps0p04_n20.jpg';
 ax = [-2 2 -2 2];
 
-file = 'relaxation1VesA.bin';
+file = 'Chip25_shax5p7_scL0p311_Conc0_Beta0_n1024_nbd1024_dt1en4_bmax1_bmin0p1_eps0p04_a100_longchoke_rand.bin';
+%file = 'relaxation1VesA.bin';
 %file = 'longChoke_Chi400_Scale0p49_shortax3p45_conc0p3.bin';
 %file = 'longChoke_Chi400_Scale0p59_shortax2p75_conc0p3.bin';
 %file = 'longChoke_Chi400_Scale0p71_shortax2p20_conc0p3.bin';
@@ -22,7 +23,7 @@ file = 'relaxation1VesA.bin';
 %file1 = 'Unconfined_larger_800.bin';
 [posx,posy,conc,ea,el,time,xvel1,yvel1,ten] = loadFile(file);
 %[posx1,posy1,conc1,ea1,el1,time1,xvel11,yvel11,ten1] = loadFile(file1);
-ten = -ten;
+%ten = -ten;
 
 plot(posx(:,:,end),posy(:,:,end))
 hold on

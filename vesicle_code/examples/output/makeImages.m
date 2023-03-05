@@ -61,8 +61,9 @@ if 0
   irate = 1;
 end
 
-if 0
-%  file = 'contracting1VesData.bin';
+if 1
+%  file = '~/projects/brinkman/vesicle_code/results/PNAS_runs/contracting/beta5em4_ra065_Speed1e0/contracting1VesData.bin';
+  file = 'contracting1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1e1/contracting1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1em0p5/contracting1VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/contracting/beta1em3Rate1e0/contracting1VesData.bin';
@@ -72,13 +73,13 @@ if 0
 %  file = '~/Dropbox/Adhesion/PermeableV/contracting1Ves/contracting1VesP3Data.bin';
 %  file = '~/Dropbox/Adhesion/PermeableV/contracting1Ves/Ncontracting1Ves3aData.bin';
 %  file = '~/Dropbox/Adhesion/PermeableV/contracting1Ves/contracting1VesP4Data.bin';
-  file = '~/Dropbox/Adhesion/choke1VesKEp01bData_Feb18.bin';
-  ax = [-120 120 -5 5];
+%  file = '~/Dropbox/Adhesion/choke1VesKEp01bData_Feb18.bin';
+  ax = [0 18 -5 5];
   options.confined = true;
   options.pressure = false;
   options.savefig = false;
   count = 1;
-  irate = 10;
+  irate = 1;
 end
 
 
@@ -158,7 +159,7 @@ if 0
   options.confined = false;
   beta = 1e-3;
 end
-if 1
+if 0
 %  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR1em1adS1e0Chi5em1_ra090/shear2VesData.bin';
 %  file = '~/projects/brinkman/vesicle_code/results/shear2Ves/adR1em1adS3em1Chi2p5em1_ra090/shear2VesData_Part2.bin';
   file = 'extensional2VesData.bin';

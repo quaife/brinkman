@@ -1,0 +1,111 @@
+%% droidsans.sty
+%% Copyright 2019 Mohamed El Morabity
+%
+% This work may be distributed and/or modified under the conditions of the LaTeX
+% Project Public License, either version 1.3 of this license or (at your option)
+% any later version. The latest version of this license is in
+% http://www.latex-project.org/lppl.txt and version 1.3 or later is part of all
+% distributions of LaTeX version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Mohamed El Morabity
+%
+% This work consists of all files listed in manifest.txt.
+
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{droidsans}[2019/06/20 Style file for Droid Sans.]
+
+\RequirePackage{ifluatex}
+\RequirePackage{ifxetex}
+\RequirePackage{xkeyval}
+
+\newif\ifdroidsans@otf
+\ifxetex
+  \droidsans@otftrue
+\else
+  \ifluatex
+    \droidsans@otftrue
+  \else
+    \droidsans@otffalse
+  \fi
+\fi
+
+\newif\ifdroidsans@default
+\droidsans@defaultfalse
+
+\newif\ifdroidsans@defaultsans
+\droidsans@defaultsansfalse
+
+\newcommand*{\droidsans@scale}{1}
+\DeclareOptionX{scale}{\renewcommand*{\droidsans@scale}{#1}}
+\DeclareOptionX{scaled}{\renewcommand*{\droidsans@scale}{#1}}
+
+\DeclareOptionX{default}{\droidsans@defaulttrue}
+\DeclareOptionX{defaultsans}{\droidsans@defaultsanstrue}
+\DeclareOptionX{type1}{\droidsans@otffalse}
+
+\ProcessOptionsX
+\relax
+
+
+\newcommand*{\droidsansfamily}{droidsans}
+
+\ifdroidsans@otf
+  \RequirePackage{fontspec}
+
+  \ifxetex
+    \XeTeXtracingfonts=1
+  \fi
+
+  \newcommand*{\droidsans@otf@slant}{0.213}
+  \newcommand*{\droidsans@otf@features}{%
+    Extension=.ttf,%
+    Ligatures=TeX,%
+    Scale=\droidsans@scale,%
+    UprightFont={*},%
+    ItalicFont={*},%
+    ItalicFeatures={FakeSlant=\droidsans@otf@slant},%
+    FontFace={b}{n}{*-Bold},%
+    FontFace={b}{it}{Font=*-Bold,FakeSlant=\droidsans@otf@slant},%
+    BoldFont={*-Bold},%
+    BoldItalicFont={*-Bold},%
+    BoldItalicFeatures={FakeSlant=\droidsans@otf@slant}%
+  }
+
+  \newfontfamily{\droidsans}[%
+    \droidsans@otf@features,%
+    NFSSFamily=\droidsansfamily%
+  ]{DroidSans}
+
+  % Legacy compatibility
+  \newfontfamily{\fdsfamily}[%
+    \droidsans@otf@features,%
+    NFSSFamily=fds%
+  ]{DroidSans}
+
+  \ifdroidsans@defaultsans
+    \setsansfont[%
+      \droidsans@otf@features%
+    ]{DroidSans}
+  \fi
+  \ifdroidsans@default
+    \setmainfont[%
+      \droidsans@otf@features%
+    ]{DroidSans}
+  \fi
+\else
+  \newcommand*{\droidsans}{\fontfamily{\droidsansfamily}\selectfont}
+  % Legacy compatibility
+  \newcommand*{\fdsfamily}{\droidsans}
+
+  \ifdroidsans@defaultsans
+    \renewcommand*{\sfdefault}{\droidsansfamily}
+  \fi
+  \ifdroidsans@default
+    \renewcommand*{\familydefault}{\droidsansfamily}
+  \fi
+\fi
+
+\endinput

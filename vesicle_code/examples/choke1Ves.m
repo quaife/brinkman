@@ -25,7 +25,7 @@ options.semipermeable = true;
 prams.fluxCoeff = 1e-3;
 options.fluxShape = 1; % constant value
 
-options.farField = 'chokeLongest';      % Constricted domain
+options.farField = 'chokeLonger';      % Constricted domain
 options.farFieldSpeed = 500;
 %options.farFieldSpeed = 4.2;
 % background velocity or solid walls (which comes with a default
@@ -84,8 +84,8 @@ pressx = [-60;60];
 pressy = [0;0];
 pressTar = [pressx;pressy];
 
-%Xfinal = Ves2D(X,Xwalls,prams,options,pressTar);
-Xfinal = Ves2D(X,Xwalls,prams,options);
+Xfinal = Ves2D(X,Xwalls,prams,options,pressTar);
+%Xfinal = Ves2D(X,Xwalls,prams,options);
 % Run vesicle code
 
 

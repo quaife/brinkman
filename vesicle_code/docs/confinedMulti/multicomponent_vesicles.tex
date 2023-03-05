@@ -1,0 +1,866 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%This is the LaTeX ARTICLE template for RSC journals
+%Copyright The Royal Society of Chemistry 2016
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[twoside,twocolumn,9pt]{article}
+\usepackage{amsfonts}
+\usepackage{extsizes}
+\usepackage[super,sort&compress,comma]{natbib} 
+\usepackage[version=3]{mhchem}
+\usepackage[left=1.5cm, right=1.5cm, top=1.785cm, bottom=2.0cm]{geometry}
+\usepackage{balance}
+\usepackage{mathptmx}
+\usepackage{sectsty}
+\usepackage{stmaryrd}
+\usepackage{graphicx} 
+\usepackage{lastpage}
+\usepackage[format=plain,justification=justified,singlelinecheck=false,font={stretch=1.125,small,sf},labelfont=bf,labelsep=space]{caption}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{fnpos}
+\usepackage[english]{babel}
+\usepackage{pgfplots}
+\usetikzlibrary{calc}
+\usepackage{dsfont}
+
+\addto{\captionsenglish}{%
+  \renewcommand{\refname}{Notes and references}
+}
+\usepackage{array}
+\usepackage{droidsans}
+\usepackage{charter}
+\usepackage[T1]{fontenc}
+%\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{setspace}
+\usepackage[compact]{titlesec}
+\usepackage{hyperref}
+%\usepackage{subcaption}
+%%%Please don't disable any packages in the preamble, as this may cause the template to display incorrectly.%%%
+
+\usepackage{epstopdf}%This line makes .eps figures into .pdf - please comment out if not required.
+
+\definecolor{cream}{RGB}{222,217,201}
+
+\usepackage{todonotes}
+%%%Shorthands
+\newcommand{\ff}{\mathbf{f}}
+%\renewcommand{\SS}{\mathcal{S}}
+%\newcommand{\DD}{\mathcal{D}}
+\newcommand{\eeta}{\boldsymbol{\eta}}
+\newcommand{\nn}{\mathbf{n}}
+\renewcommand{\tt}{\mathbf{t}}
+\newcommand{\NN}{\mathcal{N}}
+\newcommand{\rr}{\mathbf{r}}
+\newcommand{\RR}{\mathbb{R}}
+\renewcommand{\ss}{\mathbf{s}}
+\newcommand{\uu}{\mathbf{u}}
+%\renewcommand{\SS}{\mathcal{S}}
+\newcommand{\TT}{\mathbf{T}}
+\newcommand{\UU}{\mathbf{U}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+
+\newcommand{\subfigimg}[3][,]{%
+  \setbox1=\hbox{\includegraphics[#1]{#3}}% Store image in box
+  \leavevmode\rlap{\usebox1}% Print image
+  \rlap{\hspace*{0pt}\raisebox{\dimexpr\ht1-0\baselineskip}{\bf
+  \normalsize #2}}% Print label
+  \phantom{\usebox1}% Insert appropriate spacing
+}
+
+\begin{document}
+
+\pagestyle{fancy}
+\thispagestyle{plain}
+\fancypagestyle{plain}{
+%%%HEADER%%%
+\renewcommand{\headrulewidth}{0pt}
+}
+%%%END OF HEADER%%%
+
+%%%PAGE SETUP - Please do not change any commands within this section%%%
+\makeFNbottom
+\makeatletter
+\renewcommand\LARGE{\@setfontsize\LARGE{15pt}{17}}
+\renewcommand\Large{\@setfontsize\Large{12pt}{14}}
+\renewcommand\large{\@setfontsize\large{10pt}{12}}
+\renewcommand\footnotesize{\@setfontsize\footnotesize{7pt}{10}}
+\makeatother
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\renewcommand\footnoterule{\vspace*{1pt}% 
+\color{cream}\hrule width 3.5in height 0.4pt \color{black}\vspace*{5pt}} 
+\setcounter{secnumdepth}{5}
+
+\makeatletter 
+\renewcommand\@biblabel[1]{#1}            
+\renewcommand\@makefntext[1]% 
+{\noindent\makebox[0pt][r]{\@thefnmark\,}#1}
+\makeatother 
+\renewcommand{\figurename}{\small{Fig.}~}
+\sectionfont{\sffamily\Large}
+\subsectionfont{\normalsize}
+\subsubsectionfont{\bf}
+\setstretch{1.125} %In particular, please do not alter this line.
+\setlength{\skip\footins}{0.8cm}
+\setlength{\footnotesep}{0.25cm}
+\setlength{\jot}{10pt}
+\titlespacing*{\section}{0pt}{4pt}{4pt}
+\titlespacing*{\subsection}{0pt}{15pt}{1pt}
+%%%END OF PAGE SETUP%%%
+
+%%%FOOTER%%%
+\fancyfoot{}
+\fancyfoot[LO,RE]{\vspace{-7.1pt}\includegraphics[height=9pt]{head_foot/LF}}
+\fancyfoot[CO]{\vspace{-7.1pt}\hspace{13.2cm}\includegraphics{head_foot/RF}}
+\fancyfoot[CE]{\vspace{-7.2pt}\hspace{-14.2cm}\includegraphics{head_foot/RF}}
+\fancyfoot[RO]{\footnotesize{\sffamily{1--\pageref{LastPage} ~\textbar  \hspace{2pt}\thepage}}}
+\fancyfoot[LE]{\footnotesize{\sffamily{\thepage~\textbar\hspace{3.45cm} 1--\pageref{LastPage}}}}
+\fancyhead{}
+\renewcommand{\headrulewidth}{0pt} 
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\arrayrulewidth}{1pt}
+\setlength{\columnsep}{6.5mm}
+\setlength\bibsep{1pt}
+%%%END OF FOOTER%%%
+
+%%%FIGURE SETUP - please do not change any commands within this section%%%
+\makeatletter 
+\newlength{\figrulesep} 
+\setlength{\figrulesep}{0.5\textfloatsep} 
+
+\newcommand{\topfigrule}{\vspace*{-1pt}% 
+\noindent{\color{cream}\rule[-\figrulesep]{\columnwidth}{1.5pt}} }
+
+\newcommand{\botfigrule}{\vspace*{-2pt}% 
+\noindent{\color{cream}\rule[\figrulesep]{\columnwidth}{1.5pt}} }
+
+\newcommand{\dblfigrule}{\vspace*{-1pt}% 
+\noindent{\color{cream}\rule[-\figrulesep]{\textwidth}{1.5pt}} }
+
+
+
+\makeatother
+%%%END OF FIGURE SETUP%%%
+
+%%%TITLE, AUTHORS AND ABSTRACT%%%
+\twocolumn[
+  \begin{@twocolumnfalse}
+{\includegraphics[height=30pt]{head_foot/SM}\hfill\raisebox{0pt}[0pt][0pt]{\includegraphics[height=55pt]{head_foot/RSC_LOGO_CMYK}}\\[1ex]
+\includegraphics[width=18.5cm]{head_foot/header_bar}}\par
+\vspace{1em}
+\sffamily
+\begin{tabular}{m{4.5cm} p{13.5cm} }
+
+\includegraphics{head_foot/DOI} & \noindent\LARGE{\textbf{Hydrodynamics of Multicomponent Vesicles Under Strong Confinement}} \\
+\vspace{0.3cm} & \vspace{0.3cm} \\
+
+ & \noindent\large{Ashley Gannon,\textit{$^{a}$} Yuan-Nan
+  Young,\textit{$^{b}$} and Bryan Quaife\textit{$^{\ast}${$^{a}$}}} \\
+ %Author names go here instead of "Full name", etc.
+
+\includegraphics{head_foot/dates} & \noindent\normalsize{The abstract should be a single paragraph which summarises the content of the article. Any references in the abstract should be written out in full \textit{e.g.}\ [Surname \textit{et al., Journal Title}, 2000, \textbf{35}, 3523].} \\%The abstrast goes here instead of the text "The abstract should be..."
+
+\end{tabular}
+
+ \end{@twocolumnfalse} \vspace{0.6cm}
+  ]
+%%%END OF TITLE, AUTHORS AND ABSTRACT%%%
+
+%%%FONT SETUP - please do not change any commands within this section
+\renewcommand*\rmdefault{bch}\normalfont\upshape
+\rmfamily
+\section*{}
+\vspace{-1cm}
+
+
+%%%FOOTNOTES%%%
+
+\footnotetext{\textit{$^{a}$~Department of Scientific Computing, Florida State University, Tallahassee, FL, 32306, USA. Email: bquaife@fsu.edu}}
+\footnotetext{\textit{$^{b}$~Department of Mathematical Sciences, New Jersey Institute of Technology, Newark, NJ, 07102, USA. Email: yyoung@njit.edu}}
+
+%Please use \dag to cite the ESI in the main text of the article.
+%If you article does not have ESI please remove the the \dag symbol from the title and the footnotetext below.
+%\footnotetext{\dag~Electronic Supplementary Information (ESI) available: [details of any supplementary information available should be included here]. See DOI: 10.1039/cXsm00000x/}
+%additional addresses can be cited as above using the lower-case letters, c, d, e... If all authors are from the same address, no letter is required
+
+%\footnotetext{\ddag~Additional footnotes to the title and authors can be included \textit{e.g.}\ `Present address:' or `These authors contributed equally to this work' as above using the symbols: \ddag, \textsection, and \P. Please place the appropriate symbol next to the author's name and include a \texttt{\textbackslash footnotetext} entry in the the correct place in the list.}
+
+
+%%%END OF FOOTNOTES%%%
+
+%%%MAIN TEXT%%%%
+\section{\label{sec:Introduction}Introduction}
+Soft particles, such as vesicles, display rich dynamics when they are subjected to different types of physical processes. These dynamics are affected by parameters such a the capillary number, reduced volume, and confinement ratio. Understanding these dynamics is critical to understanding biophysical and microfluidic processes. For example, a vesicle's reduced area and viscosity contrast will determine if it undergoes tank treading, swinging, or tumbling in a shear flow~\cite{nog-gom2005}. Transitions in the vesicle shape occur in non-linear parabolic flows~\cite{kao-bir-mis2009, dan-vla-mis2009}, and these shapes include axisymmetric bullets or parachutes, and asymmetric parachutes. More recently, groups have considered these transitions when vesicles are suspended in a channel or pipe flow~\cite{lyu-che-far-jae-mis-leo2023, aga-bir2020, qua-gan-you2021, abb-far-nai-ezz-ben-mis2022}. These dynamics include snaking and swirling behaviors; croissant and slipper shapes; and semipermeability.
+
+Groups have also studied the behaviors of a vesicle that is composed of different types of lipids and proteins. The presence of different lipid species has been used to model different processes including the bending stiffness, spontaneous curvature, and adhesion potential~\cite{zha-das-du2010, tan-yan-ima2011}. The dynamics of these multicomponent vesicles include phase treading, tumbling with no viscosity contrast, swinging, budding, and fission~\cite{soh-tse-li-voi-low2010, wan-du2008, all-ama2006, ger-sal-spa2022, lip1992, urs-klu-phi2009}. In addition to the aforementioned numerical studies, these dynamics have been observed in experiments~\cite{bag-sun2009, yan-ima-tan2010, yan-ima-tan2008, dre-jah-bob-spa-gop2021}.
+
+In this paper, we extend the work of Liu et al.~\cite{liu-mar-li-vee-low2017} who performed a thorough investigation of how key dimensionless numbers, including the reduced area, capillary number, and the floppy-to-stiff ratio, affect the dynamics of a multicomponent vesicle in an unbounded linear shear flow. What is missing from the literature, and what we address in this work, is the effect of strong confinement on a two-dimensional multicomponent vesicle. Using numerical simulations, we show how the vesicle's reduced area and its lipid composition affect the dynamics in two strongly confined geometries.
+
+The remainder of the paper is organized as follows. Section~\ref{sec:Formulation} describes the model for the two-dimensional multicomponent vesicle. We introduce a new parameterization of the bending modulus that is necessary to avoid unphysical negative bending stiffness. Section~\ref{sec:NumericalMethods} describes numerical methods and also defines the techniques we use to define the excess pressure, lubrication layer width, and tank treading velocity. Section~\ref{sec:results} demonstrates the effects of strong confinement on multicomponent vesicles. Finally, concluding remarks are made in Section~\ref{sec:conclusion}.
+
+
+%\citet{yan-ima-tan2010} perform experiments with multicomponent GUVs. They observe phase separation and budding of vesicles with a small reduced volume. However, the budding often requires a significant amount of time (tens of minutes), but ours occur much earlier in the contracting example by using narrow constrictions. Equations (2)--(5) shows a model similar to ours, and they use a linear dependence between the bending modulus and lipid concentration in the paragraph immediately after these equations. The include an energy term that depends on the difference in area between the inner and outer monolayer of lipids. Osmotic gradients are used to control the vesicle volume.
+
+%\citet{yan-ima-tan2008} Similar type work as~\cite{yan-ima-tan2010}.
+
+%\citet{dre-jah-bob-spa-gop2021} uses multicomponent GUVs to create necking, and use this to understand cell division.
+
+%\citet{tan-yan-ima2011} describes the shape deformation and phase separation dynamics of a two- component membrane whose bending moduli depend on the local composition of the lipids.
+
+%\citet{lip1992} considers the dynamics and budding of lipid bilayers
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\label{sec:Formulation}Formulation}
+We consider a single multicomponent vesicle $\omega$ with boundary $\gamma$ suspended in a confined geometry $\Omega \subset \RR^2$ with boundary $\Gamma$ (Figure~\ref{fig:schematic}).
+\begin{figure}[H]
+    \centering
+    \includegraphics[trim = 0.3cm 0cm 1cm 0cm, clip=true,width=0.9\columnwidth]{figures/schematic.pdf}
+    \todo[inline]{Need to improve this figure. Vesicle should be multicomponent. Put greek letter $\gamma$ in black instead of red}
+    \caption{\label{fig:schematic}\small A single multicomponent vesicle with boundary $\gamma$ suspended in a domain $\Omega$ with boundary $\Gamma$. The vesicle dynamics are determined by a combination of phase, bending, and tension energies, and an imposed flow on $\Gamma$.}
+\end{figure}
+The fluid is assumed to have zero Reynolds number and is therefore governed by the incompressible Stokes equations
+\begin{align}
+    \nabla \cdot \TT = 0 \quad \text{and} \quad \nabla \cdot \uu = 0, 
+        \quad \xx \in \Omega \backslash \gamma,
+\end{align}
+where $\TT = -p\mathbf{I} + \mu\left(\nabla \uu + \nabla \uu^T \right)$ is the hydrodynamic stress tensor, $\uu$ is the velocity, $p$ is the pressure, and $\mu$ is the fluid viscosity. Across the vesicle membrane, the velocity is continuous while the membrane and hydrodynamic forces balance
+\begin{align}
+    \llbracket \uu \rrbracket = 0, \quad \llbracket \TT\nn \rrbracket = \ff, \quad \xx \in \gamma,
+\end{align}
+where $\ff$ is the total membrane force and $\nn$ is the outward unit normal of $\gamma$. A no-slip and local inextensibility condition on $\gamma$ is imposed
+\begin{align}
+    \frac{d\xx}{dt} = \uu(\xx) \quad \text{and} \quad \nabla_{\gamma} \cdot \uu = 0,
+    \quad \xx \in \gamma,
+\end{align}
+where $\xx(s,t)$ is the arclength parameterization of $\gamma$. Along the solid wall $\Gamma$, we impose a Dirichlet boundary condition $\uu(\xx) = \UU(\xx)$, where $\UU$ is a Hagen–Poiseuille flow at the inlet and outlet,
+\begin{align}
+    \UU(\xx) = \chi \left(1 - \left(\frac{y}{W}\right)^2 \right), \quad \xx = (x,y) \in \Gamma,
+\end{align}
+and $\UU$ is zero along the top and bottom of the channel. $W$ is the width of the channel and $\chi$ is the maximum velocity. 
+
+We nondimensionalize the governing equations with a characteristic length scale $R_0 = 10^{-6}$~m, a maximum bending stiffness $b_{\max} = 10^{-19}$~J, and fluid viscosity $\mu = 5 \times 10^{-2}$~kg/ms. The resulting time scale is $\mu R_0^3/b_{\max} = 0.5$~s, the velocity scale is $b_{\max}/\mu R_0^2=2$~$\mu$m/s, the pressure scale is $b_{\max}/R_0^3 = 10^{-1}$~Pa, and the tension scale is $b_{\max}/R_0^2 = 10^{-7}$~N/m. A critical dimensionless parameter for the vesicle shape is its reduced area, $\alpha$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Constitutive equations}
+Using the same model as~\citet{liu-mar-li-vee-low2017} and~\citet{soh-tse-li-voi-low2010}, the membrane forces depend on the Helfrich energy, line tension, and phase energy. The phase and bending energies are coupled through the bending modulus. In particular, the individual energies are
+\begin{align}
+    E_b &= \frac{1}{2}\int_{\gamma} b(u) \kappa^2 \, ds, \\
+    E_t &= \int_{\gamma} \sigma \, ds, \\
+    E_p &= \frac{a}{\epsilon}\int_{\gamma}\left(
+    f(u) +\frac{\epsilon^2}{2}|\nabla_\gamma u|^2\right) \, ds,
+    \label{eqn:PhaseEnergy}
+\end{align}
+where $b(u)$ is the lipid-dependent bending modulus, $\sigma$ is the vesicle's tension, $u$ is the lipid concentration, and $f(u) = \frac{1}{4}u^2(1-u)^2$ is the double-well potential with local minimums at $u=0$ and $u=1$. Here, $\kappa$ is the membrane curvature, $\ss$ is the tangent vector, and $s$ is the arclength. $a$ and $\epsilon$ are small parameters, and we use the same values as~\citet{soh-tse-li-voi-low2010}. The resulting membrane forces are
+\begin{align}
+    \ff_b &= -(b(u)\kappa \nn)_{ss} -\frac{3}{2}\left(b(u) \kappa^2 \ss\right)_s, \\
+    \ff_t &= (\sigma \ss)_s, \\
+    \ff_p &= \left(\frac{a}{\epsilon}\left(f(u) -
+         \frac{\epsilon^2}{2} u_s^2\right) \ss \right)_s.
+\end{align}
+
+The lipid species $u$ is governed by a fourth-order Cahn-Hilliard equation that results in the lipids phase separating while conserving their total mass. To model the variable bending, \citet{soh-tse-li-voi-low2010} propose parameterizing the bending modulus as
+\begin{align}
+    b(u) = b_{\max} (1-u) + b_{\min} u,
+    \label{eqn:linearBending}
+\end{align}
+where $b_{\max}$ and $b_{\min}$ are the maximum and minimum bending moduli, respectively. However, since the double-well potential does not have hard walls, the lipid concentration is not guaranteed to be confined to the interval $[0,1]$. This is problematic when $u > 1$ since this results in $b(u) < 0$ if $u > \frac{b_{\max}}{b_{\max} - b_{\min}}$, and such values of $u$ are possible when $b_{\min}$ is small and the vesicle is confined to a narrow region. Therefore, in this work we parameterize the bending modulus as
+\begin{align}
+    b(u) = \frac{b_{\min} - b_{\max}}{2} \tanh\left(3\left(u - \frac{1}{2} \right)\right) + 
+           \frac{b_{\min} + b_{\max}}{2}.
+    \label{eqn:tanhBending}
+\end{align}
+\begin{figure}[H]
+    \centering
+    \input{figures/concModels.tikz}
+    \caption{\label{fig:concModels} \small The linear bending model in red (equation~\eqref{eqn:linearBending}) and the the new hyperbolic bending model in blue (equation~\eqref{eqn:tanhBending}). Note that the new bending model satisfies $b \in (b_{\min},b_{\max})$ even if $u \notin [0,1]$.}
+\end{figure}
+
+Equation~\eqref{eqn:tanhBending} maps the local minimums of the double-well potential close to $b_{\min}$ and $b_{\max}$, but more importantly, b(u) remains bounded in $[b_{\min},b_{\max}]$ even when $u \notin [0,1]$ (Figure~\ref{fig:concModels}). To demonstrate the necessity of this new bending model, we consider a multicomponent vesicle in strong confinement with both bending models~\eqref{eqn:linearBending} and~\eqref{eqn:tanhBending}. The stiff-to-floppy ratio is $b_{\max}/b_{min} = 10^{-1}$. In the new model~\eqref{eqn:tanhBending}, the lipid concentration achieves a maximum value of $u \approx 1.002$ which results in a  minimum bending stiffness of $b(u) \approx b_{\min}$. However, if we use the linear bending model~\eqref{eqn:linearBending}, the lipid concentration achieves a maximum value of $u \approx 1.52$ which results in an unphsical negative bending stiffness of $b(u) \approx -0.5$. The vesicle shapes are in Figure~\ref{fig:bendingModels}, and the instability caused by the negative bending stiffness is near the region with negative curvature.
+\begin{figure}[htp]
+    \centering
+%    \begin{tabular}{@{}p{0.49\linewidth}@{\qquad}p{0.49\linewidth}@{}}
+        \subfigimg[width=0.48\linewidth, clip ]{(a)}{figures/newbending.pdf}
+        \subfigimg[width=0.48\linewidth, clip ]{(b)}{figures/oldbending.pdf}
+%    \end{tabular}
+    \caption{\label{fig:bendingModels} \small A multicomponent vesicle entering a closely-fitting channel using the (a) new bending model~\eqref{eqn:tanhBending}; (b) the linear model~\eqref{eqn:linearBending}. With the linear model, the vesicle bending modulus becomes negative, and this introduces an instability that first appears near the point with the largest negative curvature. The two plots are not at the same time step.}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Validation}
+Since we use a new bending model, we first validate that it reproduces the tank treading and phase treading dynamics reported in the literature. Figure~\ref{fig:treading} shows a tank treading (top) and a phase treading (bottom) multicomponent vesicle in an unconfined shear flow. These simulations align with the results reported by~\citet{liu-mar-li-vee-low2017} (cf.~Figures 3 and 4).
+\begin{figure}[H]
+    \centering
+    \subfigimg[width=\columnwidth, trim ={5.5cm 1.5cm 4cm 0},clip]{(a)}{figures/Fig4a.pdf}
+    \subfigimg[width=\columnwidth, trim ={5.5cm 1.5cm 4cm 0},clip]{(b)}{figures/Fig4b.pdf}
+%    \includegraphics[width = \columnwidth,trim ={5.5cm 1.5cm 4cm 0},clip]{figures/Fig4a.pdf}
+%    \includegraphics[width = \columnwidth,trim ={5.5cm 1.5cm 4cm 0},clip]{figures/Fig4b.pdf}
+    \caption{\label{fig:treading} \small A multicomponent (a) tank-treading and (b) phase-treading vesicle using the new bending model~\eqref{eqn:tanhBending}. These simulations agree with the results presented by~\citet{liu-mar-li-vee-low2017}.}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\label{sec:NumericalMethods}Numerical Methods}
+The velocity field $\uu$ is written as a combination of a single-layer potential and a double-layer potential
+\begin{align}
+    \label{eqn:LPrep}
+    \uu(\xx) = S[\ff](\xx) + D[\eeta](\xx),
+\end{align}
+where
+\begin{align}
+    S[\ff](\xx) &= \frac{1}{4\pi\mu} \int_{\gamma} \left(-\log \rho \mathds{I} + \frac{\rr \otimes \rr}{\rho^2} \right)
+    \ff(\yy) \, ds_\yy, \\
+%
+    D[\eeta](\xx) &= \frac{1}{\pi} \int_{\Gamma} \frac{\rr \cdot \nn}{\rho^2}
+        \frac{\rr \otimes \rr}{\rho^2} \eeta(\yy) \, ds_\yy,
+\end{align}
+$\rr = \xx - \yy$, $\rho = |\rr|$, and $\mathds{I}$ is the $2 \times 2$ identity matrix. To avoid tangling of the vesicle membrane, it is parameterized in terms of the $\theta$-$L$ variables~\cite{hou-low-she1994}, where $L$ is the fixed vesicle length and $\theta$ is the opening angle of the tangent vector $\ss$. This requires decomposing the velocity field on $\gamma$ into its normal direction $V$ and tangential direction $T$. Then, the no-slip boundary condition for the vesicle velocity is
+\begin{align}
+    \frac{d\xx}{dt} = V \nn + T \ss + D[\eeta](\xx), \quad \xx \in \gamma.
+\end{align}
+The boundary condition on $\Gamma$ is imposed by requiring that $\eeta$ satisfies
+\begin{align}
+    \UU(\xx) = -\frac{1}{2}\eeta(\xx) + S[\ff](\xx) + D[\eeta](\xx), \quad \xx \in \Gamma.
+    \label{eqn:DLP_BIE}
+\end{align}
+After discretizing the geometry at collocation points, the single-layer potential is approximated with quadrature for weakly-singular integrands, and the double-layer potential is approximated with the spectrally accurate trapezoid rule. All arclength derivatives are computed with spectral accuracy using Fourier methods. Time stepping is performed with second-order Adams-Bashforth. The resulting linear system is solved with GMRES.
+
+The lubrication layer between a vesicle and the solid wall plays a critical role on the vesicle's dynamics. Therefore, we report the size of the lubrication layers both above and below the vesicle in Section~\ref{sec:results}. We first justify the use of the term `lubrication layer' by verifying that the flow velocity is parabolic between the vesicle and the solid wall. Figure~\ref{fig:quadraticProof} illustrates the horizontal velocity (solid line) and the corresponding best fit quadratic (dashed line) in the co-moving frame, and the profiles agree.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/lubricationLayer_quadratic.pdf}  
+    \caption{The co-moving velocity profile in the top and bottom lubrication layers. The red curve is the velocity profile, the dashed black line is the best quadratic fit.}
+    \label{fig:quadraticProof}
+\end{figure}
+
+To define the size of the top lubrication layer (the size of the bottom lubrication layer is defined similarly), we start with the distance between the vesicle and the top half of the confining geometry
+\begin{align}
+    d(\xx,\Gamma_\mathrm{top}) \inf_{\yy \in \Gamma_\mathrm{top}} \|\xx-\yy\|,
+\end{align}
+where $\Gamma_{\mathrm{top}}$ is the top portion of $\Gamma$. We then find all local minimums of $d(\xx,\Gamma_\mathrm{top})$, with the condition that $d(\xx,\Gamma_\mathrm{top}) < \beta$, where $\beta$ is a parameter. If no such local minimums exist, then the vesicle is too far from $\Gamma_\mathrm{top}$ to define a lubrication layer. If there are two or more local minimums, the left-most, $\xx_L$, and right-most, $\xx_R$, local minimums form the start and end of the lubrication layer. If there is only one local minimum, then $\xx_L$ and $\xx_R$ are the points on $\gamma$ to the left and right of this local minimum with the condition that $d(\xx_L,\Gamma_\mathrm{top}) = d(\xx_R,\Gamma_\mathrm{top}) = \beta$. Then, the segment $\gamma_{\mathrm{layer}} \subset \gamma$ consists of all points $\xx \in \gamma$ between $\xx_L$ and $\xx_R$ with the condition that $d(\xx,\Gamma_\mathrm{top}) < \beta$. Finally, the lubrication layer width is
+\begin{align}
+    w_\mathrm{top} = \frac{1}{|\gamma_{_\mathrm{layer}}|} \int_{\gamma_{_\mathrm{layer}}} d(\xx,\Gamma_\mathrm{top}) \, ds.
+\end{align}
+The width of the bottom lubrication layer, $w_\mathrm{bot}$ is calculated replacing $\Gamma_\mathrm{top}$ with $\Gamma_\mathrm{bot}$. 
+
+%The terminology of boundary layer can be justified by computing the velocity field in the region between the vesicle and the solid wall. In Figure~\ref{fig:BkgrdFlow}, the co-moving velocity field around several different vesicle shapes that are observed in Section~\ref{sec:results} are illustrated. We have included plots of the horizontal velocity along a few vertical slices to demonstrate that a parabolic flow profile is observed. 
+
+The difference between the size of the top and lubrication layers is closely related to the tank treading behavior of the vesicle. In cases where the vesicle tank treads, we define the tank-treading velocity, $\uu \cdot \ss$. To establish that a vesicle is tank treading, we compute this tangential velocity at several Lagrangian points on $\gamma$, and make sure that these values agree.
+
+%\begin{figure}[H]
+%\begin{minipage}{0.49\columnwidth}
+%    \centering
+%    \subfigimg[width = \columnwidth, trim = {2cm 2cm 2cm 2cm }, clip]{(a)}{figures/Fig7a1.pdf}
+%    \subfigimg[width = \columnwidth, trim = {2cm 2cm 2cm 2cm }, clip]{(b)}{figures/Fig7b1.pdf}
+%    \subfigimg[width = \columnwidth, trim = {2cm 2cm 2cm 2cm }, clip]{(c)}{figures/Fig7c1.pdf}
+%\end{minipage}   
+%\hfill
+%\begin{minipage}{0.49\columnwidth}
+%    \centering
+%    \subfigimg[width = \columnwidth, trim = {2cm 2cm 2cm 2cm }, clip]{\color{white}(a)}{figures/Fig7a2.pdf}
+%    \subfigimg[width = \columnwidth, trim = {2cm 2cm 2cm 2cm }, clip]{\color{white}(b)}{figures/Fig7b2.pdf}
+%    \subfigimg[width = \columnwidth, trim = {2cm 2cm 2cm 2cm }, clip]{\color{white}(c)}{figures/Fig7c2.pdf}
+%\end{minipage}
+%\caption{\label{fig:BkgrdFlow} \small The velocity in the bulk, at two time steps, of a vesicle with reduced area $\alpha=0.4$. The velocity field is in the co-moving frame. The vesicles are (a) single-component with $b = 1$; (b) single-component with $b = 0.55$; and (c) multicomponent. The tangential velocity in the tubular neighborhood around the vesicle indicates that (a) and (c) are tank-treading.}    
+%\end{figure}
+
+We also report the excess pressure for one of the geometries and relate it to the size of the lubrication layers. Since we represent the velocity with layer potentials~\eqref{eqn:LPrep}, the pressure at $\xx \in \Omega$ is
+\begin{align}
+    p(\xx) = \frac{1}{2\pi} \int_{\gamma} \frac{\rr \cdot \ff}{\rho^2} \, ds_\yy + \frac{1}{\pi} \int_{\Gamma} \frac{1}{\rho^2} \left(\mathds{I} - 2\frac{\rr \otimes \rr}{\rho^2} \right) \nn \cdot \eeta \, ds_\yy.
+\end{align}
+The excess pressure is the additional pressure that is required to pass the vesicle through the geometry when compared to the pressure necessary if the vesicle were absent. These pressure drops are defined by subtracting the pressure at a point near the inlet and another near the outlet. In our formulation, because of the order of subtraction, the excess pressure is always negative.
+
+
+
+
+%We follow the reformulation of the governing equations outlined in Section 3.1 of \cite{soh-tse-li-voi-low2010}. In particular, we do a change of variables to the $\theta$-L formulation, where $L$ is the total length of the vesicle and $\theta$ is the opening angle of its tangent vector, $\ss$. 
+%This formulation provides us with the location of a unique vesicle shape up to a translation. %, which we resolve by tracking the vesicle's center of mass. After this change of variables, the dynamics of $\theta$ are governed by
+%The formulation requires the normal and tangential components of the velocity, 
+%\begin{equation}
+%V = \uu \cdot \nn \qquad \text{and} \qquad T = \uu \cdot \ss, \label{NormTanComp} 
+%\end{equation}
+%where $\nn$ is the unit normal vector and $\ss$ is the unit tangent vector. In the $\theta$-L formulation, the governing equation of the vesicle
+%\begin{equation}
+%\frac{d\xx}{dt} =V\nn+T\ss,
+%\end{equation}
+%becomes
+%\begin{equation}
+%\theta_t =  -(V+\beta(\textbf{f}\cdot\textbf{n}))_s + \kappa T
+%\theta_t =  -V_s + \kappa T,
+%\end{equation}
+%and the inextensibility condition becomes
+%\begin{equation}
+%T_s+\kappa V  = 0. \label{genInexMC}
+%\end{equation}
+%Recall that the velocity $\uu$ is coupled to the tension $\sigma^{LL}$ which acts as a Lagrange multiplier to satisfy equation \eqref{genInexMC}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\label{sec:results}Hydrodynamics of a multicomponent vesicle under strong confinement}
+We consider both a single-component and a multicomponent vesicle suspended in two geometries: a closely-fitting geometry (stenosis) and a geometry that slowly contracts to a narrow neck and then quickly widens (contracting). We considered a semipermeable vesicle suspended in these same geometries~\cite{qua-gan-you2021}. All the multicomponent examples have the bending ratio $b_{\min}/b_{\max} = 10^{-1}$. For the single-component case, we consider two dimensionless bending stiffness: $b(u) = b_{\max} = 1$ and $b(u) = \frac{1}{2}(b_{\max} + b_{\min}) = 0.55$. Throughout this section we plot the position of the vesicle in terms of the $x$-coordinate of its center of mass. For the stenosed geometry in Section~\ref{subsec:Stenosis}, the narrow region begins at $x=-15$ and ends at $x=15$. For the contracting geometry in Section~\ref{subsec:Contraction}, the geometry begins to narrow at $x=4$ and reaches its narrowest point at $x=15$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\label{subsec:Stenosis}A multicomponent vesicle in a closely-fit channel (Stenosis)}
+
+We consider a vesicle with reduced area $\alpha = 0.6$ passing through a closely-fitting channel, with a dimensionless maximum velocity of $\chi = 0.25$. Figure~\ref{fig:RA6} shows six time steps of a single-component vesicle with bending stiffness (a) $b=1$ and (b) $b=0.55$, and a multicomponent vesicle with an initially random distribution of lipids (c). In all plots, the color is the dimensionless bending modulus of the multicomponent vesicle that remains bounded in $[0.1,1]$ by using the new bending modulus~\eqref{eqn:tanhBending}. A single Lagrangian point is included to visualize tank-treading behavior. There are slight differences between the three cases, with the most noticeable being that the multicomponent vesicle has higher curvature in the floppy region. We consider the same setup in Figure~\ref{fig:RA4}, but the vesicle has reduced area $\alpha = 0.4$. The main difference between the two reduced areas is that the vesicles with smaller reduced area undergo tank-treading motions. As mentioned earlier, tank treading occurs when the top and bottom lubrication layers differ in size. The size of the lubrication layers in all six cases are in Figure~\ref{fig:lubrication}. 
+
+\begin{figure}[h]
+    \centering
+    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(a)}{figures/Fig5a.pdf}
+    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(b)}{figures/Fig5b.pdf}
+    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(c)}{figures/Fig5c.pdf}
+    \caption{\label{fig:RA6} \small A vesicle passing through a stenosed geometry. The vesicle's reduced area is $\alpha = 0.6$ and the dimensionless maximum velocity is $\chi = 0.25$. The vesicles are: (a) single-component with bending modulus $b=1$; (b) single-component with bending modulus $b=0.55$; (c) multicomponent.}
+    %\caption{\label{fig:RA6} A single-component (top) and multicomponent (bottom) vesicle passing through the stenosed geometry. In both simulations, the reduced area is $0.6$ and the dimensionless maximum velocity is $\chi = 0.25$. Note that the multicomponent vesicle travels slightly faster, so it leaves the narrow constriction earlier (see Figure~\ref{fig:location1}.}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(a)}{figures/Fig6a.pdf}
+    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(b)}{figures/Fig6b.pdf}
+    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(c)}{figures/Fig6c.pdf}
+    \caption{\label{fig:RA4} \small A vesicle passing through a stenosed geometry. The vesicle's reduced area is $\alpha = 0.4$ and the dimensionless maximum velocity is $\chi = 0.25$. The vesicles are: (a) single-component with bending modulus $b=1$; (b) single-component with bending modulus $b=0.55$; (c) multicomponent. The multicomponent vesicle travels slightly faster, so it leaves the stenosed region earlier than the single-component cases (see Figure~\ref{fig:vesVelocity}).}
+\end{figure}
+
+
+%\begin{figure}
+%    \begin{minipage}{0.49\columnwidth}
+%        \centering
+%        \includegraphics[width=\textwidth,trim={4cm 8cm 4cm 8cm}, clip]{figures/EnergiesRAp4NoConc.pdf}
+%    \end{minipage}
+%    \begin{minipage}{0.49\columnwidth}
+%        \centering
+%        \includegraphics[width=\textwidth,trim={4cm 8cm 4cm 8cm}, clip]{figures/EnergiesRAp4Conc.pdf}
+%    \end{minipage}
+%    \caption{Bending (blue), tension (yellow), and phase (red) energies for a single-component vesicle %(left) and a multi-component vesicle (right) with reduced area 0.4.}
+%    \label{fig:EnergyRAp4}
+%\end{figure}
+%\begin{figure}[H]
+%    \begin{minipage}{0.49\columnwidth}
+%        \centering
+%        \includegraphics[width=\textwidth,trim={4cm 8cm 4cm 8cm}, clip]{figures/EnergiesRAp6NoConc.pdf}
+%        \includegraphics[width=\textwidth,trim={4cm 8cm 4cm 8cm}, clip]{figures/EnergiesRAp6NoConcp55.pdf}
+%    \end{minipage}
+%    \hfill
+%    \begin{minipage}{0.49\columnwidth}
+%        \centering
+%        \includegraphics[width=\textwidth,trim={4cm 8cm 4cm 8cm}, clip]{figures/EnergiesRAp6Conc.pdf}
+%        \vspace{3.5cm}
+%    \end{minipage}
+%    \caption{Bending (blue), tension (yellow), and phase (red) energies for a single-component vesicle %(left) and a multi-component vesicle (right) with reduced area 0.6.}
+%    \label{fig:EnergyRAp6l}
+%\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \subfigimg[width = \columnwidth]{(a)}{figures/Fig8a.pdf}\\
+    \subfigimg[width = \columnwidth]{(b)}{figures/Fig8b.pdf}
+    \caption{\small Lubrication layer of a single-component and a multicomponent vesicle moving through a stenosed channel. In the top figure, the reduced area is 0.4, on the bottom it is 0.6.}
+    \label{fig:lubrication}
+\end{figure}
+
+The tank-treading velocities of the examples with reduced area $\alpha = 0.4$ are in Figure~\ref{fig:tankTreadRAp4}. The vesicle shapes at the dashed black lines are also included, and the four marker points are the Lagrangian points where the tangential velocities are computed. For reduced area $\alpha = 0.4$, the single-component ($b=1$) and multicomponent vesicles are clearly tank treading. Since the single-component case has a larger difference between its top and bottom boundary layers, it tank treads faster than the multicomponent case. In addition, since the top boundary layer is larger in both cases, they both tank-tread in the same direction---counterclockwise. In contrast, the single-component vesicle with $b=0.55$ tank-treads in the clockwise direction; note, however, that this example is still undergoing some deformations, so a constant tank-treading velocity is not observed. When $\alpha = 0.6$, the vesicle undergoes deformations while in the stenosed geometry and a constant tank-treading velocity is not observed, so a plot is not included. 
+
+%Both the migration speed and tank treading behavior of a vesicle in the closely-fitting channel depends on the separation distance between the solid wall and the vesicle. As the vesicle enters the narrow constriction, lubrication layers between the vesicle and the solid walls develop. The minimum distance between the multicomponent vesicles and the solid wall (solid lines) and the single-component vesicles and the solid wall (dashed lines) are plotted in Figure~\ref{fig:lubrication}. Top top plot is for the vesicle with reduced area $\alpha = 0.4$, and the bottom plot is for the vesicle with reduced area $\alpha = 0.6$. Note that the position is only between $-15$ and $15$ which is the region with strong confinement. 
+
+%The size of the top and bottom lubrication layers are plotted in Figure~\ref{fig:lubrication} for reduced area (a) $\alpha = 0.4$ and (b) $\alpha = 0.6$. In both cases, we see that the multicomponent vesicle has larger lubrication layers than their single-component counterparts. As shown in Figures~\ref{fig:RA6} and~\ref{fig:RA4}, the result is that the multicomponent vesicle experiences less drag from the solid walls, and therefore migrates faster. This is confirmed in Figure~\ref{fig:location1} where we plot the position of each of the vesicle versus time for both reduced areas and both lipid species. The larger lubrication layer should also result in a smaller excess pressure, especially for reduced area $\alpha = 0.4$, and this is observed in Figure~\ref{fig:excessPressure}.
+
+
+%For the smaller reduced area, both the single and multicomponent vesicles are closer to the top wall than the bottom wall. More interesting, though, is that the multicomponent vesicle has a larger lubrication layer than its single-component counterpart. This larger lubrication layer means that less of the multicomponent vesicle experiences less drag from the solid wall, and its net migration speed is faster. This is verified in Figure~\ref{fig:location1}. For the larger reduced area, the vesicle is able to quickly deform away from the walls while entering the constriction. In Figure~\ref{fig:location1} we see that the multicomponent vesicle makes its way through the contstriction quicker than its single-component counterpart. Because the vesicle initially deforms, there is less initial drag from the walls. This quickly changes and the bottom lubrication layer becomes much thinner and the vesicle slows down. In Figure~\ref{fig:location1}, we can tell by the slopes of the curves that the single- and multicomponent vesicles are moving at roughly the same speed.      
+
+%Whether a vesicle tank-treads or not is also related to the lubrication layer. In particular, if the lubrication layer between the top and lower walls are different, this indicates that the vesicle is center of mass is above or below the middle of the channel. When this happens, the non-linear of the flow results in a tank-treading vesicle.
+
+%The smaller reduced area $\alpha = 0.4$ also results in a larger difference between the size of the top and boundary lubrication layers. In particular, Figure~\ref{fig:lubrication}(a) shows that the bottom lubrication layer is larger than the top lubrication layer, indicating the vesicle is above the centerline, and we expect the non-linear shear to result in a counterclockwise tank-treading motion. We define the tank treading velocity using several tracker points (solid points) by computing $\uu \cdot \tt$ where $\uu$ is the velocity and $\tt$ is the tangent vector at the tracker point. Note that this quantity does not represent a tank treading velocity until the vesicle reaches tank-treading behavior. Figure~\ref{fig:tankTreadRAp4} shows that for reduced area $\alpha = 0.4$, both the single and multicomponent vesicles undergo an extended period of tank-treading, but at different speeds, starting near the middle of the region of confinement and ending as the vesicles exit this region. Since the difference in sizes of the boundary layers is greater for the single-component vesicle, we expect it to tank-tread faster, which we observe when comparing Figures~\ref{fig:tankTreadRAp4}(a) and (e).In the multicomponent case, there are several interesting features in the tangential velocity, and these are denoted by the red marks in Figure~\ref{fig:tankTreadRAp4}. The vesicle shapes at each of these points are in Figure~\ref{fig:tankTreadRAp4}(b) and (c). The tangential velocity includes spikes that occur whenever there is a decrease in the phase energy due to floppy and stiff regions merging, and this can be observed in Figures~\ref{fig:tankTreadRAp4}(d) and (e). 
+
+\begin{figure}[h]
+    \begin{minipage}{0.49\columnwidth}
+        \centering
+        \subfigimg[width=\textwidth]{(a)}{figures/Fig11c1.pdf}
+        \subfigimg[width=\textwidth]{(c)}{figures/Fig11b1.pdf}
+        \subfigimg[width=\textwidth]{(e)}{figures/Fig11a.pdf}
+        % \subfigimg[width=\textwidth,trim={3.8cm 8cm 4cm 8cm}, clip]{(a)}{figures/TankTreadRAp4Conc.pdf}
+        % \subfigimg[width=\textwidth,trim={3.8cm 8cm 4cm 8cm}, clip]{(c)}{figures/TankTreadRANoConcp55.pdf}
+        % \subfigimg[width=\textwidth,trim={3.8cm 8cm 4cm 8cm}, clip]{(e)}{figures/TankTreadRAp4NoConc.pdf}
+        % \includegraphics[width=\textwidth,trim={3.8cm 8cm 4cm 8cm}, clip]{figures/TankTreadRAp6Conc.pdf}
+        % \includegraphics[width=\textwidth,trim={3.8cm 8cm 4cm 8cm}, clip]{figures/TankTreadRAp6NoConc.pdf}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\columnwidth}
+        \centering
+        \subfigimg[width=\textwidth]{(b)}{figures/Fig11c2.pdf}
+        \subfigimg[width=\textwidth]{(d)}{figures/Fig11b2.pdf}
+        \subfigimg[width=\textwidth]{(f)}{figures/Fig11a2.pdf}
+        % \subfigimg[width=.9\textwidth,trim={4.5cm 8cm 4.5cm 8cm}, clip]{(b)}{figures/TankTreadRAp4ConcVes.pdf}
+        % \subfigimg[width=.9\textwidth,trim={4.5cm 8cm 4.5cm 8cm}, clip]{(d)}{figures/TankTreadRANoConcp55Ves.pdf}
+        % \subfigimg[width=.9\textwidth,trim={4.5cm 8cm 4.5cm 8cm}, clip]{(f)}{figures/TankTreadRAp4NoConcVes.pdf}
+        % \includegraphics[width=.9\textwidth,trim={4.5cm 8cm 4.5cm 8cm}, clip]{figures/TankTreadRAp6ConcVes.pdf}
+        % \includegraphics[width=.9\textwidth,trim={4.5cm 8cm 4.5cm 8cm}, clip]{figures/TankTreadRAp6NoConcVes.pdf}
+    \end{minipage}
+    \caption{\small The tangential velocity at four Lagrangian points on a (a) single-component vesicle with $b = 1$ (c) single-component vesicle with $b = 0.55$, and (e) multicomponent vesicle. The reduced area is $\alpha = 0.4$ in all cases. (b/d/f) A corresponding vesicle shape with the Lagrangian points.
+    \label{fig:tankTreadRAp4}}
+\end{figure}
+
+%\begin{figure}[H]
+%    \begin{minipage}{0.49\columnwidth}
+%        \centering
+%        \subfigimg[width=\textwidth]{(a)}{figures/Fig12c1.pdf}
+%        \subfigimg[width=\textwidth]{(c)}{figures/Fig12b1.pdf}
+%        \subfigimg[width=\textwidth]{(e)}{figures/Fig12a1.pdf}
+        % \subfigimg[width=\textwidth,trim={3.8cm 8cm 4cm 8cm}, clip]{(c)}{figures/TankTreadRAp6NoConcp55.pdf}
+        % \subfigimg[width=\textwidth,trim={3.8cm 8cm 4cm 8cm}, clip]{(e)}{figures/TankTreadRAp6NoConc.pdf}
+        % \includegraphics[width=\textwidth,trim={3.8cm 8cm 4cm 8cm}, clip]{figures/TankTreadRAp6Conc.pdf}
+        % \includegraphics[width=\textwidth,trim={3.8cm 8cm 4cm 8cm}, clip]{figures/TankTreadRAp6NoConc.pdf}
+%    \end{minipage}
+%    \hfill
+%    \begin{minipage}{0.49\columnwidth}
+%        \centering
+%        \subfigimg[width=\textwidth]{(b)}{figures/Fig12c2.pdf}
+%        \subfigimg[width=\textwidth]{(d)}{figures/Fig12b2.pdf}
+%        \subfigimg[width=\textwidth]{(f)}{figures/Fig12a2.pdf}
+        % \subfigimg[width=.9\textwidth,trim={4.5cm 8cm 4.5cm 8cm}, clip]{(b)}{figures/TankTreadRAp6ConcVes.pdf}
+        % \subfigimg[width=.9\textwidth,trim={4.5cm 8cm 4.5cm 8cm}, clip]{(d)}{figures/TankTreadRAp6NoConcp55Ves.pdf}
+        % \subfigimg[width=.9\textwidth,trim={4.5cm 8cm 4.5cm 8cm}, clip]{(f)}{figures/TankTreadRAp6NoConcVes.pdf}
+        % \includegraphics[width=.9\textwidth,trim={4.5cm 8cm 4.5cm 8cm}, clip]{figures/TankTreadRAp6ConcVes.pdf}
+        % \includegraphics[width=.9\textwidth,trim={4.5cm 8cm 4.5cm 8cm}, clip]{figures/TankTreadRAp6NoConcVes.pdf}
+%    \end{minipage}
+%    \caption{\small The tangential velocity at Lagrangian points on a (a) single-component vesicle with $b = 1$ (c) single-component vesicle with $b = 0.55$, and (e) multicomponent vesicle. The reduced area is $\alpha = 0.6$ in all cases. (b/d/f) A corresponding vesicle shape with the Lagrangian points.
+%    \label{fig:tankTreadRAp6}}
+%\end{figure}
+
+The size of the top and bottom lubrication layers are also related to the excess pressure (Figure~\ref{fig:excessPressure}). If the lubrication layers are large, most notably for the multicomponent vesicle with reduced area $\alpha = 0.4$, then less pressure is required to force the vesicle through the geometry, and we expect a smaller (less negative) excess pressure. In contrast, if the lubrication layers are small, most notably for the single-component vesicle with $b=1$ and reduced area $\alpha = 0.4$, then more pressure is required to force the vesicle through the geometry, and we expect a larger (more negative) excess pressure.
+
+\begin{figure}[H]
+    \centering
+    \subfigimg[width = 0.45\columnwidth]{(a)}{figures/Fig10a.pdf}
+    \subfigimg[width = 0.45\columnwidth]{(b)}{figures/Fig10b.pdf}
+    \caption{\small The excess pressure a single-component and a multicomponent vesicle moving through a stenosed channel. The reduced areas are (a) $\alpha = 0.4$, and (b) $\alpha = 0.6$.}
+    \label{fig:excessPressure}
+\end{figure}
+
+While the size of the lubrication layers affect the tank-treading behavior and the excess pressure, it has almost no effect on the migration speed of the vesicle. In Figure~\ref{fig:vesVelocity}, we plot the average velocity of the vesicle as it passes through the stenosed region. With the exception of the single-component vesicle with $b=1$ and $\alpha = 0.6$, the average vesicle speed is constant. Obviously, this average velocity would be affected by the maximum imposed velocity, $\chi$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/Fig9.pdf}
+    %\input{figures/Fig9.tikz}
+    \caption{\label{fig:vesVelocity} \small The average vesicle velocity as it passes through the stenosed region. The vesicle stiffness and reduced area have no significant effect.}
+\end{figure}
+
+Finally, we consider the three different energies---bending, tension, and phase---for each of the single-component and multicomponent vesicles. In Figure~\ref{fig:Energy}, we plot these energies as a function of the vesicle's center of mass. As a reminder, the vesicle enters the constriction at $x=-15$ and exits at $x=15$. Also note that the single-component vesicle does not have a phase energy. A few general trends can immediately be seen. First, as the vesicle enters the stenosed region, there are sharp jumps in both the tension and bending energies, as expected. Next, the multicomponent vesicles only coarsen when the vesicle is not in the stenosed region. Finally, when coarsening does occur, there are rapid changes in the tension energy.
+
+%In the single-component runs, ... In the multicomponent runs, we see that phase separation does not occur in the channel. When it does occur, we see spikes in the bending and tension energies. \todo[inline]{Discussion of what we see}
+
+\begin{figure}
+  \begin{minipage}{0.49\columnwidth}
+    \centering
+%    \subfigimg[width = \columnwidth, trim = {1cm 20cm 1cm 3cm}, clip]{(a)}{figures/RAp4BkgrdFlow.pdf}
+    \subfigimg[width=\textwidth]{(a)}{figures/Fig13a.pdf}
+    \subfigimg[width=\textwidth]{(c)}{figures/Fig13c.pdf}
+    \subfigimg[width=\textwidth]{(e)}{figures/Fig13e.pdf}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.49\columnwidth}
+    \centering
+    \subfigimg[width=\textwidth]{(b)}{figures/Fig13b.pdf}
+    \subfigimg[width=\textwidth]{(d)}{figures/Fig13d.pdf}
+    \subfigimg[width=\textwidth]{(f)}{figures/Fig13f.pdf}
+  \end{minipage}
+  \caption{\label{fig:Energy} \small The Bending (blue), tension (yellow), and phase (red) energies for a (a/b) single-component vesicle with $b=1$, (c/d) single-component vesicle with $b = 0.55$, and (e/f) multicomponent vesicle. The reduced areas are $alpha = 0.4$ (a/c/e) and $\alpha = 0.6$ (b/d/f).}
+\end{figure}
+
+
+
+%\begin{itemize}
+    
+%    \item Comparison of different flow rates $\chi = 0.25 = 0.5 \mu m/s$ and $\chi = 2.5 = 5 \mu m/s$
+    
+%    \item Comparison of different reduced areas. Definitely interested in 0.40 and then maybe only one other value. A natural other value is 0.6 or 0.7 since this is close to the reduced area of a RBC.
+    
+%    \item Interesting tank treading/slipper shape when flow rate is 0.25 and reduced area is 0.4. We did not see this for any of the larger flow rates, and this is consistent with what is known about vesicles in a non-linear shear flow
+    
+%    \item Multicomponent goes through faster than single-component
+
+%    \item Error in area is about 20X larger for the multicomponent
+%    
+%    \item How does the reduced area affect the speed of the vesicle and its ability to phase separate when i%n confinement. We haven't looked at a completed run with larger reduced area. Maybe there's one sitting on RCC or we% need to submit one?
+%\end{itemize}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\label{subsec:Contraction} A multicomponent vesicle in a narrowing geometry (Contracting)}
+In this section, we consider a single vesicle passing through a geometry that slowly contracts to a region that is only 2~$\mu$m wide, and then immediately opens back up to a channel that is ten times larger. We first consider the effect of the initial lipid concentration when the floppy and stiff regions each make up half of the vesicle membrane. We consider an initially random initial lipid concentration, and one that is floppy in the front and stiff in the back. In both these cases, the vesicle either completely or partially reorients itself so that the floppy region is in the back and the stiff region is in the front. Therefore, in all subsequent examples, we start with symmetric vesicle whose floppy region is in the back and its stiff region is in the front.
+
+\begin{figure}[h]
+    \centering
+    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm 1.5cm},clip]{(a)}{figures/rightSep.pdf}
+    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm 1.5cm},clip]{(b)}{figures/randSep.pdf}
+    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm 1.5cm},clip]{(c)}{figures/leftSep.pdf}
+     \caption{\label{fig:RA6leftRightRand} \small A multicomponent vesicle with 50\% floppy region passing through a contracting geometry. The vesicle's reduced area is $\alpha = 0.6$ and the dimensionless maximum velocity is $\chi = 0.25$. The vesicles are: (a) the initial lipid-species distribution is fully separated on the right side of the vesicle; (b) the initial lipid-species distribution is randomly distributed (not fully separated) on the vesicle membrane; (d) the initial lipid-species distribution is fully separated on the left side of the vesicle. The vesicles with a larger percentage of floppy regions pass through the neck earlier than the vesicles with less percentage of floppy regions. The vesicle either completely or partially reorients itself so that the floppy region is in the back and the stiff region is in the front.}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{figures/bending_leftRightRand.pdf}
+    \caption{The bending energy of a multicomponent vesicle that is 50\% stiff with an initial phase separation to the left (blue), to the right (red), randomly distributed (yellow). The vesicle exits the contraction $x \approx 15$.}
+    \label{fig:RAp6leftRightRandBending}
+\end{figure}
+
+In Figure~\ref{fig:RA5}, we consider a vesicle with reduced area $\alpha = 0.5$ and the dimensionless flow rate is $\chi = 0.25$. We start with a single-component vesicle and then increase the percentage of the vesicle membrane that is floppy. By comparing the vesicle location at the time step just before the vesicle passes through the constriction, we can immediately see that vesicles with membranes that have larger percentage of floppy regions reach and pass through the neck earlier. The dimensionless times that the entire vesicle first passes through the neck are reported in Table~\ref{tbl:contractingTimes}.
+
+\begin{figure}[h]
+    \centering
+    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(a)}{figures/Fig14f.pdf}
+    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(b)}{figures/Fig14a.pdf}
+    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(c)}{figures/Fig14b.pdf}
+    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(d)}{figures/Fig14c.pdf}
+    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(e)}{figures/Fig14e.pdf}
+     \caption{\label{fig:RA5} \small A vesicle passing through a contracting geometry. The vesicle's reduced area is $\alpha = 0.5$ and the dimensionless maximum velocity is $\chi = 0.25$. The vesicles are: (a) single-component with bending modulus $b=1$; (b) multicomponent with 15\% floppy region; (c) multicomponent with 25\% floppy region; (d) multicomponent with 35\% floppy region; (e) multicomponent with 45\% floppy region. The vesicles with a larger percentage of floppy regions pass through the neck earlier than the vesicles with less percentage of floppy regions.}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{l|c}
+       & Time to pass through neck\\
+       \hline
+       Single-component &  2.32 \\ %2.3173\\
+       15\% Multicomponent & 2.30 \\%2.2960\\
+       25\% Multicomponent & 2.29 \\%2.2868\\
+       35\% Multicomponent & 2.26 \\%2.2637\\
+       45\% Multicomponent & 2.24 \\%2.2388\\
+       \hline
+    \end{tabular}
+    \caption{\label{tbl:contractingTimes} The time required for the vesicles to completely pass through the neck located at $x=15$. The vesicles initial center is at $x=5$.}
+\end{table}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{figures/bendingAllContracting.pdf}
+    \caption{\small The bending energy for a single-component vesicle (blue) and and a multicomponent vesicle (red)--(green) with $\alpha = 0.5$. As the size of the floppy region increases, the maximum bending energy decreases.}
+    \label{fig:bendingAll}
+\end{figure}
+
+We conclude this example by considering the different shapes that single-component and multicomponent shapes display. Since we have initialized the lipid species to initially be phase separated, the phase energy is more or less constant for all cases. The tension energy, on the other hand, increases as the vesicle approaches the neck, but its general shape is similar for the five cases considered in Figure~\ref{fig:RA5}. However, the bending energies are show different behaviors for each of the cases (Figure~\ref{fig:bendingAll}). The main difference between the cases is the that multicomponent vesicles with a higher percentage of floppy regions have less bending energy, especially as the vesicle passes through the neck. We also note that the bending energy undergoes several transient increases and decreases. These occur when the tail of the vesicle undergoes transitions from lower energy shapes, such as a `C' or `S' shapes, to high energy shapes, such as 'W' shapes. Figure~\ref{fig:bendingSC_contracting} show these different vesicle shapes for the single-component vesicle and multicomponent vesicle that is 45\% floppy. The shape at several critical points along the bending energy are included, and we can indeed see that transitioning vesicle shape between these different states.
+
+
+\begin{figure}
+    \centering
+%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(a)}{figures/Fig14f.pdf}
+    \subfigimg[width=\columnwidth]{(a)}{figures/bendingSC.pdf}
+    \subfigimg[width=\columnwidth]{(b)}{figures/bendingEngMC45.pdf}
+    \caption{\label{fig:bendingSC_contracting} The bending energy of (a) a single-component vesicle, and (b) a multicomponent vesicle whose boundary is 45\% floppy passing through a contracting geometry. The vesicle shape at different locations are included. We can clearly see that the sudden increases and decreases in the bending energy are due to transitions between lower energy and higher energy shapes.}
+\end{figure}
+
+
+
+%\begin{figure}
+%  \begin{minipage}{0.49\columnwidth}
+%    \centering
+%    \subfigimg[width=\textwidth]{(a)}{figures/Fig15i.pdf}
+%    \subfigimg[width=\textwidth]{(c)}{figures/Fig15a.pdf}
+%    \subfigimg[width=\textwidth]{(e)}{figures/Fig15c.pdf}
+%    \subfigimg[width=\textwidth]{(g)}{figures/Fig15e.pdf}
+%    \subfigimg[width=\textwidth]{(i)}{figures/Fig15g.pdf}
+%  \end{minipage}
+%  \hfill
+%  \begin{minipage}{0.49\columnwidth}
+%    \centering
+%    \subfigimg[width=\textwidth]{(b)}{figures/Fig15j.pdf}
+%    \subfigimg[width=\textwidth]{(d)}{figures/Fig15b.pdf}
+%    \subfigimg[width=\textwidth]{(f)}{figures/Fig15d.pdf}
+%    \subfigimg[width=\textwidth]{(h)}{figures/Fig15f.pdf}
+%    \subfigimg[width=\textwidth]{(j)}{figures/Fig15h.pdf}
+%  \end{minipage}
+%  \caption{\label{fig:Energy} \small The bending (blue), tension (yellow), and phase (red) energies for a single-component vesicle ((a) and (b)) and a multicomponent vesicle (c)--(j) with $\alpha = 0.5$. As the size of the floppy region increases, the maximum bending energy decreases.}
+%\end{figure}
+
+%\begin{itemize}
+%    \item Look at single-component vs. multicomponent with two different reduced areas and using random and non-random initial lipid distributions
+%    \begin{itemize}
+%        \item Show the floppy region rotating around to/forming in the back
+%        \item \todo[inline]{$\Chi = 0.5 \mu$m/s, RA = 0.4, single component, multi component (random, left, right)}
+%        \item \todo[inline]{$\Chi = 0.5 \mu$m/s, RA = 0.6 (for consistency, BUT maybe just the RA = 0.5 is sufficient since they all also do not make it), single component, multi component (random, left, right)}
+%        \item \todo[inline]{Look at the $\Chi = 5 \mu$m/s runs to see how these compare. Idea - Slower runs allow more time for the floppy region to move around.} 
+%        \item The RA = 0.4 cases all move through the contraction for both flow rates. All the RA = 0.5 cases get stuck for both flow rates.
+%    \end{itemize}
+%    \begin{figure}[H]
+%        \centering
+%        \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(a)}{figures/Fig14f.pdf}
+%       \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(b)}{figures/Fig14a.pdf}
+%        \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(c)}{figures/Fig14b.pdf}
+        %\subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(d)}{figures/Fig14d.pdf}
+%        \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(d)}{figures/Fig14c.pdf}
+%        \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(e)}{figures/Fig14e.pdf}
+%        \caption{\label{fig:RA5} \small Snapshots of a vesicle passing through a contracting geometry. In all cases, the vesicle's reduced area is $\alpha = 0.5$ and the dimensionless maximum velocity is $\chi = 0.25$. The vesicles are: (a) single-component with bending modulus $b=1$; (b) Multicomponent with 15\% floppy region; (c) Multicomponent with 25\% floppy region; (d) Multicomponent with 35\% floppy region; (e) Multicomponent with 45\% floppy region. We see that the vesicles with a larger percentage of floppy regions pass through the neck earlier than the vesicles with less percentage of floppy regions.}
+        %\caption{\label{fig:RA6} A single-component (top) and multicomponent (bottom) vesicle passing through the stenosed geometry. In both simulations, the reduced area is $0.6$ and the dimensionless maximum velocity is $\chi = 0.25$. Note that the multicomponent vesicle travels slightly faster, so it leaves the narrow constriction earlier (see Figure~\ref{fig:location1}.}
+%    \end{figure}
+
+%    \begin{figure}
+%      \begin{minipage}{0.49\columnwidth}
+%        \centering
+%    %    \subfigimg[width = \columnwidth, trim = {1cm 20cm 1cm 3cm}, clip]{(a)}{figures/RAp4BkgrdFlow.pdf}
+%        \subfigimg[width=\textwidth]{(a)}{figures/Fig15i.pdf}
+%        \subfigimg[width=\textwidth]{(c)}{figures/Fig15a.pdf}
+%        \subfigimg[width=\textwidth]{(e)}{figures/Fig15c.pdf}
+%        \subfigimg[width=\textwidth]{(g)}{figures/Fig15e.pdf}
+%        \subfigimg[width=\textwidth]{(i)}{figures/Fig15g.pdf}
+%        
+%      \end{minipage}
+%      \hfill
+%      \begin{minipage}{0.49\columnwidth}
+%        \centering
+%        \subfigimg[width=\textwidth]{(b)}{figures/Fig15j.pdf}
+%        \subfigimg[width=\textwidth]{(d)}{figures/Fig15b.pdf}
+%        \subfigimg[width=\textwidth]{(f)}{figures/Fig15d.pdf}
+%        \subfigimg[width=\textwidth]{(h)}{figures/Fig15f.pdf}
+%        \subfigimg[width=\textwidth]{(i)}{figures/Fig15h.pdf}
+        
+%      \end{minipage}
+%      \caption{\label{fig:Energy} \small The Bending (blue), tension (yellow), and phase (red) energies for a (a/b/c/d/e/f/g/h) Multicomponent vesicle, (i/j) single-component vesicle with $\alpha = 0.5$. As the size of the floppy region increases, the maximum bending energy decreases.}
+%    \end{figure}
+
+    
+%    \item Vesicle has a `preferred orientation' - forces the floppy region to the back. The question becomes: Is there a Goldilocks region where there is enough floppy region in the back for the vesicle to pass through? (RA = 0.5)
+%    \begin{itemize}
+%        \item \todo[inline]{$Chi = 5 \mu$m/s, 10\% floppy}
+%        \item \todo[inline]{$Chi = 5 \mu$m/s, 30\% floppy}
+%        \item \todo[inline]{$Chi = 5 \mu$m/s, 50\% floppy}
+%        \item \todo[inline]{$Chi = 5 \mu$m/s, 90\% floppy}
+%    \end{itemize}
+%    \item Investigate why the 30\% case makes it though. Hopefully there's a story in these plots:
+%    \begin{itemize}
+%        \item \todo[inline]{Excess pressure plots of all}
+%        \item \todo[inline]{Boundary layer plots of all}
+%        \item \todo[inline]{Energy plots of all}
+%        \item W, S, to C. (something to explore, floppy/stiff regions bending energy)
+%    \end{itemize}
+    
+%    \item Discuss the shapes of the vesicles after they pass through the contraction. Lots of oscillations in the floppy region
+%    \begin{itemize}
+%        \item Maybe include error plots or a maximum error. 
+%    \end{itemize}
+%\end{itemize}
+
+
+
+
+\section{Conclusions \label{sec:conclusion}}
+
+%The main text of the article\cite{Mena2000} should appear here.
+%
+%\subsection{This is the subsection heading style}
+%Section headings can be typeset with and without numbers.\cite{Abernethy2003}
+%
+%\subsubsection{This is the subsubsection style.~~} These headings should end in a full point.  
+%
+%\paragraph{This is the next level heading.~~} For this level please use \texttt{\textbackslash paragraph}. These headings should also end in a full point.
+%
+%\section{Graphics and tables}
+%\subsection{Graphics}
+%Graphics should be inserted on the page where they are first mentioned (unless they are equations, which appear in the flow of the text).\cite{Cotton1999}
+%
+%\begin{figure}[h]
+%\centering
+%  \includegraphics[height=3cm]{example1}
+%  \caption{An example figure caption \textendash\ the image is from the \textit{Soft Matter} cover gallery.}
+%  \label{fgr:example}
+%\end{figure}
+%
+%\begin{figure*}
+% \centering
+% \includegraphics[height=3cm]{example2}
+% \caption{An image from the \textit{Soft Matter} cover gallery, set as a two-column figure.}
+% \label{fgr:example2col}
+%\end{figure*}
+%
+%\subsection{Tables}
+%Tables typeset in RSC house style do not include vertical lines. Table footnote symbols are lower-case italic letters and are typeset at the bottom of the table. Table captions do not end in a full point.\cite{Arduengo1992,Eisenstein2005}
+%
+%
+%\begin{table}[h]
+%\small
+%  \caption{\ An example of a caption to accompany a table}
+%  \label{tbl:example1}
+%  \begin{tabular*}{0.48\textwidth}{@{\extracolsep{\fill}}lll}
+%    \hline
+%    Header one (units) & Header two & Header three \\
+%    \hline
+%    1 & 2 & 3 \\
+%    4 & 5 & 6 \\
+%    7 & 8 & 9 \\
+%    10 & 11 & 12 \\
+%    \hline
+%  \end{tabular*}
+%\end{table}
+%
+%Adding notes to tables can be complicated.  Perhaps the easiest method is to generate these manually.\footnote[4]{Footnotes should appear here. These might include comments relevant to but not central to the matter under discussion, limited experimental and spectral data, and crystallographic data.}
+%
+%\begin{table*}
+%\small
+%  \caption{\ An example of a caption to accompany a table \textendash\ table captions do not end in a full point}
+%  \label{tbl:example2}
+%  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lllllll}
+%    \hline
+%    Header one & Header two & Header three & Header four & Header five & Header six  & Header seven\\
+%    \hline
+%    1 & 2 & 3 & 4 & 5 & 6  & 7\\
+%    8 & 9 & 10 & 11 & 12 & 13 & 14 \\
+%    15 & 16 & 17 & 18 & 19 & 20 & 21\\
+%    \hline
+%  \end{tabular*}
+%\end{table*}
+%
+%\section{Equations}
+%
+%Equations can be typeset inline \textit{e.g.}\ $ y = mx + c$ or displayed with and without numbers:
+%
+% \[ A = \pi r^2 \]
+%
+%\begin{equation}
+%  \frac{\gamma}{\epsilon x} r^2 = 2r
+%\end{equation}
+%
+%You can also put lists into the text. You can have bulleted or numbered lists of almost any kind. 
+%The \texttt{mhchem} package can also be used so that formulae are easy to input: \texttt{\textbackslash ce\{H2SO4\}} gives \ce{H2SO4}. 
+%
+%For footnotes in the main text of the article please number the footnotes to avoid duplicate symbols. \textit{e.g.}\ \texttt{\textbackslash footnote[num]\{your text\}}. The corresponding author $\ast$ counts as footnote 1, ESI as footnote 2, \textit{e.g.}\ if there is no ESI, please start at [num]=[2], if ESI is cited in the title please start at [num]=[3] \textit{etc.} Please also cite the ESI within the main body of the text using \dag. For the reference section, the style file \texttt{rsc.bst} can be used to generate the correct reference style.
+%
+%\section{Conclusions}
+%The conclusions section should come in this section at the end of the article, before the Conflicts of interest statement.
+%
+%
+%\section*{Author Contributions}
+%We strongly encourage authors to include author contributions and recommend using \href{https://casrai.org/credit/}{CRediT} for standardised contribution descriptions. Please refer to our general \href{https://www.rsc.org/journals-books-databases/journal-authors-reviewers/author-responsibilities/}{author guidelines} for more information about authorship.
+
+\section*{Conflicts of interest}
+There are no conflicts to declare.
+
+\section*{Acknowledgements}
+The Acknowledgements come at the end of an article after Conflicts of interest and before the Notes and references.
+
+%%%END OF MAIN TEXT%%%
+
+%The \balance command can be used to balance the columns on the final page if desired. It should be placed anywhere within the first column of the last page.
+
+\balance
+
+%If notes are included in your references you can change the title from 'References' to 'Notes and references' using the following command:
+%\renewcommand\refname{Notes and references}
+
+%%%REFERENCES%%%
+\bibliography{bibliography} %You need to replace "rsc" on this line with the name of your .bib file
+\bibliographystyle{rsc} %the RSC's .bst file
+
+\end{document}

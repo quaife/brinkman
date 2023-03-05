@@ -23,10 +23,18 @@ if nargin == 4
 else
   om.initializePressure(pressTar); 
 end
-Ntar = 21;
-ytar = linspace(-3,3,Ntar)';
-dy = ytar(2) - ytar(1);
-pressTar = [[0.5*ones(Ntar,1);ytar] [17.5*ones(Ntar,1);ytar]]; 
+%Ntar = 21;
+%ytar = linspace(-3,3,Ntar)';
+%dy = ytar(2) - ytar(1);
+%pressTar = [[0.5*ones(Ntar,1);ytar] [17.5*ones(Ntar,1);ytar]]; 
+
+clf; hold on
+plot(Xwalls(1:end/2),Xwalls(end/2+1:end),'k')
+plot(X(1:end/2),X(end/2+1:end),'r')
+plot(pressTar(1:end/2,:),pressTar(end/2+1:end,:),'b.')
+
+pause
+
 
 matvecs = 0; 
 % counter for the total number of time steps
