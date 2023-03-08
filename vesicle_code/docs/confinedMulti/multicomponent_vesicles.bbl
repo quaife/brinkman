@@ -1,0 +1,177 @@
+\providecommand{\noopsort}[1]{}\providecommand{\singleletter}[1]{#1}%
+\providecommand*{\mcitethebibliography}{\thebibliography}
+\csname @ifundefined\endcsname{endmcitethebibliography}
+{\let\endmcitethebibliography\endthebibliography}{}
+\begin{mcitethebibliography}{21}
+\providecommand*{\natexlab}[1]{#1}
+\providecommand*{\mciteSetBstSublistMode}[1]{}
+\providecommand*{\mciteSetBstMaxWidthForm}[2]{}
+\providecommand*{\mciteBstWouldAddEndPuncttrue}
+  {\def\EndOfBibitem{\unskip.}}
+\providecommand*{\mciteBstWouldAddEndPunctfalse}
+  {\let\EndOfBibitem\relax}
+\providecommand*{\mciteSetBstMidEndSepPunct}[3]{}
+\providecommand*{\mciteSetBstSublistLabelBeginEnd}[3]{}
+\providecommand*{\EndOfBibitem}{}
+\mciteSetBstSublistMode{f}
+\mciteSetBstMaxWidthForm{subitem}
+{(\emph{\alph{mcitesubitemcount}})}
+\mciteSetBstSublistLabelBeginEnd{\mcitemaxwidthsubitemform\space}
+{\relax}{\relax}
+
+\bibitem[Noguchi and Gompper(2005)]{nog-gom2005}
+H.~Noguchi and G.~Gompper, \emph{Physical Review E}, 2005, \textbf{72},
+  011901\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Kaoui \emph{et~al.}(2009)Kaoui, Biros, and Misbah]{kao-bir-mis2009}
+B.~Kaoui, G.~Biros and C.~Misbah, \emph{Physical Review Letters}, 2009,
+  \textbf{103}, 188101\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Danker \emph{et~al.}(2009)Danker, Vlahovska, and
+  Misbah]{dan-vla-mis2009}
+G.~Danker, P.~M. Vlahovska and C.~Misbah, \emph{Physical Review Letters}, 2009,
+  \textbf{102}, 148102\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Lyu \emph{et~al.}(2023)Lyu, Chen, Farutin, Jaeger, Misbah, and
+  Leonetti]{lyu-che-far-jae-mis-leo2023}
+J.~Lyu, P.~G. Chen, A.~Farutin, M.~Jaeger, C.~Misbah and M.~Leonetti,
+  \emph{Physical Review Fluids}, 2023, \textbf{8}, L021602\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Agarwal and Biros(2020)]{aga-bir2020}
+D.~Agarwal and G.~Biros, \emph{Physical Review E}, 2020, \textbf{5},
+  013603\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Quaife \emph{et~al.}(2021)Quaife, Gannon, and Young]{qua-gan-you2021}
+B.~Quaife, A.~Gannon and Y.-N. Young, \emph{Physical Review Fluids}, 2021,
+  \textbf{6}, 073601\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Abbasi \emph{et~al.}(2022)Abbasi, Farutin, Nait-Ouhra, Ez-Zahraouy,
+  Benyoussef, and Misbah]{abb-far-nai-ezz-ben-mis2022}
+M.~Abbasi, A.~Farutin, A.~Nait-Ouhra, H.~Ez-Zahraouy, A.~Benyoussef and
+  C.~Misbah, \emph{Physical Review Fluids}, 2022, \textbf{7}, 093603\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Zhao \emph{et~al.}(2010)Zhao, Das, and Du]{zha-das-du2010}
+Y.~Zhao, S.~Das and Q.~Du, \emph{Physical Review E}, 2010, \textbf{81},
+  041919\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Taniguchi \emph{et~al.}(2011)Taniguchi, Yanagisawa, and
+  Ima]{tan-yan-ima2011}
+T.~Taniguchi, M.~Yanagisawa and M.~Ima, \emph{Journal of Physics: Condensed
+  Matter}, 2011, \textbf{23}, 284103\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Sohn \emph{et~al.}(2010)Sohn, Tseng, Li, Voigt, and
+  Lowengrub]{soh-tse-li-voi-low2010}
+J.~S. Sohn, Y.-H. Tseng, S.~Li, A.~Voigt and J.~S. Lowengrub, \emph{Journal of
+  Computational Physics}, 2010, \textbf{229}, 119--144\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Wang and Du(2008)]{wan-du2008}
+X.~Wang and X.~Du, \emph{Journal of Mathematical Biology}, 2008, \textbf{56},
+  347--371\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Allain and Amar(2006)]{all-ama2006}
+J.-M. Allain and M.~B. Amar, \emph{The European Physical Journal E}, 2006,
+  \textbf{20}, 409--420\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Gera \emph{et~al.}(2022)Gera, Salac, and Spagnolie]{ger-sal-spa2022}
+P.~Gera, D.~Salac and S.~E. Spagnolie, \emph{Journal of Fluid Mechanics}, 2022,
+  \textbf{935}, \relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Lipowsky(1992)]{lip1992}
+R.~Lipowsky, \emph{Journal de Physique II}, 1992, \textbf{2}, 1825--1840\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Ursell \emph{et~al.}(2009)Ursell, Klug, and Phillips]{urs-klu-phi2009}
+T.~S. Ursell, W.~S. Klug and R.~Phillips, \emph{Proceedings of the National
+  Academy of Sciences}, 2009, \textbf{106}, 13301--13306\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Bagatolli and Kumar(2009)]{bag-sun2009}
+L.~Bagatolli and P.~B.~S. Kumar, \emph{Soft Matter}, 2009, \textbf{5},
+  3234--3248\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Yanagisawa \emph{et~al.}(2010)Yanagisawa, Imai, and
+  Taniguchi]{yan-ima-tan2010}
+M.~Yanagisawa, M.~Imai and T.~Taniguchi, \emph{Physical Review E}, 2010,
+  \textbf{82}, 051928\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Yanagisawa \emph{et~al.}(2008)Yanagisawa, Imai, and
+  Taniguchi]{yan-ima-tan2008}
+M.~Yanagisawa, M.~Imai and T.~Taniguchi, \emph{Physical Review Letters}, 2008,
+  \textbf{100}, 148102\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Dreher \emph{et~al.}(2021)Dreher, Jahnke, Bobkova, Spatz, and
+  G\"opfrich]{dre-jah-bob-spa-gop2021}
+Y.~Dreher, K.~Jahnke, E.~Bobkova, J.~P. Spatz and K.~G\"opfrich,
+  \emph{Angewandte Chemie}, 2021, \textbf{60}, 10661--10669\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Liu \emph{et~al.}(2017)Liu, Marple, Li, Veerapaneni, and
+  Lowengrub]{liu-mar-li-vee-low2017}
+K.~Liu, G.~R. Marple, S.~Li, S.~Veerapaneni and J.~Lowengrub, \emph{Soft
+  Matter}, 2017, \textbf{13}, 3521--3531\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\bibitem[Hou \emph{et~al.}(1994)Hou, Lowengrub, and Shelley]{hou-low-she1994}
+T.~Y. Hou, J.~S. Lowengrub and M.~J. Shelley, \emph{Journal of Computational
+  Physics}, 1994, \textbf{114}, 312--338\relax
+\mciteBstWouldAddEndPuncttrue
+\mciteSetBstMidEndSepPunct{\mcitedefaultmidpunct}
+{\mcitedefaultendpunct}{\mcitedefaultseppunct}\relax
+\EndOfBibitem
+\end{mcitethebibliography}

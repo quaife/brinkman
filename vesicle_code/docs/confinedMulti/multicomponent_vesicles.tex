@@ -4,7 +4,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass[twoside,twocolumn,9pt]{article}
-\usepackage{amsfonts}
 \usepackage{extsizes}
 \usepackage[super,sort&compress,comma]{natbib} 
 \usepackage[version=3]{mhchem}
@@ -35,6 +34,7 @@
 \usepackage{setspace}
 \usepackage[compact]{titlesec}
 \usepackage{hyperref}
+\usepackage{amsfonts}
 %\usepackage{subcaption}
 %%%Please don't disable any packages in the preamble, as this may cause the template to display incorrectly.%%%
 
@@ -152,20 +152,19 @@
 \vspace{1em}
 \sffamily
 \begin{tabular}{m{4.5cm} p{13.5cm} }
-
+%
 \includegraphics{head_foot/DOI} & \noindent\LARGE{\textbf{Hydrodynamics of Multicomponent Vesicles Under Strong Confinement}} \\
 \vspace{0.3cm} & \vspace{0.3cm} \\
-
- & \noindent\large{Ashley Gannon,\textit{$^{a}$} Yuan-Nan
-  Young,\textit{$^{b}$} and Bryan Quaife\textit{$^{\ast}${$^{a}$}}} \\
- %Author names go here instead of "Full name", etc.
-
+%
+ & \noindent\large{Ashley Gannon,\textit{$^{a}$} Yuan-Nan Young,\textit{$^{b\ddag}$} and Bryan Quaife\textit{${\ast}${$^{a}$}}} \\
+% %Author names go here instead of "Full name", etc.
+%
 \includegraphics{head_foot/dates} & \noindent\normalsize{The abstract should be a single paragraph which summarises the content of the article. Any references in the abstract should be written out in full \textit{e.g.}\ [Surname \textit{et al., Journal Title}, 2000, \textbf{35}, 3523].} \\%The abstrast goes here instead of the text "The abstract should be..."
-
+%
 \end{tabular}
-
+%
  \end{@twocolumnfalse} \vspace{0.6cm}
-  ]
+]
 %%%END OF TITLE, AUTHORS AND ABSTRACT%%%
 
 %%%FONT SETUP - please do not change any commands within this section
@@ -216,12 +215,11 @@ The remainder of the paper is organized as follows. Section~\ref{sec:Formulation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\label{sec:Formulation}Formulation}
-We consider a single multicomponent vesicle $\omega$ with boundary $\gamma$ suspended in a confined geometry $\Omega \subset \RR^2$ with boundary $\Gamma$ (Figure~\ref{fig:schematic}).
+We consider a single multicomponent vesicle $\omega$ with boundary $\gamma$ suspended in a confined geometry $\Omega \subset \RR ^2$ with boundary $\Gamma$ (Figure~\ref{fig:schematic}).
 \begin{figure}[H]
     \centering
     \includegraphics[trim = 0.3cm 0cm 1cm 0cm, clip=true,width=0.9\columnwidth]{figures/schematic.pdf}
-    \todo[inline]{Need to improve this figure. Vesicle should be multicomponent. Put greek letter $\gamma$ in black instead of red}
-    \caption{\label{fig:schematic}\small A single multicomponent vesicle with boundary $\gamma$ suspended in a domain $\Omega$ with boundary $\Gamma$. The vesicle dynamics are determined by a combination of phase, bending, and tension energies, and an imposed flow on $\Gamma$.}
+    \caption{\label{fig:schematic}\small A single multicomponent vesicle with boundary $\gamma$ suspended in a domain $\Omega$ with boundary $\Gamma$. The dark red regions are the ``stiff" regions corresponding to the maximum bending stiffness $b_{\max}=1$. The dark blue regions are the ``floppy" regions corresponding to the minimum bending stiffness $b_{\min}=0.1$ The vesicle dynamics are determined by a combination of phase, bending, and tension energies, and an imposed flow on $\Gamma$. }
 \end{figure}
 The fluid is assumed to have zero Reynolds number and is therefore governed by the incompressible Stokes equations
 \begin{align}
@@ -601,17 +599,17 @@ Finally, we consider the three different energies---bending, tension, and phase-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\label{subsec:Contraction} A multicomponent vesicle in a narrowing geometry (Contracting)}
-In this section, we consider a single vesicle passing through a geometry that slowly contracts to a region that is only 2~$\mu$m wide, and then immediately opens back up to a channel that is ten times larger. We first consider the effect of the initial lipid concentration when the floppy and stiff regions each make up half of the vesicle membrane. We consider an initially random initial lipid concentration, and one that is floppy in the front and stiff in the back. In both these cases, the vesicle either completely or partially reorients itself so that the floppy region is in the back and the stiff region is in the front. Therefore, in all subsequent examples, we start with symmetric vesicle whose floppy region is in the back and its stiff region is in the front.
+In this section, we consider a single vesicle passing through a geometry that slowly contracts to a region that is only 2~$\mu$m wide, and then immediately opens back up to a channel that is ten times larger. We first consider the effect of the initial lipid concentration when the floppy and stiff regions each make up half of the vesicle membrane. In Figure~\ref{fig:RA6leftRightRand}, we consider a vesicle with $\alpha = 0.6$ with an initially random initial lipid concentration, one that is floppy in the front and stiff in the back, and one that is stiff in the front and floppy in the back. The vesicle with the random initial lipid distribution phase separates so that the floppy region is in the back and the stiff region is in the front. The vesicle where the initial lipid species distribution was fully phase separated and the floppy region was on the front of the vesicle began to reorient the floppy region to the back of the vesicle, making it partway after passing through the contraction. In the case where the initial lipid species distribution was fully phase separated and the floppy region was on the back of the vesicle, the floppy region remained on the the back of the vesicle. In all cases, the floppy regions were being oriented to cover the regions of the vesicle with the highest curvature to minimize the overall bending energy. Since we can see in Figure~\ref{fig:RA6leftRightRand} that the regions of high curvature are located in the back of the vesicle, we expect the overall bending energies to be lowest for the randomly distributed case and the fully separated floppy region on the back case. We observe this in Figure~\ref{fig:RAp6leftRightRandBending} Therefore, in all subsequent examples, we start with symmetric vesicle whose floppy region is in the back and its stiff region is in the front.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
-    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm 1.5cm},clip]{(a)}{figures/rightSep.pdf}
-    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm 1.5cm},clip]{(b)}{figures/randSep.pdf}
-    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm 1.5cm},clip]{(c)}{figures/leftSep.pdf}
+    \subfigimg[width=\columnwidth,trim ={5cm .5cm 2cm .5cm},clip]{(a)}{figures/rightSep.pdf}
+    \subfigimg[width=\columnwidth,trim ={5cm .5cm 2cm .5cm},clip]{(b)}{figures/randSep.pdf}
+    \subfigimg[width=\columnwidth,trim ={5cm .5cm 2cm .5cm},clip]{(c)}{figures/leftSep.pdf}
      \caption{\label{fig:RA6leftRightRand} \small A multicomponent vesicle with 50\% floppy region passing through a contracting geometry. The vesicle's reduced area is $\alpha = 0.6$ and the dimensionless maximum velocity is $\chi = 0.25$. The vesicles are: (a) the initial lipid-species distribution is fully separated on the right side of the vesicle; (b) the initial lipid-species distribution is randomly distributed (not fully separated) on the vesicle membrane; (d) the initial lipid-species distribution is fully separated on the left side of the vesicle. The vesicles with a larger percentage of floppy regions pass through the neck earlier than the vesicles with less percentage of floppy regions. The vesicle either completely or partially reorients itself so that the floppy region is in the back and the stiff region is in the front.}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=\columnwidth]{figures/bending_leftRightRand.pdf}
     \caption{The bending energy of a multicomponent vesicle that is 50\% stiff with an initial phase separation to the left (blue), to the right (red), randomly distributed (yellow). The vesicle exits the contraction $x \approx 15$.}
@@ -620,13 +618,13 @@ In this section, we consider a single vesicle passing through a geometry that sl
 
 In Figure~\ref{fig:RA5}, we consider a vesicle with reduced area $\alpha = 0.5$ and the dimensionless flow rate is $\chi = 0.25$. We start with a single-component vesicle and then increase the percentage of the vesicle membrane that is floppy. By comparing the vesicle location at the time step just before the vesicle passes through the constriction, we can immediately see that vesicles with membranes that have larger percentage of floppy regions reach and pass through the neck earlier. The dimensionless times that the entire vesicle first passes through the neck are reported in Table~\ref{tbl:contractingTimes}.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(a)}{figures/Fig14f.pdf}
-    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(b)}{figures/Fig14a.pdf}
-    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(c)}{figures/Fig14b.pdf}
-    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(d)}{figures/Fig14c.pdf}
-    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(e)}{figures/Fig14e.pdf}
+    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(b)}{figures/Fig14a_newPaper.pdf}
+    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(c)}{figures/Fig14b_newPaper.pdf}
+    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(d)}{figures/Fig14c_newPaper.pdf}
+    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(e)}{figures/Fig14e_newPaper.pdf}
      \caption{\label{fig:RA5} \small A vesicle passing through a contracting geometry. The vesicle's reduced area is $\alpha = 0.5$ and the dimensionless maximum velocity is $\chi = 0.25$. The vesicles are: (a) single-component with bending modulus $b=1$; (b) multicomponent with 15\% floppy region; (c) multicomponent with 25\% floppy region; (d) multicomponent with 35\% floppy region; (e) multicomponent with 45\% floppy region. The vesicles with a larger percentage of floppy regions pass through the neck earlier than the vesicles with less percentage of floppy regions.}
 \end{figure}
 
@@ -645,7 +643,7 @@ In Figure~\ref{fig:RA5}, we consider a vesicle with reduced area $\alpha = 0.5$ 
     \caption{\label{tbl:contractingTimes} The time required for the vesicles to completely pass through the neck located at $x=15$. The vesicles initial center is at $x=5$.}
 \end{table}
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=\columnwidth]{figures/bendingAllContracting.pdf}
     \caption{\small The bending energy for a single-component vesicle (blue) and and a multicomponent vesicle (red)--(green) with $\alpha = 0.5$. As the size of the floppy region increases, the maximum bending energy decreases.}
