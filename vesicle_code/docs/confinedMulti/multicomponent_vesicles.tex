@@ -412,24 +412,58 @@ We consider both a single-component and a multicomponent vesicle suspended in tw
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\label{subsec:Stenosis}A multicomponent vesicle in a closely-fit channel (Stenosis)}
 
-We consider a vesicle with reduced area $\alpha = 0.6$ passing through a closely-fitting channel, with a dimensionless maximum velocity of $\chi = 0.25$. Figure~\ref{fig:RA6} shows six time steps of a single-component vesicle with bending stiffness (a) $b=1$ and (b) $b=0.55$, and a multicomponent vesicle with an initially random distribution of lipids (c). In all plots, the color is the dimensionless bending modulus of the multicomponent vesicle that remains bounded in $[0.1,1]$ by using the new bending modulus~\eqref{eqn:tanhBending}. A single Lagrangian point is included to visualize tank-treading behavior. There are slight differences between the three cases, with the most noticeable being that the multicomponent vesicle has higher curvature in the floppy region. We consider the same setup in Figure~\ref{fig:RA4}, but the vesicle has reduced area $\alpha = 0.4$. The main difference between the two reduced areas is that the vesicles with smaller reduced area undergo tank-treading motions. As mentioned earlier, tank treading occurs when the top and bottom lubrication layers differ in size. The size of the lubrication layers in all six cases are in Figure~\ref{fig:lubrication}. 
+%\begin{figure}[h]
+\begin{figure*}[b]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/STENOSIS_RAp6MCp5.pdf}
+%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(a)}{figures/Fig5a.pdf}
+%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(b)}{figures/Fig5b.pdf}
+%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(c)}{figures/Fig5c.pdf}
+  \caption{\label{fig:RA6} \small A vesicle passing through a stenosed
+  geometry. The vesicle's reduced area is $\alpha = 0.6$ and the
+  dimensionless maximum velocity is $\chi = 0.25$. The vesicles are: (a)
+  single-component with bending modulus $b=1$; (b) single-component with
+  bending modulus $b=0.55$; (c) multicomponent.}
+%\end{figure}
+\end{figure*}
 
-\begin{figure}[h]
-    \centering
-    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(a)}{figures/Fig5a.pdf}
-    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(b)}{figures/Fig5b.pdf}
-    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(c)}{figures/Fig5c.pdf}
-    \caption{\label{fig:RA6} \small A vesicle passing through a stenosed geometry. The vesicle's reduced area is $\alpha = 0.6$ and the dimensionless maximum velocity is $\chi = 0.25$. The vesicles are: (a) single-component with bending modulus $b=1$; (b) single-component with bending modulus $b=0.55$; (c) multicomponent.}
-    %\caption{\label{fig:RA6} A single-component (top) and multicomponent (bottom) vesicle passing through the stenosed geometry. In both simulations, the reduced area is $0.6$ and the dimensionless maximum velocity is $\chi = 0.25$. Note that the multicomponent vesicle travels slightly faster, so it leaves the narrow constriction earlier (see Figure~\ref{fig:location1}.}
-\end{figure}
 
-\begin{figure}[h]
-    \centering
-    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(a)}{figures/Fig6a.pdf}
-    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(b)}{figures/Fig6b.pdf}
-    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(c)}{figures/Fig6c.pdf}
-    \caption{\label{fig:RA4} \small A vesicle passing through a stenosed geometry. The vesicle's reduced area is $\alpha = 0.4$ and the dimensionless maximum velocity is $\chi = 0.25$. The vesicles are: (a) single-component with bending modulus $b=1$; (b) single-component with bending modulus $b=0.55$; (c) multicomponent. The multicomponent vesicle travels slightly faster, so it leaves the stenosed region earlier than the single-component cases (see Figure~\ref{fig:vesVelocity}).}
-\end{figure}
+We consider a vesicle with reduced area $\alpha = 0.6$ passing through a
+closely-fitting channel, with a dimensionless maximum velocity of $\chi
+= 0.25$. Figure~\ref{fig:RA6} shows six time steps of a single-component
+vesicle with bending stiffness (a) $b=1$ and (b) $b=0.55$, and a
+multicomponent vesicle with an initially random distribution of lipids
+(c). In all plots, the color is the dimensionless bending modulus of the
+multicomponent vesicle that remains bounded in $[0.1,1]$ by using the
+new bending modulus~\eqref{eqn:tanhBending}. A single Lagrangian point
+is included to visualize tank-treading behavior. There are slight
+differences between the three cases, with the most noticeable being that
+the multicomponent vesicle has higher curvature in the floppy region. We
+consider the same setup in Figure~\ref{fig:RA4}, but the vesicle has
+reduced area $\alpha = 0.4$. The main difference between the two reduced
+areas is that the vesicles with smaller reduced area undergo
+tank-treading motions. As mentioned earlier, tank treading occurs when
+the top and bottom lubrication layers differ in size. The size of the
+lubrication layers in all six cases are in Figure~\ref{fig:lubrication}. 
+
+
+%\begin{figure}[h]
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/STENOSIS_RAp4MCp5.pdf}
+%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(a)}{figures/Fig6a.pdf}
+%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(b)}{figures/Fig6b.pdf}
+%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(c)}{figures/Fig6c.pdf}
+  \caption{\label{fig:RA4} \small A vesicle passing through a stenosed
+  geometry. The vesicle's reduced area is $\alpha = 0.4$ and the
+  dimensionless maximum velocity is $\chi = 0.25$. The vesicles are: (a)
+  single-component with bending modulus $b=1$; (b) single-component with
+  bending modulus $b=0.55$; (c) multicomponent. The multicomponent
+  vesicle travels slightly faster, so it leaves the stenosed region
+  earlier than the single-component cases (see
+  Figure~\ref{fig:vesVelocity}).}
+%\end{figure}
+\end{figure*}
 
 
 %\begin{figure}
