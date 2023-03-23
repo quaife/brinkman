@@ -279,12 +279,13 @@ individual energies are
   f(u) +\frac{\epsilon^2}{2}|\nabla_\gamma u|^2\right) \, ds,
   \label{eqn:PhaseEnergy}
 \end{align}
-where $u$ is the dimensionless lipid concentration, $b(u)$ is the lipid-dependent bending modulus, $\sigma$ is the vesicle's tension, and
+where $u$ is the dimensionless lipid concentration, $b(u)$ is the
+lipid-dependent bending modulus, $\sigma$ is the vesicle's tension, and
 $f(u) = \frac{1}{4}u^2(1-u)^2$ is the double-well potential with local
 minimums at $u=0$ and $u=1$. Here, $\kappa$ is the membrane curvature,
 $\ss$ is the tangent vector, and $s$ is the arclength. We have adopted
-the same setup as~\citet{soh-se-li-voi-low2010} where $\epsilon \ll 1$
-ios a dimensionless parameter that controls the size of the transition
+the same setup as~\citet{soh-tse-li-voi-low2010} where $\epsilon \ll 1$
+is a dimensionless parameter that controls the size of the transition
 region of $u$, and $a$ is the dimensional line tension scaled by
 $b_{\max}/L$. Both $\epsilon$ and $a$ are kept constant in all
 simulations. The resulting membrane forces are
@@ -304,7 +305,7 @@ The lipid species $u$ is governed by a fourth-order Cahn-Hilliard equation that 
 However, since the double-well potential does not have hard walls, the
 lipid concentration is not guaranteed to be confined to the interval
 $[0,1]$. This is problematic when $u > 1$ since this results in $b(u) <
-0$ if $u > (\beta+1)^{-1}$, and such values of $u$ are possible when
+0$ if $u > (1 - \beta)^{-1}$, and such values of $u$ are possible when
 $\beta$ is small and the vesicle is confined to a narrow region.
 Therefore, in this work we parameterize the bending modulus as
 \begin{align}
