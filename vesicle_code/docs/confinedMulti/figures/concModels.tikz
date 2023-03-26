@@ -1,3 +1,9 @@
+\documentclass[11pt]{standalone}
+
+\usepackage{tikz,pgfplots}
+\begin{document}
+
+
 \newcommand*{\bMin}{0.1}
 \newcommand*{\bMax}{1}
 
@@ -19,3 +25,5 @@
     \node [right, black] at (+2,\bMax) {$1$};
     \node [left, black] at (-1,\bMin) {$\beta$};
 \end{tikzpicture}
+
+\end{document}
