@@ -215,11 +215,28 @@ The remainder of the paper is organized as follows. Section~\ref{sec:Formulation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\label{sec:Formulation}Formulation}
+\todo[inline]{Changes to be made to Figure~\ref{fig:schematic}.}
+\begin{itemize}
+  \item Remove labels $\Gamma$, $\Omega$, $\gamma$
+  \item Line on vesicle is too thick and change color scheme to same as
+    Fig 2
+  \item Change to a confined geometry that we use (stenosis)
+  \item Show a couple of vesicle shapes and the parabolic profile at
+    the inlet, outlet, and in the middle
+\end{itemize}
+
 We consider a single multicomponent vesicle $\omega$ with boundary $\gamma$ suspended in a confined geometry $\Omega \subset \RR ^2$ with boundary $\Gamma$ (Figure~\ref{fig:schematic}).
 \begin{figure}[H]
-    \centering
-    \includegraphics[trim = 0.3cm 0cm 1cm 0cm, clip=true,width=0.9\columnwidth]{figures/schematic.pdf}
-    \caption{\label{fig:schematic}\small A single multicomponent vesicle with boundary $\gamma$ suspended in a domain $\Omega$ with boundary $\Gamma$. The dark red regions are the ``stiff" regions corresponding to the maximum bending stiffness $b_{\max}=1$. The dark blue regions are the ``floppy" regions corresponding to the minimum bending stiffness $b_{\min}=0.1$ The vesicle dynamics are determined by a combination of phase, bending, and tension energies, and an imposed flow on $\Gamma$. }
+  \centering
+  \includegraphics[trim = 0.3cm 0cm 1cm 0cm, clip=true,width=0.9\columnwidth]{figures/schematic.pdf}
+  \caption{\label{fig:schematic}\small A single multicomponent vesicle
+  with boundary $\gamma$ suspended in a domain $\Omega$ with boundary
+  $\Gamma$. The dark red regions are the ``stiff'' regions corresponding
+  to the maximum bending stiffness $b_{\max}=1$. The dark blue regions
+  are the ``floppy'' regions corresponding to the minimum bending
+  stiffness $b_{\min}=0.1$ The vesicle dynamics are determined by a
+  combination of phase, bending, and tension energies, and an imposed
+  flow on $\Gamma$. }
 \end{figure}
 The fluid is assumed to have zero Reynolds number and is therefore governed by the incompressible Stokes equations
 \begin{align}
@@ -250,7 +267,7 @@ properties are the reduced area $\alpha = 4\pi A/L^2$, where $A$ and $L$
 are the vesicle's area and length, respectively, and the
 floppy-to-stiffness ratio $\beta = b_{\min}/b_{\max}$. Since we consider
 flows in channels, we also define a dimensionless maximum imposed
-velocity, $\chi$, which sets a capillary number, and $W$ is the
+velocity, $U$, which sets a capillary number, and $W$ is the
 dimensionless width of the channel at the inlet and outlet. From this
 point onwards, all equations are dimenisionless.
 
@@ -260,10 +277,11 @@ parameterization of $\gamma$. Along the solid wall $\Gamma$, we impose a
 Dirichlet boundary condition $\uu(\xx) = \UU(\xx)$, where $\UU$ is a
 Hagen–Poiseuille flow at the inlet and outlet (where $y\in[-W,W]$),
 \begin{align}
-  \UU(\xx) = \chi \left(1 - \left(\frac{y}{W}\right)^2 \right), 
+  \UU(\xx) = U \left(1 - \left(\frac{y}{W}\right)^2 \right), 
     \quad \xx = (x,y) \in \Gamma,
 \end{align}
 and $\UU$ is zero along the top and bottom of the channel.
+\todo[inline]{Need to define capillary number and diffusion time scale.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Constitutive equations}
@@ -323,8 +341,8 @@ However, since the double-well potential does not have hard walls, the
 lipid concentration is not guaranteed to be confined to the interval
 $[0,1]$. This is problematic when $u > 1$ since this results in $b(u) <
 0$ if $u > (1 - \beta)^{-1}$, and such values of $u$ are possible when
-$\beta$ is small and the vesicle is confined to a narrow region.
-Therefore, in this work we parameterize the bending modulus as
+$\beta \ll 1$, $Ca \gg 1$, or the vesicle is confined to a narrow
+region.  Therefore, in this work we parameterize the bending modulus as
 \begin{align}
     b(u) = \frac{\beta-1}{2} \tanh\left(3\left(u-\frac{1}{2} \right)\right) + 
            \frac{\beta + 1}{2}.
@@ -520,7 +538,7 @@ We consider both a single-component and a multicomponent vesicle suspended in tw
 %    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(c)}{figures/Fig5c.pdf}
   \caption{\label{fig:RA6} \small A vesicle passing through a stenosed
   geometry. The vesicle's reduced area is $\alpha = 0.6$ and the
-  dimensionless maximum velocity is $\chi = 0.25$. The vesicles are: (a)
+  dimensionless maximum velocity is $U = 0.25$. The vesicles are: (a)
   single-component with bending modulus $b=1$; (b) single-component with
   bending modulus $b=0.55$; (c) multicomponent.}
 %\end{figure}
@@ -528,8 +546,8 @@ We consider both a single-component and a multicomponent vesicle suspended in tw
 
 
 We consider a vesicle with reduced area $\alpha = 0.6$ passing through a
-closely-fitting channel, with a dimensionless maximum velocity of $\chi
-= 0.25$. Figure~\ref{fig:RA6} shows six time steps of a single-component
+closely-fitting channel, with a dimensionless maximum velocity of $U =
+0.25$. Figure~\ref{fig:RA6} shows six time steps of a single-component
 vesicle with bending stiffness (a) $b=1$ and (b) $b=0.55$, and a
 multicomponent vesicle with an initially random distribution of lipids
 (c). In all plots, the color is the dimensionless bending modulus of the
@@ -555,7 +573,7 @@ lubrication layers in all six cases are in Figure~\ref{fig:lubrication}.
 %    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(c)}{figures/Fig6c.pdf}
   \caption{\label{fig:RA4} \small A vesicle passing through a stenosed
   geometry. The vesicle's reduced area is $\alpha = 0.4$ and the
-  dimensionless maximum velocity is $\chi = 0.25$. The vesicles are: (a)
+  dimensionless maximum velocity is $U = 0.25$. The vesicles are: (a)
   single-component with bending modulus $b=1$; (b) single-component with
   bending modulus $b=0.55$; (c) multicomponent. The multicomponent
   vesicle travels slightly faster, so it leaves the stenosed region
@@ -679,7 +697,14 @@ The size of the top and bottom lubrication layers are also related to the excess
     \label{fig:excessPressure}
 \end{figure}
 
-While the size of the lubrication layers affect the tank-treading behavior and the excess pressure, it has almost no effect on the migration speed of the vesicle. In Figure~\ref{fig:vesVelocity}, we plot the average velocity of the vesicle as it passes through the stenosed region. With the exception of the single-component vesicle with $b=1$ and $\alpha = 0.6$, the average vesicle speed is constant. Obviously, this average velocity would be affected by the maximum imposed velocity, $\chi$.
+While the size of the lubrication layers affect the tank-treading
+behavior and the excess pressure, it has almost no effect on the
+migration speed of the vesicle. In Figure~\ref{fig:vesVelocity}, we plot
+the average velocity of the vesicle as it passes through the stenosed
+region. With the exception of the single-component vesicle with $b=1$
+and $\alpha = 0.6$, the average vesicle speed is constant. Obviously,
+this average velocity would be affected by the maximum imposed velocity,
+$U$.
 
 \begin{figure}[H]
     \centering
@@ -707,7 +732,11 @@ Finally, we consider the three different energies---bending, tension, and phase-
     \subfigimg[width=\textwidth]{(d)}{figures/Fig13d.pdf}
     \subfigimg[width=\textwidth]{(f)}{figures/Fig13f.pdf}
   \end{minipage}
-  \caption{\label{fig:Energy} \small The Bending (blue), tension (yellow), and phase (red) energies for a (a/b) single-component vesicle with $b=1$, (c/d) single-component vesicle with $b = 0.55$, and (e/f) multicomponent vesicle. The reduced areas are $alpha = 0.4$ (a/c/e) and $\alpha = 0.6$ (b/d/f).}
+  \caption{\label{fig:Energy} \small The Bending (blue), tension
+  (yellow), and phase (red) energies for a (a/b) single-component
+  vesicle with $b=1$, (c/d) single-component vesicle with $b = 0.55$,
+  and (e/f) multicomponent vesicle. The reduced areas are $\alpha = 0.4$
+  (a/c/e) and $\alpha = 0.6$ (b/d/f).}
 \end{figure}
 
 
@@ -739,7 +768,19 @@ In this section, we consider a single vesicle passing through a geometry that sl
     \subfigimg[width=\columnwidth,trim ={5cm .5cm 2cm .5cm},clip]{(a)}{figures/rightSep.pdf}
     \subfigimg[width=\columnwidth,trim ={5cm .5cm 2cm .5cm},clip]{(b)}{figures/randSep.pdf}
     \subfigimg[width=\columnwidth,trim ={5cm .5cm 2cm .5cm},clip]{(c)}{figures/leftSep.pdf}
-     \caption{\label{fig:RA6leftRightRand} \small A multicomponent vesicle with 50\% floppy region passing through a contracting geometry. The vesicle's reduced area is $\alpha = 0.6$ and the dimensionless maximum velocity is $\chi = 0.25$. The vesicles are: (a) the initial lipid-species distribution is fully separated on the right side of the vesicle; (b) the initial lipid-species distribution is randomly distributed (not fully separated) on the vesicle membrane; (d) the initial lipid-species distribution is fully separated on the left side of the vesicle. The vesicles with a larger percentage of floppy regions pass through the neck earlier than the vesicles with less percentage of floppy regions. The vesicle either completely or partially reorients itself so that the floppy region is in the back and the stiff region is in the front.}
+  \caption{\label{fig:RA6leftRightRand} \small A multicomponent vesicle
+  with 50\% floppy region passing through a contracting geometry. The
+  vesicle's reduced area is $\alpha = 0.6$ and the dimensionless maximum
+  velocity is $U = 0.25$. The vesicles are: (a) the initial
+  lipid-species distribution is fully separated on the right side of the
+  vesicle; (b) the initial lipid-species distribution is randomly
+  distributed (not fully separated) on the vesicle membrane; (d) the
+  initial lipid-species distribution is fully separated on the left side
+  of the vesicle. The vesicles with a larger percentage of floppy
+  regions pass through the neck earlier than the vesicles with less
+  percentage of floppy regions. The vesicle either completely or
+  partially reorients itself so that the floppy region is in the back
+  and the stiff region is in the front.}
 \end{figure}
 
 \begin{figure}[H]
@@ -749,7 +790,15 @@ In this section, we consider a single vesicle passing through a geometry that sl
     \label{fig:RAp6leftRightRandBending}
 \end{figure}
 
-In Figure~\ref{fig:RA5}, we consider a vesicle with reduced area $\alpha = 0.5$ and the dimensionless flow rate is $\chi = 0.25$. We start with a single-component vesicle and then increase the percentage of the vesicle membrane that is floppy. By comparing the vesicle location at the time step just before the vesicle passes through the constriction, we can immediately see that vesicles with membranes that have larger percentage of floppy regions reach and pass through the neck earlier. The dimensionless times that the entire vesicle first passes through the neck are reported in Table~\ref{tbl:contractingTimes}.
+In Figure~\ref{fig:RA5}, we consider a vesicle with reduced area $\alpha
+= 0.5$ and the dimensionless flow rate is $U = 0.25$. We start with a
+single-component vesicle and then increase the percentage of the vesicle
+membrane that is floppy. By comparing the vesicle location at the time
+step just before the vesicle passes through the constriction, we can
+immediately see that vesicles with membranes that have larger percentage
+of floppy regions reach and pass through the neck earlier. The
+dimensionless times that the entire vesicle first passes through the
+neck are reported in Table~\ref{tbl:contractingTimes}.
 
 \begin{figure}[H]
     \centering
@@ -758,7 +807,15 @@ In Figure~\ref{fig:RA5}, we consider a vesicle with reduced area $\alpha = 0.5$ 
     \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(c)}{figures/Fig14b_newPaper.pdf}
     \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(d)}{figures/Fig14c_newPaper.pdf}
     \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(e)}{figures/Fig14e_newPaper.pdf}
-     \caption{\label{fig:RA5} \small A vesicle passing through a contracting geometry. The vesicle's reduced area is $\alpha = 0.5$ and the dimensionless maximum velocity is $\chi = 0.25$. The vesicles are: (a) single-component with bending modulus $b=1$; (b) multicomponent with 15\% floppy region; (c) multicomponent with 25\% floppy region; (d) multicomponent with 35\% floppy region; (e) multicomponent with 45\% floppy region. The vesicles with a larger percentage of floppy regions pass through the neck earlier than the vesicles with less percentage of floppy regions.}
+  \caption{\label{fig:RA5} \small A vesicle passing through a
+  contracting geometry. The vesicle's reduced area is $\alpha = 0.5$ and
+  the dimensionless maximum velocity is $U = 0.25$. The vesicles are:
+  (a) single-component with bending modulus $b=1$; (b) multicomponent
+  with 15\% floppy region; (c) multicomponent with 25\% floppy region;
+  (d) multicomponent with 35\% floppy region; (e) multicomponent with
+  45\% floppy region. The vesicles with a larger percentage of floppy
+  regions pass through the neck earlier than the vesicles with less
+  percentage of floppy regions.}
 \end{figure}
 
 \begin{table}[H]
