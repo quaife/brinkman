@@ -13,7 +13,7 @@ addpath ..
 % name = 'Chi200_RA0p95_Conc0p3_Beta0_y0p1_eps0p04_n20.jpg';
 ax = [-2 2 -2 2];
 
-file = 'Chip25_shax5p7_scL0p311_Conc0_Beta0_n1024_nbd1024_dt1en4_bmax1_bmin0p1_eps0p04_a100_longchoke_rand.bin';
+file = '4a_newBendingModel.bin';
 %file = 'relaxation1VesA.bin';
 %file = 'longChoke_Chi400_Scale0p49_shortax3p45_conc0p3.bin';
 %file = 'longChoke_Chi400_Scale0p59_shortax2p75_conc0p3.bin';

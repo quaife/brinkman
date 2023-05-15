@@ -5,9 +5,9 @@ addpath ..
 % file = 'Chi2p5_shax4p37_scL0p397_Conc0p75_Beta0_n1024_nbd1024_dt5en6_bmax1_bmin0p1_eps0p04_a100_contracting_left.bin';
 % [posx1,posy1,~,~,~,time1,~,~,~] = loadFile(file);
 
-Nbd = 1024;
+Nbd = 2048;
 geomCenter = [0;0];
-wallGeometry = 'longchoke';
+wallGeometry = 'contracting';
 oc = curve(Nbd);
 [~,Xwalls] = oc.initConfig(Nbd,false,...
              'scale', 1, ...
@@ -22,7 +22,6 @@ ntime = numel(time1);
 N = length(posx1(:,:,1));
 % time = time(istart:iend);
 
-wallRad = +6.916157675681860e-01; %ywalls;
 % points that are more than this distance are excluded from the boundary
 % layer points
 tol = 0.3;
@@ -199,8 +198,8 @@ end
 
 figure(4);
 hold on
-plot(mean(squeeze(posx1(:,:,istart:irate:iend))),smoothdata(abs(TopBLWidth),'gaussian',200),'b','linewidth',3)
-plot(mean(squeeze(posx1(:,:,istart:irate:iend))),smoothdata(abs(BotBLWidth),'gaussian',200),'b--','linewidth',3)
+plot(mean(squeeze(posx1(:,:,istart:irate:iend))),smoothdata(abs(TopBLWidth),'gaussian',200),'g','linewidth',3)
+plot(mean(squeeze(posx1(:,:,istart:irate:iend))),smoothdata(abs(BotBLWidth),'gaussian',200),'g--','linewidth',3)
 % plot(mean(squeeze(posx1(:,:,istart:irate:iend))),abs(TopBLWidth),'r')
 % plot(mean(squeeze(posx1(:,:,istart:irate:iend))),abs(BotBLWidth),'r--')
 %xlim([0 18])

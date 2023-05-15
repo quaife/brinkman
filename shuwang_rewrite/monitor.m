@@ -227,7 +227,7 @@ titleStr = ['t = ' num2str(time,'%4.2e') ...
   ' eL = ' num2str(el,'%4.2e')];
 title(titleStr,'fontsize',30)
 axis equal
-axis(o.ax)
+%axis(o.ax)
 
 end % plotData
 

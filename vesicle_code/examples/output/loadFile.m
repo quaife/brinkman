@@ -19,7 +19,7 @@ walls = val(5:5+2*nbd*nvbd-1);
 ntime = numel(val)/(3*n*nv+3);
 % 2 positions, tension, two stresses
 % error in area, error in length, area
-if ntime ~= ceil(ntime);
+if ntime ~= ceil(ntime)
   disp('PROBLEM WITH VALUES FOR n AND nv');
 end
 ntime = floor(ntime);

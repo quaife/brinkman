@@ -38,33 +38,47 @@ tol = 1e-4;
 % 
 % b = find(time1>=53);
 
-istart = 35000;
-irate = 1;%5000;
-iend = 35000;%76018;%numel(time1);
+istart = 1;
+irate = 200;
+iend = numel(time1);
 count = 1;
-
-
+%Build vesicle object
 xx1 = posx1(:,:,istart);
 yy1 = posy1(:,:,istart);
 concc1 = conc1(:,:,istart);
 ves = capsules([xx1;yy1],concc1,params); 
 
-tt = tstep(params,options,ves,walls);
-rhsWalls = tt.bgFlow(walls.X, tt.shearRate, tt.farFieldFlow);
-eta = tt.etaSolver(rhsWalls);
+%Build wall object
+walls = capsules(XWalls,[]);
+%Get potentials on the walls
+opw = poten(walls.N);
+Dw = opw.StokesDLP(walls);
+Nw = opw.StokesN0mat(walls);
+%set up boundary conditions on the walls
+W = 3.5; 
+farFieldSpeed = params.shearRate;
+xwalls = walls.X(1:end/2);
+ywalls = walls.X(end/2+1:end);
+uinf = farFieldSpeed*[1-(ywalls/W).^2;zeros(walls.N,1)];
+uinfx = uinf(1:end/2);
+uinfx(abs(xwalls)<28) = 0;
+uinf = [uinfx;uinf(end/2+1:end)];
 
-ytar = 0;%linspace(-0.5,0.5,100)';
+%compute the density function
+eta = (0.5*eye(2*walls.N)+ Dw + Nw)\uinf;
+
+%Define target points
+ytar = 0;
 xtar = 26*ones(size(ytar));
 ytar = [ytar;ytar];
 xtar = [-xtar;xtar];
 targets.N = numel(xtar);
 targets.X = [xtar;ytar];
 
-rhsWalls = tt.bgFlow(walls.X, tt.shearRate, tt.farFieldFlow);
-etawithout = tt.etaSolver(rhsWalls);
-[~,~,~,~,~,~,pressureVoid] = tt.usetself(ves,etawithout,targets);
-PressDropNoVes = pressureVoid(end/2+1:end) - pressureVoid(1:end/2);
+%compute the pressure
 
+pressureVoid = opw.PressDLPTar(walls, eta, targets.X);
+PressDropNoVes = pressureVoid(end/2+1:end) - pressureVoid(1:end/2);
 
 for k = istart:irate:iend
 xx1 = posx1(:,:,k);
@@ -78,16 +92,15 @@ relnorm = 1;
 counter = 0;
 while relnorm > tol
   eta_old = eta;
-  [~,~,~,eta,uxtar(:,k),uytar(:,k),pressure] = tt.usetself(ves,eta,targets);
+  [~,~,~,eta,~,~,pressure] = tt.usetself(ves,eta,targets);
   relnorm = norm(eta-eta_old)/norm(eta_old);
   counter = counter + 1;
 end
 
-PressDropVes(count) = pressure(2) - pressure(1);
-pressDrop(count) = mean(PressDropVes-PressDropNoVes);
+PressDropVes(count) = pressure(end/2+1:end) - pressure(1:end/2);
+pressDrop(count) = mean(PressDropNoVes - PressDropVes(count));
 count = count + 1;
-
 end
 hold on
 %plot(mean(squeeze(posx1(:,:,istart:irate:iend)))/20,-pressDrop*1e-1*0.000145,'r')
-% plot(mean(squeeze(posx1(:,:,istart:irate:iend))),-pressDrop*1e-1,'b','linewidth',3)
+plot(mean(squeeze(posx1(:,:,istart:irate:iend))),pressDrop*1e-1,'b','linewidth',3)
