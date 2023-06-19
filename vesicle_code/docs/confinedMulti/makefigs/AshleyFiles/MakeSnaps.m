@@ -55,27 +55,6 @@ map2 = (1-t(2:end))*color2 + t(2:end)*color3;
 map = [map1;map2];
 colormap(map);
 
-%colormap(parula);
-%colormap(hsv);
-%colormap(hot);
-%colormap(cool);
-%colormap(spring);
-
-%colormap(turbo);
-%colormap(summer);
-%colormap(autumn);
-%colormap(winter);
-%colormap(gray);
-%colormap(bone);
-%colormap(copper);
-%colormap(pink);
-%colormap(sky);
-%colormap(lines);
-%colormap(jet);
-%colormap(colorcube);
-%colormap(prism);
-%colormap(flag);
-
 for i = 1:length(k)
   xx1 = posx1(:,:,k(i));
   yy1 = posy1(:,:,k(i));

@@ -1,5 +1,6 @@
 addpath ..
-load('~/projects/brinkman/vesicle_code/docs/confinedMulti/makefigs/AshleyFiles/Stenosis_RAp4_MCp5.mat');
+%load('~/projects/brinkman/vesicle_code/docs/confinedMulti/makefigs/AshleyFiles/Stenosis_RAp4_MCp5.mat');
+fprintf('FILE LOADED\n');
 
 N = length(posx1(:,:,1));
 oc = curve(N);
@@ -26,14 +27,14 @@ params.gmresMaxIter = 20;
 params.saveRate = 1;
 walls = capsules(XWalls,[]);
 tol = 1e-4;
-%tol = 1e-1;
+%tol = 1e-2;
 
 % care about vesicle when it's at the third, fourth, fifth, and sixth of
 % these values
 meancenters = linspace(-22,22,8);
 
 centers = squeeze(mean(posx1));
-[~,k] = min(abs(centers - meancenters(6)));
+[~,k] = min(abs(centers - meancenters(3)));
 
 xx1 = posx1(:,:,k);
 yy1 = posy1(:,:,k);
@@ -72,8 +73,8 @@ for i = 1:length(k)
   
   % uxtar = uxtar - mean(squeeze(xvel1(:,:,k)));
   figure(2); clf; hold on
-  quiver(xtar,ytar,uxtar-mean(uxvel),uytar)
-  %quiver(xtar,ytar,uxtar,uytar)
+%  quiver(xtar,ytar,uxtar-mean(uxvel),uytar)
+  quiver(xtar,ytar,uxtar,uytar)
   plot(walls.X(1:end/2),walls.X(end/2+1:end),'k','linewidth',3)
   plot(ves.X(1:end/2),ves.X(end/2+1:end),'r','linewidth',3)
  % title(k(i))
@@ -102,7 +103,7 @@ uytar = reshape(uytar,ny,nx);
 wallsx = walls.X(1:end/2);
 wallsy = walls.X(end/2+1:end);
 
-filename = 'Stenosis_RAp4_MCp5_pos4.mat';
+filename = 'Stenosis_RAp4_MCp5_pos1.mat';
 save(filename,'posx','posy','conc','ten','eta','xtar','ytar','uxtar','uytar',...
       'wallsx','wallsy');
 

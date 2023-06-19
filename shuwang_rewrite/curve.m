@@ -531,7 +531,6 @@ L = sum(sqrt(Dx.^2 + Dy.^2))/N;
 cur = (Dx.*DDy - Dy.*DDx)/L^3;
 % compute curvature
 
-%IK = o.modes(N);
 theta = o.intFT(L*cur-2*pi,o.IK);
 % integrate the curature to find the opening angle
 
@@ -619,7 +618,17 @@ function dx = rmLinearPart(o,N,theta)
 
 % function with the same increase over a period of 2*pi as the angle
 % theta
+
+% need to filter theta a bit
+IK = o.IK;
+%o.IK(abs(o.IK) > 2*pi*N/4) = 0;
+
 dx = o.diffFT([theta - 2*pi*(0:1:N-1)'/N]) + 2*pi;
+%semilogy(abs(fftshift(fft(theta - 2*pi*(0:1:N-1)'/N))))
+%semilogy(abs(fftshift(fft(dx))))
+%pause
+
+o.IK = IK;
 
 end %rmLinearPart
 
@@ -709,8 +718,8 @@ N2Hat(1) = 0;
 N2 = real(ifft(N2Hat));
 
 end %frconim
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function RHSflux = fluxj(o,ves,epsch,consta)
 %This routine computes the forcing on the RHS flux OF THE Cahn_Hillard
 %Equation for rcon periodic on [0,1] and for closed curves. RHSflux are the
@@ -739,17 +748,42 @@ rbn = (b1 - b0)/2*tanh(3*(rcon - 0.5)) + (b0 + b1)/2;
 rbndu = (3/2)*(b1 - b0)*sech(3*(rcon-0.5)).^2; 
 %compute the curvature
 dkap = o.acurv(N,ves.theta,L);
+dkap = ves.cur; % TODO: COMMENT OUT LATER
 %term3 is b'(u)/2 * kappa^2 in eq (13)
 term3 = 0.5*rbndu.*dkap.^2;
 %RHSflux is a/eps(f'(u)-eps^2u_ss) + b'(u)/2 * kappa^2 terms in eq (13) 
 RHSflux = consta/epsch * (dfu + term2) + term3;
 
-end %fluxj
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+end % fluxj
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function force = CHforce(o,ves,epsch,consta)
+% This routine computes the forcing on the RHS flux OF THE Cahn_Hillard,
+% but only the phase contribution. In particular, it computes
+% a/eps(f'(u)-eps^2u_ss) as defined in eq (13) 
+
+N = ves.N;
+L = ves.L;
+rcon = ves.rcon;
+% dfu is the derivative of the double-well potential
+fu = 0.25*rcon.^2.*(1-rcon).^2;
+%dfu = 0.5*(rcon.*(ones(N,1)-rcon).^2 - rcon.^2.*(ones(N,1)-rcon));
+% derivative of the concentration 
+rcons = o.diffFT(rcon)/L;
+% second derivative of the concentration
+%rconss = o.diffFT(rcons)/L;
+% phase_gradient is eps^2 * u_ss as defined in equation (13)
+phase_gradient = -epsch^2/2*rcons.^2;
+%phase_gradient = -epsch^2*rconss;
+%force = consta/epsch * (dfu + phase_gradient);
+force = consta/epsch * (fu + phase_gradient);
+
+
+end % CHforce
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function dkap = acurv(o,N,theta,L)
-%This routine computes the curvature from the tangent angle
-%formulation
+% This routine computes the curvature from the tangent angle formulation
 
 dkap = o.rmLinearPart(N,theta)/L;
 

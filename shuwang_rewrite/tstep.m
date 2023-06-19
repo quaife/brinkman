@@ -142,6 +142,7 @@ op = poten(N); %shorthand for poten class
 oc = curve(N); %shorthand for curve class
 % Compute the curvature
 cur = oc.acurv(ves.N,ves.theta,ves.L);
+cur = ves.cur; % TODO: COMMENT OUT LATER
 % Reconstruct the vesicle shape
 ves.X = oc.recon(ves.N, ves.x0, ves.y0, ves.L, ves.theta);
 % Compute Eu and Esigma, equations (13) and (14) 
@@ -150,6 +151,7 @@ ves.X = oc.recon(ves.N, ves.x0, ves.y0, ves.L, ves.theta);
 %   NOTE: this does not include u_s term.
 tau = [[-Esigma.*sin(theta) - Eu.*cos(theta)]; ...
        [Esigma.*cos(theta) - Eu.*sin(theta)]];
+
 % --- Pulling force code - Yuan's project
 % x0 = 0.2;
 % y0 = 3.0;

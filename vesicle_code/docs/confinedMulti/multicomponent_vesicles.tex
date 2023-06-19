@@ -734,9 +734,17 @@ $U$.
     \caption{\label{fig:vesVelocity} \small The average vesicle velocity as it passes through the stenosed region. The vesicle stiffness and reduced area have no significant effect.}
 \end{figure}
 
-Finally, we consider the three different energies---bending, tension, and phase---for each of the single-component and multicomponent vesicles. In Figure~\ref{fig:Energy}, we plot these energies as a function of the vesicle's center of mass. As a reminder, the vesicle enters the constriction at $x=-15$ and exits at $x=15$. Also note that the single-component vesicle does not have a phase energy. A few general trends can immediately be seen. First, as the vesicle enters the stenosed region, there are sharp jumps in both the tension and bending energies, as expected. Next, the multicomponent vesicles only coarsen when the vesicle is not in the stenosed region. Finally, when coarsening does occur, there are rapid changes in the tension energy.
-
-%In the single-component runs, ... In the multicomponent runs, we see that phase separation does not occur in the channel. When it does occur, we see spikes in the bending and tension energies. \todo[inline]{Discussion of what we see}
+Finally, we consider the three different energies---bending, tension,
+and phase---for each of the single-component and multicomponent
+vesicles. In Figure~\ref{fig:Energy}, we plot these energies as a
+function of the vesicle's center of mass. As a reminder, the vesicle
+enters the constriction at $x=-15$ and exits at $x=15$. Also note that
+the single-component vesicle does not have a phase energy. A few general
+trends can immediately be seen. First, as the vesicle enters the
+stenosed region, there are sharp jumps in both the tension and bending
+energies, as expected. Next, the multicomponent vesicles only coarsen
+when the vesicle is not in the stenosed region. Finally, when coarsening
+does occur, there are rapid changes in the tension energy.
 
 \begin{figure}
   \begin{minipage}{0.49\columnwidth}
@@ -759,6 +767,64 @@ Finally, we consider the three different energies---bending, tension, and phase-
   and (e/f) multicomponent vesicle. The reduced areas are $\alpha = 0.4$
   (a/c/e) and $\alpha = 0.6$ (b/d/f).}
 \end{figure}
+
+When a vesicle is tank-treading near a solid wall, the flow in the thin
+layer of fluid includes both a linear profile and a Poiseuille
+profile~\cite{mis-wis-ber-key-li-tun-law-per-erd-zha-zha-sun-kal-lam-kon2019}.
+The magnitude of the Poiseuille profile is determined by the pressure
+gradient between the vesicle and the soild wall, while the linear
+profile is determined by the tangential velocity of the vesicle relative
+to the solid wall.
+
+Using the definition of the lubrcication layer outlined in Section ???,
+fit the horizontal flow profile to a quadratic function and plot the
+coefficients of the Poisseuille and linear shear in Figure~\ref{}. We
+only consider cases where the vesicle has reached a steady shape is only
+under going tank treading. We observe that the Poisseuille coefficient
+can be either positive or negative, meaning that the pressure in the
+lubcrication layer switches signs. This behavior is caused when the
+tangential force on the vesicle
+\begin{align}
+  \mathbf{F}_{\tt} = -\sigma_s + u_s \frac{\delta E^m}{\delta u},
+\end{align}
+where
+\begin{align}
+  \frac{\delta E^m}{\delta u} = \frac{a}{\epsilon} 
+    (f'(u) - \epsilon^2 u_{ss}) + \frac{b'(u)}{2} \kappa^2
+\end{align}
+is the variational derivative of the membrane energy with respect to the
+lipid concentration~\cite{soh-tse-li-voi-low2010}. Note that in the
+single-component case, the tangential force is $\mathbf{F}_\tt =
+=\sigma_s$ which is the usual Marangoni effect.
+
+
+\begin{figure}
+%  \begin{minipage}{0.99\columnwidth}
+    \centering
+    \subfigimg[width=\columnwidth]{(a)}{figures/SC_top.pdf}
+    \subfigimg[width=\columnwidth]{(b)}{figures/SC_bot.pdf}
+    \subfigimg[width=\columnwidth]{(a)}{figures/SCp55_top.pdf}
+    \subfigimg[width=\columnwidth]{(b)}{figures/SCp55_bot.pdf}
+    \subfigimg[width=\columnwidth]{(a)}{figures/MCp5_top.pdf}
+    \subfigimg[width=\columnwidth]{(b)}{figures/MCp5_bot.pdf}
+%  \end{minipage}
+%  \hfill
+%  \begin{minipage}{0.49\columnwidth}
+%    \centering
+%    \subfigimg[width=\textwidth]{(b)}{figures/Fig13b.pdf}
+%    \subfigimg[width=\textwidth]{(d)}{figures/Fig13d.pdf}
+%    \subfigimg[width=\textwidth]{(f)}{figures/Fig13f.pdf}
+%  \end{minipage}
+%  \caption{\label{fig:Energy} \small The Bending (blue), tension
+%  (yellow), and phase (red) energies for a (a/b) single-component
+%  vesicle with $b=1$, (c/d) single-component vesicle with $b = 0.55$,
+%  and (e/f) multicomponent vesicle. The reduced areas are $\alpha = 0.4$
+%  (a/c/e) and $\alpha = 0.6$ (b/d/f).}
+\end{figure}
+
+
+
+
 
 
 
