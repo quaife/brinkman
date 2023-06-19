@@ -233,33 +233,41 @@ boundary layer caused by tank treading behavior.
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\label{sec:Formulation}Formulation}
-\todo[inline]{Changes to be made to Figure~\ref{fig:schematic}.}
-\begin{itemize}
-  \item Remove labels $\Gamma$, $\Omega$, $\gamma$
-  \item Line on vesicle is too thick and change color scheme to same as
-    Fig 2
-  \item Change to a confined geometry that we use (stenosis)
-  \item Show a couple of vesicle shapes and the parabolic profile at
-    the inlet, outlet, and in the middle
-\end{itemize}
-
-We consider a single multicomponent vesicle $\omega$ with boundary $\gamma$ suspended in a confined geometry $\Omega \subset \RR ^2$ with boundary $\Gamma$ (Figure~\ref{fig:schematic}).
+%\todo[inline]{Changes to be made to Figure~\ref{fig:schematic}.}
+%\begin{itemize}
+%  \item Remove labels $\Gamma$, $\Omega$, $\gamma$
+%  \item Line on vesicle is too thick and change color scheme to same as
+%    Fig 2
+%  \item Change to a confined geometry that we use (stenosis)
+%  \item Show a couple of vesicle shapes and the parabolic profile at
+%    the inlet, outlet, and in the middle
+%\end{itemize}
 \begin{figure}[H]
   \centering
-  \includegraphics[trim = 0.3cm 0cm 1cm 0cm, clip=true,width=0.9\columnwidth]{figures/schematic.pdf}
+%  \includegraphics[trim = 0.3cm 0cm 1cm 0cm, clip=true,width=0.9\columnwidth]{figures/schematic.pdf}
+  \includegraphics[width=0.9\columnwidth]{figures/schematic.pdf}
   \caption{\label{fig:schematic}\small A single multicomponent vesicle
-  with boundary $\gamma$ suspended in a domain $\Omega$ with boundary
-  $\Gamma$. The dark red regions are the ``stiff'' regions corresponding
-  to the maximum bending stiffness $b_{\max}=1$. The dark blue regions
-  are the ``floppy'' regions corresponding to the minimum bending
-  stiffness $b_{\min}=0.1$ The vesicle dynamics are determined by a
-  combination of phase, bending, and tension energies, and an imposed
-  flow on $\Gamma$. }
+  suspended in a strongly-confined stenosis. The color is the
+  dimensionless stiffness which varies from $b_{\min} = 0.1$ to
+  $b_{\max} = 1$. The vesicle dynamics are determined by a combination
+  of phase, bending, and tension energies, and an imposed flow (blue
+  arrows).}
+%  \caption{\label{fig:schematic}\small A single multicomponent vesicle
+%  with boundary $\gamma$ suspended in a domain $\Omega$ with boundary
+%  $\Gamma$. The dark red regions are the ``stiff'' regions corresponding
+%  to the maximum bending stiffness $b_{\max}=1$. The dark blue regions
+%  are the ``floppy'' regions corresponding to the minimum bending
+%  stiffness $b_{\min}=0.1$ The vesicle dynamics are determined by a
+%  combination of phase, bending, and tension energies, and an imposed
+%  flow on $\Gamma$. }
 \end{figure}
-The fluid is assumed to have zero Reynolds number and is therefore governed by the incompressible Stokes equations
+We consider a single multicomponent vesicle $\omega$ with boundary
+$\gamma$ suspended in a confined geometry $\Omega \subset \RR ^2$ with
+boundary $\Gamma$ (Figure~\ref{fig:schematic}). The fluid is assumed to
+have zero Reynolds number and is therefore governed by the
+incompressible Stokes equations
 \begin{align}
     \nabla \cdot \TT = 0 \quad \text{and} \quad \nabla \cdot \uu = 0, 
         \quad \xx \in \Omega \backslash \gamma,
@@ -271,11 +279,20 @@ we require that the velocity is continuous and locally inextensible, and
 the membrane and hydrodynamic forces balance
 \begin{align}
   \llbracket \uu \rrbracket = 0, \quad 
-  \llbracket \TT\nn \rrbracket = \ff, \quad 
-  \nabla_{\gamma} \cdot \uu = 0, \quad \xx \in \gamma,
+  \nabla_{\gamma} \cdot \uu = 0, \quad \xx \in \gamma, \quad
+  \llbracket \TT\nn \rrbracket = \ff, 
 \end{align}
 where $\ff$ is the total membrane force and $\nn$ is the outward unit
-normal of $\gamma$. 
+normal of $\gamma$. By parameterizing $\gamma$ as $\xx(s,t)$, where $s$
+is arclength and $t$ is time, the no-slip boundary condition is
+$\frac{d\xx}{dt} = \uu(\xx)$.  Along the solid wall $\Gamma$, we impose
+a Dirichlet boundary condition $\uu(\xx) = \UU(\xx)$, where $\UU$ is a
+Hagen–Poiseuille flow at the inlet and outlet (where $y\in[-W,W]$),
+\begin{align}
+  \UU(\xx) = U \left(1 - \left(\frac{y}{W}\right)^2 \right), 
+    \quad \xx = (x,y) \in \Gamma,
+\end{align}
+and $\UU$ is zero along the top and bottom of the channel.
 
 We nondimensionalize the governing equations with a characteristic
 length scale $R_0 = 10^{-6}$~m, a maximum bending stiffness $b_{\max} =
@@ -292,25 +309,15 @@ velocity, $U$, which sets a capillary number, and $W$ is the
 dimensionless width of the channel at the inlet and outlet. From this
 point onwards, all equations are dimenisionless.
 
-On the multicomponet vesicle $\gamma$ the velocity satisfies the no-slip boundary condition
-$\frac{d\xx}{dt} = \uu(\xx)$, where $\xx(s,t)$ is the arclength
-parameterization of $\gamma$. Along the solid wall $\Gamma$, we impose a
-Dirichlet boundary condition $\uu(\xx) = \UU(\xx)$, where $\UU$ is a
-Hagen–Poiseuille flow at the inlet and outlet (where $y\in[-W,W]$),
-\begin{align}
-  \UU(\xx) = U \left(1 - \left(\frac{y}{W}\right)^2 \right), 
-    \quad \xx = (x,y) \in \Gamma,
-\end{align}
-and $\UU$ is zero along the top and bottom of the channel.
 \todo[inline]{Need to define capillary number and diffusion time scale.}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Constitutive equations}
-Using the same model as~\citet{liu-mar-li-vee-low2017}
-and~\citet{soh-tse-li-voi-low2010}, the membrane forces depend on the
-Helfrich energy, line tension, and phase energy. The phase and bending
-energies are coupled through the bending modulus. In particular, the
-individual energies are
+Using the model first introduced by~\citet{liu-mar-li-vee-low2017}, and
+then investigated further by~\citet{soh-tse-li-voi-low2010}, the
+membrane forces depend on the Helfrich energy, line tension, and phase
+energy. The phase and bending energies are coupled through the bending
+modulus. In particular, the individual energies are
 \begin{align}
   E_b &= \frac{1}{2}\int_{\gamma} b(u) \kappa^2 \, ds, \quad
   E_t = \int_{\gamma} \sigma \, ds, \\
@@ -320,14 +327,14 @@ individual energies are
 \end{align}
 where $u$ is the dimensionless lipid concentration, $b(u)$ is the
 lipid-dependent bending modulus, $\sigma$ is the vesicle's tension, and
-$f(u) = \frac{1}{4}u^2(1-u)^2$ is the double-well potential with local
-minimums at $u=0$ and $u=1$. Here, $\kappa$ is the membrane curvature,
-$\ss$ is the tangent vector, and $s$ is the arclength. We have adopted
-the same setup as~\citet{soh-tse-li-voi-low2010} where $\epsilon \ll 1$
-is a dimensionless parameter that controls the size of the transition
-region of $u$, and $a$ is the dimensional line tension scaled by
-$b_{\max}/L$. Both $\epsilon$ and $a$ are kept constant in all
-simulations. The resulting membrane forces are
+$f(u) = \frac{1}{4}u^2(1-u)^2$ is a double-well potential with local
+minimums at $u=0$ and $u=1$. Here, $\kappa$ is the membrane curvature
+and $\ss$ is the tangent vector. We adopt the same setup
+as~\citet{soh-tse-li-voi-low2010} where $\epsilon \ll 1$ is a
+dimensionless parameter that controls the size of the transition region
+of $u$, and $a$ is the dimensional line tension scaled by $b_{\max}/L$.
+Both $\epsilon$ and $a$ are kept constant in all simulations. The
+resulting membrane forces are
 \begin{align}
   \ff_b &= -(b(u)\kappa \nn)_{ss} -\frac{3}{2}
     \left(b(u) \kappa^2 \ss\right)_s, \\
@@ -336,56 +343,68 @@ simulations. The resulting membrane forces are
      \frac{\epsilon^2}{2} u_s^2\right) \ss \right)_s.
 \end{align}
 
-\begin{figure}[H]
-  \centering
-%  \input{figures/concModels.tikz} \\
-  \subfigimg[width=0.9\linewidth, clip ]{(a)}{figures/concModels.pdf}
-  \\
-  \subfigimg[width=0.9\linewidth, clip ]{(b)}{figures/oldbending.pdf}
-  \caption{\label{fig:concModels} \small (a) The linear bending model in
-  red (equation~\eqref{eqn:linearBending}) and the new hyperbolic
-  bending model in blue (equation~\eqref{eqn:tanhBending}). Note that
-  the new bending model satisfies $b \in (\beta,1)$ even if $u \notin
-  [0,1]$. (b) A multicomponent vesicle entering a closely-fitting
-  channel using the linear model~\eqref{eqn:linearBending}. The vesicle
-  bending modulus becomes negative, and this introduces an instability
-  that first appears near the point with the largest negative curvature.
-  }
-\end{figure}
-
-The lipid species $u$ is governed by a fourth-order Cahn-Hilliard equation that results in the lipids phase separating while conserving their total mass. To model the variable bending, \citet{soh-tse-li-voi-low2010} propose parameterizing the bending modulus as
+The lipid species $u$ is governed by a fourth-order Cahn-Hilliard
+equation that results in the lipids phase separating while conserving
+their total mass. To model the variable bending,
+\citet{soh-tse-li-voi-low2010} parameterized the bending modulus as
 \begin{align}
-    b(u) = (1-u) + \beta u.
-    \label{eqn:linearBending}
+  \label{eqn:linearBending}
+  b(u) = (1-u) + \beta u.
 \end{align}
 However, since the double-well potential does not have hard walls, the
 lipid concentration is not guaranteed to be confined to the interval
 $[0,1]$. This is problematic when $u > 1$ since this results in $b(u) <
 0$ if $u > (1 - \beta)^{-1}$, and such values of $u$ are possible when
 $\beta \ll 1$, $Ca \gg 1$, or the vesicle is confined to a narrow
-region.  Therefore, in this work we parameterize the bending modulus as
-\begin{align}
-    b(u) = \frac{\beta-1}{2} \tanh\left(3\left(u-\frac{1}{2} \right)\right) + 
-           \frac{\beta + 1}{2}.
-    \label{eqn:tanhBending}
-\end{align}
-This maps the local minimums of the
-double-well potential close to $\beta$ and $1$, but more
-importantly, b(u) remains bounded in $(\beta,1)$ even when $u
-\notin [0,1]$ (Figure~\ref{fig:concModels}(a)). To demonstrate the
-necessity of this new bending model, we consider a multicomponent
-vesicle in strong confinement with both bending
-models~\eqref{eqn:linearBending} and~\eqref{eqn:tanhBending}. The
-stiff-to-floppy ratio is $\beta = 10^{-1}$. In the new
-model~\eqref{eqn:tanhBending}, the lipid concentration achieves a
-maximum value of $u \approx 1.002$ which results in a  minimum bending
-stiffness of $b(u) \approx \beta$. However, if we use the linear bending
+region. This behavior is demonstrated in Figure~\ref{fig:concModels}(a).
+The stiff-to-floppy ratio is $\beta = 10^{-1}$. Using the linear bending
 model~\eqref{eqn:linearBending}, the lipid concentration achieves a
-maximum value of $u \approx 1.52$ which results in an unphysical
-negative bending stiffness of $b(u) \approx -0.5$. The corresponding
-vesicle shape is in Figure~\ref{fig:concModels}(b), and the instability
-caused by the negative bending stiffness is near the region with
-negative curvature.
+maximum value of $u \approx 1.52$ which results in an instability that
+is formed by a corresponding unphysical negative bending stiffness of
+$b(u) \approx -0.5$. To rectify this issue, we parameterize the bending
+modulus as
+\begin{align}
+  b(u) = \frac{\beta-1}{2} \tanh\left(3\left(u-\frac{1}{2} 
+    \right)\right) + \frac{\beta + 1}{2}.
+  \label{eqn:tanhBending}
+\end{align}
+This parameterization maps the local minimums of the double-well
+potential close to $\beta$ and $1$, but more importantly, b(u) remains
+bounded in $(\beta,1)$ even when $u \notin [0,1]$
+(Figure~\ref{fig:concModels}(b)). This new bending model is validated in
+Section~\ref{sec:validation}.
+%To demonstrate the necessity of this new bending model, we consider a
+%multicomponent vesicle in strong confinement with both bending
+%models~\eqref{eqn:linearBending} and~\eqref{eqn:tanhBending}. The
+%stiff-to-floppy ratio is $\beta = 10^{-1}$. In the new
+%model~\eqref{eqn:tanhBending}, the lipid concentration achieves a
+%maximum value of $u \approx 1.002$ which results in a minimum bending
+%stiffness of $b(u) \approx \beta$. However, if we use the linear
+%bending model~\eqref{eqn:linearBending}, the lipid concentration
+%achieves a maximum value of $u \approx 1.52$ which results in an
+%unphysical negative bending stiffness of $b(u) \approx -0.5$. The
+%corresponding vesicle shape is in Figure~\ref{fig:concModels}(b), and
+%the instability caused by the negative bending stiffness is near the
+%region with negative curvature.
+
+\begin{figure}[H]
+  \centering
+%  \input{figures/concModels.tikz} \\
+  \subfigimg[width=0.9\linewidth, clip ]{(a)}{figures/oldbending.pdf} \\
+  \subfigimg[width=0.9\linewidth, clip ]{(b)}{figures/concModels.pdf}
+  \caption{\label{fig:concModels} \small (a) A multicomponent vesicle
+  entering a closely-fitting channel using the linear
+  model~\eqref{eqn:linearBending}. The vesicle bending modulus becomes
+  negative, and this introduces an instability that first appears near
+  the point with the largest negative curvature. (b) The linear bending
+  model in red (equation~\eqref{eqn:linearBending}) and the new
+  hyperbolic bending model in blue (equation~\eqref{eqn:tanhBending}).
+  Note that the new bending model satisfies $b \in (\beta,1)$ even if $u
+  \notin [0,1]$.}
+\end{figure}
+
+
+
 %\begin{figure}[htp]
 %  \centering
 %%    \begin{tabular}{@{}p{0.49\linewidth}@{\qquad}p{0.49\linewidth}@{}}
@@ -401,42 +420,64 @@ negative curvature.
 %\end{figure}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\label{sec:NumericalMethods}Numerical Methods}
-The velocity field $\uu$ is written as a combination of a single-layer potential and a double-layer potential
+We use a high-order integral equation formulation to resolve the complex
+vesicle shapes. The velocity field $\uu$ is written as a combination of
+a single-layer potential and a double-layer potential
 \begin{align}
-    \label{eqn:LPrep}
-    \uu(\xx) = S[\ff](\xx) + D[\eeta](\xx),
+  \label{eqn:LPrep}
+  \uu(\xx) = S[\ff](\xx) + D[\eeta](\xx),
 \end{align}
 where
 \begin{align}
-    S[\ff](\xx) &= \frac{1}{4\pi\mu} \int_{\gamma} \left(-\log \rho \mathds{I} + \frac{\rr \otimes \rr}{\rho^2} \right)
+  S[\ff](\xx) &= \frac{1}{4\pi\mu} \int_{\gamma} \left(
+    -\log \rho \mathds{I} + \frac{\rr \otimes \rr}{\rho^2} \right)
     \ff(\yy) \, ds_\yy, \\
 %
-    D[\eeta](\xx) &= \frac{1}{\pi} \int_{\Gamma} \frac{\rr \cdot \nn}{\rho^2}
-        \frac{\rr \otimes \rr}{\rho^2} \eeta(\yy) \, ds_\yy,
+    D[\eeta](\xx) &= \frac{1}{\pi} \int_{\Gamma} 
+      \frac{\rr \cdot \nn}{\rho^2} 
+      \frac{\rr \otimes \rr}{\rho^2} \eeta(\yy) \, ds_\yy,
 \end{align}
-$\rr = \xx - \yy$, $\rho = |\rr|$, and $\mathds{I}$ is the $2 \times 2$ identity matrix. To avoid tangling of the vesicle membrane, it is parameterized in terms of the $\theta$-$L$ variables~\cite{hou-low-she1994}, where $L$ is the fixed vesicle length and $\theta$ is the opening angle of the tangent vector $\ss$. This requires decomposing the velocity field on $\gamma$ into its normal direction $V$ and tangential direction $T$. Then, the no-slip boundary condition for the vesicle velocity is
+and $\rr = \xx - \yy$, $\rho = |\rr|$, and $\mathds{I}$ is the $2 \times
+2$ identity matrix. To avoid tangling of the vesicle membrane, it is
+parameterized in terms of the $\theta$-$L$
+variables~\cite{hou-low-she1994}, where $L$ is the fixed vesicle length
+and $\theta$ is the opening angle of the tangent vector $\ss$. This
+requires decomposing the velocity field on $\gamma$ into a normal
+velocity $V$ and tangential velocity $T$. Then, the no-slip boundary
+condition for the vesicle velocity is
 \begin{align}
-    \frac{d\xx}{dt} = V \nn + T \ss + D[\eeta](\xx), \quad \xx \in \gamma.
+  \frac{d\xx}{dt} = V \nn + T \ss + D[\eeta](\xx), \quad \xx \in \gamma.
 \end{align}
-The boundary condition on $\Gamma$ is imposed by requiring that $\eeta$ satisfies
+The boundary condition on $\Gamma$ is imposed by requiring that $\eeta$
+satisfies
 \begin{align}
-    \UU(\xx) = -\frac{1}{2}\eeta(\xx) + S[\ff](\xx) + D[\eeta](\xx), \quad \xx \in \Gamma.
-    \label{eqn:DLP_BIE}
+  \UU(\xx) = -\frac{1}{2}\eeta(\xx) + 
+    S[\ff](\xx) + D[\eeta](\xx), \quad \xx \in \Gamma.
+  \label{eqn:DLP_BIE}
 \end{align}
-After discretizing the geometry at collocation points, the single-layer potential is approximated with quadrature for weakly-singular integrands, and the double-layer potential is approximated with the spectrally accurate trapezoid rule. All arclength derivatives are computed with spectral accuracy using Fourier methods. Time stepping is performed with second-order Adams-Bashforth. The resulting linear system is solved with GMRES.
+
+The vesicle and solid walls are discretized at a set of collocation
+points. The single-layer potential is then approximated using quadrature
+for weakly-singular integrands, while the double-layer potential is
+approximated using the spectrally accurate trapezoid rule. Arclength
+derivatives are computed with spectral accuracy using Fourier methods.
+Time stepping is carried out using the second-order Adams-Bashforth
+method. Finally, the resulting linear system is solved using GMRES.
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Validation}
-Since we use a new bending model, we first validate that it reproduces
+\label{sec:validation}
+We validate the new bending model~\eqref{eqn:tanhBending} by reproducing
 the tank treading and phase treading dynamics reported in the
 literature. Figure~\ref{fig:treading} shows a tank treading (top) and a
 phase treading (bottom) multicomponent vesicle in an unconfined shear
 flow. These simulations align with the results reported
 by~\citet{liu-mar-li-vee-low2017} (cf.~Figures 3 and 4).
 \begin{figure}[H]
+  \todo[inline]{Change to new color scheme.}
   \centering
   \subfigimg[width=\columnwidth, trim ={5.5cm 1.5cm 4cm 0},clip]{(a)}{figures/Fig4a.pdf}
   \subfigimg[width=\columnwidth, trim ={5.5cm 1.5cm 4cm 0},clip]{(b)}{figures/Fig4b.pdf}
@@ -448,18 +489,25 @@ by~\citet{liu-mar-li-vee-low2017} (cf.~Figures 3 and 4).
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\label{sec:results}Hydrodynamics of a multicomponent vesicle under strong confinement}
 
-The lubrication layer between a vesicle and the solid wall plays a critical role on the vesicle's dynamics. Therefore, we report the size of the lubrication layers both above and below the vesicle in Section~\ref{sec:results}. We first justify the use of the term `lubrication layer' by verifying that the flow velocity is parabolic between the vesicle and the solid wall. Figure~\ref{fig:quadraticProof} illustrates the horizontal velocity (solid line) and the corresponding best fit quadratic (dashed line) in the co-moving frame, and the profiles agree.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\columnwidth]{figures/lubricationLayer_quadratic.pdf}  
-    \caption{The co-moving velocity profile in the top and bottom lubrication layers. The red curve is the velocity profile, the dashed black line is the best quadratic fit.}
-    \label{fig:quadraticProof}
-\end{figure}
-
+The lubrication layer between a vesicle and the solid wall plays a
+critical role on the vesicle's dynamics. Therefore, throughout
+Section~\ref{sec:results}, we will calculate the size and analyze the
+flow structure inside the lubrication layers. 
+%We first justify the use of the term `lubrication layer' by verifying
+%that the flow velocity is parabolic between the vesicle and the solid
+%wall. Figure~\ref{fig:quadraticProof} illustrates the horizontal
+%velocity (solid line) and the corresponding best fit quadratic (dashed
+%line) in the co-moving frame, and the profiles agree.
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=\columnwidth]{figures/lubricationLayer_quadratic.pdf}  
+%    \caption{The co-moving velocity profile in the top and bottom lubrication layers. The red curve is the velocity profile, the dashed black line is the best quadratic fit.}
+%    \label{fig:quadraticProof}
+%\end{figure}
 To define the size of the top lubrication layer (the size of the bottom
 lubrication layer is defined similarly), we let
 $d(\xx,\Gamma_\mathrm{top})$ be the minimum distance between the vesicle
