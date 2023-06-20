@@ -38,7 +38,6 @@ ywalls = [ywalls(:);ywalls(1:4)];
 N = length(posx1(:,:,1));
 oc = curve(N);
 
-axes(ha(sp));
 %subplot(3,1,sp);
 %figure(1); clf
 plot(xwalls,ywalls, 'k', 'linewidth', 2)

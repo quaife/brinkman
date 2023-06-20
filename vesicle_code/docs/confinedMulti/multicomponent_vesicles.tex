@@ -480,12 +480,15 @@ by~\citet{liu-mar-li-vee-low2017} (cf.~Figures 3 and 4).
 \begin{figure}[H]
   \todo[inline]{Change to new color scheme.}
   \centering
-  \subfigimg[width=\columnwidth, trim ={5.5cm 1.5cm 4cm 0},clip]{(a)}{figures/Fig4a.pdf}
-  \subfigimg[width=\columnwidth, trim ={5.5cm 1.5cm 4cm 0},clip]{(b)}{figures/Fig4b.pdf}
-  \caption{\label{fig:treading} \small A multicomponent (a)
-  tank-treading and (b) phase-treading vesicle using the new bending
-  model~\eqref{eqn:tanhBending}. These simulations agree with the
-  results presented by~\citet{liu-mar-li-vee-low2017}.}
+  \includegraphics[width=0.9\columnwidth]{figures/shearTreading.pdf}
+%  \subfigimg[width=\columnwidth, trim ={5.5cm 1.5cm 4cm 0},clip]{(a)}{figures/Fig4a.pdf}
+%  \subfigimg[width=\columnwidth, trim ={5.5cm 1.5cm 4cm 0},clip]{(b)}{figures/Fig4b.pdf}
+  \caption{\label{fig:treading} \small A multicomponent vesicle in a
+  linear shear flow undergoes phase-treading (top) and tank-treading
+  (bottom) with the new bending model~\eqref{eqn:tanhBending}. The red
+  region is stiff and the blue region is floppy. The simulations
+  qualitatively agree with the results presented
+  by~\citet{liu-mar-li-vee-low2017}.}
 \end{figure}
 
 
@@ -534,11 +537,17 @@ width is
 \begin{align}
     w_\mathrm{top} = \frac{1}{|\gamma_{_\mathrm{layer}}|} \int_{\gamma_{_\mathrm{layer}}} d(\xx,\Gamma_\mathrm{top}) \, ds.
 \end{align}
-The width of the bottom lubrication layer, $w_\mathrm{bot}$ is calculated replacing $\Gamma_\mathrm{top}$ with $\Gamma_\mathrm{bot}$. 
+The width of the bottom lubrication layer, $w_\mathrm{bot}$ is
+calculated by replacing $\Gamma_\mathrm{top}$ with
+$\Gamma_\mathrm{bot}$. 
 
 %The terminology of boundary layer can be justified by computing the velocity field in the region between the vesicle and the solid wall. In Figure~\ref{fig:BkgrdFlow}, the co-moving velocity field around several different vesicle shapes that are observed in Section~\ref{sec:results} are illustrated. We have included plots of the horizontal velocity along a few vertical slices to demonstrate that a parabolic flow profile is observed. 
 
-The difference between the size of the top and lubrication layers is closely related to the tank treading behavior of the vesicle. In cases where the vesicle tank treads, we define the tank-treading velocity, $\uu \cdot \ss$. To establish that a vesicle is tank treading, we compute this tangential velocity at several Lagrangian points on $\gamma$, and make sure that these values agree.
+The difference between the size of the top and lubrication layers is
+closely related to the tank treading behavior of the vesicle. In cases
+where the vesicle tank treads, we define the tank-treading velocity,
+$\uu \cdot \ss$. To establish that a vesicle is tank treading, we verify
+that the tangential velocity agrees at several points on $\gamma$.
 
 %\begin{figure}[H]
 %\begin{minipage}{0.49\columnwidth}
@@ -557,13 +566,22 @@ The difference between the size of the top and lubrication layers is closely rel
 %\caption{\label{fig:BkgrdFlow} \small The velocity in the bulk, at two time steps, of a vesicle with reduced area $\alpha=0.4$. The velocity field is in the co-moving frame. The vesicles are (a) single-component with $b = 1$; (b) single-component with $b = 0.55$; and (c) multicomponent. The tangential velocity in the tubular neighborhood around the vesicle indicates that (a) and (c) are tank-treading.}    
 %\end{figure}
 
-We also report the excess pressure for one of the geometries and relate it to the size of the lubrication layers. Since we represent the velocity with layer potentials~\eqref{eqn:LPrep}, the pressure at $\xx \in \Omega$ is
+We also report the excess pressure for one of the geometries and relate
+it to the size of the lubrication layers. Since we represent the
+velocity with layer potentials~\eqref{eqn:LPrep}, the pressure at $\xx
+\in \Omega$ is
 \begin{align}
-    p(\xx) = \frac{1}{2\pi} \int_{\gamma} \frac{\rr \cdot \ff}{\rho^2} \, ds_\yy + \frac{1}{\pi} \int_{\Gamma} \frac{1}{\rho^2} \left(\mathds{I} - 2\frac{\rr \otimes \rr}{\rho^2} \right) \nn \cdot \eeta \, ds_\yy.
+  p(\xx) = \frac{1}{2\pi} \int_{\gamma} \frac{\rr \cdot \ff}{\rho^2} \, ds_\yy + 
+    \frac{1}{\pi} \int_{\Gamma} \frac{1}{\rho^2} 
+    \left(\mathds{I} - 2\frac{\rr \otimes \rr}{\rho^2} \right) 
+    \nn \cdot \eeta \, ds_\yy.
 \end{align}
-The excess pressure is the additional pressure that is required to pass the vesicle through the geometry when compared to the pressure necessary if the vesicle were absent. These pressure drops are defined by subtracting the pressure at a point near the inlet and another near the outlet. In our formulation, because of the order of subtraction, the excess pressure is always negative.
-
-
+The excess pressure is the additional pressure that is required to pass
+the vesicle through the geometry when compared to the pressure necessary
+if the vesicle were absent. These pressure drops are defined by
+subtracting the pressure at a point near the inlet and another near the
+outlet. In our formulation, because of the order of subtraction, the
+excess pressure is always negative.
 
 
 %We follow the reformulation of the governing equations outlined in Section 3.1 of \cite{soh-tse-li-voi-low2010}. In particular, we do a change of variables to the $\theta$-L formulation, where $L$ is the total length of the vesicle and $\theta$ is the opening angle of its tangent vector, $\ss$. 
@@ -587,16 +605,24 @@ The excess pressure is the additional pressure that is required to pass the vesi
 %\end{equation}
 %Recall that the velocity $\uu$ is coupled to the tension $\sigma^{LL}$ which acts as a Lagrange multiplier to satisfy equation \eqref{genInexMC}.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+We consider both a single-component and a multicomponent vesicle
+suspended in two geometries: a closely-fitting geometry (stenosis) and a
+geometry that slowly contracts to a narrow neck and then quickly widens
+(contracting). We considered a semipermeable vesicle suspended in these
+same geometries~\cite{qua-gan-you2021}. All the multicomponent examples
+have the bending ratio $b_{\min}/b_{\max} = 10^{-1}$. For the
+single-component case, we consider two dimensionless bending stiffness:
+$b(u) = b_{\max} = 1$ and $b(u) = \frac{1}{2}(b_{\max} + b_{\min}) =
+0.55$. Throughout this section we plot the position of the vesicle in
+terms of the $x$-coordinate of its center of mass. For the stenosed
+geometry in Section~\ref{subsec:Stenosis}, the narrow region begins at
+$x=-15$ and ends at $x=15$. For the contracting geometry in
+Section~\ref{subsec:Contraction}, the geometry begins to narrow at $x=4$
+and reaches its narrowest point at $x=15$.
 
-
-
-
-We consider both a single-component and a multicomponent vesicle suspended in two geometries: a closely-fitting geometry (stenosis) and a geometry that slowly contracts to a narrow neck and then quickly widens (contracting). We considered a semipermeable vesicle suspended in these same geometries~\cite{qua-gan-you2021}. All the multicomponent examples have the bending ratio $b_{\min}/b_{\max} = 10^{-1}$. For the single-component case, we consider two dimensionless bending stiffness: $b(u) = b_{\max} = 1$ and $b(u) = \frac{1}{2}(b_{\max} + b_{\min}) = 0.55$. Throughout this section we plot the position of the vesicle in terms of the $x$-coordinate of its center of mass. For the stenosed geometry in Section~\ref{subsec:Stenosis}, the narrow region begins at $x=-15$ and ends at $x=15$. For the contracting geometry in Section~\ref{subsec:Contraction}, the geometry begins to narrow at $x=4$ and reaches its narrowest point at $x=15$.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\label{subsec:Stenosis}A multicomponent vesicle in a closely-fit channel (Stenosis)}
 
 %\begin{figure}[h]
