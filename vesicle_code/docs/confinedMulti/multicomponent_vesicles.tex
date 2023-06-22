@@ -191,13 +191,57 @@
 
 %%%MAIN TEXT%%%%
 \section{\label{sec:Introduction}Introduction}
-Soft particles, such as vesicles, display rich dynamics when they are subjected to different types of physical processes. These dynamics are affected by parameters such a the capillary number, reduced volume, and confinement ratio. Understanding these dynamics is critical to understanding biophysical and microfluidic processes. For example, a vesicle's reduced area and viscosity contrast will determine if it undergoes tank treading, swinging, or tumbling in a shear flow~\cite{nog-gom2005}. Transitions in the vesicle shape occur in non-linear parabolic flows~\cite{kao-bir-mis2009, dan-vla-mis2009}, and these shapes include axisymmetric bullets or parachutes, and asymmetric parachutes. More recently, groups have considered these transitions when vesicles are suspended in a channel or pipe flow~\cite{lyu-che-far-jae-mis-leo2023, aga-bir2020, qua-gan-you2021, abb-far-nai-ezz-ben-mis2022}. These dynamics include snaking and swirling behaviors; croissant and slipper shapes; and semipermeability.
+Soft particles, such as vesicles, display rich dynamics when they are
+subjected to different types of physical processes. These dynamics are
+affected by parameters such as the capillary number, reduced volume, and
+confinement ratio. Understanding these dynamics is critical to
+understanding biophysical and microfluidic processes. For example, a
+vesicle's reduced area and viscosity contrast will determine if it
+undergoes tank treading, swinging, or tumbling in a shear
+flow~\cite{nog-gom2005}. Transitions in the vesicle shape occur in
+non-linear parabolic flows~\cite{kao-bir-mis2009, dan-vla-mis2009}, and
+these shapes include axisymmetric bullets or parachutes, and asymmetric
+parachutes. More recently, groups have considered these transitions when
+vesicles are suspended in a channel or pipe
+flow~\cite{lyu-che-far-jae-mis-leo2023, aga-bir2020, qua-gan-you2021,
+abb-far-nai-ezz-ben-mis2022}. These dynamics include snaking and
+swirling behaviors; croissant and slipper shapes; and semipermeability.
 
-Groups have also studied the behaviors of a vesicle that is composed of different types of lipids and proteins. The presence of different lipid species has been used to model different processes including the bending stiffness, spontaneous curvature, and adhesion potential~\cite{zha-das-du2010, tan-yan-ima2011}. The dynamics of these multicomponent vesicles include phase treading, tumbling with no viscosity contrast, swinging, budding, and fission~\cite{soh-tse-li-voi-low2010, wan-du2008, all-ama2006, ger-sal-spa2022, lip1992, urs-klu-phi2009}. In addition to the aforementioned numerical studies, these dynamics have been observed in experiments~\cite{bag-sun2009, yan-ima-tan2010, yan-ima-tan2008, dre-jah-bob-spa-gop2021}.
+Groups have also studied the behaviors of a vesicle that is composed of
+different types of lipids and proteins. The presence of different lipid
+species has been used to model different processes including the bending
+stiffness, spontaneous curvature, and adhesion
+potential~\cite{zha-das-du2010, tan-yan-ima2011}. The dynamics of these
+multicomponent vesicles include phase treading, tumbling with no
+viscosity contrast, swinging, budding, and
+fission~\cite{soh-tse-li-voi-low2010, wan-du2008, all-ama2006,
+ger-sal-spa2022, lip1992, urs-klu-phi2009}. In addition to the
+aforementioned numerical studies, these dynamics have been observed in
+experiments~\cite{bag-sun2009, yan-ima-tan2010, yan-ima-tan2008,
+dre-jah-bob-spa-gop2021}.
 
-In this paper, we extend the work of Liu et al.~\cite{liu-mar-li-vee-low2017} who performed a thorough investigation of how key dimensionless numbers, including the reduced area, capillary number, and the floppy-to-stiff ratio, affect the dynamics of a multicomponent vesicle in an unbounded linear shear flow. What is missing from the literature, and what we address in this work, is the effect of strong confinement on a two-dimensional multicomponent vesicle. Using numerical simulations, we show how the vesicle's reduced area and its lipid composition affect the dynamics in two strongly confined geometries.
+In this paper, we extend the work of Liu et
+al.~\cite{liu-mar-li-vee-low2017} who performed a thorough investigation
+of how key dimensionless numbers, including the reduced area, capillary
+number, and the floppy-to-stiff ratio, affect the dynamics of a
+multicomponent vesicle in an unbounded linear shear flow. What is
+missing from the literature, and what we address in this work, is the
+effect of strong confinement on a two-dimensional multicomponent
+vesicle. Using numerical simulations, we show how the vesicle's reduced
+area and its lipid composition affect the dynamics in two strongly
+confined geometries.
 
-The remainder of the paper is organized as follows. Section~\ref{sec:Formulation} describes the model for the two-dimensional multicomponent vesicle. We introduce a new parameterization of the bending modulus that is necessary to avoid unphysical negative bending stiffness. Section~\ref{sec:NumericalMethods} describes numerical methods and also defines the techniques we use to define the excess pressure, lubrication layer width, and tank treading velocity. Section~\ref{sec:results} demonstrates the effects of strong confinement on multicomponent vesicles. Finally, concluding remarks are made in Section~\ref{sec:conclusion}.
+The remainder of the paper is organized as follows.
+Section~\ref{sec:Formulation} describes the model for the
+two-dimensional multicomponent vesicle. We introduce a new
+parameterization of the bending modulus that is necessary to avoid
+unphysical negative bending stiffness.
+Section~\ref{sec:NumericalMethods} describes numerical methods and also
+defines the techniques we use to define the excess pressure, lubrication
+layer width, and tank treading velocity. Section~\ref{sec:results}
+demonstrates the effects of strong confinement on multicomponent
+vesicles. Finally, concluding remarks are made in
+Section~\ref{sec:conclusion}.
 
 \citet{gur-pak-tay-siv-sac2023} look at the effect of membrane
 viscoelasticity.
@@ -304,12 +348,10 @@ $b_{\max}/R_0^3 = 10^{-1}$~Pa, and the tension scale is $b_{\max}/R_0^2
 properties are the reduced area $\alpha = 4\pi A/L^2$, where $A$ and $L$
 are the vesicle's area and length, respectively, and the
 floppy-to-stiffness ratio $\beta = b_{\min}/b_{\max}$. Since we consider
-flows in channels, we also define a dimensionless maximum imposed
-velocity, $U$, which sets a capillary number, and $W$ is the
-dimensionless width of the channel at the inlet and outlet. From this
-point onwards, all equations are dimenisionless.
-
-\todo[inline]{Need to define capillary number and diffusion time scale.}
+flows in channels, we also define a maximum imposed velocity, $U$, which
+sets the capillary number $Ca = U R_{0}^{2} \mu/b_{\max}$, and $W/R_0$
+is the dimensionless width of the channel at the inlet and outlet. From
+this point onwards, all equations are dimenisionless.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Constitutive equations}
@@ -864,14 +906,14 @@ gradient between the vesicle and the soild wall, while the linear
 profile is determined by the tangential velocity of the vesicle relative
 to the solid wall.
 
-Using the definition of the lubrcication layer outlined in Section ???,
-fit the horizontal flow profile to a quadratic function and plot the
-coefficients of the Poisseuille and linear shear in Figure~\ref{}. We
-only consider cases where the vesicle has reached a steady shape is only
-under going tank treading. We observe that the Poisseuille coefficient
-can be either positive or negative, meaning that the pressure in the
-lubcrication layer switches signs. This behavior is caused when the
-tangential force on the vesicle
+Using the definition of the lubrcication layer outlined in
+Section~\ref{sec:LL} fit the horizontal flow profile to a quadratic
+function and plot the coefficients of the Poisseuille and linear shear
+in Figure~\ref{}. We only consider cases where the vesicle has reached a
+steady shape is only under going tank treading. We observe that the
+Poisseuille coefficient can be either positive or negative, meaning that
+the pressure in the lubcrication layer switches signs. This behavior is
+caused when the tangential force on the vesicle
 \begin{align}
   \mathbf{F}_{\tt} = -\sigma_s + u_s \frac{\delta E^m}{\delta u},
 \end{align}
@@ -926,23 +968,29 @@ single-component case, the tangential force is $\mathbf{F}_\tt =
 In this section, we consider a single vesicle passing through a geometry that slowly contracts to a region that is only 2~$\mu$m wide, and then immediately opens back up to a channel that is ten times larger. We first consider the effect of the initial lipid concentration when the floppy and stiff regions each make up half of the vesicle membrane. In Figure~\ref{fig:RA6leftRightRand}, we consider a vesicle with $\alpha = 0.6$ with an initially random initial lipid concentration, one that is floppy in the front and stiff in the back, and one that is stiff in the front and floppy in the back. The vesicle with the random initial lipid distribution phase separates so that the floppy region is in the back and the stiff region is in the front. The vesicle where the initial lipid species distribution was fully phase separated and the floppy region was on the front of the vesicle began to reorient the floppy region to the back of the vesicle, making it partway after passing through the contraction. In the case where the initial lipid species distribution was fully phase separated and the floppy region was on the back of the vesicle, the floppy region remained on the the back of the vesicle. In all cases, the floppy regions were being oriented to cover the regions of the vesicle with the highest curvature to minimize the overall bending energy. Since we can see in Figure~\ref{fig:RA6leftRightRand} that the regions of high curvature are located in the back of the vesicle, we expect the overall bending energies to be lowest for the randomly distributed case and the fully separated floppy region on the back case. We observe this in Figure~\ref{fig:RAp6leftRightRandBending} Therefore, in all subsequent examples, we start with symmetric vesicle whose floppy region is in the back and its stiff region is in the front.
 
 \begin{figure}[H]
-    \centering
-    \subfigimg[width=\columnwidth,trim ={5cm .5cm 2cm .5cm},clip]{(a)}{figures/rightSep.pdf}
-    \subfigimg[width=\columnwidth,trim ={5cm .5cm 2cm .5cm},clip]{(b)}{figures/randSep.pdf}
-    \subfigimg[width=\columnwidth,trim ={5cm .5cm 2cm .5cm},clip]{(c)}{figures/leftSep.pdf}
+  \centering
+%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 2cm .5cm},clip]{(a)}{figures/rightSep.pdf}
+%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 2cm .5cm},clip]{(b)}{figures/randSep.pdf}
+%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 2cm .5cm},clip]{(c)}{figures/leftSep.pdf}
+  \includegraphics[width=\columnwidth]{figures/Contracting_RAp6MCp5.pdf}
   \caption{\label{fig:RA6leftRightRand} \small A multicomponent vesicle
   with 50\% floppy region passing through a contracting geometry. The
-  vesicle's reduced area is $\alpha = 0.6$ and the dimensionless maximum
-  velocity is $U = 0.25$. The vesicles are: (a) the initial
-  lipid-species distribution is fully separated on the right side of the
-  vesicle; (b) the initial lipid-species distribution is randomly
-  distributed (not fully separated) on the vesicle membrane; (d) the
-  initial lipid-species distribution is fully separated on the left side
-  of the vesicle. The vesicles with a larger percentage of floppy
-  regions pass through the neck earlier than the vesicles with less
-  percentage of floppy regions. The vesicle either completely or
-  partially reorients itself so that the floppy region is in the back
-  and the stiff region is in the front.}
+  vesicle's reduced area is $\alpha = 0.6$ and the capillary number is
+  $Ca = 0.25$. The lipid distribution is initialized to already be phase
+  separated in the top and bottom rows, and the middle row has a random
+  initial lipid distribution. The preferred orientation of the lipid
+  concentration is to have the stiff region to pass through the
+  contraction before the floppy region.}
+%  The vesicles are: (a) the initial
+%  lipid-species distribution is fully separated on the right side of the
+%  vesicle; (b) the initial lipid-species distribution is randomly
+%  distributed (not fully separated) on the vesicle membrane; (d) the
+%  initial lipid-species distribution is fully separated on the left side
+%  of the vesicle. The vesicles with a larger percentage of floppy
+%  regions pass through the neck earlier than the vesicles with less
+%  percentage of floppy regions. The vesicle either completely or
+%  partially reorients itself so that the floppy region is in the back
+%  and the stiff region is in the front.}
 \end{figure}
 
 \begin{figure}[H]
@@ -953,7 +1001,7 @@ In this section, we consider a single vesicle passing through a geometry that sl
 \end{figure}
 
 In Figure~\ref{fig:RA5}, we consider a vesicle with reduced area $\alpha
-= 0.5$ and the dimensionless flow rate is $U = 0.25$. We start with a
+= 0.5$ and the capillary number is $Ca = 0.25$. We start with a
 single-component vesicle and then increase the percentage of the vesicle
 membrane that is floppy. By comparing the vesicle location at the time
 step just before the vesicle passes through the constriction, we can
@@ -971,7 +1019,7 @@ neck are reported in Table~\ref{tbl:contractingTimes}.
     \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(e)}{figures/Fig14e_newPaper.pdf}
   \caption{\label{fig:RA5} \small A vesicle passing through a
   contracting geometry. The vesicle's reduced area is $\alpha = 0.5$ and
-  the dimensionless maximum velocity is $U = 0.25$. The vesicles are:
+  the dimensionless maximum velocity is $Ca = 0.25$. The vesicles are:
   (a) single-component with bending modulus $b=1$; (b) multicomponent
   with 15\% floppy region; (c) multicomponent with 25\% floppy region;
   (d) multicomponent with 35\% floppy region; (e) multicomponent with
