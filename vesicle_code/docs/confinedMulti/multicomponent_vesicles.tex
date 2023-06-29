@@ -4,6 +4,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass[twoside,twocolumn,9pt]{article}
+\usepackage{comment}
 \usepackage{extsizes}
 \usepackage[super,sort&compress,comma]{natbib} 
 \usepackage[version=3]{mhchem}
@@ -689,6 +690,7 @@ and reaches its narrowest point at $x=15$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\label{subsec:Stenosis}A multicomponent vesicle in a closely-fit channel (Stenosis)}
 
+\begin{comment}
 %\begin{figure}[h]
 \begin{figure*}[b]
   \centering
@@ -703,6 +705,7 @@ and reaches its narrowest point at $x=15$.
   bending modulus $b=0.55$; (c) multicomponent.}
 %\end{figure}
 \end{figure*}
+\end{comment}
 
 We consider a vesicle with reduced area $\alpha = 0.6$ passing through a
 closely-fitting channel, with a dimensionless maximum velocity of $U =
@@ -723,6 +726,7 @@ the top and bottom lubrication layers differ in size. The size of the
 lubrication layers in all six cases are in Figure~\ref{fig:lubrication}. 
 
 
+\begin{comment}
 %\begin{figure}[h]
 \begin{figure*}[t]
   \centering
@@ -740,6 +744,7 @@ lubrication layers in all six cases are in Figure~\ref{fig:lubrication}.
   Figure~\ref{fig:vesVelocity}).}
 %\end{figure}
 \end{figure*}
+\end{comment}
 
 
 %\begin{figure}
@@ -789,34 +794,81 @@ The tank-treading velocities of the examples with reduced area $\alpha = 0.4$ ar
 
 %Whether a vesicle tank-treads or not is also related to the lubrication layer. In particular, if the lubrication layer between the top and lower walls are different, this indicates that the vesicle is center of mass is above or below the middle of the channel. When this happens, the non-linear of the flow results in a tank-treading vesicle.
 
-%The smaller reduced area $\alpha = 0.4$ also results in a larger difference between the size of the top and boundary lubrication layers. In particular, Figure~\ref{fig:lubrication}(a) shows that the bottom lubrication layer is larger than the top lubrication layer, indicating the vesicle is above the centerline, and we expect the non-linear shear to result in a counterclockwise tank-treading motion. We define the tank treading velocity using several tracker points (solid points) by computing $\uu \cdot \tt$ where $\uu$ is the velocity and $\tt$ is the tangent vector at the tracker point. Note that this quantity does not represent a tank treading velocity until the vesicle reaches tank-treading behavior. Figure~\ref{fig:tankTreadRAp4} shows that for reduced area $\alpha = 0.4$, both the single and multicomponent vesicles undergo an extended period of tank-treading, but at different speeds, starting near the middle of the region of confinement and ending as the vesicles exit this region. Since the difference in sizes of the boundary layers is greater for the single-component vesicle, we expect it to tank-tread faster, which we observe when comparing Figures~\ref{fig:tankTreadRAp4}(a) and (e).In the multicomponent case, there are several interesting features in the tangential velocity, and these are denoted by the red marks in Figure~\ref{fig:tankTreadRAp4}. The vesicle shapes at each of these points are in Figure~\ref{fig:tankTreadRAp4}(b) and (c). The tangential velocity includes spikes that occur whenever there is a decrease in the phase energy due to floppy and stiff regions merging, and this can be observed in Figures~\ref{fig:tankTreadRAp4}(d) and (e). 
+%The smaller reduced area $\alpha = 0.4$ also results in a larger
+%difference between the size of the top and boundary lubrication layers.
+%In particular, Figure~\ref{fig:lubrication}(a) shows that the bottom
+%lubrication layer is larger than the top lubrication layer, indicating
+%the vesicle is above the centerline, and we expect the non-linear shear
+%to result in a counterclockwise tank-treading motion. We define the
+%tank treading velocity using several tracker points (solid points) by
+%computing $\uu \cdot \tt$ where $\uu$ is the velocity and $\tt$ is the
+%tangent vector at the tracker point. Note that this quantity does not
+%represent a tank treading velocity until the vesicle reaches
+%tank-treading behavior. Figure~\ref{fig:tankTreadRAp4} shows that for
+%reduced area $\alpha = 0.4$, both the single and multicomponent
+%vesicles undergo an extended period of tank-treading, but at different
+%speeds, starting near the middle of the region of confinement and
+%ending as the vesicles exit this region. Since the difference in sizes
+%of the boundary layers is greater for the single-component vesicle, we
+%expect it to tank-tread faster, which we observe when comparing
+%Figures~\ref{fig:tankTreadRAp4}(a) and (e).In the multicomponent case,
+%there are several interesting features in the tangential velocity, and
+%these are denoted by the red marks in Figure~\ref{fig:tankTreadRAp4}.
+%The vesicle shapes at each of these points are in
+%Figure~\ref{fig:tankTreadRAp4}(b) and (c). The tangential velocity
+%includes spikes that occur whenever there is a decrease in the phase
+%energy due to floppy and stiff regions merging, and this can be
+%observed in Figures~\ref{fig:tankTreadRAp4}(d) and (e). 
 
-\begin{figure}[h]
-    \begin{minipage}{0.49\columnwidth}
-        \centering
-        \subfigimg[width=\textwidth]{(a)}{figures/Fig11c1.pdf}
-        \subfigimg[width=\textwidth]{(c)}{figures/Fig11b1.pdf}
-        \subfigimg[width=\textwidth]{(e)}{figures/Fig11a.pdf}
-        % \subfigimg[width=\textwidth,trim={3.8cm 8cm 4cm 8cm}, clip]{(a)}{figures/TankTreadRAp4Conc.pdf}
-        % \subfigimg[width=\textwidth,trim={3.8cm 8cm 4cm 8cm}, clip]{(c)}{figures/TankTreadRANoConcp55.pdf}
-        % \subfigimg[width=\textwidth,trim={3.8cm 8cm 4cm 8cm}, clip]{(e)}{figures/TankTreadRAp4NoConc.pdf}
-        % \includegraphics[width=\textwidth,trim={3.8cm 8cm 4cm 8cm}, clip]{figures/TankTreadRAp6Conc.pdf}
-        % \includegraphics[width=\textwidth,trim={3.8cm 8cm 4cm 8cm}, clip]{figures/TankTreadRAp6NoConc.pdf}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.49\columnwidth}
-        \centering
-        \subfigimg[width=\textwidth]{(b)}{figures/Fig11c2.pdf}
-        \subfigimg[width=\textwidth]{(d)}{figures/Fig11b2.pdf}
-        \subfigimg[width=\textwidth]{(f)}{figures/Fig11a2.pdf}
-        % \subfigimg[width=.9\textwidth,trim={4.5cm 8cm 4.5cm 8cm}, clip]{(b)}{figures/TankTreadRAp4ConcVes.pdf}
-        % \subfigimg[width=.9\textwidth,trim={4.5cm 8cm 4.5cm 8cm}, clip]{(d)}{figures/TankTreadRANoConcp55Ves.pdf}
-        % \subfigimg[width=.9\textwidth,trim={4.5cm 8cm 4.5cm 8cm}, clip]{(f)}{figures/TankTreadRAp4NoConcVes.pdf}
-        % \includegraphics[width=.9\textwidth,trim={4.5cm 8cm 4.5cm 8cm}, clip]{figures/TankTreadRAp6ConcVes.pdf}
-        % \includegraphics[width=.9\textwidth,trim={4.5cm 8cm 4.5cm 8cm}, clip]{figures/TankTreadRAp6NoConcVes.pdf}
-    \end{minipage}
-    \caption{\small The tangential velocity at four Lagrangian points on a (a) single-component vesicle with $b = 1$ (c) single-component vesicle with $b = 0.55$, and (e) multicomponent vesicle. The reduced area is $\alpha = 0.4$ in all cases. (b/d/f) A corresponding vesicle shape with the Lagrangian points.
-    \label{fig:tankTreadRAp4}}
+%\begin{figure}[h]
+%    \begin{minipage}{0.49\columnwidth}
+%        \centering
+%        \subfigimg[width=\textwidth]{(a)}{figures/Fig11c1.pdf}
+%        \subfigimg[width=\textwidth]{(c)}{figures/Fig11b1.pdf}
+%        \subfigimg[width=\textwidth]{(e)}{figures/Fig11a.pdf}
+%        % \subfigimg[width=\textwidth,trim={3.8cm 8cm 4cm 8cm}, clip]{(a)}{figures/TankTreadRAp4Conc.pdf}
+%        % \subfigimg[width=\textwidth,trim={3.8cm 8cm 4cm 8cm}, clip]{(c)}{figures/TankTreadRANoConcp55.pdf}
+%        % \subfigimg[width=\textwidth,trim={3.8cm 8cm 4cm 8cm}, clip]{(e)}{figures/TankTreadRAp4NoConc.pdf}
+%        % \includegraphics[width=\textwidth,trim={3.8cm 8cm 4cm 8cm}, clip]{figures/TankTreadRAp6Conc.pdf}
+%        % \includegraphics[width=\textwidth,trim={3.8cm 8cm 4cm 8cm}, clip]{figures/TankTreadRAp6NoConc.pdf}
+%    \end{minipage}
+%    \hfill
+%    \begin{minipage}{0.49\columnwidth}
+%        \centering
+%        \subfigimg[width=\textwidth]{(b)}{figures/Fig11c2.pdf}
+%        \subfigimg[width=\textwidth]{(d)}{figures/Fig11b2.pdf}
+%        \subfigimg[width=\textwidth]{(f)}{figures/Fig11a2.pdf}
+%        % \subfigimg[width=.9\textwidth,trim={4.5cm 8cm 4.5cm 8cm}, clip]{(b)}{figures/TankTreadRAp4ConcVes.pdf}
+%        % \subfigimg[width=.9\textwidth,trim={4.5cm 8cm 4.5cm 8cm}, clip]{(d)}{figures/TankTreadRANoConcp55Ves.pdf}
+%        % \subfigimg[width=.9\textwidth,trim={4.5cm 8cm 4.5cm 8cm}, clip]{(f)}{figures/TankTreadRAp4NoConcVes.pdf}
+%        % \includegraphics[width=.9\textwidth,trim={4.5cm 8cm 4.5cm 8cm}, clip]{figures/TankTreadRAp6ConcVes.pdf}
+%        % \includegraphics[width=.9\textwidth,trim={4.5cm 8cm 4.5cm 8cm}, clip]{figures/TankTreadRAp6NoConcVes.pdf}
+%    \end{minipage}
+%    \caption{\small The tangential velocity at four Lagrangian points on a (a) single-component vesicle with $b = 1$ (c) single-component vesicle with $b = 0.55$, and (e) multicomponent vesicle. The reduced area is $\alpha = 0.4$ in all cases. (b/d/f) A corresponding vesicle shape with the Lagrangian points.
+%    \label{fig:tankTreadRAp4}}
+%\end{figure}
+
+\begin{figure}[htp]
+  \begin{minipage}{0.49\columnwidth}
+    \centering
+    \subfigimg[width=\textwidth]{(a)}{figures/SC_treading_velocity.pdf}
+    \subfigimg[width=\textwidth]{(c)}{figures/SCp55_treading_velocity.pdf}
+%    \subfigimg[width=\textwidth]{(c)}{figures/Fig11b1.pdf}
+%    \subfigimg[width=\textwidth]{(e)}{figures/Fig11a.pdf}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.49\columnwidth}
+    \centering
+    \subfigimg[width=\textwidth]{(b)}{figures/SC_treading_configuration.pdf}
+    \subfigimg[width=\textwidth]{(d)}{figures/SCp55_treading_configuration.pdf}
+%    \subfigimg[width=\textwidth]{(d)}{figures/Fig11b2.pdf}
+%    \subfigimg[width=\textwidth]{(f)}{figures/Fig11a2.pdf}
+  \end{minipage}
+  \caption{\label{fig:tankTreadRAp4} \small The tangential velocity at
+  four Lagrangian points on a (a) single-component vesicle with $b = 1$
+  (c) single-component vesicle with $b = 0.55$, and (e) multicomponent
+  vesicle. The reduced area is $\alpha = 0.4$ in all cases. (b/d/f) A
+  corresponding vesicle shape with the Lagrangian points. }
 \end{figure}
 
 %\begin{figure}[H]

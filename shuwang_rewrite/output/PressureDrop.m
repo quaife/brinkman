@@ -81,25 +81,25 @@ pressureVoid = opw.PressDLPTar(walls, eta, targets.X);
 PressDropNoVes = pressureVoid(end/2+1:end) - pressureVoid(1:end/2);
 
 for k = istart:irate:iend
-xx1 = posx1(:,:,k);
-yy1 = posy1(:,:,k);
-concc1 = conc1(:,:,k);
+  xx1 = posx1(:,:,k);
+  yy1 = posy1(:,:,k);
+  concc1 = conc1(:,:,k);
 
-ves = capsules([xx1;yy1],concc1,params); 
-tt = tstep(params,options,ves,walls);
+  ves = capsules([xx1;yy1],concc1,params); 
+  tt = tstep(params,options,ves,walls);
 
-relnorm = 1;
-counter = 0;
-while relnorm > tol
-  eta_old = eta;
-  [~,~,~,eta,~,~,pressure] = tt.usetself(ves,eta,targets);
-  relnorm = norm(eta-eta_old)/norm(eta_old);
-  counter = counter + 1;
-end
+  relnorm = 1;
+  counter = 0;
+  while relnorm > tol
+    eta_old = eta;
+    [~,~,~,eta,~,~,pressure] = tt.usetself(ves,eta,targets);
+    relnorm = norm(eta-eta_old)/norm(eta_old);
+    counter = counter + 1;
+  end
 
-PressDropVes(count) = pressure(end/2+1:end) - pressure(1:end/2);
-pressDrop(count) = mean(PressDropNoVes - PressDropVes(count));
-count = count + 1;
+  PressDropVes(count) = pressure(end/2+1:end) - pressure(1:end/2);
+  pressDrop(count) = mean(PressDropNoVes - PressDropVes(count));
+  count = count + 1;
 end
 hold on
 %plot(mean(squeeze(posx1(:,:,istart:irate:iend)))/20,-pressDrop*1e-1*0.000145,'r')
