@@ -194,13 +194,9 @@
 Biological membranes, as the basic structural units for compartmentalizing biological systems, 
 have been observed to contain a vast array of proteins and different lipid species, that phase-separate and form domains or rafts, resulting in spatial variations in material properties such as bending stiffness \cite{}. Synthetic multicomponent vesicles, self-enclosed lipid bilayer membranes composed of different lipid species, have been used to study the rich patterns and accompanying morphologies which emerge from elastic heterogeneity in the membrane.  In a quiescent environment,  such elastic heterogeneity gives rise to wrinkling budding \cite{Lowengrub2009_PRE,Li2012_CommMathSci}, adhesion and fusion \cite{Zhao2011_PRE} of vesicle membrane, closely related to cellular budding and fission processes \cite{Rauch2000_BriophysJ} as well as in cellular adhesion and fusion \cite{Takeda2003_PNAS}. 
 
-Under a linear shear flow, a multicomponent vesicle exhibits more exotic dynamics in both shape and membrane composition \cite{Smith2007_JChemPhys,Cox2015_Nonlinearity,Liu2017_SoftMatter,Gera2018_SoftMatter,Gera2022_JFM} than a single component vesicle \cite{Abreu2014_ACI}.
-%
-%Sohn et al. (2010) studied two-dimensional multicomponent vesicles in a background shear flow, along with the evolution of distinct surface phases, finding highly complex morphologies and dynamics for highly deformed vesicles. Smith & Uspal (2007) showed using dissipative particle dynamics simulations that a shear flow can be used to separate buds from a multicomponent vesicle. The influence of both bending rigidity and spontaneous curvature variation on the equilibrium shape of a vesicle has also been investigated (Cox & Lowengrub 2015). Subsequent boundary integral simulations by Liu et al. (2017) showed a transition from tumbling to tank-treading to ‘phase-treading’ of the constituents along the surface upon increasing the shear rate. Analytic results have also shown that a variation of bending rigidity along a surface can induce migration in tank-treading vesicles (Olla 2011). Synthetic systems have also been fruitful for testing theoretical predictions. Experiments using a two-phase lipid vesicle in such a flow as a simplified model of red blood cell dynamics showed similarly complex features (Tusch et al. 2018). Gera & Salac (2018b) then used simulations to probe a wide array of morphological changes due to spatially varying bending stiffness and line tension between two lipid phases. The phase separation process itself is naturally of great interest, and experiments have been used to study spinodal decomposition and viscous fingering along membrane surfaces (Veatch & Keller 2003; Lowengrub, Rätz & Voigt 2009; Marenduzzo & Orlandini 2013; Stanich et al. 2013).
-%
-The vesicle hydrodynamics is characterized by parameters such as the capillary number, reduced volume, and
-confinement ratio. Understanding these dynamics is critical to
-understanding the biophysics of red blood cells (RBCs) in blood flow. For example, a
+The hydrodynamics of a single-component vesicle is characterized by parameters such as the capillary number, reduced volume, and confinement ratio  \cite{Abreu2014_ACI}. 
+%Understanding these dynamics is critical to understanding the biophysics of red blood cells (RBCs) in blood flow. 
+For example, a
 vesicle's reduced area and viscosity contrast will determine if it
 undergoes tank treading, swinging, or tumbling in a shear
 flow~\cite{nog-gom2005}. Transitions in the vesicle shape occur in
@@ -212,14 +208,9 @@ flow~\cite{lyu-che-far-jae-mis-leo2023, aga-bir2020, qua-gan-you2021,
 abb-far-nai-ezz-ben-mis2022}. These dynamics include snaking and
 swirling behaviors; croissant and slipper shapes; and semipermeability.
 
-
-
-
-Groups have also studied the behaviors of a vesicle that is composed of
-different types of lipids and proteins. The presence of different lipid
-species has been used to model different processes including the bending
-stiffness, spontaneous curvature, and adhesion
-potential~\cite{zha-das-du2010, tan-yan-ima2011}. The dynamics of these
+Under a linear shear flow, a multicomponent vesicle exhibits more exotic dynamics in both shape and membrane composition \cite{Sohn2010_JCP, Smith2007_JChemPhys,Cox2015_Nonlinearity,Liu2017_SoftMatter,Gera2018_SoftMatter,Gera2022_JFM} than a single-component vesicle.
+For example, multicomponent vesicles under a background flow often exhibit highly complex morphologies, leading to vesicle budding. 
+The hydrodynamics of these
 multicomponent vesicles include phase treading, tumbling with no
 viscosity contrast, swinging, budding, and
 fission~\cite{soh-tse-li-voi-low2010, wan-du2008, all-ama2006,
@@ -227,6 +218,28 @@ ger-sal-spa2022, lip1992, urs-klu-phi2009}. In addition to the
 aforementioned numerical studies, these dynamics have been observed in
 experiments~\cite{bag-sun2009, yan-ima-tan2010, yan-ima-tan2008,
 dre-jah-bob-spa-gop2021}.
+
+%
+%Sohn et al. (2010) studied two-dimensional multicomponent vesicles in a background shear flow, along with the evolution of distinct surface phases, finding highly complex morphologies and dynamics for highly deformed vesicles. Smith & Uspal (2007) showed using dissipative particle dynamics simulations that a shear flow can be used to separate buds from a multicomponent vesicle. The influence of both bending rigidity and spontaneous curvature variation on the equilibrium shape of a vesicle has also been investigated (Cox & Lowengrub 2015). Subsequent boundary integral simulations by Liu et al. (2017) showed a transition from tumbling to tank-treading to ‘phase-treading’ of the constituents along the surface upon increasing the shear rate. Analytic results have also shown that a variation of bending rigidity along a surface can induce migration in tank-treading vesicles (Olla 2011). Synthetic systems have also been fruitful for testing theoretical predictions. Experiments using a two-phase lipid vesicle in such a flow as a simplified model of red blood cell dynamics showed similarly complex features (Tusch et al. 2018). Gera & Salac (2018b) then used simulations to probe a wide array of morphological changes due to spatially varying bending stiffness and line tension between two lipid phases. The phase separation process itself is naturally of great interest, and experiments have been used to study spinodal decomposition and viscous fingering along membrane surfaces (Veatch & Keller 2003; Lowengrub, Rätz & Voigt 2009; Marenduzzo & Orlandini 2013; Stanich et al. 2013).
+%
+%
+%Groups have also studied the behaviors of a vesicle that is composed of
+%different types of lipids and proteins. The presence of different lipid
+%species has been used to model different processes including the bending
+%stiffness, spontaneous curvature, and adhesion
+%potential~\cite{zha-das-du2010, tan-yan-ima2011}. The dynamics of these
+%multicomponent vesicles include phase treading, tumbling with no
+%viscosity contrast, swinging, budding, and
+%fission~\cite{soh-tse-li-voi-low2010, wan-du2008, all-ama2006,
+%ger-sal-spa2022, lip1992, urs-klu-phi2009}. In addition to the
+%aforementioned numerical studies, these dynamics have been observed in
+%experiments~\cite{bag-sun2009, yan-ima-tan2010, yan-ima-tan2008,
+%dre-jah-bob-spa-gop2021}.
+%
+
+Vesicles hydrodynamics under extreme confinement has been studied as a model system for red blood cells (RBCs) squeezing through small
+capillaries (of sub-micron size in diameter) under a pressure difference \cite{LuPeng2019_PoF}. Membrane permeability has been incorporated to examine the single-component vesicle hydrodynamics. It is found that  in the absence of an osmotic stress gradient, the semipermeable vesicle is affected by water influx/efflux over a sufficiently long time or under a strong confinement \cite{Quaife2021_PRF}. Numerical simulations illustrate that a vesicle with moderate membrane permeability can go through a strong confinement much more easily, and can restore its water content within a very short time after the passage through the strong confinement \cite{Quaife2021_PRF}.  These results imply that the membrane permeability may be inferred from vesicle hydrodynamics under a strong confinement.  Motivated by these results, we ask the following question: How does strong confinement affect the hydrodynamics of a multi-component vesicle? This question is highly relevant to hydrodynamics of cells in a confinement, and to our knowledge has not been well studied.
+
 
 In this paper, we extend the work of Liu et
 al.~\cite{liu-mar-li-vee-low2017} who performed a thorough investigation
