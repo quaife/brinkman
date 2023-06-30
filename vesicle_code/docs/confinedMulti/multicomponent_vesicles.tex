@@ -703,34 +703,34 @@ and reaches its narrowest point at $x=15$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\label{subsec:Stenosis}A multicomponent vesicle in a closely-fit channel (Stenosis)}
 
-\begin{comment}
+%\begin{comment}
 %\begin{figure}[h]
-\begin{figure*}[b]
+\begin{figure*}[h]
   \centering
   \includegraphics[width=0.9\linewidth]{figures/STENOSIS_RAp6MCp5.pdf}
 %    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(a)}{figures/Fig5a.pdf}
 %    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(b)}{figures/Fig5b.pdf}
 %    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(c)}{figures/Fig5c.pdf}
-  \caption{\label{fig:RA6} \small A vesicle passing through a stenosed
+  \caption{\label{fig:RA6} \small A vesicle passing through the stenosis
   geometry. The vesicle's reduced area is $\alpha = 0.6$ and the
-  dimensionless maximum velocity is $U = 0.25$. The vesicles are: (a)
+  capillary number is $Ca = 0.25$. The vesicles are: (a)
   single-component with bending modulus $b=1$; (b) single-component with
   bending modulus $b=0.55$; (c) multicomponent.}
 %\end{figure}
 \end{figure*}
-\end{comment}
+%\end{comment}
 
 We consider a vesicle with reduced area $\alpha = 0.6$ passing through a
-closely-fitting channel, with a dimensionless maximum velocity of $U =
-0.25$. Figure~\ref{fig:RA6} shows six time steps of a single-component
-vesicle with bending stiffness (a) $b=1$ and (b) $b=0.55$, and a
-multicomponent vesicle with an initially random distribution of lipids
-(c). In all plots, the color is the dimensionless bending modulus of the
-multicomponent vesicle that remains bounded in $[0.1,1]$ by using the
-new bending modulus~\eqref{eqn:tanhBending}. A single Lagrangian point
-is included to visualize tank-treading behavior. There are slight
-differences between the three cases, with the most noticeable being that
-the multicomponent vesicle has higher curvature in the floppy region. We
+closely-fitting channel (stenosis), with a capillary number $Ca = 0.25$.
+Figure~\ref{fig:RA6} shows six time steps of a single-component vesicle
+with bending stiffness (a) $b=1$ and (b) $b=0.55$, and (c) a multicomponent
+vesicle with an initially random distribution of lipids. In all plots,
+the color is the dimensionless bending modulus of the multicomponent
+vesicle that remains bounded in $[0.1,1]$ by using the new bending
+modulus~\eqref{eqn:tanhBending}. A single Lagrangian point is included
+to visualize tank-treading behavior. There are slight differences
+between the three cases, with the most noticeable being that the
+multicomponent vesicle has higher curvature in the floppy region. We
 consider the same setup in Figure~\ref{fig:RA4}, but the vesicle has
 reduced area $\alpha = 0.4$. The main difference between the two reduced
 areas is that the vesicles with smaller reduced area undergo
@@ -738,26 +738,25 @@ tank-treading motions. As mentioned earlier, tank treading occurs when
 the top and bottom lubrication layers differ in size. The size of the
 lubrication layers in all six cases are in Figure~\ref{fig:lubrication}. 
 
-
-\begin{comment}
+%\begin{comment}
 %\begin{figure}[h]
-\begin{figure*}[t]
+\begin{figure*}[h]
   \centering
   \includegraphics[width=0.9\linewidth]{figures/STENOSIS_RAp4MCp5.pdf}
 %    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(a)}{figures/Fig6a.pdf}
 %    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(b)}{figures/Fig6b.pdf}
 %    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(c)}{figures/Fig6c.pdf}
-  \caption{\label{fig:RA4} \small A vesicle passing through a stenosed
+  \caption{\label{fig:RA4} \small A vesicle passing through the stenosis
   geometry. The vesicle's reduced area is $\alpha = 0.4$ and the
-  dimensionless maximum velocity is $U = 0.25$. The vesicles are: (a)
-  single-component with bending modulus $b=1$; (b) single-component with
-  bending modulus $b=0.55$; (c) multicomponent. The multicomponent
-  vesicle travels slightly faster, so it leaves the stenosed region
-  earlier than the single-component cases (see
-  Figure~\ref{fig:vesVelocity}).}
+  capillary number is $Ca = 0.25$. The vesicles are: (a) single-component
+  with bending modulus $b=1$; (b) single-component with bending modulus
+  $b=0.55$; (c) multicomponent.}
+%  The multicomponent vesicle travels
+%  slightly faster, so it leaves the stenosed region earlier than the
+%  single-component cases (see Figure~\ref{fig:vesVelocity}).}
 %\end{figure}
 \end{figure*}
-\end{comment}
+%\end{comment}
 
 
 %\begin{figure}
@@ -795,7 +794,7 @@ lubrication layers in all six cases are in Figure~\ref{fig:lubrication}.
 %    \subfigimg[width = \columnwidth]{(a)}{figures/Fig8a.pdf}\\
 %    \subfigimg[width = \columnwidth]{(b)}{figures/Fig8b.pdf}
     \caption{\label{fig:lubrication} \small The size of the lubrication
-    layer of a stiff single component (red), floppy single component
+    layer of a stiff single-component (red), floppy single-component
     (green), and multicomponent (blue) vesicle passing through stenosis.
     Solid lines are the layer thickness between the vesicle and the top
     wall, and dashed lines are the layer thickness between the vesicle
@@ -803,14 +802,29 @@ lubrication layers in all six cases are in Figure~\ref{fig:lubrication}.
     $\alpha = 0.4$ and (b) $\alpha = 0.6$.}
 \end{figure}
 
-The tank-treading velocities of the examples with reduced area $\alpha = 0.4$ are in Figure~\ref{fig:tankTreadRAp4}. The vesicle shapes at the dashed black lines are also included, and the four marker points are the Lagrangian points where the tangential velocities are computed. For reduced area $\alpha = 0.4$, the single-component ($b=1$) and multicomponent vesicles are clearly tank treading. Since the single-component case has a larger difference between its top and bottom boundary layers, it tank treads faster than the multicomponent case. In addition, since the top boundary layer is larger in both cases, they both tank-tread in the same direction---counterclockwise. In contrast, the single-component vesicle with $b=0.55$ tank-treads in the clockwise direction; note, however, that this example is still undergoing some deformations, so a constant tank-treading velocity is not observed. When $\alpha = 0.6$, the vesicle undergoes deformations while in the stenosed geometry and a constant tank-treading velocity is not observed, so a plot is not included. 
+The tank-treading velocities of the examples with reduced area $\alpha =
+0.4$ are in Figure~\ref{fig:tankTreadRAp4}. The vesicle shapes at the
+dashed black lines are also included, and the four marker points are the
+Lagrangian points where the tangential velocities are computed. For
+reduced area $\alpha = 0.4$, the single-component ($b=1$) and
+multicomponent vesicles are clearly tank treading. Since the
+single-component case has a larger difference between its top and bottom
+boundary layers (see Figure~\ref{fig:lubrication)}, it tank treads
+faster than the multicomponent case. In addition, since the top boundary
+layer is larger in both cases, they both tank-tread in the same
+direction---counterclockwise. In contrast, the single-component vesicle
+with $b=0.55$ tank-treads in the clockwise direction; note, however,
+that this example is still undergoing some deformations, so a constant
+tank-treading velocity is not observed. When $\alpha = 0.6$, the vesicle
+undergoes deformations while in the stenosis, and a constant
+tank-treading velocity is not observed 
 
 %Both the migration speed and tank treading behavior of a vesicle in the closely-fitting channel depends on the separation distance between the solid wall and the vesicle. As the vesicle enters the narrow constriction, lubrication layers between the vesicle and the solid walls develop. The minimum distance between the multicomponent vesicles and the solid wall (solid lines) and the single-component vesicles and the solid wall (dashed lines) are plotted in Figure~\ref{fig:lubrication}. Top top plot is for the vesicle with reduced area $\alpha = 0.4$, and the bottom plot is for the vesicle with reduced area $\alpha = 0.6$. Note that the position is only between $-15$ and $15$ which is the region with strong confinement. 
 
 %The size of the top and bottom lubrication layers are plotted in Figure~\ref{fig:lubrication} for reduced area (a) $\alpha = 0.4$ and (b) $\alpha = 0.6$. In both cases, we see that the multicomponent vesicle has larger lubrication layers than their single-component counterparts. As shown in Figures~\ref{fig:RA6} and~\ref{fig:RA4}, the result is that the multicomponent vesicle experiences less drag from the solid walls, and therefore migrates faster. This is confirmed in Figure~\ref{fig:location1} where we plot the position of each of the vesicle versus time for both reduced areas and both lipid species. The larger lubrication layer should also result in a smaller excess pressure, especially for reduced area $\alpha = 0.4$, and this is observed in Figure~\ref{fig:excessPressure}.
 
 
-%For the smaller reduced area, both the single and multicomponent vesicles are closer to the top wall than the bottom wall. More interesting, though, is that the multicomponent vesicle has a larger lubrication layer than its single-component counterpart. This larger lubrication layer means that less of the multicomponent vesicle experiences less drag from the solid wall, and its net migration speed is faster. This is verified in Figure~\ref{fig:location1}. For the larger reduced area, the vesicle is able to quickly deform away from the walls while entering the constriction. In Figure~\ref{fig:location1} we see that the multicomponent vesicle makes its way through the contstriction quicker than its single-component counterpart. Because the vesicle initially deforms, there is less initial drag from the walls. This quickly changes and the bottom lubrication layer becomes much thinner and the vesicle slows down. In Figure~\ref{fig:location1}, we can tell by the slopes of the curves that the single- and multicomponent vesicles are moving at roughly the same speed.      
+%For the smaller reduced area, both the single and multicomponent vesicles are closer to the top wall than the bottom wall. More interesting, though, is that the multicomponent vesicle has a larger lubrication layer than its single-component counterpart. This larger lubrication layer means that less of the multicomponent vesicle experiences less drag from the solid wall, and its net migration speed is faster. This is verified in Figure~\ref{fig:location1}. For the larger reduced area, the vesicle is able to quickly deform away from the walls while entering the constriction. In Figure~\ref{fig:location1} we see that the multicomponent vesicle makes its way through the contstriction quicker than its single-component counterpart. Because the vesicle initially deforms, there is less initial drag from the walls. This quickly changes and the bottom lubrication layer becomes much thinner and the vesicle slows down. In Figure~\ref{fig:location1}, we can tell by the slopes of the curves that the single- and multicomponent vesicles are moving at roughly the same speed. 
 
 %Whether a vesicle tank-treads or not is also related to the lubrication layer. In particular, if the lubrication layer between the top and lower walls are different, this indicates that the vesicle is center of mass is above or below the middle of the channel. When this happens, the non-linear of the flow results in a tank-treading vesicle.
 
@@ -879,7 +893,7 @@ The tank-treading velocities of the examples with reduced area $\alpha = 0.4$ ar
   four Lagrangian points on a (a) single-component vesicle with $b = 1$
   (b) single-component vesicle with $b = 0.55$, and (c) multicomponent
   vesicle. The reduced area is $\alpha = 0.4$ in all cases. Also
-  illusrated is the vesicle shape and the four Lagrangian points at the
+  illustrated is the vesicle shape and the four Lagrangian points at the
   location indicated by the dash line.}
 %\end{figure}
 \end{figure*}
@@ -912,7 +926,16 @@ The tank-treading velocities of the examples with reduced area $\alpha = 0.4$ ar
 %    \label{fig:tankTreadRAp6}}
 %\end{figure}
 
-The size of the top and bottom lubrication layers are also related to the excess pressure (Figure~\ref{fig:excessPressure}). If the lubrication layers are large, most notably for the multicomponent vesicle with reduced area $\alpha = 0.4$, then less pressure is required to force the vesicle through the geometry, and we expect a smaller (less negative) excess pressure. In contrast, if the lubrication layers are small, most notably for the single-component vesicle with $b=1$ and reduced area $\alpha = 0.4$, then more pressure is required to force the vesicle through the geometry, and we expect a larger (more negative) excess pressure.
+The size of the top and bottom lubrication layers are also related to
+the excess pressure (Figure~\ref{fig:excessPressure}). If the
+lubrication layers are large, most notably for the multicomponent
+vesicle with reduced area $\alpha = 0.4$, then less pressure is required
+to force the vesicle through the geometry, and we expect a smaller (less
+negative) excess pressure. In contrast, if the lubrication layers are
+small, most notably for the single-component vesicle with $b=1$ and
+reduced area $\alpha = 0.4$, then more pressure is required to force the
+vesicle through the geometry, and we expect a larger (more negative)
+excess pressure.
 
 \begin{figure}[H]
     \centering
@@ -924,19 +947,23 @@ The size of the top and bottom lubrication layers are also related to the excess
 
 While the size of the lubrication layers affect the tank-treading
 behavior and the excess pressure, it has almost no effect on the
-migration speed of the vesicle. In Figure~\ref{fig:vesVelocity}, we plot
-the average velocity of the vesicle as it passes through the stenosed
-region. With the exception of the single-component vesicle with $b=1$
-and $\alpha = 0.6$, the average vesicle speed is constant. Obviously,
-this average velocity would be affected by the maximum imposed velocity,
-$U$.
+migration speed of the vesicle. 
+%In Figure~\ref{fig:vesVelocity}, we plot
+%the average velocity of the vesicle as it passes through the stenosed
+%region.
+With the exception of the single-component vesicle with $b=1$ and
+$\alpha = 0.6$, which has an average vesicle speed about 5\% slower, the
+average vesicle speed is constant. Obviously, this average velocity
+would be affected by the capillary number, $Ca$.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\columnwidth]{figures/Fig9.pdf}
-    %\input{figures/Fig9.tikz}
-    \caption{\label{fig:vesVelocity} \small The average vesicle velocity as it passes through the stenosed region. The vesicle stiffness and reduced area have no significant effect.}
-\end{figure}
+%\begin{figure}[H]
+%  \centering
+%  \includegraphics[width=\columnwidth]{figures/Fig9.pdf}
+%%  \input{figures/Fig9.tikz}
+%  \caption{\label{fig:vesVelocity} \small The average vesicle velocity
+%  as it passes through stenosis. The vesicle stiffness and reduced area
+%  have no significant effect.}
+%\end{figure}
 
 Finally, we consider the three different energies---bending, tension,
 and phase---for each of the single-component and multicomponent
@@ -976,18 +1003,14 @@ When a vesicle is tank-treading near a solid wall, the flow in the thin
 layer of fluid includes both a linear profile and a Poiseuille
 profile~\cite{mis-wis-ber-key-li-tun-law-per-erd-zha-zha-sun-kal-lam-kon2019}.
 The magnitude of the Poiseuille profile is determined by the pressure
-gradient between the vesicle and the soild wall, while the linear
+gradient between the vesicle and the solid wall, while the linear
 profile is determined by the tangential velocity of the vesicle relative
-to the solid wall.
-
-Using the definition of the lubrcication layer outlined in
-Section~\ref{sec:LL} fit the horizontal flow profile to a quadratic
-function and plot the coefficients of the Poisseuille and linear shear
-in Figure~\ref{}. We only consider cases where the vesicle has reached a
-steady shape is only under going tank treading. We observe that the
-Poisseuille coefficient can be either positive or negative, meaning that
-the pressure in the lubcrication layer switches signs. This behavior is
-caused when the tangential force on the vesicle
+to the solid wall. Using the definition of the lubrication layer
+outlined in Section~\ref{sec:LL}, we consider the flow profile inside
+this lubrication layer in Figure~\ref{fig:BLvelocities}. We observe that
+the Poiseuille coefficient can be either positive or negative, meaning
+that the pressure in the lubrication layer switches signs. This behavior
+is caused when the tangential force on the vesicle
 \begin{align}
   \mathbf{F}_{\tt} = -\sigma_s + u_s \frac{\delta E^m}{\delta u},
 \end{align}
@@ -1000,7 +1023,6 @@ is the variational derivative of the membrane energy with respect to the
 lipid concentration~\cite{soh-tse-li-voi-low2010}. Note that in the
 single-component case, the tangential force is $\mathbf{F}_\tt =
 =\sigma_s$ which is the usual Marangoni effect.
-
 
 \begin{figure}
   \centering
