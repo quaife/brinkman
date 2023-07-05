@@ -684,25 +684,26 @@ We consider both a single-component and a multicomponent vesicle
 suspended in two geometries: a closely-fitting geometry (stenosis) and a
 geometry that slowly contracts to a narrow neck and then quickly widens
 (contracting). We considered a semipermeable vesicle suspended in these
-same geometries~\cite{qua-gan-you2021}. All the multicomponent examples
-have floppy-to-stiff ratio $\beta = 10^{-1}$. For the single-component
-case, we consider two bending stiffnesses: $b(u) = 1$ and $b(u) = 0.55$
-which is the average bending stiffness of a multicomponent vesicle whose
-stiff and floppy regions have the same area. Throughout this section we
-plot the position of the vesicle in terms of the $x$-coordinate of its
-center of mass. For the stenosed geometry in
-Section~\ref{subsec:Stenosis}, the narrow region begins at $x=-15$ and
-ends at $x=15$. For the contracting geometry in
+same geometries in our previous work~\cite{qua-gan-you2021}. All the
+multicomponent examples have floppy-to-stiff ratio $\beta = 10^{-1}$.
+For the single-component case, we consider two bending stiffnesses:
+$b(u) = 1$ and $b(u) = 0.55$ which is the average bending stiffness of a
+multicomponent vesicle whose stiff and floppy regions have the same
+area. Throughout this section we plot the position of the vesicle in
+terms of the $x$-coordinate of its center of mass. For the stenosed
+geometry in Section~\ref{subsec:Stenosis}, the narrow region begins at
+$x=-15$ and ends at $x=15$. For the contracting geometry in
 Section~\ref{subsec:Contraction}, the geometry begins to narrow at $x=4$
 and reaches its narrowest point at $x=15$.
 
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{\label{subsec:Stenosis}A multicomponent vesicle in a closely-fit channel (Stenosis)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\label{subsec:Stenosis}A multicomponent vesicle in the
+stenosis geometry}
 
 %\begin{comment}
 %\begin{figure}[h]
@@ -721,23 +722,75 @@ and reaches its narrowest point at $x=15$.
 \end{figure*}
 %\end{comment}
 
-We consider a vesicle with reduced area $\alpha = 0.6$ passing through a
-closely-fitting channel (stenosis), with a capillary number $Ca = 0.25$.
+We start by considering a vesicle with reduced area $\alpha = 0.6$
+passing through stenosis with a capillary number $Ca = 0.25$.
 Figure~\ref{fig:RA6} shows six time steps of a single-component vesicle
-with bending stiffness (a) $b=1$ and (b) $b=0.55$, and (c) a multicomponent
-vesicle with an initially random distribution of lipids. In all plots,
-the color is the dimensionless bending modulus of the multicomponent
-vesicle that remains bounded in $[0.1,1]$ by using the new bending
-modulus~\eqref{eqn:tanhBending}. A single Lagrangian point is included
-to visualize tank-treading behavior. There are slight differences
-between the three cases, with the most noticeable being that the
-multicomponent vesicle has higher curvature in the floppy region. We
+with bending stiffness (a) $b=1$ and (b) $b=0.55$, and (c) a
+multicomponent vesicle with an initially random distribution of lipids.
+In all plots, the color is the dimensionless bending modulus of the
+multicomponent vesicle that remains bounded in $[0.1,1]$ by using the
+new bending modulus~\eqref{eqn:tanhBending}. A single Lagrangian point
+is included to visualize tank-treading behavior. There are slight
+differences between the three cases, with the most noticeable being that
+the multicomponent vesicle has higher curvature in the floppy region. We
 consider the same setup in Figure~\ref{fig:RA4}, but the vesicle has
-reduced area $\alpha = 0.4$. The main difference between the two reduced
-areas is that the vesicles with smaller reduced area undergo
-tank-treading motions. As mentioned earlier, tank treading occurs when
-the top and bottom lubrication layers differ in size. The size of the
-lubrication layers in all six cases are in Figure~\ref{fig:lubrication}. 
+reduced area $\alpha = 0.4$. We first consider the three different
+energies---bending, tension, and phase---for each of the
+single-component and multicomponent vesicles. In
+Figure~\ref{fig:Energy}, we plot these energies as a function of the
+vesicle's center of mass. As a reminder, the vesicle enters the
+constriction at $x=-15$ and exits at $x=15$. Also note that the
+single-component vesicle does not have a phase energy. A few general
+trends can immediately be seen. First, as the vesicle enters the
+stenosis, there are sharp jumps in both the tension and bending
+energies, as expected. Next, the multicomponent vesicles only coarsen
+when the vesicle is not in the stenosis. Finally, when coarsening does
+occur, there are rapid changes in the tension energy.
+
+\begin{figure}
+  \begin{minipage}{0.49\columnwidth}
+    \centering
+%    \subfigimg[width = \columnwidth, trim = {1cm 20cm 1cm 3cm}, clip]{(a)}{figures/RAp4BkgrdFlow.pdf}
+    \subfigimg[width=\textwidth]{(a)}{figures/Fig13a.pdf}
+    \subfigimg[width=\textwidth]{(c)}{figures/Fig13c.pdf}
+    \subfigimg[width=\textwidth]{(e)}{figures/Fig13e.pdf}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.49\columnwidth}
+    \centering
+    \subfigimg[width=\textwidth]{(b)}{figures/Fig13b.pdf}
+    \subfigimg[width=\textwidth]{(d)}{figures/Fig13d.pdf}
+    \subfigimg[width=\textwidth]{(f)}{figures/Fig13f.pdf}
+  \end{minipage}
+  \caption{\label{fig:Energy} \small The Bending (blue), tension
+  (yellow), and phase (red) energies for a (a/b) single-component
+  vesicle with $b=1$, (c/d) single-component vesicle with $b = 0.55$,
+  and (e/f) multicomponent vesicle. The reduced areas are $\alpha = 0.4$
+  (a/c/e) and $\alpha = 0.6$ (b/d/f).}
+  \todo[inline]{need to redo these plots}
+\end{figure}
+
+A main difference between the two reduced areas is that the vesicles
+with smaller reduced area undergo tank-treading motions. As mentioned
+earlier, tank treading occurs when the top and bottom lubrication layers
+differ in size. The size of the lubrication layers in all six cases are
+in Figure~\ref{fig:lubrication}. The tank-treading velocities of the
+examples with reduced area $\alpha = 0.4$ are in
+Figure~\ref{fig:tankTreadRAp4}. The vesicle shapes at the dashed black
+lines are also included, and the four marker points are the Lagrangian
+points where the tangential velocities are computed. For reduced area
+$\alpha = 0.4$, the single-component ($b=1$) and multicomponent vesicles
+are clearly tank treading. Since the single-component case has a larger
+difference between its top and bottom boundary layers (see
+Figure~\ref{fig:lubrication}), it tank treads faster than the
+multicomponent case. In addition, since the top boundary layer is larger
+in both cases, they both tank-tread in the same
+direction---counterclockwise. In contrast, the single-component vesicle
+with $b=0.55$ tank-treads in the clockwise direction; note, however,
+that this example is still undergoing some deformations, so a constant
+tank-treading velocity is not observed. When $\alpha = 0.6$, the vesicle
+undergoes deformations while in the stenosis, and a constant
+tank-treading velocity is not observed 
 
 %\begin{comment}
 %\begin{figure}[h]
@@ -803,22 +856,6 @@ lubrication layers in all six cases are in Figure~\ref{fig:lubrication}.
     $\alpha = 0.4$ and (b) $\alpha = 0.6$.}
 \end{figure}
 
-The tank-treading velocities of the examples with reduced area $\alpha =
-0.4$ are in Figure~\ref{fig:tankTreadRAp4}. The vesicle shapes at the
-dashed black lines are also included, and the four marker points are the
-Lagrangian points where the tangential velocities are computed. For
-reduced area $\alpha = 0.4$, the single-component ($b=1$) and
-multicomponent vesicles are clearly tank treading. Since the
-single-component case has a larger difference between its top and bottom
-boundary layers (see Figure~\ref{fig:lubrication)}, it tank treads
-faster than the multicomponent case. In addition, since the top boundary
-layer is larger in both cases, they both tank-tread in the same
-direction---counterclockwise. In contrast, the single-component vesicle
-with $b=0.55$ tank-treads in the clockwise direction; note, however,
-that this example is still undergoing some deformations, so a constant
-tank-treading velocity is not observed. When $\alpha = 0.6$, the vesicle
-undergoes deformations while in the stenosis, and a constant
-tank-treading velocity is not observed 
 
 %Both the migration speed and tank treading behavior of a vesicle in the closely-fitting channel depends on the separation distance between the solid wall and the vesicle. As the vesicle enters the narrow constriction, lubrication layers between the vesicle and the solid walls develop. The minimum distance between the multicomponent vesicles and the solid wall (solid lines) and the single-component vesicles and the solid wall (dashed lines) are plotted in Figure~\ref{fig:lubrication}. Top top plot is for the vesicle with reduced area $\alpha = 0.4$, and the bottom plot is for the vesicle with reduced area $\alpha = 0.6$. Note that the position is only between $-15$ and $15$ which is the region with strong confinement. 
 
@@ -959,7 +996,7 @@ migration speed of the vesicle.
 With the exception of the single-component vesicle with $b=1$ and
 $\alpha = 0.6$, which has an average vesicle speed about 5\% slower, the
 average vesicle speed is constant. Obviously, this average velocity
-would be affected by the capillary number, $Ca$.
+would be affected by the capillary number.
 
 %\begin{figure}[H]
 %  \centering
@@ -970,39 +1007,6 @@ would be affected by the capillary number, $Ca$.
 %  have no significant effect.}
 %\end{figure}
 
-Finally, we consider the three different energies---bending, tension,
-and phase---for each of the single-component and multicomponent
-vesicles. In Figure~\ref{fig:Energy}, we plot these energies as a
-function of the vesicle's center of mass. As a reminder, the vesicle
-enters the constriction at $x=-15$ and exits at $x=15$. Also note that
-the single-component vesicle does not have a phase energy. A few general
-trends can immediately be seen. First, as the vesicle enters the
-stenosed region, there are sharp jumps in both the tension and bending
-energies, as expected. Next, the multicomponent vesicles only coarsen
-when the vesicle is not in the stenosed region. Finally, when coarsening
-does occur, there are rapid changes in the tension energy.
-
-\begin{figure}
-  \begin{minipage}{0.49\columnwidth}
-    \centering
-%    \subfigimg[width = \columnwidth, trim = {1cm 20cm 1cm 3cm}, clip]{(a)}{figures/RAp4BkgrdFlow.pdf}
-    \subfigimg[width=\textwidth]{(a)}{figures/Fig13a.pdf}
-    \subfigimg[width=\textwidth]{(c)}{figures/Fig13c.pdf}
-    \subfigimg[width=\textwidth]{(e)}{figures/Fig13e.pdf}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.49\columnwidth}
-    \centering
-    \subfigimg[width=\textwidth]{(b)}{figures/Fig13b.pdf}
-    \subfigimg[width=\textwidth]{(d)}{figures/Fig13d.pdf}
-    \subfigimg[width=\textwidth]{(f)}{figures/Fig13f.pdf}
-  \end{minipage}
-  \caption{\label{fig:Energy} \small The Bending (blue), tension
-  (yellow), and phase (red) energies for a (a/b) single-component
-  vesicle with $b=1$, (c/d) single-component vesicle with $b = 0.55$,
-  and (e/f) multicomponent vesicle. The reduced areas are $\alpha = 0.4$
-  (a/c/e) and $\alpha = 0.6$ (b/d/f).}
-\end{figure}
 
 When a vesicle is tank-treading near a solid wall, the flow in the thin
 layer of fluid includes both a linear profile and a Poiseuille
@@ -1046,27 +1050,38 @@ single-component case, the tangential force is $\mathbf{F}_\tt =
 
 
 
-%\begin{itemize}
-    
-%    \item Comparison of different flow rates $\chi = 0.25 = 0.5 \mu m/s$ and $\chi = 2.5 = 5 \mu m/s$
-    
-%    \item Comparison of different reduced areas. Definitely interested in 0.40 and then maybe only one other value. A natural other value is 0.6 or 0.7 since this is close to the reduced area of a RBC.
-    
-%    \item Interesting tank treading/slipper shape when flow rate is 0.25 and reduced area is 0.4. We did not see this for any of the larger flow rates, and this is consistent with what is known about vesicles in a non-linear shear flow
-    
-%    \item Multicomponent goes through faster than single-component
-
-%    \item Error in area is about 20X larger for the multicomponent
-%    
-%    \item How does the reduced area affect the speed of the vesicle and its ability to phase separate when i%n confinement. We haven't looked at a completed run with larger reduced area. Maybe there's one sitting on RCC or we% need to submit one?
-%\end{itemize}
 
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{\label{subsec:Contraction} A multicomponent vesicle in a narrowing geometry (Contracting)}
-In this section, we consider a single vesicle passing through a geometry that slowly contracts to a region that is only 2~$\mu$m wide, and then immediately opens back up to a channel that is ten times larger. We first consider the effect of the initial lipid concentration when the floppy and stiff regions each make up half of the vesicle membrane. In Figure~\ref{fig:RA6leftRightRand}, we consider a vesicle with $\alpha = 0.6$ with an initially random initial lipid concentration, one that is floppy in the front and stiff in the back, and one that is stiff in the front and floppy in the back. The vesicle with the random initial lipid distribution phase separates so that the floppy region is in the back and the stiff region is in the front. The vesicle where the initial lipid species distribution was fully phase separated and the floppy region was on the front of the vesicle began to reorient the floppy region to the back of the vesicle, making it partway after passing through the contraction. In the case where the initial lipid species distribution was fully phase separated and the floppy region was on the back of the vesicle, the floppy region remained on the the back of the vesicle. In all cases, the floppy regions were being oriented to cover the regions of the vesicle with the highest curvature to minimize the overall bending energy. Since we can see in Figure~\ref{fig:RA6leftRightRand} that the regions of high curvature are located in the back of the vesicle, we expect the overall bending energies to be lowest for the randomly distributed case and the fully separated floppy region on the back case. We observe this in Figure~\ref{fig:RAp6leftRightRandBending} Therefore, in all subsequent examples, we start with symmetric vesicle whose floppy region is in the back and its stiff region is in the front.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\label{subsec:Contraction} A multicomponent vesicle in the
+contracting geometry}
+In this section, we consider a single vesicle passing through a geometry
+that slowly contracts to a region that is only 2~$\mu$m wide, and then
+immediately opens back up to a channel that is ten times larger. We
+first consider the effect of the initial lipid concentration when the
+floppy and stiff regions each make up half of the vesicle membrane. In
+Figure~\ref{fig:RA6leftRightRand}, we consider a vesicle with $\alpha =
+0.6$ with an initially random initial lipid concentration, one that is
+floppy in the front and stiff in the back, and one that is stiff in the
+front and floppy in the back. The vesicle with the random initial lipid
+distribution phase separates so that the floppy region is in the back
+and the stiff region is in the front. The vesicle where the initial
+lipid species distribution was fully phase separated and the floppy
+region was on the front of the vesicle began to reorient the floppy
+region to the back of the vesicle, making it partway after passing
+through the contraction. In the case where the initial lipid species
+distribution was fully phase separated and the floppy region was on the
+back of the vesicle, the floppy region remained on the back of the
+vesicle. In all cases, the floppy regions were being oriented to cover
+the regions of the vesicle with the highest curvature to minimize the
+overall bending energy. Since we can see in
+Figure~\ref{fig:RA6leftRightRand} that the regions of high curvature are
+located in the back of the vesicle, we expect the overall bending
+energies to be lowest for the randomly distributed case and the fully
+separated floppy region on the back case. We observe this in
+Figure~\ref{fig:RAp6leftRightRandBending} Therefore, in all subsequent
+examples, we start with symmetric vesicle whose floppy region is in the
+back and its stiff region is in the front.
 
 \begin{figure}[H]
   \centering
@@ -1095,10 +1110,13 @@ In this section, we consider a single vesicle passing through a geometry that sl
 \end{figure}
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=\columnwidth]{figures/bending_leftRightRand.pdf}
-    \caption{The bending energy of a multicomponent vesicle that is 50\% stiff with an initial phase separation to the left (blue), to the right (red), randomly distributed (yellow). The vesicle exits the contraction $x \approx 15$.}
-    \label{fig:RAp6leftRightRandBending}
+  \centering
+  \includegraphics[width=\columnwidth]{figures/bending_leftRightRand.pdf}
+  \caption{\label{fig:RAp6leftRightRandBending} The bending energy of a
+  multicomponent vesicle that is 50\% stiff with an initial phase
+  separation to the left (blue), to the right (red), randomly
+  distributed (yellow). The vesicle exits the contraction $x \approx
+  15$.} 
 \end{figure}
 
 In Figure~\ref{fig:RA5}, we consider a vesicle with reduced area $\alpha
