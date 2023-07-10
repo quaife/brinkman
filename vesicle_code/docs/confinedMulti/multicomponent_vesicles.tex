@@ -722,6 +722,9 @@ stenosis geometry}
 \end{figure*}
 %\end{comment}
 
+\textcolor{red}{Back of the envelope calculation shows that anything
+with reduced area greater than 0.8 can not pass through the stenosis,
+assuming the vesicle shape is an ellipse}
 We start by considering a vesicle with reduced area $\alpha = 0.6$
 passing through stenosis with a capillary number $Ca = 0.25$.
 Figure~\ref{fig:RA6} shows six time steps of a single-component vesicle
@@ -841,20 +844,20 @@ tank-treading velocity is not observed
 %    \label{fig:EnergyRAp6l}
 %\end{figure}
 
-\begin{figure}[h]
-    \centering
-    \subfigimg[width = 0.49\columnwidth]{(a)}{figures/Layer_Size_RAp4.pdf}
-    \subfigimg[width = 0.49\columnwidth]{(b)}{figures/Layer_Size_RAp6.pdf}
-%    \subfigimg[width = \columnwidth]{(a)}{figures/Fig8a.pdf}\\
-%    \subfigimg[width = \columnwidth]{(b)}{figures/Fig8b.pdf}
-    \caption{\label{fig:lubrication} \small The size of the lubrication
-    layer of a stiff single-component (red), floppy single-component
-    (green), and multicomponent (blue) vesicle passing through stenosis.
-    Solid lines are the layer thickness between the vesicle and the top
-    wall, and dashed lines are the layer thickness between the vesicle
-    and the bottom wall. The reduced area of the vesicles are (a)
-    $\alpha = 0.4$ and (b) $\alpha = 0.6$.}
-\end{figure}
+%\begin{figure}[h]
+%    \centering
+%    \subfigimg[width = 0.49\columnwidth]{(a)}{figures/Layer_Size_RAp4.pdf}
+%%    \subfigimg[width = 0.49\columnwidth]{(b)}{figures/Layer_Size_RAp6.pdf}
+%%    \subfigimg[width = \columnwidth]{(a)}{figures/Fig8a.pdf}\\
+%%    \subfigimg[width = \columnwidth]{(b)}{figures/Fig8b.pdf}
+%    \caption{\label{fig:lubrication} \small The size of the lubrication
+%    layer of a stiff single-component (red), floppy single-component
+%    (green), and multicomponent (blue) vesicle passing through stenosis.
+%    Solid lines are the layer thickness between the vesicle and the top
+%    wall, and dashed lines are the layer thickness between the vesicle
+%    and the bottom wall. The reduced area of the vesicles are (a)
+%    $\alpha = 0.4$ and (b) $\alpha = 0.6$.}
+%\end{figure}
 
 
 %Both the migration speed and tank treading behavior of a vesicle in the closely-fitting channel depends on the separation distance between the solid wall and the vesicle. As the vesicle enters the narrow constriction, lubrication layers between the vesicle and the solid walls develop. The minimum distance between the multicomponent vesicles and the solid wall (solid lines) and the single-component vesicles and the solid wall (dashed lines) are plotted in Figure~\ref{fig:lubrication}. Top top plot is for the vesicle with reduced area $\alpha = 0.4$, and the bottom plot is for the vesicle with reduced area $\alpha = 0.6$. Note that the position is only between $-15$ and $15$ which is the region with strong confinement. 
@@ -922,17 +925,23 @@ tank-treading velocity is not observed
 \begin{figure*}[t]
 %\begin{figure}[htp]
   \centering
-  \subfigimg[width=0.3\linewidth,trim=0cm 6cm 28cm 0cm,clip=true]{(a)}{figures/TankTreadingFigs_composite_SC.pdf}
+  \subfigimg[width=0.3\linewidth]{(a)}{figures/Layer_Size_RAp4_SC.pdf}
+  \subfigimg[width=0.3\linewidth]{(b)}{figures/Layer_Size_RAp4_SCp55.pdf}
+  \subfigimg[width=0.3\linewidth]{(c)}{figures/Layer_Size_RAp4_MCp5.pdf}
+  \subfigimg[width=0.3\linewidth,trim=0cm 6cm 28cm 0cm,clip=true]{}{figures/TankTreadingFigs_composite_SC.pdf}
   \subfigimg[width=0.3\linewidth,trim=0cm 6cm 28cm
-  0cm,clip=true]{(b)}{figures/TankTreadingFigs_composite_SCp55.pdf}
+  0cm,clip=true]{}{figures/TankTreadingFigs_composite_SCp55.pdf}
   \subfigimg[width=0.3\linewidth,trim=0cm 6cm 28cm
-  0cm,clip=true]{(c)}{figures/TankTreadingFigs_composite_MCp5.pdf}
-  \caption{\label{fig:tankTreadRAp4} \small The tangential velocity at
-  four Lagrangian points on a (a) single-component vesicle with $b = 1$
-  (b) single-component vesicle with $b = 0.55$, and (c) multicomponent
-  vesicle. The reduced area is $\alpha = 0.4$ in all cases. Also
+  0cm,clip=true]{}{figures/TankTreadingFigs_composite_MCp5.pdf}
+  \caption{\label{fig:tankTreadRAp4} \small The lubrication layer
+  thicknesses (red and blue), excess pressure (green), and tank treading
+  velocity of four Lagrangian points of a (a) stiff single-component
+  vesicle, (b) floppy single-component vesicle, and (c) multicomponent
+  vesicle. The reduced area is $\alpha = 0.4$ in all three cases. Also
   illustrated is the vesicle shape and the four Lagrangian points at the
-  location indicated by the dash line.}
+  location indicated by the dash line. The black dashed line is the
+  center line of the channel, and the arrow denotes the tank treading
+  direction.}
 %\end{figure}
 \end{figure*}
 
@@ -975,17 +984,17 @@ reduced area $\alpha = 0.4$, then more pressure is required to force the
 vesicle through the geometry, and we expect a larger (more negative)
 excess pressure.
 
-\begin{figure}[H]
-  \centering
-  \subfigimg[width = 0.49\columnwidth]{(a)}{figures/Excess_Pressure_RAp4}
-  \subfigimg[width = 0.49\columnwidth]{(b)}{figures/Excess_Pressure_RAp6}
-%    \subfigimg[width = 0.45\columnwidth]{(a)}{figures/Fig10a.pdf}
-%    \subfigimg[width = 0.45\columnwidth]{(b)}{figures/Fig10b.pdf}
-  \caption{\label{fig:excessPressure} \small The excess pressure a
-  stiff single-component (red), floppy single-component (green), and a
-  multicomponent (blue) vesicle moving through stenosis. The reduced
-  areas are (a) $\alpha = 0.4$, and (b) $\alpha = 0.6$.}
-\end{figure}
+%\begin{figure}[H]
+%  \centering
+%  \subfigimg[width = 0.49\columnwidth]{(a)}{figures/Excess_Pressure_RAp4}
+%  \subfigimg[width = 0.49\columnwidth]{(b)}{figures/Excess_Pressure_RAp6}
+%%    \subfigimg[width = 0.45\columnwidth]{(a)}{figures/Fig10a.pdf}
+%%    \subfigimg[width = 0.45\columnwidth]{(b)}{figures/Fig10b.pdf}
+%  \caption{\label{fig:excessPressure} \small The excess pressure a
+%  stiff single-component (red), floppy single-component (green), and a
+%  multicomponent (blue) vesicle moving through stenosis. The reduced
+%  areas are (a) $\alpha = 0.4$, and (b) $\alpha = 0.6$.}
+%\end{figure}
 
 While the size of the lubrication layers affect the tank-treading
 behavior and the excess pressure, it has almost no effect on the
@@ -1031,7 +1040,7 @@ where
 is the variational derivative of the membrane energy with respect to the
 lipid concentration~\cite{soh-tse-li-voi-low2010}. Note that in the
 single-component case, the tangential force is $\mathbf{F}_\tt =
-=\sigma_s$ which is the usual Marangoni effect.
+\sigma_s$ which is the usual Marangoni effect.
 
 \begin{figure}
   \centering

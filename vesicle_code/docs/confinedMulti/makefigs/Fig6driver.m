@@ -1,8 +1,8 @@
 figure(1); clf;
 ha = tight_subplot(3,1,0.02,0,[0 0.02]);
-MakeSnaps('Stenosis_RAp6_SC.mat',1,false,ha);
-MakeSnaps('Stenosis_RAp6_SCp55.mat',2,false,ha);
-MakeSnaps('Stenosis_RAp6_MCp5.mat',3,true,ha);
+MakeSnaps('AshleyFiles/Stenosis_RAp6_SC.mat',1,false,ha);
+%MakeSnaps('AshleyFiles/Stenosis_RAp6_SCp55.mat',2,false,ha);
+%MakeSnaps('AshleyFiles/Stenosis_RAp6_MCp5.mat',3,true,ha);
 
 f = figure(1);
 set(f,'Units','Inches');
