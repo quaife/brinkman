@@ -553,6 +553,24 @@ results reported by~\citet{liu-mar-li-vee-low2017} (cf.~Figures 3 and
   by~\citet{liu-mar-li-vee-low2017}.}
 \end{figure}
 
+
+%\begin{figure}[h]
+\begin{figure*}[h]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/STENOSIS_RAp6MCp5.pdf}
+%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(a)}{figures/Fig5a.pdf}
+%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(b)}{figures/Fig5b.pdf}
+%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(c)}{figures/Fig5c.pdf}
+  \caption{\label{fig:RA6} \small A vesicle passing through the stenosis
+  geometry. The vesicle's reduced area is $\alpha = 0.6$ and the
+  capillary number is $Ca = 0.25$. The vesicles are: (a)
+  single-component with bending modulus $b=1$; (b) single-component with
+  bending modulus $b=0.55$; (c) multicomponent.}
+%\end{figure}
+\end{figure*}
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\label{sec:LL} Lubrication layers and excess pressure}
 The lubrication layer between a vesicle and the solid wall plays a
@@ -705,22 +723,6 @@ and reaches its narrowest point at $x=15$.
 \subsection{\label{subsec:Stenosis}A multicomponent vesicle in the
 stenosis geometry}
 
-%\begin{comment}
-%\begin{figure}[h]
-\begin{figure*}[h]
-  \centering
-  \includegraphics[width=0.9\linewidth]{figures/STENOSIS_RAp6MCp5.pdf}
-%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(a)}{figures/Fig5a.pdf}
-%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(b)}{figures/Fig5b.pdf}
-%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(c)}{figures/Fig5c.pdf}
-  \caption{\label{fig:RA6} \small A vesicle passing through the stenosis
-  geometry. The vesicle's reduced area is $\alpha = 0.6$ and the
-  capillary number is $Ca = 0.25$. The vesicles are: (a)
-  single-component with bending modulus $b=1$; (b) single-component with
-  bending modulus $b=0.55$; (c) multicomponent.}
-%\end{figure}
-\end{figure*}
-%\end{comment}
 
 We start by considering a vesicle with reduced area $\alpha = 0.6$
 passing through stenosis with a capillary number $Ca = 0.25$.
@@ -751,7 +753,17 @@ $\alpha = 0.8$ cannot fit through the closely-fitting geometry.
   $b=0.55$; (c) multicomponent.}
 \end{figure*}
 
-
+\begin{figure*}[h]
+  \centering
+  \subfigimg[width=0.3\linewidth]{(a)}{figures/SC_energy.pdf}
+  \subfigimg[width=0.3\linewidth]{(b)}{figures/SCp55_energy.pdf}
+  \subfigimg[width=0.3\linewidth]{(c)}{figures/MCp5_energy.pdf}
+  \caption{\label{fig:Energy} \small The Bending (blue), tension (red),
+  and phase (green) energies for a (a) stiff single-component, (b)
+  floppy single-component, and (c) multicomponent vesicle. The reduced
+  area is $\alpha = 0.4$. Note that the single-component vesicles do not
+  have a phase energy.} 
+\end{figure*}
 
 
 To create more significant differences between the three cases, we
@@ -759,60 +771,66 @@ consider the same geometry, but for a vesicle with reduced area $\alpha
 = 0.4$. Figure~\ref{fig:RA4} shows six time steps of a (a) stiff
 single-component, (b) floppy single-component, and (c) multicomponent
 vesicle. We first consider the three different energies---bending,
-tension, and phase---for each of these cases.  In
+tension, and phase---for each of these cases. In
 Figure~\ref{fig:Energy}, we plot these energies as a function of the
 vesicle's center. As a reminder, the vesicle enters the constriction at
 $x=-15$ and exits at $x=15$. Also note that the single-component
 vesicles do not have a phase energy. A few general trends can
-immediately be seen. First, as the vesicle enters the stenosis, there
-are sharp jumps in both the tension and bending energies, as expected.
-Next, the multicomponent vesicles only coarsen when the vesicle is not
-in the stenosis. Finally, when coarsening does occur, there are rapid
-changes in the tension energy.
+immediately be seen. First, as the vesicle enters the stenosis, it
+develops regions of high curvature, and this results in an increase in
+the bending energy. Also, since the stiff single-component vesicle
+reaches a steady-state shape earlier, its tension and bending energies
+remain nearly constant from $x=0$ until the end of the stenosis.
+Regarding the multicomponent vesicle, the phase energy has sudden
+decreases that correspond to the lipid phase coarsening. Note that this
+coarsening only occurs when the vesicle is not in the stenosis. Finally,
+when coarsening does occur, this results in a sudden change in the
+bending and tension energies, but these energies almost instantly return
+to their previous values once coarsening is complete.
 
-\begin{figure}
-  \begin{minipage}{0.49\columnwidth}
-    \centering
-    \subfigimg[width=\textwidth]{(a)}{figures/Fig13a.pdf}
-    \subfigimg[width=\textwidth]{(c)}{figures/Fig13c.pdf}
-    \subfigimg[width=\textwidth]{(e)}{figures/Fig13e.pdf}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.49\columnwidth}
-    \centering
-    \subfigimg[width=\textwidth]{(b)}{figures/Fig13b.pdf}
-    \subfigimg[width=\textwidth]{(d)}{figures/Fig13d.pdf}
-    \subfigimg[width=\textwidth]{(f)}{figures/Fig13f.pdf}
-  \end{minipage}
-  \caption{\label{fig:Energy} \small The Bending (blue), tension
-  (yellow), and phase (red) energies for a (a/b) single-component
-  vesicle with $b=1$, (c/d) single-component vesicle with $b = 0.55$,
-  and (e/f) multicomponent vesicle. The reduced areas are $\alpha = 0.4$
-  (a/c/e) and $\alpha = 0.6$ (b/d/f).}
-  \todo[inline]{need to redo these plots}
-\end{figure}
+%\begin{figure}
+%  \begin{minipage}{0.49\columnwidth}
+%    \centering
+%    \subfigimg[width=\textwidth]{(a)}{figures/Fig13a.pdf}
+%    \subfigimg[width=\textwidth]{(c)}{figures/Fig13c.pdf}
+%    \subfigimg[width=\textwidth]{(e)}{figures/Fig13e.pdf}
+%  \end{minipage}
+%  \hfill
+%  \begin{minipage}{0.49\columnwidth}
+%    \centering
+%    \subfigimg[width=\textwidth]{(b)}{figures/Fig13b.pdf}
+%    \subfigimg[width=\textwidth]{(d)}{figures/Fig13d.pdf}
+%    \subfigimg[width=\textwidth]{(f)}{figures/Fig13f.pdf}
+%  \end{minipage}
+%  \caption{\label{fig:Energy} \small The Bending (blue), tension
+%  (yellow), and phase (red) energies for a (a/b) single-component
+%  vesicle with $b=1$, (c/d) single-component vesicle with $b = 0.55$,
+%  and (e/f) multicomponent vesicle. The reduced areas are $\alpha = 0.4$
+%  (a/c/e) and $\alpha = 0.6$ (b/d/f).}
+%  \todo[inline]{need to redo these plots}
+%\end{figure}
 
 A main difference between the two reduced areas is that the vesicles
 with smaller reduced area undergo tank-treading motions. As mentioned
 earlier, tank treading occurs when the top and bottom lubrication layers
-differ in size. The size of the lubrication layers in all six cases are
-in Figure~\ref{fig:lubrication}. The tank-treading velocities of the
-examples with reduced area $\alpha = 0.4$ are in
-Figure~\ref{fig:tankTreadRAp4}. The vesicle shapes at the dashed black
-lines are also included, and the four marker points are the Lagrangian
-points where the tangential velocities are computed. For reduced area
-$\alpha = 0.4$, the single-component ($b=1$) and multicomponent vesicles
-are clearly tank treading. Since the single-component case has a larger
-difference between its top and bottom boundary layers (see
-Figure~\ref{fig:lubrication}), it tank treads faster than the
-multicomponent case. In addition, since the top boundary layer is larger
-in both cases, they both tank-tread in the same
-direction---counterclockwise. In contrast, the single-component vesicle
-with $b=0.55$ tank-treads in the clockwise direction; note, however,
-that this example is still undergoing some deformations, so a constant
-tank-treading velocity is not observed. When $\alpha = 0.6$, the vesicle
-undergoes deformations while in the stenosis, and a constant
-tank-treading velocity is not observed 
+differ in size. The size of the lubrication layers for all three cases
+of the vesicle with reduced area $\alpha = 0.4$ are in the top half of
+Figure~\ref{fig:lubricationComposite}. Also included in the bottom of
+Figure~\ref{fig:lubricationComposite} are the tank-treading velocities.
+The four marker points are the Lagrangian points where the tank-treading
+velocities are computed, the black dashed line is the center line of the
+channel, and the rounded arrow denotes the direction of rotation. The
+stiff single-component and multicomponent vesicles are clearly tank
+treading. Since the single-component case has a larger difference
+between its top and bottom boundary layers, it tank treads faster than
+the multicomponent case. In addition, since the top boundary layer is
+larger in both cases, they both tank-tread in the same
+direction---counterclockwise. In contrast, the floppy single-component
+vesicle tank treads in the clockwise direction; note, however, that this
+example is still undergoing some deformations, so a constant
+tank-treading velocity is not observed.
+%When $\alpha = 0.6$, the vesicle undergoes deformations while in the
+%stenosis, and a constant tank-treading velocity is not observed 
 
 
 %\begin{figure}
@@ -932,7 +950,7 @@ tank-treading velocity is not observed
   0cm,clip=true]{}{figures/TankTreadingFigs_composite_SCp55.pdf}
   \subfigimg[width=0.3\linewidth,trim=0cm 6cm 28cm
   0cm,clip=true]{}{figures/TankTreadingFigs_composite_MCp5.pdf}
-  \caption{\label{fig:tankTreadRAp4} \small The lubrication layer
+  \caption{\label{fig:lubricationComposite} \small The lubrication layer
   thicknesses (red and blue), excess pressure (green), and tank treading
   velocity of four Lagrangian points of a (a) stiff single-component
   vesicle, (b) floppy single-component vesicle, and (c) multicomponent
@@ -973,14 +991,15 @@ tank-treading velocity is not observed
 %\end{figure}
 
 The size of the top and bottom lubrication layers are also related to
-the excess pressure (Figure~\ref{fig:excessPressure}). If the
-lubrication layers are large, most notably for the multicomponent
-vesicle with reduced area $\alpha = 0.4$, then less pressure is required
-to force the vesicle through the geometry, and we expect a smaller (less
-negative) excess pressure. In contrast, if the lubrication layers are
-small, most notably for the single-component vesicle with $b=1$ and
-reduced area $\alpha = 0.4$, then more pressure is required to force the
-vesicle through the geometry, and we expect a larger (more negative)
+the excess pressure. The green curve on the top half of
+Figure~\ref{fig:lubricationComposite} shows the excess pressure with the
+axis aligned on the right side of the plot. When the lubrication layers
+are large, most notably for the multicomponent vesicle, less pressure is
+required to force the vesicle through the geometry, and the result is a
+smaller (less negative) excess pressure. In contrast, when the
+lubrication layers are small, most notably for the stiff
+single-component vesicle, more pressure is required to force the vesicle
+through the geometry, and we the result is a larger (more negative)
 excess pressure.
 
 %\begin{figure}[H]
@@ -995,16 +1014,16 @@ excess pressure.
 %  areas are (a) $\alpha = 0.4$, and (b) $\alpha = 0.6$.}
 %\end{figure}
 
-While the size of the lubrication layers affect the tank-treading
-behavior and the excess pressure, it has almost no effect on the
-migration speed of the vesicle. 
-%In Figure~\ref{fig:vesVelocity}, we plot
-%the average velocity of the vesicle as it passes through the stenosed
-%region.
-With the exception of the single-component vesicle with $b=1$ and
-$\alpha = 0.6$, which has an average vesicle speed about 5\% slower, the
-average vesicle speed is constant. Obviously, this average velocity
-would be affected by the capillary number.
+%While the size of the lubrication layers affect the tank-treading
+%behavior and the excess pressure, it has almost no effect on the
+%migration speed of the vesicle. 
+%%In Figure~\ref{fig:vesVelocity}, we plot
+%%the average velocity of the vesicle as it passes through the stenosed
+%%region.
+%With the exception of the single-component vesicle with $b=1$ and
+%$\alpha = 0.6$, which has an average vesicle speed about 5\% slower, the
+%average vesicle speed is constant. Obviously, this average velocity
+%would be affected by the capillary number.
 
 %\begin{figure}[H]
 %  \centering
@@ -1015,7 +1034,7 @@ would be affected by the capillary number.
 %  have no significant effect.}
 %\end{figure}
 
-
+\todo[inline]{Bryan is here}
 When a vesicle is tank-treading near a solid wall, the flow in the thin
 layer of fluid includes both a linear profile and a Poiseuille
 profile~\cite{mis-wis-ber-key-li-tun-law-per-erd-zha-zha-sun-kal-lam-kon2019}.
