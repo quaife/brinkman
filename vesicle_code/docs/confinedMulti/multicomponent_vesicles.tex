@@ -722,38 +722,57 @@ stenosis geometry}
 \end{figure*}
 %\end{comment}
 
-\textcolor{red}{Back of the envelope calculation shows that anything
-with reduced area greater than 0.8 can not pass through the stenosis,
-assuming the vesicle shape is an ellipse}
 We start by considering a vesicle with reduced area $\alpha = 0.6$
 passing through stenosis with a capillary number $Ca = 0.25$.
-Figure~\ref{fig:RA6} shows six time steps of a single-component vesicle
-with bending stiffness (a) $b=1$ and (b) $b=0.55$, and (c) a
-multicomponent vesicle with an initially random distribution of lipids.
+Figure~\ref{fig:RA6} shows six time steps of a (a) stiff
+single-component (b) floppy single-component, and (c) multicomponent
+vesicle. The initial lipid distribution of the multicomponent is random.
 In all plots, the color is the dimensionless bending modulus of the
 multicomponent vesicle that remains bounded in $[0.1,1]$ by using the
 new bending modulus~\eqref{eqn:tanhBending}. A single Lagrangian point
-is included to visualize tank-treading behavior. There are slight
+is included to visualize any tank-treading behavior. There are slight
 differences between the three cases, with the most noticeable being that
-the multicomponent vesicle has higher curvature in the floppy region. We
-consider the same setup in Figure~\ref{fig:RA4}, but the vesicle has
-reduced area $\alpha = 0.4$. We first consider the three different
-energies---bending, tension, and phase---for each of the
-single-component and multicomponent vesicles. In
+the multicomponent vesicle has higher curvature in the floppy region.
+However, in general, there is little difference between these cases,
+partially because these vesicles have a large reduced area. With the
+current setup, an elliptical vesicle with reduced area greater than
+$\alpha = 0.8$ cannot fit through the closely-fitting geometry.
+
+\begin{figure*}[h]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/STENOSIS_RAp4MCp5.pdf}
+%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(a)}{figures/Fig6a.pdf}
+%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(b)}{figures/Fig6b.pdf}
+%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(c)}{figures/Fig6c.pdf}
+  \caption{\label{fig:RA4} \small A vesicle passing through the stenosis
+  geometry. The vesicle's reduced area is $\alpha = 0.4$ and the
+  capillary number is $Ca = 0.25$. The vesicles are: (a) single-component
+  with bending modulus $b=1$; (b) single-component with bending modulus
+  $b=0.55$; (c) multicomponent.}
+\end{figure*}
+
+
+
+
+To create more significant differences between the three cases, we
+consider the same geometry, but for a vesicle with reduced area $\alpha
+= 0.4$. Figure~\ref{fig:RA4} shows six time steps of a (a) stiff
+single-component, (b) floppy single-component, and (c) multicomponent
+vesicle. We first consider the three different energies---bending,
+tension, and phase---for each of these cases.  In
 Figure~\ref{fig:Energy}, we plot these energies as a function of the
-vesicle's center of mass. As a reminder, the vesicle enters the
-constriction at $x=-15$ and exits at $x=15$. Also note that the
-single-component vesicle does not have a phase energy. A few general
-trends can immediately be seen. First, as the vesicle enters the
-stenosis, there are sharp jumps in both the tension and bending
-energies, as expected. Next, the multicomponent vesicles only coarsen
-when the vesicle is not in the stenosis. Finally, when coarsening does
-occur, there are rapid changes in the tension energy.
+vesicle's center. As a reminder, the vesicle enters the constriction at
+$x=-15$ and exits at $x=15$. Also note that the single-component
+vesicles do not have a phase energy. A few general trends can
+immediately be seen. First, as the vesicle enters the stenosis, there
+are sharp jumps in both the tension and bending energies, as expected.
+Next, the multicomponent vesicles only coarsen when the vesicle is not
+in the stenosis. Finally, when coarsening does occur, there are rapid
+changes in the tension energy.
 
 \begin{figure}
   \begin{minipage}{0.49\columnwidth}
     \centering
-%    \subfigimg[width = \columnwidth, trim = {1cm 20cm 1cm 3cm}, clip]{(a)}{figures/RAp4BkgrdFlow.pdf}
     \subfigimg[width=\textwidth]{(a)}{figures/Fig13a.pdf}
     \subfigimg[width=\textwidth]{(c)}{figures/Fig13c.pdf}
     \subfigimg[width=\textwidth]{(e)}{figures/Fig13e.pdf}
@@ -794,26 +813,6 @@ that this example is still undergoing some deformations, so a constant
 tank-treading velocity is not observed. When $\alpha = 0.6$, the vesicle
 undergoes deformations while in the stenosis, and a constant
 tank-treading velocity is not observed 
-
-%\begin{comment}
-%\begin{figure}[h]
-\begin{figure*}[h]
-  \centering
-  \includegraphics[width=0.9\linewidth]{figures/STENOSIS_RAp4MCp5.pdf}
-%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(a)}{figures/Fig6a.pdf}
-%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(b)}{figures/Fig6b.pdf}
-%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(c)}{figures/Fig6c.pdf}
-  \caption{\label{fig:RA4} \small A vesicle passing through the stenosis
-  geometry. The vesicle's reduced area is $\alpha = 0.4$ and the
-  capillary number is $Ca = 0.25$. The vesicles are: (a) single-component
-  with bending modulus $b=1$; (b) single-component with bending modulus
-  $b=0.55$; (c) multicomponent.}
-%  The multicomponent vesicle travels
-%  slightly faster, so it leaves the stenosed region earlier than the
-%  single-component cases (see Figure~\ref{fig:vesVelocity}).}
-%\end{figure}
-\end{figure*}
-%\end{comment}
 
 
 %\begin{figure}
