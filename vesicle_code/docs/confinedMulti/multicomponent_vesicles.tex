@@ -365,17 +365,23 @@ and $\UU$ is zero along the top and bottom of the channel.
 We nondimensionalize the governing equations with a characteristic
 length scale $R_0 = 10^{-6}$~m, a maximum bending stiffness $b_{\max} =
 10^{-19}$~J, and fluid viscosity $\mu = 5 \times 10^{-2}$~kg/ms. The
-resulting time scale is $\mu R_0^3/b_{\max} = 0.5$~s, the velocity scale
-is $b_{\max}/\mu R_0^2=2$~$\mu$m/s, the pressure scale is
-$b_{\max}/R_0^3 = 10^{-1}$~Pa, and the tension scale is $b_{\max}/R_0^2
-= 10^{-7}$~N/m. The dimensionless parameters regarding the vesicle
-properties are the reduced area $\alpha = 4\pi A/L^2$, where $A$ and $L$
-are the vesicle's area and length, respectively, and the
+resulting bending relaxation time scale is $\mu R_0^3/b_{\max} = 0.5$~s,
+the velocity scale is $b_{\max}/\mu R_0^2=2$~$\mu$m/s, the pressure
+scale is $b_{\max}/R_0^3 = 10^{-1}$~Pa, and the tension scale is
+$b_{\max}/R_0^2 = 10^{-7}$~N/m. The dimensionless parameters regarding
+the vesicle properties are the reduced area $\alpha = 4\pi A/L^2$, where
+$A$ and $L$ are the vesicle's area and length, respectively, and the
 floppy-to-stiffness ratio $\beta = b_{\min}/b_{\max}$. Since we consider
 flows in channels, we also define a maximum imposed velocity, $U$, which
 sets the capillary number $Ca = U R_{0}^{2} \mu/b_{\max}$, and $W/R_0$
-is the dimensionless width of the channel at the inlet and outlet. From
-this point onwards, all equations are dimenisionless.
+is the dimensionless width of the channel at the inlet and outlet.
+Finally, the Peclet number of the lipid dynamics is taken to be $Pe = 1$
+which results in a diffusion time scale of $2 \times 10^{-4}$~s.
+Therefore, phase separation occurs at a rate three orders of magnitude
+faster than vesicle relaxation. The effect of the Peclet number has been
+examined~\cite{liu-mar-li-vee-low2017, soh-tse-li-voi-low2010}, and it
+has no qualitative effect on the vesicle dynamics. From this point
+onwards, all equations are dimensionless.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Constitutive equations}
@@ -396,8 +402,8 @@ $\kappa$ is the membrane curvature, and $f(u) = \frac{1}{4}u^2(1-u)^2$
 is a double-well potential with local minimums at $u=0$ and $u=1$. The
 parameter $\epsilon \ll 1$ sets the size of the transition region of
 $u$, and the parameter $a$ is line tension scaled by the characteristic
-bending stiffness. Both $\epsilon$ and $a$ are kept constant in all
-simulations. The resulting membrane forces are
+bending stiffness. All simulations use the parameter values
+$\epsilon=100$ and $a=0.04$. The resulting membrane forces are
 \begin{align}
   \ff_b &= -(b(u)\kappa \nn)_{ss} -\frac{3}{2}
     \left(b(u) \kappa^2 \ss\right)_s, \\
@@ -779,15 +785,28 @@ $x=-15$ and exits at $x=15$. Also note that the single-component
 vesicles do not have a phase energy. A few general trends can
 immediately be seen. First, as the vesicle enters the stenosis, it
 develops regions of high curvature, and this results in an increase in
-the bending energy. Also, since the stiff single-component vesicle
-reaches a steady-state shape earlier, its tension and bending energies
-remain nearly constant from $x=0$ until the end of the stenosis.
-Regarding the multicomponent vesicle, the phase energy has sudden
-decreases that correspond to the lipid phase coarsening. Note that this
-coarsening only occurs when the vesicle is not in the stenosis. Finally,
-when coarsening does occur, this results in a sudden change in the
-bending and tension energies, but these energies almost instantly return
-to their previous values once coarsening is complete.
+the bending energy. Also, since the stiff single-component and
+multicomponent vesicles reach a steady-state shape near the middle of
+the channel, their bending, tension, and phase energies remain nearly
+constant from $x=0$ until the end of the stenosis.
+
+The presence of the multiple lipid species in the multicomponent vesicle
+results in interesting additional physics. The lipid species coarsens at
+three instances, and this results in a decrease in the phase energy.
+Note, however, that no coarsening occurs when the vesicle is in the
+closely-fitting part of the domain. Each coarsening corresponds to
+two stiff regions overtaking a small floppy region, or two floppy
+regions overtaking a small stiff region. In the first case, a region
+that was originally floppy has suddenly become stiff, and this results
+in a sudden increase in the bending energy. In the latter case, because
+of lipid conservation, the overtaken stiff region must relocate to the
+another stiff-floppy interface, and this also results in a sudden
+increase in the bending energy. These increases are visible in
+Figure~\ref{fig:Energy}(c) as small upticks in the blue curve. However,
+in both cases, the vesicle smooths out these new regions of high
+curvature, but it takes some time since the diffusion time scale is
+several orders of magnitude smaller than the bending relaxation time
+scale.
 
 %\begin{figure}
 %  \begin{minipage}{0.49\columnwidth}
