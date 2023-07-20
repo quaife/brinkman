@@ -545,8 +545,7 @@ We validate the new bending model~\eqref{eqn:tanhBending} by reproducing
 the dynamics reported in the literature. Figure~\ref{fig:treading} shows
 a phase treading (top) ajnd a tank treading (bottom) multicomponent
 vesicle in an unconfined shear flow. These simulations align with the
-results reported by~\citet{liu-mar-li-vee-low2017} (cf.~Figures 3 and
-4).
+results reported by~\citet{liu-mar-li-vee-low2017} (cf.~Figure 3).
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.9\columnwidth]{figures/shearTreading.pdf}
@@ -635,8 +634,9 @@ width is
 %along a few vertical slices to demonstrate that a parabolic flow
 %profile is observed. 
 
-A difference between the size of the top and lubrication layers
-indicates that the vesicle is off-centered from the center of the
+A difference between the size of the top and bottom lubrication layers
+indicates that the vesicle %is off-centered 
+has deviated from the center of the
 channel, and this results in tank-treading behavior~\cite{aga-bir2020}.
 To determine if a vesicle is tank-treading, we calculate the tangential
 velocity at several points on $\gamma$, and if this value is constant,
@@ -712,10 +712,8 @@ geometry that slowly contracts to a narrow neck and then quickly widens
 same geometries in our previous work~\cite{qua-gan-you2021}. All the
 multicomponent examples have floppy-to-stiff ratio $\beta = 10^{-1}$.
 For the single-component case, we consider two bending stiffnesses:
-$b(u) = 1$ and $b(u) = 0.55$ which is the average bending stiffness of a
-multicomponent vesicle whose stiff and floppy regions have the same
-area. Throughout this section we plot the position of the vesicle in
-terms of the $x$-coordinate of its center of mass. For the stenosed
+$b(u) = 1$ and $b(u) = 0.55$. % which is the average bending stiffness of a multicomponent vesicle whose stiff and floppy regions have the same area. 
+The latter value represents the average bending stiffness of a multicomponent vesicle, where the stiff and floppy regions have the same area. Throughout this section we plot the position of the vesicle in terms of the $x$-coordinate of its center of mass. For the stenosed
 geometry in Section~\ref{subsec:Stenosis}, the narrow region begins at
 $x=-15$ and ends at $x=15$. For the contracting geometry in
 Section~\ref{subsec:Contraction}, the geometry begins to narrow at $x=4$
@@ -735,7 +733,7 @@ We start by considering a vesicle with reduced area $\alpha = 0.6$
 passing through stenosis with a capillary number $Ca = 0.25$.
 Figure~\ref{fig:RA6} shows six time steps of a (a) stiff
 single-component (b) floppy single-component, and (c) multicomponent
-vesicle. The initial lipid distribution of the multicomponent is random.
+vesicle. The initial lipid distribution of the multicomponent vesicle is random.
 In all plots, the color is the dimensionless bending modulus of the
 multicomponent vesicle that remains bounded in $[0.1,1]$ by using the
 new bending modulus~\eqref{eqn:tanhBending}. A single Lagrangian point
