@@ -303,25 +303,16 @@ boundary layer caused by tank treading behavior.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\label{sec:Formulation}Formulation}
-%\todo[inline]{Changes to be made to Figure~\ref{fig:schematic}.}
-%\begin{itemize}
-%  \item Remove labels $\Gamma$, $\Omega$, $\gamma$
-%  \item Line on vesicle is too thick and change color scheme to same as
-%    Fig 2
-%  \item Change to a confined geometry that we use (stenosis)
-%  \item Show a couple of vesicle shapes and the parabolic profile at
-%    the inlet, outlet, and in the middle
-%\end{itemize}
 \begin{figure}[H]
   \centering
-%  \includegraphics[trim = 0.3cm 0cm 1cm 0cm, clip=true,width=0.9\columnwidth]{figures/schematic.pdf}
   \includegraphics[width=0.9\columnwidth]{figures/schematic.pdf}
-  \caption{\label{fig:schematic}\small A single multicomponent vesicle
+  \caption{\label{fig:schematic}\small A multicomponent vesicle
   suspended in a strongly-confined stenosis. The color is the
   dimensionless stiffness which varies from $b_{\min} = 0.1$ to
   $b_{\max} = 1$. The vesicle dynamics are determined by a combination
   of phase, bending, and tension energies, and an imposed flow (blue
-  arrows).}
+  arrows). The lubrication layer (gray region), defined in
+  Section~\ref{sec:LL} also plays a key role in the vesicle dynamics.}
 %  \caption{\label{fig:schematic}\small A single multicomponent vesicle
 %  with boundary $\gamma$ suspended in a domain $\Omega$ with boundary
 %  $\Gamma$. The dark red regions are the ``stiff'' regions corresponding
@@ -604,7 +595,7 @@ geometry.
 %    d(\xx,\Gamma_\mathrm{top}) = \inf_{\yy \in \Gamma_\mathrm{top}} \|\xx-\yy\|,
 %\end{align}
 %where $\Gamma_{\mathrm{top}}$ is the top portion of $\Gamma$.
-We then find all local minimums of $d(\xx,\Gamma_\mathrm{top})$, with
+We find all local minimums of $d(\xx,\Gamma_\mathrm{top})$, with
 the condition that $d(\xx,\Gamma_\mathrm{top}) < \delta$, where $\delta$
 is a parameter. If no such local minimums exist, then the vesicle is too
 far from $\Gamma_\mathrm{top}$ to define a lubrication layer. If there
@@ -619,12 +610,13 @@ $\gamma_{\mathrm{layer}} \subset \gamma$ consists of all points $\xx \in
 $d(\xx,\Gamma_\mathrm{top}) < \delta$. Finally, the lubrication layer
 width is
 \begin{align}
-    w_\mathrm{top} = \frac{1}{|\gamma_{_\mathrm{layer}}|} 
-      \int_{\gamma_{_\mathrm{layer}}} d(\xx,\Gamma_\mathrm{top}) \, ds.
+  w_\mathrm{top} = \frac{1}{|\gamma_{_\mathrm{layer}}|} 
+    \int_{\gamma_{_\mathrm{layer}}} d(\xx,\Gamma_\mathrm{top}) \, ds.
 \end{align}
-%The width of the bottom lubrication layer, $w_\mathrm{bot}$ is
-%calculated by replacing $\Gamma_\mathrm{top}$ with
-%$\Gamma_\mathrm{bot}$. 
+The region that defines the top and bottom lubrication layers is
+illustrated in Figure~\ref{fig:schematic}, and the height of the gray
+regions denote the lubrication layer thickness. In this example, the top
+layer is broken across three different regions.
 
 %The terminology of boundary layer can be justified by computing the
 %velocity field in the region between the vesicle and the solid wall. In
@@ -635,10 +627,9 @@ width is
 %profile is observed. 
 
 A difference between the size of the top and bottom lubrication layers
-indicates that the vesicle %is off-centered 
-has deviated from the center of the
-channel, and this results in tank-treading behavior~\cite{aga-bir2020}.
-To determine if a vesicle is tank-treading, we calculate the tangential
+indicates that the vesicle  has deviated from the center of the channel,
+and this results in tank-treading behavior~\cite{aga-bir2020}.  To
+determine if a vesicle is tank-treading, we calculate the tangential
 velocity at several points on $\gamma$, and if this value is constant,
 this is the tank-treading velocity.
 
@@ -699,8 +690,6 @@ pressure at $\xx \in \Omega$ is
 %T_s+\kappa V  = 0. \label{genInexMC}
 %\end{equation}
 %Recall that the velocity $\uu$ is coupled to the tension $\sigma^{LL}$ which acts as a Lagrange multiplier to satisfy equation \eqref{genInexMC}.
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\label{sec:results}Hydrodynamics of a multicomponent vesicle
@@ -792,8 +781,8 @@ The presence of the multiple lipid species in the multicomponent vesicle
 results in interesting additional physics. The lipid species coarsens at
 three instances, and this results in a decrease in the phase energy.
 Note, however, that no coarsening occurs when the vesicle is in the
-closely-fitting part of the domain. Each coarsening corresponds to
-two stiff regions overtaking a small floppy region, or two floppy
+closely-fitting part of the domain. Each coarsening corresponds either
+to two stiff regions overtaking a small floppy region, or to two floppy
 regions overtaking a small stiff region. In the first case, a region
 that was originally floppy has suddenly become stiff, and this results
 in a sudden increase in the bending energy. In the latter case, because
@@ -1052,7 +1041,6 @@ excess pressure.
 %  have no significant effect.}
 %\end{figure}
 
-\todo[inline]{Bryan is here}
 When a vesicle is tank-treading near a solid wall, the flow in the thin
 layer of fluid includes both a linear profile and a Poiseuille
 profile~\cite{mis-wis-ber-key-li-tun-law-per-erd-zha-zha-sun-kal-lam-kon2019}.
@@ -1068,7 +1056,7 @@ is caused when the tangential force on the vesicle
 \begin{align}
   \mathbf{F}_{\tt} = -\sigma_s + u_s \frac{\delta E^m}{\delta u},
 \end{align}
-where
+switches sign. Here,
 \begin{align}
   \frac{\delta E^m}{\delta u} = \frac{a}{\epsilon} 
     (f'(u) - \epsilon^2 u_{ss}) + \frac{b'(u)}{2} \kappa^2
@@ -1076,7 +1064,7 @@ where
 is the variational derivative of the membrane energy with respect to the
 lipid concentration~\cite{soh-tse-li-voi-low2010}. Note that in the
 single-component case, the tangential force is $\mathbf{F}_\tt =
-\sigma_s$ which is the usual Marangoni effect.
+-\sigma_s$ which is the usual Marangoni effect.
 
 \begin{figure}
   \centering
@@ -1090,14 +1078,8 @@ single-component case, the tangential force is $\mathbf{F}_\tt =
 \end{figure}
 
 
-
-
-
-
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\todo[inline]{Bryan is here}
 \subsection{\label{subsec:Contraction} A multicomponent vesicle in the
 contracting geometry}
 In this section, we consider a single vesicle passing through a geometry
