@@ -1086,26 +1086,26 @@ that slowly contracts to a region that is only 2~$\mu$m wide, and then
 immediately opens back up to a channel that is ten times larger. We
 first consider the effect of the initial lipid concentration when the
 floppy and stiff regions each make up half of the vesicle membrane. In
-Figure~\ref{fig:RA6leftRightRand}, we consider a vesicle with $\alpha =
-0.6$ with an initially random initial lipid concentration, one that is
-floppy in the front and stiff in the back, and one that is stiff in the
-front and floppy in the back. The vesicle with the random initial lipid
-distribution quickly phase separates into a two floppy and two stiff
+Figure~\ref{fig:RA6leftRightRand}, snapshots of vesicles with reduced
+area $\alpha = 0.6$ with different initial lipid distributions are
+illustrated. The initial distributions are random (middle) floppy in the
+front and stiff in the back (top), and one that is stiff in the front
+and floppy in the back (bottom). The vesicle with the random initial
+lipid distribution quickly phase separates into two floppy and two stiff
 regions. As seen in the stenosis geometry, further phase separation is
 delayed until the vesicle is no longer under strong confinement. The
-vesicle where the initial lipid species distribution is fully phase
-separated with the floppy region on the front of the vesicle begins to
-reorient the floppy region to the back of the vesicle. In contrast, the
-fully phase separated case with the stiff region at the front maintains
-its orientation. In summary, in all three cases, the vesicle is
-orienting itself so that the stiff region passes through the
-constriction before the floppy region. Therefore, in all subsequent
-examples, we start with symmetric vesicle whose floppy region is in the
-back and its stiff region is in the front. The vesicle shapes develop
-regions with high curvature in the floppy region when they first pass
-through the narrowest part of the geometry, but because the strong
-confinement is abruptly removed immediately afterwards, these regions of
-high curvature are quickly smoothed. 
+vesicle with the floppy region on the front reorients the floppy region
+towards the back of the vesicle. In contrast, the vesicle with the stiff
+region at the front maintains its orientation. In summary, in all three
+cases, the vesicle is orienting itself so that the stiff region passes
+through the constriction before the floppy region.  Therefore, in
+subsequent simulations, we initialize the vesicle's lipid concentration
+so that the floppy region is in the back and its stiff region is in the
+front. The vesicle shapes develop regions with high curvature in the
+floppy region when they first pass through the narrowest part of the
+geometry, but because the strong confinement is abruptly removed
+immediately afterwards, these regions of high curvature are quickly
+smoothed. 
 %Since we can see in Figure~\ref{fig:RA6leftRightRand} that the regions
 %of high curvature are located in the back of the vesicle, we expect the
 %overall bending energies to be lowest for the randomly distributed case
@@ -1123,9 +1123,9 @@ high curvature are quickly smoothed.
   vesicle's reduced area is $\alpha = 0.6$ and the capillary number is
   $Ca = 0.25$. The lipid distribution is initialized to already be phase
   separated in the top and bottom rows, and the middle row has a random
-  initial lipid distribution. The preferred orientation of the lipid
-  concentration is to have the stiff region to pass through the
-  contraction before the floppy region.}
+  initial lipid distribution. The preferred lipid distribution has the
+  stiff region passing through the contraction before the floppy
+  region.}
 \end{figure}
 
 %\begin{figure}[H]
@@ -1139,19 +1139,19 @@ high curvature are quickly smoothed.
 %\end{figure}
 
 In addition to the lipid distribution, the percentage of the vesicle
-that is floppy plays a role in the vesicle dynamics. Therefore, we
-consider a vesicle with reduced area $\alpha = 0.5$ in a contracting
-geometry with various sizes of the floppy region. Motivated by the last
-experiment, we initialize the lipid distribution so that the front is
-stiff and the back is floppy. In each simulation, the capillary number
-is $Ca = 0.25$. Figure~\ref{fig:RA5} shows the vesicle shapes as they
-pass through the narrow constriction when the percentage of the floppy
+that is floppy plays a role in the vesicle shapes and dynamics.
+Therefore, we consider a vesicle with reduced area $\alpha = 0.5$ in the
+contracting geometry with various sizes of the floppy region. Motivated
+by the last experiment, we initialize the stiff region to be in the
+front and the floppy region to be in the back. In each simulation, the
+capillary number is $Ca = 0.25$. Figure~\ref{fig:RA5} shows the vesicle
+shapes at the same six time steps when the percentage of the floppy
 region is 0\% (single-component), \%15, \%25, \%35, and \%45. One effect
 of the size of the floppy region is that the symmetry of the vesicle
 shape is broken at smaller percentages. We also see that stiffer
-vesicles have faster migration speeds, but the effect is quite small. In
-Table~\ref{tbl:contractingTimes}, we report the time the vesicle first
-passes through the neck.
+vesicles have faster migration speeds, but the effect is quite
+small---Table~\ref{tbl:contractingTimes} reports the time the vesicle
+first passes through the neck.
 %In Figure~\ref{fig:RA5}, we consider a vesicle with reduced area
 %$\alpha = 0.5$ and the capillary number is $Ca = 0.25$. We start with a
 %single-component vesicle and then increase the percentage of the
@@ -1215,7 +1215,8 @@ passes through the neck.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\columnwidth]{figures/bendingAllContracting.pdf}
+  \includegraphics[width=\columnwidth]{figures/bendingContracting.pdf}
+%  \includegraphics[width=\columnwidth]{figures/bendingAllContracting.pdf}
   \caption{\label{fig:bendingAll} \small The bending energy for a
   single-component vesicle (blue) and a multicomponent vesicle
   (red)--(green) with $\alpha = 0.5$. As the size of the floppy region
@@ -1226,30 +1227,36 @@ passes through the neck.
 We conclude this example by considering the different shapes that
 single-component and multicomponent shapes display. Since we have
 initialized the lipid species to initially be phase separated, the phase
-energy is more or less constant for all cases. The tension energy, on
-the other hand, increases as the vesicle approaches the neck, but its
-general shape is similar for the five cases considered in
-Figure~\ref{fig:RA5}. However, the bending energies are show different
-behaviors for each of the cases (Figure~\ref{fig:bendingAll}). The main
-difference between the cases is the that multicomponent vesicles with a
-higher percentage of floppy regions have less bending energy, especially
-as the vesicle passes through the neck. We also note that the bending
-energy undergoes several transient increases and decreases. These occur
-when the tail of the vesicle undergoes transitions from lower energy
-shapes, such as a `C' or `S' shapes, to high energy shapes, such as 'W'
-shapes. Figure~\ref{fig:bendingSC_contracting} show these different
-vesicle shapes for the single-component vesicle and multicomponent
-vesicle that is 45\% floppy. The shape at several critical points along
-the bending energy are included, and we can indeed see that
-transitioning vesicle shape between these different states.
-
+energy is nearly constant for all cases, and is therefore not plotted.
+The tension energy, on the other hand, increases as the vesicle
+approaches the neck, but its general shape is similar for all five
+cases, and it too is not plotted. However, the bending energies show
+different behaviors for each of the cases (Figure~\ref{fig:bendingAll}).
+The main difference being that the multicomponent vesicles with a higher
+percentage of floppy regions have less bending energy, especially as the
+vesicle passes through the neck. We also note that the bending energy
+undergoes several transient increases and decreases. These occur when
+the tail of the vesicle undergoes transitions from lower energy shapes,
+such as `C' or `S' shapes, to high energy shapes, such as 'W' shapes.
+Figure~\ref{fig:bendingSC_contracting} shows these different vesicle
+shapes for the single-component vesicle and multicomponent vesicle that
+is 45\% floppy. The shapes at several critical points along the bending
+energy are included, and we can indeed see that transitioning vesicle
+shape between these different states.
 
 \begin{figure}
-    \centering
+  \centering
 %    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(a)}{figures/Fig14f.pdf}
-    \subfigimg[width=\columnwidth]{(a)}{figures/bendingSC.pdf}
-    \subfigimg[width=\columnwidth]{(b)}{figures/bendingEngMC45.pdf}
-    \caption{\label{fig:bendingSC_contracting} The bending energy of (a) a single-component vesicle, and (b) a multicomponent vesicle whose boundary is 45\% floppy passing through a contracting geometry. The vesicle shape at different locations are included. We can clearly see that the sudden increases and decreases in the bending energy are due to transitions between lower energy and higher energy shapes.}
+  \subfigimg[width=\columnwidth]{(a)}{figures/ContractingEnergy_SC.pdf}
+  \subfigimg[width=\columnwidth]{(b)}{figures/ContractingEnergy_MC.pdf}
+%  \subfigimg[width=\columnwidth]{(a)}{figures/bendingSC.pdf}
+%  \subfigimg[width=\columnwidth]{(b)}{figures/bendingEngMC45.pdf}
+  \caption{\label{fig:bendingSC_contracting} The bending energy of (a) a
+  single-component vesicle, and (b) a multicomponent vesicle whose
+  boundary is 45\% floppy passing through a contracting geometry. The
+  vesicle shape at different locations are included. We can clearly see
+  that the sudden increases and decreases in the bending energy are due
+  to transitions between lower energy and higher energy shapes.}
 \end{figure}
 
 
@@ -1346,6 +1353,29 @@ transitioning vesicle shape between these different states.
 
 
 \section{Conclusions \label{sec:conclusion}}
+
+\begin{itemize}
+  \item New bending model using hyperbolic tangent (sigmoidal shape)
+    which is necessary to maintain a positive bending modulus
+
+  \item Orientation of the phase is always stiff on the front and floppy
+    on the back, but we don't know why (yet). Observed by others such as
+    Biros and Agrawalla, George and Misbah, and others.
+
+  \item Boundary layer and change in sign of pressure gradient term that
+    drives the lubrication flow. This is a combination of the tension
+    and the phase boundary between stiff and floppy regions.
+
+  \item Sudden drop in bending energy for multicomponent can be
+    explained by the sudden coarsening of the lipids.
+
+  \item Relationship between tank treading, excess pressure and layer
+    thickness.
+
+  \item  Inability to coarsen when under strong confinement. Can be
+    related to item 2. Strong confinement arrests phase coarsening.
+
+\end{itemize}
 
 %The main text of the article\cite{Mena2000} should appear here.
 %
