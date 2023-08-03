@@ -210,13 +210,17 @@ flow~\cite{lyu-che-far-jae-mis-leo2023, aga-bir2020, qua-gan-you2021,
 abb-far-nai-ezz-ben-mis2022} showed more exotic vesicle hydrodynamics such as snaking and
 swirling behaviors in croissant and slipper shapes.
 
-Under a linear shear flow, a multicomponent vesicle exhibits more exotic dynamics in both shape and membrane composition \cite{soh-tse-li-voi-low2010, Smith2007_JChemPhys,Cox2015_Nonlinearity,Liu2017_SoftMatter,Tusch2018_PRF,Gera2018_SoftMatter,ger-sal-spa2022} than a single-component vesicle.
+Under a linear shear flow, a multicomponent vesicle exhibits more exotic dynamics in both shape and membrane composition \cite{soh-tse-li-voi-low2010, Smith2007_JChemPhys,Cox2015_Nonlinearity,liu-mar-li-vee-low2017,Tusch2018_PRF,Gera2018_SoftMatter,ger-sal-spa2022} than a single-component vesicle.
 For example, multicomponent vesicles under a background flow often exhibit highly complex morphologies, leading to vesicle budding. 
 The hydrodynamics of these
 multicomponent vesicles include phase treading, tumbling with no
 viscosity contrast, swinging, budding, and
 fission~\cite{soh-tse-li-voi-low2010, wan-du2008, all-ama2006,
-ger-sal-spa2022, lip1992, urs-klu-phi2009}. In addition to the
+ger-sal-spa2022, lip1992, urs-klu-phi2009}. 
+Through numerical investigations, 
+Liu {\it et al.}~\cite{liu-mar-li-vee-low2017} identified several key dimensionless numbers, including the reduced area, capillary
+number, and the floppy-to-stiff ratio to characterize various dynamics of a
+multicomponent vesicle in an unbounded linear shear flow. In addition to the
 aforementioned numerical studies, these dynamics have been observed in
 experiments~\cite{bag-sun2009, yan-ima-tan2010, yan-ima-tan2008,
 dre-jah-bob-spa-gop2021}.
@@ -240,20 +244,16 @@ dre-jah-bob-spa-gop2021}.
 %
 
 Hydrodynamics of vesicles in extreme confinement has been studied as a model system for red blood cells (RBCs) squeezing through small
-capillaries (of sub-micron size in diameter) under a pressure difference \cite{LuPeng2019_PoF,gur-pak-tay-siv-sac2023}. Membrane permeability has been incorporated to examine the single-component vesicle hydrodynamics. In the absence of an osmotic gradient, the semipermeable vesicle is affected by water influx/efflux over a sufficiently long time or under a strong confinement \cite{qua-gan-you2021}. Numerical simulations illustrate that a vesicle with moderate membrane permeability can go through a strong confinement much more easily, and can restore its water content within a very short time after its passage through the strong confinement \cite{qua-gan-you2021}.  These results imply that the membrane permeability may be inferred from vesicle hydrodynamics under a strong confinement.  Motivated by these results, in this work we seek to investigate how strong confinement may affect the hydrodynamics of a multi-component vesicle? This question is highly relevant to hydrodynamics of cells in a confinement, and to our knowledge has not been well studied.
+capillaries (of sub-micron size in diameter) under a pressure difference \cite{LuPeng2019_PoF,che-lyu-jae-leo2020,gur-pak-tay-siv-sac2023}. Membrane permeability has been incorporated to examine the single-component vesicle hydrodynamics. In the absence of an osmotic gradient, the semipermeable vesicle is affected by water influx/efflux over a sufficiently long time or under a strong confinement \cite{qua-gan-you2021}. Numerical simulations illustrate that a vesicle with moderate membrane permeability can go through a strong confinement much more easily, and can restore its water content within a very short time after its passage through the strong confinement \cite{qua-gan-you2021}.  These results imply that the membrane permeability may be inferred from vesicle hydrodynamics under a strong confinement.  Motivated by these results, in this work we seek to investigate how strong confinement may affect the hydrodynamics of a multi-component vesicle? This question is highly relevant to hydrodynamics of cells in a confinement, and to our knowledge has not been well studied. 
+Ramachandran {\it et al.} \cite{ram-kom-sek-ima2010} reported that confinement reduces the effective diffusion coefficient of the concentration fluctuation in multicomponent membranes. How is such reduced concentration diffusion coefficient reflected in the hydrodynamics of multicomponent vesicles under strong confinement?
 
 
-In this paper, we extend the work of Liu et
-al.~\cite{liu-mar-li-vee-low2017} who performed a thorough investigation
-of how key dimensionless numbers, including the reduced area, capillary
-number, and the floppy-to-stiff ratio, affect the dynamics of a
-multicomponent vesicle in an unbounded linear shear flow. What is
-missing from the literature, and what we address in this work, is the
-effect of strong confinement on a two-dimensional multicomponent
-vesicle. Using numerical simulations, we show how the vesicle's reduced
+In this paper, we use numerical simulations and lubrication analysis \cite{mis-wis-ber-key-li-tun-law-per-erd-zha-zha-sun-kal-lam-kon2019} 
+to investigate the effect of strong confinement on a multicomponent vesicle.
+In particular we show how the vesicle's reduced
 area and its lipid composition affect the dynamics in two strongly
 confined geometries.
-
+%
 The remainder of the paper is organized as follows.
 Section~\ref{sec:Formulation} describes the model for the
 two-dimensional multicomponent vesicle. We introduce a new
@@ -268,15 +268,11 @@ Section~\ref{sec:conclusion}.
 
 %\citet{gur-pak-tay-siv-sac2023} look at the effect of membrane viscoelasticity.
 
-\citet{ram-kom-sek-ima2010}
-
-\citet{che-lyu-jae-leo2020}
-
 \citet{wan-ii-sug-nod-jin-liu-che-gon2023}
 
-\citet{mis-wis-ber-key-li-tun-law-per-erd-zha-zha-sun-kal-lam-kon2019}
-is paper with Sean Sun that looks at linear and non-linear shear in the
-boundary layer caused by tank treading behavior.
+%\citet{mis-wis-ber-key-li-tun-law-per-erd-zha-zha-sun-kal-lam-kon2019}
+%is paper with Sean Sun that looks at linear and non-linear shear in the
+%boundary layer caused by tank treading behavior.
 
 %\citet{yan-ima-tan2010} perform experiments with multicomponent GUVs.
 %They observe phase separation and budding of vesicles with a small
