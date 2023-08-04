@@ -442,7 +442,7 @@ Section~\ref{sec:validation}.
 %the instability caused by the negative bending stiffness is near the
 %region with negative curvature.
 
-\begin{figure}[H]
+\begin{figure}[h]
   \centering
 %  \input{figures/concModels.tikz} \\
 %  \subfigimg[width=0.9\linewidth, clip ]{(a)}{figures/oldbending.pdf} \\
@@ -531,7 +531,7 @@ the dynamics reported in the literature. Figure~\ref{fig:treading} shows
 a phase treading (top) ajnd a tank treading (bottom) multicomponent
 vesicle in an unconfined shear flow. These simulations align with the
 results reported by~\citet{liu-mar-li-vee-low2017} (cf.~Figure 3).
-\begin{figure}[H]
+\begin{figure}[h]
   \centering
   \includegraphics[width=0.9\columnwidth]{figures/shearTreading.pdf}
 %  \subfigimg[width=\columnwidth, trim ={5.5cm 1.5cm 4cm 0},clip]{(a)}{figures/Fig4a.pdf}
@@ -741,12 +741,12 @@ $\alpha = 0.8$ cannot fit through the closely-fitting geometry.
   $b=0.55$; (c) multicomponent.}
 \end{figure*}
 
-\begin{figure*}[h]
+\begin{figure*}[ht]
   \centering
   \subfigimg[width=0.3\linewidth]{(a)}{figures/SC_energy.pdf}
   \subfigimg[width=0.3\linewidth]{(b)}{figures/SCp55_energy.pdf}
   \subfigimg[width=0.3\linewidth]{(c)}{figures/MCp5_energy.pdf}
-  \caption{\label{fig:Energy} \small The Bending (blue), tension (red),
+  \caption{\label{fig:Energy} \small The bending (blue), tension (red),
   and phase (green) energies for a (a) stiff single-component, (b)
   floppy single-component, and (c) multicomponent vesicle. The reduced
   area is $\alpha = 0.4$. Note that the single-component vesicles do not
@@ -1060,16 +1060,27 @@ lipid concentration~\cite{soh-tse-li-voi-low2010}. Note that in the
 single-component case, the tangential force is $\mathbf{F}_\tt =
 -\sigma_s$ which is the usual Marangoni effect.
 
-\begin{figure}
+\begin{figure*}[t]
+%\begin{figure}
   \centering
-  \subfigimg[width=\columnwidth]{(a)}{figures/SC_top.pdf}
-  \subfigimg[width=\columnwidth]{(b)}{figures/SC_bot.pdf}
-  \subfigimg[width=\columnwidth]{(c)}{figures/SCp55_top.pdf}
-  \subfigimg[width=\columnwidth]{(d)}{figures/SCp55_bot.pdf}
-  \subfigimg[width=\columnwidth]{(e)}{figures/MCp5_top.pdf}
-  \subfigimg[width=\columnwidth]{(f)}{figures/MCp5_bot.pdf}
-  \caption{\label{fig:BLvelocities} A descriptive caption.}
-\end{figure}
+  \subfigimg[width=0.48\linewidth]{(a)}{figures/SC_top.pdf}
+  \subfigimg[width=0.48\linewidth]{(b)}{figures/SC_bot.pdf}
+  \subfigimg[width=0.48\linewidth]{(c)}{figures/SCp55_top.pdf}
+  \subfigimg[width=0.48\linewidth]{(d)}{figures/SCp55_bot.pdf}
+  \subfigimg[width=0.48\linewidth]{(e)}{figures/MCp5_top.pdf}
+  \subfigimg[width=0.48\linewidth]{(f)}{figures/MCp5_bot.pdf}
+  \caption{\label{fig:BLvelocities} The co-moving velocity field in the
+  thin fluid layer between vesicles and the stenosis geometry. The
+  vesicles are (a/b): single-component with $b(u) = 1$; (c/d):
+  single-component with $b(u) = 0.55$; (e/f): multicomponent. The top
+  layers are in (a/c/e) and the bottom layers are in (b/d/f). The
+  profiles are ploted at slices where the pressure gradient transitions
+  from a value that is negative, zero, positive, zero, and negative. The
+  right plots show the tangential stress with the five slices denoted by
+  the marks. Note that the reversal in the pressure gradient occurs when
+  the tangential stress is sufficiently large, in magnitude.}
+%\end{figure}
+\end{figure*}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1106,7 +1117,7 @@ smoothed.
 %and the fully separated floppy region on the back case. We observe this
 %in Figure~\ref{fig:RAp6leftRightRandBending}. 
 
-\begin{figure}[H]
+\begin{figure}[h]
   \centering
 %    \subfigimg[width=\columnwidth,trim ={5cm .5cm 2cm .5cm},clip]{(a)}{figures/rightSep.pdf}
 %    \subfigimg[width=\columnwidth,trim ={5cm .5cm 2cm .5cm},clip]{(b)}{figures/randSep.pdf}
@@ -1156,7 +1167,7 @@ first passes through the neck.
 %The dimensionless times that the entire vesicle first passes through
 %the neck are reported in Table~\ref{tbl:contractingTimes}.
 
-\begin{figure}[H]
+\begin{figure}[h]
   \centering
   \includegraphics[width=\columnwidth]{figures/Contracting_RAp6MC_variableConc.pdf}
 %    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(a)}{figures/Fig14f.pdf}
@@ -1175,7 +1186,7 @@ first passes through the neck.
   percentage of floppy regions.}
 \end{figure}
 
-\begin{table}[H]
+\begin{table}[h]
   \centering
   \begin{tabular}{l|ccccc}
     \hline
@@ -1207,7 +1218,7 @@ first passes through the neck.
 %  vesicles to completely pass through the neck.}
 %\end{table}
 
-\begin{figure}[H]
+\begin{figure}[h]
   \centering
   \includegraphics[width=\columnwidth]{figures/bendingContracting.pdf}
 %  \includegraphics[width=\columnwidth]{figures/bendingAllContracting.pdf}
@@ -1237,7 +1248,7 @@ is 45\% floppy. The shapes at several critical points along the bending
 energy are included, and we can indeed see that transitioning vesicle
 shape between these different states.
 
-\begin{figure}
+\begin{figure}[h]
   \centering
 %    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(a)}{figures/Fig14f.pdf}
   \subfigimg[width=\columnwidth]{(a)}{figures/ContractingEnergy_SC.pdf}
