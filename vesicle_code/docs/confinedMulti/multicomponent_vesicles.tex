@@ -157,7 +157,7 @@
 \includegraphics{head_foot/DOI} & \noindent\LARGE{\textbf{Hydrodynamics of Multicomponent Vesicles Under Strong Confinement}} \\
 \vspace{0.3cm} & \vspace{0.3cm} \\
 %
- & \noindent\large{Ashley Gannon,\textit{$^{a}$} Yuan-Nan Young,\textit{$^{b\ddag}$} and Bryan Quaife\textit{${\ast}${$^{a}$}}} \\
+ & \noindent\large{Ashley Gannon,\textit{$^{a}$} Y.-N. Young,\textit{$^{b\ddag}$} and Bryan Quaife\textit{${\ast}${$^{a}$}}} \\
 % %Author names go here instead of "Full name", etc.
 %
 \includegraphics{head_foot/dates} & \noindent\normalsize{The abstract should be a single paragraph which summarises the content of the article. Any references in the abstract should be written out in full \textit{e.g.}\ [Surname \textit{et al., Journal Title}, 2000, \textbf{35}, 3523].} \\%The abstrast goes here instead of the text "The abstract should be..."
@@ -714,6 +714,9 @@ stenosis geometry}
 
 We start by considering a vesicle with reduced area $\alpha = 0.6$
 passing through stenosis with a capillary number $Ca = 0.25$.
+With the current setup and $Ca=0.25$, an elliptical vesicle with reduced area greater than
+$\alpha = 0.8$ cannot fit through the closely-fitting geometry.
+
 Figure~\ref{fig:RA6} shows six time steps of a (a) stiff
 single-component (b) floppy single-component, and (c) multicomponent
 vesicle. The initial lipid distribution of the multicomponent vesicle is random.
@@ -724,9 +727,7 @@ is included to visualize any tank-treading behavior. There are slight
 differences between the three cases, with the most noticeable being that
 the multicomponent vesicle has higher curvature in the floppy region.
 However, in general, there is little difference between these cases,
-partially because these vesicles have a large reduced area. With the
-current setup, an elliptical vesicle with reduced area greater than
-$\alpha = 0.8$ cannot fit through the closely-fitting geometry.
+partially because these vesicles have a large reduced area. 
 
 \begin{figure*}[h]
   \centering
@@ -754,24 +755,25 @@ $\alpha = 0.8$ cannot fit through the closely-fitting geometry.
 \end{figure*}
 
 
-To create more significant differences between the three cases, we
-consider the same geometry, but for a vesicle with reduced area $\alpha
-= 0.4$. Figure~\ref{fig:RA4} shows six time steps of a (a) stiff
-single-component, (b) floppy single-component, and (c) multicomponent
-vesicle. We first consider the three different energies---bending,
+Next we consider a vesicle with a smaller reduced area $\alpha=0.4$ with the same geometry and $Ca=0.25$.
+Figure~\ref{fig:RA4} shows  the shape of  
+a (a) stiff single-component, (b) floppy single-component, and (c) multicomponent
+vesicle at six locations along the stenosis channel. We first consider the three different energies---bending,
 tension, and phase---for each of these cases. In
 Figure~\ref{fig:Energy}, we plot these energies as a function of the
 vesicle's center. As a reminder, the vesicle enters the constriction at
 $x=-15$ and exits at $x=15$. Also note that the single-component
-vesicles do not have a phase energy. A few general trends can
-immediately be seen. First, as the vesicle enters the stenosis, it
+vesicles do not have a phase energy. 
+%A few general trends can immediately be seen. 
+First we observe that, as the vesicle enters the stenosis, it
 develops regions of high curvature, and this results in an increase in
-the bending energy. Also, since the stiff single-component and
+the bending energy. Secondly, since the stiff single-component and
 multicomponent vesicles reach a steady-state shape near the middle of
 the channel, their bending, tension, and phase energies remain nearly
-constant from $x=0$ until the end of the stenosis.
+constant from $x=0$ until the end of the stenosis. 
 
-The presence of the multiple lipid species in the multicomponent vesicle
+%This corresponds to an arrest of phase coarsening for a vesicle confined in a stenosis.
+The presence of the multiple lipid species in the multicomponent vesicle under confinement
 results in interesting additional physics. The lipid species coarsens at
 three instances, and this results in a decrease in the phase energy.
 Note, however, that no coarsening occurs when the vesicle is in the
