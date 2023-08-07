@@ -4,7 +4,8 @@ function [] = MakeSnaps(file,sp,cb,ha)
 %end
 load(file);
 
-addpath ../../../../../shuwang_rewrite
+%addpath ../../../../../shuwang_rewrite
+addpath ~/projects/brinkman/shuwang_rewrite
 
 bmin = .1;
 bmax = 1;
@@ -62,15 +63,15 @@ for i = 1:length(k)
   yyy1 = [yy1(:,:);yy1(1:4,:)];
   ttt1 = [tt1(:,:);tt1(1:4,:)];
 
-  if strcmp(file,'Stenosis_RAp6_SC.mat') || ...
-     strcmp(file,'Stenosis_RAp4_SC.mat')
+  if strcmp(file,'AshleyFiles/Stenosis_RAp6_SC.mat') || ...
+     strcmp(file,'AshleyFiles/Stenosis_RAp4_SC.mat')
 %    rbn = bmax*ones(N,1);
 %    rbn1 = [rbn(:,:);rbn(1:4,:)];
 %    h = cline(xxx1,yyy1,rbn1);
 %    set(h,'linewidth',3);
     plot(xxx1,yyy1,'color',map(end,:),'linewidth',3);
-  elseif strcmp(file,'Stenosis_RAp6_SCp55.mat') || ...
-         strcmp(file,'Stenosis_RAp4_SCp55.mat')
+  elseif strcmp(file,'AshleyFiles/Stenosis_RAp6_SCp55.mat') || ...
+         strcmp(file,'AshleyFiles/Stenosis_RAp4_SCp55.mat')
 %    rbn = (bmax+bmin)/2*ones(N,1);
 %    rbn1 = [rbn(:,:);rbn(1:4,:)];
 %    h = cline(xxx1,yyy1,rbn1);
@@ -95,7 +96,8 @@ set(gca,'box','off')
 set(gca, 'visible', 'off')
 
 h2 = colorbar;
-set(h2, 'limits', ([0 1]))
+set(h2, 'limits', ([0.1 1]))
+set(h2,'xtick',(0.2:0.2:1));
 set(h2, 'FontSize',16)
 if ~cb
   set(h2,'visible','off')
