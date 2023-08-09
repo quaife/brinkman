@@ -97,7 +97,8 @@ set(gca, 'visible', 'off')
 
 h2 = colorbar;
 set(h2, 'limits', ([0.1 1]))
-set(h2,'xtick',(0.2:0.2:1));
+%set(h2,'xtick',(0.2:0.2:1));
+set(h2,'xtick',[0.1 1]);
 set(h2, 'FontSize',16)
 if ~cb
   set(h2,'visible','off')
