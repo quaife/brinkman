@@ -1363,35 +1363,37 @@ shape between these different states.
 
 
 \section{Conclusions \label{sec:conclusion}}
-In this work we used numerical simulations to examine the hydrodynamics of a multicomponent vesicle under strong confinement, which is a ubiquitous configuration in biology when a cell squeezes through a small channel. We refined the phase-field formulation in \citet{liu-mar-li-vee-low2017} with a new bending model that uses a sigmoidal function for the bending stiffness to retain positiveness in the bending modulus. The linear model \cite{liu-mar-li-vee-low2017} works well for a vesicle in free-space. However, under strong confinement we find it necessary to enforce the condition that the dimensionless bending modulus $b(u)$ be in the range of $[\beta,1]$  ($\beta = b_{\min}/b_{\max}$)  to avoid instability in membrane shapes (see \S~\ref{subsec:const_eq}). We focused on the hydrodynamics of a multicomponent vesicle in two types of confinement: a stenosis channel (\S~\ref{subsec:Stenosis}), and a contracting channel (\S~\ref{subsec:Contraction}). For both confining geometries we varied the reduced area $\alpha$, the floppy-to-stiffness ratio $\beta$, and the initial distribution of lipid domains with a fixed Capillary number $Ca=0.25$ and a fixed Peclet number of the lipid dynamics $Pe=1$.  The confinement ratio (defined as $2R_0/W$) in the stenosis is $1.67$, consequently the dependence of the vesicle shape on the capillary number is expected to be less sensitive according to results in \citet{aga-bir2020}. By fixing Peclet number at unity, we assume that the phase separation occurs at a much faster time scale than vesicle relaxation. 
+In this work we used numerical simulations to examine the hydrodynamics of a multicomponent vesicle under strong confinement, which is a ubiquitous configuration in biology when a cell squeezes through a small channel. We refined the phase-field formulation in \citet{liu-mar-li-vee-low2017} with a new bending model that uses a sigmoidal function for the bending stiffness to retain positiveness in the bending modulus. The linear model \cite{liu-mar-li-vee-low2017} works well for a vesicle in free-space. However, under strong confinement we find it necessary to enforce the condition that the dimensionless bending modulus $b(u)$ be in the range of $[\beta,1]$  ($\beta = b_{\min}/b_{\max}$)  to avoid instability in membrane shapes (see \S~\ref{subsec:const_eq}). We focused on the hydrodynamics of a multicomponent vesicle in two types of confinement: a stenosis channel (\S~\ref{subsec:Stenosis}), and a contracting channel (\S~\ref{subsec:Contraction}). For both confining geometries we varied the reduced area $\alpha$, the floppy-to-stiffness ratio $\beta$, and the initial distribution of lipid domains with a fixed Capillary number $Ca=0.25$ and a fixed Peclet number of the lipid dynamics $Pe=1$.  In \S~\ref{subsec:Stenosis} the confinement ratio (defined as $2R_0/W$) in the stenosis is $1.67$, and in \S~\ref{subsec:Contraction} the confinement ratio increases to a maximum of $2$ at the neck. Consequently the dependence of the vesicle shape on the capillary number is expected to be less sensitive according to results in \citet{aga-bir2020}. Finally the phase separation is assumed to occur at a much faster time scale than vesicle relaxation with Pectlet number $Pe=1$.
 
-As a multicomponent vesicle enters/leaves a closely-fitted stenosis, coarsening of the lipid domains is expedited. However, strong confinement in the stenosis hinders the coarsening and the lipid domains remain separated as the vesicle moves through the stenosis. For a vesicle inside a stenosis, we define the lubrication layer and its corresponding width and examine the mechanical coupling between the boundaries in lipid domain and the planar shear flow inside the lubrication layer, which consists of a quadratic in height (due to pressure gradient in the thin film) and a linear shear term (due to membrane motion in the tangential direction). By analyzing these two contributions at various locations in the lubrication layer, we first identified that tank treading along the vesicle of $\alpha=0.4$ is due to the mismatch in lubrication layer width on the two sides.  We further elucidated  the correlation between the location of boundary between lipid domains, the Marangoni stress,  and the change of sign in the pressure gradient in the lubrication layer. These results may be useful to identify the lipid domains via the visualization of the flow in the lubrication layer.
+As a multicomponent vesicle enters/leaves a closely-fitted stenosis, coarsening of the lipid domains is expedited. However, inside the stenosis, the strong confinement hinders the coarsening as both the vesicle shape and the lipid domains remain more or less un-altered as the vesicle moves through the stenosis. Once inside a stenosis, we define the lubrication layer and its corresponding width to analyze the mechanical coupling between the boundaries in lipid domain and the planar shear flow inside the lubrication layer, which consists of a quadratic component (due to pressure gradient in the thin film) and a linear component (due to membrane motion in the tangential direction). By analyzing these two components at various locations in the lubrication layer, we first identified that tank treading along the vesicle of $\alpha=0.4$ is due to the mismatch in lubrication layer width on the two sides.  We further elucidated  the correlation between the location of boundary between lipid domains, the Marangoni stress,  and the change of sign in the pressure gradient in the lubrication layer. These results may be used to identify the lipid domains via the visualization of the flow in the lubrication layer.
 
-For a multicomponent vesicle squeezing through a constriction, we found that front of the vesicle tends to be stiffer than the back of the vesicle.
+For a multicomponent vesicle squeezing through a constriction, we simulated the passage of a vesicle with various initial configurations of lipid domains. We found that, once the vesicle makes its passage, the front of the vesicle is often stiffer than the back of the vesicle, with a similar shape of a smaller curvature in the front than the curvature in the back. This is also observed for a vesicle moving out of confinement from a stenosis channel. Thus we propose a strong confinement in combination with a sharp transition to a wider opening can be used to produce phase-separated multicomponent vesicle with the floppy lipid species in the back and the stiff lipid species in the front of the vesicle.
+
+Such asymmetry in lipid domain induced by strong confinement and sudden release gives rise to a nonuniform tension distribution in the membrane, with higher (?) tension in the front and lower (?) tension in the back. This may have biophysical consequences in polarity developing of a migrating cell.
 
 
-\begin{itemize}
-  \item New bending model using hyperbolic tangent (sigmoidal shape)
-    which is necessary to maintain a positive bending modulus
-
-  \item Orientation of the phase is always stiff on the front and floppy
-    on the back, but we don't know why (yet). Observed by others such as
-    Biros and Agrawalla, George and Misbah, and others.
-
-  \item Boundary layer and change in sign of pressure gradient term that
-    drives the lubrication flow. This is a combination of the tension
-    and the phase boundary between stiff and floppy regions.
-
-  \item Sudden drop in bending energy for multicomponent can be
-    explained by the sudden coarsening of the lipids.
-
-  \item Relationship between tank treading, excess pressure and layer
-    thickness.
-
-  \item  Inability to coarsen when under strong confinement. Can be
-    related to item 2. Strong confinement arrests phase coarsening.
-
-\end{itemize}
+%\begin{itemize}
+%  \item New bending model using hyperbolic tangent (sigmoidal shape)
+%    which is necessary to maintain a positive bending modulus
+%
+%  \item Orientation of the phase is always stiff on the front and floppy
+%    on the back, but we don't know why (yet). Observed by others such as
+%    Biros and Agrawalla, George and Misbah, and others.
+%
+%  \item Boundary layer and change in sign of pressure gradient term that
+%    drives the lubrication flow. This is a combination of the tension
+%    and the phase boundary between stiff and floppy regions.
+%
+%  \item Sudden drop in bending energy for multicomponent can be
+%    explained by the sudden coarsening of the lipids.
+%
+%  \item Relationship between tank treading, excess pressure and layer
+%    thickness.
+%
+%  \item  Inability to coarsen when under strong confinement. Can be
+%    related to item 2. Strong confinement arrests phase coarsening.
+%
+%\end{itemize}
 
 %The main text of the article\cite{Mena2000} should appear here.
 %
