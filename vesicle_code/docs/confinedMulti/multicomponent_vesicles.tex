@@ -244,7 +244,7 @@ dre-jah-bob-spa-gop2021}.
 %
 
 Hydrodynamics of vesicles in extreme confinement has been studied as a model system for red blood cells (RBCs) squeezing through small
-capillaries (of sub-micron size in diameter) under a pressure difference \cite{LuPeng2019_PoF,che-lyu-jae-leo2020,gur-pak-tay-siv-sac2023}. Membrane permeability has been incorporated to examine the single-component vesicle hydrodynamics. In the absence of an osmotic gradient, the semipermeable vesicle is affected by water influx/efflux over a sufficiently long time or under a strong confinement \cite{qua-gan-you2021}. Numerical simulations illustrate that a vesicle with moderate membrane permeability can go through a strong confinement much more easily, and can restore its water content within a very short time after its passage through the strong confinement \cite{qua-gan-you2021}.  These results imply that the membrane permeability may be inferred from vesicle hydrodynamics under a strong confinement.  Motivated by these results, in this work we seek to investigate how strong confinement may affect the hydrodynamics of a multi-component vesicle? This question is highly relevant to hydrodynamics of cells in a confinement, and to our knowledge has not been well studied. 
+capillaries (of sub-micron size in diameter) under a pressure difference \cite{Freund2013_PoF,LuPeng2019_PoF,che-lyu-jae-leo2020,gur-pak-tay-siv-sac2023}. Membrane permeability has been incorporated to examine the single-component vesicle hydrodynamics. In the absence of an osmotic gradient, the semipermeable vesicle is affected by water influx/efflux over a sufficiently long time or under a strong confinement \cite{qua-gan-you2021}. Numerical simulations illustrate that a vesicle with moderate membrane permeability can go through a strong confinement much more easily, and can restore its water content within a very short time after its passage through the strong confinement \cite{qua-gan-you2021}.  These results imply that the membrane permeability may be inferred from vesicle hydrodynamics under a strong confinement.  Motivated by these results, in this work we seek to investigate how strong confinement may affect the hydrodynamics of a multi-component vesicle? This question is highly relevant to hydrodynamics of cells in a confinement, and to our knowledge has not been well studied. 
 Ramachandran {\it et al.} \cite{ram-kom-sek-ima2010} reported that confinement reduces the effective diffusion coefficient of the concentration fluctuation in multicomponent membranes. How is such reduced concentration diffusion coefficient reflected in the hydrodynamics of multicomponent vesicles under strong confinement?
 
 
@@ -998,9 +998,9 @@ tank-treading velocity is not observed.
 %\end{figure}
 
 The size of the top and bottom lubrication layers are also related to
-the excess pressure. The green curve on the top half of
-Figure~\ref{fig:lubricationComposite} shows the excess pressure with the
-axis aligned on the right side of the plot. When the lubrication layers
+the excess pressure. The magenta curve on the top half of
+Figure~\ref{fig:lubricationComposite} shows the excess pressure (with the
+axis aligned on the right side of the plot). When the lubrication layers
 are large, most notably for the multicomponent vesicle, less pressure is
 required to force the vesicle through the geometry, and the result is a
 smaller (less negative) excess pressure. In contrast, when the
@@ -1403,22 +1403,25 @@ $Pe=1$.
 
 As a multicomponent vesicle enters/leaves a closely-fitted stenosis,
 coarsening of the lipid domains is expedited. However, inside the
-stenosis, the strong confinement hinders the coarsening as both the
-vesicle shape and the lipid domains remain more or less unaltered as the
+stenosis, the strong confinement hinders the coarsening as the
+vesicle shape and the lipid distribution remain more or less unaltered as the
 vesicle moves through the stenosis. Once inside a stenosis, we define
-the lubrication layer and its corresponding width to analyze the
-mechanical coupling between the boundaries in lipid domain and the
-planar shear flow inside the lubrication layer, which consists of a
+the lubrication layer and its width. 
+We find that tank treading along the vesicle inside the stenosis is closely related to the asymmetry in the lubrication layer width between the top and bottom walls.
+For vesicles with a high reduced area the lubrication layer width is symmetric between the top and bottom walls, and we find no tank treading along the membrane.
+On the other hand, for a vesicle with a lower reduced area, the lubrication layer width is asymmetric and the vesicle membrane tanks treads.
+Furthermore we also find that the excess pressure (the additional pressure required to pass the vesicle through the stenosis) is correlated to the size of the lubrication layer: the larger the lubrication layer size, the smaller the excess pressure is.
+
+Inside the lubrication layer, the shear flow consists of a
 quadratic component (due to pressure gradient in the thin film) and a
 linear component (due to membrane motion in the tangential direction).
 By analyzing these two components at various locations in the
-lubrication layer, we first identified that tank treading along the
-vesicle of $\alpha=0.4$ is due to the mismatch in lubrication layer
-width between the two sides. We further elucidated the correlation between
+lubrication layer, we further elucidated the correlation between
 the location of boundary between lipid domains, the Marangoni stress,
 and the change of sign in the pressure gradient in the lubrication
-layer. These results may be used to identify the lipid domains via the
+layer. These results may be used to identify the location of boundaries between the lipid domains via the
 visualization of the flow in the lubrication layer.
+
 
 For a multicomponent vesicle squeezing through a constriction, we
 simulated the passage of a vesicle with various initial configurations
@@ -1434,9 +1437,11 @@ front of the vesicle.
 
 Such asymmetry in lipid domain induced by strong confinement and sudden
 release gives rise to a nonuniform tension distribution in the membrane,
-with a higher tension (in magnitude) in the front and a smaller tension (in magnitude) in the back.
-This may have biophysical consequences in polarity developing of a
-migrating cell.
+with a smaller tension (in magnitude) in the front and a larger tension (in magnitude) in the back.
+This is similar to a RBC going through a narrow slit \cite{LuPeng2019_PoF}, where the membrane tension is mostly negative (compression)
+when the RBC passes through the narrow slit with more compression in the back than in the front of the RBC.
+%This may have biophysical consequences in polarity developing of a
+%migrating cell.
 
 
 %\begin{itemize}
