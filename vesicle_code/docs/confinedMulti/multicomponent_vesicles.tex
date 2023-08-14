@@ -160,7 +160,25 @@
  & \noindent\large{Ashley Gannon,\textit{$^{a}$} Y.-N. Young,\textit{$^{b\ddag}$} and Bryan Quaife\textit{${\ast}${$^{a}$}}} \\
 % %Author names go here instead of "Full name", etc.
 %
-\includegraphics{head_foot/dates} & \noindent\normalsize{We numerically study the hydrodynamics of multicomponent vesicles in strong confinement as a simplified model for red blood cells going through extreme constriction.  Under strong confinement, we parametrize the bending modulus so that it is positive for all values of the lipid phase parameter. For a multicomponent vesicle going through a stenosis, we find the correlation between the lipid phase coarsening and the lubrication layer (such as size and flow profile), excess pressure, and tank treading in the membrane. For a multicomponent vesicle going through a contracting channel, we find that the lipid always phase separates so that the vesicle is stiffer in the front as it passes through the constriction.  For both cases of confinement we find that the lipid coarsening is arrested under strong confinement, and proceeds with high rate upon relief from extreme confinement. These results may be useful for efficient sorting lipid domains using microfluidic flows by controlled release of vesicles going through strong confinement. } \\%The abstrast goes here instead of the text "The abstract should be..."
+\includegraphics{head_foot/dates} & \noindent\normalsize{We numerically
+  study the hydrodynamics of multicomponent vesicles in two strongly
+  confining geometries. This serves as a simplified model for red blood
+  cells passing through extreme constrictions. We propose a new bending
+  modulus parameterization so that it remains positive for all values of
+  the lipid phase parameter. For a multicomponent vesicle passing
+  through a stenosis, we correlate the lipid phase coarsening, the
+  lubrication layer properties (size and flow profile), the excess
+  pressure, and the tank-treading velocity of the membrane. For a
+  multicomponent vesicle passing through a contracting channel, we find
+  that the lipid always phase separates so that the vesicle is stiffer
+  in the front as it passes through the constriction. For both cases of
+  confinement we find that the lipid coarsening is arrested under strong
+  confinement, and proceeds with high rate upon relief from extreme
+  confinement. The results may be useful for efficient sorting lipid
+  domains using microfluidic flows by controlled release of vesicles
+  passing through strong confinement. } \\
+  %The abstrast goes here instead of the text "The abstract should
+  %be..."
 %
 \end{tabular}
 %
@@ -192,17 +210,23 @@
 
 %%%MAIN TEXT%%%%
 \section{\label{sec:Introduction}Introduction}
-Biological membranes, as the basic structural units for compartmentalizing biological systems, 
-have been observed to contain a vast array of proteins and different
-lipid species, that phase-separate and form domains or rafts, resulting
-in spatial variations in material properties such as bending stiffness
-\cite{}. Synthetic multicomponent vesicles, self-enclosed lipid bilayer
-membranes composed of different lipid species, have been used to study
-the rich patterns and accompanying morphologies that emerge from elastic heterogeneity in the membrane. In a quiescent environment,  such elastic heterogeneity gives rise to wrinkling budding \cite{Lowengrub2009_PRE,Li2012_CommMathSci}, adhesion and fusion \cite{Zhao2011_PRE} of vesicle membrane, closely related to cellular budding and fission processes \cite{Rauch2000_BiophysJ} as well as in cellular adhesion and fusion \cite{Takeda2003_PNAS}. 
+Biological membranes, as the basic structural units for
+compartmentalizing biological systems, have been observed to contain a
+vast array of proteins and different lipid species, that phase-separate
+and form domains or rafts, resulting in spatial variations in material
+properties such as bending stiffness. Synthetic multicomponent vesicles,
+self-enclosed lipid bilayer membranes composed of different lipid
+species, have been used to study the rich patterns and accompanying
+morphologies that emerge from elastic heterogeneity in the membrane. In
+a quiescent environment, such elastic heterogeneity gives rise to
+wrinkling budding~\cite{Lowengrub2009_PRE, Li2012_CommMathSci}, adhesion
+and fusion~\cite{Zhao2011_PRE} of vesicle membrane, closely related to
+cellular budding and fission processes~\cite{Rauch2000_BiophysJ} as well
+as in cellular adhesion and fusion~\cite{Takeda2003_PNAS}. 
 
 The hydrodynamics of a single-component vesicle is characterized by
 parameters such as the capillary number, reduced volume, and confinement
-ratio \cite{Abreu2014_ACI}.  Such characterization is often useful for
+ratio \cite{Abreu2014_ACI}. Such characterization is often useful for
 inferring fluid and material properties.
 %Understanding these dynamics is critical to understanding the biophysics of red blood cells (RBCs) in blood flow. 
 For example, a vesicle's reduced volume and viscosity contrast determine
@@ -218,22 +242,23 @@ hydrodynamics such as snaking and swirling behaviors in croissant and
 slipper shapes.
 
 Under a linear shear flow, a multicomponent vesicle exhibits more exotic
-dynamics in both shape and membrane composition
-\cite{soh-tse-li-voi-low2010,
-Smith2007_JChemPhys,Cox2015_Nonlinearity,liu-mar-li-vee-low2017,Tusch2018_PRF,Gera2018_SoftMatter,ger-sal-spa2022}
-than a single-component vesicle.  For example, multicomponent vesicles
-under a background flow often exhibit highly complex morphologies,
-leading to vesicle budding.  The hydrodynamics of these multicomponent
-vesicles include phase treading, tumbling with no viscosity contrast,
-swinging, budding, and fission~\cite{soh-tse-li-voi-low2010, wan-du2008,
-all-ama2006, ger-sal-spa2022, lip1992, urs-klu-phi2009}.  Through
-numerical investigations,~\citet{liu-mar-li-vee-low2017}
-identified several key dimensionless numbers, including the reduced
-area, capillary number, and the floppy-to-stiff ratio to characterize
-various dynamics of a multicomponent vesicle in an unbounded linear
-shear flow. In addition to the aforementioned numerical studies, these
-dynamics have been observed in experiments~\cite{bag-sun2009,
-yan-ima-tan2010, yan-ima-tan2008, dre-jah-bob-spa-gop2021}.
+dynamics in both shape and membrane
+composition~\cite{soh-tse-li-voi-low2010, Smith2007_JChemPhys
+Cox2015_Nonlinearity, liu-mar-li-vee-low2017, Tusch2018_PRF,
+Gera2018_SoftMatter, ger-sal-spa2022} than a single-component vesicle.
+For example, multicomponent vesicles under a background flow often
+exhibit highly complex morphologies, leading to vesicle budding. The
+hydrodynamics of these multicomponent vesicles include phase treading,
+tumbling with no viscosity contrast, swinging, budding, and
+fission~\cite{soh-tse-li-voi-low2010, wan-du2008, all-ama2006,
+ger-sal-spa2022, lip1992, urs-klu-phi2009}. Through numerical
+investigations,~\citet{liu-mar-li-vee-low2017} identified several key
+dimensionless numbers, including the reduced area, capillary number, and
+the floppy-to-stiff ratio to characterize various dynamics of a
+multicomponent vesicle in an unbounded linear shear flow. In addition to
+the aforementioned numerical studies, these dynamics have been observed
+in experiments~\cite{bag-sun2009, yan-ima-tan2010, yan-ima-tan2008,
+dre-jah-bob-spa-gop2021}.
 
 %
 %Sohn et al. (2010) studied two-dimensional multicomponent vesicles in a background shear flow, along with the evolution of distinct surface phases, finding highly complex morphologies and dynamics for highly deformed vesicles. Smith & Uspal (2007) showed using dissipative particle dynamics simulations that a shear flow can be used to separate buds from a multicomponent vesicle. The influence of both bending rigidity and spontaneous curvature variation on the equilibrium shape of a vesicle has also been investigated (Cox & Lowengrub 2015). Subsequent boundary integral simulations by Liu et al. (2017) showed a transition from tumbling to tank-treading to ‘phase-treading’ of the constituents along the surface upon increasing the shear rate. Analytic results have also shown that a variation of bending rigidity along a surface can induce migration in tank-treading vesicles (Olla 2011). Synthetic systems have also been fruitful for testing theoretical predictions. Experiments using a two-phase lipid vesicle in such a flow as a simplified model of red blood cell dynamics showed similarly complex features (Tusch et al. 2018). Gera & Salac (2018b) then used simulations to probe a wide array of morphological changes due to spatially varying bending stiffness and line tension between two lipid phases. The phase separation process itself is naturally of great interest, and experiments have been used to study spinodal decomposition and viscous fingering along membrane surfaces (Veatch & Keller 2003; Lowengrub, Rätz & Voigt 2009; Marenduzzo & Orlandini 2013; Stanich et al. 2013).
@@ -337,7 +362,7 @@ Section~\ref{sec:conclusion}.
   $b_{\max} = 1$. The vesicle dynamics are determined by a combination
   of phase, bending, and tension energies, and an imposed flow (blue
   arrows). The lubrication layer (gray region), defined in
-  Section~\ref{sec:LL} also plays a key role in the vesicle dynamics.}
+  Section~\ref{sec:LL} plays a key role in the vesicle dynamics.}
 %  \caption{\label{fig:schematic}\small A single multicomponent vesicle
 %  with boundary $\gamma$ suspended in a domain $\Omega$ with boundary
 %  $\Gamma$. The dark red regions are the ``stiff'' regions corresponding
@@ -353,8 +378,8 @@ boundary $\Gamma$ (Figure~\ref{fig:schematic}). The fluid is assumed to
 have zero Reynolds number and is therefore governed by the
 incompressible Stokes equations
 \begin{align}
-    \nabla \cdot \TT = 0 \quad \text{and} \quad \nabla \cdot \uu = 0, 
-        \quad \xx \in \Omega \backslash \gamma,
+  \nabla \cdot \TT = 0 \quad \text{and} \quad \nabla \cdot \uu = 0, 
+    \quad \xx \in \Omega \backslash \gamma,
 \end{align}
 where $\TT = -p\mathbf{I} + \mu\left(\nabla \uu + \nabla \uu^T \right)$
 is the hydrodynamic stress tensor, $\uu$ is the velocity, $p$ is the
@@ -444,11 +469,11 @@ $[0,1]$. This is problematic when $u > 1$ since this results in $b(u) <
 $\beta \ll 1$, $Ca \gg 1$, or the vesicle is confined to a narrow
 region. This behavior is demonstrated in Figure~\ref{fig:concModels}(a)
 for a vesicle with a floppy-to-stiff ratio $\beta = 10^{-1}$. Using the
-linear bending model~\eqref{eqn:linearBending}, the lipid concentration
-achieves a maximum value of $u \approx 1.5$ which results in an
-instability that is formed by a corresponding unphysical negative
-bending stiffness of $b(u) \approx -0.5$. To rectify this issue, we
-parameterize the bending modulus as
+linear bending model in Equation~\eqref{eqn:linearBending}, the lipid
+concentration achieves a maximum value of $u \approx 1.5$ which results
+in an instability that is formed by the resulting unphysical negative
+bending stiffness $b(u) \approx -0.5$. To rectify this issue, we
+parameterize the bending modulus as the sigmoid function
 \begin{align}
   b(u) = \frac{\beta-1}{2} \tanh\left(3\left(u-\frac{1}{2} 
     \right)\right) + \frac{\beta + 1}{2}.
@@ -481,12 +506,12 @@ Section~\ref{sec:validation}.
   \subfigimg[width=0.9\linewidth, clip ]{(b)}{figures/concModels.pdf}
   \caption{\label{fig:concModels} \small (a) A multicomponent vesicle
   entering a closely-fitting channel (black lines) using the linear
-  model~\eqref{eqn:linearBending}. An instability is introduced where
-  the vesicle bending modulus becomes negative. (b) The linear bending
-  model in red (equation~\eqref{eqn:linearBending}) and the new
-  hyperbolic bending model in blue (equation~\eqref{eqn:tanhBending}).
-  Note that the new bending model satisfies $b \in (\beta,1)$ even if $u
-  \notin [0,1]$.}
+  model in Equation~\eqref{eqn:linearBending}. An instability is
+  introduced where the vesicle bending modulus becomes negative. (b) The
+  linear bending model in red (Equation~\eqref{eqn:linearBending}) and
+  the new sigmoid bending model in blue
+  (Equation~\eqref{eqn:tanhBending}).  Note that the new bending model
+  satisfies $b \in (\beta,1)$ even if $u \notin [0,1]$.}
 \end{figure}
 
 
@@ -526,14 +551,21 @@ where
       \frac{\rr \cdot \nn}{\rho^2} 
       \frac{\rr \otimes \rr}{\rho^2} \eeta(\yy) \, ds_\yy,
 \end{align}
-and $\rr = \xx - \yy$, $\rho = |\rr|$, and $\mathds{I}$ is the $2 \times
-2$ identity matrix. To avoid tangling of the vesicle membrane, it is
-parameterized in terms of the $\theta$-$L$
-variables~\cite{hou-low-she1994}, where $L$ is the fixed vesicle length
-and $\theta$ is the opening angle of the tangent vector $\ss$. This
-requires decomposing the velocity field on $\gamma$ into a normal
-velocity $V$ and tangential velocity $T$. Then, the no-slip boundary
-condition for the vesicle velocity is
+$\rr = \xx - \yy$, $\rho = |\rr|$, and $\mathds{I}$ is the $2 \times 2$
+identity matrix. The corresponding pressure at $\xx \in \Omega$ is
+\begin{align}
+  p(\xx) = \frac{1}{2\pi} \int_{\gamma} \frac{\rr \cdot \ff}{\rho^2} \, ds_\yy + 
+    \frac{1}{\pi} \int_{\Gamma} \frac{1}{\rho^2} 
+    \left(\mathds{I} - 2\frac{\rr \otimes \rr}{\rho^2} \right) 
+    \nn \cdot \eeta \, ds_\yy.
+\end{align}
+
+To avoid tangling, the vesicle membrane is parameterized in terms of the
+$\theta$-$L$ variables~\cite{hou-low-she1994}, where $L$ is the fixed
+vesicle length and $\theta$ is the opening angle of the tangent vector
+$\ss$. This requires decomposing the velocity field on $\gamma$ into a
+normal velocity $V$ and tangential velocity $T$. Then, the no-slip
+boundary condition for the vesicle velocity is
 \begin{align}
   \frac{d\xx}{dt} = V \nn + T \ss + D[\eeta](\xx), \quad \xx \in \gamma.
 \end{align}
@@ -557,11 +589,12 @@ stepping is carried out using the second-order Adams-Bashforth method.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Validation}
 \label{sec:validation}
-We validate the new bending model~\eqref{eqn:tanhBending} by reproducing
-the dynamics reported in the literature. Figure~\ref{fig:treading} shows
-a phase treading (top) and a tank-treading (bottom) multicomponent
-vesicle in an unconfined shear flow. These simulations align with the
-results reported by~\citet{liu-mar-li-vee-low2017} (cf.~Figure 3).
+We validate the new sigmoid bending model in
+Equation~\eqref{eqn:tanhBending} by reproducing dynamics reported in the
+literature. Figure~\ref{fig:treading} shows a phase treading (top) and a
+tank-treading (bottom) multicomponent vesicle in an unconfined shear
+flow. These simulations align with the results reported
+by~\citet{liu-mar-li-vee-low2017} (cf.~Figure 3).
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.9\columnwidth]{figures/shearTreading.pdf}
@@ -569,10 +602,10 @@ results reported by~\citet{liu-mar-li-vee-low2017} (cf.~Figure 3).
 %  \subfigimg[width=\columnwidth, trim ={5.5cm 1.5cm 4cm 0},clip]{(b)}{figures/Fig4b.pdf}
   \caption{\label{fig:treading} \small A multicomponent vesicle in a
   linear shear flow undergoes phase-treading (top) and tank-treading
-  (bottom) with the new bending model~\eqref{eqn:tanhBending}. The red
-  region is stiff and the blue region is floppy. The simulations
-  qualitatively agree with the results presented
-  by~\citet{liu-mar-li-vee-low2017}.}
+  (bottom) with the new sigmoid bending model in
+  Equation~\eqref{eqn:tanhBending}. The red region is stiff and the blue
+  region is floppy. The simulations qualitatively agree with the results
+  presented by~\citet{liu-mar-li-vee-low2017}.}
 \end{figure}
 
 
@@ -597,39 +630,22 @@ results reported by~\citet{liu-mar-li-vee-low2017} (cf.~Figure 3).
 \subsection{\label{sec:LL} Lubrication layers and excess pressure}
 The lubrication layer between a vesicle and the solid wall plays a
 critical role in the dynamics of a vesicle under strong confinement.
-Therefore, throughout
-Section~\ref{sec:results}, we calculate and analyze the flow
-inside the lubrication layers between the vesicle and the channel walls to elucidate the correlation between hydrodynamics and membrane dynamics.
-%We first justify the use of the term `lubrication layer' by verifying
-%that the flow velocity is parabolic between the vesicle and the solid
-%wall. Figure~\ref{fig:quadraticProof} illustrates the horizontal
-%velocity (solid line) and the corresponding best fit quadratic (dashed
-%line) in the co-moving frame, and the profiles agree.
-%
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=\columnwidth]{figures/lubricationLayer_quadratic.pdf}  
-%    \caption{The co-moving velocity profile in the top and bottom lubrication layers. The red curve is the velocity profile, the dashed black line is the best quadratic fit.}
-%    \label{fig:quadraticProof}
-%\end{figure}
-To define the size of the top lubrication layer (the size of the bottom
-lubrication layer is defined similarly), we let
+Therefore, throughout Section~\ref{sec:results}, we calculate and
+analyze the flow inside the lubrication layers between the vesicle and
+the channel walls to elucidate the correlation between hydrodynamics and
+membrane dynamics. To define the size of the top lubrication layer (the
+size of the bottom lubrication layer is defined similarly), we let
 $d(\xx,\Gamma_\mathrm{top})$ be the minimum distance between a point on
 the vesicle, $\xx \in \gamma$, and the top half of the confining
-geometry.
-%\begin{align}
-%    d(\xx,\Gamma_\mathrm{top}) = \inf_{\yy \in \Gamma_\mathrm{top}} \|\xx-\yy\|,
-%\end{align}
-%where $\Gamma_{\mathrm{top}}$ is the top portion of $\Gamma$.
-We find all local minimums of $d(\xx,\Gamma_\mathrm{top})$, with
-the condition that $d(\xx,\Gamma_\mathrm{top}) < \delta$, where $\delta$
-is a parameter. If no such local minimums exist, then the vesicle is too
-far from $\Gamma_\mathrm{top}$ to define a lubrication layer. If there
-are two or more local minimums, the left-most, $\xx_L$, and right-most,
-$\xx_R$, local minimums form the start and end of the lubrication layer.
-If there is only one local minimum, then $\xx_L$ and $\xx_R$ are the
-points on $\gamma$ to the left and right of this local minimum with the
-condition that $d(\xx_L,\Gamma_\mathrm{top}) =
+geometry. We find all local minimums of $d(\xx,\Gamma_\mathrm{top})$,
+with the condition that $d(\xx,\Gamma_\mathrm{top}) < \delta$, where
+$\delta$ is a parameter. If no such local minimums exist, then the
+vesicle is too far from $\Gamma_\mathrm{top}$ to define a lubrication
+layer. If there are two or more local minimums, the left-most, $\xx_L$,
+and right-most, $\xx_R$, local minimums form the start and end of the
+lubrication layer.  If there is only one local minimum, then $\xx_L$ and
+$\xx_R$ are the points on $\gamma$ to the left and right of this local
+minimum with the condition that $d(\xx_L,\Gamma_\mathrm{top}) =
 d(\xx_R,\Gamma_\mathrm{top}) = \delta$. Then, the segment
 $\gamma_{\mathrm{layer}} \subset \gamma$ consists of all points $\xx \in
 \gamma$ between $\xx_L$ and $\xx_R$ with the condition that
@@ -641,41 +657,15 @@ width is
 \end{align}
 The region that defines the top and bottom lubrication layers is
 illustrated in Figure~\ref{fig:schematic}, and the height of the gray
-regions denote the lubrication layer thickness. In this example, the top
-layer is broken across three different regions.
-
-%The terminology of boundary layer can be justified by computing the
-%velocity field in the region between the vesicle and the solid wall. In
-%Figure~\ref{fig:BkgrdFlow}, the co-moving velocity field around several
-%different vesicle shapes that are observed in Section~\ref{sec:results}
-%are illustrated. We have included plots of the horizontal velocity
-%along a few vertical slices to demonstrate that a parabolic flow
-%profile is observed. 
+regions denote the lubrication layer thicknesses. In this example, the
+top layer is broken across three different regions.
 
 A difference between the size of the top and bottom lubrication layers
-indicates that the vesicle membrane shape is asymmetric with respect to 
-the center of the channel,
-and this results in tank-treading behavior~\cite{aga-bir2020}.  To
-determine if a vesicle is tank-treading, we calculate the tangential
-velocity at several points on $\gamma$, and if this value is constant,
-this is the tank-treading velocity.
-
-%\begin{figure}[H]
-%\begin{minipage}{0.49\columnwidth}
-%    \centering
-%    \subfigimg[width = \columnwidth, trim = {2cm 2cm 2cm 2cm }, clip]{(a)}{figures/Fig7a1.pdf}
-%    \subfigimg[width = \columnwidth, trim = {2cm 2cm 2cm 2cm }, clip]{(b)}{figures/Fig7b1.pdf}
-%    \subfigimg[width = \columnwidth, trim = {2cm 2cm 2cm 2cm }, clip]{(c)}{figures/Fig7c1.pdf}
-%\end{minipage}   
-%\hfill
-%\begin{minipage}{0.49\columnwidth}
-%    \centering
-%    \subfigimg[width = \columnwidth, trim = {2cm 2cm 2cm 2cm }, clip]{\color{white}(a)}{figures/Fig7a2.pdf}
-%    \subfigimg[width = \columnwidth, trim = {2cm 2cm 2cm 2cm }, clip]{\color{white}(b)}{figures/Fig7b2.pdf}
-%    \subfigimg[width = \columnwidth, trim = {2cm 2cm 2cm 2cm }, clip]{\color{white}(c)}{figures/Fig7c2.pdf}
-%\end{minipage}
-%\caption{\label{fig:BkgrdFlow} \small The velocity in the bulk, at two time steps, of a vesicle with reduced area $\alpha=0.4$. The velocity field is in the co-moving frame. The vesicles are (a) single-component with $b = 1$; (b) single-component with $b = 0.55$; and (c) multicomponent. The tangential velocity in the tubular neighborhood around the vesicle indicates that (a) and (c) are tank-treading.}    
-%\end{figure}
+indicates that the vesicle membrane shape is asymmetric with respect to
+the center of the channel, and this results in tank-treading
+behavior~\cite{aga-bir2020}. To determine if a vesicle is tank-treading,
+we calculate the tangential velocity at several points on $\gamma$, and
+if this value is constant, this is the tank-treading velocity.
 
 We also report the excess pressure for one of the geometries and relate
 it to the size of the lubrication layers. The excess pressure is the
@@ -683,40 +673,7 @@ additional pressure that is required to pass the vesicle through the
 geometry when compared to the pressure necessary if the vesicle were
 absent. These pressure calculations are taken near the inlets and
 outlets of the confining geometry, and the vesicle itself is never near
-these locations. Since we use a layer potential formulation, the
-pressure at $\xx \in \Omega$ is
-\begin{align}
-  p(\xx) = \frac{1}{2\pi} \int_{\gamma} \frac{\rr \cdot \ff}{\rho^2} \, ds_\yy + 
-    \frac{1}{\pi} \int_{\Gamma} \frac{1}{\rho^2} 
-    \left(\mathds{I} - 2\frac{\rr \otimes \rr}{\rho^2} \right) 
-    \nn \cdot \eeta \, ds_\yy.
-\end{align}
-%These pressure drops are defined by
-%subtracting the pressure at a point near the inlet and another near the
-%outlet. In our formulation, because of the order of subtraction, the
-%excess pressure is always negative.
-
-
-%We follow the reformulation of the governing equations outlined in Section 3.1 of \cite{soh-tse-li-voi-low2010}. In particular, we do a change of variables to the $\theta$-L formulation, where $L$ is the total length of the vesicle and $\theta$ is the opening angle of its tangent vector, $\ss$. 
-%This formulation provides us with the location of a unique vesicle shape up to a translation. %, which we resolve by tracking the vesicle's center of mass. After this change of variables, the dynamics of $\theta$ are governed by
-%The formulation requires the normal and tangential components of the velocity, 
-%\begin{equation}
-%V = \uu \cdot \nn \qquad \text{and} \qquad T = \uu \cdot \ss, \label{NormTanComp} 
-%\end{equation}
-%where $\nn$ is the unit normal vector and $\ss$ is the unit tangent vector. In the $\theta$-L formulation, the governing equation of the vesicle
-%\begin{equation}
-%\frac{d\xx}{dt} =V\nn+T\ss,
-%\end{equation}
-%becomes
-%\begin{equation}
-%\theta_t =  -(V+\beta(\textbf{f}\cdot\textbf{n}))_s + \kappa T
-%\theta_t =  -V_s + \kappa T,
-%\end{equation}
-%and the inextensibility condition becomes
-%\begin{equation}
-%T_s+\kappa V  = 0. \label{genInexMC}
-%\end{equation}
-%Recall that the velocity $\uu$ is coupled to the tension $\sigma^{LL}$ which acts as a Lagrange multiplier to satisfy equation \eqref{genInexMC}.
+these locations. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\label{sec:results}Hydrodynamics of a multicomponent vesicle
@@ -736,10 +693,6 @@ Section~\ref{subsec:Contraction}, the geometry begins to narrow at $x=4$
 and reaches its narrowest point at $x=15$.
 
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\label{subsec:Stenosis}A multicomponent vesicle in the
 stenosis geometry}
@@ -752,15 +705,16 @@ $\alpha = 0.8$ cannot fit through the closely-fitting geometry.
 
 Figure~\ref{fig:RA6} shows six time steps of a (a) stiff
 single-component (b) floppy single-component, and (c) multicomponent
-vesicle. The initial lipid distribution of the multicomponent vesicle is random.
-In all plots, the color is the dimensionless bending modulus of the
-multicomponent vesicle that remains bounded in $[0.1,1]$ by using the
-new bending modulus~\eqref{eqn:tanhBending}. A single Lagrangian point
-is included to visualize any tank-treading behavior. There are slight
-differences between the three cases, with the most noticeable being that
-the multicomponent vesicle has higher curvature in the floppy region.
-However, in general, there is little difference between these cases,
-partially because these vesicles have a large reduced area. 
+vesicle. The initial lipid distribution of the multicomponent vesicle is
+random. In all plots, the color is the dimensionless bending modulus of
+the multicomponent vesicle that remains bounded in $[0.1,1]$ by using
+the new sigmoid bending modulus in Equation~\eqref{eqn:tanhBending}. A
+single Lagrangian point is included to visualize any tank-treading
+behavior. There are slight differences between the three cases, with the
+most noticeable being that the multicomponent vesicle has higher
+curvature in the floppy region.  However, in general, there is little
+difference between these cases, partially because these vesicles have a
+large reduced area. 
 
 \begin{figure*}[h]
   \centering
@@ -1198,7 +1152,7 @@ by the last experiment, we initialize the stiff region to be in the
 front and the floppy region to be in the back. In each simulation, the
 capillary number is $Ca = 0.25$. Figure~\ref{fig:RA5} shows the vesicle
 shapes at the same six time steps when the percentage of the floppy
-region is 0\% (single-component), \%15, \%25, \%35, and \%45. One effect
+region is 0\% (single-component), 15\%, 25\%, 35\%, and 45\%. One effect
 of the size of the floppy region is that the symmetry of the vesicle
 shape is broken at smaller percentages. We also see that stiffer
 vesicles have faster migration speeds, but the effect is quite
