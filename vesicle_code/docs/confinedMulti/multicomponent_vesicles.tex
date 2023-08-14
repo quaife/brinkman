@@ -732,39 +732,36 @@ principally because these vesicles have a large reduced area.
   \subfigimg[width=0.3\linewidth]{(b)}{figures/SCp55_energy.pdf}
   \subfigimg[width=0.3\linewidth]{(c)}{figures/MCp5_energy.pdf}
   \caption{\label{fig:Energy} \small The bending (blue), tension (red),
-  and phase (magenta) energies for a (a) stiff single-component, (b)
+  and phase (magenta) energies of a (a) stiff single-component, (b)
   floppy single-component, and (c) multicomponent vesicle. The reduced
   area is $\alpha = 0.4$. Note that the single-component vesicles do not
   have a phase energy.} 
 \end{figure*}
 
-
-Next we consider a vesicle with a smaller reduced area $\alpha=0.4$ with the same geometry and $Ca=0.25$.
-Figure~\ref{fig:RA4} shows  the shape of  
-a (a) stiff single-component, (b) floppy single-component, and (c) multicomponent
-vesicle at six locations along the stenosis channel. We first consider the three different energies---bending,
-tension, and phase---for each of these cases. In
-Figure~\ref{fig:Energy}, we plot these energies as a function of the
-vesicle's center. As a reminder, the vesicle enters the constriction at
-$x=-15$ and exits at $x=15$. Also note that the single-component
-vesicles do not have a phase energy. 
-%A few general trends can immediately be seen. 
-First we observe that, as the vesicle enters the stenosis, it
-develops regions of high curvature, and this results in an increase in
-the bending energy. Secondly, as the stiff single-component and
-multicomponent vesicles reach a steady-state shape near the middle of
-the channel, their bending, tension, and phase energies remain nearly
-constant from $x=0$ until the end of the stenosis. For the multiple-component vesicle,
-this implies that there is no coarsening of lipid phase in the middle of a stenosis. 
+Next we consider a vesicle with a smaller reduced area $\alpha=0.4$ with
+the same geometry and $Ca=0.25$. Figure~\ref{fig:RA4} shows the shape of
+a (a) stiff single-component, (b) floppy single-component, and (c)
+multicomponent vesicle at six locations along the stenosis channel. We
+first consider the three different energies---bending, tension, and
+phase---for each example. In Figure~\ref{fig:Energy}, we plot these
+energies as a function of the vesicle's center. As a reminder, the
+vesicle enters the constriction at $x=-15$ and exits at $x=15$. Also
+note that the single-component vesicles do not have a phase energy.  We
+observe that, as the vesicle enters the stenosis, it develops regions of
+high curvature, and this results in an increase in the bending energy.
+As the stiff single-component and multicomponent vesicles reach a
+steady-state shape near the middle of the channel, their bending,
+tension, and phase energies remain nearly constant from $x=0$ until the
+end of the stenosis. For the multiple-component vesicle, this implies
+that there is no coarsening of lipid phase parameter in the middle of a
+stenosis.
 
 %This corresponds to an arrest of phase coarsening for a vesicle confined in a stenosis.
-Such co-existence of multiple lipid domains in a vesicle under confinement
-results in interesting additional physics. 
-%
-First we note that in Figure~\ref{fig:Energy}(c),
-the lipid species coarsens at
-three instances, and this results in a decrease in the phase energy.
-However, as we mentioned earlier, no coarsening occurs when the vesicle is in the
+The coexistence of multiple lipid domains in a vesicle under confinement
+results in additional interesting physics. We note that in
+Figure~\ref{fig:Energy}(c), the lipid species coarsens at three
+instances, and this results in a decrease in the phase energy. However,
+as we mentioned earlier, no coarsening occurs when the vesicle is in the
 closely-fitting part of the channel. Each coarsening corresponds either
 to two stiff regions overtaking a small floppy region, or to two floppy
 regions overtaking a small stiff region. In the first case, a region
@@ -779,28 +776,6 @@ curvature, but it takes some time since the diffusion time scale is
 several orders of magnitude smaller than the bending relaxation time
 scale.
 
-%\begin{figure}
-%  \begin{minipage}{0.49\columnwidth}
-%    \centering
-%    \subfigimg[width=\textwidth]{(a)}{figures/Fig13a.pdf}
-%    \subfigimg[width=\textwidth]{(c)}{figures/Fig13c.pdf}
-%    \subfigimg[width=\textwidth]{(e)}{figures/Fig13e.pdf}
-%  \end{minipage}
-%  \hfill
-%  \begin{minipage}{0.49\columnwidth}
-%    \centering
-%    \subfigimg[width=\textwidth]{(b)}{figures/Fig13b.pdf}
-%    \subfigimg[width=\textwidth]{(d)}{figures/Fig13d.pdf}
-%    \subfigimg[width=\textwidth]{(f)}{figures/Fig13f.pdf}
-%  \end{minipage}
-%  \caption{\label{fig:Energy} \small The Bending (blue), tension
-%  (yellow), and phase (red) energies for a (a/b) single-component
-%  vesicle with $b=1$, (c/d) single-component vesicle with $b = 0.55$,
-%  and (e/f) multicomponent vesicle. The reduced areas are $\alpha = 0.4$
-%  (a/c/e) and $\alpha = 0.6$ (b/d/f).}
-%  \todo[inline]{need to redo these plots}
-%\end{figure}
-
 A main difference between the two reduced areas is that the vesicles
 with smaller reduced area undergo tank-treading motions. As mentioned
 earlier, tank-treading occurs when the top and bottom lubrication layers
@@ -812,60 +787,27 @@ The four marker points are the Lagrangian points where the tank-treading
 velocities are computed, the black dashed line is the center line of the
 channel, and the rounded arrow denotes the direction of rotation. The
 stiff single-component and multicomponent vesicles are clearly tank
-treading. Since the single-component case has a larger difference
-between its top and bottom boundary layers, it tank treads faster than
-the multicomponent case. In addition, since the top boundary layer is
-larger in both cases, they both tank-tread in the same
-direction---counterclockwise. In contrast, the floppy single-component
-vesicle tank treads in the clockwise direction; note, however, that this
-example is still undergoing some deformations, so a constant
-tank-treading velocity is not observed.
-%When $\alpha = 0.6$, the vesicle undergoes deformations while in the
-%stenosis, and a constant tank-treading velocity is not observed 
+treading. The direction and speed of the tank-treading depends on the
+how much of the vesicle membrane is exposed to positive shear (below the
+center line) versus how much is exposed to negative shear (above the
+center line). The majority of the membrane of the stiff single-component
+and multicomponent vesicles are below the center line, and this results
+in a clockwise tank-treading behavior. In contrast, the majority of the
+membrane of the floppy single-component vesicle is above the center
+line, and the result is counterclockwise tank-treading. In addition, the
+tank-treading velocity can be correlated to the percentage of its
+membrane that is below the center line. We note, however, that the
+floppy single-component vesicle is still undergoing deformations, so the
+tangential velocities have not converged to a fixed value.
 
-
-%\begin{figure}
-%    \begin{minipage}{0.49\columnwidth}
-%        \centering
-%        \includegraphics[width=\textwidth,trim={4cm 8cm 4cm 8cm}, clip]{figures/EnergiesRAp4NoConc.pdf}
-%    \end{minipage}
-%    \begin{minipage}{0.49\columnwidth}
-%        \centering
-%        \includegraphics[width=\textwidth,trim={4cm 8cm 4cm 8cm}, clip]{figures/EnergiesRAp4Conc.pdf}
-%    \end{minipage}
-%    \caption{Bending (blue), tension (yellow), and phase (red) energies for a single-component vesicle %(left) and a multi-component vesicle (right) with reduced area 0.4.}
-%    \label{fig:EnergyRAp4}
-%\end{figure}
-%\begin{figure}[H]
-%    \begin{minipage}{0.49\columnwidth}
-%        \centering
-%        \includegraphics[width=\textwidth,trim={4cm 8cm 4cm 8cm}, clip]{figures/EnergiesRAp6NoConc.pdf}
-%        \includegraphics[width=\textwidth,trim={4cm 8cm 4cm 8cm}, clip]{figures/EnergiesRAp6NoConcp55.pdf}
-%    \end{minipage}
-%    \hfill
-%    \begin{minipage}{0.49\columnwidth}
-%        \centering
-%        \includegraphics[width=\textwidth,trim={4cm 8cm 4cm 8cm}, clip]{figures/EnergiesRAp6Conc.pdf}
-%        \vspace{3.5cm}
-%    \end{minipage}
-%    \caption{Bending (blue), tension (yellow), and phase (red) energies for a single-component vesicle %(left) and a multi-component vesicle (right) with reduced area 0.6.}
-%    \label{fig:EnergyRAp6l}
-%\end{figure}
-
-%\begin{figure}[h]
-%    \centering
-%    \subfigimg[width = 0.49\columnwidth]{(a)}{figures/Layer_Size_RAp4.pdf}
-%%    \subfigimg[width = 0.49\columnwidth]{(b)}{figures/Layer_Size_RAp6.pdf}
-%%    \subfigimg[width = \columnwidth]{(a)}{figures/Fig8a.pdf}\\
-%%    \subfigimg[width = \columnwidth]{(b)}{figures/Fig8b.pdf}
-%    \caption{\label{fig:lubrication} \small The size of the lubrication
-%    layer of a stiff single-component (red), floppy single-component
-%    (green), and multicomponent (blue) vesicle passing through stenosis.
-%    Solid lines are the layer thickness between the vesicle and the top
-%    wall, and dashed lines are the layer thickness between the vesicle
-%    and the bottom wall. The reduced area of the vesicles are (a)
-%    $\alpha = 0.4$ and (b) $\alpha = 0.6$.}
-%\end{figure}
+%Since the single-component case has a larger difference
+%between its top and bottom boundary layers, it tank treads faster than
+%the multicomponent case. In addition, since the top boundary layer is
+%larger in both cases, they both tank-tread in the same
+%direction---counterclockwise. In contrast, the floppy single-component
+%vesicle tank treads in the clockwise direction; note, however, that this
+%example is still undergoing some deformations, so a constant
+%tank-treading velocity is not observed.
 
 
 %Both the migration speed and tank treading behavior of a vesicle in the closely-fitting channel depends on the separation distance between the solid wall and the vesicle. As the vesicle enters the narrow constriction, lubrication layers between the vesicle and the solid walls develop. The minimum distance between the multicomponent vesicles and the solid wall (solid lines) and the single-component vesicles and the solid wall (dashed lines) are plotted in Figure~\ref{fig:lubrication}. Top top plot is for the vesicle with reduced area $\alpha = 0.4$, and the bottom plot is for the vesicle with reduced area $\alpha = 0.6$. Note that the position is only between $-15$ and $15$ which is the region with strong confinement. 
@@ -949,7 +891,9 @@ tank-treading velocity is not observed.
   three cases. Also illustrated is the vesicle shape and the four
   Lagrangian points at the location indicated by the dash line. The
   black dashed line is the center line of the channel, and the arrow
-  denotes the tank-treading direction.}
+  denotes the tank-treading direction. The percentage of the vesicle
+  membrane that is below the center line is (a) \%72, (b) \%44, and (c)
+  \%68.}
 %\end{figure}
 \end{figure*}
 
@@ -983,12 +927,12 @@ tank-treading velocity is not observed.
 
 The sizes of the top and bottom lubrication layers are also related to
 the excess pressure. The magenta curve on the top half of
-Figure~\ref{fig:lubricationComposite} shows the excess pressure (with the
-axis aligned on the right side of the plot). When the lubrication layers
-are large, most notably for the multicomponent vesicle, less pressure is
-required to force the vesicle through the geometry, and the result is a
-smaller (less negative) excess pressure. In contrast, when the
-lubrication layers are small, most notably for the stiff
+Figure~\ref{fig:lubricationComposite} shows the excess pressure (with
+the axis aligned on the right side of the plot). When the lubrication
+layers are large, most notably for the multicomponent vesicle, less
+pressure is required to force the vesicle through the geometry, and the
+result is a smaller (less negative) excess pressure. In contrast, when
+the lubrication layers are small, most notably for the stiff
 single-component vesicle, more pressure is required to force the vesicle
 through the geometry, and we the result is a larger (more negative)
 excess pressure.
