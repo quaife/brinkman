@@ -618,9 +618,8 @@ by~\citet{liu-mar-li-vee-low2017} (cf.~Figure 3).
 %    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(c)}{figures/Fig5c.pdf}
   \caption{\label{fig:RA6} \small A vesicle passing through the stenosis
   geometry. The vesicle's reduced area is $\alpha = 0.6$ and the
-  capillary number is $Ca = 0.25$. The vesicles are: (a)
-  single-component with bending modulus $b=1$; (b) single-component with
-  bending modulus $b=0.55$; (c) multicomponent.}
+  capillary number is $Ca = 0.25$. The vesicles are: (a) stiff
+  single-component; (b) floppy single-component; (c) multicomponent.}
 %\end{figure}
 \end{figure*}
 
@@ -685,51 +684,46 @@ geometry that slowly contracts to a narrow neck and then quickly widens
 same geometries in our previous work~\cite{qua-gan-you2021}. All the
 multicomponent examples have floppy-to-stiff ratio $\beta = 10^{-1}$.
 For the single-component case, we consider two bending stiffnesses:
-$b(u) = 1$ and $b(u) = 0.55$. % which is the average bending stiffness of a multicomponent vesicle whose stiff and floppy regions have the same area. 
-The latter value represents the average bending stiffness of a
-multicomponent vesicle, when the stiff and floppy regions cover the same
-amount of area. Throughout this section we plot the position of the
-vesicle in terms of the $x$-coordinate of its center of mass. For the
-stenosis geometry in Section~\ref{subsec:Stenosis}, the narrow region
-begins at $x=-15$ and ends at $x=15$. For the contracting geometry in
-Section~\ref{subsec:Contraction}, the geometry begins to narrow at $x=4$
-and reaches its narrowest point at $x=15$.
+$b(u) = 1$ and $b(u) = 0.55$. We refer to these cases as a stiff
+single-component vesicle and floppy single-component vesicle,
+respectively. The smaller bending stiffness represents the average
+bending stiffness of a multicomponent vesicle, when its stiff and floppy
+regions cover the same amount of area. Throughout this section we plot
+the position of the vesicle in terms of the $x$-coordinate of its center
+of mass. For the stenosis geometry in Section~\ref{subsec:Stenosis}, the
+narrow region begins at $x=-15$ and ends at $x=15$. For the contracting
+geometry in Section~\ref{subsec:Contraction}, the geometry begins to
+narrow at $x=4$ and reaches its narrowest point at $x=15$.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\label{subsec:Stenosis}A multicomponent vesicle in the
 stenosis geometry}
 
-
 We start by considering a vesicle with reduced area $\alpha = 0.6$
-passing through stenosis with a capillary number $Ca = 0.25$.
-With the current setup and $Ca=0.25$, an elliptical vesicle with reduced area greater than
-$\alpha = 0.8$ cannot fit through the closely-fitting geometry.
-
-Figure~\ref{fig:RA6} shows six time steps of a (a) stiff
+passing through stenosis with a capillary number $Ca = 0.25$.  With the
+current setup and $Ca=0.25$, an elliptical vesicle with reduced area
+greater than $\alpha = 0.8$ cannot fit through the closely-fitting
+geometry. Figure~\ref{fig:RA6} shows six time steps of a (a) stiff
 single-component (b) floppy single-component, and (c) multicomponent
-vesicle. The initial lipid distribution of the multicomponent vesicle is
-random. In all plots, the color is the dimensionless bending modulus of
-the multicomponent vesicle that remains bounded in $[0.1,1]$ by using
-the new sigmoid bending modulus in Equation~\eqref{eqn:tanhBending}. A
-single Lagrangian point is included to visualize any tank-treading
-behavior. There are slight differences between the three cases, with the
-most noticeable being that the multicomponent vesicle has higher
-curvature in the floppy region.  However, in general, there is little
-difference between these cases, partially because these vesicles have a
-large reduced area. 
+vesicle. The lipid distribution of the multicomponent vesicle is
+initially random with a mean value of 0.55. In all plots, the color is
+the dimensionless bending modulus of the multicomponent vesicle that
+remains bounded in $[0.1,1]$ by using the new sigmoid bending modulus in
+Equation~\eqref{eqn:tanhBending}. A single Lagrangian point is included
+to visualize any tank-treading behavior. There are slight differences
+between the three cases, with the most noticeable being that the
+multicomponent vesicle has higher curvature in the floppy region.
+However, in general, there is little difference between these cases,
+principally because these vesicles have a large reduced area. 
 
 \begin{figure*}[h]
   \centering
   \includegraphics[width=0.9\linewidth]{figures/STENOSIS_RAp4MCp5.pdf}
-%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(a)}{figures/Fig6a.pdf}
-%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(b)}{figures/Fig6b.pdf}
-%    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(c)}{figures/Fig6c.pdf}
   \caption{\label{fig:RA4} \small A vesicle passing through the stenosis
   geometry. The vesicle's reduced area is $\alpha = 0.4$ and the
-  capillary number is $Ca = 0.25$. The vesicles are: (a) single-component
-  with bending modulus $b=1$; (b) single-component with bending modulus
-  $b=0.55$; (c) multicomponent.}
+  capillary number is $Ca = 0.25$. The vesicles are: (a) stiff
+  single-component; (b) floppy single-component; (c) multicomponent.}
 \end{figure*}
 
 \begin{figure*}[ht]
