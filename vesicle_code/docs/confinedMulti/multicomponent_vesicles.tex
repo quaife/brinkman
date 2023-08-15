@@ -219,10 +219,16 @@ self-enclosed lipid bilayer membranes composed of different lipid
 species, have been used to study the rich patterns and accompanying
 morphologies that emerge from elastic heterogeneity in the membrane. In
 a quiescent environment, such elastic heterogeneity gives rise to
-wrinkling budding~\cite{Lowengrub2009_PRE, Li2012_CommMathSci}, adhesion
-and fusion~\cite{Zhao2011_PRE} of vesicle membrane, closely related to
-cellular budding and fission processes~\cite{Rauch2000_BiophysJ} as well
-as in cellular adhesion and fusion~\cite{Takeda2003_PNAS}. 
+wrinkling, budding, adhesion, and fusion of vesicle
+membranes~\cite{Lowengrub2009_PRE, Li2012_CommMathSci, Zhao2011_PRE},
+closely related to several cellular processes~\cite{Rauch2000_BiophysJ,
+Takeda2003_PNAS}.
+%In a quiescent environment, such elastic heterogeneity gives rise to
+%wrinkling budding~\cite{Lowengrub2009_PRE, Li2012_CommMathSci},
+%adhesion and fusion~\cite{Zhao2011_PRE} of vesicle membrane, closely
+%related to cellular budding and fission
+%processes~\cite{Rauch2000_BiophysJ} as well as in cellular adhesion and
+%fusion~\cite{Takeda2003_PNAS}. 
 
 The hydrodynamics of a single-component vesicle is characterized by
 parameters such as the capillary number, reduced volume, and confinement
@@ -570,6 +576,7 @@ where
 $\rr = \xx - \yy$, $\rho = |\rr|$, and $\mathds{I}$ is the $2 \times 2$
 identity matrix. The corresponding pressure is
 \begin{align}
+  \label{eqn:pressure}
   p(\xx) = \frac{1}{2\pi} \int_{\gamma} \frac{\rr \cdot \ff}{\rho^2} \, ds_\yy + 
     \frac{1}{\pi} \int_{\Gamma} \frac{1}{\rho^2} 
     \left(\mathds{I} - 2\frac{\rr \otimes \rr}{\rho^2} \right) 
@@ -689,9 +696,11 @@ We also report the excess pressure for the stenosis geometry and relate
 it to the size of the lubrication layers. The excess pressure is the
 additional pressure that is required to pass the vesicle through the
 geometry when compared to the pressure necessary if the vesicle were
-absent. Average pressures are calculated along cross-sections that are
-parallel to the flow direction near the inlet and outlet of the
-stenosis, and the vesicle itself is never near these locations.
+absent. Average pressures are calculated using
+Equation~\eqref{eqn:pressure} along cross-sections that are parallel to
+the flow direction near the inlet and outlet of the stenosis.
+%, and the
+%vesicle itself is never near these locations.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\label{sec:results}Hydrodynamics of a multicomponent vesicle
@@ -1001,21 +1010,26 @@ profile is determined by the tangential velocity of the vesicle relative
 to the solid wall. Using the definition of the lubrication layer
 outlined in Section~\ref{sec:LL}, we consider the flow profile inside
 this lubrication layer in Figure~\ref{fig:BLvelocities}. We observe that
-the Poiseuille coefficient can be either positive or negative, meaning
-that the pressure in the lubrication layer switches signs. This behavior
-is caused when the tangential force on the vesicle
+the Poiseuille coefficient (quadratic term) can be either positive or
+negative, meaning that the pressure gradient in the streamwise direction
+in the lubrication layer switches signs. The Poiseuille coefficient is
+related to the lateral gradient of the tangential traction,
+$\mathbf{F}_\tt$, on the vesicle membrane~\cite{Oron1997_RMP,
+Young2014_JFM}
 \begin{align}
-  \mathbf{F}_{\tt} = -\sigma_s + u_s \frac{\delta E^m}{\delta u},
+  \mathbf{F}_{\tt} = -\sigma_s + u_s \frac{\delta E^m}{\delta u}.
 \end{align}
-is sufficiently large to offset the flow driven by the boundary
-conditions defined at the inlet and outlet of the geometry. Here,
+%is sufficiently large.
+%to locally reverse the sign of the pressure
+%gradient in the streamwise direction.
+Here,
 \begin{align}
   \frac{\delta E^m}{\delta u} = \frac{a}{\epsilon} 
     (f'(u) - \epsilon^2 u_{ss}) + \frac{b'(u)}{2} \kappa^2
 \end{align}
 is the derivative of the membrane energy with respect to the lipid
 concentration~\cite{soh-tse-li-voi-low2010}. Note that in the
-single-component case, the tangential force is $\mathbf{F}_\tt =
+single-component case, the tangential traction is $\mathbf{F}_\tt =
 -\sigma_s$ which is the usual Marangoni effect.
 
 \begin{figure}
@@ -1183,19 +1197,20 @@ vesicle first passes through the neck.
 \end{figure}
 
 We conclude this example by considering the different shapes and
-energies that single-component and multicomponent shapes display. Since
-we have initialized the lipid species to initially be phase separated,
-the phase energy is nearly constant for all cases, and is therefore not
-plotted. The tension energy, on the other hand, increases as the vesicle
-approaches the neck, but its general shape is similar for all five
-cases, and it too is not plotted. However, the bending energies show
-different behaviors for each of the cases (Figure~\ref{fig:bendingAll}).
-The main difference being that the multicomponent vesicles with a higher
-percentage of floppy regions have less bending energy, especially as the
-vesicle passes through the neck. We also note that the bending energy
-undergoes several transient increases and decreases. These occur when
-the tail of the vesicle undergoes transitions from lower energy shapes,
-such as `C' or `S' shapes, to high energy shapes, such as `W' shapes.
+energies that single-component and multicomponent vesicles display.
+Since we have initialized the lipid species to initially be phase
+separated, the phase energy is nearly constant for all cases, and is
+therefore not plotted. The tension energy, on the other hand, increases
+as the vesicle approaches the neck, but its general shape is similar for
+all five cases, and it too is not plotted. However, the bending energies
+show different behaviors for each of the cases
+(Figure~\ref{fig:bendingAll}).  The main difference being that the
+multicomponent vesicles with a higher percentage of floppy regions have
+less bending energy, especially as the vesicle passes through the neck.
+We also note that the bending energy undergoes several transient
+increases and decreases. These occur when the tail of the vesicle
+undergoes transitions from lower energy shapes, such as `C' or `S'
+shapes, to high energy shapes, such as `W' shapes.
 Figure~\ref{fig:bendingSC_contracting} shows these different vesicle
 shapes for the single-component vesicle and multicomponent vesicle that
 is 45\% floppy. The shapes at several critical points along the bending
