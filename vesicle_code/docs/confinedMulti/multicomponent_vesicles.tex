@@ -704,7 +704,7 @@ same geometries in our previous work~\cite{qua-gan-you2021}. All the
 multicomponent examples have floppy-to-stiff ratio $\beta = 10^{-1}$.
 For the single-component case, we consider two bending stiffnesses:
 $b(u) = 1$ and $b(u) = 0.55$. We refer to these cases as a stiff
-single-component vesicle and floppy single-component vesicle,
+single-component vesicle and a floppy single-component vesicle,
 respectively. The smaller bending stiffness represents the average
 bending stiffness of a multicomponent vesicle, when its stiff and floppy
 regions cover the same amount of area. Throughout this section we plot
@@ -751,21 +751,48 @@ principally because these vesicles have a large reduced area.
   \subfigimg[width=0.3\linewidth]{(b)}{figures/SCp55_energy.pdf}
   \subfigimg[width=0.3\linewidth]{(c)}{figures/MCp5_energy.pdf}
   \caption{\label{fig:Energy} \small The bending (blue), tension (red),
-  and phase (magenta) energies of a (a) stiff single-component, (b)
+  and phase (green) energies of a (a) stiff single-component, (b)
   floppy single-component, and (c) multicomponent vesicle. The reduced
   area is $\alpha = 0.4$. Note that the single-component vesicles do not
   have a phase energy.} 
 \end{figure*}
+\begin{figure*}[ht]
+  \centering
+  \subfigimg[width=0.3\linewidth]{(a)}{figures/Layer_Size_RAp4_SC.pdf}
+  \subfigimg[width=0.3\linewidth]{(b)}{figures/Layer_Size_RAp4_SCp55.pdf}
+  \subfigimg[width=0.3\linewidth]{(c)}{figures/Layer_Size_RAp4_MCp5.pdf}
+  \subfigimg[width=0.3\linewidth,trim=0cm 6cm 28cm 0cm,clip=true]{}{figures/TankTreadingFigs_composite_SC.pdf}
+  \subfigimg[width=0.3\linewidth,trim=0cm 6cm 28cm
+  0cm,clip=true]{}{figures/TankTreadingFigs_composite_SCp55.pdf}
+  \subfigimg[width=0.3\linewidth,trim=0cm 6cm 28cm
+  0cm,clip=true]{}{figures/TankTreadingFigs_composite_MCp5.pdf}
+  \caption{\label{fig:lubricationComposite} \small The lubrication layer
+  thicknesses (red and blue), excess pressure (green), and
+  tank-treading velocity of four Lagrangian points of a (a) stiff
+  single-component vesicle, (b) floppy single-component vesicle, and (c)
+  multicomponent vesicle. The reduced area is $\alpha = 0.4$ in all
+  three cases. Also illustrated is the vesicle shape and the four
+  Lagrangian points at the location indicated by the dash line. The
+  black dashed line is the center line of the channel, and the arrow
+  denotes the tank-treading direction. The percentage of the vesicle
+  membrane that is below the center line is (a) 72\%, (b) 44\%, and (c)
+  68\%.}
+\end{figure*}
 
-Next we consider a vesicle with a smaller reduced area $\alpha=0.4$ with
-the same geometry and $Ca=0.25$. Figure~\ref{fig:RA4} shows the shape of
-a (a) stiff single-component, (b) floppy single-component, and (c)
-multicomponent vesicle at six locations along the stenosis channel. We
-first consider the three different energies---bending, tension, and
-phase---for each example. In Figure~\ref{fig:Energy}, we plot these
-energies as a function of the vesicle's center. As a reminder, the
-vesicle enters the constriction at $x=-15$ and exits at $x=15$. Also
-note that the single-component vesicles do not have a phase energy.  We
+
+We next consider a vesicle with a smaller reduced area $\alpha=0.4$ with
+the same geometry and capillary number. Figure~\ref{fig:RA4} shows the
+shape of a (a) stiff single-component, (b) floppy single-component, and
+(c) multicomponent vesicle at six locations along the stenosis channel.
+Contrary to the vesicles with the larger reduced area
+(Figure~\ref{fig:RA6}), the bending modulus has a large effect on the
+vesicle shape. We first consider the three different energies---bending,
+tension, and phase---for each example. In Figure~\ref{fig:Energy}, we
+plot these energies as a function of the vesicle's center. 
+%As a
+%reminder, the vesicle enters the constriction at $x=-15$ and exits at
+%$x=15$. 
+Note that the single-component vesicles do not have a phase energy. We
 observe that, as the vesicle enters the stenosis, it develops regions of
 high curvature, and this results in an increase in the bending energy.
 As the stiff single-component and multicomponent vesicles reach a
@@ -779,45 +806,47 @@ stenosis.
 The coexistence of multiple lipid domains in a vesicle under confinement
 results in additional interesting physics. We note that in
 Figure~\ref{fig:Energy}(c), the lipid species coarsens at three
-instances, and this results in a decrease in the phase energy. However,
-as we mentioned earlier, no coarsening occurs when the vesicle is in the
-closely-fitting part of the channel. Each coarsening corresponds either
-to two stiff regions overtaking a small floppy region, or to two floppy
-regions overtaking a small stiff region. In the first case, a region
-that was originally floppy has suddenly become stiff, and this results
-in a sudden increase in the bending energy. In the latter case, because
-of lipid conservation, the overtaken stiff region must relocate to the
-another stiff-floppy interface, and this also results in a sudden
-increase in the bending energy. These increases are visible in
+instances, and this results in a decrease in the phase energy. 
+%However, as we mentioned earlier, no coarsening occurs when the vesicle
+%is in the closely-fitting part of the channel. 
+Each coarsening corresponds either to two stiff regions overtaking a
+small floppy region, or to two floppy regions overtaking a small stiff
+region. In the first case, a region that was originally floppy has
+become stiff, and this results in a sudden increase in the
+bending energy. In the latter case, because the mass of the lipid phase
+is conserved, the overtaken stiff region must relocate to the another
+stiff-floppy interface, and this also results in a sudden increase in
+the bending energy. These increases are visible in
 Figure~\ref{fig:Energy}(c) as small upticks in the blue curve. However,
 in both cases, the vesicle smooths out these new regions of high
 curvature, but it takes some time since the diffusion time scale is
 several orders of magnitude smaller than the bending relaxation time
 scale.
 
-A main difference between the two reduced areas is that the vesicles
+Another difference between the two reduced areas is that the vesicles
 with smaller reduced area undergo tank-treading motions. As mentioned
 earlier, tank-treading occurs when the top and bottom lubrication layers
 differ in size. The size of the lubrication layers for all three cases
 of the vesicle with reduced area $\alpha = 0.4$ are in the top half of
-Figure~\ref{fig:lubricationComposite}. Also included in the bottom of
-Figure~\ref{fig:lubricationComposite} are the tank-treading velocities
+Figure~\ref{fig:lubricationComposite}. The bottom of
+Figure~\ref{fig:lubricationComposite} shows the tank-treading velocities
 of four Lagrangian points. The inset shows the vesicle configuration in
 the closely-fitting part of the channel, the black dashed line is the
-center line of the channel, and the rounded arrow denotes the direction
-of rotation. The stiff single-component and multicomponent vesicles are
-clearly tank treading. The direction and speed of the tank-treading
-depends on the how much of the vesicle membrane is exposed to positive
-shear (below the center line) versus how much is exposed to negative
-shear (above the center line). The majority of the membrane of the stiff
-single-component and multicomponent vesicles are below the center line,
-and this results in a clockwise tank-treading behavior. In contrast, the
-majority of the membrane of the floppy single-component vesicle is above
-the center line, and the result is counterclockwise tank-treading. In
-addition, the tank-treading velocity can be correlated to the percentage
-of its membrane that is below the center line. We note, however, that
-the floppy single-component vesicle is still undergoing deformations, so
-the tangential velocities have not converged to a fixed value.
+center line of the channel, the marks are the four Lagrangian points,
+and the rounded arrow denotes the direction of rotation. The stiff
+single-component and multicomponent vesicles are clearly tank treading.
+The direction and speed of the tank-treading depends on the how much of
+the vesicle membrane is exposed to positive shear (below the center
+line) versus how much is exposed to negative shear (above the center
+line). The majority of the membrane of the stiff single-component and
+multicomponent vesicles are below the center line, and this results in a
+clockwise tank-treading behavior. In contrast, the majority of the
+membrane of the floppy single-component vesicle is above the center
+line, and the result is counterclockwise tank-treading. In addition, the
+tank-treading velocity can be correlated to the percentage of its
+membrane that is below the center line. We note, however, that the
+floppy single-component vesicle is still undergoing deformations, so the
+tangential velocities have not converged to a fixed value.
 
 %Since the single-component case has a larger difference
 %between its top and bottom boundary layers, it tank treads faster than
@@ -891,31 +920,6 @@ the tangential velocities have not converged to a fixed value.
 %    \caption{\small The tangential velocity at four Lagrangian points on a (a) single-component vesicle with $b = 1$ (c) single-component vesicle with $b = 0.55$, and (e) multicomponent vesicle. The reduced area is $\alpha = 0.4$ in all cases. (b/d/f) A corresponding vesicle shape with the Lagrangian points.
 %    \label{fig:tankTreadRAp4}}
 %\end{figure}
-\begin{figure*}[t]
-%\begin{figure}[htp]
-  \centering
-  \subfigimg[width=0.3\linewidth]{(a)}{figures/Layer_Size_RAp4_SC.pdf}
-  \subfigimg[width=0.3\linewidth]{(b)}{figures/Layer_Size_RAp4_SCp55.pdf}
-  \subfigimg[width=0.3\linewidth]{(c)}{figures/Layer_Size_RAp4_MCp5.pdf}
-  \subfigimg[width=0.3\linewidth,trim=0cm 6cm 28cm 0cm,clip=true]{}{figures/TankTreadingFigs_composite_SC.pdf}
-  \subfigimg[width=0.3\linewidth,trim=0cm 6cm 28cm
-  0cm,clip=true]{}{figures/TankTreadingFigs_composite_SCp55.pdf}
-  \subfigimg[width=0.3\linewidth,trim=0cm 6cm 28cm
-  0cm,clip=true]{}{figures/TankTreadingFigs_composite_MCp5.pdf}
-  \caption{\label{fig:lubricationComposite} \small The lubrication layer
-  thicknesses (red and blue), excess pressure (magenta), and
-  tank-treading velocity of four Lagrangian points of a (a) stiff
-  single-component vesicle, (b) floppy single-component vesicle, and (c)
-  multicomponent vesicle. The reduced area is $\alpha = 0.4$ in all
-  three cases. Also illustrated is the vesicle shape and the four
-  Lagrangian points at the location indicated by the dash line. The
-  black dashed line is the center line of the channel, and the arrow
-  denotes the tank-treading direction. The percentage of the vesicle
-  membrane that is below the center line is (a) 72\%, (b) 44\%, and (c)
-  68\%.}
-%\end{figure}
-\end{figure*}
-
 
 %\begin{figure}[H]
 %    \begin{minipage}{0.49\columnwidth}
@@ -945,7 +949,7 @@ the tangential velocities have not converged to a fixed value.
 %\end{figure}
 
 The sizes of the top and bottom lubrication layers are also related to
-the excess pressure. The magenta curve on the top half of
+the excess pressure. The green curve on the top half of
 Figure~\ref{fig:lubricationComposite} shows the excess pressure (with
 the axis aligned on the right side of the plot). When the lubrication
 layers are large, most notably for the multicomponent vesicle, less
@@ -1003,17 +1007,17 @@ is caused when the tangential force on the vesicle
 \begin{align}
   \mathbf{F}_{\tt} = -\sigma_s + u_s \frac{\delta E^m}{\delta u},
 \end{align}
-switches sign. Here,
+is sufficiently large to offset the flow driven by the boundary
+conditions defined at the inlet and outlet of the geometry. Here,
 \begin{align}
   \frac{\delta E^m}{\delta u} = \frac{a}{\epsilon} 
     (f'(u) - \epsilon^2 u_{ss}) + \frac{b'(u)}{2} \kappa^2
 \end{align}
-is the variational derivative of the membrane energy with respect to the
-lipid concentration~\cite{soh-tse-li-voi-low2010}. Note that in the
+is the derivative of the membrane energy with respect to the lipid
+concentration~\cite{soh-tse-li-voi-low2010}. Note that in the
 single-component case, the tangential force is $\mathbf{F}_\tt =
 -\sigma_s$ which is the usual Marangoni effect.
 
-%\begin{figure*}[t]
 \begin{figure}
   \centering
   \subfigimg[width=\columnwidth]{(a)}{figures/SC_top.pdf}
@@ -1024,56 +1028,44 @@ single-component case, the tangential force is $\mathbf{F}_\tt =
 %  \subfigimg[width=0.48\linewidth]{(f)}{figures/MCp5_bot.pdf}
   \caption{\label{fig:BLvelocities} \small The co-moving velocity field
   in the thin fluid layer between the top of a vesicle and the stenosis
-  geometry. The vesicles are (a): stiff single-component; (b):
+  geometry. The vesicles are (a) stiff single-component; (b)
   multicomponent. Similar velocity profiles between the bottom of the
-  vesicle and the stenosis geometry. The profiles are ploted at slices
+  vesicle and the stenosis geometry. The profiles are plotted at slices
   where the pressure gradient transitions from a value that is negative,
   zero, positive, zero, and negative. The right plots show the
   tangential stress with the five slices denoted by the marks. Note that
   the reversal in the pressure gradient occurs when the tangential
   stress is sufficiently large.}
-%  \caption{\label{fig:BLvelocities} \small The co-moving velocity field
-%  in the thin fluid layer between vesicles and the stenosis geometry.
-%  The vesicles are (a/b): single-component with $b(u) = 1$; (c/d):
-%  single-component with $b(u) = 0.55$; (e/f): multicomponent. The top
-%  layers are in (a/c/e) and the bottom layers are in (b/d/f). The
-%  profiles are ploted at slices where the pressure gradient transitions
-%  from a value that is negative, zero, positive, zero, and negative. The
-%  right plots show the tangential stress with the five slices denoted by
-%  the marks. Note that the reversal in the pressure gradient occurs when
-%  the tangential stress is sufficiently large, in magnitude.}
 \end{figure}
-%\end{figure*}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\label{subsec:Contraction} A multicomponent vesicle in the
 contracting geometry}
-In this section, we consider a single vesicle passing through a geometry
-that slowly contracts to a region that is only 2~$\mu$m wide, and then
+In this section, we consider a vesicle passing through a geometry that
+slowly contracts to a region that is only 2~$\mu$m wide, and then
 immediately opens back up to a channel that is ten times larger. We
 first consider the effect of the initial lipid concentration when the
 floppy and stiff regions each make up half of the vesicle membrane. In
 Figure~\ref{fig:RA6leftRightRand}, snapshots of vesicles with reduced
 area $\alpha = 0.6$ with different initial lipid distributions are
-illustrated. The initial distributions are random (middle) floppy in the
-front and stiff in the back (top), and one that is stiff in the front
-and floppy in the back (bottom). The vesicle with the random initial
-lipid distribution quickly phase separates into two floppy and two stiff
-regions. As seen in the stenosis geometry, further phase separation is
-delayed until the vesicle is no longer under strong confinement. The
-vesicle with the floppy region on the front reorients the floppy region
-towards the back of the vesicle. In contrast, the vesicle with the stiff
-region at the front maintains its orientation. In summary, in all three
-cases, the vesicle is orienting itself so that the stiff region passes
-through the constriction before the floppy region.  Therefore, in
-subsequent simulations, we initialize the vesicle's lipid concentration
-so that the floppy region is in the back and its stiff region is in the
-front. The vesicle shapes develop regions with high curvature in the
-floppy region when they first pass through the narrowest part of the
-geometry, but because the strong confinement is abruptly removed
-immediately afterwards, these regions of high curvature are quickly
-smoothed. 
+illustrated. The initial distributions are (a) random, (b) stiff in the
+front and floppy in the back, and (c) floppy in the front and stiff in
+the back. The vesicle with the random initial lipid distribution quickly
+phase separates into two floppy and two stiff regions. As seen in the
+stenosis geometry, further phase separation is delayed until the vesicle
+is no longer under strong confinement. The vesicle with the stiff region
+at the front maintains its orientation. In contrast, the vesicle with
+the floppy region on the front reorients the floppy region towards the
+back of the vesicle. In summary, in all three cases, the vesicle is
+orienting itself so that the stiff region passes through the
+constriction before the floppy region. Therefore, in subsequent
+simulations, we initialize the vesicle's lipid concentration so that the
+floppy region is in the back and its stiff region is in the front. The
+vesicle shapes develop regions with high curvature in the floppy region
+when they first pass through the narrowest part of the geometry, but
+once the strong confinement is abruptly removed, these regions of high
+curvature are quickly smoothed.
 %Since we can see in Figure~\ref{fig:RA6leftRightRand} that the regions
 %of high curvature are located in the back of the vesicle, we expect the
 %overall bending energies to be lowest for the randomly distributed case
@@ -1089,9 +1081,9 @@ smoothed.
   \caption{\label{fig:RA6leftRightRand} \small A multicomponent vesicle
   with 50\% floppy region passing through a contracting geometry. The
   vesicle's reduced area is $\alpha = 0.6$ and the capillary number is
-  $Ca = 0.25$. The lipid distribution is initialized to be (a) phase
-  separated with the floppy region leading; (b) random; (c) phase
-  separated with the stiff region leading.}
+  $Ca = 0.25$. The lipid distribution is initialized to be (a) random,
+  (b) phase separated with the stiff region leading; (b) random; (c)
+  phase separated with the floppy region leading.}
 \end{figure}
 
 %\begin{figure}[H]
@@ -1112,12 +1104,12 @@ by the last experiment, we initialize the stiff region to be in the
 front and the floppy region to be in the back. In each simulation, the
 capillary number is $Ca = 0.25$. Figure~\ref{fig:RA5} shows the vesicle
 shapes at the same six time steps when the percentage of the floppy
-region is 0\% (single-component), 15\%, 25\%, 35\%, and 45\%. One effect
-of the size of the floppy region is that the symmetry of the vesicle
-shape is broken at smaller percentages. We also see that stiffer
-vesicles have faster migration speeds, but the effect is quite
-small---Table~\ref{tbl:contractingTimes} reports the time the vesicle
-first passes through the neck.
+region is (a) 0\% (single-component), (b) 15\%, (c) 25\%, (d) 35\%, and
+(e) 45\%. One effect of the size of the floppy region is that the
+symmetry of the vesicle shape is broken at smaller percentages. We also
+see that stiffer vesicles have faster migration speeds, but the effect
+is quite small---Table~\ref{tbl:contractingTimes} reports the time the
+vesicle first passes through the neck.
 %In Figure~\ref{fig:RA5}, we consider a vesicle with reduced area
 %$\alpha = 0.5$ and the capillary number is $Ca = 0.25$. We start with a
 %single-component vesicle and then increase the percentage of the
@@ -1139,11 +1131,10 @@ first passes through the neck.
 %    \subfigimg[width=\columnwidth,trim ={5cm .5cm 1.5cm .5cm},clip]{(e)}{figures/Fig14e_newPaper.pdf}
   \caption{\label{fig:RA5} \small A vesicle passing through a
   contracting geometry. The vesicle's reduced area is $\alpha = 0.5$ and
-  the Capillary number is $Ca = 0.25$. The vesicles are: (a)
-  single-component with bending modulus $b=b_{\max}$; (b) multicomponent
-  with 15\% floppy region; (c) multicomponent with 25\% floppy region;
-  (d) multicomponent with 35\% floppy region; (e) multicomponent with
-  45\% floppy region. The vesicles with a larger percentage of floppy
+  the Capillary number is $Ca = 0.25$. (a)
+  A stiff single-component vesicle. The percentage of the
+  multicomponenet vesicle that is floppy is (b) 15\%, (c) 25\%, (d)
+  35\%, and (e) 45\%. The vesicles with a larger percentage of floppy
   regions pass through the neck earlier than the vesicles with less
   percentage of floppy regions.}
 \end{figure}
@@ -1191,11 +1182,11 @@ first passes through the neck.
   increases, the maximum bending energy decreases.}
 \end{figure}
 
-We conclude this example by considering the different shapes that
-single-component and multicomponent shapes display. Since we have
-initialized the lipid species to initially be phase separated, the phase
-energy is nearly constant for all cases, and is therefore not plotted.
-The tension energy, on the other hand, increases as the vesicle
+We conclude this example by considering the different shapes and
+energies that single-component and multicomponent shapes display. Since
+we have initialized the lipid species to initially be phase separated,
+the phase energy is nearly constant for all cases, and is therefore not
+plotted. The tension energy, on the other hand, increases as the vesicle
 approaches the neck, but its general shape is similar for all five
 cases, and it too is not plotted. However, the bending energies show
 different behaviors for each of the cases (Figure~\ref{fig:bendingAll}).
@@ -1204,12 +1195,13 @@ percentage of floppy regions have less bending energy, especially as the
 vesicle passes through the neck. We also note that the bending energy
 undergoes several transient increases and decreases. These occur when
 the tail of the vesicle undergoes transitions from lower energy shapes,
-such as `C' or `S' shapes, to high energy shapes, such as 'W' shapes.
+such as `C' or `S' shapes, to high energy shapes, such as `W' shapes.
 Figure~\ref{fig:bendingSC_contracting} shows these different vesicle
 shapes for the single-component vesicle and multicomponent vesicle that
 is 45\% floppy. The shapes at several critical points along the bending
-energy are included, and we can indeed see that transitioning vesicle
-shape between these different states.
+energy are included.
+%and we can indeed see that transitioning vesicle shape between these
+%different states.
 
 \begin{figure}[h]
   \centering
