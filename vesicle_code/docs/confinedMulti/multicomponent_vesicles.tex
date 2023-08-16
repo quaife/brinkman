@@ -506,13 +506,13 @@ a phase-treading and tank treading vesicle in Section~\ref{sec:validation}.
   \subfigimg[width=0.9\linewidth, clip ]{(b)}{figures/concModels.pdf}
   \caption{\label{fig:concModels} \small (a) A multicomponent vesicle
   entering a closely-fitting channel (black lines) using the linear
-  model in Equation~\eqref{eqn:linearBending}.  The color denotes the bending modulus $b(u)$.
-  An instability is
-  introduced where the vesicle bending modulus becomes negative. (b) The
-  linear bending model in red (Equation~\eqref{eqn:linearBending}) and
-  the new sigmoid bending model in blue
-  (Equation~\eqref{eqn:tanhBending}). Note that the new bending model
-  satisfies $b \in (\beta,1)$ even if $u \notin [0,1]$.}
+  model in Equation~\eqref{eqn:linearBending}.  The color denotes the
+  bending modulus $b(u)$.  An instability is introduced where the
+  vesicle bending modulus becomes negative. (b) The linear bending model
+  in red (Equation~\eqref{eqn:linearBending}) and the new sigmoid
+  bending model in blue (Equation~\eqref{eqn:tanhBending}). Note that
+  the new bending model satisfies $b \in (\beta,1)$ even if $u \notin
+  [0,1]$.}
 \end{figure}
 
 
@@ -934,10 +934,10 @@ vesicle first passes through the neck.
 
 \begin{table}[h]
   \centering
-  \begin{tabular}{l|ccccc}
+  \begin{tabular}{l|cccccc}
     \hline
-    Floppy percentage & 0\% & 15\% & 25\% & 35\% & 45\% \\ 
-    Time  (dimensionless) & 2.32 & 2.30 & 2.29 & 2.26 & 2.24 \\
+    Floppy percentage & 0\% & 15\% & 25\% & 35\% & 45\% & 50\% \\ 
+    Dimensionless time & 2.32 & 2.30 & 2.29 & 2.26 & 2.23 & 2.25\\
     \hline
   \end{tabular}
   \caption{\label{tbl:contractingTimes} \small The time required for the
@@ -947,10 +947,11 @@ vesicle first passes through the neck.
 \begin{figure}[h]
   \centering
   \includegraphics[width=\columnwidth]{figures/bendingContracting.pdf}
-  \caption{\label{fig:bendingAll} \small The bending energy for a
-  single-component vesicle (blue) and a multicomponent vesicle
-  (red)--(black) with $\alpha = 0.5$. As the size of the floppy region
-  increases, the maximum bending energy decreases.}
+  \caption{\label{fig:bendingAll} \small The bending energies of the
+  single-component and multicomponent vesicles in Figure~\ref{fig:RA5}.
+  The vertical dashed lines correspond to the configurations in
+  Figure~\ref{fig:RA5}. As the size of the floppy region increases, the
+  maximum bending energy decreases.}
 \end{figure}
 
 We conclude this example by considering the different shapes and
@@ -978,11 +979,12 @@ energy are included.
   \subfigimg[width=\columnwidth]{(a)}{figures/ContractingEnergy_SC.pdf}
   \subfigimg[width=\columnwidth]{(b)}{figures/ContractingEnergy_MC.pdf}
   \caption{\label{fig:bendingSC_contracting} \small The bending energy
-  of (a) a single-component vesicle, and (b) a multicomponent vesicle
-  whose boundary is 45\% floppy passing through a contracting geometry.
-  The vesicle shape at different locations are included. We can clearly
-  see that the sudden increases and decreases in the bending energy are
-  due to transitions between lower energy and higher energy shapes.}
+  of (a) a stiff single-component vesicle, and (b) a multicomponent
+  vesicle whose boundary is 45\% floppy passing through a contracting
+  geometry. The vesicle shape at different locations are included. We
+  can clearly see that the sudden increases and decreases in the bending
+  energy are due to transitions between lower energy and higher energy
+  shapes.}
 \end{figure}
 
 
