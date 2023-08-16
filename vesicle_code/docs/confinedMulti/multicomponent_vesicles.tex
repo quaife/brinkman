@@ -166,7 +166,7 @@
   %confining geometries.
   We numerically investigate the hydrodynamics and membrane dynamics of multicomponent vesicles in two strongly confined geometries. This serves as a simplified model for red blood
   cells undergoing large deformations while traversing %when passing through extreme
-  narrow constrictions. We propose a novel parameterization for the
+  narrow constrictions. We propose a new parameterization for the
   bending modulus that remains positive for all lipid phase parameter
   values.	
   %We propose a new bending modulus parameterization that
@@ -221,7 +221,8 @@
 Biological membranes, the basic structural units for compartmentalizing
 biological systems, 
 %have been observed to contain a vast 
-exhibit a diverse array of
+comprise diverse arrays of
+%exhibit a diverse array of
 proteins and lipid species. 
 %that phase-separate and form domains or rafts, resulting in spatial
 %variations in material properties such as bending stiffness. 
@@ -478,10 +479,11 @@ modulus with the sigmoid function
   \label{eqn:tanhBending}
 \end{align}
 This parameterization maps the local minimums of the double-well
-potential close to $\beta$ and $1$, but more importantly, b(u) remains
+potential close to $\beta$ and $1$, but more importantly, $b(u)$ remains
 bounded in $(\beta,1)$ even when $u \notin [0,1]$
-(Figure~\ref{fig:concModels}(b)). This new bending model is validated in
-Section~\ref{sec:validation}.
+(Figure~\ref{fig:concModels}(b)). We compare this new bending model against the linear model for 
+a phase-treading and tank treading vesicle in Section~\ref{sec:validation}.
+
 %To demonstrate the necessity of this new bending model, we consider a
 %multicomponent vesicle in strong confinement with both bending
 %models~\eqref{eqn:linearBending} and~\eqref{eqn:tanhBending}. The
@@ -504,7 +506,8 @@ Section~\ref{sec:validation}.
   \subfigimg[width=0.9\linewidth, clip ]{(b)}{figures/concModels.pdf}
   \caption{\label{fig:concModels} \small (a) A multicomponent vesicle
   entering a closely-fitting channel (black lines) using the linear
-  model in Equation~\eqref{eqn:linearBending}. An instability is
+  model in Equation~\eqref{eqn:linearBending}.  The color denotes the bending modulus $b(u)$.
+  An instability is
   introduced where the vesicle bending modulus becomes negative. (b) The
   linear bending model in red (Equation~\eqref{eqn:linearBending}) and
   the new sigmoid bending model in blue
@@ -588,7 +591,7 @@ by~\citet{liu-mar-li-vee-low2017} (cf.~Figure 3 and Figure 4).
   (bottom) with the new sigmoid bending model in
   Equation~\eqref{eqn:tanhBending}. The dimensionless times are in the
   title. The red region is stiff and the blue region is floppy. The
-  simulations qualitatively agree with the results presented
+  simulations agree with the results
   in~\citet{liu-mar-li-vee-low2017}.}
 \end{figure}
 
@@ -658,9 +661,10 @@ under strong confinement}
 We consider both a single-component and a multicomponent vesicle
 suspended in two geometries: a closely-fitting geometry (stenosis) and a
 geometry that slowly contracts to a narrow neck and then quickly widens
-(contracting). We considered a semipermeable vesicle suspended in these
-same geometries in our previous work~\cite{qua-gan-you2021}. All the
-multicomponent examples have floppy-to-stiff ratio $\beta = 10^{-1}$.
+(contracting). 
+%We considered a semipermeable vesicle suspended in these
+%same geometries in our previous work~\cite{qua-gan-you2021}. 
+All the multicomponent examples have floppy-to-stiff ratio $\beta = 10^{-1}$.
 For the single-component case, we consider two bending stiffnesses:
 $b(u) = 1$ and $b(u) = 0.55$. We refer to these cases as a stiff
 single-component vesicle and a floppy single-component vesicle,
@@ -788,10 +792,10 @@ the closely-fitting part of the channel, the black dashed line is the
 center line of the channel, the marks are the four Lagrangian points,
 and the rounded arrow denotes the direction of rotation. The stiff
 single-component and multicomponent vesicles are clearly tank treading.
-The direction and speed of the tank-treading depends on the how much of
+The direction and speed of the tank-treading depends on how much of
 the vesicle membrane is exposed to positive shear (below the center
 line) versus how much is exposed to negative shear (above the center
-line). The majority of the membrane of the stiff single-component and
+line) \cite{kao-bir-mis2009}. The majority of the membrane of the stiff single-component and
 multicomponent vesicles are below the center line, and this results in a
 clockwise tank-treading behavior. In contrast, the majority of the
 membrane of the floppy single-component vesicle is above the center
@@ -839,7 +843,7 @@ Here,
 is the derivative of the membrane energy with respect to the lipid
 concentration~\cite{soh-tse-li-voi-low2010}. Note that in the
 single-component case, the tangential traction is $\mathbf{F}_\tt =
--\sigma_s$ which is the usual Marangoni effect.
+-\sigma_s$ which is the Marangoni stress.
 
 \begin{figure}
   \centering
@@ -865,9 +869,9 @@ single-component case, the tangential traction is $\mathbf{F}_\tt =
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\label{subsec:Contraction} A multicomponent vesicle in the
 contracting geometry}
-In this section, we consider a vesicle passing through a geometry that
-slowly contracts to a region that is only 2~$\mu$m wide, and then
-immediately opens back up to a channel that is ten times larger. We
+In this section, we consider a vesicle passing through a channel that
+slowly contracts to a  2~$\mu$m wide neck, and then
+immediately opens up to a channel that is ten times larger. We
 first consider the effect of the initial lipid concentration when the
 floppy and stiff regions each make up half of the vesicle membrane. In
 Figure~\ref{fig:RA6leftRightRand}, snapshots of vesicles with reduced
@@ -933,7 +937,7 @@ vesicle first passes through the neck.
   \begin{tabular}{l|ccccc}
     \hline
     Floppy percentage & 0\% & 15\% & 25\% & 35\% & 45\% \\ 
-    Time  & 2.32 & 2.30 & 2.29 & 2.26 & 2.24 \\
+    Time  (dimensionless) & 2.32 & 2.30 & 2.29 & 2.26 & 2.24 \\
     \hline
   \end{tabular}
   \caption{\label{tbl:contractingTimes} \small The time required for the
@@ -1150,9 +1154,9 @@ with a smaller tension (in magnitude) in the front and a larger tension
 \section*{Author Contributions}
 Conceptualization: AG, BQ, YNY; methodology: AG, BQ, YNY; validation:
 AG, BQ, YNY; formal analysis: AG, BQ, YNY; investigation: AG, BQ, YNY;
-resources: BQ, YNY; data curation: AG, BQ, YNY; writing - original
+data curation: AG, BQ, YNY; writing - original
 draft: AG, BQ, YNY ; writing - review and editing: BQ, YNY;
-visualization: AG, BQ; supervision: BQ, YNY; project administration: BQ,
+visualization: AG, BQ, YNY; supervision: BQ, YNY; project administration: BQ,
 YNY; funding acquisition: BQ, YNY
 %We strongly encourage authors to include author contributions and recommend using \href{https://casrai.org/credit/}{CRediT} for standardised contribution descriptions. Please refer to our general \href{https://www.rsc.org/journals-books-databases/journal-authors-reviewers/author-responsibilities/}{author guidelines} for more information about authorship.
 
@@ -1160,8 +1164,8 @@ YNY; funding acquisition: BQ, YNY
 There are no conflicts to declare.
 
 \section*{Acknowledgements}
-We thank David Salac and Shuwang Li for discussions. B.Q.~acknowledges
-support from the Simons Foundation, Mathematics and Physical
+We thank David Salac  for discussions, and Shuwang Li for discussions and sharing his code for a multicomponent vesicle in free space. 
+B.Q.~acknowledges support from the Simons Foundation, Mathematics and Physical
 Sciences-Collaboration Grants for Mathematicians, Award No.~527139.
 Y.-N.Y.~acknowledges support from NSF (Grants No.~DMS 1614863 and
 No.~DMS 195160) and Flatiron Institute, part of Simons Foundation.
