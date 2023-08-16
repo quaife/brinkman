@@ -160,22 +160,25 @@
  & \noindent\large{Ashley Gannon,\textit{$^{a}$} Y.-N. Young,\textit{$^{b\ddag}$} and Bryan Quaife\textit{${\ast}${$^{a}$}}} \\
 % %Author names go here instead of "Full name", etc.
 %
-\includegraphics{head_foot/dates} & \noindent\normalsize{We numerically
-  study the hydrodynamics of multicomponent vesicles in two strongly
-  confining geometries. This serves as a simplified model for red blood
-  cells undergoing large deformations when passing through extreme
-  constrictions. We propose a new bending modulus parameterization that
-  is positive for all values of the lipid phase parameter. For a
-  multicomponent vesicle passing through a stenosis, we correlate the
-  lipid phase coarsening, the lubrication layer properties (size and
-  flow profile), the excess pressure, and the tank-treading velocity of
+\includegraphics{head_foot/dates} & \noindent\normalsize{%We numerically study the hydrodynamics of multicomponent vesicles in two strongly
+  %confining geometries.
+  We conduct a numerical investigation into the hydrodynamics of multicomponent vesicles in two strongly confined geometries. This serves as a simplified model for red blood
+  cells undergoing large deformations while traversing %when passing through extreme
+  narrow constrictions.
+  We propose a novel parameterization for the bending modulus that maintains positivity across all lipid phase parameter values.	
+  %We propose a new bending modulus parameterization that
+  %is positive for all values of the lipid phase parameter. 
+  For a multicomponent vesicle passing through a stenosis, %we correlate 
+  we establish connections between various properties: lipid phase coarsening, size and flow profile of the lubrication layers, %properties (size and flow profile), 
+  excess pressure, and the tank-treading velocity of
   the membrane. For a multicomponent vesicle passing through a
   contracting channel, we find that the lipid always phase separates so
   that the vesicle is stiffer in the front as it passes through the
-  constriction. For both cases of confinement we find that the lipid
-  coarsening is arrested under strong confinement, and proceeds with
-  high rate upon relief from extreme confinement. The results may be
-  useful for efficient sorting lipid domains using microfluidic flows by
+  constriction. %For both cases of confinement we find that the lipid
+  %coarsening is arrested under strong confinement, and proceeds with
+  %high rate upon relief from extreme confinement. 
+  For both cases of confinement, we find that lipid coarsening is arrested under strong confinement and proceeds at a high rate upon relief from extreme confinement.
+  The results may be useful for efficient sorting lipid domains using microfluidic flows by
   controlled release of vesicles passing through strong confinement.} \\
   %The abstrast goes here instead of the text "The abstract should
   %be..."
@@ -211,10 +214,13 @@
 %%%MAIN TEXT%%%%
 \section{\label{sec:Introduction}Introduction}
 Biological membranes, the basic structural units for compartmentalizing
-biological systems, have been observed to contain a vast array of
-proteins and different lipid species that phase-separate and form
-domains or rafts, resulting in spatial variations in material properties
-such as bending stiffness. Synthetic multicomponent vesicles,
+biological systems, %have been observed to contain a vast 
+exhibit a diverse array of
+proteins and lipid species. %that phase-separate and form
+%domains or rafts, resulting in spatial variations in material properties
+%such as bending stiffness. 
+These lipids undergo phase separation, forming domains or rafts that lead to variations in material properties, including bending stiffness. 
+Synthetic multicomponent vesicles,
 self-enclosed lipid bilayer membranes composed of different lipid
 species, have been used to study the rich patterns and accompanying
 morphologies that emerge from elastic heterogeneity in the membrane. In
@@ -265,7 +271,6 @@ two-dimensional multicomponent vesicle in an unbounded linear shear
 flow. In addition to the aforementioned numerical studies, these
 dynamics have been observed in experiments~\cite{bag-sun2009,
 yan-ima-tan2010, yan-ima-tan2008, dre-jah-bob-spa-gop2021}.
-
 %
 %Sohn et al. (2010) studied two-dimensional multicomponent vesicles in a
 %background shear flow, along with the evolution of distinct surface
@@ -490,7 +495,7 @@ $[0,1]$. This is problematic since $b(u) < 0$ if $u > (1 - \beta)^{-1}$,
 and such values of $u$ are possible when $\beta \ll 1$, $Ca \gg 1$, or
 the vesicle is confined to a narrow region. This behavior is
 demonstrated in Figure~\ref{fig:concModels}(a) for a vesicle with a
-floppy-to-stiff ratio $\beta = 10^{-1}$. Using the linear bending model
+floppy-to-stiff ratio $\beta = 10^{-1}$ entering a stenosis. Using the linear bending model
 in Equation~\eqref{eqn:linearBending}, the lipid concentration achieves
 a maximum value of $u \approx 1.5$ which results in an instability that
 is formed by the resulting unphysical negative bending stiffness. To
@@ -619,7 +624,7 @@ Equation~\eqref{eqn:tanhBending} by reproducing dynamics reported in the
 literature. Figure~\ref{fig:treading} shows a phase treading (top) and a
 tank-treading (bottom) multicomponent vesicle in an unconfined linear
 shear flow. The simulations align with the results reported
-by~\citet{liu-mar-li-vee-low2017} (cf.~Figure 3).
+by~\citet{liu-mar-li-vee-low2017} (cf.~Figure 3 and Figure 4).
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.9\columnwidth]{figures/shearTreading.pdf}
@@ -658,11 +663,11 @@ critical role in the dynamics of a vesicle under strong confinement.
 Therefore, throughout Section~\ref{sec:results}, we calculate and
 analyze the flow inside the lubrication layers between the vesicle and
 the channel walls to elucidate the correlation between hydrodynamics and
-membrane dynamics. To define the size of the top lubrication layer (the
-size of the bottom lubrication layer is defined similarly), we let
+membrane dynamics. To define the size of the top lubrication layer, we let
 $d(\xx,\Gamma_\mathrm{top})$ be the minimum distance between a point on
 the vesicle, $\xx \in \gamma$, and the top half of the confining
-geometry. We find all local minimums of $d(\xx,\Gamma_\mathrm{top})$,
+geometry. The size of the bottom lubrication layer is defined similarly. 
+We find all local minimums of $d(\xx,\Gamma_\mathrm{top})$,
 with the condition that $d(\xx,\Gamma_\mathrm{top}) < \delta$, where
 $\delta$ is a parameter. If no such local minimums exist, then the
 vesicle is too far from $\Gamma_\mathrm{top}$ to define a lubrication
@@ -732,7 +737,9 @@ We start by considering a vesicle with reduced area $\alpha = 0.6$
 passing through stenosis with a capillary number $Ca = 0.25$.  With the
 current setup and $Ca=0.25$, an elliptical vesicle with reduced area
 greater than $\alpha = 0.8$ cannot fit through the closely-fitting
-geometry. Figure~\ref{fig:RA6} shows six time steps of a (a) stiff
+geometry. \color{red} ARG: Is this true for stenosis? I remember it being the 
+case for contracting. I'll check previous runs. \color{black} 
+Figure~\ref{fig:RA6} shows six time steps of a (a) stiff
 single-component (b) floppy single-component, and (c) multicomponent
 vesicle. The lipid distribution of the multicomponent vesicle is
 initially random with a mean value of 0.55. In all plots, the color is
@@ -805,9 +812,10 @@ Note that the single-component vesicles do not have a phase energy. We
 observe that, as the vesicle enters the stenosis, it develops regions of
 high curvature, and this results in an increase in the bending energy.
 As the stiff single-component and multicomponent vesicles reach a
-steady-state shape near the middle of the channel, their bending,
-tension, and phase energies remain nearly constant from $x=0$ until the
-end of the stenosis. For the multiple-component vesicle, this implies
+steady-state shape near the middle of the channel, their bending and
+tension energies remain nearly constant from $x=0$ until the
+end of the stenosis. For the multicomponent vesicle, the phase energy is 
+also nearly constant in this region. This implies
 that there is no coarsening of lipid phase parameter in the middle of a
 stenosis.
 
@@ -1094,7 +1102,7 @@ curvature are quickly smoothed.
   \includegraphics[width=\columnwidth]{figures/Contracting_RAp6MCp5.pdf}
   \caption{\label{fig:RA6leftRightRand} \small A multicomponent vesicle
   with 50\% floppy region passing through a contracting geometry. The
-  vesicle's reduced area is $\alpha = 0.6$ and the capillary number is
+  vesicle's reduced area is $\alpha = 0.5$ and the capillary number is
   $Ca = 0.25$. The lipid distribution is initialized to be (a) random,
   (b) phase separated with the stiff region leading; (b) random; (c)
   phase separated with the floppy region leading.}
@@ -1123,7 +1131,7 @@ region is (a) 0\% (single-component), (b) 15\%, (c) 25\%, (d) 35\%, and
 symmetry of the vesicle shape is broken at smaller percentages. We also
 see that stiffer vesicles have faster migration speeds, but the effect
 is quite small---Table~\ref{tbl:contractingTimes} reports the time the
-vesicle first passes through the neck.
+vesicle first passes through the neck. \color{red} I think this is backwards? The table reports that the floppiest vesicle made it through the contraction the quickest. \color{black}
 %In Figure~\ref{fig:RA5}, we consider a vesicle with reduced area
 %$\alpha = 0.5$ and the capillary number is $Ca = 0.25$. We start with a
 %single-component vesicle and then increase the percentage of the
@@ -1329,7 +1337,7 @@ energy are included.
 \section{Conclusions \label{sec:conclusion}}
 In this work we used numerical simulations to examine the hydrodynamics
 of a multicomponent vesicle under strong confinement. The vesicle is an
-simplified model for a red blood cell (RBC), which has multiple lipid
+simplified model for a red blood cell, which has multiple lipid
 domains in its membrane and often has to squeeze through a small space.
 We refined the phase-field formulation in~\citet{liu-mar-li-vee-low2017}
 with a new bending model that uses a sigmoid function for the bending
@@ -1400,10 +1408,11 @@ the vesicle.
 Such asymmetry in lipid domain induced by strong confinement and sudden
 release gives rise to a nonuniform tension distribution in the membrane,
 with a smaller tension (in magnitude) in the front and a larger tension
-(in magnitude) in the back. This is similar to a RBC going through a
-narrow slit~\cite{LuPeng2019_PoF}, where the membrane tension is mostly
-negative (compression) when the RBC passes through the narrow slit with
-more compression in the back than in the front of the RBC.
+(in magnitude) in the back. This resembles the behavior of a red blood cell as it traverses a narrow slit~\cite{LuPeng2019_PoF}. During this process, the membrane tension is primarily negative, resulting in compression that is more pronounced at the rear of the cell than at the front.
+%This is similar to a red blood cell going through a
+%narrow slit~\cite{LuPeng2019_PoF}, where the membrane tension is mostly
+%negative (compression) when the RBC passes through the narrow slit with
+%more compression in the back than in the front of the RBC.
 %This may have biophysical consequences in polarity developing of a
 %migrating cell.
 
