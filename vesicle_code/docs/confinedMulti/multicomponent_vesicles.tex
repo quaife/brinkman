@@ -387,6 +387,7 @@ Hagen–Poiseuille flow at the inlet and outlet
 \begin{align}
   \UU(\xx) = U \left(1 - \left(\frac{y}{W}\right)^2 \right), 
     \quad \xx = (x,y) \in \Gamma,
+  \label{eqn:dirBC}
 \end{align}
 and $y \in [-W,W]$. $\UU$ is zero along the top and bottom of the
 channel.
@@ -443,7 +444,7 @@ is a double-well potential with local minimums at $u=0$ and $u=1$. The
 parameter $\epsilon \ll 1$ sets the size of the transition region of
 $u$, and the parameter $a$ is line tension scaled by the characteristic
 bending stiffness. All simulations use the parameter values
-$\epsilon=100$ and $a=0.04$. The resulting membrane forces are
+$\epsilon=0.04$ and $a=100$. The resulting membrane forces are
 \begin{align}
   \ff_b &= -(b(u)\kappa \nn)_{ss} -\frac{3}{2}
     \left(b(u) \kappa^2 \ss\right)_s,  \quad
@@ -536,8 +537,12 @@ where
       \frac{\rr \cdot \nn}{\rho^2} 
       \frac{\rr \otimes \rr}{\rho^2} \eeta(\yy) \, ds_\yy,
 \end{align}
-$\rr = \xx - \yy$, $\rho = |\rr|$, and $\mathds{I}$ is the $2 \times 2$
-identity matrix. The corresponding pressure is
+$\rr = \xx - \yy$, $\rho = |\rr|$, $\nn$ is the outward unit normal,
+$\eeta$ is a currently unknown density function, and $\mathds{I}$ is the
+$2 \times 2$ identity matrix. The membrane tension $\sigma$ acts as a
+Lagrange multiplier so that the inextensibility condition,
+$\nabla_{\gamma} \cdot \uu = 0$, can be satisfied. The corresponding
+pressure is
 \begin{align}
   \label{eqn:pressure}
   p(\xx) = \frac{1}{2\pi} \int_{\gamma} \frac{\rr \cdot \ff}{\rho^2} \, ds_\yy + 
@@ -555,13 +560,15 @@ the no-slip boundary condition for the vesicle velocity is
 \begin{align}
   \frac{d\xx}{dt} = V \nn + T \ss + D[\eeta](\xx), \quad \xx \in \gamma.
 \end{align}
-The boundary condition on $\Gamma$ is imposed by requiring that $\eeta$
-satisfies
+The boundary condition on $\Gamma$ is satisfied by requiring that
+$\eeta$ satisfies
 \begin{align}
   \UU(\xx) = -\frac{1}{2}\eeta(\xx) + 
-    S[\ff](\xx) + D[\eeta](\xx), \quad \xx \in \Gamma.
+    S[\ff](\xx) + D[\eeta](\xx), \quad \xx \in \Gamma,
   \label{eqn:DLP_BIE}
 \end{align}
+where the fluid velocity on the solid wall is defined in
+Equation~\eqref{eqn:dirBC}.
 
 The vesicle and solid walls are discretized at a set of collocation
 points. The single-layer potential is approximated using quadrature for
@@ -569,7 +576,7 @@ weakly-singular integrands, while the double-layer potential is
 approximated using the spectrally accurate trapezoid rule. A high-order
 quadrature method resolves the hydrodynamic interactions between the
 vesicle and the solid wall~\cite{qua-bir2014}. Arclength derivatives are
-computed with spectral accuracy using Fourier methods.  The resulting
+computed with spectral accuracy using Fourier methods. The resulting
 linear system is solved using GMRES. Finally, time stepping is carried
 out using the second-order Adams-Bashforth method. 
 

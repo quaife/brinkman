@@ -1,0 +1,303 @@
+\documentclass[11pt]{article}
+
+\usepackage{fullpage}
+\usepackage{url}
+
+\begin{document}
+
+We thank the referees for their assessment of our work.  The following
+is our response to each of the specific comments and suggestions.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Reviewer 1}
+
+The referee wrote: I have reviewed ''Hydrodynamics of Multicomponent
+Vesicles Under Strong Confinement'' by Gannon, Quaife, and Young. To my
+understanding this work is unique as the dynamics of multicomponent
+vesicles under constrictions has not yet been investigated. Before
+acceptance there are some questions and issues which should be
+addressed:
+ 
+\noindent
+{\bf Response:}: We thank the referee for the confirmation that the
+topic is unique and has not yet been investigated.
+
+\begin{enumerate}
+%%%%%%%%
+\item In the phase energy, Eq. (5), it is stated that the parameter
+  $\epsilon$ is much smaller than 1 but then it is stated that this
+    parameter is equal to 100. Please address this inconsistency.
+
+\noindent
+{\bf Response:} This was our oversight. The parameter values for $a$ and
+$\epsilon$ were unintentionally reversed. This has been fixed.
+
+%%%%%%%%
+\item What motivated the choice of a sigmoid function, Eq. (9), rather
+  than a simple min/max operation so that the bending rigidity does not
+    extend past the $[0.1, 1]$ range? Would the use of a regular-mixture
+    model, which might be more physically realistic, remove the need for
+    such a mathematical approximation as the equilibrium concentrations
+    will no longer be $0$ and $1$?
+
+\noindent
+{\bf Response:} A response
+
+%%%%%%%%
+\item Please define $\eta$ in Eq.~(10). 
+
+\noindent
+{\bf Response:} $\eta$ is a density function that is required to satisfy
+    the Dirichlet boundary condition on the solid walls. The text has
+    been adjusted.
+
+%%%%%%%%
+\item Please define whether $\mathbf{n}$ in Eq.~(12) is the inward or outward pointing unit normal.
+
+\noindent
+{\bf Response:} It is the outward pointing unit normal. The text has
+    been adjusted.
+
+%%%%%%%%
+\item How is surface incompressibility enforced?
+
+\noindent
+{\bf Response:} The tension $\sigma$ acts as a Lagrange multiplier so
+    that the inextensibility condition can be satisfied. The text has
+    been adjusted.
+
+%%%%%%%%
+\item Please define $\mathbf{U}$ in Eq. (15). Is this the velocity of
+  the interface?
+
+{\bf Response:} This is the prescribed velocity along the solid wall
+    which is a combination of no-slip along the top and bottom of the
+    channel, and a Poiseuille flow at the inlet and outlet. We now
+    reference equation (3), which defines $\mathbf{U}$, immediately
+    after equation (15). 
+
+%%%%%%%%
+\item What value of $\delta$ is used to determine the lubrication layer
+  thickness?
+
+{\bf Response:} A response
+
+%%%%%%%%
+\item The simulation parameters must be provided. In the stenosis case
+  what is the (dimensionless) width of the constricted region? For the
+    contracting geometry case what does a $2~\mu$m wide neck correspond
+    to?
+
+{\bf Response:} A response
+
+\end{enumerate}
+
+\newpage 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Reviewer 2}
+
+The referee wrote: The authors of the paper, explored the effect of
+hydrodynamics on the behavior of multicomponent vesicles under strong
+confinement using numerical simulations. They have elucidated the
+effects of the lubrication layer that exists between the vesicle, and
+explored how confinement affects the excess pressure needed to push the
+vesicle through the conduit. This study is useful to the community and
+contains some sound insights regarding multicomponent vesicles. It,
+however, is important that the authors make the following changes to be
+considered for publication.
+
+\noindent
+{\bf Response:}: We thank the referee for their assessment and suggested
+changes.
+
+\begin{enumerate}
+%%%%%%%%
+\item The authors specify a line energy parameter $\epsilon = 100$. It
+  is important that the authors justify this choice along with an
+    experimental study which uses similar parameter ranges. This is
+    important so that a future experimental study could be performed
+    using these parameters as a guide.
+
+\noindent
+{\bf Response:} This was our oversight. The parameter values for $a$ and
+$\epsilon$ were unintentionally reversed. This has been fixed.
+
+%%%%%%%%
+\item Minor comment: In Figure 4 and 5, the authors should add the $x$
+  coordinate under the figure so that the readers are able to understand
+    the results better.
+
+\noindent
+{\bf Response:} A response
+
+%%%%%%%%
+\item The authors mention the phrase `size of lubrication layer' in the
+  paper. They need to explicitly define this parameter. It could be
+    confusing to a reader whether they talk about
+    $|\gamma_{\mathrm{layer}}|$ or $w_{\mathrm{top}}$ and
+    $w_{\mathrm{bottom}}$.
+
+\noindent
+{\bf Response:} A response
+
+%%%%%%%%
+\item The authors measure the tangential velocity at 4 points. They
+  should provide some justification for this number. Also, it is
+    advisable that in Figure 7, the authors use a different color for
+    each velocity plot. The plot looks highly convoluted and does not
+    convey the message clearly. Also, what are the bounds within which
+    the authors call the tangential velocity to be constant in Figure 7?
+    They should define a bound for the variation that could be
+    considered constant. Moreover, in Figure 7, for the floppy vesicle,
+    the authors see a large deviation for the tangential velocity. It
+    doesn't seem like the velocity could be called `constant'. The
+    authors should provide a more detailed explanation for this.
+
+\noindent
+{\bf Response:} A response
+
+%%%%%%%%
+\item In some simulations, the authors choose a `random' initial
+  condition. It would be helpful if they could mathematically define the
+    function for this initial condition.
+
+\noindent
+{\bf Response:} A response
+
+%%%%%%%%
+\item In Figure 6, the author should comment on the energy behavior of
+  the floppy vesicle in the stenosis region.
+
+\noindent
+{\bf Response:} A response
+
+%%%%%%%%
+\item In Figure 7, when the authors look at the excess pressure plots,
+  they should describe the behavior of the floppy vesicle due to the
+  difference in lubrication thickness and, in turn, excess pressure. It
+  seems like the excess pressure shows a similar trend as the stiff
+  vesicle.
+
+\noindent
+{\bf Response:} A response
+
+
+%%%%%%%%
+\item Not really a comment, but the author's analysis of the velocity
+  profiles in Figure 8 is fantastic. It captures the stress and pressure
+  gradient behavior aptly and provides a theoretical basis as well.
+
+\noindent
+{\bf Response:} We thank the reviewer for this compliment. We are also
+very happy with this result. 
+
+
+%%%%%%%%
+\end{enumerate}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Reviewer 3}
+
+The referee wrote: The authors study the passage of a vesicle through a
+constriction. A vesicle’s membrane has some mechanical properties analog
+to red blood cells motivating many theoretical and numerical studies.
+Indeed, this issue has known many progress during the last decade. A
+vesicle is also a fascinating physical soft particle as its membrane
+area is constant as well as its volume leading to an essential role of
+deflation. But contrary to capsules, as the membrane is fluid, there is
+no buckling. Finally, the study is inspired by modeling RBC. 
+
+\noindent
+{\bf Response:}: We thank the referee for their assessment and suggested
+changes.
+
+\begin{enumerate}
+%%%%%%%%
+\item This study is limited to the two-dimensional case, which is not
+  reality. It is a strong approximation and full 3D studies are still a
+    challenge in constrictions. But, in the axisymmetrical case, there
+    are several results in literature which could be more or less,
+    considered as benchmark:
+    \url{http://dx.doi.org/10.1103/PhysRevFluids.5.043602}, \\
+    \url{https://doi.org/10.1017/jfm.2017.743}
+
+\noindent
+{\bf Response:} A response
+
+%%%%%%%%
+\item The authors should justify why they limit their investigations to
+  the 2D case if 3D is possible. I note that the authors also cite
+    relevant literature as 10, 11 $\ldots$ References to 2D are
+    excellent. A typical argument is the high time of 3D simulations.
+    Can the authors provide an order of magnitude?
+
+\noindent
+{\bf Response:} A response
+
+%%%%%%%%
+\item The authors present the essential steps of the numerical model. It
+  is well done and the references well chosen. I have appreciated the
+    introduction of equation (9) an figure 2. However, there are two
+    points to clarify :
+    \begin{itemize}
+      \item page 2 : there is a difference in literature of the
+        capillary number. Some authors use the flow curvature, others
+        the mean velocity as the authors. Please explain your choice.
+      \item page 2, right column ``The parameter $\epsilon \ll 1$ sets the
+        size of the transition region of u, and the parameter a is line
+        tension scaled by the characteristic bending stiffness. All
+        simulations use the parameter values $\epsilon = 100$ and $a =
+        0.04.$" $\epsilon = 100$ is contradictory to $\epsilon \ll 1$.
+        Please explain or correct
+    \end{itemize}
+
+\noindent
+{\bf Response:} This was our oversight. The parameter values for $a$ and
+$\epsilon$ were unintentionally reversed. This has been fixed.
+
+%%%%%%%%
+\item Why do authors never observe the blocking of vesicles contrary to
+  experiments? It would the opportunity to perform a phase diagram and
+    to show the effect of multicomponent.
+
+\noindent
+{\bf Response:} A response
+
+%%%%%%%%
+\item In experiments, the channel is a slit. What do the authors expect
+  from such a difference?
+
+\noindent
+{\bf Response:} A response
+
+%%%%%%%%
+\item Finally, this study is interesting and provides new insights.
+  However, I advise authors to improve the quantitative part of their
+  results (variation with Ca or confinement or something else, phase
+  diagram...) to be more relevant for a journal such as Soft Matter. I
+  am waiting the new manuscript.
+
+\noindent
+{\bf Response:} A response
+
+%%%%%%%%
+\item Page 2, left column : the flow is assumed to be in the limit of
+  zero Reynolds number : not the fluid
+
+\noindent
+{\bf Response:} A response
+
+%%%%%%%%
+\item The title is a bit misleading as the authors only consider the
+  deflation equal to the one of RBC. However, as there is some conflict
+  between capsules and vesicles as models of RBC, the title can be
+  tolerated.
+
+\noindent
+{\bf Response:} A response
+\end{enumerate}
+
+
+\end{document}
