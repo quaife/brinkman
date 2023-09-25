@@ -690,21 +690,29 @@ narrow at $x=4$ and reaches its narrowest point at $x=15$.
 stenosis geometry}
 
 We start by considering a vesicle with reduced area $\alpha = 0.6$
-passing through stenosis with a capillary number $Ca = 0.25$.  With the
+passing through stenosis with a capillary number $Ca = 0.25$. With the
 current setup and $Ca=0.25$, an elliptical vesicle with reduced area
 greater than $\alpha = 0.8$ cannot fit through the closely-fitting
 geometry. Figure~\ref{fig:RA6} shows six time steps of a (a) stiff
 single-component (b) floppy single-component, and (c) multicomponent
-vesicle. The lipid distribution of the multicomponent vesicle is
-initially random with a mean value of 0.55. In all plots, the color is
-the dimensionless bending modulus of the multicomponent vesicle that
-remains bounded in $[0.1,1]$ by using the new sigmoid bending modulus in
-Equation~\eqref{eqn:tanhBending}. A single Lagrangian point is included
-to visualize any tank-treading behavior. There are slight differences
-between the three cases, with the most noticeable being that the
-multicomponent vesicle has higher curvature in the floppy region.
-However, in general, there is little difference between these cases,
-principally because these vesicles have a large reduced area. 
+vesicle. 
+% New sentence
+\textcolor{blue}{
+The lipid distribution at each point on the multicomponent vesicle is
+chosen randomly from the uniform distribution with the range $[0,1]$. As
+a result of selecting $b_{\min}=0.1$ and $b_{\max}=1$, the mean bending
+stiffness is $\overline{b(u)} = 0.55$.}
+%The lipid distribution of the multicomponent vesicle is
+%initially random with a mean value of 0.55. 
+In all plots, the color is the dimensionless bending modulus of the
+multicomponent vesicle that remains bounded in $[0.1,1]$ by using the
+new sigmoid bending modulus in Equation~\eqref{eqn:tanhBending}. A
+single Lagrangian point is included to visualize any tank-treading
+behavior. There are slight differences between the three cases, with the
+most noticeable being that the multicomponent vesicle has higher
+curvature in the floppy region. However, in general, there is little
+difference between these cases, principally because these vesicles have
+a large reduced area. 
 
 \begin{figure*}[h]
   \centering
@@ -893,7 +901,11 @@ Figure~\ref{fig:RA6leftRightRand}, snapshots of vesicles with reduced
 area $\alpha = 0.5$ with different initial lipid distributions are
 illustrated. The initial distributions are (a) random, (b) stiff in the
 front and floppy in the back, and (c) floppy in the front and stiff in
-the back. The vesicle with the random initial lipid distribution quickly
+the back. 
+\textcolor{red}{
+As previously mentioned, the initial random lipid distributions are
+sampled from the uniform distribution with the range $[0,1]$.}
+The vesicle with the random initial lipid distribution quickly
 phase separates into two floppy and two stiff regions. As seen in the
 stenosis geometry, further phase separation is delayed until the vesicle
 is no longer under strong confinement. The vesicle with the stiff region
