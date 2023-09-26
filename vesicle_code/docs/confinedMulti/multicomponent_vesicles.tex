@@ -378,12 +378,14 @@ the membrane and hydrodynamic forces balance
   \nabla_{\gamma} \cdot \uu = 0, \quad
   \llbracket \TT\nn \rrbracket = \ff, \quad \xx \in \gamma,
 \end{align}
-where $\ff$ is the total membrane force and $\nn$ is the outward unit
-normal of $\gamma$. Parameterizing $\gamma$ as $\xx(s,t)$, where $s$ is
-arclength and $t$ is time, the no-slip boundary condition is
-$\frac{d\xx}{dt} = \uu(\xx)$. Along the solid wall $\Gamma$, we impose a
-Dirichlet boundary condition $\uu(\xx) = \UU(\xx)$, where $\UU$ is a
-Hagen–Poiseuille flow at the inlet and outlet
+where $\ff$ is the total membrane force 
+\textcolor{blue}{
+and $\nn$ is the outward unit normal of $\gamma$.} 
+Parameterizing $\gamma$ as $\xx(s,t)$, where $s$ is arclength and $t$ is
+time, the no-slip boundary condition is $\frac{d\xx}{dt} = \uu(\xx)$.
+Along the solid wall $\Gamma$, we impose a Dirichlet boundary condition
+$\uu(\xx) = \UU(\xx)$, where $\UU$ is a Hagen–Poiseuille flow at the
+inlet and outlet
 \begin{align}
   \UU(\xx) = U \left(1 - \left(\frac{y}{W}\right)^2 \right), 
     \quad \xx = (x,y) \in \Gamma,
@@ -443,8 +445,10 @@ $\kappa$ is the membrane curvature, and $f(u) = \frac{1}{4}u^2(1-u)^2$
 is a double-well potential with local minimums at $u=0$ and $u=1$. The
 parameter $\epsilon \ll 1$ sets the size of the transition region of
 $u$, and the parameter $a$ is line tension scaled by the characteristic
-bending stiffness. All simulations use the parameter values
-$\epsilon=0.04$ and $a=100$. The resulting membrane forces are
+bending stiffness. 
+\textcolor{blue}{
+All simulations use the parameter values $\epsilon=0.04$ and $a=100$.} 
+The resulting membrane forces are
 \begin{align}
   \ff_b &= -(b(u)\kappa \nn)_{ss} -\frac{3}{2}
     \left(b(u) \kappa^2 \ss\right)_s,  \quad
@@ -537,12 +541,16 @@ where
       \frac{\rr \cdot \nn}{\rho^2} 
       \frac{\rr \otimes \rr}{\rho^2} \eeta(\yy) \, ds_\yy,
 \end{align}
-$\rr = \xx - \yy$, $\rho = |\rr|$, $\nn$ is the outward unit normal,
-$\eeta$ is a currently unknown density function, and $\mathds{I}$ is the
-$2 \times 2$ identity matrix. The membrane tension $\sigma$ acts as a
-Lagrange multiplier so that the inextensibility condition,
-$\nabla_{\gamma} \cdot \uu = 0$, can be satisfied. The corresponding
-pressure is
+$\rr = \xx - \yy$, $\rho = |\rr|$,
+\textcolor{blue}{
+$\nn$ is the outward unit normal, $\eeta$ is a currently unknown density
+function,}
+and $\mathds{I}$ is the $2 \times 2$ identity matrix. 
+\textcolor{blue}{
+The membrane tension $\sigma$ acts as a Lagrange multiplier so that the
+inextensibility condition, $\nabla_{\gamma} \cdot \uu = 0$, can be
+satisfied.}
+The corresponding pressure is
 \begin{align}
   \label{eqn:pressure}
   p(\xx) = \frac{1}{2\pi} \int_{\gamma} \frac{\rr \cdot \ff}{\rho^2} \, ds_\yy + 
@@ -567,8 +575,9 @@ $\eeta$ satisfies
     S[\ff](\xx) + D[\eeta](\xx), \quad \xx \in \Gamma,
   \label{eqn:DLP_BIE}
 \end{align}
+\textcolor{blue}{
 where the fluid velocity on the solid wall is defined in
-Equation~\eqref{eqn:dirBC}.
+Equation~\eqref{eqn:dirBC}.}
 
 The vesicle and solid walls are discretized at a set of collocation
 points. The single-layer potential is approximated using quadrature for
@@ -609,7 +618,9 @@ by~\citet{liu-mar-li-vee-low2017} (cf.~Figure 3 and Figure 4).
   \caption{\label{fig:RA6} \small A vesicle passing through the stenosis
   geometry. The vesicle's reduced area is $\alpha = 0.6$ and the
   capillary number is $Ca = 0.25$. The vesicles are: (a) stiff
-  single-component; (b) floppy single-component; (c) multicomponent.}
+  single-component; (b) floppy single-component; (c) multicomponent.
+  \textcolor{blue}{The background flow is in the positive $x$ direction
+  denoted by the arrow.}}
 \end{figure*}
 
 
@@ -644,8 +655,12 @@ width is
 \end{align}
 The region that defines the top and bottom lubrication layers is
 illustrated in Figure~\ref{fig:schematic}, and the height of the gray
-regions denote the lubrication layer thicknesses. In this example, the
-top layer is broken across two different regions.
+regions, 
+\textcolor{blue}{
+$w_{\mathrm{top}}$ and $w_{\mathrm{bot}},$
+}
+denote the lubrication layer thicknesses. In this example, the top layer
+is broken across two different regions.
 
 A difference between the size of the top and bottom lubrication layers
 indicates that the vesicle membrane shape is asymmetric with respect to
@@ -668,21 +683,19 @@ under strong confinement}
 We consider both a single-component and a multicomponent vesicle
 suspended in two geometries: a closely-fitting geometry (stenosis) and a
 geometry that slowly contracts to a narrow neck and then quickly widens
-(contracting). 
-%We considered a semipermeable vesicle suspended in these
-%same geometries in our previous work~\cite{qua-gan-you2021}. 
-All the multicomponent examples have floppy-to-stiff ratio $\beta = 10^{-1}$.
-For the single-component case, we consider two bending stiffnesses:
-$b(u) = 1$ and $b(u) = 0.55$. We refer to these cases as a stiff
-single-component vesicle and a floppy single-component vesicle,
-respectively. The smaller bending stiffness represents the average
-bending stiffness of a multicomponent vesicle, when its stiff and floppy
-regions cover the same amount of area. Throughout this section we plot
-the position of the vesicle in terms of the $x$-coordinate of its center
-of mass. For the stenosis geometry in Section~\ref{subsec:Stenosis}, the
-narrow region begins at $x=-15$ and ends at $x=15$. For the contracting
-geometry in Section~\ref{subsec:Contraction}, the geometry begins to
-narrow at $x=4$ and reaches its narrowest point at $x=15$.
+(contracting). All the multicomponent examples have floppy-to-stiff
+ratio $\beta = 10^{-1}$. For the single-component case, we consider two
+bending stiffnesses: $b(u) = 1$ and $b(u) = 0.55$. We refer to these
+cases as a stiff single-component vesicle and a floppy single-component
+vesicle, respectively. The smaller bending stiffness represents the
+average bending stiffness of a multicomponent vesicle, when its stiff
+and floppy regions cover the same amount of area. Throughout this
+section we plot the position of the vesicle in terms of the
+$x$-coordinate of its center of mass. For the stenosis geometry in
+Section~\ref{subsec:Stenosis}, the narrow region begins at $x=-15$ and
+ends at $x=15$. For the contracting geometry in
+Section~\ref{subsec:Contraction}, the geometry begins to narrow at $x=4$
+and reaches its narrowest point at $x=15$.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -696,7 +709,6 @@ greater than $\alpha = 0.8$ cannot fit through the closely-fitting
 geometry. Figure~\ref{fig:RA6} shows six time steps of a (a) stiff
 single-component (b) floppy single-component, and (c) multicomponent
 vesicle. 
-% New sentence
 \textcolor{blue}{
 The lipid distribution at each point on the multicomponent vesicle is
 chosen randomly from the uniform distribution with the range $[0,1]$. As
@@ -720,7 +732,9 @@ a large reduced area.
   \caption{\label{fig:RA4} \small A vesicle passing through the stenosis
   geometry. The vesicle's reduced area is $\alpha = 0.4$ and the
   capillary number is $Ca = 0.25$. The vesicles are: (a) stiff
-  single-component; (b) floppy single-component; (c) multicomponent.}
+  single-component; (b) floppy single-component; (c) multicomponent.
+  \textcolor{blue}{The background flow is in the positive $x$ direction
+  denoted by the arrow.}}
 \end{figure*}
 
 \begin{figure*}[ht]
@@ -773,9 +787,14 @@ curvature, and this results in an increase in the bending energy. As
 the stiff single-component and multicomponent vesicles reach a
 steady-state shape near the middle of the channel, their bending and
 tension energies remain nearly constant from $x=0$ until the end of the
-stenosis. For the multicomponent vesicle, the phase energy is also
-nearly constant in this region. This implies that there is no coarsening
-of lipid phase parameter in the middle of a stenosis.
+stenosis. 
+\textcolor{blue}{
+In contrast, the bending and tension energies of the floppy
+single-component vesicle evolve throughout the entire channel as the
+vesicle undergoes deformations.}
+For the multicomponent vesicle, the phase energy is also nearly constant
+in this region. This implies that there is no coarsening of lipid phase
+parameter in the middle of a stenosis.
 
 %This corresponds to an arrest of phase coarsening for a vesicle confined in a stenosis.
 The coexistence of multiple lipid domains in a vesicle under confinement
@@ -823,14 +842,24 @@ tangential velocities have not converged to a fixed value.
 The sizes of the top and bottom lubrication layers are also related to
 the excess pressure. The green curve on the top half of
 Figure~\ref{fig:lubricationComposite} shows the excess pressure (with
-the axis aligned on the right side of the plot). When the lubrication
-layers are large, most notably for the multicomponent vesicle, less
-pressure is required to force the vesicle through the geometry, and the
-result is a smaller (less negative) excess pressure. In contrast, when
-the lubrication layers are small, most notably for the stiff
-single-component vesicle, more pressure is required to force the vesicle
-through the geometry, and we the result is a larger (more negative)
-excess pressure.
+the axis aligned on the right side of the plot). 
+\textcolor{blue}{
+As a general trend, we expect that if the total lubrication layer
+thickness---namely the sum of the top and bottom lubrication layers---is
+largest, then less pressure is required to maintain the constant flow
+rate, and the result is a smaller (less negative) excess pressure. This
+trend is confirmed in Figure~\ref{fig:lubricationComposite} where the
+size of the lubrication layers, from smallest to largest, are the stiff
+single-component vesicle, the floppy single-component vesicle, and the
+multicomponent vesicle, while the ranking of the excess pressure is
+reversed.}
+%When the lubrication layers are large, most notably for the
+%multicomponent vesicle, less pressure is required to force the vesicle
+%through the geometry, and the result is a smaller (less negative)
+%excess pressure. In contrast, when the lubrication layers are small,
+%most notably for the stiff single-component vesicle, more pressure is
+%required to force the vesicle through the geometry, and we the result
+%is a larger (more negative) excess pressure.
 
 When a vesicle is tank-treading near a solid wall, the flow in the thin
 layer of fluid includes both a linear profile and a Poiseuille
@@ -902,7 +931,7 @@ area $\alpha = 0.5$ with different initial lipid distributions are
 illustrated. The initial distributions are (a) random, (b) stiff in the
 front and floppy in the back, and (c) floppy in the front and stiff in
 the back. 
-\textcolor{red}{
+\textcolor{blue}{
 As previously mentioned, the initial random lipid distributions are
 sampled from the uniform distribution with the range $[0,1]$.}
 The vesicle with the random initial lipid distribution quickly

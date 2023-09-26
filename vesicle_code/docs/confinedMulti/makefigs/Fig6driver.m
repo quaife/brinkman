@@ -22,7 +22,7 @@ h = text(-24,0,'(c)');
 set(h,'fontsize',24);
 set(h,'FontWeight','bold')
 
-if 1
+if 0
 f = figure(1);
 set(f,'Units','Inches');
 pos = get(f,'Position');
