@@ -476,8 +476,14 @@ floppy-to-stiff ratio $\beta = 10^{-1}$ entering a stenosis. Using the
 linear bending model in Equation~\eqref{eqn:linearBending}, the lipid
 concentration achieves a maximum value of $u \approx 1.5$ which results
 in an instability that is formed by the resulting unphysical negative
-bending stiffness. To rectify this issue, we parameterize the bending
-modulus with the sigmoid function
+bending stiffness. 
+\textcolor{blue}{
+To rectify this issue, we could simply restrict the bending modulus to
+be bounded in $[b_{\min},b_{\max}]$ by letting $b(u) = \max\left( \min
+\left( (1-u) + \beta u,1 \right), \beta \right)$. However, the loss of
+differentiability would result in a loss of accuracy.
+}
+Instead, we parameterize the bending modulus with the sigmoid function
 \begin{align}
   b(u) = \frac{\beta-1}{2} \tanh\left(3\left(u-\frac{1}{2} 
     \right)\right) + \frac{\beta + 1}{2}.
@@ -486,8 +492,9 @@ modulus with the sigmoid function
 This parameterization maps the local minimums of the double-well
 potential close to $\beta$ and $1$, but more importantly, $b(u)$ remains
 bounded in $(\beta,1)$ even when $u \notin [0,1]$
-(Figure~\ref{fig:concModels}(b)). We compare this new bending model against the linear model for 
-a phase-treading and tank treading vesicle in Section~\ref{sec:validation}.
+(Figure~\ref{fig:concModels}(b)). We compare this new bending model
+against the linear model for a phase-treading and tank treading vesicle
+in Section~\ref{sec:validation}.
 
 %To demonstrate the necessity of this new bending model, we consider a
 %multicomponent vesicle in strong confinement with both bending
@@ -543,8 +550,7 @@ where
 \end{align}
 $\rr = \xx - \yy$, $\rho = |\rr|$,
 \textcolor{blue}{
-$\nn$ is the outward unit normal, $\eeta$ is a currently unknown density
-function,}
+$\nn$ is the outward unit normal, $\eeta$ is a stress density,}
 and $\mathds{I}$ is the $2 \times 2$ identity matrix. 
 \textcolor{blue}{
 The membrane tension $\sigma$ acts as a Lagrange multiplier so that the
@@ -576,7 +582,7 @@ $\eeta$ satisfies
   \label{eqn:DLP_BIE}
 \end{align}
 \textcolor{blue}{
-where the fluid velocity on the solid wall is defined in
+where the fluid velocity $\UU$ on the solid wall $\Gamma$ is defined in
 Equation~\eqref{eqn:dirBC}.}
 
 The vesicle and solid walls are discretized at a set of collocation
@@ -619,7 +625,7 @@ by~\citet{liu-mar-li-vee-low2017} (cf.~Figure 3 and Figure 4).
   geometry. The vesicle's reduced area is $\alpha = 0.6$ and the
   capillary number is $Ca = 0.25$. The vesicles are: (a) stiff
   single-component; (b) floppy single-component; (c) multicomponent.
-  \textcolor{blue}{The background flow is in the positive $x$ direction
+  \textcolor{blue}{The imposed flow is in the positive $x$ direction
   denoted by the arrow.}}
 \end{figure*}
 
@@ -711,9 +717,9 @@ single-component (b) floppy single-component, and (c) multicomponent
 vesicle. 
 \textcolor{blue}{
 The lipid distribution at each point on the multicomponent vesicle is
-chosen randomly from the uniform distribution with the range $[0,1]$. As
-a result of selecting $b_{\min}=0.1$ and $b_{\max}=1$, the mean bending
-stiffness is $\overline{b(u)} = 0.55$.}
+chosen randomly from the uniform distribution with the range $[0,1]$.
+Since $b_{\min}=0.1$ and $b_{\max}=1$, the mean bending stiffness is
+$\overline{b(u)} \approx 0.55$.}
 %The lipid distribution of the multicomponent vesicle is
 %initially random with a mean value of 0.55. 
 In all plots, the color is the dimensionless bending modulus of the
@@ -733,7 +739,7 @@ a large reduced area.
   geometry. The vesicle's reduced area is $\alpha = 0.4$ and the
   capillary number is $Ca = 0.25$. The vesicles are: (a) stiff
   single-component; (b) floppy single-component; (c) multicomponent.
-  \textcolor{blue}{The background flow is in the positive $x$ direction
+  \textcolor{blue}{The imposed flow is in the positive $x$ direction
   denoted by the arrow.}}
 \end{figure*}
 
@@ -789,9 +795,12 @@ steady-state shape near the middle of the channel, their bending and
 tension energies remain nearly constant from $x=0$ until the end of the
 stenosis. 
 \textcolor{blue}{
-In contrast, the bending and tension energies of the floppy
-single-component vesicle evolve throughout the entire channel as the
-vesicle undergoes deformations.}
+For the floppy case, the bending energy is similar in size as the stiff
+case. Since the floppy bending modulus is ten-times smaller than the
+stiff case, this indicates that the curvature of the floppy vesicle is
+about $\sqrt{10}$-times larger than the stiff case. This additional
+curvature corresponds to larger and more dynamic membrane deformations,
+and a more varying tension energy.}
 For the multicomponent vesicle, the phase energy is also nearly constant
 in this region. This implies that there is no coarsening of lipid phase
 parameter in the middle of a stenosis.
@@ -844,15 +853,21 @@ the excess pressure. The green curve on the top half of
 Figure~\ref{fig:lubricationComposite} shows the excess pressure (with
 the axis aligned on the right side of the plot). 
 \textcolor{blue}{
-As a general trend, we expect that if the total lubrication layer
-thickness---namely the sum of the top and bottom lubrication layers---is
-largest, then less pressure is required to maintain the constant flow
-rate, and the result is a smaller (less negative) excess pressure. This
-trend is confirmed in Figure~\ref{fig:lubricationComposite} where the
-size of the lubrication layers, from smallest to largest, are the stiff
-single-component vesicle, the floppy single-component vesicle, and the
-multicomponent vesicle, while the ranking of the excess pressure is
-reversed.}
+As a general trend, we find that the sum of the top and bottom
+lubrication layer thicknesses is correlated with the magnitude of the
+excess pressure---larger lubrication layers correspond to smaller (less
+negative) excess pressures. This is because smaller excess pressure is
+required to push the same amount of fluid around the vesicle when the
+lubrication layer thickness is larger.}
+%As a general trend, we expect that if the total lubrication layer
+%thickness---namely the sum of the top and bottom lubrication layers---is
+%largest, then less pressure is required to maintain the constant flow
+%rate, and the result is a smaller (less negative) excess pressure. This
+%trend is confirmed in Figure~\ref{fig:lubricationComposite} where the
+%size of the lubrication layers, from smallest to largest, are the stiff
+%single-component vesicle, the floppy single-component vesicle, and the
+%multicomponent vesicle, while the ranking of the excess pressure is
+%reversed.}
 %When the lubrication layers are large, most notably for the
 %multicomponent vesicle, less pressure is required to force the vesicle
 %through the geometry, and the result is a smaller (less negative)

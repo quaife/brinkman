@@ -41,7 +41,25 @@ $\epsilon$ were unintentionally reversed. This has been fixed.
     will no longer be $0$ and $1$?
 
 \noindent
-{\bf Response:} A response
+{\bf Response:} Because we are using an integral equation formulation,
+    we are able to achieve high-order accuracy as long as everything is
+    smooth, including the vesicle shape, tension, and the bending
+    stiffness. If we used any kind of $\max$ or $\min$ function, the
+    bending modulus would lose differentiability and this would result
+    in a loss of accuracy. We have expanded the text to explain this
+    point.
+
+    We are unsure what the reviewer means by a ``regular-mixture model".
+    If they mean a linear parameterization between the stiff and floppy
+    phases, this is exactly equation (8).  We originally used this
+    choice, but as argued in the manuscript, because of the strong
+    confinement, the lipid concentration could easily exceed a value of
+    $1$, and this resulted in a unphysical negative bending stiffness
+    which ultimately leads to an instability.  Figure 2 demonstrates
+    this effect. Furthermore, Figure 3 validates the choice of the
+    sigmoid parameterization by comparing the results with a result from
+    the literature that used the linear parameterization in an unbounded
+    linear shear flow.
 
 %%%%%%%%
 \item Please define $\eta$ in Eq.~(10). 
@@ -120,7 +138,9 @@ changes.
 
 \noindent
 {\bf Response:} This was our oversight. The parameter values for $a$ and
-$\epsilon$ were unintentionally reversed. This has been fixed.
+$\epsilon$ were unintentionally reversed. This has been fixed. TODO:
+    Need to justify the actual values we used. Take a look at the series
+    of Lowengrub/Shuwang papers.
 
 %%%%%%%%
 \item Minor comment: In Figure 4 and 5, the authors should add the $x$
@@ -166,10 +186,10 @@ $\epsilon$ were unintentionally reversed. This has been fixed.
 
 \noindent {\bf Response:} The examples with a random initial condition
     use the uniform distribution with the range $[0,1]$ to define the
-    concentration $u$ at each spatial point. Given the choices for
+    concentration $u$ at each spatial point. Given the choices of
     $b_{\min}=0.1$ and $b_{\max}=1$, the resulting mean bending
-    stiffness is $\overline{b(u)} = 0.55$. The text has been adjusted at
-    the start of Section 3.1 and Section 3.2.
+    stiffness is $\overline{b(u)} \approx 0.55$. The text has been
+    adjusted at the start of Section 3.1 and Section 3.2.
 
 %%%%%%%%
 \item In Figure 6, the author should comment on the energy behavior of
@@ -189,9 +209,12 @@ $\epsilon$ were unintentionally reversed. This has been fixed.
 {\bf Response:} In the original submission, we attempted to relate the
 excess pressure to the lubrication layer thickness. However, as pointed
 out by the reviewer, we did not make any reference to the floppy case.
-As a general trend, we expect that larger lubrication layers will result
-in smaller (less negative) lubrication layers. This trend is true across
-the three cases we consider, and the text has been adjusted.
+As a general trend, we find that the sum of the top and bottom
+lubrication layer thicknesses is correlated with the magnitude of the
+excess pressure---larger lubrication layers correspond to smaller (less
+negative) excess pressures. This is because smaller excess pressure is
+required to push the same amount of fluid around the vesicle when the
+lubrication layer thickness is larger.
 
 
 %%%%%%%%
@@ -246,7 +269,16 @@ changes.
     Can the authors provide an order of magnitude?
 
 \noindent
-{\bf Response:} A response
+{\bf Response:} There are 3D BIE codes for vesicles with surface
+    rheology. Leonetti did in 2016 in paper Yuan is sending me. There,
+    of course, is also plenty of accurate methods for single-component
+    vesicles in 3D with strong confinement. This will be even more
+    challenging with strong confinement. Only methods in the literature
+    seem to be David Salac which is a low-order method. Can reference
+    private discussions Zhangli Peng at UIC.
+
+
+    A response
 
 %%%%%%%%
 \item The authors present the essential steps of the numerical model. It
@@ -275,14 +307,26 @@ $\epsilon$ were unintentionally reversed. This has been fixed.
     to show the effect of multicomponent.
 
 \noindent
-{\bf Response:} A response
+{\bf Response:} FIRST ROUGH DRAFT: We did observe cases where
+    multicomponent vesicles are stuck. However, keeping all other
+    parameters fixed, the corresponding single-component vesicles were
+    also stuck. We were hoping to find cases where the multicomponent
+    vesicle passed through the contracting geometry while the
+    single-component vesicles did not (similar to our semipermeable
+    work), but no such case was found.  For this reason, we have focused
+    on the effect that multicomponent has on the vesicle shape, tension,
+    layer thickness, tank treading, etc.
+
 
 %%%%%%%%
 \item In experiments, the channel is a slit. What do the authors expect
   from such a difference?
 
 \noindent
-{\bf Response:} A response
+{\bf Response:} We can compare Zhangli Peng's results, our simulations
+look similar to what they observe in a 2D projection of their 3D
+results. They call their geometry a `slit' geometry. This work is
+published, so we can reference a particular figure from the paper.
 
 %%%%%%%%
 \item Finally, this study is interesting and provides new insights.
