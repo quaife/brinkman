@@ -1,7 +1,17 @@
 \documentclass[11pt]{article}
 
 \usepackage{fullpage}
+\usepackage{graphicx}
 \usepackage{url}
+
+
+\newcommand{\subfigimg}[3][,]{%
+  \setbox1=\hbox{\includegraphics[#1]{#3}}% Store image in box
+  \leavevmode\rlap{\usebox1}% Print image
+  \rlap{\hspace*{0pt}\raisebox{\dimexpr\ht1-0\baselineskip}{\bf
+  \normalsize #2}}% Print label
+  \phantom{\usebox1}% Insert appropriate spacing
+}
 
 \begin{document}
 
@@ -181,7 +191,32 @@ $\epsilon$ were unintentionally reversed. This has been fixed. TODO:
     authors should provide a more detailed explanation for this.
 
 \noindent
-{\bf Response:} A response
+    {\bf Response:} We calculated the tangential velocity of all $N =
+    1024$ Lagrangian points for each of the three cases. Plotting all
+    1024 lines in the manuscript we be uninformative. To prove this is
+    the case, a plot of 32 of the tangential velocities is in
+    Figure~\ref{fig:tangVel} of this document. Instead, in the document,
+    we report the average tangential velocity in the region $x \in
+    [4,10]$, and the report the spread of all tangential velocities from
+    this mean value. If this spread is less than 15\%, we would
+    characterize this as a tank-treading vesicle. There spread is 1.2\%
+    for the stiff single-component vesicle, 12\% for the multicomponent
+    case, and 313\% for the floppy single-component case. Therefore, the
+    floppy single-component vesicle is not tank-treading, while the
+    other two cases are tank-treading. We have made this clear in the
+    text.
+    {\bf TODO: Change color of Fig 7 lines or state why we don't do
+    this.}
+
+\begin{figure}[ht]
+  \centering
+  \subfigimg[width=0.3\textwidth]{(a)}{figures/SC_treading_velocity_review.pdf}
+  \subfigimg[width=0.3\textwidth]{(b)}{figures/SCp55_treading_velocity_review.pdf}
+  \subfigimg[width=0.3\textwidth]{(c)}{figures/MCp5_treading_velocity_review.pdf}
+  \caption{\label{fig:tangVel} The tangential velocity of 32 points of
+  the (a) stiff single-component vesicle, (b) floppy single-component
+  vesicle, (c) multicomponent vesicle.}
+\end{figure}
 
 %%%%%%%%
 \item In some simulations, the authors choose a `random' initial

@@ -585,8 +585,14 @@ $\eeta$ satisfies
 where the fluid velocity $\UU$ on the solid wall $\Gamma$ is defined
 in~\eqref{eqn:dirBC}.}
 
-The vesicle and solid walls are discretized at a set of collocation
-points. The single-layer potential is approximated using quadrature for
+The vesicle and solid walls are discretized at a set of 
+\textcolor{blue}{
+$N$ and $N_{\mathrm{wall}}$
+}
+collocation points,
+\textcolor{blue}{
+respectively.}
+The single-layer potential is approximated using quadrature for
 weakly-singular integrands, while the double-layer potential is
 approximated using the spectrally accurate trapezoid rule. A high-order
 quadrature method resolves the hydrodynamic interactions between the
@@ -840,24 +846,58 @@ earlier, tank-treading occurs when the top and bottom lubrication layers
 differ in size. The size of the lubrication layers for all three cases
 of the vesicle with reduced area $\alpha = 0.4$ are in the top half of
 Figure~\ref{fig:lubricationComposite}. The bottom of
-Figure~\ref{fig:lubricationComposite} shows the tank-treading velocities
-of four Lagrangian points. The inset shows the vesicle configuration in
-the closely-fitting part of the channel, the black dashed line is the
-center line of the channel, the marks are the four Lagrangian points,
-and the rounded arrow denotes the direction of rotation. The stiff
-single-component and multicomponent vesicles are clearly tank treading.
-The direction and speed of the tank-treading depends on how much of
-the vesicle membrane is exposed to positive shear (below the center
-line) versus how much is exposed to negative shear (above the center
-line) \cite{kao-bir-mis2009}. The majority of the membrane of the stiff single-component and
-multicomponent vesicles are below the center line, and this results in a
-clockwise tank-treading behavior. In contrast, the majority of the
-membrane of the floppy single-component vesicle is above the center
-line, and the result is counterclockwise tank-treading. In addition, the
-tank-treading velocity can be correlated to the percentage of its
-membrane that is below the center line. We note, however, that the
-floppy single-component vesicle is still undergoing deformations, so the
-tangential velocities have not converged to a fixed value.
+Figure~\ref{fig:lubricationComposite} shows the 
+\textcolor{blue}{
+tangential
+}
+%tank-treading
+velocities of four Lagrangian points. The inset shows the vesicle
+configuration in the closely-fitting part of the channel, the black
+dashed line is the center line of the channel, the marks are the four
+Lagrangian points, and the rounded arrow denotes the direction of
+rotation. 
+\textcolor{blue}
+{
+To determine if a vesicle is tank-treading, we first calculate the
+average, maximum, and minimum tangential velocities over all $N$
+Lagrangian points when the vesicle's center of mass is in the interval
+$[4,10]$. If the maximum and minimum tangential velocities are within
+15\% of the average tangential velocity, we characterize the vesicle as
+tank-treading. The average tangential velocities are $-1.00 \times
+10^{-1}$ for the stiff single-component vesicle, $3.31 \times 10^{-2}$
+for the floppy single-component vesicle, and $-8.48 \times 10^{-1}$ for
+the multicomponent vesicle. The spread of the maximum and minimum
+velocities from these average tangential velocities are $1.2\%$ for the
+stiff single-component vesicle, $12\%$ for the multicomponent vesicle,
+and over $300\%$ for the floppy single-component vesicle. Therefore, we
+classify the stiff single-component and multicomponent vesicles as tank
+treading, while the floppy single-component is not tank treading.
+}
+%The stiff single-component and multicomponent vesicles are
+%clearly tank treading.
+The direction and speed of the tank-treading depends on how much of the
+vesicle membrane is exposed to positive shear (below the center line)
+versus how much is exposed to negative shear (above the center
+line)~\cite{kao-bir-mis2009}. The majority of the membrane of the stiff
+single-component and multicomponent vesicles are below the center line,
+and this results in a clockwise tank-treading behavior. In contrast, the
+majority of the membrane of the floppy single-component vesicle is above
+the center line, and the result is counterclockwise 
+\textcolor{blue}{
+rotation, but, again, the vesicle dynamics are not tank-treading as the
+vesicle is undergoing large normal deformations.
+}
+%tank-treading. 
+\textcolor{blue}{
+Finally, the stiff single-component vesicle tank treads faster than the
+multicomponent cases since more of its membrane is located below the
+center line.
+}
+%In addition, the tank-treading velocity can be correlated to the
+%percentage of its membrane that is below the center line. 
+%We note, however, that the floppy single-component vesicle is still
+%undergoing deformations, so the tangential velocities have not converged
+%to a fixed value.
 
 The sizes of the top and bottom lubrication layers are also related to
 the excess pressure. The green curve on the top half of
