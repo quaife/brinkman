@@ -582,8 +582,8 @@ $\eeta$ satisfies
   \label{eqn:DLP_BIE}
 \end{align}
 \textcolor{blue}{
-where the fluid velocity $\UU$ on the solid wall $\Gamma$ is defined in
-Equation~\eqref{eqn:dirBC}.}
+where the fluid velocity $\UU$ on the solid wall $\Gamma$ is defined
+in~\eqref{eqn:dirBC}.}
 
 The vesicle and solid walls are discretized at a set of collocation
 points. The single-layer potential is approximated using quadrature for
@@ -642,8 +642,12 @@ let $d(\xx,\Gamma_\mathrm{top})$ be the minimum distance between a point
 on the vesicle, $\xx \in \gamma$, and the top half of the confining
 geometry. The size of the bottom lubrication layer is defined similarly.
 We find all local minimums of $d(\xx,\Gamma_\mathrm{top})$, with the
-condition that $d(\xx,\Gamma_\mathrm{top}) < \delta$, where $\delta$ is
-a parameter. If no such local minimums exist, then the vesicle is too
+condition that $d(\xx,\Gamma_\mathrm{top}) < \delta$, 
+\textcolor{blue}{
+where we use the parameter value $\delta = 0.3$.
+}
+%where $\delta$ is a parameter.
+If no such local minimums exist, then the vesicle is too
 far from $\Gamma_\mathrm{top}$ to define a lubrication layer. If there
 are two or more local minimums, the left-most, $\xx_L$, and right-most,
 $\xx_R$, local minimums form the start and end of the lubrication layer.
@@ -687,6 +691,9 @@ the flow direction near the inlet and outlet of the stenosis.
 \section{\label{sec:results}Hydrodynamics of a multicomponent vesicle
 under strong confinement}
 We consider both a single-component and a multicomponent vesicle
+\textcolor{blue}{
+with a fixed dimensionless length of $L = 7.4$
+}
 suspended in two geometries: a closely-fitting geometry (stenosis) and a
 geometry that slowly contracts to a narrow neck and then quickly widens
 (contracting). All the multicomponent examples have floppy-to-stiff
@@ -709,9 +716,13 @@ and reaches its narrowest point at $x=15$.
 stenosis geometry}
 
 We start by considering a vesicle with reduced area $\alpha = 0.6$
-passing through stenosis with a capillary number $Ca = 0.25$. With the
-current setup and $Ca=0.25$, an elliptical vesicle with reduced area
-greater than $\alpha = 0.8$ cannot fit through the closely-fitting
+passing through stenosis with a capillary number $Ca = 0.25$. 
+\textcolor{blue}{
+The dimensionless width of the stenosis starts at $6.8$ and narrows to
+$1.4$. 
+}
+With the current setup and $Ca=0.25$, an elliptical vesicle with reduced
+area greater than $\alpha = 0.8$ cannot fit through the closely-fitting
 geometry. Figure~\ref{fig:RA6} shows six time steps of a (a) stiff
 single-component (b) floppy single-component, and (c) multicomponent
 vesicle. 
@@ -796,9 +807,9 @@ tension energies remain nearly constant from $x=0$ until the end of the
 stenosis. 
 \textcolor{blue}{
 For the floppy case, the bending energy is similar in size as the stiff
-case. Since the floppy bending modulus is ten-times smaller than the
+case. Since the floppy bending modulus is about two-times smaller than the
 stiff case, this indicates that the curvature of the floppy vesicle is
-about $\sqrt{10}$-times larger than the stiff case. This additional
+about $\sqrt{2}$-times larger than the stiff case. This additional
 curvature corresponds to larger and more dynamic membrane deformations,
 and a more varying tension energy.}
 For the multicomponent vesicle, the phase energy is also nearly constant
@@ -937,9 +948,16 @@ it is possible to identify the location of boundaries between lipid domains as s
 \subsection{\label{subsec:Contraction} A multicomponent vesicle in the
 contracting geometry}
 In this section, we consider a vesicle passing through a channel that
-slowly contracts to a  2~$\mu$m wide neck, and then
-immediately opens up to a channel that is ten times larger. We
-first consider the effect of the initial lipid concentration when the
+slowly contracts 
+\textcolor{blue}{
+from a dimensionless width of $6.5$ to $0.63$,
+}
+and then immediately opens back up to a channel 
+\textcolor{blue}{
+with width $6.5$. In dimensioned units, the width of the neck is
+$2~\mu$m.
+}
+We first consider the effect of the initial lipid concentration when the
 floppy and stiff regions each make up half of the vesicle membrane. In
 Figure~\ref{fig:RA6leftRightRand}, snapshots of vesicles with reduced
 area $\alpha = 0.5$ with different initial lipid distributions are

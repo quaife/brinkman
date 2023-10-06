@@ -54,7 +54,7 @@ $\epsilon$ were unintentionally reversed. This has been fixed.
     phases, this is exactly equation (8).  We originally used this
     choice, but as argued in the manuscript, because of the strong
     confinement, the lipid concentration could easily exceed a value of
-    $1$, and this resulted in a unphysical negative bending stiffness
+    $1$, and this resulted in a unphysical negative bending modulus
     which ultimately leads to an instability.  Figure 2 demonstrates
     this effect. Furthermore, Figure 3 validates the choice of the
     sigmoid parameterization by comparing the results with a result from
@@ -65,9 +65,9 @@ $\epsilon$ were unintentionally reversed. This has been fixed.
 \item Please define $\eta$ in Eq.~(10). 
 
 \noindent
-{\bf Response:} $\eta$ is a density function that is required to satisfy
-    the Dirichlet boundary condition on the solid walls. The text has
-    been adjusted.
+{\bf Response:} $\eta$ is the stress density that is used to satisfy the
+    Dirichlet boundary condition on the solid walls. The text has been
+    adjusted.
 
 %%%%%%%%
 \item Please define whether $\mathbf{n}$ in Eq.~(12) is the inward or outward pointing unit normal.
@@ -98,7 +98,9 @@ $\epsilon$ were unintentionally reversed. This has been fixed.
 \item What value of $\delta$ is used to determine the lubrication layer
   thickness?
 
-{\bf Response:} A response
+{\bf Response:} We used $\delta = 0.3$. For the stenosis geometry, this
+corresponds to a lubrication layer thickness of size a little less than
+one micron.
 
 %%%%%%%%
 \item The simulation parameters must be provided. In the stenosis case
@@ -106,7 +108,9 @@ $\epsilon$ were unintentionally reversed. This has been fixed.
     contracting geometry case what does a $2~\mu$m wide neck correspond
     to?
 
-{\bf Response:} A response
+{\bf Response:} We have included dimensionless values for the stenosis
+geometry, contracting geometry, and vesicle length. To convert to
+dimensioned units, the length scale 3.17 microns can be used.
 
 \end{enumerate}
 
@@ -186,7 +190,7 @@ $\epsilon$ were unintentionally reversed. This has been fixed. TODO:
 
 \noindent {\bf Response:} The examples with a random initial condition
     use the uniform distribution with the range $[0,1]$ to define the
-    concentration $u$ at each spatial point. Given the choices of
+    lipid concentration $u$ at each spatial point. Given the choices of
     $b_{\min}=0.1$ and $b_{\max}=1$, the resulting mean bending
     stiffness is $\overline{b(u)} \approx 0.55$. The text has been
     adjusted at the start of Section 3.1 and Section 3.2.
@@ -196,7 +200,8 @@ $\epsilon$ were unintentionally reversed. This has been fixed. TODO:
   the floppy vesicle in the stenosis region.
 
 \noindent
-{\bf Response:} A comment has been included.
+{\bf Response:} We have included a discussion of the energy behavior of
+the floppy vesicle and compared it with the stiff case.
 
 %%%%%%%%
 \item In Figure 7, when the authors look at the excess pressure plots,
@@ -214,7 +219,7 @@ lubrication layer thicknesses is correlated with the magnitude of the
 excess pressure---larger lubrication layers correspond to smaller (less
 negative) excess pressures. This is because smaller excess pressure is
 required to push the same amount of fluid around the vesicle when the
-lubrication layer thickness is larger.
+lubrication layer thickness is larger. The text has been adjusted.
 
 
 %%%%%%%%
