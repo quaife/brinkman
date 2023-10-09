@@ -361,8 +361,11 @@ Section~\ref{sec:conclusion}.
 \section{\label{sec:Formulation}Formulation}
 We consider a single multicomponent vesicle $\omega$ with boundary
 $\gamma$ suspended in a confined geometry $\Omega \subset \RR ^2$ with
-boundary $\Gamma$ (Figure~\ref{fig:schematic}). The fluid is assumed to
-have zero Reynolds number and is therefore governed by the
+boundary $\Gamma$ (Figure~\ref{fig:schematic}). The fluid 
+\textcolor{blue}{
+flow
+}
+is assumed to have zero Reynolds number and is therefore governed by the
 incompressible Stokes equations
 \begin{align}
   \nabla \cdot \TT = 0 \quad \text{and} \quad \nabla \cdot \uu = 0, 
@@ -478,10 +481,11 @@ concentration achieves a maximum value of $u \approx 1.5$ which results
 in an instability that is formed by the resulting unphysical negative
 bending stiffness. 
 \textcolor{blue}{
-To rectify this issue, we could simply restrict the bending modulus to
-be bounded in $[b_{\min},b_{\max}]$ by letting $b(u) = \max\left( \min
-\left( (1-u) + \beta u,1 \right), \beta \right)$. However, the loss of
-differentiability would result in a loss of accuracy.
+To rectify this issue, we could restrict the bending modulus to be
+bounded in $[\beta,1]$ by setting $b(u) = \max\left( \min \left( (1-u) +
+\beta u,1 \right), \beta \right)$, which is non-differentiable. However,
+this loss of differentiability would result in a loss of accuracy of the
+overall method.
 }
 Instead, we parameterize the bending modulus with the sigmoid function
 \begin{align}
@@ -650,7 +654,8 @@ geometry. The size of the bottom lubrication layer is defined similarly.
 We find all local minimums of $d(\xx,\Gamma_\mathrm{top})$, with the
 condition that $d(\xx,\Gamma_\mathrm{top}) < \delta$, 
 \textcolor{blue}{
-where we use the parameter value $\delta = 0.3$.
+  where we use the parameter value $\delta = 0.3$ (a little less than
+  1~$\mu$m).
 }
 %where $\delta$ is a parameter.
 If no such local minimums exist, then the vesicle is too
@@ -698,7 +703,7 @@ the flow direction near the inlet and outlet of the stenosis.
 under strong confinement}
 We consider both a single-component and a multicomponent vesicle
 \textcolor{blue}{
-with a fixed dimensionless length of $L = 7.4$
+with an effective radius of about $4~\mu$m
 }
 suspended in two geometries: a closely-fitting geometry (stenosis) and a
 geometry that slowly contracts to a narrow neck and then quickly widens
@@ -724,8 +729,8 @@ stenosis geometry}
 We start by considering a vesicle with reduced area $\alpha = 0.6$
 passing through stenosis with a capillary number $Ca = 0.25$. 
 \textcolor{blue}{
-The dimensionless width of the stenosis starts at $6.8$ and narrows to
-$1.4$. 
+The width of the stenosis starts at $21.6~\mu$m and narrows to
+$4.4~\mu$m. 
 }
 With the current setup and $Ca=0.25$, an elliptical vesicle with reduced
 area greater than $\alpha = 0.8$ cannot fit through the closely-fitting
