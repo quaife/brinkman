@@ -39,8 +39,8 @@ topic is unique and has not yet been investigated.
     parameter is equal to 100. Please address this inconsistency.
 
 \noindent
-{\bf Response:} This was our oversight. The parameter values for $a$ and
-$\epsilon$ were unintentionally reversed. This has been fixed.
+{\bf Response:} This was a typo. We checked our code, and now we
+report the correct value in the revision which is $\epsilon = 0.04$.
 
 %%%%%%%%
 \item What motivated the choice of a sigmoid function, Eq.~(9), rather
@@ -108,9 +108,10 @@ $\epsilon$ were unintentionally reversed. This has been fixed.
 \item What value of $\delta$ is used to determine the lubrication layer
   thickness?
 
-{\bf Response:} We used $\delta = 0.3$. For the stenosis geometry, this
-corresponds to a lubrication layer thickness of size a little less than
-one micron. This value is now mentioned in Section 2.4.
+{\bf Response:} We used the dimensionless value $\delta = 0.3$. For the
+stenosis geometry, this corresponds to a lubrication layer thickness of
+a little more than one micron. This value is now mentioned in Section
+2.4.
 
 %%%%%%%%
 \item The simulation parameters must be provided. In the stenosis case
@@ -118,12 +119,8 @@ one micron. This value is now mentioned in Section 2.4.
     contracting geometry case what does a $2~\mu$m wide neck correspond
     to?
 
-{\bf Response:} We have included dimensions for the stenosis geometry,
-contracting geometry, and vesicle length, but with units. Our hope is
-that an experimentalist would be able to easily extract these values 
-
-To convert to dimensionless units, the length scale 3.17 microns can be
-used.
+{\bf Response:} We now report the dimensionless width of both
+geometries.
 
 \end{enumerate}
 
@@ -154,10 +151,11 @@ changes.
     using these parameters as a guide.
 
 \noindent
-{\bf Response:} This was our oversight. The parameter values for $a$ and
-$\epsilon$ were unintentionally reversed. This has been fixed. TODO:
-    Need to justify the actual values we used. Take a look at the series
-    of Lowengrub/Shuwang papers.
+{\bf Response:} This was a typo. We checked our code, and now we
+report the correct value in the revision which is $\epsilon = 0.04$.
+This value corresponds to a transition region of size $10^{-1}$ microns
+between stiff and floppy regions. Comparable values are used in the
+literature, and we cite three of these papers.
 
 %%%%%%%%
 \item Minor comment: In Figure 4 and 5, the authors should add the $x$
@@ -196,13 +194,13 @@ $\epsilon$ were unintentionally reversed. This has been fixed. TODO:
 \noindent
     {\bf Response:} We calculated the tangential velocity of all $N =
     1024$ Lagrangian points for each of the three cases. Plotting all
-    1024 lines in the manuscript we be uninformative. To prove this is
+    1024 lines in the manuscript would be uninformative. To prove this is
     the case, a plot of 32 of the tangential velocities is in
     Figure~\ref{fig:tangVel} of this document. Instead, in the document,
     we report the average tangential velocity in the region $x \in
     [4,10]$, and report the spread of all tangential velocities from
     this mean value. If this spread is less than 15\%, we would
-    characterize this as a tank-treading vesicle. There spread is 1.2\%
+    characterize this as a tank-treading vesicle. Their spread is 1.2\%
     for the stiff single-component vesicle, 12\% for the multicomponent
     case, and 313\% for the floppy single-component case. Therefore, the
     floppy single-component vesicle is not tank-treading, while the
@@ -288,7 +286,7 @@ deflation. But contrary to capsules, as the membrane is fluid, there is
 no buckling. Finally, the study is inspired by modeling RBC. 
 
 \noindent
-{\bf Response:}: We thank the referee for their assessment and suggested
+{\bf Response:} We thank the referee for their assessment and suggested
 changes.
 
 \begin{enumerate}
@@ -302,7 +300,8 @@ changes.
     \url{https://doi.org/10.1017/jfm.2017.743}
 
 \noindent
-{\bf Response:} A response
+{\bf Response:} Thank you for the comment. This question is addressed in
+detail in our response to the reviewers second comment.
 
 %%%%%%%%
 \item The authors should justify why they limit their investigations to
@@ -312,16 +311,61 @@ changes.
     Can the authors provide an order of magnitude?
 
 \noindent
-{\bf Response:} There are 3D BIE codes for vesicles with surface
-    rheology. Leonetti did in 2016 in paper Yuan is sending me. There,
-    of course, is also plenty of accurate methods for single-component
-    vesicles in 3D with strong confinement. This will be even more
-    challenging with strong confinement. Only methods in the literature
-    seem to be David Salac which is a low-order method. Can reference
-    private discussions Zhangli Peng at UIC.
+{\bf Response:} There is published work that has investigated elements
+of our work in  3D. This includes the papers from the reviewers first
+comment that consider vesicles in strong confinement, but these works
+assume axisymmetry and neither consider multicomponent vesicles. Two
+3D works that relax the axisymmetric assumption and simulate vesicles in
+strong confinement are also cited in the original submission
+(https://doi.org/10.1063/1.5081057 and
+https://doi.org/10.1103/PhysRevFluids.5.013603). Red blood cells
+undergoing strong confinement has also been considered using other
+numerical methods including a spring model coupled to smoothed particle
+hydrodynamics (http://dx.doi.org/10.1016/j.taml.2015.11.006 and
+http://dx.doi.org/10.1063/1.4817959). These papers are cited in the
+revised manuscript.
+
+There is much less work on 3D multicomponent vesicles. Phase field
+models are used by Wang and Du
+(https://doi.org/10.1007/s00285-007-0118-2) and a level set method is
+used by Gera and Salac
+(https://doi.org/10.1016/j.compfluid.2018.04.003). The challenge with
+both these approaches is that they have to discretize the fluid volume,
+and this limits how small $\epsilon$ can be, and therefore restricts
+the sharpness of the transition between the floppy and stiff
+regions. In both these works, a value of $\epsilon$ that is at least
+ten-times larger than the more realistic value used in our work. To use
+a comparable value to ours, they would have to increase the overall
+spatial resolution by $10^3$. These codes are parallelized and highly
+optimized, but they still take on the order of a day to complete one
+unconfined simulation at the coarser resolution. Therefore, with
+confinement, and the additional resolution to resolve the more physical
+value of $\epsilon$, a single simulation would require much more
+computational resources for generating an appropriately large dataset
+to analyze.
+
+Extending our 2D spectral code to 3D is challenging because resolving
+the sharp interface between lipid domains requires special treatment
+such as adaptive methods. Recently, finite element methods with adaptive
+mesh generation have been used to solve surface PDEs, but to our
+knowledge, it has not been extended to fourth-order PDEs or evolving
+surfaces (as in our case). For example, see the following thesis that
+considers reaction-diffusion systems on surfaces
+(https://nrs.harvard.edu/URN-3:HUL.INSTREPOS:37368862), and the preprint
+written by the same author (https://arxiv.org/pdf/2210.00022.pdf).
+Extending this work to incorporate a high-order phase field model and
+deformable interface is currently unavailable, to the best of our
+knowledge.
 
 
-    A response
+%There are 3D BIE codes for vesicles with surface rheology. Leonetti did
+%in 2016 in paper Yuan is sending me. There, of course, is also plenty of
+%accurate methods for single-component vesicles in 3D with strong
+%confinement. This will be even more challenging with strong confinement.
+%Only methods in the literature seem to be David Salac which is a
+%low-order method. Can reference private discussions Zhangli Peng at UIC.
+%
+%A response
 
 %%%%%%%%
 \item The authors present the essential steps of the numerical model. It
@@ -329,7 +373,7 @@ changes.
     introduction of equation (9) an figure 2. However, there are two
     points to clarify :
     \begin{itemize}
-      \item page 2 : there is a difference in literature of the
+      \item page 2: there is a difference in literature of the
         capillary number. Some authors use the flow curvature, others
         the mean velocity as the authors. Please explain your choice.
       \item page 2, right column ``The parameter $\epsilon \ll 1$ sets
@@ -341,8 +385,14 @@ changes.
     \end{itemize}
 
 \noindent
-{\bf Response:} This was our oversight. The parameter values for $a$ and
-$\epsilon$ were unintentionally reversed. This has been fixed.
+{\bf Response:}  We use the mean velocity to define the capillary number
+so that we can compare our results with work that we cite including
+[10,11,18] (as numbered in our original submission).
+
+
+For the comment regarding the values of $a$ and $\epsilon$, we had a
+typo. The parameter values for $a$ and $\epsilon$ were unintentionally
+reversed. This has been fixed.
 
 %%%%%%%%
 \item Why do authors never observe the blocking of vesicles contrary to
@@ -350,15 +400,23 @@ $\epsilon$ were unintentionally reversed. This has been fixed.
     to show the effect of multicomponent.
 
 \noindent
-{\bf Response:} FIRST ROUGH DRAFT: We did observe cases where
-    multicomponent vesicles are stuck. However, keeping all other
-    parameters fixed, the corresponding single-component vesicles were
-    also stuck. We were hoping to find cases where the multicomponent
-    vesicle passed through the contracting geometry while the
-    single-component vesicles did not (similar to our semipermeable
-    work), but no such case was found.  For this reason, we have focused
-    on the effect that multicomponent has on the vesicle shape, tension,
-    layer thickness, tank treading, etc.
+{\bf Response:} We initially explored cases where the single-component
+vesicle became stuck, expecting that the multicomponent vesicle may pass
+through the same geometry.  However, we did not find any such cases.
+However, we did observe other behaviors that differ between the two
+cases, including the vesicle shape, tank treading velocity, lubrication
+layer, and these comparisons are the focus of our manuscript.
+
+%
+%FIRST ROUGH DRAFT: We did observe cases where
+%    multicomponent vesicles are stuck. However, keeping all other
+%    parameters fixed, the corresponding single-component vesicles were
+%    also stuck. We were hoping to find cases where the multicomponent
+%    vesicle passed through the contracting geometry while the
+%    single-component vesicles did not (similar to our semipermeable
+%    work), but no such case was found.  For this reason, we have focused
+%    on the effect that multicomponent has on the vesicle shape, tension,
+%    layer thickness, tank treading, etc.
 
 
 %%%%%%%%
