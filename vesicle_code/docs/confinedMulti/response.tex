@@ -300,8 +300,8 @@ changes.
     \url{https://doi.org/10.1017/jfm.2017.743}
 
 \noindent
-{\bf Response:} Thank you for the comment. This question is addressed in
-detail in our response to the reviewers second comment.
+{\bf Response:} Thank you for the comment. It is addressed in detail in
+our response to the reviewer's second comment.
 
 %%%%%%%%
 \item The authors should justify why they limit their investigations to
@@ -341,8 +341,14 @@ optimized, but they still take on the order of a day to complete one
 unconfined simulation at the coarser resolution. Therefore, with
 confinement, and the additional resolution to resolve the more physical
 value of $\epsilon$, a single simulation would require much more
-computational resources for generating an appropriately large dataset
-to analyze.
+computational resources for generating an appropriately large dataset to
+analyze. For example, if a simulation for an unconfined case requires
+one day of CPU time on 12 cores, then, even without confinement, the
+additional resolution required to resolve the smaller value of
+$\epsilon$ would require 12,000 cores to complete the simulation in the
+same wall clock time, and this is assuming the code scales perfectly.
+This increase in resources would be compounded further once strong
+confinement is introduced.
 
 Extending our 2D spectral code to 3D is challenging because resolving
 the sharp interface between lipid domains requires special treatment
@@ -385,14 +391,15 @@ knowledge.
     \end{itemize}
 
 \noindent
-{\bf Response:}  We use the mean velocity to define the capillary number
-so that we can compare our results with work that we cite including
-[10,11,18] (as numbered in our original submission).
+{\bf Response:} We use the maximum imposed velocity to define the
+capillary number so that we can compare our results with work that we
+cite including [10,11,18] (as numbered in our original submission). We
+have also added a note that the capillary number is larger for a vesicle
+inside the stenosis.
 
-
-For the comment regarding the values of $a$ and $\epsilon$, we had a
-typo. The parameter values for $a$ and $\epsilon$ were unintentionally
-reversed. This has been fixed.
+For the comment regarding the value of $\epsilon$, we had a
+typo. The parameter value for $\epsilon$ is actually 0.04, and this has
+been fixed.
 
 %%%%%%%%
 \item Why do authors never observe the blocking of vesicles contrary to
@@ -402,10 +409,11 @@ reversed. This has been fixed.
 \noindent
 {\bf Response:} We initially explored cases where the single-component
 vesicle became stuck, expecting that the multicomponent vesicle may pass
-through the same geometry.  However, we did not find any such cases.
+through the same geometry. We did not find any such cases.
 However, we did observe other behaviors that differ between the two
 cases, including the vesicle shape, tank treading velocity, lubrication
-layer, and these comparisons are the focus of our manuscript.
+layer, and these comparisons are the focus of our manuscript. We defer
+our response to the phase diagram point until comment number 6.
 
 %
 %FIRST ROUGH DRAFT: We did observe cases where
@@ -437,7 +445,25 @@ published, so we can reference a particular figure from the paper.
   am waiting the new manuscript.
 
 \noindent
-{\bf Response:} A response
+{\bf Response:} A phase diagram is included in Figure~\ref{fig:Phase}.
+We do not observe any dependence on the capillary number. We had a
+discussion with an experimental colleague who works on an experiment
+with a red blood cell passing through stenosis, where only a single RBC
+can pass through one at a time. His experiments have shown that the
+shape of the RBC inside this confined stenosis is independent over a
+range of capillary numbers, as we report in Figure~\ref{fig:Phase}. For
+this reason, we do not include phase diagrams in our manuscript. We have
+started examining the dependence of these dynamics on other
+dimensionless parameters including the confinement ratio and the
+floppy-to-stiff ratio. This will be a different focus and would distract
+from the focus of this work.
+\begin{figure}
+\centering
+  \includegraphics[width=0.5\textwidth]{phaseDiagram.jpg}
+  \caption{\label{fig:Phase} A phase diagram of a single vesicle in an unconfined
+  nonlinear shear flow. The capillary number has no effect on the steady
+  state shape of the vesicle.}
+\end{figure}
 
 %%%%%%%%
 \item Page 2, left column : the flow is assumed to be in the limit of
@@ -454,7 +480,7 @@ word `flow' to the manuscript.
   tolerated.
 
 \noindent
-{\bf Response:} A response
+{\bf Response:} Thank you for the comment.
 \end{enumerate}
 
 
