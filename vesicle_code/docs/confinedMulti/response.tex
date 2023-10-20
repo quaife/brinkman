@@ -222,11 +222,11 @@ are tank-treading. We have made this clear in the text.
   \subfigimg[width=0.3\textwidth]{(a)}{figures/SC_treading_velocity_review.pdf}
   \subfigimg[width=0.3\textwidth]{(b)}{figures/SCp55_treading_velocity_review.pdf}
   \subfigimg[width=0.3\textwidth]{(c)}{figures/MCp5_treading_velocity_review.pdf}
-  \caption{\label{fig:tangVel} The tangential velocity of 32 points of
-  the (a) stiff single-component vesicle, (b) floppy single-component
-  vesicle, (c) multicomponent vesicle. Note that these figures, and the
-  version with four marker points, are excluded from the revised
-  manuscript.}
+  \caption{\label{fig:tangVel} \small The tangential velocity of 32
+  points of the (a) stiff single-component vesicle, (b) floppy
+  single-component vesicle, (c) multicomponent vesicle. Note that these
+  figures, and the version with four marker points, are excluded from
+  the revised manuscript.}
 \end{figure}
 
 %%%%%%%%
@@ -260,9 +260,9 @@ the floppy vesicle and compared it with the stiff case.
 {\bf Response:} In the original submission, we attempted to relate the
 excess pressure to the lubrication layer thickness. However, as pointed
 out by the reviewer, we did not make any reference to the floppy case.
-As a general trend, we find that the sum of the top and bottom
-lubrication layer thicknesses is correlated with the magnitude of the
-excess pressure---larger lubrication layers correspond to smaller (less
+As a general trend, the sum of the top and bottom lubrication layer
+thicknesses is correlated with the magnitude of the excess
+pressure---larger lubrication layers correspond to smaller (less
 negative) excess pressures. This is because smaller excess pressure is
 required to push the same amount of fluid around the vesicle when the
 lubrication layer thickness is larger. The text has been adjusted.
@@ -321,29 +321,29 @@ our response to the reviewer's second comment.
     Can the authors provide an order of magnitude?
 
 \noindent
-{\bf Response:} There is published work that has investigated elements
-of our work in  3D. This includes the papers from the reviewers first
+{\bf Response:} There is published work that investigates elements of
+our work in  3D. This includes the papers from the reviewers first
 comment that consider vesicles in strong confinement, but these works
 assume axisymmetry and neither consider multicomponent vesicles. Two 3D
 works that relax the axisymmetric assumption and simulate vesicles in
 strong confinement are also cited in the original submission
-(https://doi.org/10.1063/1.5081057 and
-https://doi.org/10.1103/PhysRevFluids.5.013603). Red blood cells
+(\url{https://doi.org/10.1063/1.5081057} and
+\url{https://doi.org/10.1103/PhysRevFluids.5.013603}). Red blood cells
 undergoing strong confinement has also been considered using other
 numerical methods including a spring model coupled to smoothed particle
-hydrodynamics (http://dx.doi.org/10.1016/j.taml.2015.11.006 and
-http://dx.doi.org/10.1063/1.4817959). These papers are cited in the
-revised manuscript.
+hydrodynamics (\url{http://dx.doi.org/10.1016/j.taml.2015.11.006} and
+\url{http://dx.doi.org/10.1063/1.4817959}). These papers are cited in
+the revised manuscript.
 
 There is much less work on 3D multicomponent vesicles. Phase field
 models are used by Wang and Du
-(https://doi.org/10.1007/s00285-007-0118-2) and a level set method is
-used by Gera and Salac
-(https://doi.org/10.1016/j.compfluid.2018.04.003). The challenge with
-both these approaches is that they have to discretize the fluid volume,
-and this limits how small $\epsilon$ can be, and therefore restricts
-the sharpness of the transition between the floppy and stiff
-regions. In both these works, a value of $\epsilon$ that is at least
+(\url{https://doi.org/10.1007/s00285-007-0118-2}) and a level set method
+is used by Gera and Salac
+(\url{https://doi.org/10.1016/j.compfluid.2018.04.003}). The challenge
+with both these approaches is that they discretize the fluid volume, and
+this limits how small $\epsilon$ can be, and therefore restricts the
+sharpness of the transition between the floppy and stiff regions. In
+both these works, a value of $\epsilon$ is used that is at least
 ten-times larger than the more realistic value used in our work. To use
 a comparable value to ours, they would have to increase the overall
 spatial resolution by $10^3$. These codes are parallelized and highly
@@ -351,10 +351,10 @@ optimized, but they still take on the order of a day to complete one
 unconfined simulation at the coarser resolution. Therefore, with
 confinement, and the additional resolution to resolve the more physical
 value of $\epsilon$, a single simulation would require much more
-computational resources for generating an appropriately large dataset to
+computational resources to generate an appropriately large dataset to
 analyze. For example, if a simulation for an unconfined case requires
-one day of CPU time on 12 cores, then, even without confinement, the
-additional resolution required to resolve the smaller value of
+one day of wall clock time on 12 cores, then, even without confinement,
+the additional resolution required to resolve the smaller value of
 $\epsilon$ would require 12,000 cores to complete the simulation in the
 same wall clock time, and this is assuming the code scales perfectly.
 This increase in resources would be compounded further once strong
@@ -367,11 +367,11 @@ mesh generation have been used to solve surface PDEs, but to our
 knowledge, it has not been extended to fourth-order PDEs or evolving
 surfaces (as in our case). For example, see the following thesis that
 considers reaction-diffusion systems on surfaces
-(https://nrs.harvard.edu/URN-3:HUL.INSTREPOS:37368862), and the preprint
-written by the same author (https://arxiv.org/pdf/2210.00022.pdf).
-Extending this work to incorporate a high-order phase field model and
-deformable interface is currently unavailable, to the best of our
-knowledge.
+(\url{https://nrs.harvard.edu/URN-3:HUL.INSTREPOS:37368862}), and the
+preprint written by the same author
+(\url{https://arxiv.org/pdf/2210.00022.pdf}). Extending this work to
+incorporate a high-order phase field model and deformable interface is
+currently unavailable, to the best of our knowledge.
 
 
 %%%%%%%%
@@ -395,12 +395,12 @@ knowledge.
 {\bf Response:} We use the maximum imposed velocity to define the
 capillary number so that we can compare our results with work that we
 cite including [10,11,18] (as numbered in our original submission). We
-have also added a note that the capillary number is larger for a vesicle
-inside the stenosis.
+have also added a note that the capillary number is larger when a
+vesicle is inside the stenosis.
 
-For the comment regarding the value of $\epsilon$, we had a
-typo. The parameter value for $\epsilon$ is actually 0.04, and this has
-been fixed.
+For the comment regarding the value of $\epsilon$, we had a typo. We
+have checked our code, and the parameter value for $\epsilon$ is
+actually 0.04. This has been fixed in the revised manuscript.
 
 %%%%%%%%
 \item Why do authors never observe the blocking of vesicles contrary to
@@ -412,7 +412,7 @@ been fixed.
 vesicle became stuck, expecting that the multicomponent vesicle may pass
 through the same geometry. We did not find any such cases.
 However, we did observe other behaviors that differ between the two
-cases, including the vesicle shape, tank treading velocity, lubrication
+cases, including the vesicle shape, tank-treading velocity, lubrication
 layer, and these comparisons are the focus of our manuscript. We defer
 our response to the phase diagram point until comment number 6.
 
@@ -426,12 +426,12 @@ our response to the phase diagram point until comment number 6.
 {\bf Response:} We are interpreting this question as the reviewer asking
 about 3D effects. In the literature, the 3D simulations of a red blood
 cell through a 3D slit (see Lu and Peng,
-https://doi.org/10.1063/1.5081057) has a 2D projection that looks
+\url{https://doi.org/10.1063/1.5081057}) has a 2D projection that looks
 similar to our 2D simulations. In particular their right-most panel in
-Figure 5(b) resembles Figures 10(d) and 10(e) in columns V and VI from
-our paper. Other than the shape similarity of the 2D projection, we also
-find that our excess pressure is of the same order for a similar flow
-rate in a 3D case (http://dx.doi.org/10.1063/1.4817959).
+Figure 5(b) resembles Figures 10(d) and 10(e) in columns V and VI in our
+manuscript. Other than the shape similarity of the 2D projection, we
+also find that our excess pressure is of the same order for a similar
+flow rate in a 3D case (\url{http://dx.doi.org/10.1063/1.4817959}).
 
 %%%%%%%%
 \item Finally, this study is interesting and provides new insights.
@@ -441,31 +441,30 @@ rate in a 3D case (http://dx.doi.org/10.1063/1.4817959).
   am waiting the new manuscript.
 
 \noindent
-{\bf Response:} As shown recently by Agarwal and Biros
-(http://www.doi.org/10.1103/PhysRevFluids.5.013603) (see Figure 18a),
-when a vesicle is in a channel with strong confinement, there are at
-most two different shapes a vesicle can take on for different capillary
-numbers. They observe this for confinement ratios as large as 0.7, and
-our examples have a confinement ratio closer to 2 (stronger
-confinement). To verify this claim, we constructed a phase diagram for a
-multicomponent vesicle in a unconfined non-linear shear flow by varying
-the reduced area and the capillary number. We observe that the
-multicomponent vesicle is more symmetric in shape than the
-single-component vesicle for a wide range of capillary numbers and
-reduced areas (Figure~\ref{fig:Phase}). Based on this, we speculate that
-a phase diagram with strong confinement would be less interesting than
-the single-component case, so we exclude a phase diagram in confinement.
-%
-%A phase diagram is included in Figure~\ref{fig:Phase}.
-%We do not observe any dependence on the capillary number. 
+{\bf Response:} Agarwal and Biros
+(\url{http://www.doi.org/10.1103/PhysRevFluids.5.013603})  recently
+showed that when a vesicle is in a channel with strong confinement,
+there are at most two different shapes a vesicle can take on for
+different capillary numbers (see Figure 18a). They observe this for
+confinement ratios as large as 0.7, and our examples have a confinement
+ratio closer to 2 (stronger confinement). At such strong confinement, we
+do not expect the capillary number to have an effect on the vesicle
+  shape. To substantiate this claim, we consider a single multicomponent
+  vesicle in an unconfined non-linear shear flow at various capillary
+  numbers and reduced areas. The phase diagram (Figure~\ref{fig:Phase})
+  shows that the multicomponent vesicle is more symmetric in shape than
+  the single-component vesicle for a wide range of capillary numbers and
+  reduced areas. Based on this, we speculate that a phase diagram with
+  strong confinement would be less interesting than the single-component
+  case, so we exclude a phase diagram with confinement.
 
 We have also discussed this topic with a colleague who works on
-experiments with a red blood cell passing through stenosis, where RBCs
-form a single line in the mid-plane of the channel. His experiments have
-shown that the shape of the RBC inside this confined stenosis is
-independent over a range of capillary numbers. For this reason, we focus
-on the relationships between between the vesicle shape, lubrication
-layer, excess pressure, and asymmetry relative to the midline.
+experiments with red blood cells forming a single line along the
+mid-plane as they pass through stenosis. His experiments show that the
+shape of the red blood cell inside this confined stenosis is independent
+over a range of capillary numbers. For this reason, we focus on the
+relationships between between the vesicle shape, lubrication layer,
+excess pressure, and asymmetry relative to the midline.
 
 We have started examining the dependence of the vesicle symmetry on
 other dimensionless parameters such as the confinement ratio and the
@@ -474,9 +473,10 @@ and analyses that would distract from the focus of this work.
 \begin{figure}
 \centering
   \includegraphics[width=0.5\textwidth]{phaseDiagram.pdf}
-  \caption{\label{fig:Phase} A phase diagram of a single multicomponent
-  vesicle in an unconfined nonlinear shear flow. The capillary number
-  has no effect on the steady state shape of the vesicle.}
+  \caption{\label{fig:Phase} \small A phase diagram of a single
+  multicomponent vesicle in an unconfined nonlinear shear flow. The
+  capillary number has no effect on the steady state shape of the
+  vesicle.}
 \end{figure}
 
 %%%%%%%%
