@@ -241,6 +241,8 @@ if o.confined
   bgFlowWalls = o.bgFlow(walls.X, o.shearRate, o.farFieldFlow);
   rhsWalls = bgFlowWalls - vesVel2Wall;
   etaout = o.etaSolver(rhsWalls);
+else
+  etaout = [];
 end
 %Add in the fdotn term for the semipermeability model
 fdotn = tau(1:end/2).*sin(theta)-tau(end/2+1:end).*cos(theta);

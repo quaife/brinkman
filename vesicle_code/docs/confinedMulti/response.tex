@@ -195,21 +195,27 @@ literature, and we cite three of these papers.
     1024 lines in the manuscript would be uninformative. To prove this is
     the case, a plot of 32 of the tangential velocities is in Figure~\ref{fig:tangVel} of this document. 
 %    
-    Instead we track the tangential velocity of each Lagrangian marker on the vesicle membrane, measuring the variation in this tangential velocity over the duration when the vesicle is inside the stenosis. This variation over time gives a ``spread in tangential velocity" on each marker, and we color-code the membrane by this spread in tangential velocity scaled to the velocity magnitude. For a tank-treading vesicle, this scheme would give a membrane of a uniform color. On the other hand, a non-uniformly colored membrane implicates the lack of tank-treading in the vesicle membrane, which may also correspond to significant deformations in the membrane.
+Instead we track the tangential velocity of each Lagrangian marker on
+the vesicle membrane, measuring the spread in this tangential velocity
+over the part of the period when the vesicle is inside the stenosis.
+This spread, scaled by the velocity magnitude, is color-coded along the
+membrane and is now part of Figure 7. The original plots showing the
+tangential velocity of the four points are removed. For a tank-treading
+vesicle, this scheme would give a membrane of a uniform color. On the
+other hand, a non-uniformly colored membrane implicates the lack of
+tank-treading in the vesicle membrane, which may also correspond to
+significant deformations in the membrane.
 %   
 % Instead, in the document,
 %  we report the average tangential velocity in the region $x \in
 % [4,10]$, and report the spread of all tangential velocities from
 %this mean value. 
 More quantitatively, if this spread is less than 15\%, we would
-    characterize this as a tank-treading vesicle. Their spread is 1.2\%
-    for the stiff single-component vesicle, 12\% for the multicomponent
-    case, and 313\% for the floppy single-component case. Therefore, the
-    floppy single-component vesicle is not tank-treading, while the
-    other two cases are tank-treading. We have made this clear in the
-    text.
-%    {\bf TODO: Change color of Fig 7 lines or state why we don't do
-%    this.}
+characterize this as a tank-treading vesicle. Their spread is 1.2\% for
+the stiff single-component vesicle, 12\% for the multicomponent case,
+and 313\% for the floppy single-component case. Therefore, the floppy
+single-component vesicle is not tank-treading, while the other two cases
+are tank-treading. We have made this clear in the text.
 
 \begin{figure}[ht]
   \centering
@@ -218,7 +224,9 @@ More quantitatively, if this spread is less than 15\%, we would
   \subfigimg[width=0.3\textwidth]{(c)}{figures/MCp5_treading_velocity_review.pdf}
   \caption{\label{fig:tangVel} The tangential velocity of 32 points of
   the (a) stiff single-component vesicle, (b) floppy single-component
-  vesicle, (c) multicomponent vesicle.}
+  vesicle, (c) multicomponent vesicle. Note that these figures, and the
+  version with four marker points, are excluded from the revised
+  manuscript.}
 \end{figure}
 
 %%%%%%%%
@@ -227,11 +235,11 @@ More quantitatively, if this spread is less than 15\%, we would
     function for this initial condition.
 
 \noindent {\bf Response:} The examples with a random initial condition
-    use the uniform distribution with the range $[0,1]$ to define the
-    lipid concentration $u$ at each spatial point. Given the choices of
-    $b_{\min}=0.1$ and $b_{\max}=1$, the resulting mean bending
-    stiffness is $\overline{b(u)} \approx 0.55$. The text has been
-    adjusted at the start of Section 3.1 and Section 3.2.
+use the uniform distribution with the range $[0,1]$ to define the lipid
+concentration $u$ at each spatial point. Given the choices of
+$b_{\min}=0.1$ and $b_{\max}=1$, the resulting mean bending stiffness is
+$\overline{b(u)} \approx 0.55$. The text has been adjusted at the start
+of Section 3.1 and Section 3.2.
 
 %%%%%%%%
 \item In Figure 6, the author should comment on the energy behavior of
@@ -366,15 +374,6 @@ deformable interface is currently unavailable, to the best of our
 knowledge.
 
 
-%There are 3D BIE codes for vesicles with surface rheology. Leonetti did
-%in 2016 in paper Yuan is sending me. There, of course, is also plenty of
-%accurate methods for single-component vesicles in 3D with strong
-%confinement. This will be even more challenging with strong confinement.
-%Only methods in the literature seem to be David Salac which is a
-%low-order method. Can reference private discussions Zhangli Peng at UIC.
-%
-%A response
-
 %%%%%%%%
 \item The authors present the essential steps of the numerical model. It
   is well done and the references well chosen. I have appreciated the
@@ -418,26 +417,21 @@ layer, and these comparisons are the focus of our manuscript. We defer
 our response to the phase diagram point until comment number 6.
 
 %
-%FIRST ROUGH DRAFT: We did observe cases where
-%    multicomponent vesicles are stuck. However, keeping all other
-%    parameters fixed, the corresponding single-component vesicles were
-%    also stuck. We were hoping to find cases where the multicomponent
-%    vesicle passed through the contracting geometry while the
-%    single-component vesicles did not (similar to our semipermeable
-%    work), but no such case was found.  For this reason, we have focused
-%    on the effect that multicomponent has on the vesicle shape, tension,
-%    layer thickness, tank treading, etc.
-
 
 %%%%%%%%
 \item In experiments, the channel is a slit. What do the authors expect
   from such a difference?
 
 \noindent
-{\bf Response:} We can compare Zhangli Peng's results, our simulations
-look similar to what they observe in a 2D projection of their 3D
-results. They call their geometry a `slit' geometry. This work is
-published, so we can reference a particular figure from the paper.
+{\bf Response:} We are interpreting this question as the reviewer asking
+about 3D effects. In the literature, the 3D simulations of a red blood
+cell through a 3D slit (see Lu and Peng,
+https://doi.org/10.1063/1.5081057) has a 2D projection that looks
+similar to our 2D simulations. In particular their right-most panel in
+Figure 5(b) resembles Figures 10(d) and 10(e) in columns V and VI from
+our paper. Other than the shape similarity of the 2D projection, we also
+find that our excess pressure is of the same order for a similar flow
+rate in a 3D case (http://dx.doi.org/10.1063/1.4817959).
 
 %%%%%%%%
 \item Finally, this study is interesting and provides new insights.
@@ -447,24 +441,42 @@ published, so we can reference a particular figure from the paper.
   am waiting the new manuscript.
 
 \noindent
-{\bf Response:} A phase diagram is included in Figure~\ref{fig:Phase}.
-We do not observe any dependence on the capillary number. We had a
-discussion with a colleague who works on experiments
-with a red blood cell passing through stenosis, where RBCs form a single line in the mid-plane of the channel.
- His experiments have shown that the
-shape of the RBC inside this confined stenosis is independent over a
-range of capillary numbers, as we report in Figure~\ref{fig:Phase}. For
-this reason, we do not include this phase diagram in our manuscript. We have
-started examining the dependence of these dynamics on other
-dimensionless parameters such as the confinement ratio and the
-floppy-to-stiff ratio. This will likely give rise to different phenomena and analyses  that would distract
-from the focus of this work.
+{\bf Response:} As shown recently by Agarwal and Biros
+(http://www.doi.org/10.1103/PhysRevFluids.5.013603) (see Figure 18a),
+when a vesicle is in a channel with strong confinement, there are at
+most two different shapes a vesicle can take on for different capillary
+numbers. They observe this for confinement ratios as large as 0.7, and
+our examples have a confinement ratio closer to 2 (stronger
+confinement). To verify this claim, we constructed a phase diagram for a
+multicomponent vesicle in a unconfined non-linear shear flow by varying
+the reduced area and the capillary number. We observe that the
+multicomponent vesicle is more symmetric in shape than the
+single-component vesicle for a wide range of capillary numbers and
+reduced areas (Figure~\ref{fig:Phase}). Based on this, we speculate that
+a phase diagram with strong confinement would be less interesting than
+the single-component case, so we exclude a phase diagram in confinement.
+%
+%A phase diagram is included in Figure~\ref{fig:Phase}.
+%We do not observe any dependence on the capillary number. 
+
+We have also discussed this topic with a colleague who works on
+experiments with a red blood cell passing through stenosis, where RBCs
+form a single line in the mid-plane of the channel. His experiments have
+shown that the shape of the RBC inside this confined stenosis is
+independent over a range of capillary numbers. For this reason, we focus
+on the relationships between between the vesicle shape, lubrication
+layer, excess pressure, and asymmetry relative to the midline.
+
+We have started examining the dependence of the vesicle symmetry on
+other dimensionless parameters such as the confinement ratio and the
+floppy-to-stiff ratio. This will likely give rise to different phenomena
+and analyses that would distract from the focus of this work.
 \begin{figure}
 \centering
-  \includegraphics[width=0.5\textwidth]{phaseDiagram.jpg}
-  \caption{\label{fig:Phase} A phase diagram of a single vesicle in an unconfined
-  nonlinear shear flow. The capillary number has no effect on the steady
-  state shape of the vesicle.}
+  \includegraphics[width=0.5\textwidth]{phaseDiagram.pdf}
+  \caption{\label{fig:Phase} A phase diagram of a single multicomponent
+  vesicle in an unconfined nonlinear shear flow. The capillary number
+  has no effect on the steady state shape of the vesicle.}
 \end{figure}
 
 %%%%%%%%

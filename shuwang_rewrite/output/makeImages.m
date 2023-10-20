@@ -13,7 +13,7 @@ addpath ..
 % name = 'Chi200_RA0p95_Conc0p3_Beta0_y0p1_eps0p04_n20.jpg';
 ax = [-2 2 -2 2];
 
-file = '4a_newBendingModel.bin';
+file = 'blah2.bin';
 %file = 'relaxation1VesA.bin';
 %file = 'longChoke_Chi400_Scale0p49_shortax3p45_conc0p3.bin';
 %file = 'longChoke_Chi400_Scale0p59_shortax2p75_conc0p3.bin';
@@ -83,7 +83,7 @@ end
 % %plot(time,squeeze(mean(posy)))
 
 
- irate = 10; 
+ irate = 1000; 
  istart = 1;
  iend = numel(time);
  ntime = iend;

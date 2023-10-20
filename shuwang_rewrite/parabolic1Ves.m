@@ -39,10 +39,18 @@ params.epsch = 0.04; % small parameter  in the double-well potential
 params.gmresTol = 1e-10; %GMRES tolerance
 params.gmresMaxIter = params.N; %maximum number of GMRES iterations
 params.SPcoeff = fluxCoeff; %semi-permeable coefficient
-params.center = [0;0];%[0;0.1];
+params.vesCenter = [0;0.1];%[0;0.1];
+params.geomCenter = [0;0];%[0;0.1];
 params.angle = 0;%pi/2;%pi/6; % The tracking point is programmed to be at 0,0.  
                       % Rotate the vesicle counter-clockwise to keep 
                       % desired center.  
+
+
+params.wallGeometry = '';
+params.vesGeometry = 'ellipse';
+options.confined = false;
+options.axis = [-4 4 -4 4];
+params.Nbd = 0;
 
 options.verbose = false;  % write data to console
 options.saveData = true; % save the data
